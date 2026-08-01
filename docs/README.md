@@ -33,6 +33,7 @@ projects/bfp_6_8g_i7_fr4/
 | ENV | `env/ENV_ADS_API_CAPABILITY_MATRIX.md` | ADS API 文档源、Python 包、示例和能力验证矩阵。 |
 | TEST | `test/TEST_STRATEGY.md` | ADS 自动仿真测试策略，定义 Python、schema、profile、ADS API、dry-run、baseline 和 batch run 的测试 gate。 |
 | FLOW | `flow/FLOW_RUN_STATE_MACHINE.md` | ADS 自动仿真 run stage/status、失败分类、resume 和幂等规则。 |
+| FLOW | `flow/FLOW_STANDARD_PIPELINE_CONTRACT.md` | 标准 pipeline 契约，固定版图生成、ADS 导入、层映射、单位、端口、频段和评分规则。 |
 | FLOW | `flow/FLOW_ADS_WORKSPACE_WRITE_POLICY.md` | ADS workspace、template cell、emSetup 和 substrate 文件的写入安全策略。 |
 | FLOW | `flow/FLOW_JOB_SCHEDULING_POLICY.md` | ADS 自动仿真任务调度策略，定义 license、并发、workspace 锁、超时、失败熔断、候选优先级和 resume。 |
 | FLOW | `flow/FLOW_MANUAL_INTERVENTION_LOG.md` | ADS GUI 人工介入记录模板，覆盖手动导入、端口、via、emSetup、simulate、导出和残留清理。 |
@@ -48,6 +49,7 @@ projects/bfp_6_8g_i7_fr4/
 | FILTER | `devices/交指带通滤波器回波损耗影响因素.md` | 交指带通滤波器回损理论、版图参数影响和当前优化要点。 |
 | FILTER | `devices/FR4折叠SIR带通滤波器分支.md` | FR4 折叠 SIR 带通滤波器分支方案和参考分析。 |
 | FILTER | `devices/FR4高低阻抗带通滤波器优化TODO.md` | FR4 高低阻抗滤波器优化待办和实验方向。 |
+| FILTER | `devices/二维码像素化带通滤波器设计报告.md` | 二维码式二值像素化带通滤波器文献归纳、FR4 210um 初版参数和自动化生成路径。 |
 
 ## 项目资产入口
 
@@ -126,6 +128,7 @@ SIM ADS 自动仿真平台
 │  ├─ docs/devices/交指带通滤波器回波损耗影响因素.md
 │  ├─ docs/devices/FR4折叠SIR带通滤波器分支.md
 │  ├─ docs/devices/FR4高低阻抗带通滤波器优化TODO.md
+│  ├─ docs/devices/二维码像素化带通滤波器设计报告.md
 │  └─ projects/bfp_6_8g_i7_fr4/docs/fr4_stub_bpf_l3_reference.md
 ├─ 6. 优化、制造和测试
 │  ├─ docs/opt/OPT_OBJECTIVE_FUNCTION_DESIGN.md
@@ -150,6 +153,7 @@ SIM ADS 自动仿真平台
 | 理解交指滤波器分支 | `devices/交指带通滤波器回波损耗影响因素.md` | `result/RESULT_I7_FR4_ROUND_INDEX.md`、`opt/FR4交指滤波器搜索算法改进方案.md` |
 | 理解折叠 SIR 分支 | `devices/FR4折叠SIR带通滤波器分支.md` | `layout/LAYOUT_RECONSTRUCTION_CHECKLIST.md`、项目 `layouts/` 和 `results/` |
 | 理解高低阻抗分支 | `devices/FR4高低阻抗带通滤波器优化TODO.md` | `fr4_stub_bpf_l3_reference.md`、`opt/OPT_OBJECTIVE_FUNCTION_DESIGN.md` |
+| 理解二维码像素化分支 | `devices/二维码像素化带通滤波器设计报告.md` | `config/projects/pixel_qr_bpf_fr4_210um.json`、`config/pipelines/pixel_qr_bpf_fr4_210um_v1.json`、`projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r0/` |
 | 判断候选是否可制造 | `mfg/MFG_TOLERANCE_ROBUSTNESS_PLAN.md` | `layout/LAYOUT_RECONSTRUCTION_CHECKLIST.md`、目标板厂工艺规则 |
 | 准备正式报告 | `report/REPORT_TEMPLATE_PLAYBOOK.md` | `result/RESULT_BASELINE_FREEZE_POLICY.md`、项目 `reports/` |
 

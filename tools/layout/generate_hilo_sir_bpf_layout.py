@@ -46,6 +46,7 @@ class HiloSirParams:
     boundary_margin_mm: float = 3.00
     min_fab_feature_mm: float = 0.1524
     metal_layer: str = "cond"
+    via_layer: str = "pcvia1"
 
 
 @dataclass(frozen=True)
@@ -95,6 +96,7 @@ def row_to_params(row: dict[str, str]) -> HiloSirParams:
         boundary_margin_mm=parse_float(row, "boundary_margin_mm", defaults.boundary_margin_mm),
         min_fab_feature_mm=parse_float(row, "min_fab_feature_mm", defaults.min_fab_feature_mm),
         metal_layer=row.get("metal_layer", defaults.metal_layer).strip() or defaults.metal_layer,
+        via_layer=row.get("via_layer", defaults.via_layer).strip() or defaults.via_layer,
     )
 
 
@@ -210,12 +212,14 @@ def build_layout(
         units="mm",
         layers=[
             LayerMap(name=params.metal_layer, dxf_layer=params.metal_layer),
+            LayerMap(name=params.via_layer, dxf_layer=params.via_layer),
             LayerMap(name="EM_BOUNDARY", dxf_layer="EM_BOUNDARY"),
         ],
         shapes=shapes,
         ports=layout_ports,
         metadata={
             "generator": "tools/generate_hilo_sir_bpf_layout.py",
+            "layer_map_version": "profile-default-v1",
             "topology": "high_low_impedance_sir_bpf",
             "order": params.order,
             "substrate": params.substrate,

@@ -1,4 +1,4 @@
-# ADS 自动仿真项目重构任务进度追踪与回溯
+﻿# ADS 自动仿真项目重构任务进度追踪与回溯
 
 Status: Active
 Domain: ARCH
@@ -50,9 +50,212 @@ Owner: ADS Automation
 
 ## 当前目标
 
-当前重构已进入 P2 阶段：外部 ADS workspace 不移动，仓库内 ADS 项目资产以 `projects/bfp_6_8g_i7_fr4/` 为有效边界。P0/P1 的数据契约、manifest、score/summary 追溯、baseline freeze、workspace 写入安全 gate、run state machine、结果治理、制造鲁棒性和报告发布 gate 已落地；当前重点是将旧脚本内部逻辑逐步收敛到 `src/simads` 模块。
+当前重构已进入 P2 阶段：外部 ADS workspace 不移动，仓库内 ADS 项目资产以 `projects/<project_id>/` 为有效边界。P0/P1 的数据契约、manifest、score/summary 追溯、baseline freeze、workspace 写入安全 gate、run state machine、结果治理、制造鲁棒性和报告发布 gate 已落地；当前重点是将旧脚本内部逻辑逐步收敛到 `src/simads` 模块，并保证新增器件分支使用独立项目目录。
 
 ## 任务记录
+
+### ARCH-REFACTOR-TASK-20260801-053 - Pixel QR Independent No-Gap Branch
+
+- 状态：完成
+- 日期：2026-08-01
+- 任务目标：
+  - 将二维码像素化滤波器作为独立项目维护，不再挂在 `projects/bfp_6_8g_i7_fr4/` 下。
+  - 将相邻黑色像素的连接方式改为共边无间隙，不使用 `conn_h/conn_v` 补充连接图形。
+  - 重新生成 R0 版图产物，并通过标准 pipeline 和 layout contract gate。
+- 完成内容：
+  - 更新 `tools/layout/generate_pixel_qr_bpf_layout.py`：`connect_adjacent_pixels=true` 时矩阵 pitch 等于 `pixel_mm`，相邻黑色像素天然共边贴合；删除相邻像素补充连接矩形生成逻辑。
+  - no-gap 模式下馈线实际重叠量至少覆盖完整第一列像素，避免馈线和第二列像素之间出现小于 4 mil 的残缝。
+  - 更新 `projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r0.csv`，候选改为 `pixel_qr8_fr4_210um_seed0_nogap` 与 `pixel_qr10_fr4_210um_seed1_nogap`。
+  - 重新生成独立项目下的 DXF/SVG/layout JSON/params JSON/DRC。
+  - 清理独立项目 layouts 目录中旧 `_conn` 补桥生成产物，避免后续 ADS 导入误选。
+  - 清理 `projects/bfp_6_8g_i7_fr4/` 下误放的 `pixel_qr` layout/result/run 产物；未删除外部 ADS workspace 数据。
+  - 更新 `docs/devices/二维码像素化带通滤波器设计报告.md`、`docs/README.md`、`docs/flow/FLOW_STANDARD_PIPELINE_CONTRACT.md` 和 TODO。
+- 验证结果：
+  - `python -m py_compile tools\layout\generate_pixel_qr_bpf_layout.py tools\generate_pixel_qr_bpf_layout.py` 通过。
+  - `python -m json.tool config\projects\pixel_qr_bpf_fr4_210um.json` 通过。
+  - `python -m json.tool config\pipelines\pixel_qr_bpf_fr4_210um_v1.json` 通过。
+  - `python tools\check_pipeline_contract.py --project-id pixel_qr_bpf_fr4_210um --pipeline-id pixel_qr_bpf_fr4_210um_v1 --profile company` 全部 PASS。
+  - `python tools\check_layout_contract.py --project-id pixel_qr_bpf_fr4_210um --sweep-id pixel_qr_bpf_fr4_210um_r0 --pipeline-id pixel_qr_bpf_fr4_210um_v1 --candidate pixel_qr8_fr4_210um_seed0_nogap pixel_qr10_fr4_210um_seed1_nogap` 全部 PASS；最小分离间距分别为 `0.32 mm` 和 `0.24 mm`。
+  - `rg` 检查确认独立项目当前 R0 layouts 中不再包含 `adjacent_pixel_bridge`、`conn_h_`、`conn_v_`、旧 `_conn` 产物或 `bridged` metadata。
+  - `rg` 检查确认 `projects/bfp_6_8g_i7_fr4/` 下不再保留 `pixel_qr` 产物。
+  - 未启动 ADS/FEM，未修改外部 ADS workspace。
+- 还需完成：
+  - 以 no-gap R0 候选执行单候选 ADS/FEM，判断是否形成带通雏形。
+  - 根据 R0 FEM 响应决定 R1 是先调整 mask 开窗，还是引入接地/短路线像素以增加阻带零点。
+- 关联文件：
+  - `tools/layout/generate_pixel_qr_bpf_layout.py`
+  - `tools/generate_pixel_qr_bpf_layout.py`
+  - `config/projects/pixel_qr_bpf_fr4_210um.json`
+  - `config/pipelines/pixel_qr_bpf_fr4_210um_v1.json`
+  - `projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r0.csv`
+  - `projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r0/`
+  - `docs/devices/二维码像素化带通滤波器设计报告.md`
+  - `docs/flow/FLOW_STANDARD_PIPELINE_CONTRACT.md`
+  - `docs/README.md`
+  - `docs/arch/ARCH_REFACTOR_TODO.md`
+- 下一步：
+  - 使用 `pixel_qr_bpf_fr4_210um` 独立 pipeline 选择一个 no-gap 候选执行 ADS/FEM 单点验证。
+
+### ARCH-REFACTOR-TASK-20260801-052 - Pixel QR Topology Layout Gate
+
+- 状态：完成
+- 日期：2026-08-01
+- 任务目标：
+  - 在通用 layout contract gate 之外，为 pixel QR BPF 分支增加拓扑专项机器检查。
+  - 保证独立 checker 和 sweep runner 使用同一套 gate 口径。
+  - 不启动 ADS/FEM，不修改外部 ADS workspace。
+- 完成内容：
+  - `src/simads/geometry/validation.py` 新增 `validate_pixel_qr_bpf_layout()`，检查 `topology`、`mask_rows`、matrix/source_map 完整性、P1/P2 馈线、边缘像素耦合、最小金属间距和孤岛统计。
+  - `tools/check_layout_contract.py` 新增 `--topology-check`、`--min-metal-spacing-mm`、`--max-island-components`，pixel QR 分支默认自动追加专项检查。
+  - `tools/run_ads_filter_sweep.py` 的内嵌 layout gate 同步执行 pixel QR 拓扑专项检查。
+  - 重新生成 `projects/bfp_6_8g_i7_fr4/layouts/pixel_qr_bpf_fr4_210um_r0/` 下两个 R0 样例，使 `_layout.json` 携带 `layer_map_version=profile-default-v1`。
+  - 更新 `docs/flow/FLOW_STANDARD_PIPELINE_CONTRACT.md`、`docs/arch/PYTHON_SCRIPT_MANAGEMENT.md` 和 TODO。
+- 验证结果：
+  - `python -m py_compile src\simads\geometry\validation.py src\simads\geometry\__init__.py tools\check_layout_contract.py tools\run_ads_filter_sweep.py` 通过。
+  - `python tools\check_layout_contract.py --project-id bfp_6_8g_i7_fr4 --sweep-id pixel_qr_bpf_fr4_210um_r0 --pipeline-id bfp_6_8g_pixel_qr_fr4_v1 --candidate pixel_qr8_fr4_210um_seed0 pixel_qr10_fr4_210um_seed1` 通过。
+  - `python tools\run_ads_filter_sweep.py --project-id bfp_6_8g_i7_fr4 --sweep-id pixel_qr_bpf_fr4_210um_r0 --pipeline-id bfp_6_8g_pixel_qr_fr4_v1 --skip-generate --skip-fem --dry-run --candidates pixel_qr8_fr4_210um_seed0` 通过，dry-run 输出包含 `pixel_qr.*` 专项检查项。
+  - 检查结果显示 R0 样例最小间距分别约为 `0.12 mm` 和 `0.102 mm`，均不低于当前默认 `0.1016 mm`；孤岛数量仅统计和输出，正式阈值待 FEM 和工艺策略确定后再收紧。
+  - 未启动 ADS/FEM，未修改外部 ADS workspace。
+- 还需完成：
+  - 根据第一次 pixel QR FEM 响应和板厂制造策略设置 `max_island_components` 推荐阈值。
+  - 为 folded SIR、高低阻抗 SIR、RO4350 高抑制分支建立独立 pipeline config 和对应 topology-specific layout gate。
+- 关联文件：
+  - `src/simads/geometry/validation.py`
+  - `src/simads/geometry/__init__.py`
+  - `tools/check_layout_contract.py`
+  - `tools/run_ads_filter_sweep.py`
+  - `projects/bfp_6_8g_i7_fr4/layouts/pixel_qr_bpf_fr4_210um_r0/`
+  - `docs/flow/FLOW_STANDARD_PIPELINE_CONTRACT.md`
+  - `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`
+  - `docs/arch/ARCH_REFACTOR_TODO.md`
+- 下一步：
+  - 继续把 folded SIR、高低阻抗 SIR、RO4350 高抑制分支纳入独立 pipeline config，并按拓扑补专用 gate。
+
+### ARCH-REFACTOR-TASK-20260801-051 - Standard Pipeline Layout Contract Gate
+
+- 状态：完成
+- 日期：2026-08-01
+- 任务目标：
+  - 将标准 pipeline 的 layout JSON 规则纳入机器校验。
+  - 在 sweep 流程中把 layout contract gate 放到候选生成之后、ADS 导入之前。
+  - 保持 `--skip-generate`、`--dry-run` 等旧产物调试路径可诊断。
+- 完成内容：
+  - 新增 `src/simads/geometry/validation.py`，检查 `units`、声明层、已使用层、`source_map/generator`、`P1/P2`、端口落铜、过孔层、过孔焊盘/落铜和 `layer_map_version`。
+  - 新增 `tools/check_layout_contract.py`，支持直接检查 `_layout.json` 或按 candidate/out-dir 自动定位。
+  - `config/pipelines/bfp_6_8g_i7_fr4_interdigital_v1.json` 新增 `layer_map_version=profile-default-v1`。
+  - `tools/layout/generate_interdigital_filter_layout.py` 输出 layout metadata 中记录 `layer_map_version`。
+  - `tools/run_ads_filter_sweep.py` 新增默认 layout gate，并提供 `--skip-layout-check` 与 `--strict-layout-check`。
+  - `tools/run_ads_filter_candidate.py` 在 run manifest/artifact manifest 中记录 `layout_json` 输入。
+  - 更新 `docs/flow/FLOW_STANDARD_PIPELINE_CONTRACT.md`、`docs/data/DATA_RUN_MANIFEST_SCHEMA.md`、`docs/arch/PYTHON_SCRIPT_MANAGEMENT.md` 和 TODO。
+- 验证结果：
+  - `python -m py_compile src\simads\config\pipelines.py src\simads\geometry\__init__.py src\simads\geometry\validation.py tools\check_layout_contract.py tools\run_ads_filter_sweep.py tools\run_ads_filter_candidate.py tools\layout\generate_interdigital_filter_layout.py tools\layout\generate_pixel_qr_bpf_layout.py tools\layout\generate_stub_bpf_layout.py tools\layout\generate_folded_sir_bpf_layout.py tools\layout\generate_hilo_sir_bpf_layout.py tools\layout\generate_paper_mixed_sir_bpf_layout.py` 通过。
+  - `python tools\check_pipeline_contract.py --project-id bfp_6_8g_i7_fr4 --pipeline-id bfp_6_8g_i7_fr4_interdigital_v1` 全部 PASS。
+  - `python tools\check_pipeline_contract.py --project-id bfp_6_8g_i7_fr4 --sweep-id pixel_qr_bpf_fr4_210um_r0 --pipeline-id bfp_6_8g_pixel_qr_fr4_v1 --profile company` 全部 PASS。
+  - 临时生成 `layout_contract_smoke_layout.json` 后，`python tools\check_layout_contract.py .tmp\layout_contract_smoke\layout_contract_smoke_layout.json --project-id bfp_6_8g_i7_fr4 --pipeline-id bfp_6_8g_i7_fr4_interdigital_v1` 全部 PASS。
+  - 临时生成 pixel QR R0 layout JSON 后，`python tools\check_layout_contract.py --project-id bfp_6_8g_i7_fr4 --sweep-id pixel_qr_bpf_fr4_210um_r0 --pipeline-id bfp_6_8g_pixel_qr_fr4_v1 --out-dir .tmp\pixel_qr_layout_contract_smoke --candidate pixel_qr8_fr4_210um_seed0 pixel_qr10_fr4_210um_seed1` 全部 PASS。
+  - `python tools\run_ads_filter_sweep.py --project-id bfp_6_8g_i7_fr4 --pipeline-id bfp_6_8g_i7_fr4_interdigital_v1 --skip-generate --skip-fem --dry-run --candidates i7_fr4_r7_bo04` 通过，旧候选缺 `_layout.json` 时输出 WARN 后继续 dry-run。
+  - 未启动 ADS/FEM，未修改外部 ADS workspace。
+- 还需完成：
+  - 为 folded SIR、高低阻抗 SIR、RO4350 高抑制分支建立独立 pipeline config 和拓扑专用 layout gate。
+- 关联文件：
+  - `src/simads/geometry/validation.py`
+  - `src/simads/geometry/__init__.py`
+  - `tools/check_layout_contract.py`
+  - `tools/run_ads_filter_sweep.py`
+  - `tools/run_ads_filter_candidate.py`
+  - `tools/layout/generate_interdigital_filter_layout.py`
+  - `config/pipelines/bfp_6_8g_i7_fr4_interdigital_v1.json`
+  - `docs/flow/FLOW_STANDARD_PIPELINE_CONTRACT.md`
+  - `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`
+  - `docs/arch/ARCH_REFACTOR_TODO.md`
+  - `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`
+- 下一步：
+  - 继续把标准 pipeline contract 扩展为多分支配置，优先处理 folded SIR 和高低阻抗 SIR。
+
+### ARCH-REFACTOR-TASK-20260801-050 - QR-like Pixelated BPF R0 Branch
+
+- 状态：进行中
+- 日期：2026-08-01
+- 任务目标：
+  - 调研二维码式二值像素化微带滤波器资料，形成 FR4 210um 设计报告。
+  - 建立 8x8、10x10 初版版图生成能力，并纳入标准 pipeline 分支。
+  - 不启动 ADS/FEM，不修改外部 ADS workspace。
+- 完成内容：
+  - 新增 `docs/devices/二维码像素化带通滤波器设计报告.md`，归纳 pixelated / binary-coded / inverse-designed microstrip filter 文献路线。
+  - 新增 `tools/layout/generate_pixel_qr_bpf_layout.py`，支持 `qr_seed`、`checker`、`diag`、`edge_coupled`、`symmetric_random` 二值 mask，输出 DXF/SVG/layout JSON/params JSON/DRC。
+  - 新增根目录兼容入口 `tools/generate_pixel_qr_bpf_layout.py`。
+  - 新增 `config/pipelines/bfp_6_8g_pixel_qr_fr4_v1.json`，固定 mm、`cond/pcvia1/EM_BOUNDARY`、P1/P2、4-10 GHz 和 `fr4_25db_rl6` 评分 profile。
+  - 新增 `projects/bfp_6_8g_i7_fr4/plans/pixel_qr_bpf_fr4_210um_r0.csv`。
+  - `config/projects/bfp_6_8g_i7_fr4.json` 登记 `pixel_qr_bpf_fr4_210um_r0` sweep。
+  - `src/simads.devices` 登记 `filter.pixel_qr_bpf` device plugin。
+  - `src/simads.config.pipelines.validate_pipeline()` 支持同一 project 下默认 pipeline 与注册 sweep pipeline 并存。
+  - 生成 `pixel_qr8_fr4_210um_seed0` 和 `pixel_qr10_fr4_210um_seed1` 两个 R0 样例。
+- 验证结果：
+  - `python -m py_compile src\simads\devices\__init__.py src\simads\config\pipelines.py tools\layout\generate_pixel_qr_bpf_layout.py tools\generate_pixel_qr_bpf_layout.py` 通过。
+  - `python -m json.tool config\projects\bfp_6_8g_i7_fr4.json` 通过。
+  - `python -m json.tool config\pipelines\bfp_6_8g_pixel_qr_fr4_v1.json` 通过。
+  - `python tools\generate_pixel_qr_bpf_layout.py --plan projects\bfp_6_8g_i7_fr4\plans\pixel_qr_bpf_fr4_210um_r0.csv --out-dir projects\bfp_6_8g_i7_fr4\layouts\pixel_qr_bpf_fr4_210um_r0` 通过。
+  - `python tools\check_pipeline_contract.py --project-id bfp_6_8g_i7_fr4 --pipeline-id bfp_6_8g_i7_fr4_interdigital_v1 --profile company` 通过。
+  - `python tools\check_pipeline_contract.py --project-id bfp_6_8g_i7_fr4 --sweep-id pixel_qr_bpf_fr4_210um_r0 --pipeline-id bfp_6_8g_pixel_qr_fr4_v1 --profile company` 通过。
+  - 未启动 ADS/FEM，未修改外部 ADS workspace。
+- 还需完成：
+  - 对 R0 样例执行 ADS 导入和单候选 FEM，确认是否形成带通响应。
+  - 通用 layout contract gate 已覆盖 `port_on_metal`、`source_map/generator`、层、端口和过孔焊盘/落铜；还需新增像素化分支专用 layout/DRC 机器校验，覆盖孤岛统计、最小间距、feed/pixel 连通性和 matrix `source_map` 完整性。
+  - 根据 FEM 结果决定后续 DBS/GA 二值翻转或先调整 feed overlap、pixel/gap。
+- 关联文件：
+  - `docs/devices/二维码像素化带通滤波器设计报告.md`
+  - `tools/layout/generate_pixel_qr_bpf_layout.py`
+  - `tools/generate_pixel_qr_bpf_layout.py`
+  - `config/pipelines/bfp_6_8g_pixel_qr_fr4_v1.json`
+  - `config/projects/bfp_6_8g_i7_fr4.json`
+  - `projects/bfp_6_8g_i7_fr4/plans/pixel_qr_bpf_fr4_210um_r0.csv`
+  - `projects/bfp_6_8g_i7_fr4/layouts/pixel_qr_bpf_fr4_210um_r0/`
+  - `src/simads/devices/__init__.py`
+  - `src/simads/config/pipelines.py`
+- 下一步：
+  - 先用 10x10 样例做 ADS 导入和短 FEM，再决定是否进入 R1 参数扫描。
+
+### ARCH-REFACTOR-TASK-20260801-049 - Standard Pipeline Contract
+
+- 状态：完成
+- 日期：2026-08-01
+- 任务目标：
+  - 统一 SIM 项目中的版图生成器、ADS 导入脚本、emSetup/RFPro FEM、数据导出和评分器。
+  - 固定模板、层映射、单位、端口规则、频段和评分 profile。
+  - 将 pipeline 约束写入 TODO，并开始接入 runner 和校验脚本。
+- 完成内容：
+  - 新增 `config/pipelines/bfp_6_8g_i7_fr4_interdigital_v1.json`，固定 `mm`、`cond/pcvia1/EM_BOUNDARY`、`P1/P2`、`em%Setup/emSetup`、`4-10 GHz`、`fr4_25db_rl6` 和标准脚本路径。
+  - `config/projects/bfp_6_8g_i7_fr4.json` 与 active sweep 新增 `pipeline_id`。
+  - 新增 `src/simads/config/pipelines.py`，提供 pipeline dataclass、loader、id 解析和校验函数。
+  - `tools/run_ads_filter_candidate.py` 新增 `--pipeline-id`，从 pipeline contract 解析脚本路径、模板、view、层名、target profile 和 score version，并写入 `run_manifest`。
+  - `tools/run_ads_filter_sweep.py` 新增 `--pipeline-id`，传递 pipeline 到 candidate runner，并在 summary/失败记录中保留 `pipeline_id`。
+  - `tools/analyze_ads_dataset.py` 新增 `--pipeline-id`，score CSV 可回填 pipeline 元数据。
+  - 新增 `tools/check_pipeline_contract.py`，只读检查标准 pipeline，不启动 ADS/FEM。
+  - 新增 `docs/flow/FLOW_STANDARD_PIPELINE_CONTRACT.md`，并更新 README、TODO 和 Python 脚本管理文档。
+- 验证结果：
+  - `python -m py_compile src\simads\config\projects.py src\simads\config\pipelines.py src\simads\config\__init__.py tools\run_ads_filter_candidate.py tools\run_ads_filter_sweep.py tools\analyze_ads_dataset.py tools\check_pipeline_contract.py` 通过。
+  - `python tools\check_pipeline_contract.py --project-id bfp_6_8g_i7_fr4 --pipeline-id bfp_6_8g_i7_fr4_interdigital_v1` 全部 PASS。
+  - `python tools\run_ads_filter_sweep.py --project-id bfp_6_8g_i7_fr4 --pipeline-id bfp_6_8g_i7_fr4_interdigital_v1 --skip-generate --skip-fem --dry-run --candidates i7_fr4_r7_bo04` 通过，命令已传递 `--pipeline-id`。
+  - `python tools\run_ads_filter_candidate.py i7_fr4_r7_bo04 --project-id bfp_6_8g_i7_fr4 --pipeline-id bfp_6_8g_i7_fr4_interdigital_v1 --skip-fem --dry-run` 通过，内部命令已使用 `tools/ads/` 标准脚本路径。
+  - 未启动 ADS/FEM，未修改外部 ADS workspace。
+- 还需完成：
+  - 为 folded SIR、高低阻抗 SIR、RO4350 高抑制分支建立独立 pipeline config。
+- 关联文件：
+  - `config/pipelines/bfp_6_8g_i7_fr4_interdigital_v1.json`
+  - `config/projects/bfp_6_8g_i7_fr4.json`
+  - `src/simads/config/pipelines.py`
+  - `src/simads/config/projects.py`
+  - `src/simads/config/__init__.py`
+  - `tools/check_pipeline_contract.py`
+  - `tools/run_ads_filter_candidate.py`
+  - `tools/run_ads_filter_sweep.py`
+  - `tools/analyze_ads_dataset.py`
+  - `docs/flow/FLOW_STANDARD_PIPELINE_CONTRACT.md`
+  - `docs/arch/ARCH_REFACTOR_TODO.md`
+  - `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`
+  - `docs/README.md`
+- 下一步：
+  - 为 folded SIR、高低阻抗 SIR、RO4350 高抑制分支建立独立 pipeline config。
 
 ### ARCH-REFACTOR-TASK-20260801-048 - Tools Phase 1 Script Split
 
@@ -1635,6 +1838,9 @@ Owner: ADS Automation
   - 建立 `data/DATA_SCHEMA_REGISTRY.md` 和 `data/DATA_RUN_MANIFEST_SCHEMA.md`。
   - 修改 `analyze_ads_dataset.py`，把 run 元数据写入 score CSV。
   - 修改 sweep 入口预生成 run_id，并把失败候选也写入 summary。
+
+
+
 
 
 

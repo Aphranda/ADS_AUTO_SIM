@@ -52,6 +52,7 @@ class ProjectFrequency:
 @dataclass(frozen=True)
 class SweepConfig:
     sweep_id: str
+    pipeline_id: str | None = None
     plan: Path | None = None
     layouts_dir: Path | None = None
     results_dir: Path | None = None
@@ -68,6 +69,7 @@ class SweepConfig:
     def to_dict(self) -> dict[str, str | None]:
         return {
             "sweep_id": self.sweep_id,
+            "pipeline_id": self.pipeline_id,
             "plan": str(self.plan) if self.plan is not None else None,
             "layouts_dir": str(self.layouts_dir) if self.layouts_dir is not None else None,
             "results_dir": str(self.results_dir) if self.results_dir is not None else None,
@@ -99,6 +101,7 @@ class ProjectConfig:
     primary_device_type: str | None = None
     default_profile: str | None = None
     target_profile: str | None = None
+    pipeline_id: str | None = None
     frequency: ProjectFrequency = ProjectFrequency()
     ads: ProjectAdsConfig = ProjectAdsConfig()
     active_sweep: str | None = None
@@ -124,6 +127,7 @@ class ProjectConfig:
             "primary_device_type": self.primary_device_type,
             "default_profile": self.default_profile,
             "target_profile": self.target_profile,
+            "pipeline_id": self.pipeline_id,
             "active_sweep": self.active_sweep,
             "project_root": str(self.project_root),
             "plans_dir": str(self.plans_dir),
@@ -183,6 +187,7 @@ def sweep_from_mapping(root: Path, sweep_id: str, data: dict[str, Any]) -> Sweep
     optimizer = _resolve_nested_paths(root, data.get("optimizer"), {"script", "dataset", "seed_params", "prediction_report"})
     return SweepConfig(
         sweep_id=sweep_id,
+        pipeline_id=str(data["pipeline_id"]) if data.get("pipeline_id") else None,
         plan=_optional_root_relative_path(root, data.get("plan")),
         layouts_dir=_optional_root_relative_path(root, data.get("layouts_dir")),
         results_dir=_optional_root_relative_path(root, data.get("results_dir")),
@@ -232,6 +237,7 @@ def project_from_mapping(data: dict[str, Any], *, root: Path | None = None) -> P
         primary_device_type=str(data["primary_device_type"]) if data.get("primary_device_type") else None,
         default_profile=str(data["default_profile"]) if data.get("default_profile") else None,
         target_profile=str(data["target_profile"]) if data.get("target_profile") else None,
+        pipeline_id=str(data["pipeline_id"]) if data.get("pipeline_id") else None,
         active_sweep=str(data["active_sweep"]) if data.get("active_sweep") else None,
         project_root=project_root,
         plans_dir=_path_from_mapping(base, data, "plans_dir", f"{project_root_fallback}/plans"),

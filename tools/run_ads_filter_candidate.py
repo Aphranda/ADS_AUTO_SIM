@@ -17,7 +17,7 @@ if str(_SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(_SRC_ROOT))
 
 from ads_profiles import get_ads_profile, profile_names, resolve_ads_python, resolve_host_python, resolve_library, resolve_workspace
-from simads.config import load_project, root_relative_path
+from simads.config import load_pipeline, load_project, resolve_pipeline_id, root_relative_path
 from simads.devices import get_device, list_devices
 from simads.runtime import (
     artifact_entry,
@@ -170,22 +170,27 @@ def run_step(label: str, command: list[str], cwd: Path, dry_run: bool) -> None:
         log(f"END {label} elapsed={elapsed:.1f}s")
 
 
+def resolve_profile(current: str | None, configured: str | None) -> str:
+    return current or configured or "company"
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run ADS DXF import, FEM setup, RFPro FEM, and scoring.")
     parser.add_argument("candidate", help="Candidate base name, cell name, or *_mm_coords DXF stem.")
     parser.add_argument(
         "--device-id",
-        default="filter.interdigital",
+        default=None,
         choices=list_devices(),
         help="Device plugin id for manifest and compatibility checks.",
     )
-    parser.add_argument("--profile", default="company", choices=profile_names(), help="ADS path profile to use.")
+    parser.add_argument("--pipeline-id", default=None, help="Pipeline contract id. Default uses the active project sweep.")
+    parser.add_argument("--profile", default=None, choices=profile_names(), help="ADS path profile to use.")
     parser.add_argument("--ads-python", type=Path, default=None, help="Override profile ADS Python.")
     parser.add_argument("--host-python", type=Path, default=None, help="Override profile host/control Python.")
     parser.add_argument("--workspace", type=Path, default=None, help="Override profile ADS workspace.")
     parser.add_argument("--library", default=None, help="Override profile ADS library.")
-    parser.add_argument("--template-cell", default=DEFAULT_TEMPLATE_CELL, help="ADS cell to clone emSetup/em%%Setup from.")
-    parser.add_argument("--setup-view", default="em%Setup", help="ADS EM setup view folder to clone.")
+    parser.add_argument("--template-cell", default=None, help="ADS cell to clone emSetup/em%%Setup from.")
+    parser.add_argument("--setup-view", default=None, help="ADS EM setup view folder to clone.")
     parser.add_argument("--rfpro-emsetup-view", default=None, help="RFPro EM setup view name. Default derives from --setup-view.")
     parser.add_argument("--dxf", type=Path, default=None)
     parser.add_argument("--params", type=Path, default=None)
@@ -199,6 +204,7 @@ def parse_args() -> argparse.Namespace:
         help="Score RFPro CSV or ADS workspace data/<cell>_FEM_a.ds fitted dataset.",
     )
     parser.add_argument("--project-id", default="bfp_6_8g_i7_fr4", help="Project id for run manifests.")
+    parser.add_argument("--sweep-id", default=None, help="Optional sweep id from project config.")
     parser.add_argument("--round-id", default=None, help="Round id for run manifests. Default is inferred from paths.")
     parser.add_argument("--run-id", default=None, help="Explicit run id. Default is timestamped.")
     parser.add_argument(
@@ -209,14 +215,14 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--target-profile",
-        default="ro4350_strict",
+        default=None,
         choices=["ro4350_strict", "fr4_25db", "fr4_25db_rl6", "fr4_25db_rl10"],
     )
     parser.add_argument("--fem-dataset-suffix", default="a", help="ADS EM Setup dataset suffix after _FEM_.")
     parser.add_argument("--fem-txt-out", type=Path, default=None, help="Optional Data Display style TXT export.")
     parser.add_argument("--skip-import", action="store_true", help="Do not re-import DXF; only add/update later steps.")
-    parser.add_argument("--metal-layer", default="cond", help="ADS metal layer for DXF fallback import and pins.")
-    parser.add_argument("--via-layer", default="pcvia1", help="ADS via drill layer for DXF fallback import.")
+    parser.add_argument("--metal-layer", default=None, help="ADS metal layer for DXF fallback import and pins.")
+    parser.add_argument("--via-layer", default=None, help="ADS via drill layer for DXF fallback import.")
     parser.add_argument("--reuse-layout", action="store_true", help="Reuse an existing layout cell and skip import/pin placement.")
     parser.add_argument("--skip-setup", action="store_true", help="Do not clone/patch the FEM setup.")
     parser.add_argument("--overwrite-setup", action="store_true", help="Overwrite target em%%Setup folder.")
@@ -239,6 +245,23 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     root = repo_root()
+    try:
+        project = load_project(args.project_id, root=root)
+    except FileNotFoundError:
+        project = None
+    sweep = project.get_sweep(args.sweep_id) if project else None
+    pipeline_id = resolve_pipeline_id(project, sweep, args.pipeline_id)
+    pipeline = load_pipeline(pipeline_id, root=root) if pipeline_id else None
+    args.pipeline_id = pipeline_id
+    args.profile = resolve_profile(args.profile, (pipeline.profile_id if pipeline else None) or (sweep.profile if sweep else None))
+    profile = get_ads_profile(args.profile)
+    args.device_id = (
+        args.device_id
+        or (pipeline.device_id if pipeline else None)
+        or (sweep.device_id if sweep else None)
+        or (project.primary_device_type if project else None)
+        or "filter.interdigital"
+    )
     device_plugin = get_device(args.device_id)
     dirs = project_dirs(root, args.project_id)
     tools_dir = root / "tools"
@@ -246,7 +269,41 @@ def main() -> None:
     host_python = resolve_host_python(args.profile, args.host_python)
     workspace = resolve_workspace(args.profile, args.workspace)
     library = resolve_library(args.profile, args.library)
+    args.target_profile = (
+        args.target_profile
+        or (pipeline.scoring.target_profile if pipeline else None)
+        or (sweep.target_profile if sweep else None)
+        or (project.target_profile if project else None)
+        or "ro4350_strict"
+    )
+    args.template_cell = (
+        args.template_cell
+        or (pipeline.ads.template_cell if pipeline else None)
+        or (sweep.template_cell if sweep else None)
+        or profile.template_cell
+        or DEFAULT_TEMPLATE_CELL
+    )
+    args.setup_view = (
+        args.setup_view
+        or (pipeline.ads.setup_view if pipeline else None)
+        or (sweep.setup_view if sweep else None)
+        or profile.setup_view
+        or "em%Setup"
+    )
+    args.rfpro_emsetup_view = (
+        args.rfpro_emsetup_view
+        or (pipeline.ads.rfpro_emsetup_view if pipeline else None)
+        or (sweep.rfpro_emsetup_view if sweep else None)
+        or ads_view_name(args.setup_view)
+    )
+    args.metal_layer = args.metal_layer or (pipeline.layer_map.metal_layer if pipeline else None) or device_plugin.default_layers.get("metal", "cond")
+    args.via_layer = args.via_layer or (pipeline.layer_map.via_layer if pipeline else None) or device_plugin.default_layers.get("via", "pcvia1")
     rfpro_emsetup_view = args.rfpro_emsetup_view or ads_view_name(args.setup_view)
+    import_script = (pipeline.ads.import_script if pipeline else None) or (tools_dir / "ads_import_dxf_add_ports.py")
+    clone_setup_script = (pipeline.ads.clone_setup_script if pipeline else None) or (tools_dir / "ads_clone_emsetup_template.py")
+    rfpro_script = (pipeline.ads.rfpro_script if pipeline else None) or (tools_dir / "ads_run_rfpro_fem.py")
+    dataset_export_script = (pipeline.ads.dataset_export_script if pipeline else None) or (tools_dir / "export_ads_fem_dataset.py")
+    score_script = (pipeline.scoring.script if pipeline else None) or (tools_dir / "analyze_ads_dataset.py")
 
     cell = args.cell or default_cell_name(args.candidate)
     dxf = args.dxf
@@ -263,6 +320,7 @@ def main() -> None:
         if args.score_out
         else (dirs["results"] / f"{cell}_score.csv")
     )
+    layout_json = params.with_name(params.stem.removesuffix("_params") + "_layout.json") if params is not None else None
     fem_txt_out = root_relative_path(root, args.fem_txt_out) if args.fem_txt_out else None
     fem_dataset = workspace / "data" / f"{cell}_FEM_{args.fem_dataset_suffix}.ds"
     log_file = args.log_file or (out_csv.parent / f"{cell}_flow.log")
@@ -274,8 +332,21 @@ def main() -> None:
     state_path = run_dir / "state.json"
     run_manifest_path = run_dir / "run_manifest.json"
     artifact_manifest_path = run_dir / "artifact_manifest.json"
-    profile = get_ads_profile(args.profile)
-    score_version = TARGET_SCORE_VERSIONS[args.target_profile]
+    score_version = (
+        pipeline.scoring.score_version
+        if pipeline is not None and args.target_profile == pipeline.scoring.target_profile
+        else TARGET_SCORE_VERSIONS[args.target_profile]
+    )
+    frequency_start_ghz = (
+        pipeline.frequency.start_ghz
+        if pipeline is not None
+        else (project.frequency.start_ghz if project and project.frequency.start_ghz is not None else 4.0)
+    )
+    frequency_stop_ghz = (
+        pipeline.frequency.stop_ghz
+        if pipeline is not None
+        else (project.frequency.stop_ghz if project and project.frequency.stop_ghz is not None else 10.0)
+    )
     started = time.monotonic()
     write_context = AdsWriteContext(
         profile_id=args.profile,
@@ -320,6 +391,7 @@ def main() -> None:
             artifacts=[
                 artifact_entry("dxf", dxf, producer="generate_filter_sweep.py"),
                 artifact_entry("params", params, producer="generate_filter_sweep.py"),
+                artifact_entry("layout_json", layout_json, producer="generate_filter_sweep.py"),
                 artifact_entry("rfpro_csv", out_csv, producer="ads_run_rfpro_fem.py"),
                 artifact_entry("fem_dataset", fem_dataset, producer="ADS RFPro/FEM"),
                 artifact_entry("fem_txt", fem_txt_out, producer="export_ads_fem_dataset.py"),
@@ -345,6 +417,8 @@ def main() -> None:
                     "layout_builder": device_plugin.layout_builder,
                     "outputs_writer": device_plugin.outputs_writer,
                 },
+                "pipeline_id": args.pipeline_id,
+                "pipeline_snapshot": pipeline.to_dict() if pipeline is not None else None,
                 "profile_id": args.profile,
                 "profile_snapshot": profile.to_dict(),
                 "workspace": str(workspace),
@@ -357,6 +431,22 @@ def main() -> None:
                 "target_profile_id": args.target_profile,
                 "score_source": args.score_source,
                 "score_version": score_version,
+                "frequency_start_ghz": frequency_start_ghz,
+                "frequency_stop_ghz": frequency_stop_ghz,
+                "inputs": {
+                    "dxf": str(dxf) if dxf is not None else None,
+                    "params": str(params) if params is not None else None,
+                    "layout_json": str(layout_json) if layout_json is not None else None,
+                },
+                "outputs": {
+                    "rfpro_csv": str(out_csv),
+                    "score_csv": str(score_csv),
+                    "fem_dataset": str(fem_dataset),
+                    "fem_txt": str(fem_txt_out) if fem_txt_out is not None else None,
+                    "log_file": str(log_file),
+                    "state": str(state_path),
+                    "artifact_manifest": str(artifact_manifest_path),
+                },
                 "status": status,
                 "stage": stage,
                 "error_class": error_class,
@@ -392,7 +482,7 @@ def main() -> None:
             f"device_id={device_plugin.device_id}, "
             f"host_python={host_python}, ads_python={ads_python}, "
             f"cell={cell}, setup_view={args.setup_view}, rfpro_emsetup_view={rfpro_emsetup_view}, "
-            f"target_profile={args.target_profile}, run_id={run_id}, run_dir={run_dir}"
+            f"target_profile={args.target_profile}, pipeline_id={args.pipeline_id}, run_id={run_id}, run_dir={run_dir}"
         )
 
         if not args.dry_run and not ads_python.exists():
@@ -410,7 +500,7 @@ def main() -> None:
                     raise ValueError("DXF and params are required unless --reuse-layout is used.")
                 import_cmd = [
                     str(ads_python),
-                    str(tools_dir / "ads_import_dxf_add_ports.py"),
+                    str(import_script),
                     "--profile",
                     args.profile,
                     "--workspace",
@@ -438,7 +528,7 @@ def main() -> None:
                     raise ValueError("params are required unless --skip-setup is used.")
                 setup_cmd = [
                     str(host_python),
-                    str(tools_dir / "ads_clone_emsetup_template.py"),
+                    str(clone_setup_script),
                     "--profile",
                     args.profile,
                     "--workspace",
@@ -469,7 +559,7 @@ def main() -> None:
 
             fem_cmd = [
                 str(ads_python),
-                str(tools_dir / "ads_run_rfpro_fem.py"),
+                str(rfpro_script),
                 "--profile",
                 args.profile,
                 "--workspace",
@@ -509,7 +599,7 @@ def main() -> None:
             if fem_txt_out is not None:
                 export_cmd = [
                     str(ads_python),
-                    str(tools_dir / "export_ads_fem_dataset.py"),
+                    str(dataset_export_script),
                     "--profile",
                     args.profile,
                     "--dataset",
@@ -521,7 +611,7 @@ def main() -> None:
 
         score_cmd = [
             score_python,
-            str(tools_dir / "analyze_ads_dataset.py"),
+            str(score_script),
             str(score_input),
             "--out",
             str(score_csv),
@@ -544,6 +634,8 @@ def main() -> None:
             "--elapsed-s",
             f"{time.monotonic() - started:.3f}",
         ]
+        if args.pipeline_id:
+            score_cmd.extend(["--pipeline-id", args.pipeline_id])
         run_step("4. Score S-parameters", score_cmd, root, args.dry_run)
         set_state("scored", status="completed")
         write_manifests("completed", "scored")

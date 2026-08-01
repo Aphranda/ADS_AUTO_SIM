@@ -12,6 +12,7 @@ import argparse
 import json
 import os
 import shutil
+import sys
 import xml.etree.ElementTree as ET
 from datetime import datetime
 from pathlib import Path

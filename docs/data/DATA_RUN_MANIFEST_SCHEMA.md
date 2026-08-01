@@ -140,6 +140,9 @@ schema_version = 1.0
 | `project_id` | string | 项目 ID。 |
 | `round_id` | string | 轮次 ID。 |
 | `candidate_id` | string | 候选 ID。 |
+| `device_id` | string | device plugin ID，例如 `filter.interdigital`。 |
+| `pipeline_id` | string/null | 标准 pipeline contract ID。正式优化轮次必须非空。 |
+| `pipeline_snapshot` | object/null | pipeline contract 运行时快照。正式优化轮次必须保存完整快照。 |
 | `profile_id` | string | ADS profile ID。 |
 | `profile_snapshot` | object | profile 配置快照。 |
 | `workspace` | string | ADS workspace 路径。 |
@@ -151,6 +154,7 @@ schema_version = 1.0
 | `substrate` | string | substrate 引用。 |
 | `target_profile_id` | string | 目标 profile。 |
 | `score_source` | string | `rfpro-csv` 或 `fem-dataset`。 |
+| `score_version` | string | 评分函数版本。 |
 | `frequency_start_ghz` | number | 仿真起始频率。 |
 | `frequency_stop_ghz` | number | 仿真终止频率。 |
 | `inputs` | object | 输入文件路径。 |
@@ -168,6 +172,7 @@ schema_version = 1.0
 |---|---|
 | `dxf` | 候选 DXF 路径。 |
 | `params` | 候选 params JSON 路径。 |
+| `layout_json` | 候选结构化 layout JSON 路径；正式 pipeline round 应非空。 |
 
 `outputs` 必填子字段：
 
@@ -213,6 +218,7 @@ force
 规则：
 
 - `profile_snapshot` 必须保存运行时实际生效 profile，而不是只保存 profile 名称。
+- `pipeline_id` 和 `pipeline_snapshot` 必须保存运行时实际生效 pipeline contract；正式 round 不允许为空。
 - `target_cell` 不得等于 `template_cell`，除非显式 `force=true` 且任务记录说明原因。
 - `overwrite_setup=true` 只能作用于 `target_cell`，不得作用于 template cell。
 - 任何真实 ADS workspace 写入前必须先写入或打印 manifest 核心字段。
@@ -257,6 +263,7 @@ Artifact entry 必填字段：
 dxf
 svg
 params
+layout_json
 drc
 tuning_table
 rfpro_csv

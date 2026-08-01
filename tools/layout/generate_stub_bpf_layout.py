@@ -210,6 +210,7 @@ def build_layout(params: StubBpfParams, rects: list[Rect] | None = None) -> Layo
         shapes=shapes,
         metadata={
             "generator": "tools/generate_stub_bpf_layout.py",
+            "layer_map_version": "profile-default-v1",
             "topology": "shorted_stub_bpf",
             "substrate": params.substrate,
             "er": params.er,

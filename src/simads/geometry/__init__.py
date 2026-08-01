@@ -1,4 +1,4 @@
-"""Common geometry objects for ADS layout automation.
+﻿"""Common geometry objects for ADS layout automation.
 
 The module is intentionally small and dependency-free. Device-specific layout
 generators can build these objects first, then hand them to exporters or ADS
@@ -10,6 +10,8 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass, field
 import math
 from typing import Any, Iterable, Literal
+
+from .validation import LayoutCheck, load_layout_json, point_on_layer, validate_layout_contract, validate_pixel_qr_bpf_layout
 
 
 Point = tuple[float, float]
@@ -211,4 +213,30 @@ def to_dict(value: Any) -> Any:
     if isinstance(value, dict):
         return {str(key): to_dict(item) for key, item in value.items()}
     return value
+
+
+__all__ = [
+    "Boundary",
+    "LayerMap",
+    "Layout",
+    "LayoutCheck",
+    "Path",
+    "Point",
+    "Polygon",
+    "Port",
+    "Rect",
+    "Shape",
+    "ShapeKind",
+    "Via",
+    "bounds",
+    "fmt",
+    "load_layout_json",
+    "min_feature",
+    "point_on_layer",
+    "shape_layer",
+    "shape_points",
+    "to_dict",
+    "validate_layout_contract",
+    "validate_pixel_qr_bpf_layout",
+]
 

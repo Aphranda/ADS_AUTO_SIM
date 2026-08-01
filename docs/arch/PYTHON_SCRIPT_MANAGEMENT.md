@@ -1,4 +1,4 @@
-# Python 脚本管理方案
+﻿# Python 脚本管理方案
 
 Status: Draft
 Domain: PY
@@ -30,6 +30,8 @@ CLI 编排流程。
 | `ads_probe_ael_words.py` | ads | experimental | AEL 探测 | 登记到 API 能力矩阵。 |
 | `check_editable_install.py` | host | stable | 检查 `sim-ads-automation` editable 安装和常用依赖 | 纳入 host 环境 smoke，不执行安装。 |
 | `check_round_script_migration.py` | host | stable | 检查历史 round 脚本迁移索引、状态枚举和脚本覆盖 | 纳入 optimizer/script governance gate，不启动 ADS/FEM。 |
+| `check_pipeline_contract.py` | host | stable | 检查标准 pipeline contract、项目/sweep/profile 一致性、固定模板、层、单位、端口、频段和评分规则 | 纳入 round 执行前 gate，不启动 ADS/FEM。 |
+| `check_layout_contract.py` | host | stable | 检查 `_layout.json` 的单位、层、端口落铜、过孔落点、layer map 版本和拓扑专项 DRC | 纳入 sweep 生成后、ADS 导入前 gate，不启动 ADS/FEM；pixel QR 分支自动检查 mask/source_map/min spacing/feed coupling/island count。 |
 | `ads_import_dxf_add_ports.py` | ads | stable | DXF 导入和端口放置 | 抽成 `ads.layout`。 |
 | `ads_clone_emsetup_template.py` | ads | stable | emSetup 克隆 | 抽成 `ads.emsetup`。 |
 | `ads_run_rfpro_fem.py` | ads | stable | RFPro/FEM 运行 | 抽成 `ads.rfpro`，增加阶段日志。 |
@@ -57,10 +59,11 @@ CLI 编排流程。
 | 模块 | 优先级 | 来源脚本 | 职责 |
 |---|---|---|---|
 | `simads.config` | P0 | `ads_profiles.py` | profile、路径、workspace、library、template、substrate。 |
+| `simads.config.pipelines` | P1 | `check_pipeline_contract.py`、`run_ads_filter_candidate.py`、`run_ads_filter_sweep.py` | pipeline contract、脚本绑定、单位、层、端口、频段和评分配置。 |
 | `simads.logging` | P0 | `run_ads_filter_candidate.py`、`run_ads_filter_sweep.py`、`ads_run_rfpro_fem.py` | 阶段日志、耗时、错误分类。 |
 | `simads.scoring` | P0 | `analyze_filter_s2p.py` | S 参数指标、目标函数、评分权重。 |
 | `simads.data` | P0 | `analyze_ads_dataset.py`、`export_ads_fem_dataset.py` | CSV、dataset、Touchstone、summary。 |
-| `simads.geometry` | P1 | `generate_*_layout.py` | Point、BBox、Rect、Path、Polygon、Via、Port、Transform。 |
+| `simads.geometry` | P1 | `generate_*_layout.py`、`check_layout_contract.py` | Point、BBox、Rect、Path、Polygon、Via、Port、Transform、通用 layout contract 和拓扑专项 layout gate。 |
 | `simads.exporters` | P1 | `generate_*_layout.py` | DXF、SVG、params.json、DRC、dimension check。 |
 | `simads.ads.workspace` | P1 | `ads_import_dxf_add_ports.py`、`ads_profiles.py` | workspace/library/cell/view 门禁。 |
 | `simads.ads.layout` | P1 | `ads_import_dxf_add_ports.py` | DXF/GDS 导入、端口、pin、layer、unit。 |
@@ -155,4 +158,5 @@ ADS Python check_ads_python_env.py --profile home 通过，keysight.ads.de/ael/d
 3. 建立 DATA_SCHEMA_REGISTRY.md，固定 profile/candidate/run/artifact/score/training dataset 字段。
 4. 再抽 geometry/exporters/scoring 模块，不急于移动 ADS API 子脚本。
 ```
+
 

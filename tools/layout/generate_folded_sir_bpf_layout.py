@@ -372,6 +372,7 @@ def build_layout(
         ports=layout_ports,
         metadata={
             "generator": "tools/generate_folded_sir_bpf_layout.py",
+            "layer_map_version": "profile-default-v1",
             "topology": "folded_sir_bpf",
             "order": params.order,
             "substrate": params.substrate,

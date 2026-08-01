@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "run_id": "pixel_qr_bpf_fr4_210um_manual_pixel_qr10_fr4_210um_seed1_conn_company_20260801_195217",
+  "candidate_id": "pixel_qr10_fr4_210um_seed1_conn",
+  "profile_id": "company",
+  "stage": "scored",
+  "status": "completed",
+  "failed_step": null,
+  "error_class": null,
+  "message": null,
+  "elapsed_s": 35.781,
+  "updated_at": "2026-08-01T19:52:53+08:00"
+}

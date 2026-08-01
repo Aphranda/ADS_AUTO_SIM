@@ -1,0 +1,62 @@
+﻿{
+    "schema_version":  "0.1.0",
+    "project_id":  "pixel_qr_bpf_fr4_210um",
+    "name":  "6-8 GHz FR4 210um QR-like pixelated BPF ADS automation project",
+    "device_family":  "filter",
+    "primary_device_type":  "filter.pixel_qr_bpf",
+    "default_profile":  "home",
+    "target_profile":  "fr4_25db_rl6",
+    "pipeline_id":  "pixel_qr_bpf_fr4_210um_v1",
+    "project_root":  "projects/pixel_qr_bpf_fr4_210um",
+    "plans_dir":  "projects/pixel_qr_bpf_fr4_210um/plans",
+    "layouts_dir":  "projects/pixel_qr_bpf_fr4_210um/layouts",
+    "results_dir":  "projects/pixel_qr_bpf_fr4_210um/results",
+    "runs_dir":  "projects/pixel_qr_bpf_fr4_210um/runs",
+    "reports_dir":  "projects/pixel_qr_bpf_fr4_210um/reports",
+    "references_dir":  "projects/pixel_qr_bpf_fr4_210um/references",
+    "frequency":  {
+                      "start_ghz":  4.0,
+                      "stop_ghz":  10.0,
+                      "passband_start_ghz":  6.0,
+                      "passband_stop_ghz":  8.0
+                  },
+    "active_sweep":  "pixel_qr_bpf_fr4_210um_r0",
+    "sweeps":  {
+                   "pixel_qr_bpf_fr4_210um_r0":  {
+                                                     "pipeline_id":  "pixel_qr_bpf_fr4_210um_v1",
+                                                     "plan":  "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r0.csv",
+                                                     "layouts_dir":  "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r0",
+                                                     "results_dir":  "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r0",
+                                                     "summary":  "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r0/sweep_summary.csv",
+                                                     "target_profile":  "fr4_25db_rl6",
+                                                     "device_id":  "filter.pixel_qr_bpf",
+                                                     "template_cell":  "interdigital_9o_ro4350b_508um_v3_wide_mm_coords",
+                                                     "setup_view":  "em%Setup",
+                                                     "rfpro_emsetup_view":  "emSetup",
+                                                     "generator":  {
+                                                                       "script":  "tools/generate_pixel_qr_bpf_layout.py",
+                                                                       "layout_generator":  "tools/layout/generate_pixel_qr_bpf_layout.py"
+                                                                   },
+                                                     "optimizer":  {
+                                                                       "strategy":  "binary_topology_seed_then_dbs",
+                                                                       "round_name":  "r0",
+                                                                       "matrix_sizes":  [
+                                                                                            8,
+                                                                                            10
+                                                                                        ],
+                                                                       "initial_patterns":  [
+                                                                                                "qr_seed",
+                                                                                                "checker",
+                                                                                                "diag",
+                                                                                                "edge_coupled",
+                                                                                                "symmetric_random"
+                                                                                            ]
+                                                                   }
+                                                 }
+               },
+    "ads":  {
+                "library":  "BFP_lib",
+                "template_cell":  "interdigital_9o_ro4350b_508um_v3_wide_mm_coords",
+                "substrate":  "6-8G_Fillter_lib:substrate4"
+            }
+}

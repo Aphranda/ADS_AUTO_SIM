@@ -33,6 +33,7 @@ def attach_run_metadata(rows: list[dict[str, str]], args: argparse.Namespace) ->
         "round_id": args.round_id or "",
         "candidate_id": args.candidate_id or "",
         "profile_id": args.profile_id or "",
+        "pipeline_id": args.pipeline_id or "",
         "target_profile_id": args.target_profile_id or args.target_profile,
         "score_version": score_version,
         "error_class": args.error_class or "",
@@ -90,6 +91,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--round-id", default=None)
     parser.add_argument("--candidate-id", default=None)
     parser.add_argument("--profile-id", default=None)
+    parser.add_argument("--pipeline-id", default=None)
     parser.add_argument("--target-profile-id", default=None)
     parser.add_argument("--score-version", default=None)
     parser.add_argument("--error-class", default=None)

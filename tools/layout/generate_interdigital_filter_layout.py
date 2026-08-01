@@ -293,6 +293,7 @@ def build_layout(params: FilterParams, rects: list[Rect | Quad] | None = None) -
         ports=ports,
         metadata={
             "generator": "tools/generate_interdigital_filter_layout.py",
+            "layer_map_version": "profile-default-v1",
             "topology": "interdigital_bpf",
             "order": params.order,
             "substrate": params.substrate,

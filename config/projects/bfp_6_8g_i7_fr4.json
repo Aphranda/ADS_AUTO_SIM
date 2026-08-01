@@ -6,6 +6,7 @@
   "primary_device_type": "filter.interdigital",
   "default_profile": "home",
   "target_profile": "fr4_25db_rl6",
+  "pipeline_id": "bfp_6_8g_i7_fr4_interdigital_v1",
   "project_root": "projects/bfp_6_8g_i7_fr4",
   "plans_dir": "projects/bfp_6_8g_i7_fr4/plans",
   "layouts_dir": "projects/bfp_6_8g_i7_fr4/layouts",
@@ -22,6 +23,7 @@
   "active_sweep": "interdigital_7o_fr4_round7",
   "sweeps": {
     "interdigital_7o_fr4_round7": {
+      "pipeline_id": "bfp_6_8g_i7_fr4_interdigital_v1",
       "plan": "projects/bfp_6_8g_i7_fr4/plans/filter_opt_i7_fr4_round7.csv",
       "layouts_dir": "projects/bfp_6_8g_i7_fr4/layouts/interdigital_7o_fr4_210um_round7",
       "results_dir": "projects/bfp_6_8g_i7_fr4/results/interdigital_7o_fr4_210um_round7",

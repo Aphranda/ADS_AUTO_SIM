@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Run the generated ADS/FEM closed loop for a CSV sweep plan."""
 
 from __future__ import annotations
@@ -19,8 +19,9 @@ for _path in (_SRC_ROOT, _TOOLS_ROOT):
         sys.path.insert(0, str(_path))
 
 from ads_profiles import get_ads_profile, profile_names, resolve_ads_python, resolve_host_python, resolve_library, resolve_workspace
-from simads.config import load_project
+from simads.config import load_pipeline, load_project, resolve_pipeline_id, validate_pipeline
 from simads.devices import list_devices
+from simads.geometry import load_layout_json, validate_layout_contract, validate_pixel_qr_bpf_layout
 from simads.runtime import classify_exception, create_run_id
 
 TARGET_SCORE_VERSIONS = {
@@ -75,7 +76,7 @@ def run_context(run_dir: Path) -> dict[str, str]:
     state = read_json(run_dir / "state.json")
     manifest = read_json(run_dir / "run_manifest.json")
     context: dict[str, str] = {}
-    for key in ("run_id", "project_id", "round_id", "candidate_id", "profile_id", "target_profile_id", "score_version"):
+    for key in ("run_id", "project_id", "round_id", "candidate_id", "profile_id", "pipeline_id", "target_profile_id", "score_version"):
         value = manifest.get(key)
         if value is not None:
             context[key] = str(value)
@@ -96,6 +97,7 @@ def ordered_fieldnames(rows: list[dict[str, str]]) -> list[str]:
         "elapsed_s",
         "run_id",
         "profile_id",
+        "pipeline_id",
         "target_profile_id",
         "score_version",
         "notes",
@@ -156,6 +158,7 @@ def write_summary(
                         "run_id": context.get("run_id", row.get("run_id", str(info.get("run_id", "")))),
                         "run_dir": str(run_dir),
                         "profile_id": context.get("profile_id", row.get("profile_id", profile_id)),
+                        "pipeline_id": context.get("pipeline_id", row.get("pipeline_id", str(info.get("pipeline_id", "")))),
                         "target_profile_id": context.get("target_profile_id", row.get("target_profile_id", target_profile_id)),
                         "score_version": context.get("score_version", row.get("score_version", "")),
                         "notes": plan.get("notes", ""),
@@ -181,13 +184,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--out-dir", type=Path, default=None, help="Generated layout directory. Default uses the active project sweep.")
     parser.add_argument("--results-dir", type=Path, default=None, help="Result directory. Default uses the active project sweep.")
     parser.add_argument("--summary", type=Path, default=None, help="Sweep summary CSV. Default uses the active project sweep.")
-    parser.add_argument("--profile", default="company", choices=profile_names(), help="ADS path profile to use.")
+    parser.add_argument("--profile", default=None, choices=profile_names(), help="ADS path profile to use.")
     parser.add_argument("--ads-python", type=Path, default=None, help="Override profile ADS Python.")
     parser.add_argument("--host-python", type=Path, default=None, help="Override profile host/control Python.")
     parser.add_argument("--workspace", type=Path, default=None, help="Override profile ADS workspace.")
     parser.add_argument("--library", default=None, help="Override profile ADS library.")
     parser.add_argument("--project-id", default="bfp_6_8g_i7_fr4", help="Project id passed to run manifests.")
     parser.add_argument("--sweep-id", default=None, help="Optional sweep id from project config.")
+    parser.add_argument("--pipeline-id", default=None, help="Pipeline contract id. Default uses the active project sweep.")
     parser.add_argument(
         "--device-id",
         default=None,
@@ -226,6 +230,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--fem-dataset-suffix", default="a")
     parser.add_argument("--export-fem-txt", action="store_true")
     parser.add_argument("--continue-on-error", action="store_true")
+    parser.add_argument("--skip-pipeline-check", action="store_true", help="Skip the standard pipeline contract preflight gate.")
+    parser.add_argument("--skip-layout-check", action="store_true", help="Skip generated layout JSON contract checks.")
+    parser.add_argument(
+        "--strict-layout-check",
+        action="store_true",
+        help="Fail when layout JSON is missing even during --skip-generate or --dry-run.",
+    )
+    parser.add_argument("--layout-topology-check", choices=("auto", "none", "pixel_qr_bpf"), default="auto")
+    parser.add_argument("--min-metal-spacing-mm", type=float, default=0.1016)
+    parser.add_argument("--max-island-components", type=int, default=None)
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
@@ -246,10 +260,14 @@ def apply_project_defaults(args: argparse.Namespace, root: Path) -> None:
         project = None
     sweep = project.get_sweep(args.sweep_id) if project else None
     fallback_plan, fallback_layouts, fallback_results, fallback_summary = default_project_paths(root, args.project_id)
-    profile = resolve_profile(args.profile, sweep.profile if sweep else None)
+    pipeline_id = resolve_pipeline_id(project, sweep, args.pipeline_id)
+    pipeline = load_pipeline(pipeline_id, root=root) if pipeline_id else None
+    profile = resolve_profile(args.profile, (pipeline.profile_id if pipeline else None) or (sweep.profile if sweep else None))
 
     args._project_config = project
     args._sweep_config = sweep
+    args._pipeline_config = pipeline
+    args.pipeline_id = pipeline_id
     args.profile = profile
     args.plan = args.plan or (sweep.plan if sweep else None) or fallback_plan
     args.out_dir = args.out_dir or (sweep.layouts_dir if sweep else None) or fallback_layouts
@@ -257,25 +275,115 @@ def apply_project_defaults(args: argparse.Namespace, root: Path) -> None:
     args.summary = args.summary or (sweep.summary if sweep else None) or fallback_summary
     args.device_id = (
         args.device_id
+        or (pipeline.device_id if pipeline else None)
         or (sweep.device_id if sweep else None)
         or (project.primary_device_type if project else None)
         or "filter.interdigital"
     )
-    args.target_profile = args.target_profile or (sweep.target_profile if sweep else None) or (project.target_profile if project else None) or "ro4350_strict"
+    args.target_profile = (
+        args.target_profile
+        or (pipeline.scoring.target_profile if pipeline else None)
+        or (sweep.target_profile if sweep else None)
+        or (project.target_profile if project else None)
+        or "ro4350_strict"
+    )
     ads_profile = get_ads_profile(args.profile)
     args.template_cell = (
         args.template_cell
+        or (pipeline.ads.template_cell if pipeline else None)
         or (sweep.template_cell if sweep else None)
         or ads_profile.template_cell
         or (project.ads.template_cell if project and project.ads.template_cell else None)
         or "interdigital_9o_ro4350b_508um_v3_wide_mm_coords"
     )
-    args.setup_view = args.setup_view or (sweep.setup_view if sweep else None) or ads_profile.setup_view or (project.ads.setup_view if project else None) or "em%Setup"
-    args.rfpro_emsetup_view = args.rfpro_emsetup_view or (sweep.rfpro_emsetup_view if sweep else None) or ads_profile.rfpro_emsetup_view
+    args.setup_view = (
+        args.setup_view
+        or (pipeline.ads.setup_view if pipeline else None)
+        or (sweep.setup_view if sweep else None)
+        or ads_profile.setup_view
+        or (project.ads.setup_view if project else None)
+        or "em%Setup"
+    )
+    args.rfpro_emsetup_view = (
+        args.rfpro_emsetup_view
+        or (pipeline.ads.rfpro_emsetup_view if pipeline else None)
+        or (sweep.rfpro_emsetup_view if sweep else None)
+        or ads_profile.rfpro_emsetup_view
+    )
 
 
-def resolve_profile(current: str, configured: str | None) -> str:
+def resolve_profile(current: str | None, configured: str | None) -> str:
     return current or configured or "company"
+
+
+def run_pipeline_gate(args: argparse.Namespace) -> None:
+    pipeline = args._pipeline_config
+    project = args._project_config
+    if args.skip_pipeline_check:
+        print("Pipeline contract check skipped by --skip-pipeline-check.")
+        return
+    if pipeline is None:
+        raise SystemExit("No pipeline contract resolved. Use --pipeline-id or add pipeline_id to project/sweep config.")
+    profile = get_ads_profile(args.profile)
+    checks = validate_pipeline(pipeline, project=project, profile=profile)
+    failed = [check for check in checks if not check.ok]
+    print(f"Pipeline contract check: {pipeline.pipeline_id}")
+    for check in checks:
+        status = "PASS" if check.ok else "FAIL"
+        suffix = f" [{check.path}]" if check.path is not None else ""
+        print(f"{status} {check.name}: {check.message}{suffix}")
+    if failed:
+        names = ", ".join(check.name for check in failed)
+        raise SystemExit(f"Pipeline contract check failed: {names}")
+
+
+def run_layout_gate(args: argparse.Namespace, candidate: str) -> None:
+    if args.skip_layout_check:
+        print(f"Layout contract check skipped for {candidate} by --skip-layout-check.")
+        return
+    pipeline = args._pipeline_config
+    if pipeline is None:
+        return
+
+    layout_json = args.out_dir / f"{candidate.removesuffix('_mm_coords')}_layout.json"
+    if not layout_json.exists():
+        message = f"Layout contract check: missing {layout_json}"
+        if args.strict_layout_check or (pipeline.layout.require_layout_json and not args.skip_generate and not args.dry_run):
+            raise SystemExit(message)
+        print(f"WARN {message}")
+        return
+
+    layout = load_layout_json(layout_json)
+    checks = validate_layout_contract(
+        layout,
+        units=pipeline.units,
+        metal_layer=pipeline.layer_map.metal_layer,
+        via_layer=pipeline.layer_map.via_layer,
+        boundary_layer=pipeline.layer_map.boundary_layer,
+        layer_map_version=pipeline.layer_map.layer_map_version,
+        port_names=tuple(pipeline.ports.names),
+    )
+    metadata = layout.get("metadata") if isinstance(layout.get("metadata"), dict) else {}
+    run_pixel_qr_check = args.layout_topology_check == "pixel_qr_bpf" or (
+        args.layout_topology_check == "auto" and (metadata.get("topology") == "pixel_qr_bpf" or pipeline.device_id == "filter.pixel_qr_bpf")
+    )
+    if run_pixel_qr_check:
+        checks.extend(
+            validate_pixel_qr_bpf_layout(
+                layout,
+                metal_layer=pipeline.layer_map.metal_layer,
+                min_spacing_mm=args.min_metal_spacing_mm,
+                max_island_components=args.max_island_components,
+            )
+        )
+    failed = [check for check in checks if not check.ok]
+    print(f"Layout contract check: {candidate}")
+    for check in checks:
+        status = "PASS" if check.ok else "FAIL"
+        print(f"{status} {check.name}: {check.message}")
+    if failed:
+        names = ", ".join(check.name for check in failed)
+        raise SystemExit(f"Layout contract check failed for {candidate}: {names}")
 
 
 def main() -> None:
@@ -283,23 +391,30 @@ def main() -> None:
     root = repo_root()
     tools_dir = root / "tools"
     apply_project_defaults(args, root)
+    pipeline = args._pipeline_config
     device_id = args.device_id
     ads_python = resolve_ads_python(args.profile, args.ads_python)
     host_python = resolve_host_python(args.profile, args.host_python)
     workspace = resolve_workspace(args.profile, args.workspace)
     library = resolve_library(args.profile, args.library)
+    run_pipeline_gate(args)
     rows = read_plan(args.plan)
     selected = args.candidates or [row["name"].strip() for row in rows]
     plan_rows = {row["name"].strip(): row for row in rows}
     round_id = args.round_id or infer_round_id(str(args.plan), str(args.out_dir), str(args.results_dir), str(args.summary))
-    score_version = TARGET_SCORE_VERSIONS[args.target_profile]
+    score_version = (
+        pipeline.scoring.score_version
+        if pipeline is not None and args.target_profile == pipeline.scoring.target_profile
+        else TARGET_SCORE_VERSIONS[args.target_profile]
+    )
+    generate_script = (pipeline.layout.sweep_script if pipeline else None) or (tools_dir / "generate_filter_sweep.py")
 
     if not args.skip_generate:
         run_command(
             "Generate candidate DXF/JSON files",
             [
                 str(host_python),
-                str(tools_dir / "generate_filter_sweep.py"),
+                str(generate_script),
                 "--plan",
                 str(args.plan),
                 "--out-dir",
@@ -313,10 +428,20 @@ def main() -> None:
     failed_rows: list[dict[str, str]] = []
     for candidate in selected:
         cell = cell_name(candidate)
+        run_layout_gate(args, candidate)
         run_id = create_run_id(args.project_id, round_id, candidate, args.profile)
         run_dir = args.results_dir / "runs" / run_id
         score_path = args.results_dir / f"{cell}_score.csv"
-        run_infos.append({"candidate": candidate, "cell": cell, "run_id": run_id, "run_dir": run_dir, "score_path": score_path})
+        run_infos.append(
+            {
+                "candidate": candidate,
+                "cell": cell,
+                "run_id": run_id,
+                "run_dir": run_dir,
+                "score_path": score_path,
+                "pipeline_id": args.pipeline_id or "",
+            }
+        )
         existing_layout = workspace / library / cell / "layout"
         command = [
             str(host_python),
@@ -326,6 +451,8 @@ def main() -> None:
             device_id,
             "--profile",
             args.profile,
+            "--pipeline-id",
+            args.pipeline_id or "",
             "--ads-python",
             str(ads_python),
             "--host-python",
@@ -391,6 +518,7 @@ def main() -> None:
                     "run_id": run_id,
                     "run_dir": str(run_dir),
                     "profile_id": args.profile,
+                    "pipeline_id": args.pipeline_id or "",
                     "target_profile_id": args.target_profile,
                     "score_version": score_version,
                     "notes": plan_rows.get(candidate, {}).get("notes", ""),
@@ -406,3 +534,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

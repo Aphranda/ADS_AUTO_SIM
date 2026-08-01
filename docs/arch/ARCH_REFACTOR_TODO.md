@@ -1,4 +1,4 @@
-# ADS 自动仿真项目重构 TODO
+﻿# ADS 自动仿真项目重构 TODO
 
 Status: Active
 Domain: ARCH
@@ -218,7 +218,7 @@ Owner: ADS Automation
 - [x] 主框架和 run manifest 文档明确：当前实现仍使用 `projects/<project_id>/results/<round>/runs/<run_id>/`，P1 再迁移到 `projects/<project_id>/runs/<run_id>/`。
 - [ ] 更新非交指 layout generator 的默认输出目录，逐步切到 `projects/<project_id>/layouts/...`。
 - [ ] 新增或细化 `DEVICE_PLUGIN_CONTRACT.md`，覆盖 `score_adapters`、`report_sections`、context-aware `optimizer_bounds(project_context)`。
-- [ ] 将 layout schema 的 `source_map`、`port_on_metal`、`via_inside_pad`、`layer_exists`、layer map version 纳入机器校验 gate。
+- [x] 将 layout schema 的 `source_map`、`port_on_metal`、`via_inside_pad`、`layer_exists`、layer map version 纳入机器校验 gate。
 - [ ] P1 run 目录迁移：让新 run 默认写入 `projects/<project_id>/runs/<run_id>/`，并保留 round results 下的索引或兼容映射。
 
 ### P1-11 Docs Internal Architecture
@@ -239,6 +239,45 @@ Owner: ADS Automation
 - [x] Phase 2：迁移 `data/flow/opt/result/devices/` 文档，并逐步更新历史引用。
 - [x] Phase 3：迁移 `arch/` 文档和长任务记录。
 - [x] Phase 4：确认无旧路径引用后清理根目录文件并归档旧路径说明。
+
+### P1-12 Standard Pipeline Contract
+
+**现状：** 已新增标准 pipeline contract，用于统一版图生成器、ADS DXF 导入/端口放置、emSetup/RFPro FEM、数据导出和评分器的模板、层、单位、端口和目标 profile。当前先覆盖 `bfp_6_8g_i7_fr4_interdigital_v1`，并已接入 sweep/candidate runner 的默认值解析和 run/score 元数据。
+
+**影响：** 如果没有统一 pipeline contract，后续优化迭代容易继续把 template cell、layer map、单位、端口坐标来源、score profile 和 home/company 路径混在 CLI 参数里，导致结果难以复现。
+
+- [x] 新增 `config/pipelines/bfp_6_8g_i7_fr4_interdigital_v1.json`，固定 `mm`、`cond/pcvia1/EM_BOUNDARY`、`P1/P2`、`em%Setup/emSetup`、`4-10 GHz` 和 `fr4_25db_rl6`。
+- [x] `config/projects/bfp_6_8g_i7_fr4.json` 和 active sweep 登记 `pipeline_id`。
+- [x] 新增 `src/simads/config/pipelines.py`，提供 pipeline loader、dataclass、id 解析和只读校验。
+- [x] 新增 `tools/check_pipeline_contract.py`，执行 project/profile/pipeline 一致性、脚本路径、单位、层、端口、模板、频段和评分检查。
+- [x] `tools/run_ads_filter_candidate.py` 接入 `--pipeline-id`，并从 contract 解析脚本路径、模板、层、view、target profile 和 score version。
+- [x] `tools/run_ads_filter_sweep.py` 接入 `--pipeline-id`，并传递到 candidate runner、summary 和失败记录。
+- [x] `tools/analyze_ads_dataset.py` 输出 `pipeline_id` 元数据。
+- [x] 新增 `docs/flow/FLOW_STANDARD_PIPELINE_CONTRACT.md`。
+- [x] 将 `pipeline_id/pipeline_snapshot` 正式写入 `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`。
+- [x] 将标准 pipeline 检查加入正式 round 执行前 gate。
+- [x] 支持同一 project 下默认 pipeline 与分支 sweep pipeline 并存。
+- [x] 将 layout schema 的 `source_map`、`port_on_metal`、`via_inside_pad`、`layer_exists`、layer map version 纳入机器校验。
+- [x] 为二维码像素化 FR4 210um 分支建立独立 pipeline config。
+- [ ] 为 folded SIR、高低阻抗 SIR、RO4350 高抑制分支建立独立 pipeline config。
+- [ ] 为每个非交指 pipeline 记录 topology-specific layout gate：过孔/接地语义、耦合缝隙、最小间距、端口过渡和可制造性约束。
+
+### P1-13 QR-like Pixelated BPF Branch
+
+**现状：** 已新增二维码式二值像素化带通滤波器独立项目 `pixel_qr_bpf_fr4_210um`，用于探索 FR4 210um、8x8/10x10 像素矩阵在 6-8 GHz 带通目标下的可行性。该分支已从 `bfp_6_8g_i7_fr4` 拆分，后续配置、版图、结果和报告均在独立项目目录维护。R0 版图规则已调整为相邻黑色像素共边无间隙，不再使用补桥矩形。
+
+- [x] 新增 `docs/devices/二维码像素化带通滤波器设计报告.md`。
+- [x] 新增 `tools/layout/generate_pixel_qr_bpf_layout.py` 和根目录兼容 wrapper。
+- [x] 新增 `config/projects/pixel_qr_bpf_fr4_210um.json`。
+- [x] 新增 `config/pipelines/pixel_qr_bpf_fr4_210um_v1.json`。
+- [x] 新增 `projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r0.csv`。
+- [x] 生成 8x8 和 10x10 R0 样例 DXF/SVG/layout JSON/params JSON/DRC。
+- [x] 将相邻黑色像素连通规则改为 edge-touching no-gap 网格，移除 `conn_h/conn_v` 补桥图形。
+- [x] 已接入通用 layout contract 机器校验，覆盖 `port_on_metal`、`source_map/generator`、声明层、已使用层、过孔焊盘/落铜和 `layer_map_version`。
+- [x] 新增像素化分支专用 layout/DRC 机器校验，覆盖孤岛统计、最小间距、feed/pixel 连通性和 matrix `source_map` 完整性。
+- [ ] 根据第一次 FEM 和板厂约束设置像素化分支的 `max_island_components` 推荐阈值。
+- [ ] 用无间隙 R0 候选执行 ADS 导入后单候选 FEM 验证，判断是否形成带通而非低通/陷波。
+- [ ] 根据第一次 FEM 响应决定是否进入 DBS/GA 二值翻转优化。
 
 ---
 
@@ -316,7 +355,7 @@ Owner: ADS Automation
 | SIM 目录不是 git 仓库 | 无法用 git diff/status 做变更保护。 | 重要重构前建议初始化 git 或手工备份关键文件。 |
 | run 目录仍处于兼容结构 | 当前 runner 写入 `results/<round>/runs/<run_id>`，目标结构是 `runs/<run_id>`。 | P1 迁移时保留 round summary/index，避免破坏历史结果引用。 |
 | device plugin contract 未完全形式化 | registry 和基础 plugin 已有，但 score/report/context-aware optimizer 接口仍未冻结。 | 新增或细化 `DEVICE_PLUGIN_CONTRACT.md`，再扩 folded_sir、hilo_sir、stub。 |
-| layout/source_map/DRC gate 不完整 | `_layout.json` 已有，但部分规则仍是文档要求而非机器校验。 | 将 `port_on_metal`、`via_inside_pad`、`layer_exists`、layer map version 接入 schema/DRC 检查。 |
+| layout/source_map/DRC gate 扩展到多拓扑 | 交指 pipeline 已接入 `_layout.json` 机器校验；非交指分支尚需独立 pipeline 规则。 | 为 folded SIR、高低阻抗 SIR、RO4350 高抑制分支建立专用 pipeline config 和 layout gate。 |
 | template 覆盖风险 | 代码 gate 已落地。 | 后续新增 ADS 删除/清理脚本必须复用 `src/simads.safety`。 |
 
 ## P0 完成定义
@@ -330,6 +369,8 @@ Owner: ADS Automation
 [ ] template cell 不会被普通候选流程覆盖。
 [x] baseline 已 frozen，并有漂移复测规则。
 ```
+
+
 
 
 

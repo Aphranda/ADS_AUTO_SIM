@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "run_id": "pixel_qr_bpf_fr4_210um_manual_pixel_qr16_fr4_210um_seed0_p060_ov10_company_20260801_204204",
+  "artifacts": [
+    {
+      "type": "dxf",
+      "path": "E:\\OneDrive\\4.Code\\SIM\\projects\\pixel_qr_bpf_fr4_210um\\layouts\\pixel_qr_bpf_fr4_210um_r0\\pixel_qr16_fr4_210um_seed0_p060_ov10_mm_coords.dxf",
+      "exists": true,
+      "hash": "3741b3e3c58fa4ab0cb6ff427957df589317dc8a1234aa95fdc82ed594e278bf",
+      "producer": "generate_filter_sweep.py"
+    },
+    {
+      "type": "params",
+      "path": "E:\\OneDrive\\4.Code\\SIM\\projects\\pixel_qr_bpf_fr4_210um\\layouts\\pixel_qr_bpf_fr4_210um_r0\\pixel_qr16_fr4_210um_seed0_p060_ov10_params.json",
+      "exists": true,
+      "hash": "40afb88207215f779f404a0a8ca8ff1899e8a006b3eb039251b38635ef6f1c67",
+      "producer": "generate_filter_sweep.py"
+    },
+    {
+      "type": "layout_json",
+      "path": "E:\\OneDrive\\4.Code\\SIM\\projects\\pixel_qr_bpf_fr4_210um\\layouts\\pixel_qr_bpf_fr4_210um_r0\\pixel_qr16_fr4_210um_seed0_p060_ov10_layout.json",
+      "exists": true,
+      "hash": "d94579f8eb9c7b27ef3a75be144bb6e0c0a92636622c2863e6edb0ce2c25e0bc",
+      "producer": "generate_filter_sweep.py"
+    },
+    {
+      "type": "rfpro_csv",
+      "path": "E:\\OneDrive\\4.Code\\SIM\\projects\\pixel_qr_bpf_fr4_210um\\results\\pixel_qr_bpf_fr4_210um_r0\\pixel_qr16_fr4_210um_seed0_p060_ov10_mm_coords_rfpro.csv",
+      "exists": true,
+      "hash": "b313747688f5dc656ea16ec1d77a521bd9dbae6f20727bce430940fe58c8b938",
+      "producer": "ads_run_rfpro_fem.py"
+    },
+    {
+      "type": "fem_dataset",
+      "path": "D:\\Work\\ADS\\6-8G_Fillter\\6-8G_Fillter\\data\\pixel_qr16_fr4_210um_seed0_p060_ov10_mm_coords_FEM_a.ds",
+      "exists": false,
+      "hash": null,
+      "producer": "ADS RFPro/FEM"
+    },
+    {
+      "type": "fem_txt",
+      "path": null,
+      "exists": false,
+      "hash": null,
+      "producer": "export_ads_fem_dataset.py"
+    },
+    {
+      "type": "score",
+      "path": "E:\\OneDrive\\4.Code\\SIM\\projects\\pixel_qr_bpf_fr4_210um\\results\\pixel_qr_bpf_fr4_210um_r0\\pixel_qr16_fr4_210um_seed0_p060_ov10_mm_coords_score.csv",
+      "exists": true,
+      "hash": "2ab7e6f8b263f5f75271399471ecfedba6215bbc5f4700b441d952866843887b",
+      "producer": "analyze_ads_dataset.py"
+    },
+    {
+      "type": "log",
+      "path": "E:\\OneDrive\\4.Code\\SIM\\projects\\pixel_qr_bpf_fr4_210um\\results\\pixel_qr_bpf_fr4_210um_r0\\pixel_qr16_fr4_210um_seed0_p060_ov10_mm_coords_flow.log",
+      "exists": true,
+      "hash": "f54cacd440cb83634035e480b4c45770f5f0252f6a76258ee1e42da04e76b13b",
+      "producer": "run_ads_filter_candidate.py"
+    },
+    {
+      "type": "state",
+      "path": "E:\\OneDrive\\4.Code\\SIM\\projects\\pixel_qr_bpf_fr4_210um\\results\\pixel_qr_bpf_fr4_210um_r0\\runs\\pixel_qr_bpf_fr4_210um_manual_pixel_qr16_fr4_210um_seed0_p060_ov10_company_20260801_204204\\state.json",
+      "exists": true,
+      "hash": "7eb436ea7abb70c854975d871113ec5faa9deddcc9a0f5d7d0e85344bb5ba607",
+      "producer": "run_ads_filter_candidate.py"
+    }
+  ],
+  "updated_at": "2026-08-01T20:43:12+08:00"
+}

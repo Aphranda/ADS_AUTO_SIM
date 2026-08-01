@@ -1,0 +1,154 @@
+{
+  "schema_version": "1.0",
+  "run_id": "pixel_qr_bpf_fr4_210um_manual_pixel_qr16_fr4_210um_seed0_p040_ov10_company_20260801_210434",
+  "project_id": "pixel_qr_bpf_fr4_210um",
+  "round_id": "manual",
+  "candidate_id": "pixel_qr16_fr4_210um_seed0_p040_ov10",
+  "device_id": "filter.pixel_qr_bpf",
+  "device_plugin": {
+    "family": "filter",
+    "port_names": [
+      "P1",
+      "P2"
+    ],
+    "default_layers": {
+      "metal": "cond",
+      "via": "pcvia1",
+      "boundary": "EM_BOUNDARY"
+    },
+    "builder_module": "generate_pixel_qr_bpf_layout",
+    "params_class": "PixelQrBpfParams",
+    "layout_builder": "build_layout",
+    "outputs_writer": "write_outputs"
+  },
+  "pipeline_id": "pixel_qr_bpf_fr4_210um_v1",
+  "pipeline_snapshot": {
+    "schema_version": "0.1.0",
+    "pipeline_id": "pixel_qr_bpf_fr4_210um_v1",
+    "project_id": "pixel_qr_bpf_fr4_210um",
+    "sweep_id": "pixel_qr_bpf_fr4_210um_r0",
+    "device_id": "filter.pixel_qr_bpf",
+    "profile_id": "company",
+    "units": "mm",
+    "layout": {
+      "sweep_script": "E:\\OneDrive\\4.Code\\SIM\\tools\\generate_pixel_qr_bpf_layout.py",
+      "layout_generator_script": "E:\\OneDrive\\4.Code\\SIM\\tools\\layout\\generate_pixel_qr_bpf_layout.py",
+      "layout_output_dir": "E:\\OneDrive\\4.Code\\SIM\\projects\\pixel_qr_bpf_fr4_210um\\layouts\\pixel_qr_bpf_fr4_210um_r0",
+      "params_output_dir": "E:\\OneDrive\\4.Code\\SIM\\projects\\pixel_qr_bpf_fr4_210um\\layouts\\pixel_qr_bpf_fr4_210um_r0",
+      "require_layout_json": true,
+      "require_params_json": true
+    },
+    "ads": {
+      "import_script": "E:\\OneDrive\\4.Code\\SIM\\tools\\ads\\ads_import_dxf_add_ports.py",
+      "clone_setup_script": "E:\\OneDrive\\4.Code\\SIM\\tools\\ads\\ads_clone_emsetup_template.py",
+      "rfpro_script": "E:\\OneDrive\\4.Code\\SIM\\tools\\ads\\ads_run_rfpro_fem.py",
+      "dataset_export_script": "E:\\OneDrive\\4.Code\\SIM\\tools\\ads\\export_ads_fem_dataset.py",
+      "template_cell": "interdigital_9o_ro4350b_508um_v3_wide_mm_coords",
+      "setup_view": "em%Setup",
+      "rfpro_emsetup_view": "emSetup",
+      "workspace_profile": "company"
+    },
+    "layer_map": {
+      "metal_layer": "cond",
+      "via_layer": "pcvia1",
+      "boundary_layer": "EM_BOUNDARY",
+      "layer_map_version": "profile-default-v1",
+      "layer_map_strategy": "profile-default",
+      "layer_map_required": false
+    },
+    "ports": {
+      "names": [
+        "P1",
+        "P2"
+      ],
+      "location_source": "params_json",
+      "unit": "mm",
+      "pad_layer": "cond",
+      "reference": "ground"
+    },
+    "frequency": {
+      "start_ghz": 4.0,
+      "stop_ghz": 10.0,
+      "passband_start_ghz": 6.0,
+      "passband_stop_ghz": 8.0
+    },
+    "scoring": {
+      "script": "E:\\OneDrive\\4.Code\\SIM\\tools\\analyze_ads_dataset.py",
+      "target_profile": "fr4_25db_rl6",
+      "score_version": "fr4_i7_score_v1",
+      "source": "rfpro-csv"
+    }
+  },
+  "profile_id": "company",
+  "profile_snapshot": {
+    "profile_id": "company",
+    "ads_root": "D:\\Hardware\\Keysight\\ADS2026_Update1",
+    "ads_python": "D:\\Hardware\\Keysight\\ADS2026_Update1\\tools\\python\\python.exe",
+    "host_python": "D:\\Microsoft\\Python\\ads-automation\\Scripts\\python.exe",
+    "workspace": "D:\\Work\\ADS\\6-8G_Fillter\\6-8G_Fillter",
+    "library": "6-8G_Fillter_lib",
+    "template_cell": "interdigital_9o_ro4350b_508um_v3_wide_mm_coords",
+    "setup_view": "em%Setup",
+    "rfpro_emsetup_view": "emSetup",
+    "substrate": "6-8G_Fillter_lib:substrate4",
+    "substrate_library": "6-8G_Fillter_lib",
+    "layer_map": "D:\\Work\\ADS\\6-8G_Fillter\\6-8G_Fillter\\setup_dxf.opt"
+  },
+  "workspace": "D:\\Work\\ADS\\6-8G_Fillter\\6-8G_Fillter",
+  "library": "6-8G_Fillter_lib",
+  "template_cell": "interdigital_9o_ro4350b_508um_v3_wide_mm_coords",
+  "target_cell": "pixel_qr16_fr4_210um_seed0_p040_ov10_mm_coords",
+  "setup_view": "em%Setup",
+  "rfpro_emsetup_view": "emSetup",
+  "substrate": "6-8G_Fillter_lib:substrate4",
+  "target_profile_id": "fr4_25db_rl6",
+  "score_source": "rfpro-csv",
+  "score_version": "fr4_i7_score_v1",
+  "frequency_start_ghz": 4.0,
+  "frequency_stop_ghz": 10.0,
+  "inputs": {
+    "dxf": "E:\\OneDrive\\4.Code\\SIM\\projects\\pixel_qr_bpf_fr4_210um\\layouts\\pixel_qr_bpf_fr4_210um_r0\\pixel_qr16_fr4_210um_seed0_p040_ov10_mm_coords.dxf",
+    "params": "E:\\OneDrive\\4.Code\\SIM\\projects\\pixel_qr_bpf_fr4_210um\\layouts\\pixel_qr_bpf_fr4_210um_r0\\pixel_qr16_fr4_210um_seed0_p040_ov10_params.json",
+    "layout_json": "E:\\OneDrive\\4.Code\\SIM\\projects\\pixel_qr_bpf_fr4_210um\\layouts\\pixel_qr_bpf_fr4_210um_r0\\pixel_qr16_fr4_210um_seed0_p040_ov10_layout.json"
+  },
+  "outputs": {
+    "rfpro_csv": "E:\\OneDrive\\4.Code\\SIM\\projects\\pixel_qr_bpf_fr4_210um\\results\\pixel_qr_bpf_fr4_210um_r0\\pixel_qr16_fr4_210um_seed0_p040_ov10_mm_coords_rfpro.csv",
+    "score_csv": "E:\\OneDrive\\4.Code\\SIM\\projects\\pixel_qr_bpf_fr4_210um\\results\\pixel_qr_bpf_fr4_210um_r0\\pixel_qr16_fr4_210um_seed0_p040_ov10_mm_coords_score.csv",
+    "fem_dataset": "D:\\Work\\ADS\\6-8G_Fillter\\6-8G_Fillter\\data\\pixel_qr16_fr4_210um_seed0_p040_ov10_mm_coords_FEM_a.ds",
+    "fem_txt": null,
+    "log_file": "E:\\OneDrive\\4.Code\\SIM\\projects\\pixel_qr_bpf_fr4_210um\\results\\pixel_qr_bpf_fr4_210um_r0\\pixel_qr16_fr4_210um_seed0_p040_ov10_mm_coords_flow.log",
+    "state": "E:\\OneDrive\\4.Code\\SIM\\projects\\pixel_qr_bpf_fr4_210um\\results\\pixel_qr_bpf_fr4_210um_r0\\runs\\pixel_qr_bpf_fr4_210um_manual_pixel_qr16_fr4_210um_seed0_p040_ov10_company_20260801_210434\\state.json",
+    "artifact_manifest": "E:\\OneDrive\\4.Code\\SIM\\projects\\pixel_qr_bpf_fr4_210um\\results\\pixel_qr_bpf_fr4_210um_r0\\runs\\pixel_qr_bpf_fr4_210um_manual_pixel_qr16_fr4_210um_seed0_p040_ov10_company_20260801_210434\\artifact_manifest.json"
+  },
+  "status": "completed",
+  "stage": "scored",
+  "error_class": null,
+  "state_path": "E:\\OneDrive\\4.Code\\SIM\\projects\\pixel_qr_bpf_fr4_210um\\results\\pixel_qr_bpf_fr4_210um_r0\\runs\\pixel_qr_bpf_fr4_210um_manual_pixel_qr16_fr4_210um_seed0_p040_ov10_company_20260801_210434\\state.json",
+  "artifact_manifest_path": "E:\\OneDrive\\4.Code\\SIM\\projects\\pixel_qr_bpf_fr4_210um\\results\\pixel_qr_bpf_fr4_210um_r0\\runs\\pixel_qr_bpf_fr4_210um_manual_pixel_qr16_fr4_210um_seed0_p040_ov10_company_20260801_210434\\artifact_manifest.json",
+  "elapsed_s": 79.36,
+  "write_safety": {
+    "policy_version": "ads_write_safety_v1",
+    "profile_id": "company",
+    "workspace": "D:\\Work\\ADS\\6-8G_Fillter\\6-8G_Fillter",
+    "library": "6-8G_Fillter_lib",
+    "template_cell": "interdigital_9o_ro4350b_508um_v3_wide_mm_coords",
+    "target_cell": "pixel_qr16_fr4_210um_seed0_p040_ov10_mm_coords",
+    "target_is_template": false,
+    "force": false,
+    "operation": "candidate_flow",
+    "allowed": true
+  },
+  "flags": {
+    "dry_run": false,
+    "skip_import": false,
+    "reuse_layout": false,
+    "skip_setup": false,
+    "overwrite_setup": true,
+    "prepare_only": false,
+    "skip_fem": false,
+    "skip_score": false,
+    "score_only": false,
+    "force": false
+  },
+  "updated_at": "2026-08-01T21:05:54+08:00"
+}

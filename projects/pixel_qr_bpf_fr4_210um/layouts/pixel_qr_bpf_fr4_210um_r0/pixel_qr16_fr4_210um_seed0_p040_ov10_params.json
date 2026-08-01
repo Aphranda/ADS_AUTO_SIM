@@ -1,0 +1,97 @@
+{
+  "parameters": {
+    "name": "pixel_qr16_fr4_210um_seed0_p040_ov10",
+    "substrate": "substrate4",
+    "er": 4.6,
+    "dielectric_height_mm": 0.21,
+    "copper_thickness_mm": 0.035,
+    "lower_cutoff_ghz": 6.0,
+    "upper_cutoff_ghz": 8.0,
+    "z0_ohm": 50.0,
+    "matrix_n": 16,
+    "pixel_mm": 0.4,
+    "cell_pitch_mm": 0.4,
+    "pixel_overfill_ratio": 0.1,
+    "gap_mm": 0.0,
+    "feed_w_mm": 0.36,
+    "feed_len_mm": 2.0,
+    "coupling_overlap_mm": 0.4,
+    "boundary_margin_mm": 1.5,
+    "min_fab_gap_mm": 0.1016,
+    "min_fab_feature_mm": 0.1016,
+    "fill_probability": 0.5,
+    "seed": 0,
+    "pattern": "qr_seed",
+    "custom_mask_rows": [],
+    "mirror_x": true,
+    "force_edge_coupling": true,
+    "connect_adjacent_pixels": true,
+    "metal_layer": "cond",
+    "via_layer": "pcvia1",
+    "boundary_layer": "EM_BOUNDARY"
+  },
+  "derived": {
+    "region_w_mm": 6.4,
+    "region_h_mm": 6.4,
+    "cell_pitch_mm": 0.4,
+    "metal_pixel_mm": 0.44000000000000006,
+    "total_length_mm": 10.4,
+    "pixel_fill_count": 144,
+    "edge_touch_connection_count": 158,
+    "additional_connection_shape_count": 0,
+    "pixel_total_count": 256,
+    "pixel_fill_ratio": 0.5625,
+    "mask_hash": "6a5434eccaa1ff19",
+    "effective_coupling_overlap_mm": 0.44000000000000006
+  },
+  "ports": {
+    "P1": [
+      -2.0,
+      0.0
+    ],
+    "P2": [
+      8.4,
+      0.0
+    ]
+  },
+  "port_details": [
+    {
+      "name": "P1",
+      "number": 1,
+      "x_mm": -2.0,
+      "y_mm": 0.0,
+      "width_mm": 0.36,
+      "layer": "cond",
+      "orientation_deg": 180.0,
+      "reference": "ground"
+    },
+    {
+      "name": "P2",
+      "number": 2,
+      "x_mm": 8.4,
+      "y_mm": 0.0,
+      "width_mm": 0.36,
+      "layer": "cond",
+      "orientation_deg": 0.0,
+      "reference": "ground"
+    }
+  ],
+  "mask_rows": [
+    "1111010110101111",
+    "1110100110010111",
+    "1110100110010111",
+    "1110001111000111",
+    "1001010110101001",
+    "1101101111011011",
+    "1001110110111001",
+    "1000000110000001",
+    "1111111111111111",
+    "0011000110001100",
+    "0001010110101000",
+    "0000100110010000",
+    "0101001111001010",
+    "1101011111101011",
+    "1000010110100001",
+    "0110110110110110"
+  ]
+}

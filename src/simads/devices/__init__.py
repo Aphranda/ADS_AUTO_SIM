@@ -283,6 +283,49 @@ def stub_filter_plugin() -> DevicePlugin:
     )
 
 
+def pixel_qr_bpf_plugin() -> DevicePlugin:
+    names = [
+        "substrate",
+        "er",
+        "dielectric_height_mm",
+        "copper_thickness_mm",
+        "lower_cutoff_ghz",
+        "upper_cutoff_ghz",
+        "z0_ohm",
+        "matrix_n",
+        "pixel_mm",
+        "gap_mm",
+        "feed_w_mm",
+        "feed_len_mm",
+        "coupling_overlap_mm",
+        "boundary_margin_mm",
+        "min_fab_gap_mm",
+        "min_fab_feature_mm",
+        "fill_probability",
+        "seed",
+        "pattern",
+        "mirror_x",
+        "force_edge_coupling",
+        "metal_layer",
+        "via_layer",
+        "boundary_layer",
+    ]
+    specs = [ParameterSpec(name="name", description="Candidate/layout name.")]
+    specs.extend(ParameterSpec(name=name, required=False, unit="mm" if name.endswith("_mm") else "") for name in names)
+    return DevicePlugin(
+        device_id="filter.pixel_qr_bpf",
+        family="filter",
+        parameter_specs=tuple(specs),
+        port_names=("P1", "P2"),
+        default_layers={"metal": "cond", "via": "pcvia1", "boundary": "EM_BOUNDARY"},
+        default_target_profiles=("fr4_25db_rl6", "fr4_25db_rl10"),
+        builder_module="generate_pixel_qr_bpf_layout",
+        params_class="PixelQrBpfParams",
+        layout_builder="build_layout",
+        outputs_writer="write_outputs",
+    )
+
+
 def build_default_registry() -> DeviceRegistry:
     return DeviceRegistry(
         [
@@ -290,6 +333,7 @@ def build_default_registry() -> DeviceRegistry:
             folded_sir_filter_plugin(),
             hilo_sir_filter_plugin(),
             stub_filter_plugin(),
+            pixel_qr_bpf_plugin(),
         ]
     )
 
