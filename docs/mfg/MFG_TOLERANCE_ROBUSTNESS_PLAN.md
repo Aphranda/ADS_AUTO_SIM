@@ -1,9 +1,9 @@
-﻿# Manufacturing Tolerance Robustness Plan
+# Manufacturing Tolerance Robustness Plan
 
 Status: Active
 Domain: MFG
 Canonical: `docs/mfg/MFG_TOLERANCE_ROBUSTNESS_PLAN.md`
-Related: `docs/layout/LAYOUT_RECONSTRUCTION_CHECKLIST.md`, `docs/opt/OPT_OBJECTIVE_FUNCTION_DESIGN.md`, `docs/result/RESULT_BASELINE_FREEZE_POLICY.md`, `docs/flow/FLOW_JOB_SCHEDULING_POLICY.md`, `docs/ARCH_REFACTOR_TODO.md`
+Related: `docs/layout/LAYOUT_RECONSTRUCTION_CHECKLIST.md`, `docs/opt/OPT_OBJECTIVE_FUNCTION_DESIGN.md`, `docs/result/RESULT_BASELINE_FREEZE_POLICY.md`, `docs/flow/FLOW_JOB_SCHEDULING_POLICY.md`, `docs/arch/ARCH_REFACTOR_TODO.md`
 Last updated: 2026-08-01
 Owner: ADS Automation
 

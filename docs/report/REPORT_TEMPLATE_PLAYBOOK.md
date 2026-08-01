@@ -1,9 +1,9 @@
-﻿# Report Template Playbook
+# Report Template Playbook
 
 Status: Active
 Domain: REPORT
 Canonical: `docs/report/REPORT_TEMPLATE_PLAYBOOK.md`
-Related: `docs/result/RESULT_BASELINE_FREEZE_POLICY.md`, `docs/mfg/MFG_TOLERANCE_ROBUSTNESS_PLAN.md`, `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`, `docs/layout/LAYOUT_RECONSTRUCTION_CHECKLIST.md`, `docs/ARCH_REFACTOR_TODO.md`
+Related: `docs/result/RESULT_BASELINE_FREEZE_POLICY.md`, `docs/mfg/MFG_TOLERANCE_ROBUSTNESS_PLAN.md`, `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`, `docs/layout/LAYOUT_RECONSTRUCTION_CHECKLIST.md`, `docs/arch/ARCH_REFACTOR_TODO.md`
 Last updated: 2026-08-01
 Owner: ADS Automation
 

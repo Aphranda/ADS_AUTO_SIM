@@ -1,0 +1,2 @@
+old_path,new_path,doc_domain,status,canonical_updated,readme_updated,related_updated,notes
+"docs/ARCH_DOCS_MIGRATION_20260801.csv","docs/arch/ARCH_DOCS_MIGRATION_20260801.csv","ARCH","deprecated_compat_csv","n/a","yes","n/a","Canonical CSV moved to docs/arch; keep this same-schema compatibility pointer during migration"

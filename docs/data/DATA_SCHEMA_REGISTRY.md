@@ -1,9 +1,9 @@
-﻿# ADS 自动仿真数据 Schema Registry
+# ADS 自动仿真数据 Schema Registry
 
 Status: Active
 Domain: DATA
 Canonical: `docs/data/DATA_SCHEMA_REGISTRY.md`
-Related: `docs/ADS版图自动仿真项目框架设计.md`, `docs/ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md`, `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`, `docs/ARCH_REFACTOR_TODO.md`
+Related: `docs/arch/ADS版图自动仿真项目框架设计.md`, `docs/arch/ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md`, `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`, `docs/arch/ARCH_REFACTOR_TODO.md`
 Last updated: 2026-08-01
 Owner: ADS Automation
 

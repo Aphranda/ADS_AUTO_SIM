@@ -1,9 +1,9 @@
-﻿# ADS 自动仿真项目文档索引
+# ADS 自动仿真项目文档索引
 
 Status: Active
 Domain: DOCS
 Canonical: `docs/README.md`
-Related: `docs/ADS版图自动仿真项目框架设计.md`, `docs/ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md`, `docs/ARCH_REFACTOR_TODO.md`, `docs/ARCH_REFACTOR_TASK_PROGRESS.md`, `docs/ARCH_ADS_ASSET_MIGRATION_20260801.md`
+Related: `docs/arch/ADS版图自动仿真项目框架设计.md`, `docs/arch/ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md`, `docs/arch/ARCH_REFACTOR_TODO.md`, `docs/arch/ARCH_REFACTOR_TASK_PROGRESS.md`, `docs/arch/ARCH_ADS_ASSET_MIGRATION_20260801.md`
 Last updated: 2026-08-01
 Owner: ADS Automation
 
@@ -19,14 +19,14 @@ projects/bfp_6_8g_i7_fr4/
 
 | 领域 | 当前 canonical 主文档 | 说明 |
 |---|---|---|
-| ARCH | `ADS版图自动仿真项目框架设计.md` | 顶层框架、对象模型、ADS API 能力边界、Python 脚本管理、数据流、优化路线和文档管理体系。 |
-| ARCH | `ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md` | 独立评审和缺口分析，登记 P0/P1/P2 风险、补齐建议和平台化 gate。 |
-| ARCH | `ARCH_REFACTOR_TODO.md` | 项目重构 TODO，记录 P0/P1/P2 待办、验收标准、推荐执行顺序和风险。 |
-| ARCH | `ARCH_REFACTOR_TASK_PROGRESS.md` | 项目重构任务记录，记录每次重构的完成内容、验证和剩余工作。 |
-| ARCH | `ARCH_ADS_ASSET_MIGRATION_20260801.md` | 旧 `ADS/` 资产迁移到 `projects/bfp_6_8g_i7_fr4/` 的说明和映射。 |
-| ARCH | `ARCH_DIRECTORY_GOVERNANCE.md` | `docs/`、`tools/` 和 `src/simads/` 的分层治理、迁移 gate 和兼容策略。 |
-| ARCH | `ARCH_DOCS_INTERNAL_STRUCTURE_PLAN.md` | `docs/` 内部目录架构、目标归属、分批迁移、旧路径 stub 和验收 gate。 |
-| ARCH | `ARCH_DOCS_MIGRATION_20260801.csv` | `docs/` 当前文件到目标子目录的迁移映射表。 |
+| ARCH | `arch/ADS版图自动仿真项目框架设计.md` | 顶层框架、对象模型、ADS API 能力边界、Python 脚本管理、数据流、优化路线和文档管理体系。 |
+| ARCH | `arch/ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md` | 独立评审和缺口分析，登记 P0/P1/P2 风险、补齐建议和平台化 gate。 |
+| ARCH | `arch/ARCH_REFACTOR_TODO.md` | 项目重构 TODO，记录 P0/P1/P2 待办、验收标准、推荐执行顺序和风险。 |
+| ARCH | `arch/ARCH_REFACTOR_TASK_PROGRESS.md` | 项目重构任务记录，记录每次重构的完成内容、验证和剩余工作。 |
+| ARCH | `arch/ARCH_ADS_ASSET_MIGRATION_20260801.md` | 旧 `ADS/` 资产迁移到 `projects/bfp_6_8g_i7_fr4/` 的说明和映射。 |
+| ARCH | `arch/ARCH_DIRECTORY_GOVERNANCE.md` | `docs/`、`tools/` 和 `src/simads/` 的分层治理、迁移 gate 和兼容策略。 |
+| ARCH | `arch/ARCH_DOCS_INTERNAL_STRUCTURE_PLAN.md` | `docs/` 内部目录架构、目标归属、分批迁移、旧路径归档和验收 gate。 |
+| ARCH | `arch/ARCH_DOCS_MIGRATION_20260801.csv` | `docs/` 当前文件到目标子目录的迁移映射表。 |
 | DATA | `data/DATA_SCHEMA_REGISTRY.md` | profile、project、target、candidate、layout、score、summary 和 training dataset 的字段契约。 |
 | DATA | `data/DATA_RUN_MANIFEST_SCHEMA.md` | `run_manifest.json`、`artifact_manifest.json`、`state.json` 的 P0 最小字段和追溯规则。 |
 | ENV | `env/ENV_UV_COMPANY_20260801.md` | 公司电脑 ADS 自动化 uv 环境记录。 |
@@ -65,7 +65,7 @@ projects/bfp_6_8g_i7_fr4/
 
 ## Docs 目标分层
 
-当前 `docs/` 暂不立即物理移动文件；迁移规划以 `ARCH_DOCS_INTERNAL_STRUCTURE_PLAN.md` 为准。长期目标结构：
+当前 `docs/` 已完成 Phase 1-4 的物理分层迁移；根目录仅保留 `README.md` 和子文件夹，退役的旧路径说明已收进 `archive/`。迁移规划以 `arch/ARCH_DOCS_INTERNAL_STRUCTURE_PLAN.md` 为准。长期目标结构：
 
 ```text
 docs/
@@ -86,11 +86,11 @@ docs/
 
 迁移原则：
 
-- Phase 0 只冻结规划、映射表和 stub 规则。
+- Phase 0 只冻结规划和映射表规则。
 - Phase 1 先迁低风险辅助文档。
 - Phase 2 再迁被流程和脚本引用的数据、流程、优化和结果文档。
-- Phase 3 最后迁移主框架、重构 TODO、任务记录等高频入口。
-- 每批迁移必须更新 README、Canonical、Related，并保留旧路径 stub 或旧名索引。
+- Phase 3 已迁移主框架、重构 TODO、任务记录等高频入口。
+- 每批迁移必须更新 README、Canonical、Related，并把旧路径说明或旧名索引归档。
 
 ## 项目阅读树
 
@@ -99,10 +99,10 @@ docs/
 ```text
 SIM ADS 自动仿真平台
 ├─ 1. 平台总纲
-│  ├─ docs/ADS版图自动仿真项目框架设计.md
-│  ├─ docs/ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md
-│  ├─ docs/ARCH_REFACTOR_TODO.md
-│  └─ docs/ARCH_REFACTOR_TASK_PROGRESS.md
+│  ├─ docs/arch/ADS版图自动仿真项目框架设计.md
+│  ├─ docs/arch/ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md
+│  ├─ docs/arch/ARCH_REFACTOR_TODO.md
+│  └─ docs/arch/ARCH_REFACTOR_TASK_PROGRESS.md
 ├─ 2. 环境和工程边界
 │  ├─ config/ads_profiles.json
 │  ├─ config/projects/bfp_6_8g_i7_fr4.json
@@ -144,7 +144,7 @@ SIM ADS 自动仿真平台
 
 | 目标 | 阅读入口 | 继续追踪 |
 |---|---|---|
-| 理解平台为什么这样分层 | `ADS版图自动仿真项目框架设计.md` | `ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md`、`ARCH_REFACTOR_TODO.md` |
+| 理解平台为什么这样分层 | `arch/ADS版图自动仿真项目框架设计.md` | `arch/ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md`、`arch/ARCH_REFACTOR_TODO.md` |
 | 理解当前公司电脑如何运行 | `env/ENV_UV_COMPANY_20260801.md` | `config/ads_profiles.json`、`env/ENV_ADS_API_CAPABILITY_MATRIX.md` |
 | 理解一轮 ADS 自动仿真怎么跑 | `projects/bfp_6_8g_i7_fr4/docs/ADS自动仿真流程说明.md` | `flow/FLOW_RUN_STATE_MACHINE.md`、`data/DATA_RUN_MANIFEST_SCHEMA.md` |
 | 理解交指滤波器分支 | `devices/交指带通滤波器回波损耗影响因素.md` | `result/RESULT_I7_FR4_ROUND_INDEX.md`、`opt/FR4交指滤波器搜索算法改进方案.md` |
@@ -164,7 +164,7 @@ SIM ADS 自动仿真平台
 | `../projects/bfp_6_8g_i7_fr4/results/baselines/i7_fr4_baseline_freeze_20260801.json` | baseline 冻结记录的机器可读版本。 |
 | `../config/round_script_migration.json` | 历史 round 候选脚本迁移索引，配合 `tools/check_round_script_migration.py` 做迁移前检查。 |
 | `../config/optimizer/i7_fr4_deterministic_variant_probe.json` | FR4 7 阶历史 round 经验扫描迁移探针，配合 `tools/propose_filter_candidates.py --validate-only` 校验。 |
-| `../docs/ARCH_ADS_ASSET_MIGRATION_20260801.csv` | 旧路径到新路径的完整迁移索引。 |
+| `../docs/arch/ARCH_ADS_ASSET_MIGRATION_20260801.csv` | 旧路径到新路径的完整迁移索引。 |
 
 ## 当前报告
 
@@ -179,23 +179,23 @@ SIM ADS 自动仿真平台
 
 | 领域 | 进度入口 | 规则 |
 |---|---|---|
-| 项目重构待办 | `ARCH_REFACTOR_TODO.md` | 记录 P0/P1/P2 TODO、验收标准、推荐执行顺序和风险。 |
-| 项目重构进度 | `ARCH_REFACTOR_TASK_PROGRESS.md` | 记录正式重构任务闭环、验证结果、剩余工作和下一步。 |
+| 项目重构待办 | `arch/ARCH_REFACTOR_TODO.md` | 记录 P0/P1/P2 TODO、验收标准、推荐执行顺序和风险。 |
+| 项目重构进度 | `arch/ARCH_REFACTOR_TASK_PROGRESS.md` | 记录正式重构任务闭环、验证结果、剩余工作和下一步。 |
 | ADS 环境 | `env/ENV_UV_COMPANY_20260801.md`、`env/ENV_ADS_API_CAPABILITY_MATRIX.md` | 记录公司/家里 Python、ADS API、workspace、library、substrate、template 差异。 |
 | 自动化流程 | `../projects/bfp_6_8g_i7_fr4/docs/ADS自动仿真流程说明.md`、`flow/FLOW_MANUAL_INTERVENTION_LOG.md` | 记录导入、emSetup、RFPro、导出、日志、超时和人工介入。 |
-| Python 脚本管理 | `PYTHON_SCRIPT_MANAGEMENT.md` | 记录脚本状态、可复用模块抽取和运行时边界。 |
+| Python 脚本管理 | `arch/PYTHON_SCRIPT_MANAGEMENT.md` | 记录脚本状态、可复用模块抽取和运行时边界。 |
 | 交指滤波器优化 | `result/RESULT_I7_FR4_ROUND_INDEX.md`、`opt/FR4交指滤波器搜索算法改进方案.md` | 记录 roundN 候选、仿真结果、评分、下一轮决策。 |
-| 文档治理 | `ARCH_DIRECTORY_GOVERNANCE.md`、`ARCH_REFACTOR_TODO.md` | 记录文档改名、索引补齐、目录治理和迁移计划。 |
+| 文档治理 | `arch/ARCH_DIRECTORY_GOVERNANCE.md`、`arch/ARCH_REFACTOR_TODO.md` | 记录文档改名、索引补齐、目录治理和迁移计划。 |
 | 报告输出 | `report/REPORT_TEMPLATE_PLAYBOOK.md` | 记录 HTML/PDF 模板、图片、公式、版图分析报告调整和发布 gate。 |
 
 ## 快速查找规则
 
-- 查项目总体架构：先读 `ADS版图自动仿真项目框架设计.md`。
-- 查框架缺陷和平台化 gate：读 `ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md`。
-- 查项目重构待办：读 `ARCH_REFACTOR_TODO.md`。
-- 查项目重构任务记录：读 `ARCH_REFACTOR_TASK_PROGRESS.md`。
-- 查 docs/tools 是否需要拆目录及治理规则：读 `ARCH_DIRECTORY_GOVERNANCE.md`。
-- 查 docs 目标目录、文件归属和迁移阶段：读 `ARCH_DOCS_INTERNAL_STRUCTURE_PLAN.md`。
+- 查项目总体架构：先读 `arch/ADS版图自动仿真项目框架设计.md`。
+- 查框架缺陷和平台化 gate：读 `arch/ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md`。
+- 查项目重构待办：读 `arch/ARCH_REFACTOR_TODO.md`。
+- 查项目重构任务记录：读 `arch/ARCH_REFACTOR_TASK_PROGRESS.md`。
+- 查 docs/tools 是否需要拆目录及治理规则：读 `arch/ARCH_DIRECTORY_GOVERNANCE.md`。
+- 查 docs 目标目录、文件归属和迁移阶段：读 `arch/ARCH_DOCS_INTERNAL_STRUCTURE_PLAN.md`。
 - 查数据字段契约：读 `data/DATA_SCHEMA_REGISTRY.md`。
 - 查 run/artifact/state 追溯规则：读 `data/DATA_RUN_MANIFEST_SCHEMA.md`。
 - 查 run stage/status 和 resume 规则：读 `flow/FLOW_RUN_STATE_MACHINE.md`。
@@ -204,7 +204,7 @@ SIM ADS 自动仿真平台
 - 查 ADS GUI 人工介入记录格式：读 `flow/FLOW_MANUAL_INTERVENTION_LOG.md`。
 - 查测试 gate 和验证命令：读 `test/TEST_STRATEGY.md`。
 - 查论文/截图/公式到参数化版图的重构审查：读 `layout/LAYOUT_RECONSTRUCTION_CHECKLIST.md`。
-- 查旧 `ADS/` 文件去哪了：读 `ARCH_ADS_ASSET_MIGRATION_20260801.md` 和 `ARCH_ADS_ASSET_MIGRATION_20260801.csv`。
+- 查旧 `ADS/` 文件去哪了：读 `arch/ARCH_ADS_ASSET_MIGRATION_20260801.md` 和 `arch/ARCH_ADS_ASSET_MIGRATION_20260801.csv`。
 - 查 ADS 怎么跑：先读 `../projects/bfp_6_8g_i7_fr4/docs/ADS自动仿真流程说明.md`。
 - 查家里/公司环境：先看 `../config/ads_profiles.json`，再看 `env/ENV_UV_COMPANY_20260801.md` 和 Python profile 实现 `../src/simads/config/profiles.py`。
 - 查每轮结果：先看 `../projects/bfp_6_8g_i7_fr4/results/<round>/sweep_summary.csv`。

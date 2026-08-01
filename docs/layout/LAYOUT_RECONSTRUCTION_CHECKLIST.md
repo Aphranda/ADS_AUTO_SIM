@@ -1,9 +1,9 @@
-﻿# Layout Reconstruction Checklist
+# Layout Reconstruction Checklist
 
 Status: Active
 Domain: LAYOUT
 Canonical: `docs/layout/LAYOUT_RECONSTRUCTION_CHECKLIST.md`
-Related: `docs/ADS版图自动仿真项目框架设计.md`, `docs/data/DATA_SCHEMA_REGISTRY.md`, `docs/flow/FLOW_ADS_WORKSPACE_WRITE_POLICY.md`, `docs/ARCH_REFACTOR_TODO.md`
+Related: `docs/arch/ADS版图自动仿真项目框架设计.md`, `docs/data/DATA_SCHEMA_REGISTRY.md`, `docs/flow/FLOW_ADS_WORKSPACE_WRITE_POLICY.md`, `docs/arch/ARCH_REFACTOR_TODO.md`
 Last updated: 2026-08-01
 Owner: ADS Automation
 

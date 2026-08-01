@@ -1,9 +1,9 @@
-﻿# FR4 7 阶交指滤波器 Round 结果索引
+# FR4 7 阶交指滤波器 Round 结果索引
 
 Status: Active
 Domain: RESULT
 Canonical: `docs/result/RESULT_I7_FR4_ROUND_INDEX.md`
-Related: `projects/bfp_6_8g_i7_fr4/results/baselines/i7_fr4_baseline_freeze_20260801.md`, `docs/data/DATA_SCHEMA_REGISTRY.md`, `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`, `docs/ARCH_REFACTOR_TODO.md`
+Related: `projects/bfp_6_8g_i7_fr4/results/baselines/i7_fr4_baseline_freeze_20260801.md`, `docs/data/DATA_SCHEMA_REGISTRY.md`, `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`, `docs/arch/ARCH_REFACTOR_TODO.md`
 Last updated: 2026-08-01
 Owner: ADS Automation
 

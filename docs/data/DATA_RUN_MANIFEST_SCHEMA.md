@@ -1,9 +1,9 @@
-﻿# ADS 自动仿真 Run / Artifact Manifest Schema
+# ADS 自动仿真 Run / Artifact Manifest Schema
 
 Status: Active
 Domain: DATA
 Canonical: `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`
-Related: `docs/data/DATA_SCHEMA_REGISTRY.md`, `docs/flow/FLOW_RUN_STATE_MACHINE.md`, `docs/ARCH_REFACTOR_TODO.md`, `docs/ADS版图自动仿真项目框架设计.md`
+Related: `docs/data/DATA_SCHEMA_REGISTRY.md`, `docs/flow/FLOW_RUN_STATE_MACHINE.md`, `docs/arch/ARCH_REFACTOR_TODO.md`, `docs/arch/ADS版图自动仿真项目框架设计.md`
 Last updated: 2026-08-01
 Owner: ADS Automation
 

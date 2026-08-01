@@ -1,9 +1,9 @@
-﻿# Baseline Freeze Policy
+# Baseline Freeze Policy
 
 Status: Active
 Domain: RESULT
 Canonical: `docs/result/RESULT_BASELINE_FREEZE_POLICY.md`
-Related: `docs/result/RESULT_I7_FR4_ROUND_INDEX.md`, `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`, `docs/opt/OPT_OBJECTIVE_FUNCTION_DESIGN.md`, `docs/flow/FLOW_JOB_SCHEDULING_POLICY.md`, `docs/ARCH_REFACTOR_TODO.md`
+Related: `docs/result/RESULT_I7_FR4_ROUND_INDEX.md`, `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`, `docs/opt/OPT_OBJECTIVE_FUNCTION_DESIGN.md`, `docs/flow/FLOW_JOB_SCHEDULING_POLICY.md`, `docs/arch/ARCH_REFACTOR_TODO.md`
 Last updated: 2026-08-01
 Owner: ADS Automation
 

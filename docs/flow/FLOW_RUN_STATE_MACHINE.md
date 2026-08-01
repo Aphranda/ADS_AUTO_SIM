@@ -1,9 +1,9 @@
-﻿# ADS 自动仿真运行状态机
+# ADS 自动仿真运行状态机
 
 Status: Active
 Domain: FLOW
 Canonical: `docs/flow/FLOW_RUN_STATE_MACHINE.md`
-Related: `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`, `docs/flow/FLOW_ADS_WORKSPACE_WRITE_POLICY.md`, `docs/ARCH_REFACTOR_TODO.md`, `docs/test/TEST_STRATEGY.md`
+Related: `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`, `docs/flow/FLOW_ADS_WORKSPACE_WRITE_POLICY.md`, `docs/arch/ARCH_REFACTOR_TODO.md`, `docs/test/TEST_STRATEGY.md`
 Last updated: 2026-08-01
 Owner: ADS Automation
 

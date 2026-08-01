@@ -1,9 +1,9 @@
-﻿# ADS Workspace 写入安全策略
+# ADS Workspace 写入安全策略
 
 Status: Active
 Domain: FLOW
 Canonical: `docs/flow/FLOW_ADS_WORKSPACE_WRITE_POLICY.md`
-Related: `docs/ARCH_REFACTOR_TODO.md`, `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`, `docs/ARCH_DIRECTORY_GOVERNANCE.md`
+Related: `docs/arch/ARCH_REFACTOR_TODO.md`, `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`, `docs/arch/ARCH_DIRECTORY_GOVERNANCE.md`
 Last updated: 2026-08-01
 Owner: ADS Automation
 

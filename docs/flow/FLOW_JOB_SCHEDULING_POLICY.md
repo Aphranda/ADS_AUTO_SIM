@@ -1,9 +1,9 @@
-﻿# ADS Job Scheduling Policy
+# ADS Job Scheduling Policy
 
 Status: Active
 Domain: FLOW
 Canonical: `docs/flow/FLOW_JOB_SCHEDULING_POLICY.md`
-Related: `docs/flow/FLOW_RUN_STATE_MACHINE.md`, `docs/flow/FLOW_ADS_WORKSPACE_WRITE_POLICY.md`, `docs/test/TEST_STRATEGY.md`, `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`, `docs/ARCH_REFACTOR_TODO.md`
+Related: `docs/flow/FLOW_RUN_STATE_MACHINE.md`, `docs/flow/FLOW_ADS_WORKSPACE_WRITE_POLICY.md`, `docs/test/TEST_STRATEGY.md`, `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`, `docs/arch/ARCH_REFACTOR_TODO.md`
 Last updated: 2026-08-01
 Owner: ADS Automation
 

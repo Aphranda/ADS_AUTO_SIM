@@ -1,4 +1,4 @@
-﻿# ADS 目录已迁移
+# ADS 目录已迁移
 
 Status: Deprecated
 Domain: ARCH
@@ -17,4 +17,4 @@ Last updated: 2026-08-01
 - 项目流程说明：`projects/bfp_6_8g_i7_fr4/docs/`
 - 旧报告：`projects/bfp_6_8g_i7_fr4/reports/legacy/`
 
-完整迁移清单：`docs/ARCH_ADS_ASSET_MIGRATION_20260801.csv`
+完整迁移清单：`docs/arch/ARCH_ADS_ASSET_MIGRATION_20260801.csv`

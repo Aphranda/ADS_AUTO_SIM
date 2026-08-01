@@ -1,9 +1,9 @@
-﻿# Round Script Migration Plan
+# Round Script Migration Plan
 
 Status: Active
 Domain: OPT
 Canonical: `docs/opt/ROUND_SCRIPT_MIGRATION_PLAN.md`
-Related: `docs/ARCH_REFACTOR_TODO.md`, `docs/ARCH_REFACTOR_TASK_PROGRESS.md`, `docs/PYTHON_SCRIPT_MANAGEMENT.md`, `config/round_script_migration.json`
+Related: `docs/arch/ARCH_REFACTOR_TODO.md`, `docs/arch/ARCH_REFACTOR_TASK_PROGRESS.md`, `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`, `config/round_script_migration.json`
 Last updated: 2026-08-01
 Owner: ADS Automation
 

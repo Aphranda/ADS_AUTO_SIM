@@ -1,9 +1,9 @@
-﻿# ADS API 能力矩阵
+# ADS API 能力矩阵
 
 Status: Draft
 Domain: ENV
 Canonical: `docs/env/ENV_ADS_API_CAPABILITY_MATRIX.md`
-Related: `docs/ADS版图自动仿真项目框架设计.md`, `projects/bfp_6_8g_i7_fr4/docs/ADS自动仿真流程说明.md`
+Related: `docs/arch/ADS版图自动仿真项目框架设计.md`, `projects/bfp_6_8g_i7_fr4/docs/ADS自动仿真流程说明.md`
 Last updated: 2026-08-01
 Owner: ADS Automation
 

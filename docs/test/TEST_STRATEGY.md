@@ -1,9 +1,9 @@
-﻿# ADS 自动仿真测试策略
+# ADS 自动仿真测试策略
 
 Status: Active
 Domain: TEST
 Canonical: `docs/test/TEST_STRATEGY.md`
-Related: `docs/ARCH_REFACTOR_TODO.md`, `docs/data/DATA_SCHEMA_REGISTRY.md`, `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`, `docs/env/ENV_ADS_API_CAPABILITY_MATRIX.md`, `projects/bfp_6_8g_i7_fr4/docs/ADS自动仿真流程说明.md`
+Related: `docs/arch/ARCH_REFACTOR_TODO.md`, `docs/data/DATA_SCHEMA_REGISTRY.md`, `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`, `docs/env/ENV_ADS_API_CAPABILITY_MATRIX.md`, `projects/bfp_6_8g_i7_fr4/docs/ADS自动仿真流程说明.md`
 Last updated: 2026-08-01
 Owner: ADS Automation
 

@@ -3,7 +3,7 @@
 Status: Active
 Domain: ENV
 Canonical: `docs/env/ENV_UV_COMPANY_20260801.md`
-Related: `docs/ARCH_REFACTOR_TODO.md`, `docs/PYTHON_SCRIPT_MANAGEMENT.md`, `config/ads_profiles.json`
+Related: `docs/arch/ARCH_REFACTOR_TODO.md`, `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`, `config/ads_profiles.json`
 Last updated: 2026-08-01
 Owner: ADS Automation
 
