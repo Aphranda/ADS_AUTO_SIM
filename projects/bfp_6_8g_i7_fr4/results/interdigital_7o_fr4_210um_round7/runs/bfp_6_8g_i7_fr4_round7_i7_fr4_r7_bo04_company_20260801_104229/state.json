@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "run_id": "bfp_6_8g_i7_fr4_round7_i7_fr4_r7_bo04_company_20260801_104229",
+  "candidate_id": "i7_fr4_r7_bo04",
+  "profile_id": "company",
+  "stage": "scored",
+  "status": "completed",
+  "failed_step": null,
+  "error_class": null,
+  "message": null,
+  "elapsed_s": 165.485,
+  "updated_at": "2026-08-01T10:45:14+08:00"
+}

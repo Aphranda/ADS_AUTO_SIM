@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="-5.785285 -2.1 15.030814 10.222861">
+  <title>i7_fr4_r7_bo08: 7th order interdigital BPF, substrate4 h=0.21 mm</title>
+  <rect x="-5.785285" y="-2.1" width="15.030814" height="10.222861" fill="#f8f6ef"/>
+  <rect x="0" y="0.484002" width="0.357972" height="5.538859" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="0.178986" cy="6.022861" r="0.1778" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="0.178986" cy="6.022861" r="0.127" fill="#2c7fb8" stroke="#083d70" stroke-width="0.025"/>
+  <rect x="0.475345" y="0" width="0.357972" height="5.538859" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="0.654331" cy="0" r="0.1778" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="0.654331" cy="0" r="0.127" fill="#2c7fb8" stroke="#083d70" stroke-width="0.025"/>
+  <rect x="1.013021" y="0.484002" width="0.357972" height="5.538859" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="1.192006" cy="6.022861" r="0.1778" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="1.192006" cy="6.022861" r="0.127" fill="#2c7fb8" stroke="#083d70" stroke-width="0.025"/>
+  <rect x="1.551136" y="0" width="0.357972" height="5.538859" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="1.730122" cy="0" r="0.1778" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="1.730122" cy="0" r="0.127" fill="#2c7fb8" stroke="#083d70" stroke-width="0.025"/>
+  <rect x="2.089251" y="0.484002" width="0.357972" height="5.538859" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="2.268237" cy="6.022861" r="0.1778" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="2.268237" cy="6.022861" r="0.127" fill="#2c7fb8" stroke="#083d70" stroke-width="0.025"/>
+  <rect x="2.626926" y="0" width="0.357972" height="5.538859" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="2.805912" cy="0" r="0.1778" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="2.805912" cy="0" r="0.127" fill="#2c7fb8" stroke="#083d70" stroke-width="0.025"/>
+  <rect x="3.102272" y="0.484002" width="0.357972" height="5.538859" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="3.281257" cy="6.022861" r="0.1778" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="3.281257" cy="6.022861" r="0.127" fill="#2c7fb8" stroke="#083d70" stroke-width="0.025"/>
+  <rect x="-3.685285" y="3.892116" width="3.22484" height="0.357972" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <polygon points="-0.460445,4.250088 -0.460445,3.892116 0.06255,3.977579 0.06255,4.164625" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <polygon points="3.397693,4.164625 3.397693,3.977579 3.920688,3.892116 3.920688,4.250088" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <rect x="3.920688" y="3.892116" width="3.22484" height="0.357972" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <rect x="-5.185285" y="-1.5" width="13.830814" height="9.022861" fill="none" stroke="#177245" stroke-width="0.035" stroke-dasharray="0.16 0.12"/>
+  <text x="0.178986" y="3.253432" font-size="0.28" text-anchor="middle" fill="#111">1</text>
+  <text x="0.654331" y="2.76943" font-size="0.28" text-anchor="middle" fill="#111">2</text>
+  <text x="1.192006" y="3.253432" font-size="0.28" text-anchor="middle" fill="#111">3</text>
+  <text x="1.730122" y="2.76943" font-size="0.28" text-anchor="middle" fill="#111">4</text>
+  <text x="2.268237" y="3.253432" font-size="0.28" text-anchor="middle" fill="#111">5</text>
+  <text x="2.805912" y="2.76943" font-size="0.28" text-anchor="middle" fill="#111">6</text>
+  <text x="3.281257" y="3.253432" font-size="0.28" text-anchor="middle" fill="#111">7</text>
+  <text x="-5.585285" y="-1.65" font-size="0.32" fill="#333">i7_fr4_r7_bo08: 7th order interdigital BPF, substrate4 h=0.21 mm</text>
+</svg>

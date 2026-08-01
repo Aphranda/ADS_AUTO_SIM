@@ -1,0 +1,13 @@
+name,L_mm,tap_mm,Egap_mm,S1_mm,S2_mm,S3_mm,S4_mm,S5_mm,S6_mm,W0_mm,feed_len_mm,feed_taper_len_mm,feed_tip_w_mm,feed_overlap_mm,via_diameter_mm,metal_layer,via_layer,notes
+i7_fr4_r5_base,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.3648,3,0.6,0.18,0.06,0.254,cond,pcvia1,repeat current baseline with home stackup
+i7_fr4_r5_w0335,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.335,3,0.6,0.18,0.06,0.254,cond,pcvia1,narrower feedline; higher feed impedance trial
+i7_fr4_r5_w0345,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.345,3,0.6,0.18,0.06,0.254,cond,pcvia1,slightly narrower feedline
+i7_fr4_r5_w0385,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.385,3,0.6,0.18,0.06,0.254,cond,pcvia1,slightly wider feedline
+i7_fr4_r5_w0405,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.405,3,0.6,0.18,0.06,0.254,cond,pcvia1,wider feedline; lower feed impedance trial
+i7_fr4_r5_len250,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.3648,2.5,0.6,0.18,0.06,0.254,cond,pcvia1,shorter straight feed section
+i7_fr4_r5_len350,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.3648,3.5,0.6,0.18,0.06,0.254,cond,pcvia1,slightly longer straight feed section
+i7_fr4_r5_len400,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.3648,4,0.6,0.18,0.06,0.254,cond,pcvia1,longer straight feed section for impedance-transform test
+i7_fr4_r5_w0345_len350,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.345,3.5,0.6,0.18,0.06,0.254,cond,pcvia1,narrow feedline with slightly longer straight section
+i7_fr4_r5_w0385_len350,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.385,3.5,0.6,0.18,0.06,0.254,cond,pcvia1,wide feedline with slightly longer straight section
+i7_fr4_r5_w0345_len400,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.345,4,0.6,0.18,0.06,0.254,cond,pcvia1,narrow feedline with longer straight section
+i7_fr4_r5_w0385_len400,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.385,4,0.6,0.18,0.06,0.254,cond,pcvia1,wide feedline with longer straight section

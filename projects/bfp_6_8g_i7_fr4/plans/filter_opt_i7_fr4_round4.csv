@@ -1,0 +1,11 @@
+name,L_mm,tap_mm,Egap_mm,S1_mm,S2_mm,S3_mm,S4_mm,S5_mm,S6_mm,feed_taper_len_mm,feed_tip_w_mm,feed_overlap_mm,via_diameter_mm,metal_layer,via_layer,notes
+i7_fr4_r4_base,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.18,0.06,0.254,cond,pcvia1,repeat round3 baseline candidate
+i7_fr4_r4_tw020,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.2,0.06,0.254,cond,pcvia1,carry over the round3 best S11 point
+i7_fr4_r4_s1p,5.55,1.95,0.4823,0.1276,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.18,0.06,0.254,cond,pcvia1,relax only the input-side outer gap
+i7_fr4_r4_s1m,5.55,1.95,0.4823,0.1076,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.18,0.06,0.254,cond,pcvia1,tighten only the input-side outer gap
+i7_fr4_r4_s6p,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1276,0.6,0.18,0.06,0.254,cond,pcvia1,relax only the output-side outer gap
+i7_fr4_r4_s6m,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1076,0.6,0.18,0.06,0.254,cond,pcvia1,tighten only the output-side outer gap
+i7_fr4_r4_tw020_s1p,5.55,1.95,0.4823,0.1276,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.2,0.06,0.254,cond,pcvia1,tw020 plus relaxed input-side outer gap
+i7_fr4_r4_tw020_s1m,5.55,1.95,0.4823,0.1076,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.2,0.06,0.254,cond,pcvia1,tw020 plus tightened input-side outer gap
+i7_fr4_r4_tw020_s6p,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1276,0.6,0.2,0.06,0.254,cond,pcvia1,tw020 plus relaxed output-side outer gap
+i7_fr4_r4_tw020_s6m,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1076,0.6,0.2,0.06,0.254,cond,pcvia1,tw020 plus tightened output-side outer gap

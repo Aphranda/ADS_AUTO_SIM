@@ -1,0 +1,257 @@
+{
+  "parameters": {
+    "name": "ssb_l3_25_n6_len108p8_stubp20_w1080_viafix",
+    "substrate": "FR4",
+    "er": 4.6,
+    "dielectric_height_mm": 0.21,
+    "copper_thickness_mm": 0.035,
+    "lower_cutoff_ghz": 6.0,
+    "upper_cutoff_ghz": 8.0,
+    "z0_ohm": 50.0,
+    "main_segment_count": 6,
+    "section_l_mm": 4.4568,
+    "stub_l_mm": 5.436,
+    "main_w_mm": 1.08,
+    "top_stub_w_mm": [
+      0.97,
+      1.074,
+      0.985,
+      1.074,
+      0.97
+    ],
+    "bottom_stub_w_mm": [
+      1.015,
+      0.976,
+      1.003,
+      0.97,
+      1.003,
+      0.976,
+      1.015
+    ],
+    "feed_len_mm": 2.5,
+    "boundary_margin_mm": 1.2,
+    "via_diameter_mm": 0.5,
+    "via_edge_clearance_mm": 0.06,
+    "min_fab_feature_mm": 0.1524,
+    "metal_layer": "cond",
+    "via_layer": "pcvia1",
+    "tap_from_bottom_mm": 5.7459999999999996
+  },
+  "derived": {
+    "field_width_mm": 26.7408,
+    "metal_width_mm": 31.7408,
+    "metal_height_mm": 11.952,
+    "main_center_y_mm": 5.7459999999999996,
+    "minimum_width_mm": 0.97
+  },
+  "rectangles": [
+    {
+      "name": "main_line",
+      "layer": "cond",
+      "x": -2.5,
+      "y": 5.2059999999999995,
+      "w": 31.7408,
+      "h": 1.08
+    },
+    {
+      "name": "bottom_stub_1",
+      "layer": "cond",
+      "x": -0.5075,
+      "y": -0.23000000000000043,
+      "w": 1.015,
+      "h": 6.516
+    },
+    {
+      "name": "ground_via_bottom_1",
+      "layer": "pcvia1",
+      "x": -0.25,
+      "y": -0.23000000000000043,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "bottom_stub_2",
+      "layer": "cond",
+      "x": 3.9688000000000003,
+      "y": -0.23000000000000043,
+      "w": 0.976,
+      "h": 6.516
+    },
+    {
+      "name": "ground_via_bottom_2",
+      "layer": "pcvia1",
+      "x": 4.2068,
+      "y": -0.23000000000000043,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "bottom_stub_3",
+      "layer": "cond",
+      "x": 8.4121,
+      "y": -0.23000000000000043,
+      "w": 1.003,
+      "h": 6.516
+    },
+    {
+      "name": "ground_via_bottom_3",
+      "layer": "pcvia1",
+      "x": 8.6636,
+      "y": -0.23000000000000043,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "bottom_stub_4",
+      "layer": "cond",
+      "x": 12.8854,
+      "y": -0.23000000000000043,
+      "w": 0.97,
+      "h": 6.516
+    },
+    {
+      "name": "ground_via_bottom_4",
+      "layer": "pcvia1",
+      "x": 13.1204,
+      "y": -0.23000000000000043,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "bottom_stub_5",
+      "layer": "cond",
+      "x": 17.3257,
+      "y": -0.23000000000000043,
+      "w": 1.003,
+      "h": 6.516
+    },
+    {
+      "name": "ground_via_bottom_5",
+      "layer": "pcvia1",
+      "x": 17.5772,
+      "y": -0.23000000000000043,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "bottom_stub_6",
+      "layer": "cond",
+      "x": 21.796000000000003,
+      "y": -0.23000000000000043,
+      "w": 0.976,
+      "h": 6.516
+    },
+    {
+      "name": "ground_via_bottom_6",
+      "layer": "pcvia1",
+      "x": 22.034000000000002,
+      "y": -0.23000000000000043,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "bottom_stub_7",
+      "layer": "cond",
+      "x": 26.2333,
+      "y": -0.23000000000000043,
+      "w": 1.015,
+      "h": 6.516
+    },
+    {
+      "name": "ground_via_bottom_7",
+      "layer": "pcvia1",
+      "x": 26.4908,
+      "y": -0.23000000000000043,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "top_stub_1",
+      "layer": "cond",
+      "x": 3.9718000000000004,
+      "y": 5.2059999999999995,
+      "w": 0.97,
+      "h": 6.516
+    },
+    {
+      "name": "ground_via_top_1",
+      "layer": "pcvia1",
+      "x": 4.2068,
+      "y": 11.222,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "top_stub_2",
+      "layer": "cond",
+      "x": 8.3766,
+      "y": 5.2059999999999995,
+      "w": 1.074,
+      "h": 6.516
+    },
+    {
+      "name": "ground_via_top_2",
+      "layer": "pcvia1",
+      "x": 8.6636,
+      "y": 11.222,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "top_stub_3",
+      "layer": "cond",
+      "x": 12.8779,
+      "y": 5.2059999999999995,
+      "w": 0.985,
+      "h": 6.516
+    },
+    {
+      "name": "ground_via_top_3",
+      "layer": "pcvia1",
+      "x": 13.1204,
+      "y": 11.222,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "top_stub_4",
+      "layer": "cond",
+      "x": 17.290200000000002,
+      "y": 5.2059999999999995,
+      "w": 1.074,
+      "h": 6.516
+    },
+    {
+      "name": "ground_via_top_4",
+      "layer": "pcvia1",
+      "x": 17.5772,
+      "y": 11.222,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "top_stub_5",
+      "layer": "cond",
+      "x": 21.799000000000003,
+      "y": 5.2059999999999995,
+      "w": 0.97,
+      "h": 6.516
+    },
+    {
+      "name": "ground_via_top_5",
+      "layer": "pcvia1",
+      "x": 22.034000000000002,
+      "y": 11.222,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "em_boundary",
+      "layer": "EM_BOUNDARY",
+      "x": -3.7,
+      "y": -1.4300000000000004,
+      "w": 34.1408,
+      "h": 14.352
+    }
+  ]
+}

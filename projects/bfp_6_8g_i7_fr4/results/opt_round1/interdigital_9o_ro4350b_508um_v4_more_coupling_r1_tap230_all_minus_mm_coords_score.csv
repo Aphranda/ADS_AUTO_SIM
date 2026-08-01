@@ -1,0 +1,2 @@
+source,status,s21_5g_db,s21_6g_db,s21_7g_db,s21_8g_db,s21_9g_db,passband_min_s21_db,passband_ripple_db,worst_s11_6_8_db,worst_s22_6_8_db
+SIM\ADS\results\opt_round1\interdigital_9o_ro4350b_508um_v4_more_coupling_r1_tap230_all_minus_mm_coords_rfpro.csv,TUNE,-37.13,-2.43,-2.99,-4.57,-37.95,-4.57,3.71,-4.23,-4.06

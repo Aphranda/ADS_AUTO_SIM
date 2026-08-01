@@ -1,0 +1,2 @@
+source,status,s21_5g_db,s21_6g_db,s21_7g_db,s21_8g_db,s21_9g_db,passband_min_s21_db,passband_ripple_db,worst_s11_6_8_db,worst_s22_6_8_db
+SIM\ADS\results\opt_round2b\r2e_t185_mm_coords_rfpro.csv,TUNE,-38.90,-2.87,-3.30,-4.62,-40.85,-4.62,3.67,-3.85,-3.94

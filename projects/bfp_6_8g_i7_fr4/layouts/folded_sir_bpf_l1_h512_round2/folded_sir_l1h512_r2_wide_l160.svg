@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="898.38" height="482.0445" viewBox="-7.12 -3.35725 21.39 11.47725">
+<rect x="-7.12" y="-3.35725" width="21.39" height="11.47725" fill="#fff"/>
+<rect x="0" y="0" width="0.24" height="3.42" fill="#b64a87" stroke="#4a1836" stroke-width="0.025"/>
+<rect x="6.91" y="0" width="0.24" height="3.42" fill="#b64a87" stroke="#4a1836" stroke-width="0.025"/>
+<rect x="0" y="2.66" width="3.485" height="0.76" fill="#b64a87" stroke="#4a1836" stroke-width="0.025"/>
+<rect x="3.665" y="2.66" width="3.485" height="0.76" fill="#b64a87" stroke="#4a1836" stroke-width="0.025"/>
+<rect x="0" y="0" width="1.95" height="0.24" fill="#b64a87" stroke="#4a1836" stroke-width="0.025"/>
+<rect x="5.2" y="0" width="1.95" height="0.24" fill="#b64a87" stroke="#4a1836" stroke-width="0.025"/>
+<rect x="1.53" y="0" width="0.42" height="0.42" fill="#b64a87" stroke="#4a1836" stroke-width="0.025"/>
+<rect x="5.2" y="0" width="0.42" height="0.42" fill="#b64a87" stroke="#4a1836" stroke-width="0.025"/>
+<circle cx="1.74" cy="0.21" r="0.15" fill="#111"/>
+<circle cx="5.41" cy="0.21" r="0.15" fill="#111"/>
+<rect x="-4.12" y="-0.35725" width="3.2" height="0.9545" fill="#9aa0d4" stroke="#36396f" stroke-width="0.025"/>
+<polygon points="-0.92,-0.35725 -0.92,0.59725 0.08,0.21 0.08,0.03" fill="#9aa0d4" stroke="#36396f" stroke-width="0.025"/>
+<polygon points="7.07,0.03 7.07,0.21 8.07,0.59725 8.07,-0.35725" fill="#9aa0d4" stroke="#36396f" stroke-width="0.025"/>
+<rect x="8.07" y="-0.35725" width="3.2" height="0.9545" fill="#9aa0d4" stroke="#36396f" stroke-width="0.025"/>
+<rect x="0.42" y="3.72" width="6.31" height="0.3" fill="#e67817" stroke="#603300" stroke-width="0.025"/>
+<rect x="0.42" y="3.72" width="0.7" height="1.4" fill="#e67817" stroke="#603300" stroke-width="0.025"/>
+<rect x="0.42" y="4.82" width="1.6" height="0.3" fill="#e67817" stroke="#603300" stroke-width="0.025"/>
+<rect x="5.13" y="4.82" width="1.6" height="0.3" fill="#e67817" stroke="#603300" stroke-width="0.025"/>
+<rect x="6.03" y="3.72" width="0.7" height="1.4" fill="#e67817" stroke="#603300" stroke-width="0.025"/>
+<rect x="3.365" y="3.72" width="0.42" height="0.42" fill="#e67817" stroke="#603300" stroke-width="0.025"/>
+<circle cx="3.575" cy="3.93" r="0.15" fill="#111"/>
+<rect x="-7.12" y="-3.35725" width="21.39" height="11.47725" fill="none" stroke="#888" stroke-dasharray="0.18 0.12" stroke-width="0.035"/>
+<circle cx="-4.12" cy="0.12" r="0.13" fill="#1769ff"/>
+<text x="-3.97" y="-0.03" font-size="0.32">P1</text>
+<circle cx="11.27" cy="0.12" r="0.13" fill="#1769ff"/>
+<text x="11.42" y="-0.03" font-size="0.32">P2</text>
+<text x="-6.92" y="-2.90725" font-size="0.35" fill="#333">folded_sir_l1h512_r2_wide_l160 folded SIR BPF, FR4 L3</text>
+</svg>

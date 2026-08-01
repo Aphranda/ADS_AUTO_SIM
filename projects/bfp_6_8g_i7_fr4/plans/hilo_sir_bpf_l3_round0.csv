@@ -1,0 +1,5 @@
+name,substrate,er,h_mm,copper_mm,order,feed_w_mm,high_w_mm,low_w_mm,arm_l_mm,bridge_l_mm,inner_gap_mm,coupling_gap_mm,feed_gap_mm,feed_overlap_mm,feed_len_mm,boundary_margin_mm,min_fab_feature_mm,metal_layer,notes
+hilo_sir_l3_base,FR4_L3_REF,4.6,1.2906,0.035,5,2.35,0.86,3.00,4.25,2.45,0.75,0.30,0.25,3.35,3.00,3.00,0.1524,cond,"first-pass 5-pole high/low impedance U-shaped SIR BPF; manufacturable gaps and widths"
+hilo_sir_l3_l105,FR4_L3_REF,4.6,1.2906,0.035,5,2.35,0.86,3.00,4.46,2.57,0.75,0.30,0.25,3.50,3.00,3.00,0.1524,cond,"length +5%; lower frequency check"
+hilo_sir_l3_cgap250,FR4_L3_REF,4.6,1.2906,0.035,5,2.35,0.86,3.00,4.25,2.45,0.75,0.25,0.25,3.35,3.00,3.00,0.1524,cond,"coupling gap 0.25 mm; stronger inter-resonator coupling"
+hilo_sir_l3_cgap400,FR4_L3_REF,4.6,1.2906,0.035,5,2.35,0.86,3.00,4.25,2.45,0.75,0.40,0.25,3.35,3.00,3.00,0.1524,cond,"coupling gap 0.40 mm; narrower bandwidth check"

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1066.4" height="569.184" viewBox="-5.5 -3.0975 33.325 17.787">
+<rect x="-5.5" y="-3.0975" width="33.325" height="17.787" fill="#fff" />
+<rect x="-2.5" y="5.3485" width="27.325" height="0.895" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<rect x="-0.4865" y="-0.0975" width="0.973" height="6.341" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="0" cy="0.1525" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="3.9975" y="-0.0975" width="0.935" height="6.341" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="4.465" cy="0.1525" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="8.4495" y="-0.0975" width="0.961" height="6.341" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="8.93" cy="0.1525" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="12.9305" y="-0.0975" width="0.929" height="6.341" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="13.395" cy="0.1525" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="17.3925" y="-0.0975" width="0.935" height="6.341" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="17.86" cy="0.1525" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="21.8385" y="-0.0975" width="0.973" height="6.341" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="22.325" cy="0.1525" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="4.0005" y="5.3485" width="0.929" height="6.341" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="4.465" cy="11.4395" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="8.4155" y="5.3485" width="1.029" height="6.341" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="8.93" cy="11.4395" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="12.923" y="5.3485" width="0.944" height="6.341" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="13.395" cy="11.4395" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="17.3455" y="5.3485" width="1.029" height="6.341" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="17.86" cy="11.4395" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="-5.5" y="-3.0975" width="33.325" height="17.787" fill="none" stroke="#777" stroke-width="0.03" stroke-dasharray="0.2 0.15" />
+<text x="-5.3" y="-2.7475" font-size="0.32" fill="#333">ssb_l3_25_len109_stubp15 FR4 shorted-stub BPF</text>
+</svg>

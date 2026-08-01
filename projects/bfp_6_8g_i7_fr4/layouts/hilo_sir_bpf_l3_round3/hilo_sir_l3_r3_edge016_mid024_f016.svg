@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="916.92" height="487.8" viewBox="-6.16 -3 25.47 13.55">
+<rect x="-6.16" y="-3" width="25.47" height="13.55" fill="#fff"/>
+<rect x="0" y="3" width="0.86" height="4.55" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="1.61" y="3" width="0.86" height="4.55" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="-0.075" y="0" width="2.62" height="3" fill="#e2a82e" stroke="#604500" stroke-width="0.025"/>
+<rect x="2.63" y="3" width="0.86" height="4.55" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="4.24" y="3" width="0.86" height="4.55" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="2.555" y="0" width="2.62" height="3" fill="#e2a82e" stroke="#604500" stroke-width="0.025"/>
+<rect x="5.34" y="3" width="0.86" height="4.55" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="6.95" y="3" width="0.86" height="4.55" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="5.265" y="0" width="2.62" height="3" fill="#e2a82e" stroke="#604500" stroke-width="0.025"/>
+<rect x="8.05" y="3" width="0.86" height="4.55" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="9.66" y="3" width="0.86" height="4.55" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="7.975" y="0" width="2.62" height="3" fill="#e2a82e" stroke="#604500" stroke-width="0.025"/>
+<rect x="10.68" y="3" width="0.86" height="4.55" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="12.29" y="3" width="0.86" height="4.55" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="10.605" y="0" width="2.62" height="3" fill="#e2a82e" stroke="#604500" stroke-width="0.025"/>
+<rect x="-3.16" y="3.7" width="3" height="2.35" fill="#ffd86a" stroke="#604500" stroke-width="0.025"/>
+<rect x="13.31" y="3.7" width="3" height="2.35" fill="#ffd86a" stroke="#604500" stroke-width="0.025"/>
+<rect x="-6.16" y="-3" width="25.47" height="13.55" fill="none" stroke="#777" stroke-width="0.03" stroke-dasharray="0.25 0.18"/>
+<circle cx="-3.16" cy="4.875" r="0.12" fill="#1769ff"/>
+<text x="-3.04" y="4.755" font-size="0.32">P1</text>
+<circle cx="16.31" cy="4.875" r="0.12" fill="#1769ff"/>
+<text x="16.43" y="4.755" font-size="0.32">P2</text>
+<text x="-5.96" y="-2.55" font-size="0.35" fill="#333">hilo_sir_l3_r3_edge016_mid024_f016 high/low impedance SIR BPF</text>
+</svg>

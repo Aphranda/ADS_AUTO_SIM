@@ -1,0 +1,18 @@
+name,L_mm,tap_mm,Egap_mm,S1_mm,S2_mm,S3_mm,S4_mm,S5_mm,S6_mm,feed_taper_len_mm,feed_tip_w_mm,feed_overlap_mm,via_diameter_mm,metal_layer,via_layer,notes
+i7_fr4_r6_base,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.18,0.06,0.254,cond,pcvia1,repeat current best hard-pass baseline
+i7_fr4_r6_base_l5545,5.545,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.18,0.06,0.254,cond,pcvia1,baseline plus slight L shortening; preserve 5 GHz margin and test 8 GHz edge
+i7_fr4_r6_base_l5540,5.54,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.18,0.06,0.254,cond,pcvia1,baseline plus moderate L shortening; watch 6 GHz entry
+i7_fr4_r6_base_l5535,5.535,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.18,0.06,0.254,cond,pcvia1,baseline plus stronger L shortening; stop if 6 GHz degrades
+i7_fr4_r6_base_tw0185,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.185,0.06,0.254,cond,pcvia1,baseline with very small tip widening for Qe trim
+i7_fr4_r6_base_tw0190,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.19,0.06,0.254,cond,pcvia1,baseline with small tip widening for Qe trim
+i7_fr4_r6_base_tw0195,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.195,0.06,0.254,cond,pcvia1,baseline with intermediate tip before tw020 limit
+i7_fr4_r6_tw020,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.2,0.06,0.254,cond,pcvia1,tw020 control: better 8 GHz/S11 trend but 5 GHz is marginal
+i7_fr4_r6_base_e472,5.55,1.95,0.4723,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.18,0.06,0.254,cond,pcvia1,baseline plus lower end gap to compare high-edge support
+i7_fr4_r6_base_e492,5.55,1.95,0.4923,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.18,0.06,0.254,cond,pcvia1,baseline plus higher end gap to test stopband/match compensation
+i7_fr4_r6_base_l5545_tw0190,5.545,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.19,0.06,0.254,cond,pcvia1,baseline mild L shortening plus small tip widening
+i7_fr4_r6_base_l5545_tw0195,5.545,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.195,0.06,0.254,cond,pcvia1,baseline mild L shortening plus intermediate tip widening
+i7_fr4_r6_tw020_l5545,5.545,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.2,0.06,0.254,cond,pcvia1,tw020 plus slight L shortening for 5 GHz recovery
+i7_fr4_r6_tw020_l5540,5.54,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.2,0.06,0.254,cond,pcvia1,tw020 plus moderate L shortening for 5 GHz recovery
+i7_fr4_r6_tw020_e492,5.55,1.95,0.4923,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.2,0.06,0.254,cond,pcvia1,tw020 plus higher end gap to recover 5 GHz stopband margin
+i7_fr4_r6_tw020_l5545_e492,5.545,1.95,0.4923,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.2,0.06,0.254,cond,pcvia1,combine mild L shortening and higher end gap for stopband compensation
+i7_fr4_r6_tw020_l5545_s2p,5.545,1.95,0.4823,0.1176,0.18,0.1857,0.1857,0.18,0.1176,0.6,0.2,0.06,0.254,cond,pcvia1,mild L shortening plus slightly weaker second-pair coupling

@@ -1,0 +1,193 @@
+{
+  "parameters": {
+    "name": "hilo_sir_l3_l105",
+    "substrate": "FR4_L3_REF",
+    "er": 4.6,
+    "dielectric_height_mm": 1.2906,
+    "copper_thickness_mm": 0.035,
+    "lower_cutoff_ghz": 6.0,
+    "upper_cutoff_ghz": 8.0,
+    "order": 5,
+    "z0_ohm": 50.0,
+    "z_high_ohm": 75.0,
+    "z_low_ohm": 42.0,
+    "feed_w_mm": 2.35,
+    "high_w_mm": 0.86,
+    "low_w_mm": 3.0,
+    "arm_l_mm": 4.46,
+    "bridge_l_mm": 2.57,
+    "inner_gap_mm": 0.75,
+    "coupling_gap_mm": 0.3,
+    "feed_gap_mm": 0.25,
+    "feed_overlap_mm": 3.5,
+    "feed_len_mm": 3.0,
+    "boundary_margin_mm": 3.0,
+    "min_fab_feature_mm": 0.1524,
+    "metal_layer": "cond",
+    "tap_from_bottom_mm": 5.135
+  },
+  "derived": {
+    "field_width_mm": 13.549999999999997,
+    "resonator_width_mm": 2.4699999999999998,
+    "resonator_pitch_mm": 2.7699999999999996,
+    "resonator_path_length_mm": 11.49,
+    "minimum_width_mm": 0.86,
+    "minimum_gap_mm": 0.25
+  },
+  "ports": {
+    "P1": [
+      -3.25,
+      5.135
+    ],
+    "P2": [
+      16.799999999999997,
+      5.135
+    ]
+  },
+  "rectangles": [
+    {
+      "name": "res1_left_high_z_arm",
+      "layer": "cond",
+      "x": 0.0,
+      "y": 3.0,
+      "w": 0.86,
+      "h": 4.46
+    },
+    {
+      "name": "res1_right_high_z_arm",
+      "layer": "cond",
+      "x": 1.6099999999999999,
+      "y": 3.0,
+      "w": 0.86,
+      "h": 4.46
+    },
+    {
+      "name": "res1_low_z_bridge",
+      "layer": "cond",
+      "x": -0.050000000000000044,
+      "y": 0.0,
+      "w": 2.57,
+      "h": 3.0
+    },
+    {
+      "name": "res2_left_high_z_arm",
+      "layer": "cond",
+      "x": 2.7699999999999996,
+      "y": 3.0,
+      "w": 0.86,
+      "h": 4.46
+    },
+    {
+      "name": "res2_right_high_z_arm",
+      "layer": "cond",
+      "x": 4.379999999999999,
+      "y": 3.0,
+      "w": 0.86,
+      "h": 4.46
+    },
+    {
+      "name": "res2_low_z_bridge",
+      "layer": "cond",
+      "x": 2.719999999999999,
+      "y": 0.0,
+      "w": 2.57,
+      "h": 3.0
+    },
+    {
+      "name": "res3_left_high_z_arm",
+      "layer": "cond",
+      "x": 5.539999999999999,
+      "y": 3.0,
+      "w": 0.86,
+      "h": 4.46
+    },
+    {
+      "name": "res3_right_high_z_arm",
+      "layer": "cond",
+      "x": 7.1499999999999995,
+      "y": 3.0,
+      "w": 0.86,
+      "h": 4.46
+    },
+    {
+      "name": "res3_low_z_bridge",
+      "layer": "cond",
+      "x": 5.489999999999998,
+      "y": 0.0,
+      "w": 2.57,
+      "h": 3.0
+    },
+    {
+      "name": "res4_left_high_z_arm",
+      "layer": "cond",
+      "x": 8.309999999999999,
+      "y": 3.0,
+      "w": 0.86,
+      "h": 4.46
+    },
+    {
+      "name": "res4_right_high_z_arm",
+      "layer": "cond",
+      "x": 9.919999999999998,
+      "y": 3.0,
+      "w": 0.86,
+      "h": 4.46
+    },
+    {
+      "name": "res4_low_z_bridge",
+      "layer": "cond",
+      "x": 8.259999999999998,
+      "y": 0.0,
+      "w": 2.57,
+      "h": 3.0
+    },
+    {
+      "name": "res5_left_high_z_arm",
+      "layer": "cond",
+      "x": 11.079999999999998,
+      "y": 3.0,
+      "w": 0.86,
+      "h": 4.46
+    },
+    {
+      "name": "res5_right_high_z_arm",
+      "layer": "cond",
+      "x": 12.689999999999998,
+      "y": 3.0,
+      "w": 0.86,
+      "h": 4.46
+    },
+    {
+      "name": "res5_low_z_bridge",
+      "layer": "cond",
+      "x": 11.029999999999998,
+      "y": 0.0,
+      "w": 2.57,
+      "h": 3.0
+    },
+    {
+      "name": "input_coupled_feed",
+      "layer": "cond",
+      "x": -3.25,
+      "y": 3.96,
+      "w": 3.0,
+      "h": 2.35
+    },
+    {
+      "name": "output_coupled_feed",
+      "layer": "cond",
+      "x": 13.799999999999997,
+      "y": 3.96,
+      "w": 3.0,
+      "h": 2.35
+    },
+    {
+      "name": "em_boundary",
+      "layer": "EM_BOUNDARY",
+      "x": -6.25,
+      "y": -3.0,
+      "w": 26.049999999999997,
+      "h": 13.46
+    }
+  ]
+}

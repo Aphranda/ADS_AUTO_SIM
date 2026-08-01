@@ -1,0 +1,83 @@
+{
+  "schema_version": "0.1.0",
+  "strategy": "deterministic_variants",
+  "project_id": "bfp_6_8g_i7_fr4",
+  "device_id": "filter.interdigital",
+  "description": "Probe config for migrating FR4 7th-order legacy round variants into data-driven deterministic variants. This is not the full round2-round6 migration set.",
+  "plan": "projects/bfp_6_8g_i7_fr4/plans/filter_opt_i7_fr4_deterministic_variant_probe.csv",
+  "seeds": {
+    "r3_base": "projects/bfp_6_8g_i7_fr4/layouts/interdigital_7o_fr4_210um_round3/i7_fr4_r3_base_params.json",
+    "r3_tw020": "projects/bfp_6_8g_i7_fr4/layouts/interdigital_7o_fr4_210um_round3/i7_fr4_r3_t195_tw020_params.json"
+  },
+  "output_fields": [
+    "name",
+    "L_mm",
+    "tap_mm",
+    "Egap_mm",
+    "S1_mm",
+    "S2_mm",
+    "S3_mm",
+    "S4_mm",
+    "S5_mm",
+    "S6_mm",
+    "feed_taper_len_mm",
+    "feed_tip_w_mm",
+    "feed_overlap_mm",
+    "via_diameter_mm",
+    "metal_layer",
+    "via_layer",
+    "notes"
+  ],
+  "field_sources": {
+    "L_mm": "resonator_l_mm",
+    "tap_mm": "tap_from_bottom_mm",
+    "Egap_mm": "end_gap_mm",
+    "S1_mm": "gaps_mm[0]",
+    "S2_mm": "gaps_mm[1]",
+    "S3_mm": "gaps_mm[2]",
+    "S4_mm": "gaps_mm[3]",
+    "S5_mm": "gaps_mm[4]",
+    "S6_mm": "gaps_mm[5]",
+    "feed_taper_len_mm": "feed_taper_len_mm",
+    "feed_tip_w_mm": "feed_tip_w_mm",
+    "feed_overlap_mm": "feed_overlap_mm",
+    "via_diameter_mm": "via_diameter_mm",
+    "metal_layer": "metal_layer",
+    "via_layer": "via_layer"
+  },
+  "variants": [
+    {
+      "name": "i7_fr4_variant_probe_base",
+      "seed": "r3_base",
+      "notes": "baseline row from migrated round3 seed",
+      "updates": {}
+    },
+    {
+      "name": "i7_fr4_variant_probe_l5545_tw0190",
+      "seed": "r3_base",
+      "notes": "round6-style mild L shortening plus small feed-tip widening",
+      "updates": {
+        "resonator_l_mm": 5.545,
+        "feed_tip_w_mm": 0.19
+      }
+    },
+    {
+      "name": "i7_fr4_variant_probe_tw020_l5545_e492",
+      "seed": "r3_tw020",
+      "notes": "round6-style tw020 compensation with shorter resonator and larger end gap",
+      "updates": {
+        "resonator_l_mm": 5.545,
+        "end_gap_mm": 0.4923
+      }
+    },
+    {
+      "name": "i7_fr4_variant_probe_outer_gap_tight",
+      "seed": "r3_base",
+      "notes": "symmetric outer coupling tighten probe using indexed gap updates",
+      "updates": {
+        "gaps_mm[0]": 0.1126,
+        "gaps_mm[5]": 0.1126
+      }
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "schema_version": "0.1.0",
+  "project_id": "bfp_6_8g_i7_fr4",
+  "canonical_project_config": "config/projects/bfp_6_8g_i7_fr4.json",
+  "policy": {
+    "active_flow": "config.projects.active_sweep",
+    "keep_cli_compatibility": true,
+    "do_not_move_legacy_scripts_without_migration_index": true,
+    "new_rounds_should_use_project_sweep_config": true
+  },
+  "scripts": [
+    {
+      "script": "tools/propose_i7_fr4_surrogate_candidates.py",
+      "family": "filter.interdigital",
+      "order": 7,
+      "material": "FR4",
+      "round_scope": "round7+",
+      "strategy": "surrogate_trust_region",
+      "status": "active_configured",
+      "configured_by": "config/projects/bfp_6_8g_i7_fr4.json:sweeps.interdigital_7o_fr4_round7.optimizer",
+      "migration_action": "keep_as_active_cli"
+    },
+    {
+      "script": "tools/generate_filter_sweep.py",
+      "family": "filter.interdigital",
+      "order": 7,
+      "material": "FR4",
+      "round_scope": "generic_plan_to_layout",
+      "strategy": "csv_plan_layout_generation",
+      "status": "active_configured",
+      "configured_by": "config/projects/bfp_6_8g_i7_fr4.json:sweeps.interdigital_7o_fr4_round7.generator",
+      "migration_action": "keep_as_active_cli"
+    },
+    {
+      "script": "tools/propose_filter_candidates.py",
+      "family": "filter.interdigital",
+      "order": 7,
+      "material": "FR4",
+      "round_scope": "legacy_round_migration_probe",
+      "strategy": "deterministic_variants",
+      "status": "active_configured",
+      "configured_by": "config/optimizer/i7_fr4_deterministic_variant_probe.json",
+      "migration_action": "use as unified deterministic variant migration CLI"
+    },
+    {
+      "script": "tools/make_i7_fr4_round2_candidates.py",
+      "family": "filter.interdigital",
+      "order": 7,
+      "material": "FR4",
+      "round_scope": "round2",
+      "strategy": "manual_theory_variants",
+      "status": "legacy_candidate_generator",
+      "configured_by": null,
+      "migration_action": "convert_to deterministic_variant_config or archive"
+    },
+    {
+      "script": "tools/make_i7_fr4_round3_candidates.py",
+      "family": "filter.interdigital",
+      "order": 7,
+      "material": "FR4",
+      "round_scope": "round3",
+      "strategy": "manual_feed_transition_variants",
+      "status": "legacy_candidate_generator",
+      "configured_by": null,
+      "migration_action": "convert to deterministic_variant_config or archive"
+    },
+    {
+      "script": "tools/make_i7_fr4_round4_candidates.py",
+      "family": "filter.interdigital",
+      "order": 7,
+      "material": "FR4",
+      "round_scope": "round4",
+      "strategy": "manual_asymmetric_outer_gap_variants",
+      "status": "legacy_candidate_generator",
+      "configured_by": null,
+      "migration_action": "convert to deterministic_variant_config or archive"
+    },
+    {
+      "script": "tools/make_i7_fr4_round5_candidates.py",
+      "family": "filter.interdigital",
+      "order": 7,
+      "material": "FR4",
+      "round_scope": "round5",
+      "strategy": "manual_feed_impedance_variants",
+      "status": "legacy_candidate_generator",
+      "configured_by": null,
+      "migration_action": "convert to deterministic_variant_config or archive"
+    },
+    {
+      "script": "tools/make_i7_fr4_round6_candidates.py",
+      "family": "filter.interdigital",
+      "order": 7,
+      "material": "FR4",
+      "round_scope": "round6",
+      "strategy": "manual_baseline_and_tw020_refinement",
+      "status": "legacy_candidate_generator",
+      "configured_by": null,
+      "migration_action": "convert to deterministic_variant_config or archive"
+    },
+    {
+      "script": "tools/make_next_filter_candidates.py",
+      "family": "filter.interdigital",
+      "order": 9,
+      "material": "RO4350B",
+      "round_scope": "round1",
+      "strategy": "manual_heuristic_variants",
+      "status": "legacy_reference",
+      "configured_by": null,
+      "migration_action": "archive as 9-order reference after report recovery is stable"
+    },
+    {
+      "script": "tools/make_filter_round2_candidates.py",
+      "family": "filter.interdigital",
+      "order": 9,
+      "material": "RO4350B",
+      "round_scope": "round2",
+      "strategy": "manual_refinement_variants",
+      "status": "legacy_reference",
+      "configured_by": null,
+      "migration_action": "archive as 9-order reference after report recovery is stable"
+    },
+    {
+      "script": "tools/make_filter_round3_candidates.py",
+      "family": "filter.interdigital",
+      "order": 9,
+      "material": "RO4350B",
+      "round_scope": "round3",
+      "strategy": "manual_refinement_variants",
+      "status": "legacy_reference",
+      "configured_by": null,
+      "migration_action": "archive as 9-order reference after report recovery is stable"
+    },
+    {
+      "script": "tools/make_filter_round3_l600_candidates.py",
+      "family": "filter.interdigital",
+      "order": 9,
+      "material": "RO4350B",
+      "round_scope": "round3_l600",
+      "strategy": "manual_refinement_variants",
+      "status": "legacy_reference",
+      "configured_by": null,
+      "migration_action": "archive as 9-order reference after report recovery is stable"
+    }
+  ]
+}

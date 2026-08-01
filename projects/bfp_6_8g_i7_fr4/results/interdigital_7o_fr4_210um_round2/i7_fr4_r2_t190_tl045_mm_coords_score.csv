@@ -1,0 +1,2 @@
+source,target_profile,status,s21_5g_db,s21_6g_db,s21_7g_db,s21_8g_db,s21_9g_db,passband_min_s21_db,passband_ripple_db,worst_s11_6_8_db,worst_s22_6_8_db
+D:\OneDrive\4.Code\PICO\RP2350\RP2350_PIO_TRIG\RP2350_TRIGRP2350_TRIG\SIM\ADS\results\interdigital_7o_fr4_210um_round2\i7_fr4_r2_t190_tl045_mm_coords_rfpro.csv,fr4_25db_rl6,TUNE,-27.46,-4.54,-2.94,-6.54,-50.23,-6.54,5.06,-3.09,-3.18

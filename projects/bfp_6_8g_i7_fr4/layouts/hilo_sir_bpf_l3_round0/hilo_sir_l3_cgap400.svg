@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="952.2" height="477" viewBox="-6.25 -3 26.45 13.25">
+<rect x="-6.25" y="-3" width="26.45" height="13.25" fill="#fff"/>
+<rect x="0" y="3" width="0.86" height="4.25" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="1.61" y="3" width="0.86" height="4.25" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="0.01" y="0" width="2.45" height="3" fill="#e2a82e" stroke="#604500" stroke-width="0.025"/>
+<rect x="2.87" y="3" width="0.86" height="4.25" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="4.48" y="3" width="0.86" height="4.25" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="2.88" y="0" width="2.45" height="3" fill="#e2a82e" stroke="#604500" stroke-width="0.025"/>
+<rect x="5.74" y="3" width="0.86" height="4.25" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="7.35" y="3" width="0.86" height="4.25" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="5.75" y="0" width="2.45" height="3" fill="#e2a82e" stroke="#604500" stroke-width="0.025"/>
+<rect x="8.61" y="3" width="0.86" height="4.25" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="10.22" y="3" width="0.86" height="4.25" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="8.62" y="0" width="2.45" height="3" fill="#e2a82e" stroke="#604500" stroke-width="0.025"/>
+<rect x="11.48" y="3" width="0.86" height="4.25" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="13.09" y="3" width="0.86" height="4.25" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="11.49" y="0" width="2.45" height="3" fill="#e2a82e" stroke="#604500" stroke-width="0.025"/>
+<rect x="-3.25" y="3.9" width="3" height="2.35" fill="#ffd86a" stroke="#604500" stroke-width="0.025"/>
+<rect x="14.2" y="3.9" width="3" height="2.35" fill="#ffd86a" stroke="#604500" stroke-width="0.025"/>
+<rect x="-6.25" y="-3" width="26.45" height="13.25" fill="none" stroke="#777" stroke-width="0.03" stroke-dasharray="0.25 0.18"/>
+<circle cx="-3.25" cy="5.075" r="0.12" fill="#1769ff"/>
+<text x="-3.13" y="4.955" font-size="0.32">P1</text>
+<circle cx="17.2" cy="5.075" r="0.12" fill="#1769ff"/>
+<text x="17.32" y="4.955" font-size="0.32">P2</text>
+<text x="-6.05" y="-2.55" font-size="0.35" fill="#333">hilo_sir_l3_cgap400 high/low impedance SIR BPF</text>
+</svg>

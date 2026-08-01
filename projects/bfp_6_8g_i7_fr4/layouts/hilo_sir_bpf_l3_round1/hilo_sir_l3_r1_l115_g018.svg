@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="915.48" height="500.04" viewBox="-6.18 -3 25.43 13.89">
+<rect x="-6.18" y="-3" width="25.43" height="13.89" fill="#fff"/>
+<rect x="0" y="3" width="0.86" height="4.89" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="1.61" y="3" width="0.86" height="4.89" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="-0.175" y="0" width="2.82" height="3" fill="#e2a82e" stroke="#604500" stroke-width="0.025"/>
+<rect x="2.65" y="3" width="0.86" height="4.89" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="4.26" y="3" width="0.86" height="4.89" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="2.475" y="0" width="2.82" height="3" fill="#e2a82e" stroke="#604500" stroke-width="0.025"/>
+<rect x="5.3" y="3" width="0.86" height="4.89" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="6.91" y="3" width="0.86" height="4.89" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="5.125" y="0" width="2.82" height="3" fill="#e2a82e" stroke="#604500" stroke-width="0.025"/>
+<rect x="7.95" y="3" width="0.86" height="4.89" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="9.56" y="3" width="0.86" height="4.89" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="7.775" y="0" width="2.82" height="3" fill="#e2a82e" stroke="#604500" stroke-width="0.025"/>
+<rect x="10.6" y="3" width="0.86" height="4.89" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="12.21" y="3" width="0.86" height="4.89" fill="#f3c33c" stroke="#604500" stroke-width="0.025"/>
+<rect x="10.425" y="0" width="2.82" height="3" fill="#e2a82e" stroke="#604500" stroke-width="0.025"/>
+<rect x="-3.18" y="3.84" width="3" height="2.35" fill="#ffd86a" stroke="#604500" stroke-width="0.025"/>
+<rect x="13.25" y="3.84" width="3" height="2.35" fill="#ffd86a" stroke="#604500" stroke-width="0.025"/>
+<rect x="-6.18" y="-3" width="25.43" height="13.89" fill="none" stroke="#777" stroke-width="0.03" stroke-dasharray="0.25 0.18"/>
+<circle cx="-3.18" cy="5.015" r="0.12" fill="#1769ff"/>
+<text x="-3.06" y="4.895" font-size="0.32">P1</text>
+<circle cx="16.25" cy="5.015" r="0.12" fill="#1769ff"/>
+<text x="16.37" y="4.895" font-size="0.32">P2</text>
+<text x="-5.98" y="-2.55" font-size="0.35" fill="#333">hilo_sir_l3_r1_l115_g018 high/low impedance SIR BPF</text>
+</svg>

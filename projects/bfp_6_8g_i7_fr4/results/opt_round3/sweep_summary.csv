@@ -1,0 +1,12 @@
+candidate,cell,notes,source,status,s21_5g_db,s21_6g_db,s21_7g_db,s21_8g_db,s21_9g_db,passband_min_s21_db,passband_ripple_db,worst_s11_6_8_db,worst_s22_6_8_db
+r3_base,r3_base_mm_coords,repeat r2e_l595 under round3 naming for baseline,SIM\ADS\results\opt_round3\r3_base_mm_coords_rfpro.csv,TUNE,-44.71,-3.17,-1.78,-3.78,-37.62,-3.78,2.56,-3.63,-3.62
+r3_l592,r3_l592_mm_coords,slightly shorter length to push 5 GHz rejection below -45 dB,SIM\ADS\results\opt_round3\r3_l592_mm_coords_rfpro.csv,TUNE,-45.07,-3.35,-1.61,-1.76,-36.71,-4.19,3.32,-2.90,-2.93
+r3_l597,r3_l597_mm_coords,small length recovery toward lower passband edge,SIM\ADS\results\opt_round3\r3_l597_mm_coords_rfpro.csv,TUNE,-44.14,-2.06,-1.96,-4.17,-38.06,-4.17,2.58,-4.25,-4.14
+r3_t182,r3_t182_mm_coords,tap moved down to test passband insertion and match,SIM\ADS\results\opt_round3\r3_t182_mm_coords_rfpro.csv,TUNE,-43.08,-1.22,-2.71,-2.47,-37.15,-2.71,1.75,-4.62,-4.84
+r3_t187,r3_t187_mm_coords,fine tap sweep below current best,SIM\ADS\results\opt_round3\r3_t187_mm_coords_rfpro.csv,TUNE,-45.26,-2.90,-1.47,-2.80,-37.91,-4.12,3.01,-2.97,-2.98
+r3_t192,r3_t192_mm_coords,fine tap sweep above current best,SIM\ADS\results\opt_round3\r3_t192_mm_coords_rfpro.csv,TUNE,-42.33,-2.52,-3.19,-1.59,-36.89,-3.96,2.58,-3.54,-3.15
+r3_e540,r3_e540_mm_coords,larger end gap to check stopband recovery at 5 GHz,SIM\ADS\results\opt_round3\r3_e540_mm_coords_rfpro.csv,TUNE,-43.53,-1.27,-1.48,-1.60,-36.97,-1.60,0.40,-8.31,-8.18
+r3_e515,r3_e515_mm_coords,smaller end gap to recover 6/8 GHz edge insertion,SIM\ADS\results\opt_round3\r3_e515_mm_coords_rfpro.csv,TUNE,-40.94,-2.11,-3.00,-1.80,-35.30,-3.00,1.90,-4.19,-4.24
+r3_s1p,r3_s1p_mm_coords,increase S1/S8 for more 5 GHz rejection with minimal central impact,SIM\ADS\results\opt_round3\r3_s1p_mm_coords_rfpro.csv,TUNE,-43.40,-1.51,-2.28,-1.97,-37.66,-3.84,2.64,-3.39,-3.24
+r3_s1m,r3_s1m_mm_coords,decrease S1/S8 to recover edge insertion and compare rejection cost,SIM\ADS\results\opt_round3\r3_s1m_mm_coords_rfpro.csv,TUNE,-42.84,-1.42,-2.19,-3.44,-36.97,-3.44,2.24,-5.28,-5.07
+r3_l597s1p,r3_l597s1p_mm_coords,combine slight length recovery with stronger outer stopband gap,SIM\ADS\results\opt_round3\r3_l597s1p_mm_coords_rfpro.csv,TUNE,-44.48,-1.54,-1.44,-2.59,-38.49,-2.59,1.69,-6.27,-6.44

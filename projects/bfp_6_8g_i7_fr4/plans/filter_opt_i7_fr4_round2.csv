@@ -1,0 +1,15 @@
+name,L_mm,tap_mm,Egap_mm,S1_mm,S2_mm,S3_mm,S4_mm,S5_mm,S6_mm,feed_taper_len_mm,feed_tip_w_mm,feed_overlap_mm,via_diameter_mm,metal_layer,via_layer,notes
+i7_fr4_r2_base,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.18,0.06,0.254,cond,pcvia1,repeat current best point as the baseline
+i7_fr4_r2_t190,5.55,1.9,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.18,0.06,0.254,cond,pcvia1,lower tap to see if return loss improves
+i7_fr4_r2_t195,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.18,0.06,0.254,cond,pcvia1,keep nominal tap as a control
+i7_fr4_r2_t200,5.55,2,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.18,0.06,0.254,cond,pcvia1,raise tap slightly to compare match and edge loss
+i7_fr4_r2_t190_tl045,5.55,1.9,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.45,0.18,0.06,0.254,cond,pcvia1,shorter taper with lower tap to tighten the feed transition
+i7_fr4_r2_t190_tl075,5.55,1.9,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.75,0.18,0.06,0.254,cond,pcvia1,longer taper with lower tap to smooth the feed transition
+i7_fr4_r2_t190_tw016,5.55,1.9,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.16,0.06,0.254,cond,pcvia1,narrower taper tip to test stronger local coupling
+i7_fr4_r2_t190_tw022,5.55,1.9,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.22,0.06,0.254,cond,pcvia1,wider taper tip to test weaker local coupling
+i7_fr4_r2_t190_s1p,5.55,1.9,0.4823,0.1276,0.175,0.1857,0.1857,0.175,0.1276,0.6,0.18,0.06,0.254,cond,pcvia1,lower tap with relaxed outer coupling
+i7_fr4_r2_t190_s1m,5.55,1.9,0.4823,0.1076,0.175,0.1857,0.1857,0.175,0.1076,0.6,0.18,0.06,0.254,cond,pcvia1,lower tap with tighter outer coupling
+i7_fr4_r2_t200_tl075_tw016,5.55,2,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.75,0.16,0.06,0.254,cond,pcvia1,aggressive smooth-feed variant to search a lower return-loss pocket
+i7_fr4_r2_t200_tl045_tw022,5.55,2,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.45,0.22,0.06,0.254,cond,pcvia1,compact feed variant to compare against the smoother transition
+i7_fr4_r2_t195_s1p,5.55,1.95,0.4823,0.1276,0.175,0.1857,0.1857,0.175,0.1276,0.6,0.18,0.06,0.254,cond,pcvia1,nominal tap with relaxed outer coupling
+i7_fr4_r2_t195_s1m,5.55,1.95,0.4823,0.1076,0.175,0.1857,0.1857,0.175,0.1076,0.6,0.18,0.06,0.254,cond,pcvia1,nominal tap with tighter outer coupling

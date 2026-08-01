@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sim-ads-automation"
+version = "0.1.0"
+description = "ADS layout automation helpers for the SIM project"
+requires-python = ">=3.11"
+dependencies = [
+  "numpy",
+]
+
+[project.optional-dependencies]
+optimizer = [
+  "scipy",
+  "scikit-learn",
+]
+reports = [
+  "matplotlib",
+  "pandas",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

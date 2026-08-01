@@ -1,0 +1,4 @@
+name,substrate,er,h_mm,copper_mm,order,feed_w_mm,high_w_mm,low_w_mm,arm_l_mm,bridge_l_mm,inner_gap_mm,coupling_gap_mm,feed_gap_mm,feed_overlap_mm,feed_len_mm,boundary_margin_mm,min_fab_feature_mm,metal_layer,notes
+hilo_sir_l3_r2_l107_g020_f016,FR4_L3_REF,4.6,1.2906,0.035,5,2.35,0.86,3.00,4.55,2.62,0.75,0.20,0.16,3.85,3.00,3.00,0.1524,cond,"length +7%; coupling 0.20 mm; feed gap 0.16 mm; target open 6-8 while keeping high-side stopband"
+hilo_sir_l3_r2_l109_g020_f016,FR4_L3_REF,4.6,1.2906,0.035,5,2.35,0.86,3.00,4.63,2.67,0.75,0.20,0.16,3.95,3.00,3.00,0.1524,cond,"length +9%; coupling 0.20 mm; feed gap 0.16 mm; slightly lower center than l107"
+hilo_sir_l3_r2_l107_g018_f016,FR4_L3_REF,4.6,1.2906,0.035,5,2.35,0.86,3.00,4.55,2.62,0.75,0.18,0.16,3.85,3.00,3.00,0.1524,cond,"length +7%; stronger inter-resonator coupling 0.18 mm; feed gap 0.16 mm"

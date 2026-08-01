@@ -1,0 +1,223 @@
+{
+  "parameters": {
+    "name": "ssb_l3_h1_stub_p15",
+    "substrate": "FR4_L3_REF",
+    "er": 4.6,
+    "dielectric_height_mm": 1.2906,
+    "copper_thickness_mm": 0.035,
+    "lower_cutoff_ghz": 6.0,
+    "upper_cutoff_ghz": 8.0,
+    "z0_ohm": 50.0,
+    "main_segment_count": 5,
+    "section_l_mm": 4.506,
+    "stub_l_mm": 5.496,
+    "main_w_mm": 0.895,
+    "top_stub_w_mm": [
+      0.929,
+      1.029,
+      0.944,
+      1.029
+    ],
+    "bottom_stub_w_mm": [
+      0.973,
+      0.935,
+      0.961,
+      0.929,
+      0.935,
+      0.973
+    ],
+    "feed_len_mm": 2.5,
+    "boundary_margin_mm": 3.0,
+    "via_diameter_mm": 0.5,
+    "via_edge_clearance_mm": 0.1,
+    "min_fab_feature_mm": 0.1524,
+    "metal_layer": "cond",
+    "via_layer": "pcvia1",
+    "tap_from_bottom_mm": 5.846
+  },
+  "derived": {
+    "field_width_mm": 22.53,
+    "metal_width_mm": 27.53,
+    "metal_height_mm": 11.887,
+    "main_center_y_mm": 5.846,
+    "minimum_width_mm": 0.895
+  },
+  "rectangles": [
+    {
+      "name": "main_line",
+      "layer": "cond",
+      "x": -2.5,
+      "y": 5.3985,
+      "w": 27.53,
+      "h": 0.895
+    },
+    {
+      "name": "bottom_stub_1",
+      "layer": "cond",
+      "x": -0.4865,
+      "y": -0.09750000000000014,
+      "w": 0.973,
+      "h": 6.391
+    },
+    {
+      "name": "ground_via_bottom_1",
+      "layer": "pcvia1",
+      "x": -0.25,
+      "y": -0.09750000000000014,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "bottom_stub_2",
+      "layer": "cond",
+      "x": 4.0385,
+      "y": -0.09750000000000014,
+      "w": 0.935,
+      "h": 6.391
+    },
+    {
+      "name": "ground_via_bottom_2",
+      "layer": "pcvia1",
+      "x": 4.256,
+      "y": -0.09750000000000014,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "bottom_stub_3",
+      "layer": "cond",
+      "x": 8.531500000000001,
+      "y": -0.09750000000000014,
+      "w": 0.961,
+      "h": 6.391
+    },
+    {
+      "name": "ground_via_bottom_3",
+      "layer": "pcvia1",
+      "x": 8.762,
+      "y": -0.09750000000000014,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "bottom_stub_4",
+      "layer": "cond",
+      "x": 13.053500000000001,
+      "y": -0.09750000000000014,
+      "w": 0.929,
+      "h": 6.391
+    },
+    {
+      "name": "ground_via_bottom_4",
+      "layer": "pcvia1",
+      "x": 13.268,
+      "y": -0.09750000000000014,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "bottom_stub_5",
+      "layer": "cond",
+      "x": 17.5565,
+      "y": -0.09750000000000014,
+      "w": 0.935,
+      "h": 6.391
+    },
+    {
+      "name": "ground_via_bottom_5",
+      "layer": "pcvia1",
+      "x": 17.774,
+      "y": -0.09750000000000014,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "bottom_stub_6",
+      "layer": "cond",
+      "x": 22.0435,
+      "y": -0.09750000000000014,
+      "w": 0.973,
+      "h": 6.391
+    },
+    {
+      "name": "ground_via_bottom_6",
+      "layer": "pcvia1",
+      "x": 22.28,
+      "y": -0.09750000000000014,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "top_stub_1",
+      "layer": "cond",
+      "x": 4.0415,
+      "y": 5.3985,
+      "w": 0.929,
+      "h": 6.391
+    },
+    {
+      "name": "ground_via_top_1",
+      "layer": "pcvia1",
+      "x": 4.256,
+      "y": 11.2895,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "top_stub_2",
+      "layer": "cond",
+      "x": 8.4975,
+      "y": 5.3985,
+      "w": 1.029,
+      "h": 6.391
+    },
+    {
+      "name": "ground_via_top_2",
+      "layer": "pcvia1",
+      "x": 8.762,
+      "y": 11.2895,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "top_stub_3",
+      "layer": "cond",
+      "x": 13.046000000000001,
+      "y": 5.3985,
+      "w": 0.944,
+      "h": 6.391
+    },
+    {
+      "name": "ground_via_top_3",
+      "layer": "pcvia1",
+      "x": 13.268,
+      "y": 11.2895,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "top_stub_4",
+      "layer": "cond",
+      "x": 17.509500000000003,
+      "y": 5.3985,
+      "w": 1.029,
+      "h": 6.391
+    },
+    {
+      "name": "ground_via_top_4",
+      "layer": "pcvia1",
+      "x": 17.774,
+      "y": 11.2895,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "em_boundary",
+      "layer": "EM_BOUNDARY",
+      "x": -5.5,
+      "y": -3.0975,
+      "w": 33.53,
+      "h": 17.887
+    }
+  ]
+}

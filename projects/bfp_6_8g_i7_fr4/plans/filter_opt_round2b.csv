@@ -1,0 +1,11 @@
+name,L_mm,tap_mm,Egap_mm,S1_mm,S2_mm,S3_mm,S4_mm,S5_mm,S6_mm,S7_mm,S8_mm,via_diameter_mm,metal_layer,via_layer,notes
+r2a_l595,5.95,2.143,0.527,0.28,0.43,0.465,0.475,0.475,0.465,0.43,0.28,0.5,cond,pcvia1,seed=all_gaps_minus; shorten resonator to raise passband and 5 GHz rejection
+r2a_l600,6,2.143,0.527,0.28,0.43,0.465,0.475,0.475,0.465,0.43,0.28,0.5,cond,pcvia1,seed=all_gaps_minus; near-nominal length check around best passband case
+r2a_l605,6.05,2.143,0.527,0.28,0.43,0.465,0.475,0.475,0.465,0.43,0.28,0.5,cond,pcvia1,seed=all_gaps_minus; lengthen slightly to see if 6 GHz edge recovers
+r2a_t200,6.1,2,0.527,0.28,0.43,0.465,0.475,0.475,0.465,0.43,0.28,0.5,cond,pcvia1,seed=all_gaps_minus; slightly lower tap on the best passband case
+r2a_t200_l600,6,2,0.527,0.28,0.43,0.465,0.475,0.475,0.465,0.43,0.28,0.5,cond,pcvia1,seed=all_gaps_minus; combined tap and length refinement
+r2e_l595,5.95,1.9,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,seed=tap190_edge_plus; shorten and preserve edge suppression
+r2e_l600,6,1.9,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,seed=tap190_edge_plus; near-nominal length
+r2e_l605,6.05,1.9,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,seed=tap190_edge_plus; slightly longer length
+r2e_t185,6.1,1.85,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,seed=tap190_edge_plus; lower tap a bit to recover passband insertion
+r2e_t195,6.1,1.95,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,seed=tap190_edge_plus; small tap increase for match check

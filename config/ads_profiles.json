@@ -1,0 +1,27 @@
+﻿{
+  "schema_version": "0.1.0",
+  "profiles": {
+    "company": {
+      "ads_root": "D:/Hardware/Keysight/ADS2026_Update1",
+      "ads_python": "D:/Hardware/Keysight/ADS2026_Update1/tools/python/python.exe",
+      "host_python": "D:/Microsoft/Python/ads-automation/Scripts/python.exe",
+      "workspace": "D:/Work/ADS/6-8G_Fillter/6-8G_Fillter",
+      "library": "6-8G_Fillter_lib",
+      "template_cell": "interdigital_9o_ro4350b_508um_v3_wide_mm_coords",
+      "setup_view": "em%Setup",
+      "rfpro_emsetup_view": "emSetup",
+      "substrate": "6-8G_Fillter_lib:substrate1"
+    },
+    "home": {
+      "ads_root": "D:/Hardware/Keysight/ADS2026_Update1",
+      "ads_python": "D:/Hardware/Keysight/ADS2026_Update1/tools/python/python.exe",
+      "host_python": "D:/Microsoft/uv-venvs/ads-automation/Scripts/python.exe",
+      "workspace": "D:/Work/ADS/BFP/BFP",
+      "library": "BFP_lib",
+      "template_cell": "BFP",
+      "setup_view": "em%Setup",
+      "rfpro_emsetup_view": "emSetup",
+      "substrate": "BFP_lib:substrate4"
+    }
+  }
+}

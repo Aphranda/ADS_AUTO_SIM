@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1091.7184" height="458.624" viewBox="-3.7 -1.425 34.1162 14.332">
+<rect x="-3.7" y="-1.425" width="34.1162" height="14.332" fill="#fff" />
+<rect x="-2.5" y="5.206" width="31.7162" height="1.07" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<rect x="-0.4865" y="-0.225" width="0.973" height="6.501" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="0" cy="0.025" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="3.9852" y="-0.225" width="0.935" height="6.501" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="4.4527" cy="0.025" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="8.4249" y="-0.225" width="0.961" height="6.501" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="8.9054" cy="0.025" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="12.8936" y="-0.225" width="0.929" height="6.501" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="13.3581" cy="0.025" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="17.3303" y="-0.225" width="0.961" height="6.501" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="17.8108" cy="0.025" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="21.796" y="-0.225" width="0.935" height="6.501" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="22.2635" cy="0.025" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="26.2297" y="-0.225" width="0.973" height="6.501" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="26.7162" cy="0.025" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="3.9882" y="5.206" width="0.929" height="6.501" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="4.4527" cy="11.457" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="8.3909" y="5.206" width="1.029" height="6.501" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="8.9054" cy="11.457" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="12.8861" y="5.206" width="0.944" height="6.501" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="13.3581" cy="11.457" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="17.2963" y="5.206" width="1.029" height="6.501" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="17.8108" cy="11.457" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="21.799" y="5.206" width="0.929" height="6.501" fill="#f5c542" stroke="#6f5200" stroke-width="0.025" />
+<circle cx="22.2635" cy="11.457" r="0.25" fill="#c99700" stroke="#4d3300" stroke-width="0.025" />
+<rect x="-3.7" y="-1.425" width="34.1162" height="14.332" fill="none" stroke="#777" stroke-width="0.03" stroke-dasharray="0.2 0.15" />
+<text x="-3.5" y="-1.075" font-size="0.32" fill="#333">ssb_l3_25_n6_len108p7_stubp15_w1070_viafix FR4 shorted-stub BPF</text>
+</svg>

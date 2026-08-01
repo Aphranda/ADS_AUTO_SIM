@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9O 6-8G 滤波器设计优化报告</title>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  body {
+    font-family:"Microsoft YaHei","SimSun","DengXian",Arial,sans-serif;
+    background:#d7d9df;
+    color:#1f2328;
+    padding:18px;
+    line-height:1.42;
+  }
+  @page { size:A4 portrait; margin:0; }
+  .page {
+    width:210mm;
+    height:297mm;
+    margin:0 auto 18px;
+    background:#fff;
+    box-shadow:0 3px 14px rgba(0,0,0,.16);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    break-after:page;
+    page-break-after:always;
+  }
+  .page:last-child { break-after:auto; page-break-after:auto; }
+  .page-header {
+    padding:10mm 16mm 5mm;
+    border-bottom:5px solid #d9e1ef;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:18px;
+  }
+  .brand { color:#1f3864; font-size:15px; font-weight:800; letter-spacing:0; }
+  .page-header .logo { height:28px; width:auto; display:block; overflow:visible; flex:0 0 auto; margin-left:auto; }
+  .doc-meta { text-align:right; font-size:10.5px; color:#687381; white-space:nowrap; }
+  .doc-meta strong { display:block; color:#1f3864; font-size:13px; margin-bottom:3px; }
+  .main { flex:1; padding:6mm 16mm 6mm; }
+  .page-footer {
+    padding:3mm 16mm 4mm;
+    border-top:5px solid #d9e1ef;
+    color:#8b949e;
+    font-size:9px;
+    display:flex;
+    justify-content:space-between;
+  }
+  h1 { font-size:23px; color:#172033; letter-spacing:0; margin-bottom:3px; }
+  .subtitle { color:#5b6573; font-size:12px; }
+  .chips { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:0 0 9px; }
+  .chip { border:1px solid #d9e1ef; border-left:4px solid #1f3864; padding:6px 8px; min-height:44px; background:#f8fafc; }
+  .chip:nth-child(2) { border-left-color:#2e7d32; }
+  .chip:nth-child(3) { border-left-color:#d97706; }
+  .chip:nth-child(4) { border-left-color:#6a1b9a; }
+  .chip .k { display:block; color:#687381; font-size:9.5px; margin-bottom:1px; }
+  .chip .v { display:block; color:#111827; font-size:12px; font-weight:700; }
+  .section { margin-top:8px; }
+  .section-title {
+    font-size:14px;
+    color:#1f3864;
+    font-weight:700;
+    padding-bottom:4px;
+    border-bottom:2px solid #1f3864;
+    margin-bottom:6px;
+  }
+  table { width:100%; border-collapse:collapse; font-size:10.1px; border:1.5px solid #2f3542; }
+  th {
+    background:#1f3864;
+    color:#fff;
+    text-align:left;
+    padding:5px 7px;
+    border:1px solid #182b4c;
+    font-weight:700;
+  }
+  td { padding:5px 7px; border:1px solid #c8d1dc; vertical-align:top; }
+  tbody tr:nth-child(even) td { background:#f5f8fc; }
+  .compact td { padding-top:4px; padding-bottom:4px; }
+  .b { font-weight:700; }
+  .c { text-align:center; }
+  .ok { color:#0f7b3f; font-weight:700; }
+  .warn { color:#b45309; font-weight:700; }
+  .bad { color:#b42318; font-weight:700; }
+  .mono { font-family:Consolas,"Courier New",monospace; font-size:9.1px; word-break:break-all; }
+  .tag {
+    display:inline-block;
+    padding:1px 6px;
+    border-radius:4px;
+    font-size:9px;
+    font-weight:700;
+    color:#fff;
+    white-space:nowrap;
+  }
+  .green { background:#2e7d32; }
+  .blue { background:#1f3864; }
+  .orange { background:#d97706; }
+  .red { background:#b42318; }
+  .gray { background:#6b7280; }
+  .summary { display:grid; grid-template-columns:1.05fr .95fr; gap:10px; }
+  .note-box, .warn-box, .todo-box, .flow-box {
+    border:1px solid #d9e1ef;
+    padding:8px 9px;
+    background:#f8fafc;
+    font-size:10.5px;
+  }
+  .note-box { border-left:4px solid #1f3864; }
+  .warn-box { border-left:4px solid #d97706; background:#fffbeb; }
+  .todo-box { border-left:4px solid #2e7d32; }
+  .flow-box { border-left:4px solid #6a1b9a; }
+  ul { margin-left:16px; }
+  li { margin:2px 0; }
+  .bar {
+    margin-top:8px;
+    padding:7px 9px;
+    color:#172033;
+    background:#eef4ff;
+    border-left:4px solid #1f3864;
+    font-size:10.6px;
+  }
+  .flow {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:7px;
+    margin-top:7px;
+  }
+  .step {
+    border:1px solid #d9e1ef;
+    padding:6px 7px;
+    background:#fff;
+    min-height:58px;
+  }
+  .step strong { display:block; color:#1f3864; font-size:10px; margin-bottom:2px; }
+  .step span { display:block; color:#4b5563; font-size:9.4px; }
+  .figure {
+    border:1px solid #d9e1ef;
+    background:#fff;
+    padding:7px;
+    text-align:center;
+  }
+  .figure img { max-width:100%; max-height:104mm; object-fit:contain; }
+  .plot-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:8px;
+  }
+  .plot-grid .figure img { max-height:74mm; }
+  .figure.primary img { max-height:112mm; }
+  .caption { color:#687381; font-size:9.5px; margin-top:4px; text-align:left; }
+  pre {
+    white-space:pre-wrap;
+    word-break:break-all;
+    font-family:Consolas,"Courier New",monospace;
+    font-size:8.8px;
+    line-height:1.32;
+    padding:7px;
+    background:#111827;
+    color:#f9fafb;
+    border-radius:4px;
+  }
+  @media print {
+    @page { size:A4 portrait; margin:0; }
+    html, body {
+      width:210mm;
+      min-width:210mm;
+      max-width:210mm;
+      background:#fff;
+      padding:0;
+      overflow:visible;
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+    .page {
+      width:210mm !important;
+      height:297mm !important;
+      margin:0;
+      box-shadow:none;
+      break-after:page;
+      page-break-after:always;
+      transform:none !important;
+    }
+    .page:last-child {
+      break-after:auto;
+      page-break-after:auto;
+    }
+  }
+</style>
+</head>
+<body>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <div class="brand">SIM-83+ RF Front-End</div>
+      <h1>9O 6-8G 滤波器设计优化报告</h1>
+      <div class="subtitle">九阶交指型逆切比雪夫滤波器 · RO4350B · ADS/FEM 自动化验证闭环</div>
+    </div>
+    <img class="logo" src="SIM-83_plus_assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta">
+      <strong>九阶方案</strong>
+      日期：2026-07-31<br>
+      当前选择：r3b_t190<br>
+      参考 PDF：6-8G_9O滤波器设计优化报告.pdf
+    </div>
+  </header>
+  <main class="main">
+    <div class="chips">
+      <div class="chip"><span class="k">目标通带</span><span class="v">6-8 GHz</span></div>
+      <div class="chip"><span class="k">选定方案</span><span class="v">r3b_t190</span></div>
+      <div class="chip"><span class="k">5 GHz 抑制</span><span class="v">-45.213 dB</span></div>
+      <div class="chip"><span class="k">工艺能力</span><span class="v">6 mil</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">1. 阶段结论</div>
+      <div class="summary">
+        <div class="note-box">
+          <strong>九阶 RO4350B 方案可作为高抑制基准方案。</strong>
+          EMSETUP fitted 复测显示，r3b_t190 在 5 GHz 处达到 -45.213 dB 抑制，
+          6 GHz 插损为 -3.438 dB，8 GHz 插损为 -3.003 dB。该点不是单项 5 GHz 抑制最深的候选，
+          但在低边阻带、通带边缘和通带波动之间最均衡。
+        </div>
+        <div class="warn-box">
+          <strong>主要限制为边缘插损和端口匹配。</strong>
+          r3b_t190 的 6 GHz 通带入口仍低于 -3 dB 目标，S11/S22 约 -5 dB 量级。
+          若最终产品指标要求 S11/S22 ≤ -10 dB，需要继续优化端口过渡、tap 位置和首末谐振器耦合。
+        </div>
+      </div>
+      <div class="bar">
+        设计判断：r3b_l598/r3b_l599 的 5 GHz 抑制更深，但通带边缘代价更大；九阶主线应以 r3b_t190 为基准继续收敛匹配和边缘插损。
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">2. 指标状态</div>
+      <table class="compact">
+        <thead>
+          <tr><th>项目</th><th>目标</th><th>r3b_t190 EMSETUP fitted</th><th>判断</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>5 GHz 抑制</td><td>≤ -45 dB，优选 ≤ -50 dB</td><td class="ok">-45.213 dB</td><td><span class="tag orange">边界达标</span></td></tr>
+          <tr><td>6 GHz 插损</td><td>≥ -3 dB，最好 ≥ -2.5 dB</td><td class="bad">-3.438 dB</td><td><span class="tag red">需优化</span></td></tr>
+          <tr><td>8 GHz 插损</td><td>≥ -3 dB，最好 ≥ -2.5 dB</td><td class="warn">-3.003 dB</td><td><span class="tag orange">临界</span></td></tr>
+          <tr><td>通带波动</td><td>≤ 3 dB</td><td class="ok">约 2.43 dB</td><td><span class="tag green">可接受</span></td></tr>
+          <tr><td>S11/S22</td><td>≤ -10 dB，优选 ≤ -12 dB</td><td class="bad">约 -5.4 / -5.4 dB</td><td><span class="tag red">不足</span></td></tr>
+          <tr><td>最小线距</td><td>≥ 6 mil / 0.1524 mm</td><td class="ok">最小间隙约 0.330 mm</td><td><span class="tag green">可加工</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">3. 材料与版图输入</div>
+      <table class="compact">
+        <thead>
+          <tr><th>类别</th><th>参数</th><th>取值</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>基材</td><td>RO4350B</td><td>Er = 3.48</td><td>按 Rogers RO4350B 常规近似参数建模。</td></tr>
+          <tr><td>介质厚度</td><td>H</td><td>0.508 mm</td><td>对应 20 mil 级高频板层叠。</td></tr>
+          <tr><td>铜厚</td><td>T</td><td>0.035 mm</td><td>按 1 oz 级铜厚近似。</td></tr>
+          <tr><td>50 Ω 线宽</td><td>W50</td><td>约 1.113 mm</td><td>用于馈线、端口和外部连接。</td></tr>
+          <tr><td>过孔</td><td>Via</td><td>圆孔，直径 0.5 mm</td><td>DXF 支持圆孔导入，ADS 中转为 via/shape。</td></tr>
+          <tr><td>结构</td><td>滤波器阶数</td><td>九阶交指型逆切比雪夫</td><td>用于满足 5 GHz 附近强抑制需求。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <footer class="page-footer"><span>9O 6-8G Filter Design Optimization</span><span>Page 1</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <div class="brand">SIM-83+ RF Front-End</div>
+      <h1>版图与关键结果</h1>
+      <div class="subtitle">EMSETUP fitted 复测结果优先用于工程判断</div>
+    </div>
+    <img class="logo" src="SIM-83_plus_assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta">
+      <strong>数据源</strong>
+      ADS 工作区：D:\Work\ADS\6-8G_Fillter<br>
+      结果目录：SIM\ADS\results<br>
+      当前基准：r3b_t190
+    </div>
+  </header>
+  <main class="main">
+    <div class="section">
+      <div class="section-title">4. 当前最佳版图</div>
+      <div class="figure">
+        <img src="ADS/opt_round3_l600/r3b_t190.svg" alt="r3b_t190 filter layout">
+        <div class="caption">
+          图 1：r3b_t190 版图。该候选来自围绕 r2e_l600 的第三轮细扫，经过 EMSETUP fitted 复测后成为九阶方案当前综合最佳点。
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">5. EMSETUP 复测候选对比</div>
+      <table class="compact">
+        <thead>
+          <tr><th>候选</th><th>S21@5G</th><th>S21@6G</th><th>S21@8G</th><th>通带最差</th><th>Ripple</th><th>判断</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="b">r3b_t190</td><td class="ok">-45.213</td><td class="bad">-3.438</td><td class="warn">-3.003</td>
+            <td>-3.438</td><td>约 2.43</td><td>综合最均衡，作为当前最佳方案。</td>
+          </tr>
+          <tr>
+            <td>r3b_l598</td><td class="ok">-46.200</td><td class="bad">-4.453</td><td class="bad">-3.946</td>
+            <td>-4.453</td><td>约 3.18</td><td>5 GHz 抑制更强，但 6/8 GHz 边缘代价过大。</td>
+          </tr>
+          <tr>
+            <td>r3b_l599</td><td class="ok">-47.188</td><td class="bad">-5.198</td><td class="bad">-5.046</td>
+            <td>-5.198</td><td>约 4.09</td><td>抑制最深，但通带边缘不可接受。</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="bar">
+        复测结论：缩短 L 可以继续加深 5 GHz 抑制，但会把 6 GHz 和 8 GHz 通带边缘一起拉低。当前不宜以 l598/l599 作为主线，应回到 t190 附近做联合优化。
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">6. RFPro 批量趋势结果</div>
+      <table class="compact">
+        <thead>
+          <tr><th>候选</th><th>L / tap / Egap</th><th>S1 / S8</th><th>S21@5G</th><th>S21@6G</th><th>S21@8G</th><th>通带最差</th><th>Ripple</th><th>S11/S22</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>r3b_l597</td><td>5.97 / 1.90 / 0.527</td><td>0.330 / 0.330</td><td>-44.14</td><td>-2.06</td><td>-4.17</td><td>-4.17</td><td>2.58</td><td>-4.25 / -4.14</td></tr>
+          <tr><td>r3b_l598</td><td>5.98 / 1.90 / 0.527</td><td>0.330 / 0.330</td><td>-44.77</td><td>-2.75</td><td>-4.74</td><td>-4.74</td><td>3.67</td><td>-3.89 / -3.57</td></tr>
+          <tr><td>r3b_l599</td><td>5.99 / 1.90 / 0.527</td><td>0.330 / 0.330</td><td>-42.51</td><td>-1.70</td><td>-3.74</td><td>-3.74</td><td>2.67</td><td>-4.29 / -4.47</td></tr>
+          <tr><td class="b">r3b_t190</td><td>6.00 / 1.90 / 0.527</td><td>0.330 / 0.330</td><td>-43.08</td><td>-1.21</td><td>-3.48</td><td>-3.48</td><td>2.51</td><td>-5.46 / -5.16</td></tr>
+          <tr><td>r3b_e515</td><td>6.00 / 1.90 / 0.515</td><td>0.330 / 0.330</td><td>-42.25</td><td>-1.11</td><td>-2.91</td><td>-2.91</td><td>2.06</td><td>-4.98 / -4.98</td></tr>
+          <tr><td>r3b_s1m</td><td>6.00 / 1.90 / 0.527</td><td>0.315 / 0.315</td><td>-42.86</td><td>-1.72</td><td>-5.78</td><td>-5.78</td><td>4.50</td><td>-2.85 / -2.89</td></tr>
+        </tbody>
+      </table>
+      <div class="bar">
+        RFPro 与 EMSETUP fitted 的绝对数值存在偏差，RFPro 更适合做参数趋势筛选；关键候选最终应以 EMSETUP fitted/Data Display 曲线判定。
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>9O 6-8G Filter Design Optimization</span><span>Page 2</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <div class="brand">SIM-83+ RF Front-End</div>
+      <h1>EMSETUP 复测曲线</h1>
+      <div class="subtitle">最后三项候选的 ADS Data Display 导出图</div>
+    </div>
+    <img class="logo" src="SIM-83_plus_assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta">
+      <strong>图像来源</strong>
+      SIM\SIM-83_plus_assets<br>
+      候选：t190 / l598 / l599<br>
+      数据：FEM_a fitted
+    </div>
+  </header>
+  <main class="main">
+    <div class="section">
+      <div class="section-title">7. 当前最佳候选 r3b_t190</div>
+      <div class="figure primary">
+        <img src="SIM-83_plus_assets/r3b_t190.png" alt="r3b_t190 EMSETUP fitted result">
+        <div class="caption">
+          图 2：r3b_t190 EMSETUP fitted 结果。5 GHz = -45.213 dB，6 GHz = -3.438 dB，8 GHz = -3.003 dB，是三项复测中综合最均衡的候选。
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title">8. 抑制增强候选对比</div>
+      <div class="plot-grid">
+        <div class="figure">
+          <img src="SIM-83_plus_assets/r3b_l598.png" alt="r3b_l598 EMSETUP fitted result">
+          <div class="caption">
+            图 3：r3b_l598。5 GHz 抑制提高到 -46.200 dB，但 6/8 GHz 边缘降到 -4.453 / -3.946 dB。
+          </div>
+        </div>
+        <div class="figure">
+          <img src="SIM-83_plus_assets/r3b_l599.png" alt="r3b_l599 EMSETUP fitted result">
+          <div class="caption">
+            图 4：r3b_l599。5 GHz 抑制最深，为 -47.188 dB，但 6.020/8.023 GHz 降到 -5.198 / -5.046 dB。
+          </div>
+        </div>
+      </div>
+      <div class="bar">
+        图像结论：l598/l599 的阻带抑制更好，但通带入口和出口损失过大；当前主线仍应锁定 r3b_t190。
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>9O 6-8G Filter Design Optimization</span><span>Page 3</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <div class="brand">SIM-83+ RF Front-End</div>
+      <h1>优化轮次与参数判断</h1>
+      <div class="subtitle">从可行性版图到 r3b_t190 综合基准的演进</div>
+    </div>
+    <img class="logo" src="SIM-83_plus_assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta">
+      <strong>优化历史</strong>
+      Round1 / Round2b / Round3<br>
+      主线：RO4350B 0.508 mm<br>
+      工艺：6 mil
+    </div>
+  </header>
+  <main class="main">
+    <div class="section">
+      <div class="section-title">9. 迭代轮次、数量与方向</div>
+      <div class="bar">
+        九阶方案已完成 4 轮 RFPro 自动化批量扫描，共 42 个候选点；随后选取 3 个关键候选进入 EMSETUP fitted 复测。当前结论按 5 GHz 抑制、6/8 GHz 边缘插损和匹配综合判断。
+      </div>
+      <table class="compact">
+        <thead>
+          <tr><th>阶段</th><th>数量</th><th>扫描方向</th><th>目的</th><th>结论</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>初始方案</td><td>1 个基准版图</td><td>九阶交指结构、RO4350B 0.508 mm、50 Ω 馈线、圆孔接地。</td><td>确认 6-8 GHz 带通结构是否可形成。</td><td>通带形态成立，但 5 GHz 抑制、6/8 GHz 边缘和匹配需要 ADS/FEM 闭环优化。</td></tr>
+          <tr><td>Round1</td><td>10 个 RFPro 候选</td><td>粗扫 tap、端部间隙、边缘耦合和整体耦合强度。</td><td>判断几何变量对带边、5 GHz 抑制和 S11/S22 的敏感度。</td><td>tap 与端部耦合会影响匹配和带边，单变量变化不能同时修好 5G 抑制与通带边缘。</td></tr>
+          <tr><td>Round2b</td><td>10 个 RFPro 候选</td><td>围绕 r2e_l595/r2e_l600 比较谐振器长度 L、tap 位置和端部耦合。</td><td>将搜索中心从大范围试探收敛到可用区间。</td><td>r2e_l600 更适合作为第三轮中心。</td></tr>
+          <tr><td>Round3-r2e_l595</td><td>11 个 RFPro 候选</td><td>以 r2e_l595 为中心细扫 L、tap、Egap、S1/S8。</td><td>验证缩短长度能否继续改善 5 GHz 抑制。</td><td>局部点可达到约 -45 dB 抑制，但通带最差点和匹配同步变差。</td></tr>
+          <tr><td>Round3-r2e_l600</td><td>11 个 RFPro 候选</td><td>以 r2e_l600 为中心细扫 L = 5.97-6.00 mm、tap = 1.85-1.95 mm、Egap = 0.515-0.540 mm、S1/S8 微调。</td><td>寻找低端抑制和通带边缘之间的平衡点。</td><td>选出 r3b_t190、r3b_l598、r3b_l599 进入 EMSETUP 复测。</td></tr>
+          <tr><td>EMSETUP 复测</td><td>3 个关键候选</td><td>复测 r3b_t190、r3b_l598、r3b_l599 的 FEM_a fitted 曲线。</td><td>用 ADS Data Display 口径确认最终工程判断。</td><td>r3b_l598/l599 抑制更深但边缘损失过大；r3b_t190 定为当前综合最佳基准。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">10. 参数趋势判断</div>
+      <div class="summary">
+        <div class="note-box">
+          <strong>长度 L 是带边和 5 GHz 抑制的强敏感变量。</strong>
+          从 t190 到 l598/l599，5 GHz 抑制可从 -45.213 dB 加深到 -46.200/-47.188 dB，
+          但 6 GHz 和 8 GHz 边缘同步劣化。不建议继续沿单纯缩短 L 的方向推进。
+        </div>
+        <div class="warn-box">
+          <strong>匹配仍是主要短板。</strong>
+          现有小范围 tap、Egap、S1/S8 扫描没有把 S11/S22 稳定推到 -10 dB。
+          下一轮需要增加输入/输出过渡、feed tap 形状、首末谐振器局部宽度或端部加载等结构自由度。
+        </div>
+      </div>
+      <div class="summary" style="margin-top:8px;">
+        <div class="todo-box">
+          <strong>保留方向</strong>
+          <ul>
+            <li>以 r3b_t190 为中心，小范围联合扫 L、tap、Egap，优先范围为 L = 5.99-6.00 mm、tap = 1.88-1.92 mm、Egap = 0.520-0.535 mm。</li>
+            <li>保持 6 GHz 和 8 GHz 不低于当前边界，再改善 5 GHz 抑制。</li>
+            <li>新增端口过渡和首末谐振器加载变量，把 S11/S22 先推向 -8 dB。</li>
+            <li>每轮只选 2-3 个关键候选用 EMSETUP fitted 复核。</li>
+          </ul>
+        </div>
+        <div class="flow-box">
+          <strong>暂停方向</strong>
+          <ul>
+            <li>不再单独追求 l598/l599 这类更短 L 的 5 GHz 深抑制。</li>
+            <li>不把 RFPro 单点最好值直接作为冻结判断。</li>
+            <li>不使用曾出现挂起风险的 oa-emdata 结果动作作为主流程。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>9O 6-8G Filter Design Optimization</span><span>Page 4</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <div class="brand">SIM-83+ RF Front-End</div>
+      <h1>ADS 自动化与可制造性</h1>
+      <div class="subtitle">稳定 RFPro API 批量筛选，EMSETUP fitted 关键复核</div>
+    </div>
+    <img class="logo" src="SIM-83_plus_assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta">
+      <strong>自动化状态</strong>
+      DXF 导入：已打通<br>
+      端口/FEM：已打通<br>
+      批量评分：已打通
+    </div>
+  </header>
+  <main class="main">
+    <div class="section">
+      <div class="section-title">11. 闭环流程</div>
+      <div class="flow">
+        <div class="step"><strong>1 参数生成</strong><span>CSV 定义 L、tap、Egap、S1/S8 等变量。</span></div>
+        <div class="step"><strong>2 生成 DXF</strong><span>Python 输出 mm 坐标 DXF、SVG、DRC 和参数表。</span></div>
+        <div class="step"><strong>3 导入 ADS</strong><span>ADS Python 导入 DXF，线框转 shape，补圆孔。</span></div>
+        <div class="step"><strong>4 放置端口</strong><span>自动放置 P1/P2，端口位置与馈线保持一致。</span></div>
+        <div class="step"><strong>5 克隆 FEM</strong><span>复用 emSetup 模板，修改仿真频段为 4-10 GHz。</span></div>
+        <div class="step"><strong>6 运行仿真</strong><span>稳定路径通过 RFPro Analysis API 触发 FEM。</span></div>
+        <div class="step"><strong>7 导出结果</strong><span>导出 S11/S21/S22 CSV，或读取 FEM_a.ds fitted 数据。</span></div>
+        <div class="step"><strong>8 自动评分</strong><span>计算 5G 抑制、6/8G 插损、通带最差、ripple、回波。</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">12. 可制造性评估</div>
+      <table class="compact">
+        <thead>
+          <tr><th>项目</th><th>当前设计</th><th>可制造性判断</th><th>注意事项</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>最小间距</td><td>约 0.330 mm，约 13.0 mil</td><td><span class="tag green">满足 6 mil 规则</span></td><td>九阶结构对耦合间隙敏感，CAM 线宽补偿需与仿真假设一致。</td></tr>
+          <tr><td>最小线宽</td><td>约 1.113 mm</td><td><span class="tag green">裕量充足</span></td><td>线宽不是主要加工瓶颈，但会影响 50 Ω 馈线阻抗。</td></tr>
+          <tr><td>过孔工艺</td><td>圆孔直径 0.5 mm</td><td><span class="tag green">常规可加工</span></td><td>过孔电感会影响短路端等效电长度，实物需保持接地连续性。</td></tr>
+          <tr><td>材料公差</td><td>RO4350B，h = 0.508 mm</td><td><span class="tag orange">需做容差验证</span></td><td>6-8 GHz 下介质厚度、Er、铜厚和表面粗糙度均会造成频偏和插损变化。</td></tr>
+          <tr><td>版图尺度</td><td>谐振器区域约 13.547 mm × 6.527 mm</td><td><span class="tag green">具备加工条件</span></td><td>九阶结构较长，布板时需保证两侧地参考和端口过渡一致。</td></tr>
+        </tbody>
+      </table>
+      <div class="bar">
+        工艺结论：九阶 RO4350B 方案的线宽、线距和过孔尺寸均满足 6 mil 常规加工能力；主要制造风险不是最小线宽线距，而是高阶窄带结构对材料参数、蚀刻偏差、过孔接地和端口过渡的一致性敏感。
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">13. 稳定运行命令</div>
+      <pre>python SIM\tools\run_ads_filter_sweep.py --plan SIM\ADS\filter_opt_round3_l600.csv --out-dir SIM\ADS\opt_round3_l600 --results-dir SIM\ADS\results\opt_round3_l600 --summary SIM\ADS\results\opt_round3_l600\sweep_summary.csv --skip-generate --continue-on-error</pre>
+      <div class="bar">
+        当前未找到稳定的 GUI EM Setup simulate 按钮自动化接口；稳定主流程采用 RFPro/FEM API。EMSETUP/Data Display 适合作为关键候选的人工复测路径。
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>9O 6-8G Filter Design Optimization</span><span>Page 5</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <div class="brand">SIM-83+ RF Front-End</div>
+      <h1>下一步优化与文件位置</h1>
+      <div class="subtitle">九阶高抑制方案独立维护</div>
+    </div>
+    <img class="logo" src="SIM-83_plus_assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta">
+      <strong>下一阶段</strong>
+      基准：r3b_t190<br>
+      目标：匹配与边缘联合收敛<br>
+      输出：DXF / CSV / FEM_a.ds
+    </div>
+  </header>
+  <main class="main">
+    <div class="section">
+      <div class="section-title">14. 推荐下一轮优化</div>
+      <table class="compact">
+        <thead>
+          <tr><th>优先级</th><th>候选/方向</th><th>目的</th><th>判据</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="c"><span class="tag green">P1</span></td><td class="b">r3b_t190</td><td>作为 EMSETUP fitted 复测后的综合最佳基准。</td><td>保持 6/8 GHz 边缘，再改善匹配。</td></tr>
+          <tr><td class="c"><span class="tag blue">P2</span></td><td>端口过渡/首末谐振器加载</td><td>提升 S11/S22，同时尽量保持 5 GHz 抑制。</td><td>S11/S22 先推到 -8 dB，再向 -10 dB 收敛。</td></tr>
+          <tr><td class="c"><span class="tag blue">P2</span></td><td>L、tap、Egap 小范围组合</td><td>在 t190 附近寻找 6/8 GHz 边缘和 5 GHz 抑制平衡。</td><td>6G ≥ -3.2 dB，8G ≥ -3.0 dB，5G ≤ -45 dB。</td></tr>
+          <tr><td class="c"><span class="tag orange">P3</span></td><td>r3_e540 匹配方向</td><td>保留 RFPro 中匹配改善迹象。</td><td>若 EMSETUP 可复现，再作为匹配优化支路。</td></tr>
+          <tr><td class="c"><span class="tag gray">参考</span></td><td>r3b_l598 / r3b_l599</td><td>证明缩短 L 可增强 5 GHz 抑制。</td><td>不作为主点，因为通带边缘损失过大。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">15. 数据与文件位置</div>
+      <table class="compact">
+        <thead>
+          <tr><th>类别</th><th>路径</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>九阶 HTML 报告</td><td class="mono">SIM\6-8G_9O滤波器设计优化报告.html</td><td>九阶 RO4350B 高抑制方案维护文件。</td></tr>
+          <tr><td>九阶 PDF 报告</td><td class="mono">SIM\6-8G_9O滤波器设计优化报告.pdf</td><td>已存在的九阶 PDF 参考版本。</td></tr>
+          <tr><td>第三轮 RFPro 汇总</td><td class="mono">SIM\ADS\results\opt_round3_l600\sweep_summary.csv</td><td>围绕 r2e_l600 的第三轮趋势扫描结果。</td></tr>
+          <tr><td>当前最佳版图</td><td class="mono">SIM\ADS\opt_round3_l600\r3b_t190_mm_coords.dxf</td><td>r3b_t190 mm 坐标 DXF。</td></tr>
+          <tr><td>当前最佳参数</td><td class="mono">SIM\ADS\opt_round3_l600\r3b_t190_params.json</td><td>r3b_t190 参数 JSON。</td></tr>
+          <tr><td>当前最佳 EMSETUP 数据</td><td class="mono">D:\Work\ADS\6-8G_Fillter\6-8G_Fillter\data\r3b_t190_mm_coords_FEM_a.ds</td><td>r3b_t190 fitted 曲线来源。</td></tr>
+          <tr><td>频率规划报告</td><td class="mono">SIM\SIM-83_plus_频率规划分析报告.html</td><td>频率规划参考文件，保持不修改。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <footer class="page-footer"><span>9O 6-8G Filter Design Optimization</span><span>Page 6</span></footer>
+</section>
+
+</body>
+</html>

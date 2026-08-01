@@ -1,0 +1,293 @@
+{
+  "parameters": {
+    "name": "i7_fr4_r5_len400",
+    "order": 7,
+    "substrate": "substrate4",
+    "er": 4.6,
+    "dielectric_height_mm": 0.21,
+    "copper_thickness_mm": 0.035,
+    "lower_cutoff_ghz": 6.0,
+    "upper_cutoff_ghz": 8.0,
+    "passband_ripple_db": 0.1,
+    "z0_ohm": 50.0,
+    "w0_mm": 0.3648,
+    "resonator_w_mm": 0.3648,
+    "resonator_l_mm": 5.55,
+    "tap_from_bottom_mm": 1.95,
+    "end_gap_mm": 0.4823,
+    "gaps_mm": [
+      0.1176,
+      0.175,
+      0.1857,
+      0.1857,
+      0.175,
+      0.1176
+    ],
+    "feed_len_mm": 4.0,
+    "feed_taper_len_mm": 0.6,
+    "feed_tip_w_mm": 0.18,
+    "feed_overlap_mm": 0.06,
+    "boundary_margin_mm": 1.5,
+    "min_fab_feature_mm": 0.1016,
+    "metal_layer": "cond",
+    "via_layer": "pcvia1",
+    "via_diameter_mm": 0.254,
+    "via_pad_mm": 0.3556,
+    "via_half_outside": true,
+    "via_pad_outside": false
+  },
+  "derived": {
+    "field_width_mm": 3.5102,
+    "overall_height_mm": 6.0323,
+    "minimum_gap_mm": 0.1176,
+    "minimum_width_mm": 0.18
+  },
+  "ports": {
+    "P1": [
+      -4.54,
+      1.95
+    ],
+    "P2": [
+      8.0502,
+      1.95
+    ]
+  },
+  "rectangles": [
+    {
+      "name": "resonator_1",
+      "layer": "cond",
+      "x": 0.0,
+      "y": 0.0,
+      "w": 0.3648,
+      "h": 5.55
+    },
+    {
+      "name": "via_pad_1",
+      "layer": "cond",
+      "x": 0.004599999999999993,
+      "y": -0.1778,
+      "w": 0.3556,
+      "h": 0.3556
+    },
+    {
+      "name": "ground_via_1",
+      "layer": "pcvia1",
+      "x": 0.055400000000000005,
+      "y": -0.127,
+      "w": 0.254,
+      "h": 0.254
+    },
+    {
+      "name": "resonator_2",
+      "layer": "cond",
+      "x": 0.4824,
+      "y": 0.4823,
+      "w": 0.3648,
+      "h": 5.55
+    },
+    {
+      "name": "via_pad_2",
+      "layer": "cond",
+      "x": 0.48700000000000004,
+      "y": 5.8545,
+      "w": 0.3556,
+      "h": 0.3556
+    },
+    {
+      "name": "ground_via_2",
+      "layer": "pcvia1",
+      "x": 0.5378000000000001,
+      "y": 5.9053,
+      "w": 0.254,
+      "h": 0.254
+    },
+    {
+      "name": "resonator_3",
+      "layer": "cond",
+      "x": 1.0222,
+      "y": 0.0,
+      "w": 0.3648,
+      "h": 5.55
+    },
+    {
+      "name": "via_pad_3",
+      "layer": "cond",
+      "x": 1.0268000000000002,
+      "y": -0.1778,
+      "w": 0.3556,
+      "h": 0.3556
+    },
+    {
+      "name": "ground_via_3",
+      "layer": "pcvia1",
+      "x": 1.0776000000000001,
+      "y": -0.127,
+      "w": 0.254,
+      "h": 0.254
+    },
+    {
+      "name": "resonator_4",
+      "layer": "cond",
+      "x": 1.5727,
+      "y": 0.4823,
+      "w": 0.3648,
+      "h": 5.55
+    },
+    {
+      "name": "via_pad_4",
+      "layer": "cond",
+      "x": 1.5773000000000001,
+      "y": 5.8545,
+      "w": 0.3556,
+      "h": 0.3556
+    },
+    {
+      "name": "ground_via_4",
+      "layer": "pcvia1",
+      "x": 1.6281,
+      "y": 5.9053,
+      "w": 0.254,
+      "h": 0.254
+    },
+    {
+      "name": "resonator_5",
+      "layer": "cond",
+      "x": 2.1231999999999998,
+      "y": 0.0,
+      "w": 0.3648,
+      "h": 5.55
+    },
+    {
+      "name": "via_pad_5",
+      "layer": "cond",
+      "x": 2.1277999999999997,
+      "y": -0.1778,
+      "w": 0.3556,
+      "h": 0.3556
+    },
+    {
+      "name": "ground_via_5",
+      "layer": "pcvia1",
+      "x": 2.1785999999999994,
+      "y": -0.127,
+      "w": 0.254,
+      "h": 0.254
+    },
+    {
+      "name": "resonator_6",
+      "layer": "cond",
+      "x": 2.663,
+      "y": 0.4823,
+      "w": 0.3648,
+      "h": 5.55
+    },
+    {
+      "name": "via_pad_6",
+      "layer": "cond",
+      "x": 2.6675999999999997,
+      "y": 5.8545,
+      "w": 0.3556,
+      "h": 0.3556
+    },
+    {
+      "name": "ground_via_6",
+      "layer": "pcvia1",
+      "x": 2.7184,
+      "y": 5.9053,
+      "w": 0.254,
+      "h": 0.254
+    },
+    {
+      "name": "resonator_7",
+      "layer": "cond",
+      "x": 3.1454,
+      "y": 0.0,
+      "w": 0.3648,
+      "h": 5.55
+    },
+    {
+      "name": "via_pad_7",
+      "layer": "cond",
+      "x": 3.15,
+      "y": -0.1778,
+      "w": 0.3556,
+      "h": 0.3556
+    },
+    {
+      "name": "ground_via_7",
+      "layer": "pcvia1",
+      "x": 3.2008,
+      "y": -0.127,
+      "w": 0.254,
+      "h": 0.254
+    },
+    {
+      "name": "input_feed",
+      "layer": "cond",
+      "x": -4.54,
+      "y": 1.7675999999999998,
+      "w": 4.0,
+      "h": 0.3648
+    },
+    {
+      "name": "input_feed_taper",
+      "layer": "cond",
+      "points": [
+        [
+          -0.54,
+          1.7675999999999998
+        ],
+        [
+          -0.54,
+          2.1323999999999996
+        ],
+        [
+          0.06,
+          2.04
+        ],
+        [
+          0.06,
+          1.8599999999999999
+        ]
+      ]
+    },
+    {
+      "name": "output_feed_taper",
+      "layer": "cond",
+      "points": [
+        [
+          3.4502,
+          1.8599999999999999
+        ],
+        [
+          3.4502,
+          2.04
+        ],
+        [
+          4.0502,
+          2.1323999999999996
+        ],
+        [
+          4.0502,
+          1.7675999999999998
+        ]
+      ]
+    },
+    {
+      "name": "output_feed",
+      "layer": "cond",
+      "x": 4.0502,
+      "y": 1.7675999999999998,
+      "w": 4.0,
+      "h": 0.3648
+    },
+    {
+      "name": "em_boundary",
+      "layer": "EM_BOUNDARY",
+      "x": -6.04,
+      "y": -1.5,
+      "w": 15.5902,
+      "h": 9.0323
+    }
+  ]
+}

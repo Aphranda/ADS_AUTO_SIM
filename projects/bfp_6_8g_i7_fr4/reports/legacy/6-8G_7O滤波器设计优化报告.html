@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>6-8G 滤波器设计优化报告</title>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  body {
+    font-family:"Microsoft YaHei","SimSun","DengXian",Arial,sans-serif;
+    background:#d7d9df;
+    color:#1f2328;
+    padding:18px;
+    line-height:1.42;
+  }
+  @page { size:A4 portrait; margin:0; }
+  .page {
+    width:210mm;
+    height:297mm;
+    margin:0 auto 18px;
+    background:#fff;
+    box-shadow:0 3px 14px rgba(0,0,0,.16);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    break-after:page;
+    page-break-after:always;
+  }
+  .page:last-child { break-after:auto; page-break-after:auto; }
+  .page-header {
+    padding:10mm 16mm 5mm;
+    border-bottom:5px solid #d9e1ef;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:18px;
+  }
+  .brand { color:#1f3864; font-size:15px; font-weight:800; letter-spacing:0; }
+  .page-header .logo { height:28px; width:auto; display:block; overflow:visible; flex:0 0 auto; margin-left:auto; }
+  .svg-defs { position:absolute; width:0; height:0; overflow:hidden; }
+  .doc-meta { text-align:right; font-size:10.5px; color:#687381; white-space:nowrap; }
+  .doc-meta strong { display:block; color:#1f3864; font-size:13px; margin-bottom:3px; }
+  .main { flex:1; padding:6mm 16mm 6mm; }
+  .page-footer {
+    padding:3mm 16mm 4mm;
+    border-top:5px solid #d9e1ef;
+    color:#8b949e;
+    font-size:9px;
+    display:flex;
+    justify-content:space-between;
+  }
+  h1 { font-size:23px; color:#172033; letter-spacing:0; margin-bottom:3px; }
+  .subtitle { color:#5b6573; font-size:12px; }
+  .chips { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:0 0 9px; }
+  .chip { border:1px solid #d9e1ef; border-left:4px solid #1f3864; padding:6px 8px; min-height:44px; background:#f8fafc; }
+  .chip:nth-child(2) { border-left-color:#2e7d32; }
+  .chip:nth-child(3) { border-left-color:#d97706; }
+  .chip:nth-child(4) { border-left-color:#6a1b9a; }
+  .chip .k { display:block; color:#687381; font-size:9.5px; margin-bottom:1px; }
+  .chip .v { display:block; color:#111827; font-size:12px; font-weight:700; }
+  .section { margin-top:8px; }
+  .section-title {
+    font-size:14px;
+    color:#1f3864;
+    font-weight:700;
+    padding-bottom:4px;
+    border-bottom:2px solid #1f3864;
+    margin-bottom:6px;
+  }
+  table { width:100%; border-collapse:collapse; font-size:10.1px; border:1.5px solid #2f3542; }
+  th {
+    background:#1f3864;
+    color:#fff;
+    text-align:left;
+    padding:5px 7px;
+    border:1px solid #182b4c;
+    font-weight:700;
+  }
+  td { padding:5px 7px; border:1px solid #c8d1dc; vertical-align:top; }
+  tbody tr:nth-child(even) td { background:#f5f8fc; }
+  .compact td { padding-top:4px; padding-bottom:4px; }
+  .b { font-weight:700; }
+  .c { text-align:center; }
+  .ok { color:#0f7b3f; font-weight:700; }
+  .warn { color:#b45309; font-weight:700; }
+  .bad { color:#b42318; font-weight:700; }
+  .mono { font-family:Consolas,"Courier New",monospace; font-size:9.1px; word-break:break-all; }
+  .tag {
+    display:inline-block;
+    padding:1px 6px;
+    border-radius:4px;
+    font-size:9px;
+    font-weight:700;
+    color:#fff;
+    white-space:nowrap;
+  }
+  .green { background:#2e7d32; }
+  .blue { background:#1f3864; }
+  .orange { background:#d97706; }
+  .red { background:#b42318; }
+  .gray { background:#6b7280; }
+  .summary { display:grid; grid-template-columns:1.05fr .95fr; gap:10px; }
+  .note-box, .warn-box, .todo-box, .flow-box {
+    border:1px solid #d9e1ef;
+    padding:8px 9px;
+    background:#f8fafc;
+    font-size:10.5px;
+  }
+  .note-box { border-left:4px solid #1f3864; }
+  .warn-box { border-left:4px solid #d97706; background:#fffbeb; }
+  .todo-box { border-left:4px solid #2e7d32; }
+  .flow-box { border-left:4px solid #6a1b9a; }
+  ul { margin-left:16px; }
+  li { margin:2px 0; }
+  .bar {
+    margin-top:8px;
+    padding:7px 9px;
+    color:#172033;
+    background:#eef4ff;
+    border-left:4px solid #1f3864;
+    font-size:10.6px;
+  }
+  .flow {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:7px;
+    margin-top:7px;
+  }
+  .step {
+    border:1px solid #d9e1ef;
+    padding:6px 7px;
+    background:#fff;
+    min-height:58px;
+  }
+  .step strong { display:block; color:#1f3864; font-size:10px; margin-bottom:2px; }
+  .step span { display:block; color:#4b5563; font-size:9.4px; }
+  .figure {
+    border:1px solid #d9e1ef;
+    background:#fff;
+    padding:7px;
+    text-align:center;
+  }
+  .figure img { max-width:100%; max-height:104mm; object-fit:contain; }
+  .figure.layout img { max-height:82mm; }
+  .figure.plot img { max-height:132mm; }
+  .caption { color:#687381; font-size:9.5px; margin-top:4px; text-align:left; }
+  pre {
+    white-space:pre-wrap;
+    word-break:break-all;
+    font-family:Consolas,"Courier New",monospace;
+    font-size:8.8px;
+    line-height:1.32;
+    padding:7px;
+    background:#111827;
+    color:#f9fafb;
+    border-radius:4px;
+  }
+  @media print {
+    @page { size:A4 portrait; margin:0; }
+    html, body {
+      width:210mm;
+      min-width:210mm;
+      max-width:210mm;
+      background:#fff;
+      padding:0;
+      overflow:visible;
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+    .page {
+      width:210mm !important;
+      height:297mm !important;
+      margin:0;
+      box-shadow:none;
+      break-after:page;
+      page-break-after:always;
+      transform:none !important;
+    }
+    .page:last-child {
+      break-after:auto;
+      page-break-after:auto;
+    }
+  }
+</style>
+</head>
+<body>
+<svg class="svg-defs" aria-hidden="true" focusable="false" width="0" height="0">
+  <defs>
+<g id="gts-logo">
+<path fill="#D60037" fill-rule="nonzero" d="M7173.87 7805.86c65.71,49.76 152.92,-3.45 161.5,-85.48 34.14,-326.93 59.89,-778.58 -188.29,-867.15 -134.13,-47.88 -383.2,75.16 -647.9,276.41 -56.62,43.08 -58.44,137.1 -0.49,178.37 114.42,81.53 286.45,206.09 359.03,259.42 67.74,49.78 207.26,155.97 316.15,238.43z"/>
+  <path fill="#D60037" fill-rule="nonzero" d="M7010.48 8220.07c50.61,-15.73 89.1,44.99 53.52,84.38 -476,526.88 -1651.9,1775.4 -2028.19,1645.49 -295.42,-101.97 -217.57,-697.86 -167.67,-999.8 6.59,-39.95 38.12,-86.94 76.85,-98.98 300.73,-93.45 1586.52,-482.25 2065.49,-631.09z"/>
+  <path fill="#D60037" fill-rule="nonzero" d="M6289.45 9505.32c-45.04,49.87 -39.24,134.17 19.91,165.98 487.05,261.95 883.78,383.1 1180.58,206.51 339.14,-201.84 91.52,-1044.36 -91.35,-1494.25 -37.92,-93.31 -128.44,-95.32 -184.99,-20.01 -249.69,332.51 -548.72,726.2 -924.15,1141.77z"/>
+  <path fill="#D60037" fill-rule="nonzero" d="M6973.93 8073.83c88.35,-19.74 108.24,-132.68 33.57,-183.98 -760.56,-522.38 -1894.09,-1273.18 -2308.85,-988.78 -347.98,238.59 -54.33,1130.87 115.77,1565.41 18.63,47.61 69.13,74.43 118.96,63.29l2040.55 -455.94z"/>
+  <path fill="#000" fill-rule="nonzero" d="M9171.91 9327.15c-256.06,0 -459.29,-82.56 -609.64,-247.68 -150.37,-165.1 -225.55,-388.47 -225.55,-670.04 0,-287.18 78.19,-515.1 234.52,-683.81 156.33,-168.7 367.72,-253.07 634.14,-253.07 213.77,0 389.85,53.47 528.29,160.35 138.37,106.9 219.12,251.26 242.27,433.12l-367.33 0c-9.58,-76.57 -52.72,-143.74 -129.37,-201.61 -76.67,-57.83 -161.31,-86.75 -253.93,-86.75 -159.73,0 -284.72,55.26 -374.96,165.72 -90.24,110.51 -135.35,263.83 -135.35,460.05 0,199.45 43.3,351.2 129.86,455.31 86.57,104.07 213.26,156.11 380.02,156.11l-1.19 0c142.02,0 252.93,-54.22 332.73,-162.7 43.87,-61.43 76.2,-133.59 96.96,-216.58l0 -3.6 -414.07 0 0 -302.7 736.66 0 0 948.82 -245.28 0 -35.89 -227.36 -21.54 28.74c-123.64,165.12 -291.16,247.68 -502.55,247.68l1.2 0z"/>
+  <path fill="#000" fill-rule="nonzero" d="M11057 8494.38c-7.98,-78.18 -28.71,-139.2 -62.23,-183.06 -43.88,-58.22 -112.08,-87.35 -204.58,-87.35 -88.55,0 -155.98,33.93 -202.24,101.71 -28.72,43.08 -49.45,99.29 -62.22,168.7l531.27 0zm-262.03 818.41c-197.84,0 -350.41,-61.02 -457.67,-183.06 -107.3,-122.03 -160.94,-295.93 -160.94,-521.68 0,-208.2 54.65,-371.1 163.93,-488.76 109.26,-117.66 260.84,-176.5 454.68,-176.5 198.6,0 351.57,60.03 458.85,180.08 107.28,120.06 160.91,290.93 160.91,512.7 1.61,25.55 -0.39,51.43 -5.96,77.76l-886.62 0c7.97,102.91 30.71,179.89 68.2,230.92 47.87,63.84 127.63,95.72 239.3,95.72 51.85,0 99.92,-14.74 144.17,-44.27 44.28,-29.49 70.79,-64.99 79.59,-106.47l349.38 0c-29.52,132.41 -97.93,236.11 -205.21,311.09 -107.3,74.98 -241.5,112.47 -402.61,112.47z"/>
+  <path fill="#000" fill-rule="nonzero" d="M11604.85 7977.48l162.71 0 163.92 0 0 192.65c13.57,-23.13 28.32,-45.07 44.27,-65.82 84.55,-107.67 207.38,-161.52 368.53,-161.52 137.18,0 244.69,40.69 322.46,122.03 77.78,81.37 116.66,194.25 116.66,338.6l0 875.87 -171.1 0 -172.29 0 0 -813.65c0,-80.53 -17.37,-140.15 -52.06,-178.83 -34.68,-38.72 -87.92,-58.07 -159.74,-58.07 -90.14,0 -159.32,27.14 -207.57,81.35 -48.27,54.29 -72.4,132.46 -72.4,234.53l0 734.67 -171.09 0 -172.3 0 0 -1301.81z"/>
+  <path fill="#000" fill-rule="nonzero" d="M13843.63 8494.38c-7.99,-78.18 -28.72,-139.2 -62.22,-183.06 -43.9,-58.22 -112.07,-87.35 -204.6,-87.35 -88.55,0 -155.96,33.93 -202.22,101.71 -28.72,43.08 -49.45,99.29 -62.21,168.7l531.25 0zm-262.04 818.41c-197.83,0 -350.39,-61.02 -457.67,-183.06 -107.29,-122.03 -160.91,-295.93 -160.91,-521.68 0,-208.2 54.62,-371.1 163.9,-488.76 109.28,-117.66 260.84,-176.5 454.68,-176.5 198.6,0 351.58,60.03 458.87,180.08 107.26,120.06 160.92,290.93 160.92,512.7 1.59,25.55 -0.42,51.43 -5.98,77.76l-886.61 0c7.97,102.91 30.69,179.89 68.18,230.92 47.87,63.84 127.64,95.72 239.3,95.72 51.85,0 99.92,-14.74 144.2,-44.27 44.25,-29.49 70.77,-64.99 79.56,-106.47l349.39 0c-29.53,132.41 -97.92,236.11 -205.22,311.09 -107.29,74.98 -241.5,112.47 -402.61,112.47z"/>
+  <path fill="#000" fill-rule="nonzero" d="M14390.55 7977.48l162.7 0 163.93 0 0 233.32c11.98,-25.53 25.53,-50.23 40.7,-74.19 80.57,-129.21 184.63,-193.82 312.29,-193.82l77.77 1.2 0 350.57c-30.33,-3.19 -64.61,-4.78 -102.91,-4.78 -104.5,0 -182.45,25.92 -233.9,77.75 -51.46,51.87 -77.19,130.45 -77.19,235.74l0 676.02 -171.08 0 -172.31 0 0 -1301.81z"/>
+  <path fill="#000" fill-rule="nonzero" d="M16032.68 8798.3l0 -149.57c-39.89,22.33 -92.54,40.27 -157.94,53.84l-126.83 23.94c-59.84,11.17 -105.3,31.71 -136.41,61.6 -31.1,29.92 -46.65,67.61 -46.65,113.08 0,51.87 13.94,92.57 41.87,122.05 27.91,29.51 67.01,44.28 117.27,44.28 110.05,0 197.79,-38.69 263.21,-116.07 12.75,-15.13 23.53,-37.49 32.32,-67.02 8.75,-29.5 13.16,-58.2 13.16,-86.13zm-412.8 514.49c-120.44,0 -217.37,-34.49 -290.75,-103.48 -73.4,-69.02 -110.08,-159.77 -110.08,-272.22 0,-118.82 33.09,-213.97 99.32,-285.37 66.2,-71.38 162.72,-116.26 289.53,-134.61l226.14 -31.1c59.03,-7.99 108.08,-21.56 147.18,-40.68 16.74,-7.98 29.73,-22.32 38.89,-43.09 9.17,-20.72 12.57,-41.88 10.17,-63.4 -4.78,-36.68 -23.52,-65.42 -56.24,-86.17 -39.1,-24.7 -95.31,-37.08 -168.72,-37.08 -65.4,0 -116.44,15.97 -153.14,47.88 -36.69,31.9 -56.22,76.97 -58.62,135.19l-329.05 0c7.2,-152.32 59.03,-266.43 155.55,-342.21 96.51,-75.75 238.12,-113.65 424.76,-113.65 161.94,0 289.75,34.13 383.47,102.4 93.73,68.27 140.6,161.48 140.6,279.64l0 728.12c0,58.3 4.78,99.21 14.36,122.76 9.58,23.58 28.72,42.13 57.43,55.7l0 1.18 0 46.68 -185.46 0 -185.44 0 0 -1.18c-15.19,-52.66 -25.14,-104.11 -29.92,-154.35l-1.2 -2.42c-107.69,127.65 -247.28,191.46 -418.78,191.46z"/>
+  <polygon fill="#000" fill-rule="nonzero" points="16634.66,7520.42 16805.76,7520.42 16978.05,7520.42 16978.05,9279.28 16806.96,9279.28 16634.66,9279.28 "/>
+  <polygon fill="#000" fill-rule="nonzero" points="18393.51,7832.71 17862.26,7832.71 17862.26,7677.19 17862.26,7520.42 19292.09,7520.42 19292.09,7675.94 19292.09,7832.71 18760.84,7832.71 18760.84,9279.28 18577.78,9279.28 18393.51,9279.28 "/>
+  <path fill="#000" fill-rule="nonzero" d="M20018.43 8494.38c-7.98,-78.18 -28.72,-139.2 -62.21,-183.06 -43.9,-58.22 -112.08,-87.35 -204.6,-87.35 -88.54,0 -155.96,33.93 -202.22,101.71 -28.72,43.08 -49.48,99.29 -62.22,168.7l531.25 0zm-262.03 818.41c-197.84,0 -350.4,-61.02 -457.67,-183.06 -107.3,-122.03 -160.92,-295.93 -160.92,-521.68 0,-208.2 54.62,-371.1 163.91,-488.76 109.28,-117.66 260.83,-176.5 454.68,-176.5 198.6,0 351.56,60.03 458.86,180.08 107.26,120.06 160.92,290.93 160.92,512.7 1.59,25.55 -0.41,51.43 -5.98,77.76l-886.6 0c7.94,102.91 30.68,179.89 68.17,230.92 47.88,63.84 127.64,95.72 239.3,95.72 51.87,0 99.92,-14.74 144.18,-44.27 44.27,-29.49 70.81,-64.99 79.58,-106.47l349.39 0c-29.52,132.41 -97.91,236.11 -205.21,311.09 -107.3,74.98 -241.5,112.47 -402.61,112.47z"/>
+  <path fill="#000" fill-rule="nonzero" d="M21307.05 8367.53c0,-50.23 -20.77,-90.52 -62.27,-120.85 -41.51,-30.29 -96.58,-45.43 -165.21,-45.43 -66.26,0 -117.96,11.34 -155.05,34.08 -37.14,22.74 -55.69,54.45 -55.69,95.13 0,28.69 21.13,53.46 63.42,74.19 41.48,19.95 115.3,41.87 221.4,65.79 210.64,47.07 351.47,98.52 422.5,154.35 71.18,55.86 106.78,143.61 106.78,263.25 0,127.62 -51.67,230.31 -154.97,308.09 -103.31,77.77 -239.54,116.67 -408.67,116.67 -200.28,0 -354.43,-38.31 -462.55,-114.87 -108.09,-76.6 -165.72,-188.25 -172.91,-335.02l349.38 0c2.4,59.83 28.94,106.67 79.58,140.58 50.68,33.92 119.5,50.84 206.46,50.84 68.6,0 122.28,-11.74 160.99,-35.29 38.69,-23.5 58.04,-56.41 58.04,-98.72 0,-29.48 -18.74,-54.62 -56.21,-75.37 -37.49,-19.9 -103.33,-40.27 -197.46,-61.01 -220.2,-49.45 -367.39,-101.72 -441.58,-156.75 -74.08,-54.25 -111.11,-138.38 -111.11,-252.46 0,-129.23 48.03,-233.51 144.14,-312.88 96.08,-79.35 222.71,-119.06 379.81,-119.06 177.05,0 319.8,38.89 428.28,116.66 108.48,77.77 162.71,180.5 162.71,308.08l-339.81 0z"/>
+  <path fill="#000" fill-rule="nonzero" d="M22489.62 9286.48c-57.44,4.78 -128.03,7.16 -211.8,7.16 -121.27,0 -208.38,-21.71 -261.43,-65.2 -53.05,-43.47 -79.57,-114.67 -79.57,-213.59l0 -796.85 -180.66 0 0 -240.52 180.66 0 0 -350.57 343.39 0 0 350.57 209.41 0 0 240.52 -209.41 0 0 739.43c0,30.31 9,50.25 26.93,59.82 17.96,9.58 55.21,14.35 111.88,14.35l70.6 0 0 254.88z"/>
+ </g>
+  </defs>
+</svg>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <div class="brand">SIM-83+ RF Front-End</div>
+      <h1>6-8G 滤波器设计优化报告</h1>
+      <div class="subtitle">FR4 低成本 7 阶交指/梳状带通滤波器 · ADS/RFPro FEM 自动化验证闭环</div>
+    </div>
+    <svg class="logo" viewBox="4400 6500 18750 3520" role="img" aria-label="GTS"><use href="#gts-logo"></use></svg>
+    <div class="doc-meta">
+      <strong>统一维护版</strong>
+      日期：2026-07-31<br>
+      当前候选：i7_fr4_r1_l555_taper<br>
+      频段：4-10 GHz 仿真
+    </div>
+  </header>
+  <main class="main">
+    <div class="chips">
+      <div class="chip"><span class="k">目标通带</span><span class="v">6-8 GHz</span></div>
+      <div class="chip"><span class="k">当前结构</span><span class="v">7 阶交指/梳状</span></div>
+      <div class="chip"><span class="k">5 GHz 抑制</span><span class="v">-27.15 dB</span></div>
+      <div class="chip"><span class="k">工艺约束</span><span class="v">4 mil 间距 / 10-14 mil 孔</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">1. 阶段结论</div>
+      <div class="summary">
+        <div class="note-box">
+          <strong>当前推荐候选为 i7_fr4_r1_l555_taper。</strong>
+          该候选基于 FR4、0.210 mm 介质厚度、7 阶交指/梳状拓扑，采用两侧 50 Ω 线锥形过渡。
+          RFPro FEM 结果显示：5 GHz 抑制为 -27.15 dB，6 GHz 插损为 -2.13 dB，8 GHz 插损为 -4.28 dB，
+          通带最差点为 -4.28 dB，按当前 FR4 设计目标可作为阶段候选。
+        </div>
+        <div class="warn-box">
+          <strong>设计尚不建议冻结。</strong>
+          当前 5 GHz 阻带已满足 20 dB 要求，并达到自动评分 profile 中 25 dB 的边界余量；
+          主要短板仍是通带边缘和回波损耗，后续优化应继续围绕外部耦合、tap 高度和锥形过渡形状收敛。
+        </div>
+      </div>
+      <div class="bar">
+        设计判断：矩形馈线改为锥形过渡后，5 GHz 抑制和 8 GHz 边缘明显改善；继续单纯缩短谐振器长度可加深低边抑制，但会牵动 6 GHz 入口匹配，需要以小步联合扫描为主。
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">2. 指标状态</div>
+      <table class="compact">
+        <thead>
+          <tr><th>项目</th><th>工程目标</th><th>自动评分目标</th><th>当前结果</th><th>判断</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>5 GHz 阻带抑制</td><td>≤ -20 dB</td><td>≤ -25 dB</td><td class="ok">-27.15 dB</td><td><span class="tag green">达标</span></td></tr>
+          <tr><td>6 GHz 通带入口</td><td>≥ -5 dB</td><td>≥ -5 dB</td><td class="ok">-2.13 dB</td><td><span class="tag green">达标</span></td></tr>
+          <tr><td>7 GHz 通带中心</td><td>插损尽量低</td><td>趋势参考</td><td class="ok">-2.43 dB</td><td><span class="tag green">可接受</span></td></tr>
+          <tr><td>8 GHz 通带出口</td><td>≥ -5 dB</td><td>≥ -5 dB</td><td class="ok">-4.28 dB</td><td><span class="tag green">达标</span></td></tr>
+          <tr><td>9 GHz 高边抑制</td><td>趋势参考</td><td>趋势参考</td><td class="ok">-58.64 dB</td><td><span class="tag green">充足</span></td></tr>
+          <tr><td>通带最差 S21</td><td>≥ -5 dB</td><td>≥ -5 dB</td><td class="ok">-4.28 dB</td><td><span class="tag green">达标</span></td></tr>
+          <tr><td>通带纹波</td><td>≤ 4 dB</td><td>≤ 4 dB</td><td class="ok">2.83 dB</td><td><span class="tag green">达标</span></td></tr>
+          <tr><td>S11/S22</td><td>阶段目标 ≤ -5 dB，后续目标 ≤ -10 dB</td><td>≤ -5 dB</td><td class="warn">-5.55 / -5.98 dB</td><td><span class="tag orange">需继续优化</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">3. 材料与版图输入</div>
+      <table class="compact">
+        <thead>
+          <tr><th>类别</th><th>参数</th><th>取值</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>基材</td><td>FR4</td><td>Er = 4.6</td><td>用于低成本验证，实际批量需考虑介电常数和损耗角离散。</td></tr>
+          <tr><td>参考层</td><td>ADS substrate4</td><td>h = 0.210 mm</td><td>当前按 L1 参考层叠建模。</td></tr>
+          <tr><td>铜厚</td><td>Top copper</td><td>0.035 mm</td><td>按 1 oz 级铜厚近似。</td></tr>
+          <tr><td>50 Ω 线宽</td><td>W0</td><td>0.3648 mm</td><td>来自当前层叠的 50 Ω 微带线宽。</td></tr>
+          <tr><td>最小线距</td><td>Rule</td><td>0.1016 mm / 4 mil</td><td>当前最小耦合间隙 S1/S6 = 0.1176 mm，满足约束。</td></tr>
+          <tr><td>接地孔</td><td>Via</td><td>10/14 mil</td><td>钻孔 0.254 mm，圆形顶层焊盘 0.3556 mm，孔中心位于短路端边线。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <footer class="page-footer"><span>6-8G Filter Design Optimization</span><span>Page 1 / 7</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <div class="brand">SIM-83+ RF Front-End</div>
+      <h1>版图与关键参数</h1>
+      <div class="subtitle">两侧 50 Ω 锥形过渡接入外侧谐振器</div>
+    </div>
+    <svg class="logo" viewBox="4400 6500 18750 3520" role="img" aria-label="GTS"><use href="#gts-logo"></use></svg>
+    <div class="doc-meta">
+      <strong>当前版图</strong>
+      目录：SIM\ADS\interdigital_7o_fr4_210um_round1<br>
+      Cell：i7_fr4_r1_l555_taper_mm_coords<br>
+      单位：mm
+    </div>
+  </header>
+  <main class="main">
+    <div class="section">
+      <div class="section-title">4. 当前推荐版图</div>
+      <div class="figure layout">
+        <img src="ADS/interdigital_7o_fr4_210um_round1/i7_fr4_r1_l555_taper.svg" alt="i7_fr4_r1_l555_taper layout">
+        <div class="caption">
+          图 1：i7_fr4_r1_l555_taper 参数化版图。外侧 50 Ω 馈线保留直线端口段，靠近谐振器处改为对称锥形过渡；接地孔采用 10/14 mil 圆孔和圆形焊盘表达。
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">5. 当前参数表</div>
+      <table class="compact">
+        <thead>
+          <tr><th>参数</th><th>数值</th><th>作用</th><th>后续调节方向</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>L</td><td>5.55 mm</td><td>主谐振电长度，决定通带位置和低边阻带。</td><td>以 5.55-5.60 mm 为中心小步扫描。</td></tr>
+          <tr><td>tap</td><td>1.95 mm</td><td>端口抽头位置，主要影响外部 Q 和 S11/S22。</td><td>优先扫 1.90 / 1.95 / 2.00 mm。</td></tr>
+          <tr><td>W0 / W</td><td>0.3648 / 0.3648 mm</td><td>50 Ω 主线与谐振器线宽。</td><td>主线宽度先固定，避免破坏 50 Ω 参考。</td></tr>
+          <tr><td>Egap</td><td>0.4823 mm</td><td>开路端间隙，影响端部电容和带边。</td><td>后续可围绕 0.46-0.52 mm 微调。</td></tr>
+          <tr><td>S1/S6</td><td>0.1176 mm</td><td>边缘耦合，影响低边阻带和端口匹配。</td><td>不低于 4 mil，建议小步增减。</td></tr>
+          <tr><td>S2/S5</td><td>0.1750 mm</td><td>近边耦合，影响带宽和纹波。</td><td>用于修正 6/8 GHz 斜率。</td></tr>
+          <tr><td>S3/S4</td><td>0.1857 mm</td><td>中心耦合，影响通带平坦度。</td><td>用于压低通带波动。</td></tr>
+          <tr><td>taper_len</td><td>0.60 mm</td><td>50 Ω 馈线到窄 tap 的渐变长度。</td><td>优先扫 0.45 / 0.60 / 0.75 mm。</td></tr>
+          <tr><td>tip_w</td><td>0.18 mm</td><td>锥形尖端宽度，决定局部耦合强度。</td><td>优先扫 0.16 / 0.18 / 0.22 mm。</td></tr>
+          <tr><td>overlap</td><td>0.06 mm</td><td>锥形尖端伸入边缘谐振器的搭接量。</td><td>建议不超过 0.10 mm。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bar">
+      几何检查：谐振器区域宽度 3.5102 mm，高度 6.0323 mm；两侧含馈线金属总宽度 10.5902 mm；最小金属宽度 0.18 mm，最小耦合间隙 0.1176 mm，满足 4 mil 加工能力。
+    </div>
+  </main>
+  <footer class="page-footer"><span>6-8G Filter Design Optimization</span><span>Page 2 / 7</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <div class="brand">SIM-83+ RF Front-End</div>
+      <h1>EMSETUP/FEM 曲线图</h1>
+      <div class="subtitle">i7_fr4_r1_l555_taper 离散频点与拟合曲线对比</div>
+    </div>
+    <svg class="logo" viewBox="4400 6500 18750 3520" role="img" aria-label="GTS"><use href="#gts-logo"></use></svg>
+    <div class="doc-meta">
+      <strong>附图</strong>
+      Dataset：i7_fr4_r1_l555_taper_mm_coords_FEM_a<br>
+      导出日期：2026-07-31<br>
+      数据类型：ADS Data Display
+    </div>
+  </header>
+  <main class="main">
+    <div class="section">
+      <div class="section-title">6. 当前候选仿真曲线</div>
+      <div class="figure plot">
+        <img src="SIM-83_plus_assets/i7_fr4_r1_l555.png" alt="i7_fr4_r1_l555_taper FEM fitted plot">
+        <div class="caption">
+          图 2：i7_fr4_r1_l555_taper 的 EMSETUP/FEM 复测曲线。图中给出 S11、S21、S22 的离散频点与拟合结果，用于确认 5 GHz 阻带、6-8 GHz 通带和 9 GHz 高边抑制状态。
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title">7. 图中关键读数</div>
+      <table class="compact">
+        <thead>
+          <tr><th>频点</th><th>S21 读数</th><th>设计含义</th><th>阶段判断</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>5.000 GHz</td><td class="ok">约 -25 dB 至 -27 dB</td><td>低边阻带满足 20 dB 要求，并接近 25 dB 自动评分目标。</td><td><span class="tag green">达标</span></td></tr>
+          <tr><td>6.000 GHz</td><td class="ok">约 -2 dB</td><td>通带入口可用，频偏主要表现为高边边缘仍需修正。</td><td><span class="tag green">达标</span></td></tr>
+          <tr><td>8.000 GHz</td><td class="ok">约 -4 dB</td><td>通带出口为当前最弱点，后续优先优化 tap 和边缘耦合。</td><td><span class="tag orange">待优化</span></td></tr>
+          <tr><td>9.000 GHz</td><td class="ok">约 -45 dB 以下</td><td>高边阻带余量充足，不作为下一轮主要矛盾。</td><td><span class="tag green">充足</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <footer class="page-footer"><span>6-8G Filter Design Optimization</span><span>Page 3 / 7</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <div class="brand">SIM-83+ RF Front-End</div>
+      <h1>本轮仿真结果</h1>
+      <div class="subtitle">矩形馈线、锥形馈线与长度微调对比</div>
+    </div>
+    <svg class="logo" viewBox="4400 6500 18750 3520" role="img" aria-label="GTS"><use href="#gts-logo"></use></svg>
+    <div class="doc-meta">
+      <strong>数据口径</strong>
+      RFPro FEM<br>
+      目标 profile：fr4_25db<br>
+      输出：CSV score
+    </div>
+  </header>
+  <main class="main">
+    <div class="section">
+      <div class="section-title">8. 候选对比</div>
+      <table class="compact">
+        <thead>
+          <tr><th>候选</th><th>几何变化</th><th>S21@5G</th><th>S21@6G</th><th>S21@7G</th><th>S21@8G</th><th>S21@9G</th><th>通带最差</th><th>Ripple</th><th>S11/S22</th><th>状态</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>r0_marki_10_14mil_via</td><td>原始 7 阶，矩形馈线</td><td>-6.44</td><td>-2.99</td><td>-2.19</td><td class="bad">-9.03</td><td>-54.01</td><td class="bad">-9.03</td><td>7.32</td><td>-2.83 / -4.91</td><td><span class="tag red">TUNE</span></td>
+          </tr>
+          <tr>
+            <td>i7_fr4_r1_l560</td><td>L=5.60 mm，矩形馈线</td><td>-12.86</td><td>-3.32</td><td>-3.25</td><td class="bad">-7.02</td><td>-36.09</td><td class="bad">-7.02</td><td>4.97</td><td>-2.65 / -2.71</td><td><span class="tag red">TUNE</span></td>
+          </tr>
+          <tr>
+            <td>i7_fr4_r1_l560_taper</td><td>L=5.60 mm，锥形馈线</td><td class="warn">-24.90</td><td>-1.50</td><td>-2.67</td><td>-4.56</td><td>-54.06</td><td>-4.56</td><td>3.06</td><td>-5.55 / -5.39</td><td><span class="tag orange">边界</span></td>
+          </tr>
+          <tr>
+            <td class="b">i7_fr4_r1_l555_taper</td><td>L=5.55 mm，锥形馈线</td><td class="ok">-27.15</td><td class="ok">-2.13</td><td>-2.43</td><td class="ok">-4.28</td><td class="ok">-58.64</td><td class="ok">-4.28</td><td class="ok">2.83</td><td class="warn">-5.55 / -5.98</td><td><span class="tag green">PASS_CANDIDATE</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="bar">
+        本轮结论：锥形过渡是有效改动；L 从 5.60 mm 缩短至 5.55 mm 后，5 GHz 抑制进一步提升至 -27.15 dB，同时 8 GHz 边缘改善至 -4.28 dB，满足当前 FR4 阶段目标。
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">9. 响应特征判断</div>
+      <div class="summary">
+        <div class="note-box">
+          <strong>低边阻带。</strong>
+          原始矩形馈线版本在 5 GHz 仅 -6.44 dB，低边选择性不足。缩短 L 后低边零点向目标侧移动；
+          再叠加锥形过渡后，外部耦合突变降低，端口对边缘谐振器的寄生加载减小，5 GHz 抑制提升到 25 dB 以上。
+        </div>
+        <div class="flow-box">
+          <strong>通带边缘。</strong>
+          L=5.55 mm 版本在 6 GHz 为 -2.13 dB，8 GHz 为 -4.28 dB。8 GHz 仍是通带最弱点，
+          后续应优先通过 tap、S2/S5、锥形长度和尖端宽度改善高边耦合。
+        </div>
+      </div>
+      <div class="summary" style="margin-top:8px;">
+        <div class="warn-box">
+          <strong>匹配。</strong>
+          当前 S11/S22 约 -5.55 / -5.98 dB，只满足阶段评分目标。若以产品化指标衡量，
+          仍需向 -10 dB 或更优收敛。
+        </div>
+        <div class="todo-box">
+          <strong>高边阻带。</strong>
+          9 GHz 抑制已达到 -58.64 dB，不是当前瓶颈。后续不宜用牺牲通带的方式继续强化高边抑制。
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>6-8G Filter Design Optimization</span><span>Page 4 / 7</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <div class="brand">SIM-83+ RF Front-End</div>
+      <h1>优化轮次与参数判断</h1>
+      <div class="subtitle">从 FR4 基线到锥形过渡候选的演进</div>
+    </div>
+    <svg class="logo" viewBox="4400 6500 18750 3520" role="img" aria-label="GTS"><use href="#gts-logo"></use></svg>
+    <div class="doc-meta">
+      <strong>当前方案</strong>
+      FR4 7 阶交指/梳状<br>
+      当前轮次：Round1<br>
+      工艺：4 mil 间距
+    </div>
+  </header>
+  <main class="main">
+    <div class="section">
+      <div class="section-title">10. 迭代轮次、数量与方向</div>
+      <div class="bar">
+        当前 FR4 7 阶方案已完成 1 个基线点、1 个长度验证点和 2 个锥形过渡验证点；另生成 1 个 L=5.50 mm 备用候选，尚未仿真。当前有效仿真数量为 4 个。
+      </div>
+      <table class="compact">
+        <thead>
+          <tr><th>阶段</th><th>数量</th><th>扫描方向</th><th>目的</th><th>结论</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>FR4 基线</td><td>1 个 RFPro 候选</td><td>沿用 Marki 7 阶交指尺寸、10/14 mil 圆孔、矩形馈线。</td><td>确认 FR4 0.210 mm 层叠下的初始响应。</td><td>5 GHz 抑制不足，8 GHz 边缘严重偏低。</td></tr>
+          <tr><td>长度验证</td><td>1 个 RFPro 候选</td><td>将 L 从 5.845 mm 缩短到 5.60 mm。</td><td>验证整体频率上移和低边阻带变化。</td><td>5 GHz 抑制改善到 -12.86 dB，但仍不足；通带匹配未改善。</td></tr>
+          <tr><td>馈线拓扑修正</td><td>1 个 RFPro 候选</td><td>在 L=5.60 mm 上增加两侧 50 Ω 锥形过渡。</td><td>降低端口突变，修正示意版图中的馈线形态。</td><td>5 GHz 改善到 -24.90 dB，通带最差改善到 -4.56 dB。</td></tr>
+          <tr><td>长度微调</td><td>1 个 RFPro 候选</td><td>在锥形馈线基础上将 L 缩短到 5.55 mm。</td><td>在 25 dB 低边阻带与通带边缘之间寻找更稳定平衡。</td><td>得到当前 PASS_CANDIDATE，作为下一轮基准。</td></tr>
+          <tr><td>备用生成</td><td>1 个 DXF 候选</td><td>生成 L=5.50 mm 锥形馈线版本。</td><td>作为低边阻带进一步增强的备选方向。</td><td>尚未仿真；需确认不会过度牺牲 6 GHz 入口。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">11. 参数趋势判断</div>
+      <div class="summary">
+        <div class="note-box">
+          <strong>L 的作用。</strong>
+          谐振器长度缩短会提高谐振频率，使低边 5 GHz 落入更深阻带区域；过度缩短会抬高通带，
+          造成 6 GHz 入口插损和匹配恶化。因此 L 应在 5.50-5.60 mm 内小步验证。
+        </div>
+        <div class="flow-box">
+          <strong>锥形过渡的作用。</strong>
+          锥形段缓解 50 Ω 主线到窄耦合点之间的阻抗突变，同时改变外部 Qe。
+          本轮结果显示，该变量对 5 GHz 阻带、8 GHz 边缘和 S11/S22 均为正向影响。
+        </div>
+      </div>
+      <div class="summary" style="margin-top:8px;">
+        <div class="warn-box">
+          <strong>S1/S6 的作用。</strong>
+          边缘耦合间隙控制输入/输出与首末谐振器之间的耦合强度。间隙过小会增强耦合并扩大带宽，
+          但可能抬高低边泄漏；间隙过大则通带边缘和插损变差。
+        </div>
+        <div class="todo-box">
+          <strong>tap 的作用。</strong>
+          tap 高度直接改变抽头阻抗和外部耦合。当前回波损耗仍偏弱，下一轮应优先扫 tap 与 taper 参数组合，
+          而不是继续单变量追求更深 5 GHz 抑制。
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>6-8G Filter Design Optimization</span><span>Page 5 / 7</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <div class="brand">SIM-83+ RF Front-End</div>
+      <h1>ADS 自动化仿真流程</h1>
+      <div class="subtitle">参数生成、DXF 导入、端口放置、FEM 仿真与结果评分</div>
+    </div>
+    <svg class="logo" viewBox="4400 6500 18750 3520" role="img" aria-label="GTS"><use href="#gts-logo"></use></svg>
+    <div class="doc-meta">
+      <strong>自动化状态</strong>
+      DXF 导入：已打通<br>
+      端口/FEM：已打通<br>
+      批量评分：已打通
+    </div>
+  </header>
+  <main class="main">
+    <div class="section">
+      <div class="section-title">12. 闭环流程</div>
+      <div class="flow">
+        <div class="step"><strong>1 参数定义</strong><span>定义 L、tap、Egap、S1-S6、via、taper 等变量。</span></div>
+        <div class="step"><strong>2 生成版图</strong><span>Python 输出 DXF、SVG、JSON、DRC、尺寸检查文件。</span></div>
+        <div class="step"><strong>3 导入 ADS</strong><span>ADS Python 导入 DXF；fallback 解析 SOLID/CIRCLE/LINE。</span></div>
+        <div class="step"><strong>4 放置端口</strong><span>根据 JSON 端口坐标自动放置 P1/P2。</span></div>
+        <div class="step"><strong>5 克隆 FEM</strong><span>复用已验证模板 cell 的 em%Setup。</span></div>
+        <div class="step"><strong>6 修正设置</strong><span>修正 substrate4、端口快照和 4-10 GHz 频段。</span></div>
+        <div class="step"><strong>7 运行 RFPro</strong><span>通过 RFPro Analysis API 启动 FEM 并导出 CSV。</span></div>
+        <div class="step"><strong>8 自动评分</strong><span>计算 5G、6G、7G、8G、9G、通带纹波和回波。</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">13. 自动化脚本分工</div>
+      <table class="compact">
+        <thead>
+          <tr><th>脚本</th><th>作用</th><th>当前状态</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="mono">SIM\tools\generate_interdigital_filter_layout.py</td><td>生成交指/梳状滤波器 DXF、SVG、参数 JSON、DRC 和 tuning table；已支持圆孔、圆形焊盘和锥形馈线。</td><td><span class="tag green">已更新</span></td></tr>
+          <tr><td class="mono">SIM\tools\ads_import_dxf_add_ports.py</td><td>导入 DXF，非矩形 SOLID 转 ADS polygon，CIRCLE 转圆孔/焊盘，自动放置 P1/P2。</td><td><span class="tag green">可用</span></td></tr>
+          <tr><td class="mono">SIM\tools\ads_clone_emsetup_template.py</td><td>从 FR4 7 阶基线模板克隆 em%Setup，并根据 params JSON 修正 substrate 和端口坐标。</td><td><span class="tag green">可用</span></td></tr>
+          <tr><td class="mono">SIM\tools\ads_run_rfpro_fem.py</td><td>创建/更新 RFPro view，按 emSetup 启动 FEM，导出 S 参数 CSV。</td><td><span class="tag green">可用</span></td></tr>
+          <tr><td class="mono">SIM\tools\run_ads_filter_candidate.py</td><td>单候选一站式流程：导入、setup、RFPro FEM、导出、评分。</td><td><span class="tag green">本轮已验证</span></td></tr>
+          <tr><td class="mono">SIM\tools\analyze_ads_dataset.py</td><td>读取 RFPro CSV 或 ADS .ds，输出 score CSV。</td><td><span class="tag green">可用</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">14. 本轮稳定运行命令</div>
+      <pre>python SIM\tools\run_ads_filter_candidate.py i7_fr4_r1_l555_taper --profile company --dxf SIM\ADS\interdigital_7o_fr4_210um_round1\i7_fr4_r1_l555_taper_mm_coords.dxf --params SIM\ADS\interdigital_7o_fr4_210um_round1\i7_fr4_r1_l555_taper_params.json --cell i7_fr4_r1_l555_taper_mm_coords --template-cell interdigital_7o_fr4_210um_r0_marki_10_14mil_via_mm_coords --overwrite-setup --target-profile fr4_25db --out SIM\ADS\results\interdigital_7o_fr4_210um_round1\i7_fr4_r1_l555_taper_mm_coords_rfpro.csv --score-out SIM\ADS\results\interdigital_7o_fr4_210um_round1\i7_fr4_r1_l555_taper_mm_coords_score.csv</pre>
+      <div class="bar">
+        注意事项：当前未找到稳定的 GUI EM Setup simulate 按钮自动化接口；稳定主流程仍采用 RFPro/FEM API。EMSETUP/Data Display 可作为关键候选的人工复测路径。
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>6-8G Filter Design Optimization</span><span>Page 6 / 7</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <div class="brand">SIM-83+ RF Front-End</div>
+      <h1>下一轮建议与文件位置</h1>
+      <div class="subtitle">以 i7_fr4_r1_l555_taper 为下一轮参数中心</div>
+    </div>
+    <svg class="logo" viewBox="4400 6500 18750 3520" role="img" aria-label="GTS"><use href="#gts-logo"></use></svg>
+    <div class="doc-meta">
+      <strong>下一阶段</strong>
+      基准：i7_fr4_r1_l555_taper<br>
+      目标：匹配与高边入口<br>
+      输出：DXF / CSV / score
+    </div>
+  </header>
+  <main class="main">
+    <div class="section">
+      <div class="section-title">15. 推荐下一轮优化</div>
+      <table class="compact">
+        <thead>
+          <tr><th>优先级</th><th>候选/方向</th><th>目的</th><th>判据</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="c"><span class="tag green">P1</span></td><td class="b">i7_fr4_r1_l555_taper</td><td>作为下一轮参数优化基准。</td><td>保持 5 GHz ≤ -25 dB，6/8 GHz ≥ -5 dB。</td></tr>
+          <tr><td class="c"><span class="tag blue">P2</span></td><td>tap = 1.90 / 1.95 / 2.00 mm</td><td>改善端口匹配和通带边缘。</td><td>S11/S22 先稳定低于 -6 dB，再向 -10 dB 收敛。</td></tr>
+          <tr><td class="c"><span class="tag blue">P2</span></td><td>taper_len = 0.45 / 0.60 / 0.75 mm</td><td>验证锥形过渡长度对外部 Qe 的影响。</td><td>8 GHz 不低于 -4.0 dB，ripple 不高于 3 dB。</td></tr>
+          <tr><td class="c"><span class="tag blue">P2</span></td><td>tip_w = 0.16 / 0.18 / 0.22 mm</td><td>调整馈线尖端耦合强度。</td><td>避免 5 GHz 泄漏抬高到 -25 dB 以内。</td></tr>
+          <tr><td class="c"><span class="tag orange">P3</span></td><td>L = 5.50 mm 备用候选</td><td>验证低边抑制余量是否可进一步提高。</td><td>只有在 6 GHz 仍优于 -5 dB 时才保留。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">16. 可制造性评估</div>
+      <table class="compact">
+        <thead>
+          <tr><th>项目</th><th>当前设计</th><th>可制造性判断</th><th>注意事项</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>板材/工艺</td><td>JLC06161H-7628</td><td><span class="tag green">普通工艺可制作</span></td><td>当前版图按该 FR4 层叠进行低成本打样评估，适合作为下一轮实物验证基础。</td></tr>
+          <tr><td>最小间距</td><td>S1/S6 = 0.1176 mm，约 4.63 mil</td><td><span class="tag green">满足当前工艺规则</span></td><td>边缘耦合间隙是滤波器关键尺寸，生产资料中不建议由 CAM 自动放宽或合并。</td></tr>
+          <tr><td>最小线宽</td><td>锥形尖端 0.18 mm，约 7.09 mil</td><td><span class="tag green">满足 6 mil 线宽</span></td><td>尖端区域对外部耦合敏感，CAM 圆角、蚀刻补偿会影响通带匹配。</td></tr>
+          <tr><td>过孔工艺</td><td>钻孔 0.254 mm，焊盘 0.3556 mm</td><td><span class="tag green">可制作</span></td><td>10/14 mil 圆孔焊盘可用于当前打样；需保持过孔接地连续，避免短路端等效电感偏离仿真。</td></tr>
+          <tr><td>材料公差</td><td>FR4，Er=4.6，h=0.210 mm</td><td><span class="tag orange">需预留频偏余量</span></td><td>JLC06161H-7628 可满足制作，但 6-8 GHz 下 FR4 的 Er、Df 和厚度离散仍会造成中心频率与插损偏差。</td></tr>
+          <tr><td>版图形态</td><td>7 阶窄间距交指/梳状结构</td><td><span class="tag green">具备打样条件</span></td><td>应保留锥形过渡、圆形过孔焊盘和端口直线段，不建议由 CAM 自动合并或简化窄耦合缝。</td></tr>
+        </tbody>
+      </table>
+      <div class="bar">
+        工艺结论：当前七阶 FR4 版图可按普通 JLC06161H-7628 工艺制作，线宽、线距和 10/14 mil 圆孔均具备打样条件。主要风险来自 FR4 高频材料公差和过孔/端口过渡寄生，建议后续用 ADS 自动化流程补充 Er、h、线宽和蚀刻偏差敏感性验证。
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">17. 数据与文件位置</div>
+      <table class="compact">
+        <thead>
+          <tr><th>类别</th><th>路径</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>统一维护报告</td><td class="mono">SIM\6-8G滤波器设计优化报告.html</td><td>当前设计、优化和自动化流程的唯一维护报告。</td></tr>
+          <tr><td>当前推荐 DXF</td><td class="mono">SIM\ADS\interdigital_7o_fr4_210um_round1\i7_fr4_r1_l555_taper_mm_coords.dxf</td><td>mm 坐标 DXF，导入 ADS 时选择 mm。</td></tr>
+          <tr><td>当前参数 JSON</td><td class="mono">SIM\ADS\interdigital_7o_fr4_210um_round1\i7_fr4_r1_l555_taper_params.json</td><td>包含几何参数、端口坐标和 DRC 派生值。</td></tr>
+          <tr><td>当前版图附图</td><td class="mono">SIM\SIM-83_plus_assets\i7_fr4_r1_l555.png</td><td>报告中使用的七阶版图附图。</td></tr>
+          <tr><td>当前 SVG 预览</td><td class="mono">SIM\ADS\interdigital_7o_fr4_210um_round1\i7_fr4_r1_l555_taper.svg</td><td>参数化生成器输出的版图预览文件。</td></tr>
+          <tr><td>当前 RFPro 结果</td><td class="mono">SIM\ADS\results\interdigital_7o_fr4_210um_round1\i7_fr4_r1_l555_taper_mm_coords_rfpro.csv</td><td>4-10 GHz S 参数导出结果。</td></tr>
+          <tr><td>当前评分结果</td><td class="mono">SIM\ADS\results\interdigital_7o_fr4_210um_round1\i7_fr4_r1_l555_taper_mm_coords_score.csv</td><td>PASS_CANDIDATE 判定来源。</td></tr>
+          <tr><td>自动化说明</td><td class="mono">SIM\ADS\ADS自动仿真流程说明.md</td><td>ADS 工作目录、公司/家里 profile、脚本入口和运行规则。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bar">
+      阶段建议：当前候选可作为 FR4 低成本方案的有效起点。下一轮不再优先改材料或大幅改拓扑，建议围绕 tap、taper_len、tip_w 和 S1/S6 做小范围联合扫描，以提升回波损耗和 8 GHz 通带边缘。
+    </div>
+  </main>
+  <footer class="page-footer"><span>6-8G Filter Design Optimization</span><span>Page 7 / 7</span></footer>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+._*
+~$*
+*.swp
+*.swo
+*.bak
+*.tmp
+*.temp
+
+# Local editor state
+.vscode/
+.idea/
+*.code-workspace
+
+# Python / uv
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.ipynb_checkpoints/
+/.venv/
+/venv/
+/env/
+/ENV/
+/build/
+/dist/
+*.egg-info/
+
+# Local env / secrets
+.env
+.env.*
+!.env.example
+*.local
+*.secret
+
+# Project scratch space
+.tmp/
+tmp/
+temp/
+.cache/
+
+# ADS local machine/session files
+hpeesofsim.cfg
+de_sim.cfg
+*.lck
+*.lock
+*.log
+*.jou
+*.ses
+*.bak_*
+
+# ADS / RFPro generated datasets and solver caches
+*.dds
+*.ds
+*.dataset
+*.cti
+*.mdm
+*.snp
+*.raw
+*.sim
+*.emds
+*_run.log
+*_flow.log
+ADS/results/
+ADS/**/data/
+ADS/**/mom_dsn/
+ADS/**/simulation/
+ADS/**/verification/
+ADS/**/emSetup*/
+ADS/**/*.dds
+ADS/**/*.ds
+ADS/**/*.log
+
+# Generated layout transfer artifacts
+# Keep source plans, params JSON, docs, reports, references, and summaries tracked by default.
+projects/*/layouts/**/*.dxf
+projects/*/layouts/**/*_ads_mil_coords.dxf
+projects/*/layouts/**/*_mm_coords.dxf
+projects/*/layouts/**/*.gds
+projects/*/layouts/**/*.oas
+projects/*/layouts/**/*_dimension_check.txt
+projects/*/layouts/**/*_drc.txt
+projects/*/layouts/**/*_ads_vars.txt
+
+# Batch simulation scratch logs
+projects/*/results/**/*_flow.log
+projects/*/results/**/*.log
+projects/*/runs/**/*.log
+projects/*/runs/**/tmp/
+projects/*/runs/**/.tmp/
+
+# Report/export scratch files
+**/filter_report_tmp.pdf
+**/print_tmp/
+**/pdf_tmp/
+**/playwright-report/
+**/test-results/
+
+# Large archive formats generated during handoff/export
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz

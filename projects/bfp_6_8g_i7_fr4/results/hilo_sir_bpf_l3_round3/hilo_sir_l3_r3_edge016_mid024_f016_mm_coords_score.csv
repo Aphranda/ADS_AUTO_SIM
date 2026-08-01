@@ -1,0 +1,2 @@
+source,status,s21_5g_db,s21_6g_db,s21_7g_db,s21_8g_db,s21_9g_db,passband_min_s21_db,passband_ripple_db,worst_s11_6_8_db,worst_s22_6_8_db
+SIM\ADS\results\hilo_sir_bpf_l3_round3\hilo_sir_l3_r3_edge016_mid024_f016_mm_coords_rfpro.csv,TUNE,-30.62,-11.72,-10.49,-11.93,-33.22,-11.93,9.61,-1.16,-1.06

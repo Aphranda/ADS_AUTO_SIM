@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="979.68" height="573.9168" viewBox="-6.48 -3 20.41 11.9566">
+<rect x="-6.48" y="-3" width="20.41" height="11.9566" fill="#fff"/>
+<rect x="0.28" y="0" width="2.845" height="0.206" fill="#e67817" stroke="#603300" stroke-width="0.025"/>
+<rect x="4.325" y="0" width="2.845" height="0.206" fill="#e67817" stroke="#603300" stroke-width="0.025"/>
+<rect x="0.28" y="0" width="0.51" height="1.35" fill="#e67817" stroke="#603300" stroke-width="0.025"/>
+<rect x="6.66" y="0" width="0.51" height="1.35" fill="#e67817" stroke="#603300" stroke-width="0.025"/>
+<rect x="0.28" y="1.144" width="6.89" height="0.206" fill="#e67817" stroke="#603300" stroke-width="0.025"/>
+<rect x="0" y="1.59" width="7.45" height="0.51" fill="#b64a87" stroke="#4a1836" stroke-width="0.025"/>
+<rect x="0" y="1.59" width="0.206" height="3.8" fill="#b64a87" stroke="#4a1836" stroke-width="0.025"/>
+<rect x="7.244" y="1.59" width="0.206" height="3.8" fill="#b64a87" stroke="#4a1836" stroke-width="0.025"/>
+<rect x="0" y="5.184" width="2.15" height="0.206" fill="#b64a87" stroke="#4a1836" stroke-width="0.025"/>
+<rect x="5.3" y="5.184" width="2.15" height="0.206" fill="#b64a87" stroke="#4a1836" stroke-width="0.025"/>
+<rect x="1.61" y="5.184" width="0.42" height="0.42" fill="#b64a87" stroke="#4a1836" stroke-width="0.025"/>
+<rect x="5.42" y="5.184" width="0.42" height="0.42" fill="#b64a87" stroke="#4a1836" stroke-width="0.025"/>
+<circle cx="1.82" cy="5.394" r="0.15" fill="#111"/>
+<circle cx="5.63" cy="5.394" r="0.15" fill="#111"/>
+<rect x="-3.48" y="4.8314" width="3.2" height="1.1252" fill="#9aa0d4" stroke="#36396f" stroke-width="0.025"/>
+<rect x="7.73" y="4.8314" width="3.2" height="1.1252" fill="#9aa0d4" stroke="#36396f" stroke-width="0.025"/>
+<rect x="-6.48" y="-3" width="20.41" height="11.9566" fill="none" stroke="#888" stroke-dasharray="0.18 0.12" stroke-width="0.035"/>
+<circle cx="-3.48" cy="5.394" r="0.13" fill="#1769ff"/>
+<text x="-3.33" y="5.244" font-size="0.32">P1</text>
+<circle cx="10.93" cy="5.394" r="0.13" fill="#1769ff"/>
+<text x="11.08" y="5.244" font-size="0.32">P2</text>
+<text x="-6.28" y="-2.55" font-size="0.35" fill="#333">paper_sir_ro4350_r0_base paper mixed-coupled SIR BPF</text>
+</svg>

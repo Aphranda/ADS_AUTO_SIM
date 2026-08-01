@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "run_id": "bfp_6_8g_i7_fr4_round3_i7_fr4_r3_base_company_20260801_103906",
+  "artifacts": [
+    {
+      "type": "dxf",
+      "path": "projects\\bfp_6_8g_i7_fr4\\layouts\\interdigital_7o_fr4_210um_round3\\i7_fr4_r3_base_mm_coords.dxf",
+      "exists": true,
+      "hash": "350e154dc215d1db201dda489578d530eb6084be3b2bc36dad4c47ed21410a2e",
+      "producer": "generate_filter_sweep.py"
+    },
+    {
+      "type": "params",
+      "path": "projects\\bfp_6_8g_i7_fr4\\layouts\\interdigital_7o_fr4_210um_round3\\i7_fr4_r3_base_params.json",
+      "exists": true,
+      "hash": "c3914d80dacb3d82f60ee52c9beee1a449bbaf0e9aabd9bdc14156547717307a",
+      "producer": "generate_filter_sweep.py"
+    },
+    {
+      "type": "rfpro_csv",
+      "path": "E:\\OneDrive\\4.Code\\SIM\\projects\\bfp_6_8g_i7_fr4\\results\\baselines\\company_rerun_20260801\\i7_fr4_r3_base_mm_coords_rfpro.csv",
+      "exists": true,
+      "hash": "9644a0c7a105713a5a4ed01799ac555ea0ff2b80e2c74fec1bc84faaa70a0c9e",
+      "producer": "ads_run_rfpro_fem.py"
+    },
+    {
+      "type": "fem_dataset",
+      "path": "D:\\Work\\ADS\\6-8G_Fillter\\6-8G_Fillter\\data\\i7_fr4_r3_base_mm_coords_FEM_a.ds",
+      "exists": false,
+      "hash": null,
+      "producer": "ADS RFPro/FEM"
+    },
+    {
+      "type": "fem_txt",
+      "path": null,
+      "exists": false,
+      "hash": null,
+      "producer": "export_ads_fem_dataset.py"
+    },
+    {
+      "type": "score",
+      "path": "E:\\OneDrive\\4.Code\\SIM\\projects\\bfp_6_8g_i7_fr4\\results\\baselines\\company_rerun_20260801\\i7_fr4_r3_base_mm_coords_score.csv",
+      "exists": true,
+      "hash": "7cc03cb4e9ca9f708aca01c1e1a39c857374eae71d4f7e9f3f16019d91a8362f",
+      "producer": "analyze_ads_dataset.py"
+    },
+    {
+      "type": "log",
+      "path": "E:\\OneDrive\\4.Code\\SIM\\projects\\bfp_6_8g_i7_fr4\\results\\baselines\\company_rerun_20260801\\i7_fr4_r3_base_mm_coords_flow.log",
+      "exists": true,
+      "hash": "7183c9b3a289641b8cff1ca773ca0eadacf32e365badfcc52e7dfe513fbc94cc",
+      "producer": "run_ads_filter_candidate.py"
+    },
+    {
+      "type": "state",
+      "path": "E:\\OneDrive\\4.Code\\SIM\\projects\\bfp_6_8g_i7_fr4\\results\\baselines\\company_rerun_20260801\\runs\\bfp_6_8g_i7_fr4_round3_i7_fr4_r3_base_company_20260801_103906\\state.json",
+      "exists": true,
+      "hash": "7040a2d8402ffbfc44435910027d4898af0d7dbe0a4548192e4f346d2e391654",
+      "producer": "run_ads_filter_candidate.py"
+    }
+  ],
+  "updated_at": "2026-08-01T10:41:46+08:00"
+}

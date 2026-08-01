@@ -1,0 +1,13 @@
+name,L_mm,tap_mm,Egap_mm,S1_mm,S2_mm,S3_mm,S4_mm,S5_mm,S6_mm,feed_taper_len_mm,feed_tip_w_mm,feed_overlap_mm,via_diameter_mm,metal_layer,via_layer,notes
+i7_fr4_r3_base,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.18,0.06,0.254,cond,pcvia1,repeat round2 best point as the baseline
+i7_fr4_r3_t194,5.55,1.94,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.18,0.06,0.254,cond,pcvia1,slightly lower tap to see whether input match improves
+i7_fr4_r3_t196,5.55,1.96,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.18,0.06,0.254,cond,pcvia1,slightly higher tap to check the opposite match direction
+i7_fr4_r3_t195_tl045,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.45,0.18,0.06,0.254,cond,pcvia1,shorter taper at the current tap to tighten the feed transition
+i7_fr4_r3_t195_tl075,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.75,0.18,0.06,0.254,cond,pcvia1,longer taper at the current tap to smooth the feed transition
+i7_fr4_r3_t195_tw016,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.16,0.06,0.254,cond,pcvia1,narrower taper tip to test stronger local coupling
+i7_fr4_r3_t195_tw020,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.2,0.06,0.254,cond,pcvia1,slightly wider taper tip to compare match recovery
+i7_fr4_r3_t195_tw022,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.22,0.06,0.254,cond,pcvia1,wider taper tip to test weaker local coupling
+i7_fr4_r3_t195_ov004,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.18,0.04,0.254,cond,pcvia1,smaller taper overlap to reduce feed loading
+i7_fr4_r3_t195_ov008,5.55,1.95,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.6,0.18,0.08,0.254,cond,pcvia1,larger taper overlap to increase feed loading
+i7_fr4_r3_t194_tl045,5.55,1.94,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.45,0.18,0.06,0.254,cond,pcvia1,combined lower tap and shorter taper for a tighter input launch
+i7_fr4_r3_t196_tl075,5.55,1.96,0.4823,0.1176,0.175,0.1857,0.1857,0.175,0.1176,0.75,0.18,0.06,0.254,cond,pcvia1,combined higher tap and longer taper for a looser input launch

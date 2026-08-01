@@ -1,0 +1,211 @@
+{
+  "parameters": {
+    "name": "r3b_s1m",
+    "order": 9,
+    "substrate": "RO4350B",
+    "er": 3.48,
+    "dielectric_height_mm": 0.508,
+    "copper_thickness_mm": 0.035,
+    "lower_cutoff_ghz": 6.0,
+    "upper_cutoff_ghz": 8.0,
+    "passband_ripple_db": 0.1,
+    "z0_ohm": 50.0,
+    "w0_mm": 1.113,
+    "resonator_w_mm": 1.113,
+    "resonator_l_mm": 6.0,
+    "tap_from_bottom_mm": 1.9,
+    "end_gap_mm": 0.527,
+    "gaps_mm": [
+      0.315,
+      0.465,
+      0.48,
+      0.49,
+      0.49,
+      0.48,
+      0.465,
+      0.315
+    ],
+    "feed_len_mm": 3.0,
+    "boundary_margin_mm": 1.5,
+    "min_fab_feature_mm": 0.1524,
+    "metal_layer": "cond",
+    "via_layer": "pcvia1",
+    "via_diameter_mm": 0.5
+  },
+  "derived": {
+    "field_width_mm": 13.517,
+    "overall_height_mm": 6.527,
+    "minimum_gap_mm": 0.315,
+    "minimum_width_mm": 1.113
+  },
+  "rectangles": [
+    {
+      "name": "resonator_1",
+      "layer": "cond",
+      "x": 0.0,
+      "y": 0.0,
+      "w": 1.113,
+      "h": 6.0
+    },
+    {
+      "name": "ground_via_1",
+      "layer": "pcvia1",
+      "x": 0.3065,
+      "y": 0.0,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "resonator_2",
+      "layer": "cond",
+      "x": 1.428,
+      "y": 0.527,
+      "w": 1.113,
+      "h": 6.0
+    },
+    {
+      "name": "ground_via_2",
+      "layer": "pcvia1",
+      "x": 1.7345,
+      "y": 6.027,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "resonator_3",
+      "layer": "cond",
+      "x": 3.0060000000000002,
+      "y": 0.0,
+      "w": 1.113,
+      "h": 6.0
+    },
+    {
+      "name": "ground_via_3",
+      "layer": "pcvia1",
+      "x": 3.3125,
+      "y": 0.0,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "resonator_4",
+      "layer": "cond",
+      "x": 4.599,
+      "y": 0.527,
+      "w": 1.113,
+      "h": 6.0
+    },
+    {
+      "name": "ground_via_4",
+      "layer": "pcvia1",
+      "x": 4.9055,
+      "y": 6.027,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "resonator_5",
+      "layer": "cond",
+      "x": 6.202,
+      "y": 0.0,
+      "w": 1.113,
+      "h": 6.0
+    },
+    {
+      "name": "ground_via_5",
+      "layer": "pcvia1",
+      "x": 6.5085,
+      "y": 0.0,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "resonator_6",
+      "layer": "cond",
+      "x": 7.805,
+      "y": 0.527,
+      "w": 1.113,
+      "h": 6.0
+    },
+    {
+      "name": "ground_via_6",
+      "layer": "pcvia1",
+      "x": 8.1115,
+      "y": 6.027,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "resonator_7",
+      "layer": "cond",
+      "x": 9.398,
+      "y": 0.0,
+      "w": 1.113,
+      "h": 6.0
+    },
+    {
+      "name": "ground_via_7",
+      "layer": "pcvia1",
+      "x": 9.7045,
+      "y": 0.0,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "resonator_8",
+      "layer": "cond",
+      "x": 10.975999999999999,
+      "y": 0.527,
+      "w": 1.113,
+      "h": 6.0
+    },
+    {
+      "name": "ground_via_8",
+      "layer": "pcvia1",
+      "x": 11.282499999999999,
+      "y": 6.027,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "resonator_9",
+      "layer": "cond",
+      "x": 12.404,
+      "y": 0.0,
+      "w": 1.113,
+      "h": 6.0
+    },
+    {
+      "name": "ground_via_9",
+      "layer": "pcvia1",
+      "x": 12.7105,
+      "y": 0.0,
+      "w": 0.5,
+      "h": 0.5
+    },
+    {
+      "name": "input_feed",
+      "layer": "cond",
+      "x": -3.0,
+      "y": 1.3435,
+      "w": 3.0,
+      "h": 1.113
+    },
+    {
+      "name": "output_feed",
+      "layer": "cond",
+      "x": 13.517,
+      "y": 1.3435,
+      "w": 3.0,
+      "h": 1.113
+    },
+    {
+      "name": "em_boundary",
+      "layer": "EM_BOUNDARY",
+      "x": -4.5,
+      "y": -1.5,
+      "w": 22.517,
+      "h": 9.527000000000001
+    }
+  ]
+}

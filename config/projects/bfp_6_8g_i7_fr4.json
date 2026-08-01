@@ -1,0 +1,57 @@
+{
+  "schema_version": "0.1.0",
+  "project_id": "bfp_6_8g_i7_fr4",
+  "name": "6-8 GHz FR4 7-order BFP ADS layout automation project",
+  "device_family": "filter",
+  "primary_device_type": "filter.interdigital",
+  "default_profile": "home",
+  "target_profile": "fr4_25db_rl6",
+  "project_root": "projects/bfp_6_8g_i7_fr4",
+  "plans_dir": "projects/bfp_6_8g_i7_fr4/plans",
+  "layouts_dir": "projects/bfp_6_8g_i7_fr4/layouts",
+  "results_dir": "projects/bfp_6_8g_i7_fr4/results",
+  "runs_dir": "projects/bfp_6_8g_i7_fr4/runs",
+  "reports_dir": "projects/bfp_6_8g_i7_fr4/reports",
+  "references_dir": "projects/bfp_6_8g_i7_fr4/references",
+  "frequency": {
+    "start_ghz": 4.0,
+    "stop_ghz": 10.0,
+    "passband_start_ghz": 6.0,
+    "passband_stop_ghz": 8.0
+  },
+  "active_sweep": "interdigital_7o_fr4_round7",
+  "sweeps": {
+    "interdigital_7o_fr4_round7": {
+      "plan": "projects/bfp_6_8g_i7_fr4/plans/filter_opt_i7_fr4_round7.csv",
+      "layouts_dir": "projects/bfp_6_8g_i7_fr4/layouts/interdigital_7o_fr4_210um_round7",
+      "results_dir": "projects/bfp_6_8g_i7_fr4/results/interdigital_7o_fr4_210um_round7",
+      "summary": "projects/bfp_6_8g_i7_fr4/results/interdigital_7o_fr4_210um_round7/sweep_summary.csv",
+      "target_profile": "fr4_25db_rl6",
+      "device_id": "filter.interdigital",
+      "template_cell": "interdigital_9o_ro4350b_508um_v3_wide_mm_coords",
+      "setup_view": "em%Setup",
+      "rfpro_emsetup_view": "emSetup",
+      "generator": {
+        "script": "tools/generate_filter_sweep.py",
+        "layout_generator": "tools/generate_interdigital_filter_layout.py"
+      },
+      "optimizer": {
+        "strategy": "surrogate_trust_region",
+        "script": "tools/propose_i7_fr4_surrogate_candidates.py",
+        "dataset": "projects/bfp_6_8g_i7_fr4/results/interdigital_7o_fr4_training_dataset.csv",
+        "seed_params": "projects/bfp_6_8g_i7_fr4/layouts/interdigital_7o_fr4_210um_round3/i7_fr4_r3_base_params.json",
+        "round_name": "round7",
+        "count": 8,
+        "pool_count": 50000,
+        "random_seed": 731,
+        "exploration": 0.0,
+        "prediction_report": "projects/bfp_6_8g_i7_fr4/results/interdigital_7o_fr4_round7_predictions.csv"
+      }
+    }
+  },
+  "ads": {
+    "library": "BFP_lib",
+    "template_cell": "BFP",
+    "substrate": "BFP_lib:substrate4"
+  }
+}

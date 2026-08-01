@@ -1,0 +1,11 @@
+candidate,cell,notes,source,status,s21_5g_db,s21_6g_db,s21_7g_db,s21_8g_db,s21_9g_db,passband_min_s21_db,passband_ripple_db,worst_s11_6_8_db,worst_s22_6_8_db
+r2a_l595,r2a_l595_mm_coords,seed=all_gaps_minus; shorten resonator to raise passband and 5 GHz rejection,SIM\ADS\results\opt_round2b\r2a_l595_mm_coords_rfpro.csv,TUNE,-40.85,-1.06,-1.31,-2.26,-34.49,-2.38,1.32,-5.39,-5.57
+r2a_l600,r2a_l600_mm_coords,seed=all_gaps_minus; near-nominal length check around best passband case,SIM\ADS\results\opt_round2b\r2a_l600_mm_coords_rfpro.csv,TUNE,-37.44,-2.09,-2.32,-1.95,-35.26,-2.32,1.25,-5.33,-5.53
+r2a_l605,r2a_l605_mm_coords,seed=all_gaps_minus; lengthen slightly to see if 6 GHz edge recovers,SIM\ADS\results\opt_round2b\r2a_l605_mm_coords_rfpro.csv,TUNE,-37.78,-2.21,-3.05,-3.66,-36.71,-3.66,2.56,-4.16,-4.14
+r2a_t200,r2a_t200_mm_coords,seed=all_gaps_minus; slightly lower tap on the best passband case,SIM\ADS\results\opt_round2b\r2a_t200_mm_coords_rfpro.csv,TUNE,-37.20,-2.77,-2.99,-4.58,-38.67,-4.58,3.59,-3.79,-3.91
+r2a_t200_l600,r2a_t200_l600_mm_coords,seed=all_gaps_minus; combined tap and length refinement,SIM\ADS\results\opt_round2b\r2a_t200_l600_mm_coords_rfpro.csv,TUNE,-36.36,-2.04,-2.57,-2.77,-33.78,-2.77,1.65,-4.84,-4.85
+r2e_l595,r2e_l595_mm_coords,seed=tap190_edge_plus; shorten and preserve edge suppression,SIM\ADS\results\opt_round2b\r2e_l595_mm_coords_rfpro.csv,TUNE,-44.71,-3.17,-1.78,-3.78,-37.62,-3.78,2.56,-3.63,-3.62
+r2e_l600,r2e_l600_mm_coords,seed=tap190_edge_plus; near-nominal length,SIM\ADS\results\opt_round2b\r2e_l600_mm_coords_rfpro.csv,TUNE,-43.08,-1.21,-2.30,-3.48,-39.17,-3.48,2.51,-5.46,-5.16
+r2e_l605,r2e_l605_mm_coords,seed=tap190_edge_plus; slightly longer length,SIM\ADS\results\opt_round2b\r2e_l605_mm_coords_rfpro.csv,TUNE,-42.78,-1.48,-3.01,-4.80,-40.49,-4.80,3.71,-3.98,-3.91
+r2e_t185,r2e_t185_mm_coords,seed=tap190_edge_plus; lower tap a bit to recover passband insertion,SIM\ADS\results\opt_round2b\r2e_t185_mm_coords_rfpro.csv,TUNE,-38.90,-2.87,-3.30,-4.62,-40.85,-4.62,3.67,-3.85,-3.94
+r2e_t195,r2e_t195_mm_coords,seed=tap190_edge_plus; small tap increase for match check,SIM\ADS\results\opt_round2b\r2e_t195_mm_coords_rfpro.csv,TUNE,-38.94,-4.63,-2.03,-4.49,-40.49,-4.63,3.40,-2.52,-2.55

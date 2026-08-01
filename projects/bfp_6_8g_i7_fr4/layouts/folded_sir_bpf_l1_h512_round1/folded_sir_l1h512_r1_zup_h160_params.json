@@ -1,0 +1,428 @@
+{
+  "parameters": {
+    "name": "folded_sir_l1h512_r1_zup_h160",
+    "substrate": "substrate3",
+    "er": 4.6,
+    "dielectric_height_mm": 0.5124,
+    "copper_thickness_mm": 0.035,
+    "lower_cutoff_ghz": 6.0,
+    "upper_cutoff_ghz": 8.0,
+    "f0_ghz": 7.0,
+    "order": 4,
+    "z0_ohm": 50.0,
+    "feed_w_mm": 0.9545,
+    "feed_len_mm": 3.2,
+    "feed_gap_t1_mm": 1.0,
+    "feed_tip_w_mm": 0.18,
+    "feed_overlap_mm": 0.08,
+    "lower_w1_mm": 0.24,
+    "lower_arm_l1_mm": 3.65,
+    "lower_span_l2_mm": 7.45,
+    "lower_top_bridge_w_mm": 0.76,
+    "lower_bottom_l2_mm": 2.15,
+    "via_diameter_mm": 0.3,
+    "via_pad_size_mm": 0.42,
+    "via_edge_clearance_mm": 0.06,
+    "via_offset_d1_mm": 0.0,
+    "upper_w1_mm": 0.3,
+    "upper_w2_mm": 0.7,
+    "upper_fold_h_mm": 1.6,
+    "upper_left_l3_mm": 2.7,
+    "upper_right_l4_mm": 4.35,
+    "upper_margin_x_mm": 0.2,
+    "main_gap_s1_mm": 0.24,
+    "side_gap_s2_mm": 0.24,
+    "fold_offset_d2_mm": 0.65,
+    "boundary_margin_mm": 3.0,
+    "min_fab_feature_mm": 0.1524,
+    "metal_layer": "cond",
+    "via_layer": "pcvia1",
+    "tap_from_bottom_mm": 0.12
+  },
+  "derived": {
+    "metal_width_mm": 15.690000000000001,
+    "metal_height_mm": 5.84725,
+    "core_width_mm": 7.450000000000001,
+    "core_height_mm": 5.49,
+    "minimum_width_mm": 0.18,
+    "minimum_gap_mm": 0.24
+  },
+  "ports": {
+    "P1": [
+      -4.12,
+      0.12
+    ],
+    "P2": [
+      11.57,
+      0.12
+    ]
+  },
+  "shapes": [
+    {
+      "name": "purple_u_left_vertical_arm",
+      "layer": "cond",
+      "x": 0.0,
+      "y": 0.0,
+      "w": 0.24,
+      "h": 3.65
+    },
+    {
+      "name": "purple_u_right_vertical_arm",
+      "layer": "cond",
+      "x": 7.21,
+      "y": 0.0,
+      "w": 0.24,
+      "h": 3.65
+    },
+    {
+      "name": "purple_u_left_top_arm",
+      "layer": "cond",
+      "x": 0.0,
+      "y": 2.8899999999999997,
+      "w": 3.605,
+      "h": 0.76
+    },
+    {
+      "name": "purple_u_right_top_arm",
+      "layer": "cond",
+      "x": 3.8449999999999998,
+      "y": 2.8899999999999997,
+      "w": 3.605,
+      "h": 0.76
+    },
+    {
+      "name": "purple_u_left_bottom_arm",
+      "layer": "cond",
+      "x": 0.0,
+      "y": 0.0,
+      "w": 2.15,
+      "h": 0.24
+    },
+    {
+      "name": "purple_u_right_bottom_arm",
+      "layer": "cond",
+      "x": 5.300000000000001,
+      "y": 0.0,
+      "w": 2.15,
+      "h": 0.24
+    },
+    {
+      "name": "purple_u_left_via_pad",
+      "layer": "cond",
+      "x": 1.73,
+      "y": 0.0,
+      "w": 0.42,
+      "h": 0.42
+    },
+    {
+      "name": "purple_u_right_via_pad",
+      "layer": "cond",
+      "x": 5.300000000000001,
+      "y": 0.0,
+      "w": 0.42,
+      "h": 0.42
+    },
+    {
+      "name": "ground_via_left",
+      "layer": "pcvia1",
+      "x": 1.79,
+      "y": 0.06,
+      "w": 0.3,
+      "h": 0.3
+    },
+    {
+      "name": "ground_via_right",
+      "layer": "pcvia1",
+      "x": 5.36,
+      "y": 0.06,
+      "w": 0.3,
+      "h": 0.3
+    },
+    {
+      "name": "input_feed_50ohm",
+      "layer": "cond",
+      "x": -4.12,
+      "y": -0.35725,
+      "w": 3.2,
+      "h": 0.9545
+    },
+    {
+      "name": "input_feed_taper_to_purple_u",
+      "layer": "cond",
+      "points": [
+        [
+          -0.92,
+          -0.35725
+        ],
+        [
+          -0.92,
+          0.5972500000000001
+        ],
+        [
+          0.08,
+          0.21
+        ],
+        [
+          0.08,
+          0.03
+        ]
+      ]
+    },
+    {
+      "name": "output_feed_taper_to_purple_u",
+      "layer": "cond",
+      "points": [
+        [
+          7.37,
+          0.03
+        ],
+        [
+          7.37,
+          0.21
+        ],
+        [
+          8.370000000000001,
+          0.5972500000000001
+        ],
+        [
+          8.370000000000001,
+          -0.35725
+        ]
+      ]
+    },
+    {
+      "name": "output_feed_50ohm",
+      "layer": "cond",
+      "x": 8.370000000000001,
+      "y": -0.35725,
+      "w": 3.2,
+      "h": 0.9545
+    },
+    {
+      "name": "orange_folded_line_lower_arm",
+      "layer": "cond",
+      "x": 0.20000000000000018,
+      "y": 3.8899999999999997,
+      "w": 7.05,
+      "h": 0.3
+    },
+    {
+      "name": "orange_folded_line_left_step",
+      "layer": "cond",
+      "x": 0.20000000000000018,
+      "y": 3.8899999999999997,
+      "w": 0.7,
+      "h": 1.6
+    },
+    {
+      "name": "orange_folded_line_left_top_arm",
+      "layer": "cond",
+      "x": 0.20000000000000018,
+      "y": 5.19,
+      "w": 2.7,
+      "h": 0.3
+    },
+    {
+      "name": "orange_folded_line_right_top_arm",
+      "layer": "cond",
+      "x": 4.55,
+      "y": 5.19,
+      "w": 2.7,
+      "h": 0.3
+    },
+    {
+      "name": "orange_folded_line_right_step",
+      "layer": "cond",
+      "x": 6.55,
+      "y": 3.8899999999999997,
+      "w": 0.7,
+      "h": 1.6
+    },
+    {
+      "name": "orange_folded_line_via_pad",
+      "layer": "cond",
+      "x": 3.515,
+      "y": 3.8899999999999997,
+      "w": 0.42,
+      "h": 0.42
+    },
+    {
+      "name": "ground_via_upper_sir",
+      "layer": "pcvia1",
+      "x": 3.575,
+      "y": 3.9499999999999997,
+      "w": 0.3,
+      "h": 0.3
+    },
+    {
+      "name": "em_boundary",
+      "layer": "EM_BOUNDARY",
+      "x": -7.12,
+      "y": -3.35725,
+      "w": 21.69,
+      "h": 11.847249999999999
+    }
+  ],
+  "rectangles": [
+    {
+      "name": "purple_u_left_vertical_arm",
+      "layer": "cond",
+      "x": 0.0,
+      "y": 0.0,
+      "w": 0.24,
+      "h": 3.65
+    },
+    {
+      "name": "purple_u_right_vertical_arm",
+      "layer": "cond",
+      "x": 7.21,
+      "y": 0.0,
+      "w": 0.24,
+      "h": 3.65
+    },
+    {
+      "name": "purple_u_left_top_arm",
+      "layer": "cond",
+      "x": 0.0,
+      "y": 2.8899999999999997,
+      "w": 3.605,
+      "h": 0.76
+    },
+    {
+      "name": "purple_u_right_top_arm",
+      "layer": "cond",
+      "x": 3.8449999999999998,
+      "y": 2.8899999999999997,
+      "w": 3.605,
+      "h": 0.76
+    },
+    {
+      "name": "purple_u_left_bottom_arm",
+      "layer": "cond",
+      "x": 0.0,
+      "y": 0.0,
+      "w": 2.15,
+      "h": 0.24
+    },
+    {
+      "name": "purple_u_right_bottom_arm",
+      "layer": "cond",
+      "x": 5.300000000000001,
+      "y": 0.0,
+      "w": 2.15,
+      "h": 0.24
+    },
+    {
+      "name": "purple_u_left_via_pad",
+      "layer": "cond",
+      "x": 1.73,
+      "y": 0.0,
+      "w": 0.42,
+      "h": 0.42
+    },
+    {
+      "name": "purple_u_right_via_pad",
+      "layer": "cond",
+      "x": 5.300000000000001,
+      "y": 0.0,
+      "w": 0.42,
+      "h": 0.42
+    },
+    {
+      "name": "ground_via_left",
+      "layer": "pcvia1",
+      "x": 1.79,
+      "y": 0.06,
+      "w": 0.3,
+      "h": 0.3
+    },
+    {
+      "name": "ground_via_right",
+      "layer": "pcvia1",
+      "x": 5.36,
+      "y": 0.06,
+      "w": 0.3,
+      "h": 0.3
+    },
+    {
+      "name": "input_feed_50ohm",
+      "layer": "cond",
+      "x": -4.12,
+      "y": -0.35725,
+      "w": 3.2,
+      "h": 0.9545
+    },
+    {
+      "name": "output_feed_50ohm",
+      "layer": "cond",
+      "x": 8.370000000000001,
+      "y": -0.35725,
+      "w": 3.2,
+      "h": 0.9545
+    },
+    {
+      "name": "orange_folded_line_lower_arm",
+      "layer": "cond",
+      "x": 0.20000000000000018,
+      "y": 3.8899999999999997,
+      "w": 7.05,
+      "h": 0.3
+    },
+    {
+      "name": "orange_folded_line_left_step",
+      "layer": "cond",
+      "x": 0.20000000000000018,
+      "y": 3.8899999999999997,
+      "w": 0.7,
+      "h": 1.6
+    },
+    {
+      "name": "orange_folded_line_left_top_arm",
+      "layer": "cond",
+      "x": 0.20000000000000018,
+      "y": 5.19,
+      "w": 2.7,
+      "h": 0.3
+    },
+    {
+      "name": "orange_folded_line_right_top_arm",
+      "layer": "cond",
+      "x": 4.55,
+      "y": 5.19,
+      "w": 2.7,
+      "h": 0.3
+    },
+    {
+      "name": "orange_folded_line_right_step",
+      "layer": "cond",
+      "x": 6.55,
+      "y": 3.8899999999999997,
+      "w": 0.7,
+      "h": 1.6
+    },
+    {
+      "name": "orange_folded_line_via_pad",
+      "layer": "cond",
+      "x": 3.515,
+      "y": 3.8899999999999997,
+      "w": 0.42,
+      "h": 0.42
+    },
+    {
+      "name": "ground_via_upper_sir",
+      "layer": "pcvia1",
+      "x": 3.575,
+      "y": 3.9499999999999997,
+      "w": 0.3,
+      "h": 0.3
+    },
+    {
+      "name": "em_boundary",
+      "layer": "EM_BOUNDARY",
+      "x": -7.12,
+      "y": -3.35725,
+      "w": 21.69,
+      "h": 11.847249999999999
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+name,L_mm,tap_mm,Egap_mm,S1_mm,S2_mm,S3_mm,S4_mm,S5_mm,S6_mm,S7_mm,S8_mm,via_diameter_mm,metal_layer,via_layer,notes
+interdigital_9o_ro4350b_508um_v4_more_coupling_r1_all_gaps_minus_r2_all_L595,5.95,2.143,0.527,0.28,0.43,0.465,0.475,0.475,0.465,0.43,0.28,0.5,cond,pcvia1,shorten resonator to raise passband and 5 GHz rejection
+interdigital_9o_ro4350b_508um_v4_more_coupling_r1_all_gaps_minus_r2_all_L600,6,2.143,0.527,0.28,0.43,0.465,0.475,0.475,0.465,0.43,0.28,0.5,cond,pcvia1,near-nominal length check around best passband case
+interdigital_9o_ro4350b_508um_v4_more_coupling_r1_all_gaps_minus_r2_all_L605,6.05,2.143,0.527,0.28,0.43,0.465,0.475,0.475,0.465,0.43,0.28,0.5,cond,pcvia1,lengthen slightly to see if 6 GHz edge recovers
+interdigital_9o_ro4350b_508um_v4_more_coupling_r1_all_gaps_minus_r2_all_T200,6.1,2,0.527,0.28,0.43,0.465,0.475,0.475,0.465,0.43,0.28,0.5,cond,pcvia1,slightly lower tap on the best passband case
+interdigital_9o_ro4350b_508um_v4_more_coupling_r1_all_gaps_minus_r2_all_T200_L600,6,2,0.527,0.28,0.43,0.465,0.475,0.475,0.465,0.43,0.28,0.5,cond,pcvia1,combined tap and length refinement on best passband case
+interdigital_9o_ro4350b_508um_v4_more_coupling_r1_tap190_edge_plus_r2_edge_L595,5.95,1.9,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,shorten the better-rejection case and preserve its edge suppression
+interdigital_9o_ro4350b_508um_v4_more_coupling_r1_tap190_edge_plus_r2_edge_L600,6,1.9,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,near-nominal length on the better-rejection case
+interdigital_9o_ro4350b_508um_v4_more_coupling_r1_tap190_edge_plus_r2_edge_L605,6.05,1.9,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,slightly longer length on the better-rejection case
+interdigital_9o_ro4350b_508um_v4_more_coupling_r1_tap190_edge_plus_r2_edge_T185,6.1,1.85,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,lower tap a bit to recover passband insertion
+interdigital_9o_ro4350b_508um_v4_more_coupling_r1_tap190_edge_plus_r2_edge_T195,6.1,1.95,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,small tap increase for a match check

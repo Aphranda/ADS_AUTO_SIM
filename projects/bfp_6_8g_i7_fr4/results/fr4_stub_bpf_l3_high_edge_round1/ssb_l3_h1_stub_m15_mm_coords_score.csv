@@ -1,0 +1,2 @@
+source,status,s21_5g_db,s21_6g_db,s21_7g_db,s21_8g_db,s21_9g_db,passband_min_s21_db,passband_ripple_db,worst_s11_6_8_db,worst_s22_6_8_db
+SIM\ADS\results\fr4_stub_bpf_l3_high_edge_round1\ssb_l3_h1_stub_m15_mm_coords_rfpro.csv,TUNE,-20.99,-1.42,-1.18,-1.75,-1.00,-2.26,1.46,-5.53,-5.52

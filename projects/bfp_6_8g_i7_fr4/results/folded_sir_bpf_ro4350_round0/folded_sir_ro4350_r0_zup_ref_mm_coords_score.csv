@@ -1,0 +1,2 @@
+source,target_profile,status,s21_5g_db,s21_6g_db,s21_7g_db,s21_8g_db,s21_9g_db,passband_min_s21_db,passband_ripple_db,worst_s11_6_8_db,worst_s22_6_8_db
+E:\OneDrive\4.Code\PICO\RP2350\RP2350_PIO_TRIG\RP2350_TRIGRP2350_TRIG\SIM\ADS\results\folded_sir_bpf_ro4350_round0\folded_sir_ro4350_r0_zup_ref_mm_coords_rfpro.csv,fr4_25db,TUNE,-11.48,-19.87,-5.92,-30.79,-31.80,-56.33,55.27,-0.12,-0.12

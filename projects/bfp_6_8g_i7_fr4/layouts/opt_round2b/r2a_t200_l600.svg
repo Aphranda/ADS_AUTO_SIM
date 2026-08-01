@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="-5.1 -2.1 23.517 10.727">
+  <title>r2a_t200_l600: 9th order interdigital BPF, RO4350B h=0.508 mm</title>
+  <rect x="-5.1" y="-2.1" width="23.517" height="10.727" fill="#f8f6ef"/>
+  <rect x="0" y="0.527" width="1.113" height="6" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="0.5565" cy="6.277" r="0.25" fill="#2c7fb8" stroke="#083d70" stroke-width="0.025"/>
+  <rect x="1.393" y="0" width="1.113" height="6" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="1.9495" cy="0.25" r="0.25" fill="#2c7fb8" stroke="#083d70" stroke-width="0.025"/>
+  <rect x="2.936" y="0.527" width="1.113" height="6" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="3.4925" cy="6.277" r="0.25" fill="#2c7fb8" stroke="#083d70" stroke-width="0.025"/>
+  <rect x="4.514" y="0" width="1.113" height="6" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="5.0705" cy="0.25" r="0.25" fill="#2c7fb8" stroke="#083d70" stroke-width="0.025"/>
+  <rect x="6.102" y="0.527" width="1.113" height="6" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="6.6585" cy="6.277" r="0.25" fill="#2c7fb8" stroke="#083d70" stroke-width="0.025"/>
+  <rect x="7.69" y="0" width="1.113" height="6" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="8.2465" cy="0.25" r="0.25" fill="#2c7fb8" stroke="#083d70" stroke-width="0.025"/>
+  <rect x="9.268" y="0.527" width="1.113" height="6" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="9.8245" cy="6.277" r="0.25" fill="#2c7fb8" stroke="#083d70" stroke-width="0.025"/>
+  <rect x="10.811" y="0" width="1.113" height="6" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="11.3675" cy="0.25" r="0.25" fill="#2c7fb8" stroke="#083d70" stroke-width="0.025"/>
+  <rect x="12.204" y="0.527" width="1.113" height="6" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <circle cx="12.7605" cy="6.277" r="0.25" fill="#2c7fb8" stroke="#083d70" stroke-width="0.025"/>
+  <rect x="-3" y="3.9705" width="3" height="1.113" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <rect x="13.317" y="3.9705" width="3" height="1.113" fill="#b88727" stroke="#33210a" stroke-width="0.025"/>
+  <rect x="-4.5" y="-1.5" width="22.317" height="9.527" fill="none" stroke="#177245" stroke-width="0.035" stroke-dasharray="0.16 0.12"/>
+  <text x="0.5565" y="3.527" font-size="0.28" text-anchor="middle" fill="#111">1</text>
+  <text x="1.9495" y="3" font-size="0.28" text-anchor="middle" fill="#111">2</text>
+  <text x="3.4925" y="3.527" font-size="0.28" text-anchor="middle" fill="#111">3</text>
+  <text x="5.0705" y="3" font-size="0.28" text-anchor="middle" fill="#111">4</text>
+  <text x="6.6585" y="3.527" font-size="0.28" text-anchor="middle" fill="#111">5</text>
+  <text x="8.2465" y="3" font-size="0.28" text-anchor="middle" fill="#111">6</text>
+  <text x="9.8245" y="3.527" font-size="0.28" text-anchor="middle" fill="#111">7</text>
+  <text x="11.3675" y="3" font-size="0.28" text-anchor="middle" fill="#111">8</text>
+  <text x="12.7605" y="3.527" font-size="0.28" text-anchor="middle" fill="#111">9</text>
+  <text x="-4.9" y="-1.65" font-size="0.32" fill="#333">r2a_t200_l600: 9th order interdigital BPF, RO4350B h=0.508 mm</text>
+</svg>

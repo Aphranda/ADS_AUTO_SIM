@@ -1,0 +1,13 @@
+name,L_mm,tap_mm,Egap_mm,S1_mm,S2_mm,S3_mm,S4_mm,S5_mm,S6_mm,S7_mm,S8_mm,via_diameter_mm,metal_layer,via_layer,notes
+r3b_base,6,1.9,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,repeat r2e_l600 under round3 naming for baseline
+r3b_l597,5.97,1.9,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,shorten length to check whether 6 GHz insertion can lift
+r3b_l598,5.98,1.9,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,slight length trim around the fitted best point
+r3b_l599,5.99,1.9,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,tiny length trim around the fitted best point
+r3b_t185,6,1.85,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,lower tap to recover passband insertion and match
+r3b_t190,6,1.9,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,keep nominal tap as control
+r3b_t195,6,1.95,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,raise tap slightly to compare match / edge tradeoff
+r3b_e515,6,1.9,0.515,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,smaller end gap to see if 6/8 GHz edges improve
+r3b_e540,6,1.9,0.54,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,larger end gap to push stopband / 5 GHz suppression
+r3b_s1p,6,1.9,0.527,0.345,0.465,0.48,0.49,0.49,0.48,0.465,0.345,0.5,cond,pcvia1,increase outer gaps for extra 5 GHz suppression
+r3b_s1m,6,1.9,0.527,0.315,0.465,0.48,0.49,0.49,0.48,0.465,0.315,0.5,cond,pcvia1,decrease outer gaps for extra edge coupling
+r3b_l599s1p,5.99,1.9,0.527,0.345,0.465,0.48,0.49,0.49,0.48,0.465,0.345,0.5,cond,pcvia1,combine tiny length trim with stronger outer suppression

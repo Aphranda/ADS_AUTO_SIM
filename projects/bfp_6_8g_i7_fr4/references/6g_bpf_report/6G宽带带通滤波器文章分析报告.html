@@ -1,0 +1,487 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>面向6G的宽带带通滤波器设计文章分析报告</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  body { font-family:"等线","SimSun","Microsoft YaHei",sans-serif; background:#d0d0d0; display:flex; flex-direction:column; align-items:center; padding:20px; gap:24px; }
+  .page { background:#fff; width:1120px; min-height:630px; box-shadow:0 2px 8px rgba(0,0,0,.15); display:flex; flex-direction:column; }
+  .page-header { padding:16px 44px 12px; display:flex; justify-content:space-between; align-items:center; border-bottom:8px solid #d0d6e4; }
+  .brand { font-size:14px; color:#1F3864; font-weight:700; letter-spacing:0; }
+  .mark { font-size:20px; font-weight:800; color:#1F3864; letter-spacing:0; }
+  .main { flex:1; display:flex; flex-direction:column; justify-content:center; padding:16px 44px; }
+  .page-footer { padding:10px 44px 14px; border-top:8px solid #d0d6e4; display:flex; justify-content:space-between; align-items:center; font-size:9px; color:#aaa; }
+  .page-num { font-size:10px; color:#999; }
+
+  .cover-page { justify-content:center; align-items:center; text-align:center; }
+  .cover-page .page-header { justify-content:flex-end; padding-top:48px; }
+  .cover-title { font-size:32px; font-weight:800; color:#1a1a1a; margin-bottom:12px; line-height:1.35; }
+  .cover-divider { width:80px; height:4px; background:#1F3864; margin:30px auto; }
+  .cover-subtitle { font-size:16px; color:#1F3864; margin-bottom:46px; }
+  .cover-info { font-size:14px; color:#666; line-height:2; }
+
+  .h1 { font-size:24px; font-weight:700; color:#1a1a1a; margin-bottom:4px; }
+  .sub { font-size:13px; color:#666; margin-bottom:16px; }
+  .h2 { font-size:15px; font-weight:700; color:#1F3864; margin:14px 0 8px; padding-bottom:5px; border-bottom:2px solid #1F3864; }
+  .note { font-size:10px; color:#888; margin-top:8px; line-height:1.45; }
+  .b { font-weight:700; }
+  .c { text-align:center; }
+
+  table { width:100%; border-collapse:collapse; font-size:12px; border:1.5px solid #333; margin-bottom:10px; }
+  thead th { background:#1F3864; color:#fff; font-size:12px; font-weight:600; padding:7px 9px; text-align:left; border:1px solid #1a2e52; }
+  tbody td { padding:6px 9px; border:1px solid #bbb; color:#1a1a1a; vertical-align:top; line-height:1.42; }
+  tbody tr:nth-child(even) td { background:#f2f6fc; }
+
+  .metric-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:10px 0 16px; }
+  .metric { border:1px solid #d6dbea; border-radius:6px; padding:12px 14px; background:#f8fafc; min-height:74px; }
+  .metric b { display:block; font-size:22px; color:#1F3864; margin-bottom:6px; }
+  .metric span { display:block; font-size:11px; color:#555; line-height:1.35; }
+  .tag-r { display:inline-block; background:#d32f2f; color:#fff; padding:2px 10px; border-radius:3px; font-size:11px; font-weight:700; white-space:nowrap; }
+  .tag-y { display:inline-block; background:#f57c00; color:#fff; padding:2px 10px; border-radius:3px; font-size:11px; font-weight:700; white-space:nowrap; }
+  .tag-g { display:inline-block; background:#388e3c; color:#fff; padding:2px 10px; border-radius:3px; font-size:11px; font-weight:700; white-space:nowrap; }
+  .tag-b { display:inline-block; background:#1565c0; color:#fff; padding:2px 10px; border-radius:3px; font-size:11px; font-weight:700; white-space:nowrap; }
+
+  .row2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+  .card { border:1px solid #ddd; border-radius:6px; overflow:hidden; background:#fafafa; }
+  .card-h { padding:8px 12px; font-size:13px; font-weight:700; color:#fff; background:#1F3864; }
+  .card-b { padding:10px 12px; font-size:12px; line-height:1.55; min-height:128px; }
+  .card-b ul { list-style:none; padding:0; }
+  .card-b li { padding:4px 0 4px 14px; position:relative; }
+  .card-b li::before { content:"■"; position:absolute; left:0; top:6px; font-size:7px; color:#1F3864; }
+  .cg .card-h { background:#2e7d32; } .co .card-h { background:#e65100; } .cr .card-h { background:#d32f2f; } .cb .card-h { background:#1565c0; }
+  .cg li::before { color:#2e7d32; } .co li::before { color:#e65100; } .cr li::before { color:#d32f2f; } .cb li::before { color:#1565c0; }
+
+  .bar-note { margin-top:10px; padding:11px 18px; background:linear-gradient(90deg,#1F3864,#283593); color:#fff; border-radius:4px; text-align:center; font-size:13px; font-weight:600; }
+  .bar-note span { color:#ffcc80; font-size:17px; }
+  .flow { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin:10px 0 14px; }
+  .step { border:1px solid #cfd6e6; border-radius:6px; padding:10px; background:#f8fafc; min-height:86px; }
+  .step b { display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:#1F3864; color:#fff; font-size:12px; margin-bottom:8px; }
+  .step strong { display:block; color:#1a1a1a; font-size:12px; margin-bottom:5px; }
+  .step span { display:block; color:#555; font-size:10.5px; line-height:1.35; }
+  .matrix { display:grid; grid-template-columns:1.05fr 1fr; gap:16px; align-items:stretch; }
+  .quote { border-left:5px solid #1F3864; background:#f7f9fc; padding:13px 16px; font-size:13px; color:#333; line-height:1.6; }
+  .fig-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .fig-card { border:1px solid #d6dbea; border-radius:6px; background:#f8fafc; padding:10px; min-height:218px; display:flex; flex-direction:column; }
+  .fig-card img { width:100%; height:170px; object-fit:contain; background:#fff; border:1px solid #e1e5ef; border-radius:4px; }
+  .fig-cap { padding-top:7px; font-size:11px; color:#333; line-height:1.35; }
+  .fig-cap b { color:#1F3864; }
+  .layout-split { display:grid; grid-template-columns:420px 1fr; gap:16px; align-items:stretch; }
+  .analysis-img { border:1px solid #d6dbea; border-radius:6px; background:#f8fafc; padding:10px; display:flex; align-items:center; justify-content:center; }
+  .analysis-img img { width:100%; max-height:390px; object-fit:contain; background:#fff; border:1px solid #e1e5ef; border-radius:4px; }
+  .formula-box { border:1px solid #cfd6e6; border-left:5px solid #1F3864; border-radius:6px; background:#f8fafc; padding:12px 14px; margin:8px 0; }
+  .formula { font-family:"Cambria Math","Times New Roman",serif; font-size:18px; color:#1a1a1a; margin-bottom:6px; }
+  .formula-desc { font-size:12px; color:#444; line-height:1.5; }
+  .tight td { padding:5px 8px; line-height:1.34; }
+  @media print {
+    body { background:#fff; padding:0; gap:0; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .page { box-shadow:none; margin:0; break-after:page; break-inside:avoid; page-break-after:always; page-break-inside:avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- P1 -->
+<div class="page cover-page">
+  <div class="page-header"><div class="mark">GTS</div></div>
+  <div class="main">
+    <h1 class="cover-title">面向6G的宽带带通滤波器设计<br>文章分析报告</h1>
+    <div class="cover-divider"></div>
+    <div class="cover-subtitle">混合电磁交叉耦合 · 折叠阶跃阻抗谐振器 · 6-8GHz ADS 仿真参考</div>
+    <div class="cover-info">来源：微信公众号文章《面向6G的宽带带通滤波器设计：混合电磁交叉耦合技术的应用》<br>作者：微波 | 发布时间：2026-04-03 15:04 | 分析日期：2026-07-30</div>
+  </div>
+  <div class="page-footer"><span>Article analysis report | Source: mp.weixin.qq.com</span><span>内部文件 | <span class="page-num">1 / 14</span></span></div>
+</div>
+
+<!-- P2 -->
+<div class="page">
+  <div class="page-header"><span class="brand">执行摘要</span><div class="mark">GTS</div></div>
+  <div class="main">
+    <div class="h1">核心判断：这是一个“高选择性、小型化”的 6GHz 以上 BPF 参考方案</div>
+    <div class="sub">文章围绕四阶宽带带通滤波器，使用折叠 SIR 与混合电磁交叉耦合生成多个传输零点。</div>
+    <div class="metric-grid">
+      <div class="metric"><b>6.8GHz</b><span>滤波器中心频率，目标面向 6G / 卫星通信射频前端。</span></div>
+      <div class="metric"><b>22.8%</b><span>实测相对带宽，属于较宽带带通设计。</span></div>
+      <div class="metric"><b>1.39dB</b><span>中心频率插入损耗，依赖 Rogers 4003C 等低损耗材料。</span></div>
+      <div class="metric"><b>4 TZ</b><span>通过混合电磁效应与交叉耦合形成 4 个传输零点。</span></div>
+    </div>
+    <div class="row3">
+      <div class="card cb"><div class="card-h">文章价值</div><div class="card-b"><ul>
+        <li>给出可落地的宽带 BPF 架构，而不是单纯理论耦合矩阵。</li>
+        <li>传输零点来源清晰：外部混合电磁耦合 + 谐振器间交叉耦合。</li>
+        <li>尺寸和实测指标适合作为 6-8GHz 小型化方案 benchmark。</li>
+      </ul></div></div>
+      <div class="card co"><div class="card-h">直接限制</div><div class="card-b"><ul>
+        <li>文章目标中心频率为 6.8GHz，带宽覆盖不一定完整等同 6-8GHz。</li>
+        <li>材料为 Rogers 4003C，不能直接迁移到 FR4 低成本板。</li>
+        <li>缺少完整几何尺寸表和 EM 设置细节，复现需重新参数化。</li>
+      </ul></div></div>
+      <div class="card cg"><div class="card-h">对当前任务的意义</div><div class="card-b"><ul>
+        <li>可作为当前 ADS 自动化流程的新结构候选。</li>
+        <li>优先借鉴“可调 TZ + 双模谐振器”的设计方法。</li>
+        <li>建议先做结构复现，再与交指 / stub / high-low SIR 对比。</li>
+      </ul></div></div>
+    </div>
+    <div class="bar-note">建议结论：<span>不要直接照搬尺寸；应抽象为新的参数化候选结构并纳入 ADS/FEM 扫描。</span></div>
+  </div>
+  <div class="page-footer"><span>Article analysis report | Source: https://mp.weixin.qq.com/s/oTYh15y8vYP8y95M0_6VcQ</span><span>内部文件 | <span class="page-num">2 / 14</span></span></div>
+</div>
+
+<!-- P3 -->
+<div class="page">
+  <div class="page-header"><span class="brand">技术拆解</span><div class="mark">GTS</div></div>
+  <div class="main">
+    <div class="h1">结构逻辑：折叠 SIR 提供小型化，混合耦合负责零点与选择性</div>
+    <div class="sub">文章方案不是单一路径耦合，而是通过多路径组合控制带外响应。</div>
+    <div class="flow">
+      <div class="step"><b>1</b><strong>四阶拓扑</strong><span>第一、四阶为单模谐振器；第二、三阶为双模谐振器。</span></div>
+      <div class="step"><b>2</b><strong>折叠 SIR</strong><span>折叠阶跃阻抗谐振器缩短物理长度，兼顾谐振频率与面积。</span></div>
+      <div class="step"><b>3</b><strong>双模控制</strong><span>双模谐振器偶模约 6.37GHz，奇模约 7.3GHz。</span></div>
+      <div class="step"><b>4</b><strong>交叉耦合</strong><span>第一与第四阶谐振器间形成额外耦合路径，产生 TZ2/TZ3。</span></div>
+      <div class="step"><b>5</b><strong>混合电磁</strong><span>通过电耦合 / 磁耦合比例移动传输零点，改善带外抑制。</span></div>
+    </div>
+    <table>
+      <thead><tr><th style="width:170px;">设计对象</th><th>文章中的作用</th><th style="width:260px;">调参含义</th><th style="width:150px;">工程关注点</th></tr></thead>
+      <tbody>
+        <tr><td class="b">馈线间距 t1</td><td>控制外部品质因素 Qe，影响端口耦合强度。</td><td>间距增大，Qe 增大，外部耦合减弱。</td><td><span class="tag-b">匹配</span></td></tr>
+        <tr><td class="b">谐振器间距 / 孔径</td><td>调节磁耦合 Mij 与电耦合 Eij 的比例。</td><td>改变传输零点位置和带外陡峭度。</td><td><span class="tag-g">选择性</span></td></tr>
+        <tr><td class="b">双模 SIR 参数</td><td>分别约束偶模、奇模谐振点。</td><td>决定通带内部极点分布和带宽。</td><td><span class="tag-y">带宽</span></td></tr>
+        <tr><td class="b">折叠布局</td><td>降低面积，同时引入邻近耦合可能性。</td><td>必须通过 EM 仿真校正寄生耦合。</td><td><span class="tag-r">EM 依赖</span></td></tr>
+      </tbody>
+    </table>
+    <div class="quote">工程理解：该方案的关键不在“某一组尺寸”，而在“可独立调节外部耦合、主耦合、交叉耦合和混合电磁耦合”的自由度。</div>
+  </div>
+  <div class="page-footer"><span>Article analysis report | Technology breakdown</span><span>内部文件 | <span class="page-num">3 / 14</span></span></div>
+</div>
+
+<!-- P4 -->
+<div class="page">
+  <div class="page-header"><span class="brand">指标与可信度</span><div class="mark">GTS</div></div>
+  <div class="main">
+    <div class="h1">性能指标较强，但迁移到当前项目需重做基板和工艺约束</div>
+    <div class="sub">文章数据来自 Rogers 4003C 实物加工与 Keysight E5080B 二端口测试。</div>
+    <table>
+      <thead><tr><th style="width:185px;">指标</th><th style="width:220px;">文章给出的结果</th><th>分析判断</th><th style="width:140px;">复用等级</th></tr></thead>
+      <tbody>
+        <tr><td class="b">基板</td><td>Rogers 4003C，Er=3.55，h=0.813mm，tanδ=0.0027</td><td>适合 6GHz 以上低损耗设计；与 FR4 L3 方案差异显著。</td><td class="c"><span class="tag-y">需重算</span></td></tr>
+        <tr><td class="b">中心频率</td><td>6.8GHz</td><td>接近当前 6-8GHz 目标中心，但文章带宽不一定完整覆盖 8GHz 边缘。</td><td class="c"><span class="tag-b">可参考</span></td></tr>
+        <tr><td class="b">相对带宽</td><td>22.8%</td><td>按 6.8GHz 估算绝对带宽约 1.55GHz；当前 6-8GHz 目标约 28.6% FBW，更激进。</td><td class="c"><span class="tag-y">需扩带</span></td></tr>
+        <tr><td class="b">插入损耗</td><td>1.39dB</td><td>指标优秀，但高度依赖低损耗基材、铜厚、表面粗糙度和加工精度。</td><td class="c"><span class="tag-g">目标值</span></td></tr>
+        <tr><td class="b">带外抑制</td><td>2.35f0 处约 -30dB</td><td>说明传输零点布局有效；当前 5GHz 抑制目标若为 -45dB，仍需额外优化。</td><td class="c"><span class="tag-y">可借鉴</span></td></tr>
+        <tr><td class="b">尺寸</td><td>7.45mm × 5.725mm</td><td>非常紧凑，适合作为小型化 benchmark；但高密度耦合导致 EM 参数敏感。</td><td class="c"><span class="tag-g">有价值</span></td></tr>
+      </tbody>
+    </table>
+    <div class="row2">
+      <div class="card cb"><div class="card-h">可信度来源</div><div class="card-b"><ul>
+        <li>文章包含结构、耦合拓扑、等效模型、加工参数和测试仪器。</li>
+        <li>给出了仿真 / 实测指标方向，适合作为工程启发。</li>
+        <li>文章注明内容整理自硕士论文，通常意味着原始论文可进一步追溯。</li>
+      </ul></div></div>
+      <div class="card cr"><div class="card-h">缺口与风险</div><div class="card-b"><ul>
+        <li>正文未完整列出所有版图尺寸，不能直接生成 ADS DXF。</li>
+        <li>未给出加工公差敏感性，混合耦合方案对间隙非常敏感。</li>
+        <li>当前项目若使用 FR4，损耗和频偏风险会明显放大。</li>
+      </ul></div></div>
+    </div>
+  </div>
+  <div class="page-footer"><span>Article analysis report | Metrics and confidence</span><span>内部文件 | <span class="page-num">4 / 14</span></span></div>
+</div>
+
+<!-- P5 -->
+<div class="page">
+  <div class="page-header"><span class="brand">与当前 ADS 任务适配性</span><div class="mark">GTS</div></div>
+  <div class="main">
+    <div class="h1">对 6-8GHz 自动仿真闭环的启发：新增“混合耦合 SIR”候选族</div>
+    <div class="sub">当前项目已有交指、FR4 stub、high-low SIR 等候选；文章方案更偏高选择性紧凑结构。</div>
+    <table>
+      <thead><tr><th style="width:190px;">当前候选方向</th><th style="width:190px;">文章方案关系</th><th>建议动作</th><th style="width:130px;">优先级</th></tr></thead>
+      <tbody>
+        <tr><td class="b">九阶交指滤波器</td><td>同属耦合谐振器路线，但阶数和零点机制不同。</td><td>可用文章的“外部 Qe + 耦合矩阵 + TZ”思路解释当前 tap / S1-S8 扫描。</td><td class="c"><span class="tag-b">中</span></td></tr>
+        <tr><td class="b">FR4 短路 stub BPF</td><td>成本低，但文章依赖低损耗 Rogers，直接迁移风险较高。</td><td>FR4 路线可借鉴零点设计，但不建议直接复制该微带高 Q 结构。</td><td class="c"><span class="tag-y">中低</span></td></tr>
+        <tr><td class="b">High/Low SIR BPF</td><td>与文章核心最接近，均通过阻抗阶跃和谐振器耦合实现带通。</td><td>优先扩展为“双模 SIR + 交叉耦合”的新参数化生成器。</td><td class="c"><span class="tag-g">高</span></td></tr>
+        <tr><td class="b">RFPro/FEM 自动闭环</td><td>完全适合验证此类强 EM 依赖结构。</td><td>保持 CSV -> DXF -> ADS -> FEM -> score 流程，新增结构生成器即可。</td><td class="c"><span class="tag-g">高</span></td></tr>
+      </tbody>
+    </table>
+    <div class="matrix">
+      <div class="card cg"><div class="card-h">可直接吸收进流程的参数</div><div class="card-b"><ul>
+        <li>中心频率目标：6.8-7.0GHz 作为初始缩放点。</li>
+        <li>谐振器族：单模 SIR + 双模 SIR 混合。</li>
+        <li>评分扩展：新增 TZ 位置、9GHz/10GHz 抑制、通带内回波指标。</li>
+        <li>版图约束：间隙、电/磁耦合窗口、折叠段距离作为 sweep 字段。</li>
+      </ul></div></div>
+      <div class="card co"><div class="card-h">不能直接照搬的部分</div><div class="card-b"><ul>
+        <li>Rogers 4003C 尺寸不能直接用于 FR4 或 RO4350 厚度变化版本。</li>
+        <li>文章的 22.8% FBW 小于 6-8GHz 对 7GHz 中心的 28.6% FBW 要求。</li>
+        <li>强交叉耦合结构的端口、边界、网格设置需单独 EM 校验。</li>
+        <li>传输零点位置要按当前 5GHz 抑制和 8GHz 边缘插损重新优化。</li>
+      </ul></div></div>
+    </div>
+  </div>
+  <div class="page-footer"><span>Article analysis report | Fit to ADS automation flow</span><span>内部文件 | <span class="page-num">5 / 14</span></span></div>
+</div>
+
+<!-- P6 -->
+<div class="page">
+  <div class="page-header"><span class="brand">行动建议</span><div class="mark">GTS</div></div>
+  <div class="main">
+    <div class="h1">建议用“三步法”把文章方案转成可仿真的工程候选</div>
+    <div class="sub">目标不是复刻公众号正文，而是形成可被 ADS 自动化闭环消费的结构族。</div>
+    <div class="flow">
+      <div class="step"><b>1</b><strong>论文溯源</strong><span>找到范星辰硕士论文原文，补全尺寸表、材料、仿真边界和公式定义。</span></div>
+      <div class="step"><b>2</b><strong>参数建模</strong><span>定义单模 SIR、双模 SIR、交叉耦合窗口、馈线间距等 CSV 字段。</span></div>
+      <div class="step"><b>3</b><strong>版图生成</strong><span>新增 generate_mixed_coupled_sir_bpf_layout.py，输出 DXF、SVG、params JSON、DRC。</span></div>
+      <div class="step"><b>4</b><strong>ADS 初筛</strong><span>先 prepare-only 校验端口、层、边界，再跑 4-10GHz RFPro/FEM。</span></div>
+      <div class="step"><b>5</b><strong>闭环优化</strong><span>评分加入 5GHz 抑制、6/8GHz 插损、回波、TZ 位置和上阻带衰减。</span></div>
+    </div>
+    <div class="h2">推荐新增 CSV 字段</div>
+    <table>
+      <thead><tr><th style="width:220px;">字段组</th><th>建议字段</th><th style="width:260px;">用途</th></tr></thead>
+      <tbody>
+        <tr><td class="b">材料与频率</td><td>substrate, er, h_mm, copper_mm, f0_ghz, fbw_pct</td><td>控制缩放和损耗模型。</td></tr>
+        <tr><td class="b">SIR 几何</td><td>w1_mm, w2_mm, w3_mm, theta1_deg, theta2_deg, theta3_deg, fold_gap_mm</td><td>约束单模 / 双模谐振点。</td></tr>
+        <tr><td class="b">耦合控制</td><td>feed_gap_mm, main_gap_mm, cross_gap_mm, electric_slot_mm, magnetic_window_mm</td><td>控制 Qe、主耦合、交叉耦合和混合电磁比例。</td></tr>
+        <tr><td class="b">工艺检查</td><td>min_fab_feature_mm, boundary_margin_mm, metal_layer, via_layer</td><td>保持与现有 DXF 导入和 DRC 输出兼容。</td></tr>
+      </tbody>
+    </table>
+    <div class="bar-note">下一步建议：<span>先建立 Rogers/RO4350 版本 baseline；FR4 版本只作为成本路线单独评估。</span></div>
+    <div class="note">来源链接：<a href="https://mp.weixin.qq.com/s/oTYh15y8vYP8y95M0_6VcQ">https://mp.weixin.qq.com/s/oTYh15y8vYP8y95M0_6VcQ</a>。本文为技术分析与工程转化建议，未复制原文长段内容。</div>
+  </div>
+  <div class="page-footer"><span>Article analysis report | Next actions</span><span>内部文件 | <span class="page-num">6 / 14</span></span></div>
+</div>
+
+<!-- P7 -->
+<div class="page">
+  <div class="page-header"><span class="brand">版图细读 1</span><div class="mark">GTS</div></div>
+  <div class="main">
+    <div class="h1">图 3.1(a)：版图不是普通四腔滤波器，而是“折叠 SIR + 双模加载 + 交叉耦合”的组合结构</div>
+    <div class="sub">下面按物理图形拆解，而不是只按文章文字概括。</div>
+    <div class="layout-split">
+      <div class="analysis-img"><img src="assets/6g_bpf_report/fig01.png" alt="版图结构细读"></div>
+      <div>
+        <table class="tight">
+          <thead><tr><th style="width:115px;">版图对象</th><th>细致分析</th><th style="width:120px;">影响</th></tr></thead>
+          <tbody>
+            <tr><td class="b">Port1 / Port2 50Ω 馈线</td><td>左右两侧粗微带为外部馈入结构，非直接串联穿越，而是靠近下方谐振器形成端口耦合。馈线间距 t1 是外部 Qe 的主调参量。</td><td><span class="tag-b">匹配/插损</span></td></tr>
+            <tr><td class="b">下方紫色 U 形谐振器</td><td>中心下方大 U 形线段承担双模谐振器角色，左右下端靠近馈线，顶部横段与上方橙色结构存在强近场耦合。</td><td><span class="tag-g">通带极点</span></td></tr>
+            <tr><td class="b">via 接地点</td><td>U 形谐振器左右底部附近各有 via，说明该结构存在短路支节/接地加载成分。via 的等效电感会影响奇偶模频率，不能在 EM 中忽略。</td><td><span class="tag-r">频偏风险</span></td></tr>
+            <tr><td class="b">上方橙色折叠线</td><td>上方为折叠阶跃阻抗谐振器，W2/L4 与 W1/L3 两类线宽长度共同决定等效电长度和阻抗阶跃比。</td><td><span class="tag-g">小型化</span></td></tr>
+            <tr><td class="b">S1 / S2 间隙</td><td>S1 是橙色结构末端与紫色结构上方之间的垂直间隙，S2 是橙色中段和紫色竖臂之间的局部耦合间隙，分别对应不同耦合路径。</td><td><span class="tag-y">零点位置</span></td></tr>
+          </tbody>
+        </table>
+        <div class="quote">版图结论：这张图里的“形状”本身就是滤波器功能的一部分。若要复现，不能只画四个 resonator；必须保留折叠线、via 短路加载、S1/S2 近场间隙和 d1/d2 交叉耦合窗口。</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer"><span>Article analysis report | Layout anatomy</span><span>内部文件 | <span class="page-num">7 / 14</span></span></div>
+</div>
+
+<!-- P8 -->
+<div class="page">
+  <div class="page-header"><span class="brand">版图细读 2</span><div class="mark">GTS</div></div>
+  <div class="main">
+    <div class="h1">版图参数 S、d1、d2、t1 的物理含义与 sweep 方向</div>
+    <div class="sub">文章图 3.2、3.5 说明了这些几何量对耦合系数和传输零点的方向性影响。</div>
+    <table>
+      <thead><tr><th style="width:120px;">参数</th><th style="width:180px;">版图对应位置</th><th>调参机理</th><th style="width:210px;">对曲线的预期影响</th></tr></thead>
+      <tbody>
+        <tr><td class="b c">t1</td><td>馈线与下方谐振器之间的间距</td><td>控制外部品质因素 Qe。文章图 3.2(a)显示 t1 增大时 Qe 增大，说明外部耦合变弱。</td><td>t1 过小：插损低但回波变差；t1 过大：耦合不足、通带塌陷。</td></tr>
+        <tr><td class="b c">S</td><td>上/下谐振器之间的主要耦合间距</td><td>图 3.2(b)显示 S 改变 k12/k14。S 增大通常降低近场耦合，影响主通带耦合和交叉耦合平衡。</td><td>改变通带宽度、纹波和 TZ 位置，属于最敏感 sweep 项之一。</td></tr>
+        <tr><td class="b c">d1</td><td>右下方 via / 谐振器局部加载位置</td><td>图 3.5(a)显示 d1 改变时 TZ3、TZ4 位置移动。它更像调混合电磁耦合的局部电长度和场分布。</td><td>主要移动高频侧零点，也会牵动 8GHz 边缘插损。</td></tr>
+        <tr><td class="b c">d2</td><td>橙色折叠臂末端与局部耦合区域的横向距离</td><td>图 3.2(c)显示 d2 增大时 k23 降低。它是双模/相邻谐振器耦合强度调节项。</td><td>d2 增大：耦合减弱，带宽收窄；d2 减小：带宽扩大但纹波和寄生耦合风险上升。</td></tr>
+        <tr><td class="b c">W1/W2/L1-L4</td><td>紫色 U 形和橙色折叠段的线宽/长度</td><td>决定阻抗阶跃比与等效电长度。文章给出的 Z1/Z2/Z3、θ1/θ2/θ3 本质上要通过这些几何尺寸实现。</td><td>影响中心频率、偶/奇模分裂、寄生通带位置。</td></tr>
+      </tbody>
+    </table>
+    <div class="row2">
+      <div class="card cg"><div class="card-h">可参数化字段</div><div class="card-b"><ul>
+        <li>feed_gap_t1_mm、main_gap_s_mm、upper_lower_gap_s1_mm、side_gap_s2_mm。</li>
+        <li>via_offset_d1_mm、fold_offset_d2_mm、sir_w1/w2/w3、sir_l1/l2/l3/l4。</li>
+        <li>via_diameter_mm、via_keepout_mm、boundary_margin_mm。</li>
+      </ul></div></div>
+      <div class="card cr"><div class="card-h">复现风险</div><div class="card-b"><ul>
+        <li>S、d1、d2 不是独立理想耦合器；在紧凑版图中会互相耦合。</li>
+        <li>via 电感、焊盘电容、SMA 过渡会破坏理想零点深度。</li>
+        <li>原文图中没有完整坐标，必须从论文或图像反推后再 EM 校准。</li>
+      </ul></div></div>
+    </div>
+  </div>
+  <div class="page-footer"><span>Article analysis report | Layout parameters</span><span>内部文件 | <span class="page-num">8 / 14</span></span></div>
+</div>
+
+<!-- P9 -->
+<div class="page">
+  <div class="page-header"><span class="brand">公式细读 1</span><div class="mark">GTS</div></div>
+  <div class="main">
+    <div class="h1">式 3.1 / 3.2：双模 SIR 的偶模与奇模约束</div>
+    <div class="sub">这两条公式不是评分公式，而是把目标谐振频率反推到阻抗阶跃和电长度的综合约束。</div>
+    <div class="layout-split">
+      <div class="analysis-img"><img src="assets/6g_bpf_report/fig03.png" alt="双模谐振器公式"></div>
+      <div>
+        <div class="formula-box">
+          <div class="formula">Z2(Z1 - 2Z3 tanθ1 tanθ3) - Z1 tanθ2(Z1 tanθ1 + 2Z3 tanθ3) = 0</div>
+          <div class="formula-desc">式 3.1 对应偶模条件。由于偶模面等效边界改变，Z3、θ3 的加载项进入公式，因此它对短路/开路加载、折叠末端和 via 等寄生更敏感。</div>
+        </div>
+        <div class="formula-box">
+          <div class="formula">Z2 - Z1 tanθ1 tanθ2 = 0</div>
+          <div class="formula-desc">式 3.2 对应奇模条件。它形式更简单，主要由 Z1、Z2 及 θ1、θ2 决定。文章用它把奇模设在约 7.3GHz。</div>
+        </div>
+        <table class="tight">
+          <thead><tr><th style="width:105px;">变量</th><th>工程解释</th><th style="width:160px;">版图落点</th></tr></thead>
+          <tbody>
+            <tr><td class="b">Z1/Z2/Z3</td><td>不同线宽微带段的特性阻抗，文章给出 111.6Ω / 76.8Ω / 101.5Ω。</td><td>W1/W2/W3 线宽</td></tr>
+            <tr><td class="b">θ1/θ2/θ3</td><td>各段在目标频点的电长度，文章给出 34.9° / 44.9° / 1.3°。</td><td>L1/L2/L3 或折叠段</td></tr>
+            <tr><td class="b">偶模 6.37GHz</td><td>低侧极点，决定 6GHz 附近边缘支撑。</td><td>双模谐振器整体加载</td></tr>
+            <tr><td class="b">奇模 7.3GHz</td><td>高侧极点，决定 8GHz 附近边缘支撑。</td><td>双模谐振器线宽/长度</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer"><span>Article analysis report | Formula review 1</span><span>内部文件 | <span class="page-num">9 / 14</span></span></div>
+</div>
+
+<!-- P10 -->
+<div class="page">
+  <div class="page-header"><span class="brand">公式细读 2</span><div class="mark">GTS</div></div>
+  <div class="main">
+    <div class="h1">式 3.3：外部品质因素 Qe 是端口耦合强弱的量化入口</div>
+    <div class="sub">当前 ADS 自动化里 tap_mm / feed_gap_mm 的扫描，本质上也在调 Qe。</div>
+    <div class="row2">
+      <div>
+        <div class="analysis-img" style="height:132px;"><img src="assets/6g_bpf_report/fig04.png" alt="Qe 公式"></div>
+        <div class="formula-box">
+          <div class="formula">Qe = 2π · f0 · τ(f0) / 4</div>
+          <div class="formula-desc">这里 τ(f0) 是中心频率处群时延。Qe 越大，外部耦合越弱；Qe 越小，外部耦合越强。文章通过 t1 控制 Qe。</div>
+        </div>
+      </div>
+      <div>
+        <table class="tight">
+          <thead><tr><th style="width:130px;">现象</th><th>解释</th><th style="width:155px;">对 ADS sweep 的启发</th></tr></thead>
+          <tbody>
+            <tr><td class="b">t1 增大，Qe 增大</td><td>馈线与谐振器距离变远，端口注入能量变少。</td><td>feed_gap_mm 需要单变量扫。</td></tr>
+            <tr><td class="b">Qe 过小</td><td>过耦合，通带可能更宽但回波恶化，插损和纹波不稳定。</td><td>评分需加入 worst S11/S22。</td></tr>
+            <tr><td class="b">Qe 过大</td><td>欠耦合，带内能量进不去，通带边缘下陷。</td><td>关注 S21@6G / S21@8G。</td></tr>
+            <tr><td class="b">群时延法</td><td>从单谐振器仿真提取 Qe，比直接全结构扫更可解释。</td><td>可新增 prepare 单腔仿真模式。</td></tr>
+          </tbody>
+        </table>
+        <div class="quote">公式结论：文章用 Qe 把“馈线离多远合适”从经验版图问题变成可提取指标。当前流程若新增该结构，应先扫单谐振器 Qe，再进入完整滤波器 FEM。</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer"><span>Article analysis report | Formula review 2</span><span>内部文件 | <span class="page-num">10 / 14</span></span></div>
+</div>
+
+<!-- P11 -->
+<div class="page">
+  <div class="page-header"><span class="brand">公式细读 3</span><div class="mark">GTS</div></div>
+  <div class="main">
+    <div class="h1">式 3.8：传输零点由磁耦合 Mij 与电耦合 Eij 的比值控制</div>
+    <div class="sub">这是文章最值得迁移的核心：零点位置不只靠阶数，而靠电/磁耦合比例。</div>
+    <div class="layout-split">
+      <div>
+        <div class="analysis-img" style="height:132px;"><img src="assets/6g_bpf_report/fig06.png" alt="传输零点公式"></div>
+        <div class="analysis-img" style="height:244px; margin-top:12px;"><img src="assets/6g_bpf_report/fig07.png" alt="传输零点随 d1 S2 变化"></div>
+      </div>
+      <div>
+        <div class="formula-box">
+          <div class="formula">fTZ = f0 √(Mij / Eij)</div>
+          <div class="formula-desc">当 Mij / Eij 增大，传输零点向高频移动；当比值减小，零点向低频移动。实际版图中 Mij 与 Eij 不是孤立元件，而由缝隙、重叠长度、接地 via、电流方向共同决定。</div>
+        </div>
+        <table class="tight">
+          <thead><tr><th style="width:120px;">图 3.5 观察</th><th>技术解释</th><th>工程判断</th></tr></thead>
+          <tbody>
+            <tr><td class="b">d1 改变</td><td>TZ3/TZ4 明显移动，说明 d1 对混合电磁耦合比值敏感。</td><td>d1 应作为高频零点控制旋钮，不宜和长度 L 同时大步扫。</td></tr>
+            <tr><td class="b">S2 改变</td><td>TZ1/TZ2/TZ3 的相对位置和深度变化，说明 S2 同时影响多个耦合路径。</td><td>S2 是多目标变量，需小步长 sweep 并记录零点位置。</td></tr>
+            <tr><td class="b">零点深度变化</td><td>某些曲线零点变浅，代表电/磁抵消条件偏离。</td><td>评分不能只看频点衰减，还要看零点是否稳定。</td></tr>
+            <tr><td class="b">上阻带抑制</td><td>高频侧 TZ 位置影响 9-16GHz 抑制包络。</td><td>当前 4-10GHz 仿真可能不够，应扩到 16GHz 做杂散检查。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer"><span>Article analysis report | Formula review 3</span><span>内部文件 | <span class="page-num">11 / 14</span></span></div>
+</div>
+
+<!-- P12 -->
+<div class="page">
+  <div class="page-header"><span class="brand">耦合矩阵与实测偏差</span><div class="mark">GTS</div></div>
+  <div class="main">
+    <div class="h1">矩阵说明设计目标，实测图暴露制造与过渡结构误差</div>
+    <div class="sub">图 3.3/3.6 需要一起看：理想耦合矩阵能产生深零点，但实物会出现零点变浅和频率偏移。</div>
+    <div class="row2">
+      <div class="analysis-img"><img src="assets/6g_bpf_report/fig05.png" alt="耦合矩阵"></div>
+      <div class="analysis-img"><img src="assets/6g_bpf_report/fig08.png" alt="实测曲线"></div>
+    </div>
+    <table class="tight">
+      <thead><tr><th style="width:145px;">观察点</th><th>细节解读</th><th style="width:220px;">对复现的要求</th></tr></thead>
+      <tbody>
+        <tr><td class="b">矩阵 S-1 / 4-L 为 0.8905</td><td>源到 1、4 到负载的外部耦合对称，说明版图左右镜像是为了保证输入输出匹配一致。</td><td>生成器必须保持左右端口和谐振器对称，除非刻意做补偿。</td></tr>
+        <tr><td class="b">M12/M34 = 0.7728</td><td>主耦合强，支撑宽带通带；若该值不足，6/8GHz 边缘会下陷。</td><td>主间隙 S/d2 要优先校准。</td></tr>
+        <tr><td class="b">M14 = -0.1254</td><td>负号代表交叉耦合极性相反，是产生有限频率传输零点的关键。</td><td>版图交叉路径不能简化掉。</td></tr>
+        <tr><td class="b">仿真/实测曲线差异</td><td>实测曲线零点不如仿真深，带外包络也有偏差，常见来源是 SMA 焊接、铜粗糙度、介电常数偏差和 via 寄生。</td><td>ADS 模型需加入端口过渡余量，并做材料参数敏感性。</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="page-footer"><span>Article analysis report | Coupling matrix and measurement</span><span>内部文件 | <span class="page-num">12 / 14</span></span></div>
+</div>
+
+<!-- P13 -->
+<div class="page">
+  <div class="page-header"><span class="brand">原文图示附录 A</span><div class="mark">GTS</div></div>
+  <div class="main">
+    <div class="h1">结构、拓扑与模型图</div>
+    <div class="sub">以下图片已从文章页面下载到本地 assets 目录，HTML 离线打开也可显示。</div>
+    <div class="fig-grid">
+      <div class="fig-card">
+        <img src="assets/6g_bpf_report/fig01.png" alt="滤波器平面结构图">
+        <div class="fig-cap"><b>图 1</b> 滤波器平面结构：用于观察端口、折叠谐振器和耦合布局关系。</div>
+      </div>
+      <div class="fig-card">
+        <img src="assets/6g_bpf_report/fig02.png" alt="耦合拓扑图">
+        <div class="fig-cap"><b>图 2</b> 耦合拓扑：展示主耦合、交叉耦合以及多传输零点来源。</div>
+      </div>
+      <div class="fig-card">
+        <img src="assets/6g_bpf_report/fig03.png" alt="双模谐振器等效模型与公式">
+        <div class="fig-cap"><b>图 3</b> 双模谐振器等效模型：偶模 / 奇模谐振频率计算依据。</div>
+      </div>
+      <div class="fig-card">
+        <img src="assets/6g_bpf_report/fig04.png" alt="外部品质因数公式与曲线">
+        <div class="fig-cap"><b>图 4</b> 外部品质因素 Qe：馈线间距对端口耦合强度的影响。</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer"><span>Article analysis report | Figures appendix A</span><span>内部文件 | <span class="page-num">13 / 14</span></span></div>
+</div>
+
+<!-- P14 -->
+<div class="page">
+  <div class="page-header"><span class="brand">原文图示附录 B</span><div class="mark">GTS</div></div>
+  <div class="main">
+    <div class="h1">耦合矩阵、传输零点与实物测试图</div>
+    <div class="sub">图片用于辅助理解文章技术路线；报告正文仍以分析和工程转化建议为主。</div>
+    <div class="fig-grid">
+      <div class="fig-card">
+        <img src="assets/6g_bpf_report/fig05.png" alt="耦合矩阵与传输零点">
+        <div class="fig-cap"><b>图 5</b> 耦合矩阵与传输零点：识别 TZ1-TZ4 的设计来源。</div>
+      </div>
+      <div class="fig-card">
+        <img src="assets/6g_bpf_report/fig06.png" alt="传输零点调控公式">
+        <div class="fig-cap"><b>图 6</b> 传输零点调控公式：电耦合与磁耦合比例影响 TZ 位置。</div>
+      </div>
+      <div class="fig-card">
+        <img src="assets/6g_bpf_report/fig07.png" alt="电磁耦合参数调节图">
+        <div class="fig-cap"><b>图 7</b> 电 / 磁耦合调参关系：间距和孔径是关键 sweep 变量。</div>
+      </div>
+      <div class="fig-card">
+        <img src="assets/6g_bpf_report/fig08.png" alt="加工实物与测试结果">
+        <div class="fig-cap"><b>图 8</b> 加工与测试信息：Rogers 4003C、实物尺寸和网络分析仪测试结果。</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer"><span>Article analysis report | Figures appendix B</span><span>内部文件 | <span class="page-num">14 / 14</span></span></div>
+</div>
+
+</body>
+</html>
+

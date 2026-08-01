@@ -1,0 +1,10 @@
+parameter,nominal_mm,sweep_min_mm,sweep_max_mm,step_mm,ads_variable,main_effect,priority
+L,5.539392,5.239392,5.839392,0.05,L,Center frequency; longer shifts passband lower.,high
+tap,1.951401,1.651401,2.251401,0.05,tap,Input/output match and insertion loss.,high
+S1/S8,0.121051,0.1016,0.201051,0.01,"S1,S8","External-edge coupling, lower skirt, 5 GHz rejection, return loss.",high
+S2/S7,0.175513,0.095513,0.255513,0.01,"S2,S7",Near-edge coupling and passband ripple.,medium
+S3/S6,0.190971,0.110971,0.270971,0.01,"S3,S6","Mid-band coupling, ripple flatness, skirt slope.",medium
+S4/S5,0.190971,0.110971,0.270971,0.01,"S4,S5",Center coupling and passband bandwidth.,medium
+W,0.368471,0.288471,0.448471,0.02,W,Resonator impedance and EM loading; keep tied to W0 initially.,low
+W0,0.368471,0.288471,0.448471,0.02,W0,50 ohm launch width; usually fixed by stackup calculator.,low
+Egap,0.476604,0.326604,0.626604,0.025,Egap,Open-end capacitance and end-effect frequency shift.,low

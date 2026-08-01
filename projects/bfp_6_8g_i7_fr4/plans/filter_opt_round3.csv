@@ -1,0 +1,12 @@
+name,L_mm,tap_mm,Egap_mm,S1_mm,S2_mm,S3_mm,S4_mm,S5_mm,S6_mm,S7_mm,S8_mm,via_diameter_mm,metal_layer,via_layer,notes
+r3_base,5.95,1.9,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,repeat r2e_l595 under round3 naming for baseline
+r3_l592,5.92,1.9,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,slightly shorter length to push 5 GHz rejection below -45 dB
+r3_l597,5.97,1.9,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,small length recovery toward lower passband edge
+r3_t182,5.95,1.82,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,tap moved down to test passband insertion and match
+r3_t187,5.95,1.87,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,fine tap sweep below current best
+r3_t192,5.95,1.92,0.527,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,fine tap sweep above current best
+r3_e540,5.95,1.9,0.54,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,larger end gap to check stopband recovery at 5 GHz
+r3_e515,5.95,1.9,0.515,0.33,0.465,0.48,0.49,0.49,0.48,0.465,0.33,0.5,cond,pcvia1,smaller end gap to recover 6/8 GHz edge insertion
+r3_s1p,5.95,1.9,0.527,0.345,0.465,0.48,0.49,0.49,0.48,0.465,0.345,0.5,cond,pcvia1,increase S1/S8 for more 5 GHz rejection with minimal central impact
+r3_s1m,5.95,1.9,0.527,0.315,0.465,0.48,0.49,0.49,0.48,0.465,0.315,0.5,cond,pcvia1,decrease S1/S8 to recover edge insertion and compare rejection cost
+r3_l597s1p,5.97,1.9,0.527,0.345,0.465,0.48,0.49,0.49,0.48,0.465,0.345,0.5,cond,pcvia1,combine slight length recovery with stronger outer stopband gap
