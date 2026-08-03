@@ -1,10 +1,10 @@
-﻿# ADS 自动仿真项目重构 TODO
+# ADS 自动仿真项目重构 TODO
 
 Status: Active
 Domain: ARCH
 Canonical: `docs/arch/ARCH_REFACTOR_TODO.md`
 Related: `docs/arch/ADS版图自动仿真项目框架设计.md`, `docs/arch/ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md`, `docs/arch/ARCH_REFACTOR_TASK_PROGRESS.md`, `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`
-Last updated: 2026-08-01
+Last updated: 2026-08-03
 Owner: ADS Automation
 
 本文档跟踪 ADS 版图自动仿真项目从现有 `tools/*.py` 脚本集合向框架化平台演进的重构待办。TODO 文档只记录验收标准、推荐执行顺序、P0/P1/P2 待办和当前风险；每次实际任务闭环记录写入 `ARCH_REFACTOR_TASK_PROGRESS.md`。当前已开始首批 `tools/ads/` 和 `tools/layout/` 物理分拆，旧路径保留兼容 wrapper。
@@ -279,6 +279,39 @@ Owner: ADS Automation
 - [ ] 用无间隙 R0 候选执行 ADS 导入后单候选 FEM 验证，判断是否形成带通而非低通/陷波。
 - [ ] 根据第一次 FEM 响应决定是否进入 DBS/GA 二值翻转优化。
 
+### P1-14 HFSS Standard Simulation Backend
+
+**现状：** HFSS 3D Layout 自动化已经具备独立闭环能力，`src/simads/hfss/workflow.py` 可从 SIM `layout.json` 构建 AEDT/HFSS 工程、配置层叠和端口、执行求解、导出 S2P/trace/score/SVG，并写入 run/artifact manifest。当前缺口在于 HFSS 仍主要以裁决/复核脚本运行，尚未作为标准 pipeline backend 纳入 sweep/candidate 编排。
+
+**影响：** 如果 HFSS 继续停留在裁决路径，ADS 和 HFSS 的配置、频段、stackup、端口、run manifest、summary 和 compare 关系会分散维护；后续批量候选无法用统一口径选择 ADS、HFSS 或 ADS+HFSS 双后端仿真。
+
+- [ ] 在 pipeline contract 中新增 `simulation_backends` 或等价字段，支持 `ads_rfpro`、`hfss3dlayout` 和 `both` 路由。
+- [ ] 在 pipeline config 中新增 `hfss` 配置段，固定 HFSS workflow script、profile、workspace、route、stackup_config、design、频段、点数、端口类型和 GND boundary mode。
+- [ ] 新增或抽象标准单候选入口，例如 `tools/run_sim_filter_candidate.py`，通过 `--backend ads|hfss|both` 调用现有 ADS runner 和 HFSS workflow；第一阶段不得破坏稳定的 `run_ads_filter_candidate.py`。
+- [ ] 将 run state machine 从 ADS 专用 stage 泛化为仿真后端通用 stage，保留 ADS 兼容映射，并覆盖 HFSS build/ports/setup/solve/export/score 阶段。
+- [ ] 扩展 run/artifact manifest schema，明确 `hfss3dlayout` 的 `aedt_project`、`edb_project`、`s2p`、`trace_csv`、`score_csv`、`svg`、`summary_csv` artifact 类型和 profile 语义。
+- [ ] 将 `FLOW_HFSS_PYAEDT_VERDICT.md` 的后续口径从 verdict-only 调整为 HFSS backend 文档；ADS/HFSS 对比保留为独立 compare workflow，而不是 HFSS 的唯一角色。
+- [ ] 为 HFSS backend 增加只读 pipeline/profile gate，检查 pyAEDT 环境、AEDT 路径、workspace、stackup_config、layout JSON、端口和输出目录，不启动真实求解。
+- [ ] 在 sweep summary 或后续 backend summary 中记录每个 candidate 的 backend、simulator、run_id、score path 和可比较 trace path。
+
+### P1-15 HFSS Connector Layout Optimization Extension
+
+**现状：** 已新增 `flow/FLOW_HFSS_CONNECTOR_LAYOUT_OPTIMIZATION.md`，将连接器/连接器等效 launch 的 HFSS 自动化仿真拆成独立扩展项。当前目标为标准 50 ohm 微带线 + 两端连接器 launch 的联合仿真，不加入滤波器或其他结构，主要迭代连接器焊盘、锥形过渡、地间隙、地过孔、via fence、端口参考面和去嵌设置，从而改善连接处自身的 S 参数。
+
+**影响：** 如果连接器 launch 与滤波器主体混在同一优化分支中，后续会难以区分滤波器拓扑问题、端口参考面问题和连接器过渡引入的劣化；独立微带线+连接器联合仿真可以降低系统复杂度，并把优化结果作为可移植的连接器版图模块。
+
+- [ ] 固定连接器类型或等效 footprint 版本，明确 Route A/B/C 使用边界。
+- [ ] 登记用户提供的连接器 HFSS 模型路径、版本、hash、端口定义、坐标基准和参考面。
+- [ ] 固定层叠、50R 线宽、联合仿真模型长度、板边位置、端口参考面和求解频段。
+- [ ] 建立 connector launch 参数 schema，覆盖 signal pad、taper、ground clearance、via fence、reference plane、deembed 和 P1/P2 symmetry。
+- [ ] 新增 microstrip+connector generator：输入 stackup/50R template 和 connector 参数，输出微带线+连接器 layout JSON。
+- [ ] 增加连接器区域 DRC gate：pad、clearance、via、edge setback、mechanical envelope、左右对称和板厂工艺限制。
+- [ ] 扩展 HFSS workflow/manifest，记录 `fixture_type=microstrip_connector_50r`、`connector_model_version`、`connector_route`、`microstrip_connector_layout_json`、`connector_params_json`、`connector_hfss_model_path`、`connector_hfss_model_hash`、`connector_port_mapping`、`line_w_mm`、`line_l_mm`、`reference_plane_offset_mm` 和 `port_deembed_mm`。
+- [ ] 对 3-5 个 smoke 候选先做 layout gate，再选择 1 个候选执行 HFSS solve，输出 S2P/trace/score/compare/manifest。
+- [ ] 将评分扩展为 50R baseline delta 口径，重点比较通带 S21 劣化、S11/S22、端口对称性和 4-10 GHz 宽频回波尖峰。
+- [ ] Route C 使用用户提供的连接器 HFSS 模型复核前 2-3 个 launch 候选。
+- [ ] 最终合并验证作为最后事项：连接器 launch 冻结并完成微带线+连接器联合仿真/Route C 复核后，再移植到滤波器 PCB 做少量整板验证。
+
 ---
 
 ## P2 - 模块化迁移
@@ -369,6 +402,9 @@ Owner: ADS Automation
 [ ] template cell 不会被普通候选流程覆盖。
 [x] baseline 已 frozen，并有漂移复测规则。
 ```
+
+
+
 
 
 

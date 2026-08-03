@@ -4,7 +4,7 @@ Status: Active
 Domain: DOCS
 Canonical: `docs/README.md`
 Related: `docs/arch/ADS版图自动仿真项目框架设计.md`, `docs/arch/ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md`, `docs/arch/ARCH_REFACTOR_TODO.md`, `docs/arch/ARCH_REFACTOR_TASK_PROGRESS.md`, `docs/arch/ARCH_ADS_ASSET_MIGRATION_20260801.md`
-Last updated: 2026-08-01
+Last updated: 2026-08-03
 Owner: ADS Automation
 
 本文档是 `E:\OneDrive\4.Code\SIM\docs` 的总入口。当前项目已经从旧 `ADS/` 混合目录迁移到新项目边界：
@@ -37,6 +37,7 @@ projects/bfp_6_8g_i7_fr4/
 | FLOW | `flow/FLOW_ADS_WORKSPACE_WRITE_POLICY.md` | ADS workspace、template cell、emSetup 和 substrate 文件的写入安全策略。 |
 | FLOW | `flow/FLOW_JOB_SCHEDULING_POLICY.md` | ADS 自动仿真任务调度策略，定义 license、并发、workspace 锁、超时、失败熔断、候选优先级和 resume。 |
 | FLOW | `flow/FLOW_MANUAL_INTERVENTION_LOG.md` | ADS GUI 人工介入记录模板，覆盖手动导入、端口、via、emSetup、simulate、导出和残留清理。 |
+| FLOW | `flow/FLOW_HFSS_CONNECTOR_LAYOUT_OPTIMIZATION.md` | HFSS 微带线+连接器联合仿真优化方案，定义连接器 launch、端口参考面、去嵌、评分 delta 和迭代路线。 |
 | FLOW | `../projects/bfp_6_8g_i7_fr4/docs/ADS自动仿真流程说明.md` | 当前可执行 ADS 自动仿真闭环流程，包含 home/company profile、命令和脚本清单。 |
 | LAYOUT | `layout/LAYOUT_RECONSTRUCTION_CHECKLIST.md` | 从论文、公式、截图或原理图重构参数化版图时的拓扑、层叠、单位、端口、via、DRC 和 ADS 导入审查清单。 |
 | RESULT | `result/RESULT_I7_FR4_ROUND_INDEX.md` | FR4 7 阶交指滤波器 round2-round7 的 plan、结果、baseline 和候选结论索引。 |
@@ -150,6 +151,7 @@ SIM ADS 自动仿真平台
 | 理解平台为什么这样分层 | `arch/ADS版图自动仿真项目框架设计.md` | `arch/ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md`、`arch/ARCH_REFACTOR_TODO.md` |
 | 理解当前公司电脑如何运行 | `env/ENV_UV_COMPANY_20260801.md` | `config/ads_profiles.json`、`env/ENV_ADS_API_CAPABILITY_MATRIX.md` |
 | 理解一轮 ADS 自动仿真怎么跑 | `projects/bfp_6_8g_i7_fr4/docs/ADS自动仿真流程说明.md` | `flow/FLOW_RUN_STATE_MACHINE.md`、`data/DATA_RUN_MANIFEST_SCHEMA.md` |
+| 理解 HFSS 带连接器优化 | `flow/FLOW_HFSS_CONNECTOR_LAYOUT_OPTIMIZATION.md` | `flow/FLOW_HFSS_PYAEDT_VERDICT.md`、`flow/FLOW_STANDARD_PIPELINE_CONTRACT.md` |
 | 理解交指滤波器分支 | `devices/交指带通滤波器回波损耗影响因素.md` | `result/RESULT_I7_FR4_ROUND_INDEX.md`、`opt/FR4交指滤波器搜索算法改进方案.md` |
 | 理解折叠 SIR 分支 | `devices/FR4折叠SIR带通滤波器分支.md` | `layout/LAYOUT_RECONSTRUCTION_CHECKLIST.md`、项目 `layouts/` 和 `results/` |
 | 理解高低阻抗分支 | `devices/FR4高低阻抗带通滤波器优化TODO.md` | `fr4_stub_bpf_l3_reference.md`、`opt/OPT_OBJECTIVE_FUNCTION_DESIGN.md` |
@@ -206,6 +208,7 @@ SIM ADS 自动仿真平台
 - 查 ADS workspace 写入安全策略：读 `flow/FLOW_ADS_WORKSPACE_WRITE_POLICY.md`。
 - 查 ADS 批量任务调度、并发、超时和失败熔断：读 `flow/FLOW_JOB_SCHEDULING_POLICY.md`。
 - 查 ADS GUI 人工介入记录格式：读 `flow/FLOW_MANUAL_INTERVENTION_LOG.md`。
+- 查 HFSS 带连接器版图自动化优化：读 `flow/FLOW_HFSS_CONNECTOR_LAYOUT_OPTIMIZATION.md`。
 - 查测试 gate 和验证命令：读 `test/TEST_STRATEGY.md`。
 - 查论文/截图/公式到参数化版图的重构审查：读 `layout/LAYOUT_RECONSTRUCTION_CHECKLIST.md`。
 - 查旧 `ADS/` 文件去哪了：读 `arch/ARCH_ADS_ASSET_MIGRATION_20260801.md` 和 `arch/ARCH_ADS_ASSET_MIGRATION_20260801.csv`。
@@ -242,4 +245,5 @@ SIM ADS 自动仿真平台
 - 结果 CSV、DXF、JSON、HTML/PDF 报告必须保留可追溯关系。
 - 已冻结的环境、层叠、基线结果文档只允许补勘误，不随意改写结论。
 - 所有 Markdown 文档使用 UTF-8 编码。
+
 

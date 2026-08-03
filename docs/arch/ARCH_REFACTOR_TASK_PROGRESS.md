@@ -1,10 +1,10 @@
-﻿# ADS 自动仿真项目重构任务进度追踪与回溯
+# ADS 自动仿真项目重构任务进度追踪与回溯
 
 Status: Active
 Domain: ARCH
 Canonical: `docs/arch/ARCH_REFACTOR_TASK_PROGRESS.md`
 Related: `docs/arch/ARCH_REFACTOR_TODO.md`, `docs/arch/ADS版图自动仿真项目框架设计.md`, `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`
-Last updated: 2026-08-01
+Last updated: 2026-08-03
 Owner: ADS Automation
 
 本文档记录 ADS 自动仿真项目重构的正式任务进度。TODO 细分以 `ARCH_REFACTOR_TODO.md` 为准；架构原则以 `ADS版图自动仿真项目框架设计.md` 和 `ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md` 为准。
@@ -53,6 +53,65 @@ Owner: ADS Automation
 当前重构已进入 P2 阶段：外部 ADS workspace 不移动，仓库内 ADS 项目资产以 `projects/<project_id>/` 为有效边界。P0/P1 的数据契约、manifest、score/summary 追溯、baseline freeze、workspace 写入安全 gate、run state machine、结果治理、制造鲁棒性和报告发布 gate 已落地；当前重点是将旧脚本内部逻辑逐步收敛到 `src/simads` 模块，并保证新增器件分支使用独立项目目录。
 
 ## 任务记录
+
+### ARCH-REFACTOR-TASK-20260803-002 - HFSS Microstrip Connector Joint Simulation Plan
+
+- 状态：进行中
+- 日期：2026-08-03
+- 任务目标：
+  - 将标准 50 ohm 微带线 + 两端连接器 launch 的 HFSS 联合仿真拆成独立方案。
+  - 当前阶段不加入滤波器、谐振器或其他功能结构，只迭代连接器与微带 launch 处版图。
+  - 用户后续会提供连接器 HFSS 模型，Route C 高保真复核以该模型为准。
+  - 最终合并验证复杂度较高，作为最后事项处理，不作为微带线+连接器联合仿真闭环的前置条件。
+  - 仅做方案和 TODO 登记，不修改仿真代码，不启动 ADS/HFSS。
+- 完成内容：
+  - 新增并更新 `docs/flow/FLOW_HFSS_CONNECTOR_LAYOUT_OPTIMIZATION.md`。
+  - 在 `ARCH_REFACTOR_TODO.md` 新增 `P1-15 HFSS Connector Layout Optimization Extension`。
+  - 在 README 的 FLOW 主文档、分支阅读规则和快速查找规则中增加 HFSS 微带线+连接器联合仿真方案入口。
+  - 将方案拆分为 Route A/B/C、连接器 launch 参数、自动化流程、评分 delta、数据契约、实施阶段和风险。
+  - 将整板/滤波器合并验证下沉为 Phase 5 最后事项。
+- 验证结果：
+  - 本次仅新增/更新 Markdown 文档。
+  - 未修改 Python 脚本，未启动 ADS、HFSS/AEDT 或 FEM 仿真。
+- 还需完成：
+  - 固定连接器 footprint、50R 微带线尺寸、板边位置、端口参考面和求解频段。
+  - 登记用户提供的连接器 HFSS 模型路径、版本、hash、端口定义、坐标基准和参考面。
+  - 建立 connector launch 参数 schema 和 microstrip+connector generator。
+  - 扩展 HFSS workflow/manifest，并用 3-5 个 smoke 候选验证 build 和 score delta。
+- 关联文件：
+  - `docs/flow/FLOW_HFSS_CONNECTOR_LAYOUT_OPTIMIZATION.md`
+  - `docs/arch/ARCH_REFACTOR_TODO.md`
+  - `docs/arch/ARCH_REFACTOR_TASK_PROGRESS.md`
+  - `docs/README.md`
+- 下一步：
+  - 先冻结连接器 footprint、50R 微带线尺寸与端口参考面，再做 microstrip+connector layout JSON schema 和只读 gate；整板合并验证放到最后阶段。
+
+### ARCH-REFACTOR-TASK-20260803-001 - HFSS Standard Backend TODO Registration
+
+- 状态：进行中
+- 日期：2026-08-03
+- 任务目标：
+  - 将 HFSS 3D Layout 从 ADS/RFPro 裁决复核路径提升为标准仿真 backend 的后续工作纳入 TODO。
+  - 保持现有 ADS 单候选和 sweep 闭环稳定，不在本次登记中修改代码或启动仿真。
+- 完成内容：
+  - 在 `ARCH_REFACTOR_TODO.md` 新增 `P1-14 HFSS Standard Simulation Backend`。
+  - 明确后续需要补齐 pipeline backend 配置、统一 candidate runner、backend-neutral state machine、HFSS manifest artifact、HFSS backend 文档口径、只读 gate 和 summary 字段。
+  - 保留 `FLOW_HFSS_PYAEDT_VERDICT.md` 作为当前 HFSS 复核/排查记录，后续再按 backend 文档口径调整。
+- 验证结果：
+  - 本次仅登记文档待办，未修改 Python 脚本。
+  - 未启动 ADS、HFSS/AEDT 或 FEM 仿真。
+- 还需完成：
+  - 实现 pipeline config 的 HFSS 段和 `--backend ads|hfss|both` 编排入口。
+  - 泛化 run state machine 与 run/artifact manifest schema。
+  - 将 HFSS 文档从 verdict-only 口径调整为标准 backend 口径，并保留 ADS/HFSS compare workflow。
+- 关联文件：
+  - `docs/arch/ARCH_REFACTOR_TODO.md`
+  - `docs/arch/ARCH_REFACTOR_TASK_PROGRESS.md`
+  - `docs/flow/FLOW_STANDARD_PIPELINE_CONTRACT.md`
+  - `docs/flow/FLOW_HFSS_PYAEDT_VERDICT.md`
+  - `src/simads/hfss/workflow.py`
+- 下一步：
+  - 先扩展 pipeline schema 和只读 check，再新增薄封装 runner 调用现有 ADS/HFSS 后端。
 
 ### ARCH-REFACTOR-TASK-20260801-053 - Pixel QR Independent No-Gap Branch
 
@@ -1838,6 +1897,10 @@ Owner: ADS Automation
   - 建立 `data/DATA_SCHEMA_REGISTRY.md` 和 `data/DATA_RUN_MANIFEST_SCHEMA.md`。
   - 修改 `analyze_ads_dataset.py`，把 run 元数据写入 score CSV。
   - 修改 sweep 入口预生成 run_id，并把失败候选也写入 summary。
+
+
+
+
 
 
 
