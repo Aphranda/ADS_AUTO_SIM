@@ -15,6 +15,8 @@ if str(_SRC_ROOT) not in sys.path:
 
 from simads.config import (
     get_ads_profile,
+    get_hfss_profile,
+    hfss_profile_names,
     load_pipeline,
     load_project,
     profile_names,
@@ -33,6 +35,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--sweep-id", default=None)
     parser.add_argument("--pipeline-id", default=None)
     parser.add_argument("--profile", default=None, choices=profile_names(include_auto=True))
+    parser.add_argument("--hfss-profile", default=None, choices=hfss_profile_names(include_auto=True))
     parser.add_argument("--json-out", type=Path, default=None)
     return parser.parse_args()
 
@@ -46,9 +49,13 @@ def main() -> int:
     if not pipeline_id:
         raise SystemExit("No pipeline_id found. Set --pipeline-id or add pipeline_id to the project/sweep config.")
     pipeline = load_pipeline(pipeline_id, root=root)
+    if pipeline.sweep_id:
+        sweep = project.get_sweep(pipeline.sweep_id)
     profile_id = args.profile or pipeline.profile_id or project.default_profile or "company"
     profile = get_ads_profile(profile_id)
-    checks = validate_pipeline(pipeline, project=project, profile=profile)
+    hfss_profile_id = args.hfss_profile or pipeline.hfss.profile or "auto"
+    hfss_profile = get_hfss_profile(hfss_profile_id) if "hfss3dlayout" in pipeline.simulation_backends else None
+    checks = validate_pipeline(pipeline, project=project, profile=profile, hfss_profile=hfss_profile)
     rows = [
         {
             "name": check.name,
@@ -63,6 +70,8 @@ def main() -> int:
     print(f"project_id:  {project.project_id}")
     print(f"sweep_id:    {sweep.sweep_id if sweep else ''}")
     print(f"profile_id:  {profile_id}")
+    if hfss_profile is not None:
+        print(f"hfss_profile:{hfss_profile.name}")
     for row in rows:
         status = "PASS" if row["ok"] else "FAIL"
         suffix = f" [{row['path']}]" if row["path"] else ""
@@ -77,6 +86,7 @@ def main() -> int:
                     "project_id": project.project_id,
                     "sweep_id": sweep.sweep_id if sweep else None,
                     "profile_id": profile_id,
+                    "hfss_profile_id": hfss_profile.name if hfss_profile is not None else None,
                     "checks": rows,
                 },
                 ensure_ascii=False,

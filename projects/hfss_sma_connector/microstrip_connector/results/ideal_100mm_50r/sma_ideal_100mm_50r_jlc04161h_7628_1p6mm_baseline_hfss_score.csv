@@ -1,0 +1,2 @@
+file,status,s21_5g_db,s21_6g_db,s21_7g_db,s21_8g_db,s21_9g_db,passband_min_s21_db,passband_ripple_db,worst_s11_6_8_db,worst_s22_6_8_db,note
+projects\hfss_sma_connector\microstrip_connector\results\ideal_100mm_50r\sma_ideal_100mm_50r_jlc04161h_7628_1p6mm_baseline_hfss.s2p,TUNE,-2.06,-2.41,-2.75,-3.10,-3.44,-3.10,0.69,-23.41,-24.14,5 GHz rejection is weak; narrow bandwidth or add extra LO notch/highpass.

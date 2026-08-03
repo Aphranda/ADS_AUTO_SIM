@@ -17,6 +17,17 @@ from .simulation_manifest import (
     build_simulation_artifacts,
     write_simulation_manifests,
 )
+from .baseline import (
+    BaselineEntry,
+    baseline_id,
+    build_baseline_entry,
+    build_baseline_index,
+    read_baseline_index,
+    read_single_csv_row,
+    validate_baseline_index,
+    write_baseline_index,
+    write_baseline_summary_csv,
+)
 from .state_machine import (
     ERROR_CLASSES,
     RESUME_STAGE_BY_FAILED_STEP,
@@ -46,6 +57,15 @@ __all__ = [
     "SimulationRunContext",
     "build_simulation_artifacts",
     "write_simulation_manifests",
+    "BaselineEntry",
+    "baseline_id",
+    "build_baseline_entry",
+    "build_baseline_index",
+    "read_baseline_index",
+    "read_single_csv_row",
+    "validate_baseline_index",
+    "write_baseline_index",
+    "write_baseline_summary_csv",
     "ERROR_CLASSES",
     "RESUME_STAGE_BY_FAILED_STEP",
     "STAGES",

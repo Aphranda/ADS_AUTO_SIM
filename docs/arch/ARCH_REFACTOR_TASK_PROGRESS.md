@@ -54,6 +54,289 @@ Owner: ADS Automation
 
 ## 任务记录
 
+### ARCH-REFACTOR-TASK-20260803-010 - HFSS Round13 Three-Candidate Solve
+
+- 状态：完成
+- 日期：2026-08-03
+- 任务目标：
+  - 用同一标准 HFSS backend sweep 入口完成 round13 另外两个候选的真实 solve。
+  - 将 3 个 HFSS 候选统一写入 backend summary，并生成 HFSS score ranking。
+- 完成内容：
+  - 执行 `tools/run_ads_filter_sweep.py --backend hfss`，候选为 `i7_fr4_r13_retest_r10_asym0555` 和 `i7_fr4_r13_retest_r11b_asym3016`。
+  - 结果继续写入 `projects\bfp_6_8g_i7_fr4\results\hfss_round13_standard_backend_solve\`，与 base 候选同一口径。
+  - `backend_summary.csv` 更新为 `3` 行，3 个候选均为 `completed/scored`。
+  - 新增 `hfss_score_ranking.csv`，按 `passband_min_s21_db` 降序排列。
+- 验证结果：
+  - 两个候选的 pipeline contract 和 layout contract 均 PASS。
+  - `i7_fr4_r13_retest_r10_asym0555`：AEDT solve reported `3m45s`，run elapsed `258.603s`，score=`TUNE`，`S21@5/6/7/8/9GHz=-22.87/-3.29/-3.96/-5.35/-35.15dB`，`passband_min_s21=-5.35dB`，`worst_s11/s22=-6.09/-6.12dB`。
+  - `i7_fr4_r13_retest_r11b_asym3016`：AEDT solve reported `4m11s`，run elapsed `279.749s`，score=`TUNE`，`S21@5/6/7/8/9GHz=-23.48/-3.36/-3.86/-4.92/-34.04dB`，`passband_min_s21=-4.92dB`，`worst_s11/s22=-5.74/-5.89dB`。
+  - HFSS ranking：r11b 通带 S21 最好但回损未达 -6dB；r10 回损刚过 -6dB 但 8GHz 未达 -5dB；base 回损最好但 8GHz 最差。3 个候选均不满足 5GHz `<= -25dB` 阻带约束。
+- 还需完成：
+  - round13 ADS/RFPro 当前同口径只跑了 base；r10/r11b 只有旧 round10/round11b 结果，不能作为正式 ADS/HFSS compare。
+  - 需要按 round13 当前 pipeline 同口径复跑 r10/r11b 的 ADS/RFPro，再补 compare 和最终排序。
+- 关联文件：
+  - `projects/bfp_6_8g_i7_fr4/results/hfss_round13_standard_backend_solve/backend_summary.csv`
+  - `projects/bfp_6_8g_i7_fr4/results/hfss_round13_standard_backend_solve/hfss_score_ranking.csv`
+  - `projects/bfp_6_8g_i7_fr4/results/hfss_round13_standard_backend_solve/hfss/i7_fr4_r13_retest_r10_asym0555/`
+  - `projects/bfp_6_8g_i7_fr4/results/hfss_round13_standard_backend_solve/hfss/i7_fr4_r13_retest_r11b_asym3016/`
+  - `docs/flow/FLOW_HFSS_PYAEDT_VERDICT.md`
+  - `docs/result/RESULT_I7_FR4_ROUND_INDEX.md`
+- 下一步：
+  - 用标准 ADS/RFPro sweep 入口按 round13 当前 pipeline 补跑 `i7_fr4_r13_retest_r10_asym0555` 和 `i7_fr4_r13_retest_r11b_asym3016`。
+
+### ARCH-REFACTOR-TASK-20260803-009 - HFSS Standard Backend Solve And Compare
+
+- 状态：完成
+- 日期：2026-08-03
+- 任务目标：
+  - 通过标准 sweep 入口执行基础候选的真实 HFSS solve。
+  - 生成 S2P、trace、score、SVG、run manifest 和 backend summary。
+  - 与现有 ADS smoke 结果做 ADS/HFSS S 参数对照。
+- 完成内容：
+  - 用 `tools/run_ads_filter_sweep.py --backend hfss` 在 Home HFSS profile 下执行 `i7_fr4_r13_retest_base_l555_taper` 完整 solve。
+  - 输出目录：`projects\bfp_6_8g_i7_fr4\results\hfss_round13_standard_backend_solve\`。
+  - HFSS workspace：`D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT`，工程 `i7_fr4_r13_retest_base_l555_taper_hfss.aedt`，design `I7_FR4_HFSS_VERDICT`。
+  - 生成 `s2p`、`hfss_trace.csv`、`hfss_score.csv`、S 参数 SVG、run/artifact manifest 和 `backend_summary.csv`。
+  - 用 `tools/compare_ads_hfss_sparams.py` 对比 ADS smoke RFPro CSV 与标准 HFSS trace，输出 compare CSV、summary、SVG 和 manifest。
+- 验证结果：
+  - Pipeline contract 全部 PASS。
+  - Layout contract 全部 PASS。
+  - AEDT solve：`Setup_4to10G` 求解成功，AEDT reported solve time 约 `2m29s`。
+  - Run state：`completed/scored`，elapsed `176.178s`。
+  - HFSS score：`TUNE`；`S21@5/6/7/8/9GHz=-21.67/-3.24/-4.04/-5.52/-33.34dB`；`passband_min_s21=-5.52dB`；`worst_s11/s22=-6.92/-6.88dB`。
+  - Backend summary：`projects\bfp_6_8g_i7_fr4\results\hfss_round13_standard_backend_solve\backend_summary.csv` 写出 `1` 行，包含 `pipeline_id=bfp_6_8g_i7_fr4_home_parallel_round13_retest_4to10_40`。
+  - Compare summary：`S21 mean_abs_delta=6.21dB` overall，`passband_mean_abs_delta=1.21dB`；`S21 delta@5/6/7/8/9GHz=+5.06/-0.74/-1.35/-0.92/+19.79dB`。
+- 还需完成：
+  - 用相同标准 backend 跑 `i7_fr4_r13_retest_r10_asym0555` 和 `i7_fr4_r13_retest_r11b_asym3016`，判断是否优于 base。
+  - 继续对齐 ADS substrate/template 与 JLC stackup，降低 5GHz 和 9GHz 带外差异。
+- 关联文件：
+  - `projects/bfp_6_8g_i7_fr4/results/hfss_round13_standard_backend_solve/backend_summary.csv`
+  - `projects/bfp_6_8g_i7_fr4/results/hfss_round13_standard_backend_solve/hfss/i7_fr4_r13_retest_base_l555_taper/`
+  - `projects/bfp_6_8g_i7_fr4/results/compare_ads_hfss_round13_standard_backend/`
+  - `docs/flow/FLOW_HFSS_PYAEDT_VERDICT.md`
+  - `docs/result/RESULT_I7_FR4_ROUND_INDEX.md`
+- 下一步：
+  - 批量跑另外两个 round13 候选的 HFSS 标准 backend solve，生成同一 backend summary 后再做候选排序。
+
+### ARCH-REFACTOR-TASK-20260803-008 - HFSS Build Gate With Stackup Layout
+
+- 状态：完成
+- 日期：2026-08-03
+- 任务目标：
+  - 刷新 round13 layout 产物，使其与当前 JLC stackup 和 pipeline layout contract 对齐。
+  - 跑通不跳过 layout gate 的 HFSS build-only 标准 sweep。
+  - 修复 HFSS geometry builder 对 stackup 实际层名 layout 的兼容问题。
+- 完成内容：
+  - 使用 `tools/generate_filter_sweep.py --stackup-config config\stackups\JLC04161H_7628_1P6MM.json --no-name-stackup-token` 重新生成 round13 3 个候选的 DXF/SVG/JSON/params/DRC/tuning table。
+  - `src/simads/hfss/layout.py` 修复信号金属层判断：同时接受旧 `cond` 和配置化 `signal_layer`，例如 `ETCH_TOP`。
+  - `tools/run_sim_filter_candidate.py` 向 HFSS workflow 传递 `--pipeline-id`。
+  - `src/simads/hfss/workflow.py` 将 `pipeline_id` 写入 HFSS run manifest。
+  - `src/simads/workflows/backend_summary.py` 新增 `pipeline_id` 列。
+  - 新增/更新单元测试覆盖 `ETCH_TOP` 信号层 layout、HFSS runner pipeline id 和 backend summary pipeline id。
+- 验证结果：
+  - 临时目录 gate：`.codex_tmp\round13_regen_layouts` 的基础候选通过完整 layout contract，不再需要 `--skip-layout-check`。
+  - 正式目录 gate：`projects\bfp_6_8g_i7_fr4\layouts\interdigital_7o_fr4_210um_round13_retest_4to10_40` 的基础候选通过完整 layout contract。
+  - 真实 HFSS build-only：`python tools\run_ads_filter_sweep.py --backend hfss ... --hfss-build-only --candidates i7_fr4_r13_retest_base_l555_taper` 通过。
+  - Profile/workspace：HFSS profile `home`，workspace `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT`，AEDT `2026.1`。
+  - 工程：`D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\i7_fr4_r13_retest_base_l555_taper_hfss.aedt`，design `I7_FR4_HFSS_VERDICT`，ports `Port1/Port2`，geometry_count `26`，stage `setup_ready`。
+  - Run manifest：`projects\bfp_6_8g_i7_fr4\results\hfss_round13_standard_backend_build\runs\bfp_6_8g_i7_fr4_round13_i7_fr4_r13_retest_base_l555_taper_home_20260803_223950\run_manifest.json`，`pipeline_id=bfp_6_8g_i7_fr4_home_parallel_round13_retest_4to10_40`。
+  - Backend summary：`projects\bfp_6_8g_i7_fr4\results\hfss_round13_standard_backend_build\backend_summary.csv` 写出 `3` 行，最新成功行为 `completed/setup_ready`。
+  - `python -m py_compile src\simads\workflows\backend_summary.py src\simads\hfss\layout.py src\simads\hfss\workflow.py tools\rebuild_backend_summary.py tools\run_sim_filter_candidate.py tools\run_ads_filter_sweep.py`
+  - `python -m pytest -q tests\test_config_naming.py tests\test_run_sim_filter_candidate.py tests\test_run_ads_filter_sweep_backend.py tests\test_state_machine.py tests\test_backend_summary.py tests\test_machine_profiles.py tests\test_hfss_plans.py tests\test_hfss_results.py tests\test_hfss_solve.py tests\test_hfss_stackup.py tests\test_hfss_workflow_geometry.py tests\test_simulation_manifest.py tests\test_hfss_layout.py tests\test_hfss_build.py`
+  - 结果：`38 passed`
+- 还需完成：
+  - 选择基础候选执行真实 HFSS solve，生成 S2P/trace/score/SVG。
+  - 求解完成后用 backend summary 和 compare workflow 对齐 ADS/RFPro 结果。
+- 关联文件：
+  - `src/simads/hfss/layout.py`
+  - `src/simads/hfss/workflow.py`
+  - `src/simads/workflows/backend_summary.py`
+  - `tools/run_sim_filter_candidate.py`
+  - `projects/bfp_6_8g_i7_fr4/layouts/interdigital_7o_fr4_210um_round13_retest_4to10_40/`
+  - `projects/bfp_6_8g_i7_fr4/results/hfss_round13_standard_backend_build/backend_summary.csv`
+  - `tests/test_hfss_layout.py`
+  - `tests/test_run_sim_filter_candidate.py`
+  - `tests/test_backend_summary.py`
+- 下一步：
+  - 在同一标准 sweep 入口上去掉 `--hfss-build-only`，对 `i7_fr4_r13_retest_base_l555_taper` 执行真实 HFSS solve。
+
+### ARCH-REFACTOR-TASK-20260803-007 - HFSS Backend Sweep Hook
+
+- 状态：完成
+- 日期：2026-08-03
+- 任务目标：
+  - 将标准单候选入口接到 sweep runner，让 HFSS backend 可以按候选批量编排。
+  - 保持旧 ADS/RFPro sweep 默认行为不变。
+  - 连接器后续单独新建工程，不混入当前滤波器 pipeline。
+- 完成内容：
+  - `tools/run_ads_filter_sweep.py` 新增 `--backend auto|ads|hfss|both`，默认 `ads`；显式 `hfss/both/auto` 时通过 `tools/run_sim_filter_candidate.py` 调用 HFSS backend。
+  - 串行 sweep 新增 `--hfss-profile`、`--hfss-build-only`、`--hfss-dry-run` 和 `--backend-summary`。
+  - HFSS sweep run_id 使用 HFSS profile，例如 Home 电脑为 `home`，避免与 ADS profile run_id 混淆。
+  - `tools/run_sim_filter_candidate.py` 向 HFSS workflow 传递 `candidate_id`、`round_id` 和 `device_id`，保证 manifest context 完整。
+  - `tools/run_ads_filter_sweep.py` 收尾阶段从 `results_dir\runs` 写出 backend-neutral `backend_summary.csv`。
+  - `tools/run_ads_filter_sweep_parallel.py` 新增 `--backend` 参数，但当前只允许 `ads`，避免并发启动 HFSS/AEDT。
+  - 更新 `docs/flow/FLOW_HFSS_PYAEDT_VERDICT.md` 和 `docs/arch/ARCH_REFACTOR_TODO.md` 的 HFSS backend 状态。
+- 验证结果：
+  - `python -m py_compile tools\run_ads_filter_sweep.py tools\run_ads_filter_sweep_parallel.py tools\run_sim_filter_candidate.py`
+  - `python -m pytest -q tests\test_run_sim_filter_candidate.py tests\test_run_ads_filter_sweep_backend.py tests\test_backend_summary.py`
+  - 结果：`6 passed`
+  - `python -m pytest -q tests\test_config_naming.py tests\test_run_sim_filter_candidate.py tests\test_run_ads_filter_sweep_backend.py tests\test_state_machine.py tests\test_backend_summary.py tests\test_machine_profiles.py tests\test_hfss_plans.py tests\test_hfss_results.py tests\test_hfss_solve.py tests\test_hfss_stackup.py tests\test_hfss_workflow_geometry.py tests\test_simulation_manifest.py`
+  - 结果：`33 passed`
+  - 串行 sweep dry-run：`python tools\run_ads_filter_sweep.py --backend hfss ... --hfss-build-only --hfss-dry-run --dry-run --candidates i7_fr4_r13_retest_base_l555_taper` 可输出标准 HFSS runner 命令。
+  - 串行 sweep smoke：外层不 dry-run、HFSS 内层 `--hfss-dry-run`，实际调用到 HFSS workflow dry-run，manifest context 显示 `project_id=bfp_6_8g_i7_fr4`、`round_id=round13`、`candidate_id=i7_fr4_r13_retest_base_l555_taper`、`profile_id=home`。
+  - `tools/run_ads_filter_sweep_parallel.py --backend hfss --dry-run` 按预期拒绝，提示 parallel runner 仅支持 ADS/RFPro。
+- 还需完成：
+  - 重新生成 round13 layout JSON，使 `metadata.layer_map_version` 与当前 pipeline contract 对齐；当前历史 layout 在严格 layout gate 下会报 `layer_map.version`。
+  - 在 build-only gate 通过后，选择 1 个候选执行真实 HFSS solve，并确认 `backend_summary.csv` 写入非空 HFSS run 行。
+- 关联文件：
+  - `tools/run_ads_filter_sweep.py`
+  - `tools/run_ads_filter_sweep_parallel.py`
+  - `tools/run_sim_filter_candidate.py`
+  - `tests/test_run_ads_filter_sweep_backend.py`
+  - `tests/test_run_sim_filter_candidate.py`
+  - `docs/flow/FLOW_HFSS_PYAEDT_VERDICT.md`
+  - `docs/arch/ARCH_REFACTOR_TODO.md`
+- 下一步：
+  - 先刷新 round13 layout 产物，再跑不跳过 layout gate 的 HFSS build-only 标准 sweep。
+
+### ARCH-REFACTOR-TASK-20260803-006 - HFSS Backend State And Summary Closure
+
+- 状态：完成
+- 日期：2026-08-03
+- 任务目标：
+  - 继续完善当前 HFSS 标准 backend 流程，不推进连接器独立工程。
+  - 将 run state machine 从 ADS 专用 stage 扩展为 backend 通用 stage。
+  - 增加 backend summary，记录每个 run 的 backend、simulator、run_id、score path 和 trace path。
+- 完成内容：
+  - `src/simads/runtime/state_machine.py` 升级为 `sim_run_state_machine_v2`，保留 ADS 旧 stage，并新增 `geometry_built`、`ports_ready`、`setup_ready`、`results_exported` 等通用 stage。
+  - `src/simads/hfss/workflow.py` 新增 HFSS 完成 stage 推断：build-only 写 `setup_ready`，完整 solve+postprocess 写 `scored`，仅导出 S2P 写 `results_exported`。
+  - 新增 `src/simads/workflows/backend_summary.py` 和 `tools/rebuild_backend_summary.py`，可从 run manifests 生成 backend-neutral summary。
+  - `docs/data/DATA_RUN_MANIFEST_SCHEMA.md` 补充 HFSS outputs、artifact 类型、profile snapshot 语义和通用 stage。
+  - `docs/arch/ARCH_REFACTOR_TODO.md` 将 P1-14 的 state、manifest schema、backend 文档和 backend summary 项标为完成。
+- 验证结果：
+  - `python -m pytest -q tests\test_state_machine.py tests\test_backend_summary.py tests\test_config_naming.py tests\test_run_sim_filter_candidate.py tests\test_simulation_manifest.py tests\test_hfss_connector.py tests\test_hfss_solve.py`
+  - 结果：`28 passed`
+  - `python -m pytest -q tests\test_config_naming.py tests\test_run_sim_filter_candidate.py tests\test_state_machine.py tests\test_backend_summary.py tests\test_machine_profiles.py tests\test_hfss_connector.py tests\test_hfss_layout.py tests\test_hfss_build.py tests\test_hfss_plans.py tests\test_hfss_results.py tests\test_hfss_solve.py tests\test_hfss_stackup.py tests\test_hfss_workflow_geometry.py tests\test_simulation_manifest.py tests\test_stackup_config.py`
+  - 结果：`50 passed`
+  - `python -m py_compile src\simads\runtime\state_machine.py src\simads\hfss\workflow.py src\simads\workflows\backend_summary.py src\simads\workflows\__init__.py tools\rebuild_backend_summary.py tools\run_sim_filter_candidate.py`
+  - CLI smoke：`python tools\rebuild_backend_summary.py .codex_tmp\hfss_connector_phase2_smoke\runs --out .codex_tmp\hfss_connector_phase2_smoke\backend_summary.csv`
+  - 结果：写出 `4` 条 backend rows。
+- 还需完成：
+  - 将 `tools/run_sim_filter_candidate.py` 接入 sweep/parallel 编排，让 HFSS backend 可以批量运行。
+  - 把 backend summary 合入正式 sweep summary 或建立统一索引位置。
+- 关联文件：
+  - `src/simads/runtime/state_machine.py`
+  - `src/simads/hfss/workflow.py`
+  - `src/simads/workflows/backend_summary.py`
+  - `tools/rebuild_backend_summary.py`
+  - `tests/test_state_machine.py`
+  - `tests/test_backend_summary.py`
+  - `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`
+  - `docs/arch/ARCH_REFACTOR_TODO.md`
+- 下一步：
+  - 将标准单候选入口接到 sweep runner，先支持 `--backend hfss --build-only/--dry-run` 的批量 gate，再开放真实 HFSS solve。
+
+### ARCH-REFACTOR-TASK-20260803-005 - HFSS Standard Backend Pipeline Hook
+
+- 状态：完成
+- 日期：2026-08-03
+- 任务目标：
+  - 先完善当前 HFSS 流程，把 HFSS 从 verdict-only 脚本推进到标准 pipeline backend 第一阶段。
+  - 连接器后续单独新建工程，不混入当前滤波器 pipeline。
+- 完成内容：
+  - `src/simads/config/pipelines.py` 新增 `simulation_backends` 和 `PipelineHfssConfig`，支持 `ads_rfpro`、`hfss3dlayout` 和 `both` 路由。
+  - 当前 round13 pipeline `config/pipelines/bfp_6_8g_i7_fr4_home_parallel_round13_retest_4to10_40.json` 增加 `hfss` 配置段，固定 Home HFSS profile、workspace、route、stackup_config、design、频段、端口类型和 GND boundary mode。
+  - `tools/check_pipeline_contract.py` 增加 HFSS profile gate，检查 AEDT executable、pyAEDT host Python、workspace、stackup_config 和 workflow script。
+  - 新增 `tools/run_sim_filter_candidate.py`，作为标准单候选薄入口，可通过 `--backend ads|hfss|both` 生成或执行现有 ADS runner 与 HFSS workflow 命令。
+  - 修正 pipeline gate 报告，使显式 pipeline 的 `sweep_id` 显示 pipeline 自身 sweep，而不是项目 active sweep。
+  - `docs/flow/FLOW_HFSS_PYAEDT_VERDICT.md` 从裁决-only 口径更新为 HFSS backend 第一阶段文档。
+- 验证结果：
+  - `python -m pytest -q tests\test_config_naming.py tests\test_run_sim_filter_candidate.py tests\test_machine_profiles.py tests\test_hfss_plans.py tests\test_hfss_connector.py`
+  - 结果：`26 passed`
+  - `python -m py_compile src\simads\config\pipelines.py src\simads\config\__init__.py tools\check_pipeline_contract.py tools\run_sim_filter_candidate.py`
+  - 只读 gate：`python tools\check_pipeline_contract.py --project-id bfp_6_8g_i7_fr4 --pipeline-id bfp_6_8g_i7_fr4_home_parallel_round13_retest_4to10_40 --profile home_simads_em_parallel --hfss-profile home --json-out .codex_tmp\hfss_pipeline_gate_round13.json`
+  - 结果：全部 PASS，报告写入 `.codex_tmp\hfss_pipeline_gate_round13.json`。
+  - 标准 runner dry-run：`python tools\run_sim_filter_candidate.py ... --backend hfss --build-only --hfss-dry-run --write-manifest --dry-run`，已生成 HFSS workflow 命令计划 `.codex_tmp\hfss_standard_backend_runner_plan.json`。
+- 还需完成：
+  - state machine 泛化和 backend summary 已在 `ARCH-REFACTOR-TASK-20260803-006` 完成。
+  - 后续再将 HFSS backend 纳入批量 sweep 编排；当前第一阶段保留 ADS runner 稳定路径。
+- 关联文件：
+  - `src/simads/config/pipelines.py`
+  - `src/simads/config/__init__.py`
+  - `config/pipelines/bfp_6_8g_i7_fr4_home_parallel_round13_retest_4to10_40.json`
+  - `tools/check_pipeline_contract.py`
+  - `tools/run_sim_filter_candidate.py`
+  - `tests/test_config_naming.py`
+  - `tests/test_run_sim_filter_candidate.py`
+  - `docs/flow/FLOW_HFSS_PYAEDT_VERDICT.md`
+  - `docs/arch/ARCH_REFACTOR_TODO.md`
+- 下一步：
+  - 优先做 backend summary/state 泛化，再考虑把 HFSS backend 加到 sweep/parallel 编排中。
+
+### ARCH-REFACTOR-TASK-20260803-004 - HFSS Connector Workflow Manifest Hook
+
+- 状态：进行中
+- 日期：2026-08-03
+- 任务目标：
+  - 将 `fixture_type=microstrip_connector_50r` 接入 HFSS workflow dry-run 和 run manifest。
+  - 在 manifest 中记录 connector launch 的 layout、params、route、model metadata、50R 线尺寸、参考面、deembed 和 connector 区域 bbox。
+  - 继续只做 dry-run/manifest gate，不启动 HFSS/AEDT 求解。
+- 完成内容：
+  - 在 `src/simads/hfss/workflow.py` 新增 connector fixture metadata 提取和 dry-run payload helper。
+  - HFSS manifest `inputs` 增加 `microstrip_connector_layout_json`、`connector_params_json` 和可选 `connector_hfss_model_path`。
+  - HFSS manifest `flags/extra` 增加 `fixture_type`、`connector_model_version`、`connector_route`、`connector_type`、`line_w_mm`、`line_l_mm`、`reference_plane_offset_mm`、`port_deembed_mm`、`connector_region_bbox_mm`、`connector_hfss_model_hash` 和 `connector_port_mapping`。
+  - CLI 增加 `--connector-params-json`、`--connector-hfss-model-path`、`--connector-hfss-model-version`、`--connector-hfss-model-hash` 和 `--connector-port-mapping`。
+  - artifact manifest 对 connector fixture 额外登记 `microstrip_connector_layout_json`、`connector_params` 和可选 `connector_hfss_model`。
+  - 更新 `docs/flow/FLOW_HFSS_CONNECTOR_LAYOUT_OPTIMIZATION.md` 与 `docs/arch/ARCH_REFACTOR_TODO.md` 的 Phase 1/Phase 2 状态。
+- 验证结果：
+  - `python -m pytest -q tests\test_hfss_connector.py tests\test_hfss_workflow_geometry.py tests\test_simulation_manifest.py`
+  - 结果：`11 passed`
+  - `python -m pytest -q tests\test_hfss_connector.py tests\test_hfss_layout.py tests\test_hfss_build.py tests\test_hfss_plans.py tests\test_hfss_results.py tests\test_hfss_solve.py tests\test_hfss_stackup.py tests\test_hfss_workflow_geometry.py tests\test_simulation_manifest.py tests\test_stackup_config.py tests\test_machine_profiles.py tests\test_config_naming.py`
+  - 结果：`42 passed`
+  - `python -m py_compile src\simads\hfss\workflow.py tests\test_hfss_connector.py`
+  - CLI smoke：生成 `.codex_tmp\hfss_connector_phase2_smoke\connector_phase2_smoke_jlc04161h_7628_1p6mm_layout.json` 后，以 `PYTHONPATH=src` 执行 `python -m simads.hfss.workflow --dry-run`，dry-run JSON 已输出 `connector` 区块和自动推断的 `_params.json`。
+- 还需完成：
+  - 固定 connector route 的端口、reference plane、deembedding 和 GND reference 的正式求解口径。
+  - 对 1 个 smoke 候选执行真实 HFSS/AEDT solve，输出 S2P/trace/score/manifest。
+  - 建立 50R baseline delta compare。
+- 关联文件：
+  - `src/simads/hfss/workflow.py`
+  - `tests/test_hfss_connector.py`
+  - `docs/flow/FLOW_HFSS_CONNECTOR_LAYOUT_OPTIMIZATION.md`
+  - `docs/arch/ARCH_REFACTOR_TODO.md`
+- 下一步：
+  - 选择一个 smoke connector layout，在 Home profile 的 HFSS workspace 中执行 build/solve gate，并把结果纳入 baseline delta compare。
+
+### ARCH-REFACTOR-TASK-20260803-003 - HFSS Connector Launch Phase 1 Skeleton
+
+- 状态：完成
+- 日期：2026-08-03
+- 任务目标：
+  - 按 `P1-15 HFSS Connector Layout Optimization Extension` 开始 Phase 1 编码。
+  - 新增 connector launch 参数 schema、microstrip+connector layout JSON generator 和只读 DRC gate。
+  - 先生成/验证 smoke layout，不启动 HFSS/AEDT 求解。
+- 完成内容：
+  - 新增 `src/simads/hfss/connector.py`，定义 `ConnectorLaunchParams`、stackup 绑定、layout 生成、DRC 校验和输出写入。
+  - 新增 `tools/layout/generate_microstrip_connector_layout.py`，可从 CLI 生成 layout JSON、params JSON 和 SVG。
+  - `src/simads/hfss/__init__.py` 导出 connector 相关 API。
+  - 新增 `tests/test_hfss_connector.py`，覆盖 3 个 smoke 变体、layout contract、stackup metadata、HFSS fake geometry builder 兼容和非法 clearance 拦截。
+- 验证结果：
+  - `python -m pytest -q tests\test_hfss_connector.py tests\test_hfss_layout.py tests\test_hfss_build.py tests\test_hfss_plans.py tests\test_hfss_results.py tests\test_hfss_solve.py tests\test_hfss_stackup.py tests\test_hfss_workflow_geometry.py tests\test_stackup_config.py tests\test_machine_profiles.py`
+  - 结果：`29 passed`
+  - `python -m py_compile src\simads\hfss\connector.py src\simads\hfss\__init__.py tools\layout\generate_microstrip_connector_layout.py`
+  - CLI smoke：`python tools\layout\generate_microstrip_connector_layout.py --out-dir .codex_tmp\hfss_connector_smoke --name connector_cli_smoke --via-count 2`
+- 还需完成：
+  - 固定真实连接器 footprint、50R 线宽、模型长度、参考面和 deembed 口径。
+  - 在 HFSS workflow/manifest 中正式支持 `fixture_type=microstrip_connector_50r`。
+  - 建立 50R baseline delta compare 和后续 DoE 参数表。
+- 关联文件：
+  - `src/simads/hfss/connector.py`
+  - `tools/layout/generate_microstrip_connector_layout.py`
+  - `tests/test_hfss_connector.py`
+  - `docs/arch/ARCH_REFACTOR_TODO.md`
+- 下一步：
+  - 先把 `fixture_type=microstrip_connector_50r` 接入 HFSS workflow dry-run/manifest，再选择一个 smoke layout 执行 HFSS solve。
+
 ### ARCH-REFACTOR-TASK-20260803-002 - HFSS Microstrip Connector Joint Simulation Plan
 
 - 状态：进行中

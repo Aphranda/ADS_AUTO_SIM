@@ -1,14 +1,18 @@
-"""Run state machine definitions for ADS automation flows."""
+"""Run state machine definitions for simulator automation flows."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 
-STATE_MACHINE_VERSION = "ads_run_state_machine_v1"
+STATE_MACHINE_VERSION = "sim_run_state_machine_v2"
 
 STAGES = (
     "planned",
     "layout_ready",
+    "geometry_built",
+    "ports_ready",
+    "setup_ready",
+    "results_exported",
     "ads_imported",
     "emsetup_ready",
     "rfpro_ready",
@@ -53,6 +57,13 @@ RESUME_STAGE_BY_FAILED_STEP = {
     "4a. Export FEM fitted dataset TXT": "dataset_exported",
     "4. Score S-parameters": "scored",
     "run_ads_filter_candidate.py": "planned",
+    "HFSS build geometry": "geometry_built",
+    "HFSS create ports": "ports_ready",
+    "HFSS setup sweep": "setup_ready",
+    "HFSS solve": "sim_running",
+    "HFSS export touchstone": "results_exported",
+    "HFSS score S-parameters": "scored",
+    "run_hfss3dlayout_filter_verdict.py": "planned",
 }
 
 

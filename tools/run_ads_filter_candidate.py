@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import subprocess
 import sys
@@ -17,7 +18,8 @@ if str(_SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(_SRC_ROOT))
 
 from ads_profiles import get_ads_profile, profile_names, resolve_ads_python, resolve_host_python, resolve_library, resolve_workspace
-from simads.config import load_pipeline, load_project, resolve_backend_profile, resolve_pipeline_id, root_relative_path
+from simads.config import load_pipeline, load_project, load_stackup_config, resolve_pipeline_id, root_relative_path, stackup_name_token
+from simads.ads.naming import fem_simulation_path_length, short_ads_cell_name
 from simads.devices import get_device, list_devices
 from simads.runtime import (
     artifact_entry,
@@ -66,6 +68,29 @@ def normalize_candidate_name(name: str) -> tuple[str, str]:
 
 def default_cell_name(candidate: str) -> str:
     return normalize_candidate_name(candidate)[1]
+
+
+def load_layout_layers_from_params(path: Path | None) -> tuple[str | None, str | None]:
+    if path is None or not path.exists():
+        return None, None
+    data = json.loads(path.read_text(encoding="utf-8"))
+    params = data.get("parameters", {})
+    if not isinstance(params, dict):
+        return None, None
+    metal = params.get("metal_layer") or params.get("signal_layer")
+    via = params.get("via_layer")
+    return (str(metal) if metal else None, str(via) if via else None)
+
+
+def stackup_ads_substrate_name(stackup_config: object | None) -> str | None:
+    if stackup_config is None:
+        return None
+    raw = getattr(stackup_config, "raw", None)
+    ads = raw.get("ads") if isinstance(raw, dict) else None
+    if not isinstance(ads, dict):
+        return None
+    substrate = ads.get("expected_substrate_name")
+    return str(substrate).strip() if substrate else None
 
 
 def first_existing(paths: list[Path], description: str) -> Path:
@@ -171,7 +196,7 @@ def run_step(label: str, command: list[str], cwd: Path, dry_run: bool) -> None:
 
 
 def resolve_profile(current: str | None, configured: str | None) -> str:
-    return resolve_backend_profile("ads", current or configured or "auto")
+    return current or configured or "company"
 
 
 def parse_args() -> argparse.Namespace:
@@ -184,7 +209,7 @@ def parse_args() -> argparse.Namespace:
         help="Device plugin id for manifest and compatibility checks.",
     )
     parser.add_argument("--pipeline-id", default=None, help="Pipeline contract id. Default uses the active project sweep.")
-    parser.add_argument("--profile", default=None, choices=profile_names(include_auto=True), help="ADS path profile to use.")
+    parser.add_argument("--profile", default=None, choices=profile_names(), help="ADS path profile to use.")
     parser.add_argument("--ads-python", type=Path, default=None, help="Override profile ADS Python.")
     parser.add_argument("--host-python", type=Path, default=None, help="Override profile host/control Python.")
     parser.add_argument("--workspace", type=Path, default=None, help="Override profile ADS workspace.")
@@ -192,6 +217,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--template-cell", default=None, help="ADS cell to clone emSetup/em%%Setup from.")
     parser.add_argument("--setup-view", default=None, help="ADS EM setup view folder to clone.")
     parser.add_argument("--rfpro-emsetup-view", default=None, help="RFPro EM setup view name. Default derives from --setup-view.")
+    parser.add_argument("--stackup-config", type=Path, default=None, help="PCB stackup JSON config stored in run manifests.")
     parser.add_argument("--dxf", type=Path, default=None)
     parser.add_argument("--params", type=Path, default=None)
     parser.add_argument("--cell", default=None)
@@ -221,6 +247,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--fem-dataset-suffix", default="a", help="ADS EM Setup dataset suffix after _FEM_.")
     parser.add_argument("--fem-txt-out", type=Path, default=None, help="Optional Data Display style TXT export.")
     parser.add_argument("--skip-import", action="store_true", help="Do not re-import DXF; only add/update later steps.")
+    parser.add_argument(
+        "--force-generated-dxf-subset",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Force the generated-DXF fallback importer so configured ground layers become ADS GND planes.",
+    )
     parser.add_argument("--metal-layer", default=None, help="ADS metal layer for DXF fallback import and pins.")
     parser.add_argument("--via-layer", default=None, help="ADS via drill layer for DXF fallback import.")
     parser.add_argument("--reuse-layout", action="store_true", help="Reuse an existing layout cell and skip import/pin placement.")
@@ -244,15 +276,26 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    explicit_metal_layer = any(arg == "--metal-layer" or arg.startswith("--metal-layer=") for arg in sys.argv)
+    explicit_via_layer = any(arg == "--via-layer" or arg.startswith("--via-layer=") for arg in sys.argv)
     root = repo_root()
     try:
         project = load_project(args.project_id, root=root)
     except FileNotFoundError:
         project = None
+    if args.stackup_config is None and project and project.ads.stackup_config is not None:
+        args.stackup_config = project.ads.stackup_config
+    stackup_config = load_stackup_config(args.stackup_config) if args.stackup_config is not None else None
+    ads_substrate_name = stackup_ads_substrate_name(stackup_config)
     sweep = project.get_sweep(args.sweep_id) if project else None
     pipeline_id = resolve_pipeline_id(project, sweep, args.pipeline_id)
     pipeline = load_pipeline(pipeline_id, root=root) if pipeline_id else None
     args.pipeline_id = pipeline_id
+    args.force_generated_dxf_subset = (
+        args.force_generated_dxf_subset
+        if args.force_generated_dxf_subset is not None
+        else bool(pipeline.ads.force_generated_dxf_subset if pipeline else False)
+    )
     args.profile = resolve_profile(args.profile, (pipeline.profile_id if pipeline else None) or (sweep.profile if sweep else None))
     profile = get_ads_profile(args.profile)
     args.device_id = (
@@ -305,14 +348,21 @@ def main() -> None:
     dataset_export_script = (pipeline.ads.dataset_export_script if pipeline else None) or (tools_dir / "export_ads_fem_dataset.py")
     score_script = (pipeline.scoring.script if pipeline else None) or (tools_dir / "analyze_ads_dataset.py")
 
-    cell = args.cell or default_cell_name(args.candidate)
+    cell = args.cell or (
+        short_ads_cell_name(args.candidate) if args.force_generated_dxf_subset else default_cell_name(args.candidate)
+    )
     dxf = args.dxf
     params = args.params
     if (not args.score_only and not args.reuse_layout and (dxf is None or params is None)) or (not args.score_only and not args.skip_setup and params is None):
         default_dxf, default_params, default_cell = default_candidate_files(root, dirs["layouts"], args.candidate)
         dxf = dxf or default_dxf
         params = params or default_params
-        cell = args.cell or default_cell
+        cell = args.cell or (short_ads_cell_name(args.candidate) if args.force_generated_dxf_subset else default_cell)
+    param_metal_layer, param_via_layer = load_layout_layers_from_params(params)
+    if param_metal_layer and not explicit_metal_layer:
+        args.metal_layer = param_metal_layer
+    if param_via_layer and not explicit_via_layer:
+        args.via_layer = param_via_layer
 
     out_csv = root_relative_path(root, args.out) if args.out else (dirs["results"] / f"{cell}_rfpro.csv")
     score_csv = (
@@ -324,6 +374,7 @@ def main() -> None:
     fem_txt_out = root_relative_path(root, args.fem_txt_out) if args.fem_txt_out else None
     fem_dataset = workspace / "data" / f"{cell}_FEM_{args.fem_dataset_suffix}.ds"
     log_file = args.log_file or (out_csv.parent / f"{cell}_flow.log")
+    fem_path_len = fem_simulation_path_length(workspace=str(workspace), library=library, cell=cell)
 
     candidate_id, _candidate_cell = normalize_candidate_name(args.candidate)
     round_id = args.round_id or infer_round_id(str(out_csv.parent), candidate_id)
@@ -428,9 +479,22 @@ def main() -> None:
                 "library": library,
                 "template_cell": args.template_cell,
                 "target_cell": cell,
+                "target_cell_fem_simulation_path_length": fem_path_len,
                 "setup_view": args.setup_view,
                 "rfpro_emsetup_view": rfpro_emsetup_view,
                 "substrate": profile.substrate,
+                "stackup": (
+                    {
+                        "stackup_id": stackup_config.stackup_id,
+                        "stackup_token": stackup_name_token(stackup_config),
+                        "config_path": str(args.stackup_config),
+                        "signal_to_reference_height_mm": stackup_config.signal_to_reference_height_mm,
+                        "total_thickness_mm": stackup_config.total_thickness_mm,
+                        "geometry": stackup_config.geometry.to_dict(),
+                    }
+                    if stackup_config is not None
+                    else None
+                ),
                 "target_profile_id": args.target_profile,
                 "score_source": args.score_source,
                 "score_version": score_version,
@@ -463,6 +527,7 @@ def main() -> None:
                 "flags": {
                     "dry_run": args.dry_run,
                     "skip_import": args.skip_import,
+                    "force_generated_dxf_subset": args.force_generated_dxf_subset,
                     "reuse_layout": args.reuse_layout,
                     "skip_setup": args.skip_setup,
                     "overwrite_setup": args.overwrite_setup,
@@ -488,6 +553,7 @@ def main() -> None:
             f"device_id={device_plugin.device_id}, "
             f"host_python={host_python}, ads_python={ads_python}, "
             f"cell={cell}, setup_view={args.setup_view}, rfpro_emsetup_view={rfpro_emsetup_view}, "
+            f"fem_simulation_path_length={fem_path_len}, "
             f"target_profile={args.target_profile}, pipeline_id={args.pipeline_id}, run_id={run_id}, run_dir={run_dir}"
         )
 
@@ -526,6 +592,8 @@ def main() -> None:
                 ]
                 if args.skip_import:
                     import_cmd.append("--skip-import")
+                if args.force_generated_dxf_subset:
+                    import_cmd.append("--force-generated-dxf-subset")
                 run_step("1. DXF import and P1/P2 pins", import_cmd, root, args.dry_run)
                 set_state("ads_imported")
 
@@ -553,7 +621,12 @@ def main() -> None:
                     f"{frequency_start_ghz:g}",
                     "--stop-ghz",
                     f"{frequency_stop_ghz:g}",
+                    "--points-text",
+                    str(frequency_points),
                 ]
+                if ads_substrate_name:
+                    setup_cmd.extend(["--substrate", f"{library}:{ads_substrate_name}"])
+                    setup_cmd.append("--prefer-params-substrate")
                 if args.overwrite_setup:
                     setup_cmd.append("--overwrite")
                 if args.force:

@@ -56,14 +56,16 @@ class StackupGeometryConfig:
     reference_ground_layer: str
     via_top_layer: str
     via_bottom_layer: str
+    ground_layers: tuple[str, ...] = ()
     ground_plane_name: str = "hfss_ground_plane"
 
-    def to_dict(self) -> dict[str, str]:
+    def to_dict(self) -> dict[str, object]:
         return {
             "signal_layer": self.signal_layer,
             "reference_ground_layer": self.reference_ground_layer,
             "via_top_layer": self.via_top_layer,
             "via_bottom_layer": self.via_bottom_layer,
+            "ground_layers": list(self.ground_layers),
             "ground_plane_name": self.ground_plane_name,
         }
 
@@ -176,6 +178,16 @@ def stackup_from_mapping(data: dict[str, Any]) -> StackupConfig:
     for required in ("signal_layer", "reference_ground_layer", "via_top_layer", "via_bottom_layer"):
         if str(geometry_raw[required]) not in known_layers:
             raise ValueError(f"geometry.{required} references unknown stackup layer: {geometry_raw[required]}")
+    ground_layers_raw = geometry_raw.get("ground_layers")
+    if ground_layers_raw is None:
+        ground_layers = (str(geometry_raw["reference_ground_layer"]),)
+    elif isinstance(ground_layers_raw, list):
+        ground_layers = tuple(str(layer) for layer in ground_layers_raw)
+    else:
+        raise ValueError("geometry.ground_layers must be a list when present")
+    unknown_ground_layers = sorted(layer for layer in ground_layers if layer not in known_layers)
+    if unknown_ground_layers:
+        raise ValueError(f"geometry.ground_layers references unknown stackup layers: {unknown_ground_layers}")
     missing_materials = sorted({layer.material for layer in layers if layer.material not in materials})
     if missing_materials:
         raise ValueError(f"stackup layers reference unknown materials: {missing_materials}")
@@ -185,6 +197,7 @@ def stackup_from_mapping(data: dict[str, Any]) -> StackupConfig:
         reference_ground_layer=str(geometry_raw["reference_ground_layer"]),
         via_top_layer=str(geometry_raw["via_top_layer"]),
         via_bottom_layer=str(geometry_raw["via_bottom_layer"]),
+        ground_layers=ground_layers,
         ground_plane_name=str(geometry_raw.get("ground_plane_name", "hfss_ground_plane")),
     )
     config = StackupConfig(

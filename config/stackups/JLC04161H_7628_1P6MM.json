@@ -99,6 +99,11 @@
   "geometry": {
     "signal_layer": "ETCH_TOP",
     "reference_ground_layer": "ETCH_INNER1",
+    "ground_layers": [
+      "ETCH_INNER1",
+      "ETCH_INNER2",
+      "ETCH_BOTTOM"
+    ],
     "via_top_layer": "ETCH_TOP",
     "via_bottom_layer": "ETCH_BOTTOM",
     "ground_plane_name": "hfss_ground_plane"
@@ -111,6 +116,27 @@
       "ETCH_INNER2": 1002,
       "ETCH_BOTTOM": 1003
     },
-    "drill_layer": "DRILL_TOP_BOTTOM"
+    "drill_layer": "DRILL_TOP_BOTTOM",
+    "drill_layer_id": 1005,
+    "via_layers": [
+      {
+        "name": "pcvia1",
+        "layer_id": 24,
+        "process_role": "CONDUCTOR_VIA",
+        "layer_binding": "pc1 pc2",
+        "substrate_top_layer": "ETCH_TOP",
+        "substrate_bottom_layer": "ETCH_BOTTOM"
+      },
+      {
+        "name": "DRILL_TOP_BOTTOM",
+        "layer_id": 1005,
+        "process_role": "CONDUCTOR_VIA",
+        "layer_binding": "ETCH_TOP ETCH_BOTTOM",
+        "substrate_top_layer": "ETCH_TOP",
+        "substrate_bottom_layer": "ETCH_BOTTOM"
+      }
+    ],
+    "boundary_layer": "EM_BOUNDARY",
+    "boundary_layer_id": 1004
   }
 }

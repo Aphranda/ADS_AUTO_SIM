@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="114.285714" viewBox="0 0 1200 114.285714">
+  <rect x="0" y="0" width="1200" height="114.285714" fill="#ffffff"/>
+  <rect x="11.428571" y="11.428571" width="1177.142857" height="91.428571" fill="none" stroke="#64748b" stroke-width="1"><title>em_boundary</title></rect>
+  <rect x="28.571429" y="55.085714" width="5.714286" height="4.114286" fill="#7c3aed" opacity="0.82"><title>input_feed</title></rect>
+  <rect x="34.285714" y="55.085714" width="1131.428571" height="4.114286" fill="#7c3aed" opacity="0.82"><title>through_line</title></rect>
+  <rect x="1165.714286" y="55.085714" width="5.714286" height="4.114286" fill="#7c3aed" opacity="0.82"><title>output_feed</title></rect>
+  <text x="16" y="24" font-family="Arial, sans-serif" font-size="16" fill="#111827">sma_ideal_100mm_50r_jlc04161h_7628_1p6mm</text>
+</svg>

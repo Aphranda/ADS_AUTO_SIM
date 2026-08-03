@@ -1,0 +1,244 @@
+{
+  "schema_version": "0.1.0",
+  "fixture_type": "microstrip_50r_through",
+  "parameters": {
+    "name": "sma_ideal_100mm_50r_jlc04161h_7628_1p6mm",
+    "connector_type": "edge_launch_surrogate",
+    "connector_model_version": "route_a_surrogate_v1",
+    "connector_route": "route_a_2p5d_launch_surrogate",
+    "stackup_id": "JLC04161H_7628_1P6MM",
+    "stackup_token": "jlc04161h_7628_1p6mm",
+    "stackup_config": "config\\stackups\\JLC04161H_7628_1P6MM.json",
+    "line_w_mm": 0.36,
+    "line_l_mm": 93.0,
+    "edge_margin_mm": 1.5,
+    "pin_pad_w_mm": 1.2,
+    "pin_pad_l_mm": 1.4,
+    "pad_to_edge_mm": 0.0,
+    "taper_l_mm": 1.6,
+    "taper_w_start_mm": 1.2,
+    "taper_w_end_mm": 0.36,
+    "launch_feed_l_mm": 0.5,
+    "gnd_clearance_mm": 0.3,
+    "anti_pad_w_mm": 1.8,
+    "via_d_mm": 0.3,
+    "via_pad_d_mm": 0.55,
+    "via_pitch_mm": 0.8,
+    "via_count": 4,
+    "fence_offset_mm": 0.55,
+    "fence_pitch_mm": 1.2,
+    "fence_span_mm": 4.2,
+    "reference_plane_offset_mm": 0.0,
+    "port_deembed_mm": 0.0,
+    "board_width_mm": 8.0,
+    "min_fab_feature_mm": 0.1524,
+    "mirror": true,
+    "signal_layer": "ETCH_TOP",
+    "reference_ground_layer": "ETCH_INNER1",
+    "via_top_layer": "ETCH_TOP",
+    "via_bottom_layer": "ETCH_BOTTOM",
+    "ground_layers": [
+      "ETCH_INNER1",
+      "ETCH_INNER2",
+      "ETCH_BOTTOM"
+    ],
+    "ground_plane_name": "hfss_ground_plane",
+    "metal_layer": "cond",
+    "via_layer": "pcvia1",
+    "boundary_layer": "EM_BOUNDARY"
+  },
+  "ports": {
+    "P1": [
+      0.0,
+      0.0
+    ],
+    "P2": [
+      100.0,
+      0.0
+    ]
+  },
+  "derived": {
+    "launch_len_mm": 3.5,
+    "total_len_mm": 100.0,
+    "connector_region_bbox_mm": {
+      "P1": [
+        0.0,
+        -4.0,
+        3.5,
+        8.0
+      ],
+      "P2": [
+        96.5,
+        -4.0,
+        3.5,
+        8.0
+      ]
+    }
+  },
+  "layout": {
+    "layout_id": "sma_ideal_100mm_50r_jlc04161h_7628_1p6mm_baseline",
+    "units": "mm",
+    "layers": [
+      {
+        "name": "cond",
+        "purpose": "drawing",
+        "ads_layer": null,
+        "dxf_layer": "cond",
+        "gds_layer": null,
+        "gds_datatype": 0
+      },
+      {
+        "name": "EM_BOUNDARY",
+        "purpose": "drawing",
+        "ads_layer": null,
+        "dxf_layer": "EM_BOUNDARY",
+        "gds_layer": null,
+        "gds_datatype": 0
+      }
+    ],
+    "shapes": [
+      {
+        "name": "em_boundary",
+        "x": -1.5,
+        "y": -4.0,
+        "w": 103.0,
+        "h": 8.0,
+        "layer": "EM_BOUNDARY",
+        "kind": "boundary",
+        "metadata": {}
+      },
+      {
+        "name": "input_feed",
+        "layer": "cond",
+        "x": 0.0,
+        "y": -0.18,
+        "w": 0.5,
+        "h": 0.36,
+        "kind": "rect",
+        "metadata": {
+          "role": "microstrip_50r_baseline"
+        }
+      },
+      {
+        "name": "through_line",
+        "layer": "cond",
+        "x": 0.5,
+        "y": -0.18,
+        "w": 99.0,
+        "h": 0.36,
+        "kind": "rect",
+        "metadata": {
+          "role": "microstrip_50r_baseline"
+        }
+      },
+      {
+        "name": "output_feed",
+        "layer": "cond",
+        "x": 99.5,
+        "y": -0.18,
+        "w": 0.5,
+        "h": 0.36,
+        "kind": "rect",
+        "metadata": {
+          "role": "microstrip_50r_baseline"
+        }
+      }
+    ],
+    "ports": [
+      {
+        "name": "P1",
+        "number": 1,
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.36,
+        "layer": "cond",
+        "orientation_deg": 180.0,
+        "reference": null,
+        "kind": "port",
+        "metadata": {}
+      },
+      {
+        "name": "P2",
+        "number": 2,
+        "x": 100.0,
+        "y": 0.0,
+        "width": 0.36,
+        "layer": "cond",
+        "orientation_deg": 0.0,
+        "reference": null,
+        "kind": "port",
+        "metadata": {}
+      }
+    ],
+    "metadata": {
+      "generator": "simads.hfss.connector",
+      "fixture_type": "microstrip_50r_through",
+      "baseline_for_fixture_type": "microstrip_connector_50r",
+      "topology": "microstrip_50r_through",
+      "line_w_mm": 0.36,
+      "line_l_mm": 100.0,
+      "reference_plane_offset_mm": 0.0,
+      "port_deembed_mm": 0.0,
+      "parameters": {
+        "name": "sma_ideal_100mm_50r_jlc04161h_7628_1p6mm",
+        "connector_type": "edge_launch_surrogate",
+        "connector_model_version": "route_a_surrogate_v1",
+        "connector_route": "route_a_2p5d_launch_surrogate",
+        "stackup_id": "JLC04161H_7628_1P6MM",
+        "stackup_token": "jlc04161h_7628_1p6mm",
+        "stackup_config": "config\\stackups\\JLC04161H_7628_1P6MM.json",
+        "line_w_mm": 0.36,
+        "line_l_mm": 93.0,
+        "edge_margin_mm": 1.5,
+        "pin_pad_w_mm": 1.2,
+        "pin_pad_l_mm": 1.4,
+        "pad_to_edge_mm": 0.0,
+        "taper_l_mm": 1.6,
+        "taper_w_start_mm": 1.2,
+        "taper_w_end_mm": 0.36,
+        "launch_feed_l_mm": 0.5,
+        "gnd_clearance_mm": 0.3,
+        "anti_pad_w_mm": 1.8,
+        "via_d_mm": 0.3,
+        "via_pad_d_mm": 0.55,
+        "via_pitch_mm": 0.8,
+        "via_count": 4,
+        "fence_offset_mm": 0.55,
+        "fence_pitch_mm": 1.2,
+        "fence_span_mm": 4.2,
+        "reference_plane_offset_mm": 0.0,
+        "port_deembed_mm": 0.0,
+        "board_width_mm": 8.0,
+        "min_fab_feature_mm": 0.1524,
+        "mirror": true,
+        "signal_layer": "ETCH_TOP",
+        "reference_ground_layer": "ETCH_INNER1",
+        "via_top_layer": "ETCH_TOP",
+        "via_bottom_layer": "ETCH_BOTTOM",
+        "ground_layers": [
+          "ETCH_INNER1",
+          "ETCH_INNER2",
+          "ETCH_BOTTOM"
+        ],
+        "ground_plane_name": "hfss_ground_plane",
+        "metal_layer": "cond",
+        "via_layer": "pcvia1",
+        "boundary_layer": "EM_BOUNDARY"
+      },
+      "layer_map_version": "microstrip-connector-logical-v1",
+      "signal_layer": "ETCH_TOP",
+      "reference_ground_layer": "ETCH_INNER1",
+      "via_top_layer": "ETCH_TOP",
+      "via_bottom_layer": "ETCH_BOTTOM",
+      "ground_layers": [
+        "ETCH_INNER1",
+        "ETCH_INNER2",
+        "ETCH_BOTTOM"
+      ],
+      "ground_plane_name": "hfss_ground_plane",
+      "stackup_id": "JLC04161H_7628_1P6MM",
+      "stackup_token": "jlc04161h_7628_1p6mm",
+      "stackup_config": "config\\stackups\\JLC04161H_7628_1P6MM.json"
+    }
+  }
+}

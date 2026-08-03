@@ -20,8 +20,8 @@ _SRC_ROOT = Path(__file__).resolve().parents[2] / "src"
 if str(_SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(_SRC_ROOT))
 
+from simads.config import StackupConfig, load_stackup_config, name_with_stackup_token, stackup_name_token
 from simads.exporters.json import write_layout_json
-from simads.config import StackupConfig, name_with_stackup_token
 from simads.geometry import Boundary, LayerMap, Layout, Polygon, Port, Rect as LayoutRect, Via
 
 
@@ -33,6 +33,17 @@ class FilterParams:
     er: float = 3.48
     dielectric_height_mm: float = 0.508
     copper_thickness_mm: float = 0.035
+    stackup_id: str | None = None
+    stackup_token: str | None = None
+    stackup_config: str | None = None
+    signal_layer: str | None = None
+    reference_ground_layer: str | None = None
+    via_top_layer: str | None = None
+    via_bottom_layer: str | None = None
+    ground_layers: tuple[str, ...] = ()
+    layout_ground_layers: tuple[str, ...] = ()
+    signal_to_reference_height_mm: float | None = None
+    total_thickness_mm: float | None = None
     lower_cutoff_ghz: float = 6.0
     upper_cutoff_ghz: float = 8.0
     passband_ripple_db: float = 0.10
@@ -60,44 +71,15 @@ class FilterParams:
     min_fab_feature_mm: float = 0.1524
     metal_layer: str = "cond"
     via_layer: str = "pcvia1"
+    ground_layer: str = "GND"
+    layer_map_version: str = "profile-default-v1"
+    include_ground_plane: bool = False
+    ground_boundary_mode: str = "port-edges"
+    ground_plane_name: str = "gnd_plane"
     via_diameter_mm: float = 0.50
-    via_pad_mm: float = 0.3556
+    via_pad_mm: float = 0.50
     via_half_outside: bool = False
     via_pad_outside: bool = False
-    stackup_metadata: dict[str, object] | None = None
-
-
-def params_with_stackup_config(
-    params: FilterParams,
-    stackup: StackupConfig,
-    *,
-    config_path: Path | None = None,
-) -> FilterParams:
-    """Apply the configured stackup's naming and physical dimensions."""
-
-    signal_layer = stackup.geometry.signal_layer
-    signal_layers = [layer for layer in stackup.layers_bottom_to_top if layer.name == signal_layer]
-    copper_thickness_mm = signal_layers[0].thickness_mm if signal_layers else params.copper_thickness_mm
-    primary = stackup.primary_dielectric
-    return replace(
-        params,
-        name=name_with_stackup_token(params.name, stackup),
-        substrate=stackup.stackup_id,
-        er=primary.er if primary and primary.er is not None else params.er,
-        dielectric_height_mm=stackup.signal_to_reference_height_mm,
-        copper_thickness_mm=copper_thickness_mm,
-        metal_layer="cond",
-        via_layer="pcvia1",
-        stackup_metadata={
-            "stackup_id": stackup.stackup_id,
-            "stackup_token": name_with_stackup_token("stackup", stackup).removeprefix("stackup_"),
-            "stackup_config": str(config_path) if config_path is not None else None,
-            "signal_layer": stackup.geometry.signal_layer,
-            "reference_ground_layer": stackup.geometry.reference_ground_layer,
-            "via_top_layer": stackup.geometry.via_top_layer,
-            "via_bottom_layer": stackup.geometry.via_bottom_layer,
-        },
-    )
 
 
 @dataclass(frozen=True)
@@ -119,6 +101,54 @@ class Quad:
 
 def fmt(value: float) -> str:
     return f"{value:.6f}".rstrip("0").rstrip(".")
+
+
+def stackup_layer_thickness(stackup: StackupConfig, layer_name: str) -> float:
+    for layer in stackup.layers_bottom_to_top:
+        if layer.name == layer_name:
+            return layer.thickness_mm
+    raise ValueError(f"stackup layer not found: {layer_name}")
+
+
+def stackup_ads_drill_layer(stackup: StackupConfig, default: str) -> str:
+    raw_ads = (stackup.raw or {}).get("ads", {})
+    if isinstance(raw_ads, dict) and raw_ads.get("drill_layer"):
+        return str(raw_ads["drill_layer"])
+    return default
+
+
+def params_with_stackup_config(
+    params: FilterParams,
+    stackup: StackupConfig,
+    *,
+    config_path: Path | None = None,
+    rename: bool = True,
+) -> FilterParams:
+    primary = stackup.primary_dielectric
+    stackup_token = stackup_name_token(stackup)
+    return replace(
+        params,
+        name=name_with_stackup_token(params.name, stackup) if rename else params.name,
+        substrate=stackup.stackup_id,
+        er=float(primary.er if primary and primary.er is not None else params.er),
+        dielectric_height_mm=stackup.signal_to_reference_height_mm,
+        copper_thickness_mm=stackup_layer_thickness(stackup, stackup.geometry.signal_layer),
+        stackup_id=stackup.stackup_id,
+        stackup_token=stackup_token,
+        stackup_config=str(config_path) if config_path is not None else None,
+        signal_layer=stackup.geometry.signal_layer,
+        reference_ground_layer=stackup.geometry.reference_ground_layer,
+        ground_layers=stackup.geometry.ground_layers,
+        metal_layer=stackup.geometry.signal_layer,
+        via_layer=stackup_ads_drill_layer(stackup, params.via_layer),
+        ground_layer=stackup.geometry.reference_ground_layer,
+        layer_map_version="simads-em-template-v1",
+        via_top_layer=stackup.geometry.via_top_layer,
+        via_bottom_layer=stackup.geometry.via_bottom_layer,
+        ground_plane_name=stackup.geometry.ground_plane_name,
+        signal_to_reference_height_mm=stackup.signal_to_reference_height_mm,
+        total_thickness_mm=stackup.total_thickness_mm,
+    )
 
 
 def shape_points(shape: Rect | Quad) -> list[tuple[float, float]]:
@@ -143,11 +173,88 @@ def shape_min_feature(shape: Rect | Quad) -> float:
     return min(edges)
 
 
+def field_width(params: FilterParams) -> float:
+    return params.order * params.resonator_w_mm + sum(params.gaps_mm)
+
+
+def overall_height(params: FilterParams) -> float:
+    return params.resonator_l_mm + params.end_gap_mm
+
+
+def feed_extension_len(params: FilterParams) -> float:
+    return params.feed_len_mm + max(0.0, params.feed_taper_len_mm) - (
+        max(0.0, params.feed_overlap_mm) if params.feed_taper_len_mm > 0.0 else 0.0
+    )
+
+
+def port_locations(params: FilterParams) -> tuple[tuple[float, float], tuple[float, float]]:
+    feed_total_len = feed_extension_len(params)
+    return (-feed_total_len, params.tap_from_bottom_mm), (field_width(params) + feed_total_len, params.tap_from_bottom_mm)
+
+
+def boundary_rect(params: FilterParams) -> Rect:
+    p1, p2 = port_locations(params)
+    return Rect(
+        name="em_boundary",
+        layer="EM_BOUNDARY",
+        x=p1[0] - params.boundary_margin_mm,
+        y=-params.boundary_margin_mm,
+        w=p2[0] - p1[0] + 2.0 * params.boundary_margin_mm,
+        h=overall_height(params) + 2.0 * params.boundary_margin_mm,
+    )
+
+
+def ground_plane_rect(params: FilterParams) -> Rect:
+    return ground_plane_rect_for_layer(params, params.ground_layer, params.ground_plane_name)
+
+
+def effective_ground_layers(params: FilterParams) -> tuple[str, ...]:
+    return params.ground_layers or (params.ground_layer,)
+
+
+def layout_ground_layers(params: FilterParams) -> tuple[str, ...]:
+    return params.layout_ground_layers or (params.ground_layer,)
+
+
+def ground_plane_name_for_layer(params: FilterParams, layer: str) -> str:
+    if layer == params.ground_layer:
+        return params.ground_plane_name
+    return f"{params.ground_plane_name}_{layer}"
+
+
+def ground_plane_rect_for_layer(params: FilterParams, layer: str, name: str | None = None) -> Rect:
+    boundary = boundary_rect(params)
+    if params.ground_boundary_mode == "em-boundary":
+        x = boundary.x
+        w = boundary.w
+    elif params.ground_boundary_mode == "port-edges":
+        p1, p2 = port_locations(params)
+        x = min(p1[0], p2[0])
+        w = abs(p2[0] - p1[0])
+    else:
+        raise ValueError("ground_boundary_mode must be 'port-edges' or 'em-boundary'")
+    return Rect(
+        name=name or ground_plane_name_for_layer(params, layer),
+        layer=layer,
+        x=x,
+        y=boundary.y,
+        w=w,
+        h=boundary.h,
+    )
+
+
+def ground_plane_rects(params: FilterParams) -> list[Rect]:
+    return [
+        ground_plane_rect_for_layer(params, layer, ground_plane_name_for_layer(params, layer))
+        for layer in layout_ground_layers(params)
+    ]
+
+
 def build_rects(params: FilterParams) -> list[Rect | Quad]:
     if len(params.gaps_mm) != params.order - 1:
         raise ValueError("gap count must be order - 1")
 
-    overall_h = params.resonator_l_mm + params.end_gap_mm
+    overall_h = overall_height(params)
     x_positions: list[float] = []
     x = 0.0
     for idx in range(params.order):
@@ -155,8 +262,10 @@ def build_rects(params: FilterParams) -> list[Rect | Quad]:
         if idx < len(params.gaps_mm):
             x += params.resonator_w_mm + params.gaps_mm[idx]
 
-    field_w = params.order * params.resonator_w_mm + sum(params.gaps_mm)
+    field_w = field_width(params)
     rects: list[Rect | Quad] = []
+    if params.include_ground_plane:
+        rects.extend(ground_plane_rects(params))
 
     for idx, x0 in enumerate(x_positions, start=1):
         anchored_bottom = idx % 2 == 1
@@ -264,14 +373,7 @@ def build_rects(params: FilterParams) -> list[Rect | Quad]:
                 w=params.feed_len_mm,
                 h=params.w0_mm,
             ),
-            Rect(
-                name="em_boundary",
-                layer="EM_BOUNDARY",
-                x=input_x0 - params.boundary_margin_mm,
-                y=-params.boundary_margin_mm,
-                w=right_feed_x0 + params.feed_len_mm - input_x0 + 2.0 * params.boundary_margin_mm,
-                h=overall_h + 2.0 * params.boundary_margin_mm,
-            ),
+            boundary_rect(params),
         ]
     )
     return rects
@@ -279,12 +381,8 @@ def build_rects(params: FilterParams) -> list[Rect | Quad]:
 
 def build_layout(params: FilterParams, rects: list[Rect | Quad] | None = None) -> Layout:
     rects = rects or build_rects(params)
-    field_w = params.order * params.resonator_w_mm + sum(params.gaps_mm)
-    feed_total_len = params.feed_len_mm + max(0.0, params.feed_taper_len_mm) - (
-        max(0.0, params.feed_overlap_mm) if params.feed_taper_len_mm > 0.0 else 0.0
-    )
-    p1_x = -feed_total_len
-    p2_x = field_w + feed_total_len
+    p1, p2 = port_locations(params)
+    ground_layer_names = set(layout_ground_layers(params))
 
     shapes: list[LayoutRect | Polygon | Via | Boundary] = []
     for shape in rects:
@@ -310,33 +408,81 @@ def build_layout(params: FilterParams, rects: list[Rect | Quad] | None = None) -
                 )
             )
             continue
-        shapes.append(LayoutRect(name=shape.name, layer=shape.layer, x=shape.x, y=shape.y, w=shape.w, h=shape.h))
+        metadata = {}
+        if params.include_ground_plane and shape.layer in ground_layer_names:
+            metadata = {
+                "role": "reference_ground",
+                "ground_boundary_mode": params.ground_boundary_mode,
+                "source": "generate_interdigital_filter_layout",
+            }
+        shapes.append(
+            LayoutRect(name=shape.name, layer=shape.layer, x=shape.x, y=shape.y, w=shape.w, h=shape.h, metadata=metadata)
+        )
 
     ports = [
-        Port(name="P1", number=1, x=p1_x, y=params.tap_from_bottom_mm, width=params.w0_mm, layer=params.metal_layer),
-        Port(name="P2", number=2, x=p2_x, y=params.tap_from_bottom_mm, width=params.w0_mm, layer=params.metal_layer),
+        Port(
+            name="P1",
+            number=1,
+            x=p1[0],
+            y=p1[1],
+            width=params.w0_mm,
+            layer=params.metal_layer,
+            reference=params.ground_plane_name if params.include_ground_plane else "ground",
+        ),
+        Port(
+            name="P2",
+            number=2,
+            x=p2[0],
+            y=p2[1],
+            width=params.w0_mm,
+            layer=params.metal_layer,
+            reference=params.ground_plane_name if params.include_ground_plane else "ground",
+        ),
     ]
     metadata = {
         "generator": "tools/generate_interdigital_filter_layout.py",
-        "layer_map_version": "profile-default-v1",
+        "layer_map_version": params.layer_map_version,
         "topology": "interdigital_bpf",
         "order": params.order,
         "substrate": params.substrate,
         "er": params.er,
         "dielectric_height_mm": params.dielectric_height_mm,
         "copper_thickness_mm": params.copper_thickness_mm,
+        "include_ground_plane": params.include_ground_plane,
+        "ground_layer": params.ground_layer,
+        "ground_layers": list(effective_ground_layers(params)),
+        "layout_ground_layers": list(layout_ground_layers(params)),
+        "ground_boundary_mode": params.ground_boundary_mode,
+        "ground_plane_name": params.ground_plane_name,
     }
-    if params.stackup_metadata:
-        metadata.update(params.stackup_metadata)
+    if params.stackup_id:
+        metadata.update(
+            {
+                "stackup_id": params.stackup_id,
+                "stackup_token": params.stackup_token,
+                "stackup_config": params.stackup_config,
+                "signal_layer": params.signal_layer,
+                "reference_ground_layer": params.reference_ground_layer,
+                "ground_layers": list(effective_ground_layers(params)),
+                "layout_ground_layers": list(layout_ground_layers(params)),
+                "via_top_layer": params.via_top_layer,
+                "via_bottom_layer": params.via_bottom_layer,
+                "signal_to_reference_height_mm": params.signal_to_reference_height_mm,
+                "total_thickness_mm": params.total_thickness_mm,
+            }
+        )
 
     return Layout(
         layout_id=params.name,
         units="mm",
-        layers=[
-            LayerMap(name=params.metal_layer, dxf_layer=params.metal_layer),
-            LayerMap(name=params.via_layer, dxf_layer=params.via_layer),
-            LayerMap(name="EM_BOUNDARY", dxf_layer="EM_BOUNDARY"),
-        ],
+        layers=list(
+            {
+                params.metal_layer: LayerMap(name=params.metal_layer, dxf_layer=params.metal_layer),
+                params.via_layer: LayerMap(name=params.via_layer, dxf_layer=params.via_layer),
+                **{layer: LayerMap(name=layer, dxf_layer=layer) for layer in effective_ground_layers(params)},
+                "EM_BOUNDARY": LayerMap(name="EM_BOUNDARY", dxf_layer="EM_BOUNDARY"),
+            }.values()
+        ),
         shapes=shapes,
         ports=ports,
         metadata=metadata,
@@ -500,9 +646,10 @@ def write_dxf(path: Path, rects: list[Rect | Quad], coord_scale: float = 1.0, in
 def write_svg(path: Path, rects: list[Rect | Quad], params: FilterParams) -> None:
     min_x, min_y, max_x, max_y = rect_bounds(rects)
     pad = 0.6
-    view_min_x = min_x - pad
+    panel_w = 4.8
+    view_min_x = min_x - pad - panel_w
     view_min_y = min_y - pad
-    view_w = max_x - min_x + 2.0 * pad
+    view_w = max_x - min_x + 2.0 * pad + panel_w
     view_h = max_y - min_y + 2.0 * pad
 
     def sx(x: float) -> float:
@@ -527,6 +674,18 @@ def write_svg(path: Path, rects: list[Rect | Quad], params: FilterParams) -> Non
                 '<rect x="{x}" y="{y}" width="{w}" height="{h}" '
                 'fill="none" stroke="#177245" stroke-width="0.035" '
                 'stroke-dasharray="0.16 0.12"/>'.format(
+                    x=fmt(sx(rect.x)),
+                    y=fmt(sy(rect.y + rect.h)),
+                    w=fmt(rect.w),
+                    h=fmt(rect.h),
+                )
+            )
+            continue
+
+        if rect.layer in effective_ground_layers(params) and rect.name.startswith(params.ground_plane_name):
+            svg_rects.append(
+                '<rect x="{x}" y="{y}" width="{w}" height="{h}" '
+                'fill="#91b7d9" fill-opacity="0.24" stroke="#2b5f8a" stroke-width="0.03"/>'.format(
                     x=fmt(sx(rect.x)),
                     y=fmt(sy(rect.y + rect.h)),
                     w=fmt(rect.w),
@@ -580,12 +739,42 @@ def write_svg(path: Path, rects: list[Rect | Quad], params: FilterParams) -> Non
         f"{params.name}: {params.order}th order interdigital BPF, "
         f"{params.substrate} h={params.dielectric_height_mm} mm"
     )
-    content = "\n  ".join(svg_rects + labels)
+    field_w = field_width(params)
+    overall_h = overall_height(params)
+    feed_len = feed_extension_len(params)
+    boundary = boundary_rect(params)
+    gap_text = ",".join(fmt(gap) for gap in params.gaps_mm)
+    panel_lines = [
+        "Layout mm",
+        f"field {fmt(field_w)} x {fmt(overall_h)}",
+        f"boundary {fmt(boundary.w)} x {fmt(boundary.h)}",
+        f"L {fmt(params.resonator_l_mm)}",
+        f"W {fmt(params.resonator_w_mm)}",
+        f"W0 {fmt(params.w0_mm)}",
+        f"tap {fmt(params.tap_from_bottom_mm)}",
+        f"feed {fmt(feed_len)}",
+        f"via {fmt(params.via_diameter_mm)}",
+        f"pad {fmt(params.via_pad_mm)}",
+        f"gaps {gap_text}",
+    ]
+    panel_x = min_x - pad - panel_w + 0.25
+    panel_y = view_min_y + 0.5
+    panel_text = [
+        '<text x="{x}" y="{y}" font-size="{size}" fill="{fill}">{line}</text>'.format(
+            x=fmt(panel_x),
+            y=fmt(panel_y + index * 0.34),
+            size="0.3" if index == 0 else "0.24",
+            fill="#222" if index == 0 else "#444",
+            line=escape(line),
+        )
+        for index, line in enumerate(panel_lines)
+    ]
+    content = "\n  ".join(svg_rects + labels + panel_text)
     text = f"""<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="{fmt(view_min_x)} {fmt(view_min_y)} {fmt(view_w)} {fmt(view_h)}">
   <title>{escape(title)}</title>
   <rect x="{fmt(view_min_x)}" y="{fmt(view_min_y)}" width="{fmt(view_w)}" height="{fmt(view_h)}" fill="#f8f6ef"/>
+  <rect x="{fmt(view_min_x + 0.12)}" y="{fmt(view_min_y + 0.12)}" width="{fmt(panel_w - 0.35)}" height="{fmt(view_h - 0.24)}" fill="#ffffff" fill-opacity="0.58" stroke="#d0ccc1" stroke-width="0.025"/>
   {content}
-  <text x="{fmt(view_min_x + 0.2)}" y="{fmt(view_min_y + 0.45)}" font-size="0.32" fill="#333">{escape(title)}</text>
 </svg>
 """
     path.write_text(text, encoding="utf-8")
@@ -743,6 +932,13 @@ def make_drc(params: FilterParams, field_w: float, overall_h: float) -> str:
         max(0.0, params.feed_overlap_mm) if params.feed_taper_len_mm > 0.0 else 0.0
     )
     mode_notes = []
+    if params.include_ground_plane:
+        mode_notes.append(
+            "  Reference ground copper rectangles are included on "
+            f"{', '.join(effective_ground_layers(params))} using {params.ground_boundary_mode} extents."
+        )
+    else:
+        mode_notes.append("  No explicit reference ground copper rectangle is included in the generated DXF.")
     if params.via_pad_mm > 0.0:
         mode_notes.append("  Circular top-metal via pads are drawn concentrically with the via holes.")
     if params.via_pad_outside:
@@ -780,6 +976,9 @@ def make_drc(params: FilterParams, field_w: float, overall_h: float) -> str:
         f"  EM boundary margin: {fmt(params.boundary_margin_mm)} mm",
         f"  Top metal layer: {params.metal_layer}",
         f"  Ground via layer: {params.via_layer}",
+        f"  Reference ground layer: {params.ground_layer}",
+        f"  Ground net layers: {', '.join(effective_ground_layers(params))}",
+        f"  Explicit GND plane: {'enabled' if params.include_ground_plane else 'disabled'}",
         "",
         "Important assumptions",
         "  This is a first-pass interdigital/combline metal pattern for ADS/Momentum import.",
@@ -826,8 +1025,10 @@ def make_dimension_check(params: FilterParams, field_w: float, overall_h: float)
 def write_outputs(params: FilterParams, out_dir: Path) -> dict[str, str]:
     out_dir.mkdir(parents=True, exist_ok=True)
     rects = build_rects(params)
-    field_w = params.order * params.resonator_w_mm + sum(params.gaps_mm)
-    overall_h = params.resonator_l_mm + params.end_gap_mm
+    field_w = field_width(params)
+    overall_h = overall_height(params)
+    p1, p2 = port_locations(params)
+    gnd_planes = ground_plane_rects(params) if params.include_ground_plane else []
 
     base = out_dir / params.name
     dxf_path = base.with_suffix(".dxf")
@@ -852,6 +1053,11 @@ def write_outputs(params: FilterParams, out_dir: Path) -> dict[str, str]:
                 "derived": {
                     "field_width_mm": field_w,
                     "overall_height_mm": overall_h,
+                    "feed_extension_len_mm": feed_extension_len(params),
+                    "ground_plane": asdict(gnd_planes[0]) if gnd_planes else None,
+                    "ground_planes": [asdict(gnd) for gnd in gnd_planes],
+                    "ground_layers": list(effective_ground_layers(params)),
+                    "layout_ground_layers": list(layout_ground_layers(params)),
                     "minimum_gap_mm": min(params.gaps_mm),
                     "minimum_width_mm": min(
                         params.w0_mm,
@@ -860,19 +1066,8 @@ def write_outputs(params: FilterParams, out_dir: Path) -> dict[str, str]:
                     ),
                 },
                 "ports": {
-                    "P1": [
-                        -params.feed_len_mm
-                        - max(0.0, params.feed_taper_len_mm)
-                        + (max(0.0, params.feed_overlap_mm) if params.feed_taper_len_mm > 0.0 else 0.0),
-                        params.tap_from_bottom_mm,
-                    ],
-                    "P2": [
-                        field_w
-                        + params.feed_len_mm
-                        + max(0.0, params.feed_taper_len_mm)
-                        - (max(0.0, params.feed_overlap_mm) if params.feed_taper_len_mm > 0.0 else 0.0),
-                        params.tap_from_bottom_mm,
-                    ],
+                    "P1": [p1[0], p1[1]],
+                    "P2": [p2[0], p2[1]],
                 },
                 "rectangles": [asdict(r) for r in rects],
             },
@@ -915,6 +1110,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--copper-um", type=float, default=35.0, help="Copper thickness in um.")
     parser.add_argument("--order", type=int, default=FilterParams.order, help="Filter order.")
     parser.add_argument("--substrate", default=FilterParams.substrate, help="Substrate name stored in params JSON.")
+    parser.add_argument("--stackup-config", type=Path, default=None, help="PCB stackup JSON config used for naming and EM material parameters.")
+    parser.add_argument(
+        "--name-stackup-token",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Append/replace the configured stackup token in generated file and layout ids.",
+    )
     parser.add_argument("--er", type=float, default=FilterParams.er, help="Relative dielectric constant.")
     parser.add_argument("--h-mm", type=float, default=0.508, help="Dielectric height in mm.")
     parser.add_argument("--name", default=FilterParams.name, help="Output design base name.")
@@ -930,6 +1132,28 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--metal-layer", default="cond", help="ADS layout layer for top metal.")
     parser.add_argument("--via-layer", default="pcvia1", help="ADS layout layer for ground vias.")
+    parser.add_argument(
+        "--ground-layer",
+        default=FilterParams.ground_layer,
+        help="ADS layout layer for an explicit reference ground plane when --include-ground-plane is set.",
+    )
+    parser.add_argument(
+        "--include-ground-plane",
+        action=argparse.BooleanOptionalAction,
+        default=FilterParams.include_ground_plane,
+        help="Draw an explicit rectangular reference ground plane into DXF/layout JSON.",
+    )
+    parser.add_argument(
+        "--ground-boundary-mode",
+        choices=("port-edges", "em-boundary"),
+        default=FilterParams.ground_boundary_mode,
+        help="Ground plane extents. port-edges aligns left/right edges to P1/P2; em-boundary uses full EM boundary.",
+    )
+    parser.add_argument(
+        "--ground-plane-name",
+        default=FilterParams.ground_plane_name,
+        help="Shape name for the explicit reference ground plane.",
+    )
     parser.add_argument("--via-diameter-mm", type=float, default=0.50, help="Round via drawing diameter in mm.")
     parser.add_argument("--via-pad-mm", type=float, default=FilterParams.via_pad_mm, help="Local top-metal pad size around each via in mm.")
     parser.add_argument(
@@ -1000,11 +1224,23 @@ def main() -> None:
         min_fab_feature_mm=args.min_feature_mm,
         metal_layer=args.metal_layer,
         via_layer=args.via_layer,
+        ground_layer=args.ground_layer,
+        include_ground_plane=args.include_ground_plane,
+        ground_boundary_mode=args.ground_boundary_mode,
+        ground_plane_name=args.ground_plane_name,
         via_diameter_mm=args.via_diameter_mm,
         via_pad_mm=args.via_pad_mm,
         via_half_outside=args.via_half_outside,
         via_pad_outside=args.via_pad_outside,
     )
+    if args.stackup_config is not None:
+        stackup = load_stackup_config(args.stackup_config)
+        params = params_with_stackup_config(
+            params,
+            stackup,
+            config_path=args.stackup_config,
+            rename=args.name_stackup_token,
+        )
     outputs = write_outputs(params, args.out_dir)
     print("Generated ADS layout support files:")
     for kind, path in outputs.items():

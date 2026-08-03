@@ -1,0 +1,23 @@
+{
+  "workspace": "D:\\Work\\ADS\\SIMADS_EM_PAR\\SIMADS_EM_PAR",
+  "library": "SIMADS_EM_PAR_lib",
+  "cell": "i7_r13_ref_script_20260803_mm",
+  "view": "layout",
+  "gnd_layer": "ETCH_INNER1",
+  "rows": [
+    {
+      "port": "P1",
+      "name": "portGndLayer",
+      "action": "created",
+      "before": null,
+      "after": "ETCH_INNER1"
+    },
+    {
+      "port": "P2",
+      "name": "portGndLayer",
+      "action": "created",
+      "before": null,
+      "after": "ETCH_INNER1"
+    }
+  ]
+}

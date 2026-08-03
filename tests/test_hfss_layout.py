@@ -86,6 +86,29 @@ def test_create_geometry_uses_configured_stackup_layers() -> None:
     assert app.modeler.calls[3] == ("via", 0.5, 0.5, 0.2, "ETCH_TOP", "ETCH_BOTTOM", "ground_via_1", "GND")
 
 
+def test_create_geometry_accepts_layout_shapes_on_configured_signal_layer() -> None:
+    layout = {
+        "ports": [
+            {"number": 1, "x": -1.0, "y": 0.0},
+            {"number": 2, "x": 2.0, "y": 0.0},
+        ],
+        "shapes": [
+            {"kind": "boundary", "layer": "EM_BOUNDARY", "name": "boundary", "x": -2.0, "y": -1.0, "w": 5.0, "h": 3.0},
+            {"kind": "rect", "layer": "ETCH_TOP", "name": "input_feed", "x": -1.0, "y": 0.0, "w": 0.5, "h": 0.2},
+        ],
+    }
+    app = FakeApp()
+
+    names = create_geometry(
+        app,
+        layout,
+        GeometryBuildOptions(signal_layer="ETCH_TOP", reference_ground_layer="ETCH_INNER1"),
+    )
+
+    assert names == ["hfss_ground_plane", "input_feed"]
+    assert app.modeler.calls[1] == ("rect", "ETCH_TOP", [-1.0, 0.0], [0.5, 0.2], "input_feed", "IN")
+
+
 def test_create_geometry_accepts_explicit_options_without_cli_namespace() -> None:
     layout = {
         "ports": [

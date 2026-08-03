@@ -7,8 +7,11 @@ import json
 from pathlib import Path
 from typing import Any
 
+from .hfss_profiles import HfssProfile, validate_hfss_profile
 from .profiles import AdsProfile, repo_root
 from .projects import ProjectConfig, SweepConfig, root_relative_path
+from .stackups import load_stackup_config
+from simads.stackups.ads import ads_stackup_layer_map
 from simads.devices import get_device
 from simads.scoring import TARGET_SCORE_VERSIONS, TARGET_PROFILES
 
@@ -51,6 +54,7 @@ class PipelineAdsConfig:
     setup_view: str | None = None
     rfpro_emsetup_view: str | None = None
     workspace_profile: str | None = None
+    force_generated_dxf_subset: bool = False
 
     def to_dict(self) -> dict[str, object]:
         return {
@@ -62,6 +66,35 @@ class PipelineAdsConfig:
             "setup_view": self.setup_view,
             "rfpro_emsetup_view": self.rfpro_emsetup_view,
             "workspace_profile": self.workspace_profile,
+            "force_generated_dxf_subset": self.force_generated_dxf_subset,
+        }
+
+
+@dataclass(frozen=True)
+class PipelineHfssConfig:
+    workflow_script: Path | None = Path("tools/hfss/run_hfss3dlayout_filter_verdict.py")
+    profile: str | None = None
+    workspace_dir: Path | None = None
+    route: str = "reliable"
+    stackup_config: Path | None = None
+    design: str = "I7_FR4_HFSS_VERDICT"
+    version: str = "2026.1"
+    port_type: str = "aedt-edge"
+    gnd_boundary_mode: str = "port-edges"
+    non_graphical: bool = True
+
+    def to_dict(self) -> dict[str, object]:
+        return {
+            "workflow_script": str(self.workflow_script) if self.workflow_script is not None else None,
+            "profile": self.profile,
+            "workspace_dir": str(self.workspace_dir) if self.workspace_dir is not None else None,
+            "route": self.route,
+            "stackup_config": str(self.stackup_config) if self.stackup_config is not None else None,
+            "design": self.design,
+            "version": self.version,
+            "port_type": self.port_type,
+            "gnd_boundary_mode": self.gnd_boundary_mode,
+            "non_graphical": self.non_graphical,
         }
 
 
@@ -80,6 +113,7 @@ class PipelineLayerConfig:
             "via_layer": self.via_layer,
             "boundary_layer": self.boundary_layer,
             "layer_map_version": self.layer_map_version,
+            "version": self.layer_map_version,
             "layer_map_strategy": self.layer_map_strategy,
             "layer_map_required": self.layer_map_required,
         }
@@ -149,9 +183,11 @@ class PipelineConfig:
     sweep_id: str | None = None
     device_id: str = "filter.interdigital"
     profile_id: str | None = None
+    simulation_backends: tuple[str, ...] = ("ads_rfpro",)
     units: str = "mm"
     layout: PipelineLayoutConfig = field(default_factory=PipelineLayoutConfig)
     ads: PipelineAdsConfig = field(default_factory=PipelineAdsConfig)
+    hfss: PipelineHfssConfig = field(default_factory=PipelineHfssConfig)
     layer_map: PipelineLayerConfig = field(default_factory=PipelineLayerConfig)
     ports: PipelinePortConfig = field(default_factory=PipelinePortConfig)
     frequency: PipelineFrequencyConfig = field(default_factory=PipelineFrequencyConfig)
@@ -165,9 +201,11 @@ class PipelineConfig:
             "sweep_id": self.sweep_id,
             "device_id": self.device_id,
             "profile_id": self.profile_id,
+            "simulation_backends": list(self.simulation_backends),
             "units": self.units,
             "layout": self.layout.to_dict(),
             "ads": self.ads.to_dict(),
+            "hfss": self.hfss.to_dict(),
             "layer_map": self.layer_map.to_dict(),
             "ports": self.ports.to_dict(),
             "frequency": self.frequency.to_dict(),
@@ -207,10 +245,29 @@ def _resolve_nested_paths(root: Path, value: Any, path_keys: set[str]) -> dict[s
     return output
 
 
+def _simulation_backends(value: Any) -> tuple[str, ...]:
+    if value in (None, ""):
+        return ("ads_rfpro",)
+    if isinstance(value, str):
+        if value == "both":
+            return ("ads_rfpro", "hfss3dlayout")
+        return (value,)
+    if isinstance(value, list):
+        backends: list[str] = []
+        for item in value:
+            if str(item) == "both":
+                backends.extend(["ads_rfpro", "hfss3dlayout"])
+            else:
+                backends.append(str(item))
+        return tuple(dict.fromkeys(backends))
+    return ("ads_rfpro",)
+
+
 def pipeline_from_mapping(data: dict[str, Any], *, root: Path | None = None) -> PipelineConfig:
     base = root or repo_root()
     layout_data = data.get("layout") if isinstance(data.get("layout"), dict) else {}
     ads_data = data.get("ads") if isinstance(data.get("ads"), dict) else {}
+    hfss_data = data.get("hfss") if isinstance(data.get("hfss"), dict) else {}
     layer_data = data.get("layer_map") if isinstance(data.get("layer_map"), dict) else {}
     port_data = data.get("ports") if isinstance(data.get("ports"), dict) else {}
     frequency_data = data.get("frequency") if isinstance(data.get("frequency"), dict) else {}
@@ -223,6 +280,7 @@ def pipeline_from_mapping(data: dict[str, Any], *, root: Path | None = None) -> 
         sweep_id=_optional_str(data.get("sweep_id")),
         device_id=str(data.get("device_id", "filter.interdigital")),
         profile_id=_optional_str(data.get("profile_id")),
+        simulation_backends=_simulation_backends(data.get("simulation_backends") or data.get("backend")),
         units=str(data.get("units", "mm")),
         layout=PipelineLayoutConfig(
             sweep_script=_optional_root_relative_path(base, layout_data.get("sweep_script")),
@@ -241,12 +299,27 @@ def pipeline_from_mapping(data: dict[str, Any], *, root: Path | None = None) -> 
             setup_view=_optional_str(ads_data.get("setup_view")),
             rfpro_emsetup_view=_optional_str(ads_data.get("rfpro_emsetup_view")),
             workspace_profile=_optional_str(ads_data.get("workspace_profile")),
+            force_generated_dxf_subset=bool(ads_data.get("force_generated_dxf_subset", False)),
+        ),
+        hfss=PipelineHfssConfig(
+            workflow_script=_optional_root_relative_path(base, hfss_data.get("workflow_script", "tools/hfss/run_hfss3dlayout_filter_verdict.py")),
+            profile=_optional_str(hfss_data.get("profile")),
+            workspace_dir=_optional_root_relative_path(base, hfss_data.get("workspace_dir")),
+            route=_optional_str(hfss_data.get("route")) or "reliable",
+            stackup_config=_optional_root_relative_path(base, hfss_data.get("stackup_config")),
+            design=_optional_str(hfss_data.get("design")) or "I7_FR4_HFSS_VERDICT",
+            version=_optional_str(hfss_data.get("version")) or "2026.1",
+            port_type=_optional_str(hfss_data.get("port_type")) or "aedt-edge",
+            gnd_boundary_mode=_optional_str(hfss_data.get("gnd_boundary_mode")) or "port-edges",
+            non_graphical=bool(hfss_data.get("non_graphical", True)),
         ),
         layer_map=PipelineLayerConfig(
             metal_layer=_optional_str(layer_data.get("metal_layer")) or "cond",
             via_layer=_optional_str(layer_data.get("via_layer")) or "pcvia1",
             boundary_layer=_optional_str(layer_data.get("boundary_layer")) or "EM_BOUNDARY",
-            layer_map_version=_optional_str(layer_data.get("layer_map_version")) or "profile-default-v1",
+            layer_map_version=_optional_str(layer_data.get("layer_map_version"))
+            or _optional_str(layer_data.get("version"))
+            or "profile-default-v1",
             layer_map_strategy=_optional_str(layer_data.get("layer_map_strategy")) or "profile-default",
             layer_map_required=bool(layer_data.get("layer_map_required", False)),
         ),
@@ -309,6 +382,7 @@ def validate_pipeline(
     *,
     project: ProjectConfig | None = None,
     profile: AdsProfile | None = None,
+    hfss_profile: HfssProfile | None = None,
 ) -> list[PipelineCheck]:
     checks: list[PipelineCheck] = []
 
@@ -317,6 +391,13 @@ def validate_pipeline(
 
     repo = repo_root()
     add("schema_version", pipeline.schema_version == "0.1.0", "pipeline schema version should stay at 0.1.0")
+    add(
+        "simulation_backends",
+        bool(pipeline.simulation_backends)
+        and set(pipeline.simulation_backends).issubset({"ads_rfpro", "hfss3dlayout"})
+        and not ("ads_rfpro" in pipeline.simulation_backends and len(set(pipeline.simulation_backends)) != len(pipeline.simulation_backends)),
+        "simulation_backends must contain ads_rfpro, hfss3dlayout, or both without duplicates",
+    )
     add("units", pipeline.units == "mm", "pipeline units must be mm")
     add("ports.unit", pipeline.ports.unit == "mm", "port units must be mm")
     add("ports.names", tuple(pipeline.ports.names) == ("P1", "P2"), "ports must be P1/P2")
@@ -344,7 +425,18 @@ def validate_pipeline(
     add("ads.setup_view", pipeline.ads.setup_view == "em%Setup", "setup view must stay em%Setup")
     add("ads.rfpro_emsetup_view", pipeline.ads.rfpro_emsetup_view == "emSetup", "RFPro EM setup view must stay emSetup")
     add("layer_map.metal_layer", pipeline.layer_map.metal_layer == "cond", "metal layer must stay cond")
-    add("layer_map.via_layer", pipeline.layer_map.via_layer == "pcvia1", "via layer must stay pcvia1")
+    expected_via_layer = "pcvia1"
+    if project is not None and project.ads.stackup_config is not None:
+        try:
+            stackup = load_stackup_config(project.ads.stackup_config)
+            expected_via_layer = ads_stackup_layer_map(stackup).drill_layer
+        except Exception as exc:
+            add("layer_map.stackup_via_layer", False, f"failed to load stackup via layer: {exc}", project.ads.stackup_config)
+    add(
+        "layer_map.via_layer",
+        pipeline.layer_map.via_layer in {expected_via_layer, "pcvia1"},
+        f"via layer must match active stackup drill layer {expected_via_layer} or legacy pcvia1",
+    )
     add("layer_map.boundary_layer", pipeline.layer_map.boundary_layer == "EM_BOUNDARY", "boundary layer must stay EM_BOUNDARY")
     add("layer_map.version", bool(pipeline.layer_map.layer_map_version), "layer map version must be set")
     add("scoring.target_profile", pipeline.scoring.target_profile in TARGET_PROFILES, "target profile must be known")
@@ -401,6 +493,8 @@ def validate_pipeline(
         ("ads.dataset_export_script", pipeline.ads.dataset_export_script),
         ("scoring.script", pipeline.scoring.script),
     ]
+    if "hfss3dlayout" in pipeline.simulation_backends:
+        path_checks.append(("hfss.workflow_script", pipeline.hfss.workflow_script))
     for name, path in path_checks:
         if path is None:
             add(name, False, "missing path")
@@ -414,5 +508,17 @@ def validate_pipeline(
     if pipeline.layout.params_output_dir is not None:
         resolved = pipeline.layout.params_output_dir if pipeline.layout.params_output_dir.is_absolute() else repo / pipeline.layout.params_output_dir
         add("layout.params_output_dir", resolved.exists(), "params output dir must exist", resolved)
+
+    if "hfss3dlayout" in pipeline.simulation_backends:
+        add("hfss.route", pipeline.hfss.route in {"custom", "reliable", "hfss3dlayout_aedt_edge_gap_gnd_port_edges"}, "HFSS route must be custom or reliable")
+        add("hfss.port_type", pipeline.hfss.port_type in {"aedt-edge", "edge-gap", "pin-gap", "circuit", "wave"}, "HFSS port type must be supported")
+        add("hfss.gnd_boundary_mode", pipeline.hfss.gnd_boundary_mode in {"em-boundary", "port-edges"}, "HFSS GND boundary mode must be supported")
+        if pipeline.hfss.stackup_config is not None:
+            resolved = pipeline.hfss.stackup_config if pipeline.hfss.stackup_config.is_absolute() else repo / pipeline.hfss.stackup_config
+            add("hfss.stackup_config", resolved.exists(), "HFSS stackup config must exist", resolved)
+        if hfss_profile is not None:
+            add("hfss.profile", pipeline.hfss.profile in (None, "auto", hfss_profile.name), "pipeline HFSS profile must match loaded HFSS profile")
+            for check in validate_hfss_profile(hfss_profile):
+                add(f"hfss.profile.{check.name}", check.ok, check.message, check.path)
 
     return checks

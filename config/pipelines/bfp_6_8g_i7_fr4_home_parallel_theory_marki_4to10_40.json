@@ -22,7 +22,8 @@
     "template_cell": "SIMADS_EM_TEMPLATE_2PORT_FEM",
     "setup_view": "em%Setup",
     "rfpro_emsetup_view": "emSetup",
-    "workspace_profile": "home_simads_em_parallel"
+    "workspace_profile": "home_simads_em_parallel",
+    "force_generated_dxf_subset": true
   },
   "layer_map": {
     "metal_layer": "cond",

@@ -4,7 +4,7 @@ Status: Active
 Domain: FLOW
 Canonical: `docs/flow/FLOW_STANDARD_PIPELINE_CONTRACT.md`
 Related: `docs/flow/FLOW_RUN_STATE_MACHINE.md`, `docs/flow/FLOW_ADS_WORKSPACE_WRITE_POLICY.md`, `docs/arch/ARCH_REFACTOR_TODO.md`, `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`
-Last updated: 2026-08-01
+Last updated: 2026-08-03
 Owner: ADS Automation
 
 本文档定义 SIM 项目中版图生成、ADS 导入、emSetup/RFPro FEM、数据导出和评分的标准 pipeline 契约。目标是让后续滤波器迭代只改变候选参数，不再临时改变模板、层映射、单位、端口和评分口径。
@@ -37,6 +37,7 @@ units       = mm
 | 边界层 | `EM_BOUNDARY` | EM 边界矩形层。 |
 | 层映射版本 | `profile-default-v1` | 记录生成器与 ADS profile 默认层映射假设。 |
 | 端口 | `P1`, `P2` | 端口坐标来自 params/layout JSON，端口必须落在金属层。 |
+| ADS 端口参考层 | `portGndLayer=<reference layer>` | 端口参考层必须写入 layout `Term` 的 OA 字符串属性；当前 JLC clean layout 使用 `ETCH_INNER1`。 |
 | 评分目标 | `fr4_25db_rl6` | 当前低成本 FR4 分支评分 profile。 |
 | 评分版本 | `fr4_i7_score_v1` | 与 target profile 绑定。 |
 
@@ -111,6 +112,34 @@ CLI override -> project active sweep pipeline_id -> project pipeline_id -> legac
 
 
 拓扑专项 gate 默认自动执行：`check_layout_contract.py` 使用 `--topology-check auto`，`run_ads_filter_sweep.py` 使用 `--layout-topology-check auto`。pixel QR 分支可用 `--min-metal-spacing-mm` 固定最小金属间距，用 `--max-island-components` 在正式工艺策略确定后收紧孤岛数量。
+
+## 5. ADS 端口参考层契约
+
+ADS layout 导入后，端口参考层不能只依赖 GUI 状态、`emStateFile.xml` 或 `secondary_term_info`。已确认 ADS GUI 对 layout port 参考层的持久化位置是端口 `Term` 上的 OpenAccess 字符串属性：
+
+```text
+portGndLayer = <reference layer name>
+```
+
+自动导入脚本必须满足：
+
+- `P1/P2` 均存在 layout `Term`。
+- `P1/P2` 的 `Term` 均有 `portGndLayer` 属性。
+- `portGndLayer` 指向端口所在信号层的参考导体层；当前干净 ADS 试验版图为 `ETCH_INNER1`。
+- 参考层必须存在实际铜皮，并按当前层叠口径作为 GND 平面参与 EM。
+- 若 stackup 中存在 L3/L4 等更深 GND 层，但快速 clean layout 只画 L1+L2，则 L3/L4 保留在层叠配置中，不默认画进 layout 几何。
+
+推荐 ADS API 写法：
+
+```python
+existing = term.find_prop("portGndLayer")
+if existing is None:
+    db_uu.StringProp.create(term, "portGndLayer", reference_layer)
+else:
+    existing.value = reference_layer
+```
+
+该模式属于通用 OA 属性写入能力。后续 ADS GUI 中可手动完成但 API 不清楚的设置，应优先使用“人工基准 cell 和脚本 cell 对象属性 diff”的方式定位真实持久化字段。
 
 ## 6. 多分支扩展规则
 

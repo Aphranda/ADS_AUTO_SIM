@@ -153,8 +153,20 @@ def bounds_from_seed(seed: FilterParams) -> tuple[np.ndarray, np.ndarray]:
     return lower, upper
 
 
-def sample_pool(seed: FilterParams, rng: np.random.Generator, count: int) -> list[dict[str, float]]:
+def sample_pool(seed: FilterParams, rng: np.random.Generator, count: int, span_scale: float) -> list[dict[str, float]]:
     lower, upper = bounds_from_seed(seed)
+    if span_scale <= 0.0:
+        raise ValueError("--span-scale must be > 0")
+    if span_scale != 1.0:
+        center = 0.5 * (lower + upper)
+        half_span = 0.5 * (upper - lower) * span_scale
+        lower = center - half_span
+        upper = center + half_span
+        lower[3:6] = np.maximum(lower[3:6], MIN_GAP_MM + 0.004)
+        lower[8] = max(lower[8], 0.17)
+        upper[8] = min(upper[8], 0.22)
+        lower[9] = max(lower[9], 0.050)
+        upper[9] = min(upper[9], 0.072)
     uniform_count = max(count // 2, 1)
     uniform = lower + latin_hypercube(rng, uniform_count, len(lower)) * (upper - lower)
     center = 0.5 * (lower + upper)
@@ -218,6 +230,9 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--count", type=int, default=768)
     parser.add_argument("--seed", type=int, default=909)
+    parser.add_argument("--name-prefix", default="i7_fr4_r9_asym")
+    parser.add_argument("--notes", default="round9 asym-gap refined-NN pool around ADS-best i7_fr4_r8_nn0447")
+    parser.add_argument("--span-scale", type=float, default=1.0)
     return parser.parse_args()
 
 
@@ -225,11 +240,11 @@ def main() -> None:
     args = parse_args()
     seed_params = read_seed(args.seed_params)
     rng = np.random.default_rng(args.seed)
-    rows = sample_pool(seed_params, rng, args.count)
+    rows = sample_pool(seed_params, rng, args.count, args.span_scale)
     plan_rows: list[dict[str, str]] = []
     args.out_dir.mkdir(parents=True, exist_ok=True)
     for idx, row in enumerate(rows, start=1):
-        name = f"i7_fr4_r9_asym{idx:04d}"
+        name = f"{args.name_prefix}{idx:04d}"
         params = params_from_row(seed_params, name, row)
         write_outputs(params, args.out_dir)
         plan_rows.append(
@@ -238,7 +253,7 @@ def main() -> None:
                 **{key: fmt(row[key]) for key in PARAM_COLUMNS},
                 "metal_layer": seed_params.metal_layer,
                 "via_layer": seed_params.via_layer,
-                "notes": "round9 asym-gap refined-NN pool around ADS-best i7_fr4_r8_nn0447",
+                "notes": args.notes,
             }
         )
     write_plan(args.plan, plan_rows)

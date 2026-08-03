@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "i7_fr4_r13_retest_base_l555_taper",
+  "verdict": "needs_tuning",
+  "ads": {
+    "score_csv": "projects\\bfp_6_8g_i7_fr4\\results\\interdigital_7o_fr4_210um_round13_retest_4to10_40\\i7_fr4_r13_retest_base_l555_taper_mm_coords_score.csv",
+    "metrics": {
+      "status": "TUNE",
+      "s21_5g_db": -26.98,
+      "s21_6g_db": -2.51,
+      "s21_7g_db": -3.06,
+      "s21_8g_db": -4.6,
+      "s21_9g_db": -55.59,
+      "passband_min_s21_db": -4.6,
+      "passband_ripple_db": 3.07,
+      "worst_s11_6_8_db": -4.26,
+      "worst_s22_6_8_db": -4.2
+    }
+  },
+  "hfss": {
+    "score_csv": "projects\\bfp_6_8g_i7_fr4\\results\\hfss_smoke_i7_fr4_r13_reliable_jlc_4to10_40\\i7_fr4_r13_retest_base_l555_taper_hfss_score.csv",
+    "run_manifest": "projects\\bfp_6_8g_i7_fr4\\runs\\hfss_smoke_i7_fr4_r13_reliable_jlc_4to10_40\\run_manifest.json",
+    "metrics": {
+      "status": "TUNE",
+      "s21_5g_db": -21.67,
+      "s21_6g_db": -3.24,
+      "s21_7g_db": -4.04,
+      "s21_8g_db": -5.52,
+      "s21_9g_db": -33.34,
+      "passband_min_s21_db": -5.52,
+      "passband_ripple_db": 2.27,
+      "worst_s11_6_8_db": -6.92,
+      "worst_s22_6_8_db": -6.88
+    }
+  },
+  "compare": {
+    "summary_csv": "projects\\bfp_6_8g_i7_fr4\\results\\compare_ads_hfss_i7_fr4_r13_reliable_jlc\\i7_fr4_r13_base_ads_vs_hfss_summary.csv",
+    "svg": "projects\\bfp_6_8g_i7_fr4\\results\\compare_ads_hfss_i7_fr4_r13_reliable_jlc\\i7_fr4_r13_base_ads_vs_hfss.svg",
+    "run_manifest": "projects\\bfp_6_8g_i7_fr4\\runs\\compare_ads_hfss_i7_fr4_r13_reliable_jlc\\run_manifest.json",
+    "metrics": {
+      "s11": {
+        "sparam": "s11",
+        "points": 40.0,
+        "max_abs_delta_db": 11.4287,
+        "mean_abs_delta_db": 3.00129,
+        "rms_delta_db": 4.10881,
+        "passband_mean_abs_delta_db": 4.38172,
+        "delta_at_5g_db": -0.515876,
+        "delta_at_6g_db": -6.09101,
+        "delta_at_7g_db": -1.49336,
+        "delta_at_8g_db": -2.98783,
+        "delta_at_9g_db": -2.0261
+      },
+      "s21": {
+        "sparam": "s21",
+        "points": 40.0,
+        "max_abs_delta_db": 31.8965,
+        "mean_abs_delta_db": 6.2099,
+        "rms_delta_db": 9.64593,
+        "passband_mean_abs_delta_db": 1.21163,
+        "delta_at_5g_db": 5.06359,
+        "delta_at_6g_db": -0.736637,
+        "delta_at_7g_db": -1.34882,
+        "delta_at_8g_db": -0.919926,
+        "delta_at_9g_db": 19.7919
+      },
+      "s22": {
+        "sparam": "s22",
+        "points": 40.0,
+        "max_abs_delta_db": 10.4684,
+        "mean_abs_delta_db": 2.84383,
+        "rms_delta_db": 3.83551,
+        "passband_mean_abs_delta_db": 3.82141,
+        "delta_at_5g_db": -0.510175,
+        "delta_at_6g_db": -6.09656,
+        "delta_at_7g_db": -1.81489,
+        "delta_at_8g_db": -3.32128,
+        "delta_at_9g_db": -1.95115
+      }
+    }
+  }
+}

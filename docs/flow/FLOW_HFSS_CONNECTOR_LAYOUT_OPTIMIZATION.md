@@ -200,14 +200,14 @@ artifact_manifest
 
 ### Phase 1: 参数化连接器过渡
 
-- [ ] 新增 connector launch 参数 schema。
-- [ ] 新增 microstrip+connector generator：输入 stackup/50R template 和 connector 参数，输出微带线+连接器 layout JSON。
-- [ ] 增加连接器区域 DRC：pad、clearance、via、edge setback、symmetry、manufacturing limit。
-- [ ] 生成 3-5 个 smoke 候选，只做 layout gate，不启动 HFSS。
+- [x] 新增 connector launch 参数 schema。
+- [x] 新增 microstrip+connector generator：输入 stackup/50R template 和 connector 参数，输出微带线+连接器 layout JSON。
+- [x] 增加连接器区域 DRC：pad、clearance、via、edge setback、symmetry、manufacturing limit。
+- [x] 生成 3-5 个 smoke 候选，只做 layout gate，不启动 HFSS。
 
 ### Phase 2: HFSS 自动求解闭环
 
-- [ ] 在 HFSS workflow 中支持 `fixture_type=microstrip_connector_50r`。
+- [x] 在 HFSS workflow 中支持 `fixture_type=microstrip_connector_50r` 的 dry-run/manifest 记录。
 - [ ] 固定 connector route 的端口、reference plane、deembedding 和 GND reference。
 - [ ] 对一个 smoke 候选执行 HFSS solve，输出完整 manifest。
 - [ ] 与 50R baseline 做 S 参数 delta compare。

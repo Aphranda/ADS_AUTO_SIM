@@ -1,8 +1,8 @@
-# HFSS/pyAEDT 裁决流程
+# HFSS/pyAEDT Backend 流程
 
 ## 目标
 
-用 HFSS 3D Layout 对 ADS/RFPro 的关键候选做独立复核，重点裁决当前七阶 FR4 交指带通滤波器在 `S11/S22` 上的漂移是否来自 ADS 模板、端口、拟合数据源或版图本身。
+用 HFSS 3D Layout 作为 ADS/RFPro 之外的标准仿真 backend。当前仍保留“裁决/复核”用途：对 ADS/RFPro 的关键候选做独立复核，判断当前七阶 FR4 交指带通滤波器在 `S11/S22` 上的漂移是否来自 ADS 模板、端口、拟合数据源或版图本身。后续标准 pipeline 入口通过 `simulation_backends=ads_rfpro|hfss3dlayout|both` 选择 ADS、HFSS 或双后端运行。
 
 ## 当前基线
 
@@ -38,6 +38,22 @@
 - 旧的 edge/circuit/wave 端口方式只作为排查选项保留，默认不再使用。
 
 ## 推荐命令
+
+标准 pipeline 串行 sweep 入口，默认仍是 ADS/RFPro；显式选择 HFSS 时会通过 `tools\run_sim_filter_candidate.py` 调用 HFSS workflow：
+
+```powershell
+python tools\run_ads_filter_sweep.py `
+  --backend hfss `
+  --project-id bfp_6_8g_i7_fr4 `
+  --pipeline-id bfp_6_8g_i7_fr4_home_parallel_round13_retest_4to10_40 `
+  --profile home_simads_em_parallel `
+  --hfss-profile home `
+  --skip-generate `
+  --hfss-build-only `
+  --candidates i7_fr4_r13_retest_base_l555_taper
+```
+
+当前 round13 既有 layout JSON 是历史产物，若 layout gate 报 `layer_map.version`，应优先重新生成 layout；临时验证编排命令时可加 `--skip-layout-check`。
 
 先只建工程，不跑仿真：
 
@@ -88,6 +104,47 @@
 
 ## 最新试跑
 
+2026-08-03 已把 HFSS 接入标准 pipeline contract 的第一阶段：
+
+- `config/pipelines/bfp_6_8g_i7_fr4_home_parallel_round13_retest_4to10_40.json` 已登记 `simulation_backends=["ads_rfpro","hfss3dlayout"]` 和 `hfss` 配置段。
+- `tools/check_pipeline_contract.py` 已能检查 HFSS workflow script、Home HFSS profile、AEDT 可执行文件、pyAEDT host Python、workspace 和 stackup_config。
+- `tools/run_sim_filter_candidate.py` 已作为标准单候选薄入口，可用 `--backend ads|hfss|both` 生成或执行 ADS/HFSS 命令；第一阶段不改动稳定的 `tools/run_ads_filter_candidate.py`。
+- `tools/run_ads_filter_sweep.py` 已支持显式 `--backend hfss|both|auto`，将 HFSS 后端接入串行 sweep；默认仍为 `--backend ads`，不改变旧 ADS 批量行为。
+- `tools/run_ads_filter_sweep_parallel.py` 暂保持 ADS/RFPro 专用，传入 HFSS/both/auto 会拒绝并提示改用串行 sweep。
+- HFSS 仍输出独立 run/artifact manifest；串行 sweep 结束时会从 run manifests 写出 `backend_summary.csv`，其中包含 `pipeline_id`。ADS/HFSS compare 保持独立 workflow，不混入 HFSS backend 主流程。
+- smoke：使用 `--backend hfss --hfss-build-only --hfss-dry-run --skip-layout-check` 跑通 round13 基础候选的标准 sweep 编排，实际调用到 HFSS workflow dry-run，并确认 manifest context 中 `run_id`、`round_id`、`candidate_id`、`profile_id=home` 正确。
+
+2026-08-03 已跑通标准 sweep 的 HFSS build-only gate：
+
+- round13 layout 已用 `JLC04161H_7628_1P6MM` stackup 重新生成，正式目录不跳过 layout gate 可通过。
+- 修复 `src/simads/hfss/layout.py`：HFSS geometry builder 现在同时接受旧 `cond` 和配置化 `signal_layer`，例如 `ETCH_TOP`。此前真实 build-only 在 `CreateEdgePort(input_feed, edge=1)` 失败，根因是 `ETCH_TOP` 信号图形未被创建。
+- 工程：`D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\i7_fr4_r13_retest_base_l555_taper_hfss.aedt`
+- 结果索引：`projects\bfp_6_8g_i7_fr4\results\hfss_round13_standard_backend_build\backend_summary.csv`
+- 最新成功 run：`bfp_6_8g_i7_fr4_round13_i7_fr4_r13_retest_base_l555_taper_home_20260803_223950`
+- 状态：`completed/setup_ready`，`geometry_count=26`，ports=`Port1/Port2`，manifest 已记录 `pipeline_id=bfp_6_8g_i7_fr4_home_parallel_round13_retest_4to10_40`。
+
+2026-08-03 已通过标准 sweep 入口完成真实 HFSS solve：
+
+- 命令入口：`tools\run_ads_filter_sweep.py --backend hfss`，不再使用 verdict-only 手工命令。
+- 工程：`D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\i7_fr4_r13_retest_base_l555_taper_hfss.aedt`
+- 结果目录：`projects\bfp_6_8g_i7_fr4\results\hfss_round13_standard_backend_solve\`
+- 最新 run：`bfp_6_8g_i7_fr4_round13_i7_fr4_r13_retest_base_l555_taper_home_20260803_224339`
+- 状态：`completed/scored`，elapsed `176.178s`，AEDT reported solve time 约 `2m29s`。
+- 输出：S2P、trace CSV、score CSV、S 参数 SVG、run/artifact manifest、`backend_summary.csv`。
+- 摘要：score=`TUNE`，`S21@5/6/7/8/9GHz=-21.67/-3.24/-4.04/-5.52/-33.34dB`，`passband_min_s21=-5.52dB`，`worst_s11/s22=-6.92/-6.88dB`。
+- ADS/HFSS compare：`projects\bfp_6_8g_i7_fr4\results\compare_ads_hfss_round13_standard_backend\i7_fr4_r13_base_ads_smoke_vs_hfss_standard_summary.csv`。
+- Compare 结论：S21 overall mean abs delta `6.21dB`，6-8 GHz passband mean abs delta `1.21dB`；5 GHz HFSS 比 ADS 弱约 `5.06dB`，9 GHz 差异仍很大。
+
+2026-08-03 同一标准 HFSS backend 已完成 round13 三个候选：
+
+| Candidate | Status | S21@5G | S21@6G | S21@8G | Passband min | Ripple | Worst S11 | Worst S22 | 结论 |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---|
+| `i7_fr4_r13_retest_r11b_asym3016` | TUNE | -23.48 | -3.36 | -4.92 | -4.92 | 1.62 | -5.74 | -5.89 | 通带 S21 最好，但 5GHz 阻带和回损未达目标。 |
+| `i7_fr4_r13_retest_r10_asym0555` | TUNE | -22.87 | -3.29 | -5.35 | -5.35 | 2.08 | -6.09 | -6.12 | 回损刚过 -6dB，但 5GHz 阻带和 8GHz 通带未达目标。 |
+| `i7_fr4_r13_retest_base_l555_taper` | TUNE | -21.67 | -3.24 | -5.52 | -5.52 | 2.27 | -6.92 | -6.88 | 回损最好，但 5GHz 阻带和 8GHz 通带最弱。 |
+
+统一索引：`projects\bfp_6_8g_i7_fr4\results\hfss_round13_standard_backend_solve\backend_summary.csv`，ranking：`projects\bfp_6_8g_i7_fr4\results\hfss_round13_standard_backend_solve\hfss_score_ranking.csv`。
+
 2026-08-02 用 `aedt-edge + port-edges GND` 跑通 `i7_fr4_r13_retest_base_l555_taper` 的 HFSS 3D Layout 4-10 GHz、40 点 sweep。
 
 - 工程：`D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\i7_fr4_r13_retest_base_l555_taper_hfss_aedt_edge_port_gnd_airbox.aedt`
@@ -115,6 +172,15 @@
 结论：HFSS 自动化主流程现在可以真实跑通。JLC 层叠口径下，HFSS 与 ADS 在 6-8 GHz 的 S21 差异均值约 `1.21 dB`，但 5 GHz 和 9 GHz 带外差异仍明显，后续需要继续对齐 ADS 层叠、端口属性读回和高频带外边界条件。
 
 ## 待办
+
+- [x] 将 HFSS 从 verdict-only 文档口径推进为标准 backend 的第一阶段：pipeline contract、HFSS config、只读 gate、单候选入口。
+- [x] 将 `run state machine` 从 ADS 专用 stage 泛化为 backend 通用 stage，覆盖 HFSS build/ports/setup/solve/export/score。
+- [x] 在 sweep/backend summary 中记录每个 candidate 的 backend、simulator、run_id、score path 和 trace path。
+- [x] 将 HFSS backend 接入串行 sweep 编排；默认仍保持 ADS/RFPro。
+- [x] 重新生成 round13 layout JSON，使 `metadata.layer_map_version` 与当前 pipeline contract 对齐，再去掉 `--skip-layout-check` 跑 build-only gate。
+- [x] 通过标准 sweep 入口执行真实 HFSS solve，生成 S2P/trace/score/SVG，并与 ADS/RFPro 结果对比。
+- [x] 对 round13 另外两个候选执行同一标准 HFSS backend solve，并用统一 summary 排序。
+- [ ] 按当前 round13 pipeline 同口径补跑 r10/r11b 的 ADS/RFPro，再生成 ADS/HFSS compare。
 
 - [x] 安装 pyAEDT 到 `ads-automation` 虚拟环境。
 - [x] 新增 HFSS 3D Layout 裁决入口。

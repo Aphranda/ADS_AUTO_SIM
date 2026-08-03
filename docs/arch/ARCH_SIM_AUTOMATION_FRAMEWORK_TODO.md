@@ -37,6 +37,15 @@ Last updated: 2026-08-02
   - ADS sweep 生成、并发生成、candidate manifest 和 HFSS 默认工程/输出名已接入 stackup token。
   - 历史 baseline 不重命名、不覆盖。
 
+- [x] 层叠配置能力独立成模组。
+  - 纯配置模型在 `src/simads/config/stackups.py`。
+  - simulator-independent 入口在 `src/simads/stackups/`。
+  - ADS 映射在 `src/simads/stackups/ads.py`，只生成 layer/substrate/material/display 规格。
+  - ADS workspace 写入在 `src/simads/ads/stackup_sync.py` 和 `tools/ads/ads_sync_stackup_tech_layers.py`，不污染 HFSS/NN 模块。
+  - ADS substrate stack 按 bottom-to-top 生成；真实参考地使用 layout 中的有限 GND 铜皮，不使用 `groundplane=1`，避免 ADS 生成中间 Cover。
+  - JLC 四层板配置显式登记 `ground_layers = ETCH_INNER1 / ETCH_INNER2 / ETCH_BOTTOM`；ADS generated-DXF fallback 导入时将这些层的地铜生成为 `GND` Plane。
+  - ADS candidate/sweep/parallel flow 已支持 `--force-generated-dxf-subset`，pipeline 可用 `ads.force_generated_dxf_subset=true` 固化该导入路线，避免 ADS 原生 DXF 导入绕过 GND Plane net 赋值。
+
 ## P1 HFSS 模块拆分
 
 - [x] 将 `src/simads/hfss/workflow.py` 拆成更细模块。

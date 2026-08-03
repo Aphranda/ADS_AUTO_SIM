@@ -241,7 +241,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--source-workspace", type=Path, default=DEFAULT_SOURCE_WORKSPACE)
     parser.add_argument("--source-library", default=DEFAULT_SOURCE_LIBRARY)
     parser.add_argument("--source-template-cell", default=DEFAULT_SOURCE_TEMPLATE_CELL)
-    parser.add_argument("--source-substrate", default=DEFAULT_SUBSTRATE)
+    parser.add_argument("--source-substrate", default=DEFAULT_SOURCE_SUBSTRATE)
     parser.add_argument("--substrate-name", default=DEFAULT_SUBSTRATE)
     parser.add_argument("--setup-view", default=DEFAULT_SETUP_VIEW)
     parser.add_argument("--overwrite-empty", action="store_true", help="Allow replacing an existing empty workspace directory.")

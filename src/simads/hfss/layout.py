@@ -46,6 +46,7 @@ def _geometry_options(options: GeometryBuildOptions | argparse.Namespace) -> Geo
 
 def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOptions | argparse.Namespace) -> list[str]:
     geometry = _geometry_options(options)
+    signal_layers = {"cond", geometry.signal_layer}
     names: list[str] = []
     boundary = resolve_gnd_boundary(layout, geometry)
     if boundary:
@@ -64,7 +65,7 @@ def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOpti
         if layer == "EM_BOUNDARY" or kind == "boundary":
             continue
         name = shape.get("name")
-        if kind == "rect" and layer == "cond":
+        if kind == "rect" and layer in signal_layers:
             obj = app.modeler.create_rectangle(
                 geometry.signal_layer,
                 [shape["x"], shape["y"]],
@@ -74,7 +75,7 @@ def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOpti
             )
             if obj:
                 names.append(obj.name)
-        elif kind == "polygon" and layer == "cond":
+        elif kind == "polygon" and layer in signal_layers:
             obj = app.modeler.create_polygon(
                 geometry.signal_layer,
                 [[float(x), float(y)] for x, y in shape["points"]],

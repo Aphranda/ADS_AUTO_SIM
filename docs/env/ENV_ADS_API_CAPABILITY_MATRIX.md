@@ -4,7 +4,7 @@ Status: Draft
 Domain: ENV
 Canonical: `docs/env/ENV_ADS_API_CAPABILITY_MATRIX.md`
 Related: `docs/arch/ADS版图自动仿真项目框架设计.md`, `projects/bfp_6_8g_i7_fr4/docs/ADS自动仿真流程说明.md`
-Last updated: 2026-08-01
+Last updated: 2026-08-03
 Owner: ADS Automation
 
 本文档登记本机 ADS 2026 Update 1 的 API 文档源、Python 包、示例和项目验证状态。任何自动化能力进入批量仿真前，都应先在这里登记并完成 smoke test。
@@ -69,13 +69,82 @@ scipy-1.16.0-cp313-cp313-win_amd64.whl
 | library/cell/view 检查 | DE Python OpenAccess 对象 | `doc\python\de\html\pypde\docs\reference\index.html` | L3 | 待 smoke test | 手动 ADS GUI 检查 |
 | DXF 导入 | `tools\ads_import_dxf_add_ports.py` / ADS import AEL | `doc\ads\...\ael\Examples_DXF_Import.html` | L3 | 需回归确认 | 手动 Import DXF |
 | 端口放置 | 当前 ADS import 脚本 / DE layout API | `doc\python\de` | L3 | 需回归确认 | 手动 layout port |
+| OA 对象属性读写 | `db_uu.StringProp.create(owner, name, value)` / `owner.find_prop(name)` | DE Python OpenAccess 对象探测；`tools\ads\ads_set_port_gnd_layer_prop.py` | L3 | 已验证 `Term.portGndLayer` | 手动 ADS GUI 设置属性后重新探测 |
 | layer/unit 检查 | DE/Pysubst/AEL technology 函数 | `doc\python\de\html\pysubst`、`tech_get_layout_units()` | L3 | 待验证 | 手动 layer map 检查 |
 | substrate 读取 | `keysight-ads-subst` / AEL substrate 函数 | `doc\python\de\html\pysubst`、`Technology_Functions_-_Substrate.html` | L3 | 待验证 | 手动 substrate editor |
 | substrate 从零生成 | `SubstrateModel`、`SubstrateStack` 等 | `keysight.edatoolbox.ads`、pysubst 文档 | L1/L2 | 待研究 | 模板 substrate 复制 |
 | emSetup 克隆 | `tools\ads_clone_emsetup_template.py` | 当前项目脚本和模板工程 | L2/L3 | 需日志增强 | 手动复制 view |
-| RFPro/FEM 启动 | `tools\ads_run_rfpro_fem.py` / EDA Toolbox xxPro | `doc\python\edatoolbox\html\Examples\ex_odbpp_simulate_rfpro.html` | L3 | 需超时定位 | GUI RFPro 复测 |
+| RFPro/FEM 启动 | `tools\ads_run_rfpro_fem.py` / EDA Toolbox xxPro | `doc\python\edatoolbox\html\Examples\ex_odbpp_simulate_rfpro.html`、本机 API probe | L3 | 已验证 `Analysis.fromEmSetup()` + `runAnalysis()` | GUI EMSetup/RFPro 复测 |
 | dataset 导出 | `keysight.ads.dataset`、`pwdatatools`、`export_ads_fem_dataset.py` | `doc\python\dataset`、`doc\python\pwdatatools` | L4 | 需双通道复核 | RFPro CSV 导出 |
 | S 参数评分 | host Python / numpy/pandas | 项目评分脚本 | L4 | 已可用 | 手动 CSV 复核 |
+
+### 4.1 OA 对象属性写入确认
+
+`db_uu.StringProp.create(owner, name, value)` 已确认是 ADS OpenAccess 对象的通用字符串属性写入入口，不应只理解为端口参考层专用函数。当前已验证的 owner 类型是 layout `Term`，后续可继续用同一机制探测 cell、view、shape、pin、term 等对象上 GUI 操作留下的属性差异。
+
+已验证场景：
+
+```python
+existing = term.find_prop("portGndLayer")
+if existing is None:
+    db_uu.StringProp.create(term, "portGndLayer", "ETCH_INNER1")
+else:
+    existing.value = "ETCH_INNER1"
+```
+
+在 `i7_r13_ref_script_20260803_mm` 上写入后，ADS GUI 可保持端口参考层设置；与手动设置参考层的 `i7_r13_ref_manual_20260803_mm` 对比，`P1/P2` 的关键属性一致：
+
+```text
+portFeedType = Auto
+portGndLayer = ETCH_INNER1
+portType = None
+```
+
+结论：
+
+- `portGndLayer=<reference layer>` 是当前 ADS layout port 参考层持久化的核心属性。
+- `emStateFile.xml` 和界面 XML 更像 GUI 状态或缓存，不足以作为端口参考层的主写入点。
+- `secondary_term_info` 已测试，不是本场景中 ADS GUI 端口参考层的持久化机制。
+- 该属性写入函数的价值在于“先人工操作，再对象探测，再脚本复刻”。后续遇到 ADS GUI 有能力但公开 API 不明确的配置项，应优先比较对象属性，而不是直接 patch XML。
+
+### 4.2 EMSetup 仿真启动确认
+
+2026-08-03 已按同样的 API 探测方法确认：当前未发现稳定的 ADS DE 侧 `EMSetup.simulate()` 或 GUI Simulate 按钮直接 API。可自动化、可复测的启动入口在 RFPro/xxPro Python 上下文中：
+
+```python
+xxpro.use_workspace(workspace_path)
+xxpro.load_pro_view(ads.LibraryCellView(library=library_name, cell=cell_name, view=rfpro_view_name))
+analysis = empro.analysis.Analysis.fromEmSetup("emSetup")
+empro.toolkit.analysis.runAnalysis(analysis, waitForConfirmation=False, saveProject=True)
+empro.toolkit.simulation.wait(empro.activeProject.simulations[-1])
+```
+
+其中 `emSetup` 是 RFPro/EMPro 项目内部识别的 EM setup 名称；物理 ADS view 目录仍可能是 `em%Setup`。标准流程仍是：
+
+1. 用 ADS Python `keysight.ads.emtools.create_empro_view()` 或 `update_empro_view()` 由 layout + substrate 创建 RFPro view。
+2. 进入 `keysight.edatoolbox.multi_python.xxpro_context()`。
+3. 在 xxPro 子进程中 `load_pro_view()`。
+4. 在同一 xxPro 子进程中 `Analysis.fromEmSetup("emSetup")`。
+5. 用 `runAnalysis()` 启动，并用 `simulation.wait()` 等待完成。
+
+重要边界：
+
+- `empro` 模块必须在 `xxpro_context()` 子进程内导入和使用，不应在父 ADS Python 进程里导入后把枚举值传入子进程。
+- 若需要接近 GUI EMSetup Simulate 的结果回写行为，可在子进程内设置 `analysis.onResultsAction = empro.analysis.Analysis.OaEmdataViewORA`。
+- `--plan-type Adaptive --points 40` 不保证导出 40 个频点；本次验证实际导出 20 点。若需要固定点数，应使用 `--plan-type Linear`。
+
+验证记录：
+
+```text
+cell = SIMADS_EM_PAR_lib:i7_r13_ref_script_20260803_mm
+rfpro_view = rfpro_emsetup_start_probe3_20260803
+analysis = emsetup_start_probe3_4to10_40
+command = tools\ads\ads_run_rfpro_fem.py --on-results-action oa-emdata
+requested = 4-10 GHz, Adaptive, 40 points, max_passes=8
+actual = 20 exported points, finished in about 3 minutes
+csv = projects\bfp_6_8g_i7_fr4\results\emsetup_start_probe_i7_r13_ref_script_20260803\rfpro_emsetup_start_probe3_40pt.csv
+log = projects\bfp_6_8g_i7_fr4\reports\ads_emsetup_start_probe3_40pt_20260803.log
+```
 
 ## 5. Smoke Test 清单
 

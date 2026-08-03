@@ -1,0 +1,285 @@
+{
+  "generated_at": "2026-08-03T00:37:07",
+  "python": "D:\\Hardware\\Keysight\\ADS2026_Update1\\tools\\python\\python.exe",
+  "target": {
+    "workspace": "D:\\Work\\ADS\\SIMADS_EM_PAR\\SIMADS_EM_PAR",
+    "library": "SIMADS_EM_PAR_lib",
+    "cell": "i7_fr4_r13_rt_b_l555_tp_jlc_gui_ref_20260803_mm",
+    "view": "layout"
+  },
+  "design": {
+    "design_name": "SIMADS_EM_PAR_lib:i7_fr4_r13_rt_b_l555_tp_jlc_gui_ref_20260803_mm:layout",
+    "unit_name": "mm",
+    "uu_to_dbu_factor": 1000,
+    "dbu_to_uu_factor": 0.001,
+    "meter_to_dbu_factor": 1000000.0,
+    "dbu_to_meter_factor": 1e-06,
+    "meter_to_uu_factor": 1000.0,
+    "uu_to_meter_factor": 0.001,
+    "bbox": "<BoxF (-5.04, -1.5), (8.55, 7.532)>"
+  },
+  "terms": [
+    {
+      "repr": "<ScalarTerm \"P1\">",
+      "python_type": "ScalarTerm",
+      "type": "<ApolloType 62>",
+      "name": "P1",
+      "number": 0,
+      "term_type": {
+        "name": "INPUT_OUTPUT",
+        "_repr": "<TermType.INPUT_OUTPUT: 2>"
+      },
+      "is_implicit": false,
+      "is_delta_gap_port": false,
+      "ref_plane_shift_dbu": 0.0,
+      "ref_plane_shift_meters": 0.0,
+      "net": "P1",
+      "secondary_term_info": [],
+      "parameters": [
+        {
+          "repr": "<Param \"Z\"=\"50 Ohm\">",
+          "name": "Z",
+          "value": "50 Ohm",
+          "evaluate_without_expr": 50.0
+        },
+        {
+          "repr": "<Param \"RefPlane\"=\"0 mm\">",
+          "name": "RefPlane",
+          "value": "0 mm",
+          "evaluate_without_expr": 0.0
+        },
+        {
+          "repr": "<Param \"Noise\"=\"yes\">",
+          "name": "Noise",
+          "value": "yes",
+          "evaluate_without_expr": "yes"
+        },
+        {
+          "repr": "<Param \"Vdc\"=\"\">",
+          "name": "Vdc",
+          "value": "",
+          "evaluate_without_expr": ""
+        },
+        {
+          "repr": "<Param \"Temp\"=\"\">",
+          "name": "Temp",
+          "value": "",
+          "evaluate_without_expr": ""
+        }
+      ],
+      "props": [
+        {
+          "repr": "<StringProp \"portFeedType\" = \"Auto\">",
+          "name": "portFeedType",
+          "value": "Auto"
+        },
+        {
+          "repr": "<StringProp \"portType\" = \"None\">",
+          "name": "portType",
+          "value": "None"
+        }
+      ],
+      "pins": [
+        {
+          "repr": "<Pin \"P1\">",
+          "python_type": "Pin",
+          "type": "<ApolloType 32>",
+          "name": "P__0",
+          "term_name": "P1",
+          "term_number": 0,
+          "angle": 180.0,
+          "has_any_pinfigs": true,
+          "needs_drawing_artifact": true,
+          "snap_point": {
+            "x": -3.54,
+            "y": 1.95,
+            "_repr": "PointF(x=-3.54, y=1.95)"
+          },
+          "net": "P1",
+          "get_pinfig_bbox": "<BoxF (-3.54, 1.95), (-3.54, 1.95)>",
+          "get_pin_artifact_bbox_only": "<BoxF (-4.54, 1.7), (-3.54, 2.2)>",
+          "get_pinfig_bbox_with_artifact": "<BoxF (-4.54, 1.7), (-3.54, 2.2)>",
+          "pinfigs": [
+            {
+              "repr": "<Shape \"dot\">",
+              "python_type": "Dot",
+              "type": "<ApolloType 13>",
+              "layer": 1000,
+              "purpose": 4294967295,
+              "is_filled": false,
+              "is_closed": true,
+              "layer_id": {
+                "repr": "<LayerId 1000>",
+                "layer": 1000,
+                "purpose": -1
+              },
+              "bbox": "<BoxF (-3.54, 1.95), (-3.54, 1.95)>",
+              "net": null,
+              "net_is_sticky": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "repr": "<ScalarTerm \"P2\">",
+      "python_type": "ScalarTerm",
+      "type": "<ApolloType 62>",
+      "name": "P2",
+      "number": 0,
+      "term_type": {
+        "name": "INPUT_OUTPUT",
+        "_repr": "<TermType.INPUT_OUTPUT: 2>"
+      },
+      "is_implicit": false,
+      "is_delta_gap_port": false,
+      "ref_plane_shift_dbu": 0.0,
+      "ref_plane_shift_meters": 0.0,
+      "net": "P2",
+      "secondary_term_info": [],
+      "parameters": [
+        {
+          "repr": "<Param \"Z\"=\"50 Ohm\">",
+          "name": "Z",
+          "value": "50 Ohm",
+          "evaluate_without_expr": 50.0
+        },
+        {
+          "repr": "<Param \"RefPlane\"=\"0 mm\">",
+          "name": "RefPlane",
+          "value": "0 mm",
+          "evaluate_without_expr": 0.0
+        },
+        {
+          "repr": "<Param \"Noise\"=\"yes\">",
+          "name": "Noise",
+          "value": "yes",
+          "evaluate_without_expr": "yes"
+        },
+        {
+          "repr": "<Param \"Vdc\"=\"\">",
+          "name": "Vdc",
+          "value": "",
+          "evaluate_without_expr": ""
+        },
+        {
+          "repr": "<Param \"Temp\"=\"\">",
+          "name": "Temp",
+          "value": "",
+          "evaluate_without_expr": ""
+        }
+      ],
+      "props": [
+        {
+          "repr": "<StringProp \"portFeedType\" = \"Auto\">",
+          "name": "portFeedType",
+          "value": "Auto"
+        },
+        {
+          "repr": "<StringProp \"portType\" = \"None\">",
+          "name": "portType",
+          "value": "None"
+        }
+      ],
+      "pins": [
+        {
+          "repr": "<Pin \"P2\">",
+          "python_type": "Pin",
+          "type": "<ApolloType 32>",
+          "name": "P__1",
+          "term_name": "P2",
+          "term_number": 0,
+          "angle": 0.0,
+          "has_any_pinfigs": true,
+          "needs_drawing_artifact": true,
+          "snap_point": {
+            "x": 7.05,
+            "y": 1.95,
+            "_repr": "PointF(x=7.05, y=1.95)"
+          },
+          "net": "P2",
+          "get_pinfig_bbox": "<BoxF (7.05, 1.95), (7.05, 1.95)>",
+          "get_pin_artifact_bbox_only": "<BoxF (7.05, 1.7), (8.05, 2.2)>",
+          "get_pinfig_bbox_with_artifact": "<BoxF (7.05, 1.7), (8.05, 2.2)>",
+          "pinfigs": [
+            {
+              "repr": "<Shape \"dot\">",
+              "python_type": "Dot",
+              "type": "<ApolloType 13>",
+              "layer": 1000,
+              "purpose": 4294967295,
+              "is_filled": false,
+              "is_closed": true,
+              "layer_id": {
+                "repr": "<LayerId 1000>",
+                "layer": 1000,
+                "purpose": -1
+              },
+              "bbox": "<BoxF (7.05, 1.95), (7.05, 1.95)>",
+              "net": null,
+              "net_is_sticky": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "em_setup": {
+    "canonical_em_state": {
+      "path": "D:\\Work\\ADS\\SIMADS_EM_PAR\\SIMADS_EM_PAR\\SIMADS_EM_PAR_lib\\i7_fr4_r13_rt_b_l555_tp_jlc_gui_ref_20260803_mm\\em%Setup\\emStateFile.xml",
+      "exists": true,
+      "ports": [
+        {
+          "portNum": "1",
+          "portName": "P1",
+          "refImpedance": "50:0",
+          "feedType": "Auto",
+          "refoffset": "0",
+          "termType": "2",
+          "gndLayer": "1001",
+          "PlusPinNames": "",
+          "MinusPinNames": ""
+        },
+        {
+          "portNum": "2",
+          "portName": "P2",
+          "refImpedance": "50:0",
+          "feedType": "Auto",
+          "refoffset": "0",
+          "termType": "2",
+          "gndLayer": "1001",
+          "PlusPinNames": "",
+          "MinusPinNames": ""
+        }
+      ]
+    },
+    "gui_layout_state": {
+      "path": "D:\\Work\\ADS\\SIMADS_EM_PAR\\SIMADS_EM_PAR\\undefined\\state\\SIMADS_EM_PAR_lib\\i7_fr4_r13_rt_b_l555_tp_jlc_gui_ref_20260803_mm\\layout\\emSetup.xml",
+      "exists": true,
+      "ports": [
+        {
+          "portNum": "1",
+          "portName": "P1",
+          "refImpedance": "50:0",
+          "feedType": "Auto",
+          "refoffset": "0",
+          "termType": "2",
+          "gndLayer": "ETCH_INNER1",
+          "PlusPinNames": "",
+          "MinusPinNames": ""
+        },
+        {
+          "portNum": "2",
+          "portName": "P2",
+          "refImpedance": "50:0",
+          "feedType": "Auto",
+          "refoffset": "0",
+          "termType": "2",
+          "gndLayer": "ETCH_INNER1",
+          "PlusPinNames": "",
+          "MinusPinNames": ""
+        }
+      ]
+    }
+  }
+}

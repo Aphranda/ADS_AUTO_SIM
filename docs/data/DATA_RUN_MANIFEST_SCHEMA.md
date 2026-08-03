@@ -4,7 +4,7 @@ Status: Active
 Domain: DATA
 Canonical: `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`
 Related: `docs/data/DATA_SCHEMA_REGISTRY.md`, `docs/flow/FLOW_RUN_STATE_MACHINE.md`, `docs/arch/ARCH_REFACTOR_TODO.md`, `docs/arch/ADS版图自动仿真项目框架设计.md`
-Last updated: 2026-08-01
+Last updated: 2026-08-03
 Owner: ADS Automation
 
 本文档冻结当前 P0 阶段 `run_manifest.json`、`artifact_manifest.json` 和 `state.json` 的最小字段。脚本可以追加兼容字段，但不得删除或改变本文档定义字段的语义。
@@ -88,6 +88,10 @@ schema_version = 1.0
 ```text
 planned
 layout_ready
+geometry_built
+ports_ready
+setup_ready
+results_exported
 ads_imported
 emsetup_ready
 rfpro_ready
@@ -185,6 +189,20 @@ schema_version = 1.0
 | `state` | state.json 路径。 |
 | `artifact_manifest` | artifact_manifest.json 路径。 |
 
+HFSS backend 使用同一 `outputs` object，允许并建议写入：
+
+| 字段 | 说明 |
+|---|---|
+| `aedt_project` | HFSS/AEDT `.aedt` 工程路径。 |
+| `edb_project` | 可选 `.aedb` 工程目录路径。 |
+| `s2p` | HFSS 导出的 Touchstone 路径。 |
+| `trace_csv` | 从 HFSS Touchstone 转出的可比较曲线 CSV。 |
+| `score_csv` | HFSS score CSV。 |
+| `svg` | HFSS S 参数曲线 SVG。 |
+| `summary_csv` | HFSS 绘图摘要 CSV。 |
+
+HFSS `profile_snapshot` 必须记录实际生效的 `hfss_version`、`workspace_dir`、`design`、`setup`、`sweep` 和 `route`。`simulator` 固定为 `hfss3dlayout`。
+
 `flags` 建议字段：
 
 ```text
@@ -264,16 +282,28 @@ dxf
 svg
 params
 layout_json
+layout_svg
 drc
 tuning_table
+ads_trace
+hfss_trace
+project_file
+aedt_project
+edb_project
 rfpro_csv
 fem_dataset
 fem_txt
+s2p
+trace_csv
+compare_csv
 score
 summary
 log
 state
 run_manifest
+artifact_manifest
+baseline_index
+baseline_summary
 report_html
 report_pdf
 manual_intervention
@@ -314,6 +344,27 @@ status
 error_class
 failed_step
 elapsed_s
+```
+
+HFSS/多 backend 运行额外写 `backend_summary.csv`。当前字段：
+
+```text
+candidate
+backend
+simulator
+run_id
+status
+stage
+profile_id
+pipeline_id
+project_id
+round_id
+score_path
+trace_path
+s2p_path
+run_dir
+elapsed_s
+error_class
 ```
 
 合并优先级：

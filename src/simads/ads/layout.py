@@ -21,6 +21,7 @@ class LayoutImportPlan:
     layer_map_path: Path | None = None
     metal_layer: str = "cond"
     via_layer: str = "pcvia1"
+    force_generated_dxf_subset: bool = False
 
     def to_manifest(self) -> dict[str, object]:
         return {
@@ -35,6 +36,7 @@ class LayoutImportPlan:
             "layer_map_path": str(self.layer_map_path) if self.layer_map_path else None,
             "metal_layer": self.metal_layer,
             "via_layer": self.via_layer,
+            "force_generated_dxf_subset": self.force_generated_dxf_subset,
         }
 
 
@@ -48,6 +50,7 @@ def build_layout_import_plan(
     layer_map_path: Path | None = None,
     metal_layer: str = "cond",
     via_layer: str = "pcvia1",
+    force_generated_dxf_subset: bool = False,
 ) -> LayoutImportPlan:
     return LayoutImportPlan(
         profile_id=profile.name,
@@ -58,6 +61,7 @@ def build_layout_import_plan(
         layer_map_path=layer_map_path or profile.layer_map,
         metal_layer=metal_layer,
         via_layer=via_layer,
+        force_generated_dxf_subset=force_generated_dxf_subset,
     )
 
 
@@ -171,4 +175,6 @@ def build_import_command(
     args.extend(["--params", str(plan.params_path)])
     if plan.layer_map_path:
         args.extend(["--layer-map", str(plan.layer_map_path)])
+    if plan.force_generated_dxf_subset:
+        args.append("--force-generated-dxf-subset")
     return AdsCommandPlan("ads_import_dxf_add_ports", ads_python, script, tuple(args), cwd=script.parents[1])

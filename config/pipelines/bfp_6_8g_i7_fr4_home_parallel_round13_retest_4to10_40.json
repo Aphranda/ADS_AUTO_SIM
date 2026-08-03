@@ -5,6 +5,7 @@
   "sweep_id": "interdigital_7o_fr4_round13_retest_4to10_40",
   "device_id": "filter.interdigital",
   "profile_id": "home_simads_em_parallel",
+  "simulation_backends": ["ads_rfpro", "hfss3dlayout"],
   "units": "mm",
   "layout": {
     "sweep_script": "tools/generate_filter_sweep.py",
@@ -22,11 +23,24 @@
     "template_cell": "SIMADS_EM_TEMPLATE_2PORT_FEM",
     "setup_view": "em%Setup",
     "rfpro_emsetup_view": "emSetup",
-    "workspace_profile": "home_simads_em_parallel"
+    "workspace_profile": "home_simads_em_parallel",
+    "force_generated_dxf_subset": true
+  },
+  "hfss": {
+    "workflow_script": "tools/hfss/run_hfss3dlayout_filter_verdict.py",
+    "profile": "home",
+    "workspace_dir": "D:/Work/ADS/SIMADS_EM_PAR/HFSS_VERDICT",
+    "route": "reliable",
+    "stackup_config": "config/stackups/JLC04161H_7628_1P6MM.json",
+    "design": "I7_FR4_HFSS_VERDICT",
+    "version": "2026.1",
+    "port_type": "aedt-edge",
+    "gnd_boundary_mode": "port-edges",
+    "non_graphical": true
   },
   "layer_map": {
     "metal_layer": "cond",
-    "via_layer": "pcvia1",
+    "via_layer": "DRILL_TOP_BOTTOM",
     "boundary_layer": "EM_BOUNDARY",
     "layer_map_strategy": "profile-default",
     "layer_map_required": false,

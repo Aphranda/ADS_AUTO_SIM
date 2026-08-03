@@ -79,7 +79,52 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--out", type=Path, default=root / "projects" / "bfp_6_8g_i7_fr4" / "results" / "interdigital_round8_refined_nn_ranking.csv")
     parser.add_argument("--top-plan", type=Path, default=root / "projects" / "bfp_6_8g_i7_fr4" / "plans" / "filter_opt_i7_fr4_round8_refined_nn_top8.csv")
     parser.add_argument("--top-count", type=int, default=8)
+    parser.add_argument("--guard-s21-5-max-db", type=float, default=-25.0)
+    parser.add_argument("--guard-s21-6-min-db", type=float, default=-5.0)
+    parser.add_argument("--guard-s21-8-min-db", type=float, default=-5.0)
+    parser.add_argument("--guard-passband-min-db", type=float, default=-5.0)
+    parser.add_argument("--guard-ripple-max-db", type=float, default=4.0)
+    parser.add_argument(
+        "--cal-s21-5-offset-db",
+        type=float,
+        default=0.0,
+        help="Add this offset to predicted S21@5G before scoring/guarding, e.g. -1.6 for round10 measured bias.",
+    )
+    parser.add_argument(
+        "--cal-s21-6-offset-db",
+        type=float,
+        default=0.0,
+        help="Add this offset to predicted S21@6G before scoring/guarding.",
+    )
+    parser.add_argument(
+        "--cal-s21-8-offset-db",
+        type=float,
+        default=0.0,
+        help="Add this offset to predicted S21@8G before scoring/guarding.",
+    )
+    parser.add_argument(
+        "--cal-worst-s11-offset-db",
+        type=float,
+        default=0.0,
+        help="Add this offset to predicted worst S11 in 6-8G before scoring.",
+    )
+    parser.add_argument(
+        "--cal-worst-s22-offset-db",
+        type=float,
+        default=0.0,
+        help="Add this offset to predicted worst S22 in 6-8G before scoring.",
+    )
     return parser.parse_args()
+
+
+def calibrated_metrics(metrics: dict[str, float], args: argparse.Namespace) -> dict[str, float]:
+    result = dict(metrics)
+    result["s21_5g_db"] += args.cal_s21_5_offset_db
+    result["s21_6g_db"] += args.cal_s21_6_offset_db
+    result["s21_8g_db"] += args.cal_s21_8_offset_db
+    result["worst_s11_6_8_db"] += args.cal_worst_s11_offset_db
+    result["worst_s22_6_8_db"] += args.cal_worst_s22_offset_db
+    return result
 
 
 def main() -> None:
@@ -106,16 +151,27 @@ def main() -> None:
     pred_db = pred_norm * y_std + y_mean
     distances = distance_to_center(raw)
     output_rows: list[dict[str, str]] = []
+    has_calibration = any(
+        abs(value) > 1e-12
+        for value in (
+            args.cal_s21_5_offset_db,
+            args.cal_s21_6_offset_db,
+            args.cal_s21_8_offset_db,
+            args.cal_worst_s11_offset_db,
+            args.cal_worst_s22_offset_db,
+        )
+    )
     for idx, row in enumerate(rows):
         aux = curve_aux_features(freq_ghz, pred_db[idx])
         metrics = {feature: float(aux[col]) for col, feature in enumerate(AUX_FEATURES)}
-        score = interdigital_score(metrics) - 12.0 * float(distances[idx])
+        cal_metrics = calibrated_metrics(metrics, args)
+        score = interdigital_score(cal_metrics) - 12.0 * float(distances[idx])
         guard_pass = (
-            metrics["s21_5g_db"] <= -25.0
-            and metrics["s21_6g_db"] >= -5.0
-            and metrics["s21_8g_db"] >= -5.0
-            and metrics["passband_min_s21_db"] >= -5.0
-            and metrics["passband_ripple_db"] <= 4.0
+            cal_metrics["s21_5g_db"] <= args.guard_s21_5_max_db
+            and cal_metrics["s21_6g_db"] >= args.guard_s21_6_min_db
+            and cal_metrics["s21_8g_db"] >= args.guard_s21_8_min_db
+            and cal_metrics["passband_min_s21_db"] >= args.guard_passband_min_db
+            and cal_metrics["passband_ripple_db"] <= args.guard_ripple_max_db
         )
         out = {
             "rank": "",
@@ -124,6 +180,7 @@ def main() -> None:
             "pred_guard_pass": "true" if guard_pass else "false",
             "distance_to_legacy": fmt(float(distances[idx])),
             **{f"pred_{key}": fmt(value) for key, value in metrics.items()},
+            **({f"cal_{key}": fmt(value) for key, value in cal_metrics.items()} if has_calibration else {}),
             **{key: row.get(key, "") for key in PARAM_COLUMNS},
             "metal_layer": row.get("metal_layer", "cond"),
             "via_layer": row.get("via_layer", "pcvia1"),
@@ -153,6 +210,12 @@ def main() -> None:
                     "notes": (
                         f"refined-NN rank {row['rank']}; score {row['pred_score']}; "
                         f"S21@5/6/8 {row['pred_s21_5g_db']}/{row['pred_s21_6g_db']}/{row['pred_s21_8g_db']} dB; "
+                        + (
+                            f"cal S21@5/6/8 {row['cal_s21_5g_db']}/{row['cal_s21_6g_db']}/{row['cal_s21_8g_db']} dB; "
+                            if has_calibration
+                            else ""
+                        )
+                        +
                         f"S11/S22 {row['pred_worst_s11_6_8_db']}/{row['pred_worst_s22_6_8_db']} dB"
                     ),
                 }
@@ -164,10 +227,15 @@ def main() -> None:
         print(
             f"  #{row['rank']} {row['name']}: score={row['pred_score']} guard={row['pred_guard_pass']} "
             f"S21@5/6/8={row['pred_s21_5g_db']}/{row['pred_s21_6g_db']}/{row['pred_s21_8g_db']} "
+            + (
+                f"cal={row['cal_s21_5g_db']}/{row['cal_s21_6g_db']}/{row['cal_s21_8g_db']} "
+                if has_calibration
+                else ""
+            )
+            +
             f"S11/S22={row['pred_worst_s11_6_8_db']}/{row['pred_worst_s22_6_8_db']}"
         )
 
 
 if __name__ == "__main__":
     main()
-

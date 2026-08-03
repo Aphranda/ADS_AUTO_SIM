@@ -211,7 +211,7 @@ def run_rfpro_fem(
     points: int,
     plan_type: str,
     max_passes: int,
-    on_results_action: int | None,
+    on_results_action: str | int | None,
     output_csv: str,
     diagnose_only: bool = False,
 ) -> dict[str, object]:
@@ -265,7 +265,9 @@ def run_rfpro_fem(
                     f"from {max_passes} to {effective_max_passes} because it must exceed minimumNumberOfPasses={min_passes}"
                 )
             options.femMeshSettings.maximumNumberOfPasses = effective_max_passes
-        if on_results_action is not None:
+        if on_results_action == "oa-emdata":
+            analysis.onResultsAction = empro.analysis.Analysis.OaEmdataViewORA
+        elif on_results_action is not None:
             analysis.onResultsAction = on_results_action
 
         empro.activeProject.analyses.clear()
@@ -403,11 +405,7 @@ def main() -> None:
     import keysight.edatoolbox.multi_python as multi_python
 
     with multi_python.xxpro_context() as rfpro_ctx:
-        on_results_action = None
-        if args.on_results_action == "oa-emdata":
-            import empro
-
-            on_results_action = empro.analysis.Analysis.OaEmdataViewORA
+        on_results_action = args.on_results_action
         result = rfpro_ctx.call(
             run_rfpro_fem,
             args=[

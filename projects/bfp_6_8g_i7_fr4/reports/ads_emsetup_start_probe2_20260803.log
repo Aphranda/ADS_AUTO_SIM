@@ -1,0 +1,20 @@
+[2026-08-03 01:48:13] ads_run_rfpro_fem.py started
+[2026-08-03 01:48:13] Using direct ADS Python APIs for RFPro view prepare
+[2026-08-03 01:48:13] ADS RFPro prepare callable entered
+[2026-08-03 01:48:14] Opening ADS workspace: D:\Work\ADS\SIMADS_EM_PAR\SIMADS_EM_PAR
+[2026-08-03 01:48:14] Looking up library/cell: SIMADS_EM_PAR_lib:i7_r13_ref_script_20260803_mm
+[2026-08-03 01:48:14] EM setup substrate info: SIMADS_EM_PAR_lib:JLC04161H_7628_1P6MM.subst
+[2026-08-03 01:48:14] Creating RFPro view: SIMADS_EM_PAR_lib:i7_r13_ref_script_20260803_mm:rfpro_emsetup_start_probe2_20260803
+[2026-08-03 01:48:14] Closing ADS workspace: D:\Work\ADS\SIMADS_EM_PAR\SIMADS_EM_PAR
+[2026-08-03 01:48:14] Entering RFPro/xxPro context for FEM run
+[2026-08-03 01:48:15] RFPro FEM callable entered
+[2026-08-03 01:48:16] Using ADS workspace in RFPro: D:\Work\ADS\SIMADS_EM_PAR\SIMADS_EM_PAR
+[2026-08-03 01:48:16] Loading RFPro view: SIMADS_EM_PAR_lib:i7_r13_ref_script_20260803_mm:rfpro_emsetup_start_probe2_20260803
+[2026-08-03 01:48:16] Creating FEM analysis from EM setup view: emSetup
+[2026-08-03 01:48:16] Saving RFPro project before simulation
+[2026-08-03 01:48:17] Starting RFPro FEM analysis
+[2026-08-03 01:48:17] Waiting for RFPro FEM simulation
+[2026-08-03 01:49:18] RFPro FEM simulation finished; saving project
+[2026-08-03 01:49:18] Exporting circuit results
+[2026-08-03 01:49:18] Writing RFPro CSV: D:\OneDrive\4.Code\SIM\projects\bfp_6_8g_i7_fr4\results\emsetup_start_probe_i7_r13_ref_script_20260803\rfpro_emsetup_start_probe2_11pt.csv
+[2026-08-03 01:49:18] RFPro/xxPro context closed

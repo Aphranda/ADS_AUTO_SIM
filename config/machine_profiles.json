@@ -12,8 +12,10 @@
     },
     "home": {
       "description": "Home workstation",
-      "mac_sha256_16": [],
-      "ads_profile": "home",
+      "mac_sha256_16": [
+        "a45859fb8ade4b8b"
+      ],
+      "ads_profile": "home_simads_em_parallel",
       "hfss_profile": "home"
     }
   }

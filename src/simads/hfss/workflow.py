@@ -14,6 +14,7 @@ from simads.domain import SimulationResultSpec, StackupSpec, SweepSpec
 from simads.runtime import (
     SimulationManifestPayload,
     SimulationRunContext,
+    artifact_entry,
     build_simulation_artifacts,
     classify_exception,
     exception_summary,
@@ -21,6 +22,7 @@ from simads.runtime import (
 )
 from simads.hfss.artifacts import default_project_name, expected_hfss_outputs, resolve_project_path
 from simads.hfss.build import build_hfss_layout_project
+from simads.hfss.connector import FIXTURE_TYPE as MICROSTRIP_CONNECTOR_FIXTURE_TYPE
 from simads.hfss.layout_io import collect_layout_summary, configured_layout_id, load_layout
 from simads.hfss.plans import RELIABLE_HFSS_ROUTE, apply_hfss_route_defaults
 from simads.hfss.ports import (
@@ -125,6 +127,145 @@ def default_candidate_id(layout: dict[str, Any], args: argparse.Namespace) -> st
     return str(args.candidate_id or configured_layout_id(layout) or args.project_name or "hfss_verdict")
 
 
+def _connector_params_json(args: argparse.Namespace, metadata: dict[str, Any]) -> Path | None:
+    explicit = getattr(args, "connector_params_json", None)
+    if explicit is not None:
+        return explicit
+    metadata_path = metadata.get("connector_params_json")
+    if metadata_path:
+        return Path(str(metadata_path))
+    layout_path = getattr(args, "layout", None)
+    if layout_path is None:
+        return None
+    layout_path = Path(layout_path)
+    name = layout_path.name
+    if name.endswith("_layout.json"):
+        inferred = layout_path.with_name(f"{name.removesuffix('_layout.json')}_params.json")
+        if inferred.exists():
+            return inferred
+    return None
+
+
+def _connector_port_reference_name(args: argparse.Namespace, metadata: dict[str, Any]) -> str:
+    explicit = getattr(args, "port_reference_name", None)
+    if explicit:
+        return str(explicit)
+    layer = metadata.get("reference_ground_layer") or getattr(args, "reference_ground_layer", None)
+    primitive = metadata.get("ground_plane_name") or getattr(args, "ground_plane_name", None)
+    if layer or primitive:
+        return f"GND:{layer or BOTTOM_LAYER}:{primitive or 'hfss_ground_plane'}"
+    return port_reference_name(args)
+
+
+def connector_fixture_metadata(args: argparse.Namespace, layout: dict[str, Any]) -> dict[str, Any]:
+    metadata = layout.get("metadata", {})
+    if metadata.get("fixture_type") != MICROSTRIP_CONNECTOR_FIXTURE_TYPE:
+        return {}
+    params_json = _connector_params_json(args, metadata)
+    model_path = getattr(args, "connector_hfss_model_path", None) or metadata.get("connector_hfss_model_path")
+    model_version = getattr(args, "connector_hfss_model_version", None) or metadata.get("connector_hfss_model_version")
+    model_hash = getattr(args, "connector_hfss_model_hash", None) or metadata.get("connector_hfss_model_hash")
+    port_mapping = getattr(args, "connector_port_mapping", None) or metadata.get("connector_port_mapping")
+    stackup_config = getattr(args, "stackup_config", None) or metadata.get("stackup_config")
+    port_deembed_mm = float(metadata.get("port_deembed_mm", 0.0) or 0.0)
+    reference_plane_offset_mm = float(metadata.get("reference_plane_offset_mm", 0.0) or 0.0)
+    return {
+        "fixture_type": MICROSTRIP_CONNECTOR_FIXTURE_TYPE,
+        "connector_model_version": metadata.get("connector_model_version"),
+        "connector_route": metadata.get("connector_route"),
+        "connector_type": metadata.get("connector_type"),
+        "microstrip_connector_layout_json": str(getattr(args, "layout", "")),
+        "connector_params_json": str(params_json) if params_json is not None else None,
+        "line_w_mm": metadata.get("line_w_mm"),
+        "line_l_mm": metadata.get("line_l_mm"),
+        "reference_plane_offset_mm": reference_plane_offset_mm,
+        "port_deembed_mm": port_deembed_mm,
+        "connector_region_bbox_mm": metadata.get("connector_region_bbox_mm"),
+        "connector_port_contract": {
+            "route": str(getattr(args, "route", "custom") or "custom"),
+            "port_type": getattr(args, "port_type", None),
+            "gnd_boundary_mode": getattr(args, "gnd_boundary_mode", None),
+            "reference_ground_ports": bool(getattr(args, "reference_ground_ports", False)),
+            "reference_name": _connector_port_reference_name(args, metadata),
+            "renormalize": True,
+            "renormalize_impedance_ohm": 50.0,
+            "reference_plane_offset_mm": reference_plane_offset_mm,
+            "port_deembed_mm": port_deembed_mm,
+            "deembed_enabled": port_deembed_mm > 0.0,
+        },
+        "stackup_config": str(stackup_config) if stackup_config is not None else None,
+        "connector_hfss_model_path": str(model_path) if model_path is not None else None,
+        "connector_hfss_model_version": model_version,
+        "connector_hfss_model_hash": model_hash,
+        "connector_port_mapping": port_mapping,
+    }
+
+
+def hfss_dry_run_payload(
+    args: argparse.Namespace,
+    layout: dict[str, Any],
+    *,
+    summary: dict[str, Any],
+    stackup_config: StackupConfig | None,
+    manifest_context: SimulationRunContext,
+    run_id: str,
+    run_dir: Path,
+) -> dict[str, Any]:
+    port_edges = resolve_port_edges(layout, args.p1_edge, args.p2_edge, args.p1_ref_edge, args.p2_ref_edge)
+    pin_ports = infer_pin_ports(layout)
+    connector = connector_fixture_metadata(args, layout)
+    payload: dict[str, Any] = {
+        "mode": "dry_run",
+        "summary": summary,
+        "port_type": args.port_type,
+        "route": args.route,
+        "gnd_boundary": resolve_gnd_boundary(layout, args),
+        "reference_ground_ports": args.reference_ground_ports,
+        "port_edges": port_edges,
+        "pin_ports": pin_ports,
+        "gap_port_template": {
+            "reference_name": port_reference_name(args),
+            "resolved_reference_name": port_reference_name(args),
+            "pec_launch_width": args.port_pec_launch_width,
+            "horizontal_extent_factor": args.port_horizontal_extent_factor,
+            "vertical_extent_factor": args.port_vertical_extent_factor,
+            "radial_extent_factor": args.port_radial_extent_factor,
+            "type": "Single Strip Gap Source",
+            "hfss_type": "Gap",
+        },
+        "stackup_config": stackup_config.to_dict() if stackup_config is not None else None,
+        "extents": {
+            "configure": args.configure_extents,
+            "diel_extent_type": args.diel_extent_type,
+            "diel_horizontal_padding": args.diel_horizontal_padding,
+            "diel_honor_primitives": args.diel_honor_primitives,
+            "include_3d_subdesigns": args.include_3d_subdesigns,
+            "airbox_extent_type": args.airbox_extent_type,
+            "truncate_airbox_at_ground": args.truncate_airbox_at_ground,
+            "airbox_horizontal_padding": args.airbox_horizontal_padding,
+            "airbox_vertical_positive_padding": args.airbox_vertical_positive_padding,
+            "airbox_vertical_negative_padding": args.airbox_vertical_negative_padding,
+            "airbox_vertical_sync": args.airbox_vertical_sync,
+            "open_region_type": args.open_region_type,
+            "use_radiation_boundary": args.use_radiation_boundary,
+            "open_region_frequency_ghz": args.open_region_frequency_ghz,
+            "radiation_factor": args.radiation_factor,
+        },
+        "manifest": {
+            "write_manifest": args.write_manifest,
+            "run_id": run_id,
+            "run_dir": str(run_dir),
+            "project_id": args.project_id,
+            "round_id": manifest_context.round_id,
+            "candidate_id": manifest_context.candidate_id,
+            "profile_id": args.profile_id,
+        },
+    }
+    if connector:
+        payload["connector"] = connector
+    return payload
+
+
 def build_hfss_manifest_payload(
     args: argparse.Namespace,
     layout: dict[str, Any],
@@ -138,6 +279,12 @@ def build_hfss_manifest_payload(
     round_id = args.round_id or infer_round_id(args.layout, args.out_dir, args.project_name)
     outputs = expected_hfss_outputs(args, layout)
     stackup = _manifest_stackup(args, metadata)
+    connector = connector_fixture_metadata(args, layout)
+    inputs = {"layout_json": str(args.layout)}
+    if connector:
+        inputs["microstrip_connector_layout_json"] = connector["microstrip_connector_layout_json"]
+        inputs["connector_params_json"] = connector["connector_params_json"]
+        inputs["connector_hfss_model_path"] = connector["connector_hfss_model_path"]
     sweep = SweepSpec(
         start_ghz=float(args.start_ghz),
         stop_ghz=float(args.stop_ghz),
@@ -165,6 +312,7 @@ def build_hfss_manifest_payload(
             run_id=run_id,
             run_dir=args.run_dir,
             device_id=args.device_id,
+            pipeline_id=getattr(args, "pipeline_id", None),
             profile_snapshot={
                 "hfss_version": args.version,
                 "workspace_dir": str(args.workspace_dir),
@@ -176,7 +324,7 @@ def build_hfss_manifest_payload(
         ),
         sweep=sweep,
         stackup=stackup,
-        inputs={"layout_json": str(args.layout)},
+        inputs=inputs,
         outputs={
             "aedt_project": str(outputs["project"]),
             "s2p": str(outputs["s2p"]),
@@ -198,9 +346,11 @@ def build_hfss_manifest_payload(
             "port_type": args.port_type,
             "reference_ground_ports": args.reference_ground_ports,
             "stackup_config": str(getattr(args, "stackup_config", "")) if getattr(args, "stackup_config", None) is not None else None,
+            "fixture_type": connector.get("fixture_type") if connector else metadata.get("fixture_type"),
         },
         result=result_spec,
         extra={
+            **connector,
             "layout_summary": collect_layout_summary(layout),
             "port_edges": resolve_port_edges(layout, args.p1_edge, args.p2_edge, args.p1_ref_edge, args.p2_ref_edge),
             "gnd_boundary": resolve_gnd_boundary(layout, args),
@@ -223,6 +373,21 @@ def write_hfss_manifests(
 ) -> dict[str, Path]:
     outputs = expected_hfss_outputs(args, layout)
     payload = build_hfss_manifest_payload(args, layout, run_id=run_id, result=result, error=error)
+    connector_artifacts = None
+    if layout.get("metadata", {}).get("fixture_type") == MICROSTRIP_CONNECTOR_FIXTURE_TYPE:
+        connector_artifacts = [
+            artifact_entry("microstrip_connector_layout_json", args.layout, producer="run_hfss3dlayout_filter_verdict.py"),
+            artifact_entry(
+                "connector_params",
+                Path(payload.inputs["connector_params_json"]) if payload.inputs.get("connector_params_json") else None,
+                producer="run_hfss3dlayout_filter_verdict.py",
+            ),
+            artifact_entry(
+                "connector_hfss_model",
+                Path(payload.inputs["connector_hfss_model_path"]) if payload.inputs.get("connector_hfss_model_path") else None,
+                producer="run_hfss3dlayout_filter_verdict.py",
+            ),
+        ]
     artifacts = build_simulation_artifacts(
         layout_json=args.layout,
         project_file=Path((result or {}).get("project") or outputs["project"]),
@@ -233,6 +398,7 @@ def write_hfss_manifests(
         summary_csv=outputs["summary_csv"],
         state=run_dir / "state.json",
         producer="run_hfss3dlayout_filter_verdict.py",
+        extra=connector_artifacts,
     )
     return write_simulation_manifests(
         run_dir=run_dir,
@@ -245,6 +411,16 @@ def write_hfss_manifests(
         elapsed_s=elapsed_s,
         message=str(error) if error is not None else f"HFSS workflow {status}.",
     )
+
+
+def completed_hfss_stage(args: argparse.Namespace, result: dict[str, Any]) -> str:
+    if getattr(args, "build_only", False):
+        return "setup_ready"
+    if result.get("post_processed"):
+        return "scored"
+    if result.get("s2p"):
+        return "results_exported"
+    return "completed"
 
 
 def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
@@ -394,8 +570,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--radiation-factor", type=float, default=0.0)
     parser.add_argument("--s2p", type=Path, default=None)
     parser.add_argument("--score-out", type=Path, default=None)
+    parser.add_argument("--connector-params-json", type=Path, default=None, help="Connector launch params JSON for connector fixture manifests.")
+    parser.add_argument("--connector-hfss-model-path", type=Path, default=None, help="Optional connector HFSS model path for Route C manifests.")
+    parser.add_argument("--connector-hfss-model-version", default=None, help="Optional connector HFSS model version for Route C manifests.")
+    parser.add_argument("--connector-hfss-model-hash", default=None, help="Optional connector HFSS model hash for Route C manifests.")
+    parser.add_argument("--connector-port-mapping", default=None, help="Optional connector port mapping identifier or JSON string for Route C manifests.")
     parser.add_argument("--write-manifest", action="store_true", help="Write run_manifest.json, artifact_manifest.json, and state.json.")
     parser.add_argument("--project-id", default="bfp_6_8g_i7_fr4", help="Project id for run manifests.")
+    parser.add_argument("--pipeline-id", default=None, help="Pipeline id for run manifests.")
     parser.add_argument("--round-id", default=None, help="Round id for run manifests. Default is inferred from paths.")
     parser.add_argument("--candidate-id", default=None, help="Candidate id for run manifests. Default uses layout_id.")
     parser.add_argument("--device-id", default="filter.interdigital", help="Device id for run manifests.")
@@ -430,61 +612,22 @@ def main() -> None:
         run_id=args.run_id,
         run_dir=args.run_dir,
         device_id=args.device_id,
+        pipeline_id=args.pipeline_id,
     )
     run_id = manifest_context.resolved_run_id()
     run_dir = manifest_context.resolved_run_dir(REPO_ROOT, run_id)
     if args.dry_run:
-        port_edges = resolve_port_edges(layout, args.p1_edge, args.p2_edge, args.p1_ref_edge, args.p2_ref_edge)
-        pin_ports = infer_pin_ports(layout)
         print(
             json.dumps(
-                {
-                    "mode": "dry_run",
-                    "summary": summary,
-                    "port_type": args.port_type,
-                    "route": args.route,
-                    "gnd_boundary": resolve_gnd_boundary(layout, args),
-                    "reference_ground_ports": args.reference_ground_ports,
-                    "port_edges": port_edges,
-                    "pin_ports": pin_ports,
-                    "gap_port_template": {
-                        "reference_name": port_reference_name(args),
-                        "resolved_reference_name": port_reference_name(args),
-                        "pec_launch_width": args.port_pec_launch_width,
-                        "horizontal_extent_factor": args.port_horizontal_extent_factor,
-                        "vertical_extent_factor": args.port_vertical_extent_factor,
-                        "radial_extent_factor": args.port_radial_extent_factor,
-                        "type": "Single Strip Gap Source",
-                        "hfss_type": "Gap",
-                    },
-                    "stackup_config": stackup_config.to_dict() if stackup_config is not None else None,
-                    "extents": {
-                        "configure": args.configure_extents,
-                        "diel_extent_type": args.diel_extent_type,
-                        "diel_horizontal_padding": args.diel_horizontal_padding,
-                        "diel_honor_primitives": args.diel_honor_primitives,
-                        "include_3d_subdesigns": args.include_3d_subdesigns,
-                        "airbox_extent_type": args.airbox_extent_type,
-                        "truncate_airbox_at_ground": args.truncate_airbox_at_ground,
-                        "airbox_horizontal_padding": args.airbox_horizontal_padding,
-                        "airbox_vertical_positive_padding": args.airbox_vertical_positive_padding,
-                        "airbox_vertical_negative_padding": args.airbox_vertical_negative_padding,
-                        "airbox_vertical_sync": args.airbox_vertical_sync,
-                        "open_region_type": args.open_region_type,
-                        "use_radiation_boundary": args.use_radiation_boundary,
-                        "open_region_frequency_ghz": args.open_region_frequency_ghz,
-                        "radiation_factor": args.radiation_factor,
-                    },
-                    "manifest": {
-                        "write_manifest": args.write_manifest,
-                        "run_id": run_id,
-                        "run_dir": str(run_dir),
-                        "project_id": args.project_id,
-                        "round_id": manifest_context.round_id,
-                        "candidate_id": manifest_context.candidate_id,
-                        "profile_id": args.profile_id,
-                    },
-                },
+                hfss_dry_run_payload(
+                    args,
+                    layout,
+                    summary=summary,
+                    stackup_config=stackup_config,
+                    manifest_context=manifest_context,
+                    run_id=run_id,
+                    run_dir=run_dir,
+                ),
                 ensure_ascii=False,
                 indent=2,
             )
@@ -523,7 +666,7 @@ def main() -> None:
             run_id=run_id,
             run_dir=run_dir,
             status="completed",
-            stage="completed",
+            stage=completed_hfss_stage(args, result),
             elapsed_s=time.monotonic() - started,
             result=result,
         )
