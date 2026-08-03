@@ -6,6 +6,11 @@ from __future__ import annotations
 import argparse
 import csv
 from pathlib import Path
+import sys
+
+_LAYOUT_TOOLS = Path(__file__).resolve().parent / "layout"
+if str(_LAYOUT_TOOLS) not in sys.path:
+    sys.path.insert(0, str(_LAYOUT_TOOLS))
 
 from generate_interdigital_filter_layout import FilterParams, write_outputs
 
@@ -38,6 +43,7 @@ def row_to_params(row: dict[str, str]) -> FilterParams:
         via_diameter_mm=read_float(row, "via_diameter_mm", defaults.via_diameter_mm),
         metal_layer=row.get("metal_layer", defaults.metal_layer).strip() or defaults.metal_layer,
         via_layer=row.get("via_layer", defaults.via_layer).strip() or defaults.via_layer,
+        via_pad_mm=read_float(row, "via_pad_mm", defaults.via_pad_mm),
     )
 
 

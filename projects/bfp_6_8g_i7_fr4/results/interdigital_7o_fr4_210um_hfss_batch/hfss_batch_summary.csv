@@ -1,0 +1,8 @@
+﻿"candidate","status","s21_5g_db","s21_6g_db","s21_7g_db","s21_8g_db","s21_9g_db","passband_min_s21_db","passband_ripple_db","worst_s11_6_8_db","worst_s22_6_8_db","meets_20db_5g","meets_passband_5db","source_score"
+"i7_fr4_r9_asym0272","TUNE","-27.53","-3.76","-3.7","-4.78","-24.4","-4.78","1.41","-6.04","-6.01","True","True","projects\bfp_6_8g_i7_fr4\results\interdigital_7o_fr4_210um_hfss_batch\i7_fr4_r9_asym0272_hfss_score.csv"
+"i7_fr4_r9_asym0732","TUNE","-26.32","-3.49","-3.75","-4.72","-23.25","-4.8","1.43","-5.24","-5.26","True","True","projects\bfp_6_8g_i7_fr4\results\interdigital_7o_fr4_210um_hfss_batch\i7_fr4_r9_asym0732_hfss_score.csv"
+"i7_fr4_r8_nn0447","TUNE","-26.24","-3.48","-3.82","-4.81","-23.15","-4.83","1.47","-5.42","-5.39","True","True","projects\bfp_6_8g_i7_fr4\results\interdigital_7o_fr4_210um_hfss_batch\i7_fr4_r8_nn0447_hfss_score.csv"
+"i7_fr4_r9_asym0545","TUNE","-25.49","-3.38","-3.85","-4.7","-22.02","-4.87","1.51","-5.07","-5.09","True","True","projects\bfp_6_8g_i7_fr4\results\interdigital_7o_fr4_210um_hfss_batch\i7_fr4_r9_asym0545_hfss_score.csv"
+"i7_fr4_r9_asym0237","TUNE","-27.37","-3.66","-3.68","-4.89","-23.93","-4.89","1.51","-5.64","-5.62","True","True","projects\bfp_6_8g_i7_fr4\results\interdigital_7o_fr4_210um_hfss_batch\i7_fr4_r9_asym0237_hfss_score.csv"
+"i7_fr4_r8_nn0290","TUNE","-26.29","-3.52","-3.62","-4.6","-22.99","-4.9","1.54","-5.14","-5.06","True","True","projects\bfp_6_8g_i7_fr4\results\interdigital_7o_fr4_210um_hfss_batch\i7_fr4_r8_nn0290_hfss_score.csv"
+"i7_fr4_r1_l555_taper","TUNE","-21.79","-3.24","-4.09","-5.52","-33.38","-5.52","2.34","-6.9","-6.87","True","False","projects\bfp_6_8g_i7_fr4\results\interdigital_7o_fr4_210um_round1_hfss_rerun\i7_fr4_r1_l555_taper_hfss_score.csv"

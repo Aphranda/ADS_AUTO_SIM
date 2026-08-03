@@ -9,7 +9,7 @@ import time
 from pathlib import Path
 from typing import Any
 
-from simads.config import StackupConfig, load_stackup_config
+from simads.config import StackupConfig, get_hfss_profile, hfss_profile_names, load_stackup_config
 from simads.domain import SimulationResultSpec, StackupSpec, SweepSpec
 from simads.runtime import (
     SimulationManifestPayload,
@@ -319,14 +319,15 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build/run an HFSS 3D Layout verdict case from SIM layout JSON.")
+    parser.add_argument("--profile", default="auto", choices=hfss_profile_names(include_auto=True), help="HFSS/AEDT path profile to use.")
     parser.add_argument("--layout", type=Path, required=True, help="SIM *_layout.json file.")
     parser.add_argument("--out-dir", type=Path, required=True)
-    parser.add_argument("--workspace-dir", type=Path, default=Path(r"D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT"))
+    parser.add_argument("--workspace-dir", type=Path, default=None)
     parser.add_argument("--project", type=Path, default=None)
     parser.add_argument("--project-name", default=None)
     parser.add_argument("--reuse-project", action="store_true")
     parser.add_argument("--design", default="I7_FR4_HFSS_VERDICT")
-    parser.add_argument("--version", default=AEDT_VERSION)
+    parser.add_argument("--version", default=None)
     parser.add_argument("--non-graphical", action="store_true")
     parser.add_argument("--keep-open", action="store_true")
     parser.add_argument("--build-only", action="store_true")
@@ -334,7 +335,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--route",
         choices=["custom", "reliable", RELIABLE_HFSS_ROUTE],
-        default="custom",
+        default=None,
         help="HFSS route preset. reliable expands to AEDT edge gap ports with port-edge GND.",
     )
     parser.add_argument("--substrate-height-mm", type=float, default=None)
@@ -403,6 +404,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--run-dir", type=Path, default=None, help="Directory for manifest files.")
     parser.add_argument("--stackup-id", default=None, help="Stackup id for manifest. Default uses layout metadata substrate.")
     args = parser.parse_args()
+    profile = get_hfss_profile(args.profile)
+    args.profile_id = args.profile_id if args.profile_id != "hfss3dlayout" else profile.name
+    args.workspace_dir = args.workspace_dir or profile.workspace_dir or Path(r"D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT")
+    args.version = args.version or profile.version or AEDT_VERSION
+    args.route = args.route or profile.route or "custom"
+    args.stackup_config = args.stackup_config or profile.stackup_config
+    args.non_graphical = args.non_graphical or profile.non_graphical
+    args._hfss_profile = profile
     apply_hfss_route_defaults(args)
     return args
 

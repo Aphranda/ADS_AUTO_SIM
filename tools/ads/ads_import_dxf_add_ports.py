@@ -288,7 +288,7 @@ def ads_import_and_add_ports(
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Import DXF into ADS and add P1/P2 layout pins.")
-    parser.add_argument("--profile", default="company", choices=profile_names(), help="ADS path profile to use.")
+    parser.add_argument("--profile", default="auto", choices=profile_names(include_auto=True), help="ADS path profile to use.")
     parser.add_argument("--workspace", type=Path, default=None, help="Override profile ADS workspace.")
     parser.add_argument("--library", default=None, help="Override profile ADS library.")
     parser.add_argument("--dxf", type=Path, required=True)

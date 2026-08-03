@@ -83,7 +83,7 @@ def write_ads_display_like_table(rows: list[dict[str, float]], path: Path, trace
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Export ADS *_FEM_a.ds fitted S-parameters to TXT/CSV.")
-    parser.add_argument("--profile", default="company", choices=profile_names(), help="ADS path profile to use.")
+    parser.add_argument("--profile", default="auto", choices=profile_names(include_auto=True), help="ADS path profile to use.")
     parser.add_argument("--workspace", type=Path, default=None, help="Override profile ADS workspace.")
     parser.add_argument("--cell", help="ADS cell name, e.g. r2e_l600_mm_coords.")
     parser.add_argument("--dataset", type=Path, help="Explicit ADS .ds path. Overrides --cell.")

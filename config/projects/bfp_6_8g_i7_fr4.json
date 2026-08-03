@@ -138,6 +138,7 @@
   "ads": {
     "library": "BFP_lib",
     "template_cell": "BFP",
-    "substrate": "BFP_lib:substrate4"
+    "substrate": "BFP_lib:substrate4",
+    "stackup_config": "config/stackups/JLC04161H_7628_1P6MM.json"
   }
 }

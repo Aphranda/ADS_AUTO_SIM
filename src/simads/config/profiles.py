@@ -167,15 +167,20 @@ def load_profiles(path: Path | None = None) -> dict[str, AdsProfile]:
 ADS_PROFILES = load_profiles()
 
 
-def profile_names() -> list[str]:
-    return sorted(ADS_PROFILES)
+def profile_names(*, include_auto: bool = False) -> list[str]:
+    names = sorted(ADS_PROFILES)
+    return ["auto", *names] if include_auto else names
 
 
 def get_ads_profile(name: str) -> AdsProfile:
+    if name == "auto":
+        from .machine import resolve_backend_profile
+
+        name = resolve_backend_profile("ads", name)
     try:
         return ADS_PROFILES[name]
     except KeyError as exc:
-        names = ", ".join(profile_names())
+        names = ", ".join(profile_names(include_auto=True))
         raise ValueError(f"unknown ADS profile {name!r}; expected one of: {names}") from exc
 
 

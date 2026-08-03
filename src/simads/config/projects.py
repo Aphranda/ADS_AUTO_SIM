@@ -20,6 +20,7 @@ class ProjectAdsConfig:
     library: str | None = None
     template_cell: str | None = None
     substrate: str | None = None
+    stackup_config: Path | None = None
     setup_view: str | None = None
     rfpro_emsetup_view: str | None = None
 
@@ -28,6 +29,7 @@ class ProjectAdsConfig:
             "library": self.library,
             "template_cell": self.template_cell,
             "substrate": self.substrate,
+            "stackup_config": str(self.stackup_config) if self.stackup_config is not None else None,
             "setup_view": self.setup_view,
             "rfpro_emsetup_view": self.rfpro_emsetup_view,
         }
@@ -256,6 +258,7 @@ def project_from_mapping(data: dict[str, Any], *, root: Path | None = None) -> P
             library=str(ads_data["library"]) if ads_data.get("library") else None,
             template_cell=str(ads_data["template_cell"]) if ads_data.get("template_cell") else None,
             substrate=str(ads_data["substrate"]) if ads_data.get("substrate") else None,
+            stackup_config=_optional_root_relative_path(base, ads_data.get("stackup_config")),
             setup_view=str(ads_data["setup_view"]) if ads_data.get("setup_view") else None,
             rfpro_emsetup_view=str(ads_data["rfpro_emsetup_view"]) if ads_data.get("rfpro_emsetup_view") else None,
         ),

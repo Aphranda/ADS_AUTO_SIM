@@ -45,6 +45,7 @@ htmlcov/
 
 # Project scratch space
 .tmp/
+.codex_tmp/
 tmp/
 temp/
 .cache/

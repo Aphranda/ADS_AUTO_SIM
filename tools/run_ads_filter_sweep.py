@@ -19,7 +19,7 @@ for _path in (_SRC_ROOT, _TOOLS_ROOT):
         sys.path.insert(0, str(_path))
 
 from ads_profiles import get_ads_profile, profile_names, resolve_ads_python, resolve_host_python, resolve_library, resolve_workspace
-from simads.config import load_pipeline, load_project, resolve_pipeline_id, validate_pipeline
+from simads.config import load_pipeline, load_project, resolve_backend_profile, resolve_pipeline_id, validate_pipeline
 from simads.devices import list_devices
 from simads.geometry import load_layout_json, validate_layout_contract, validate_pixel_qr_bpf_layout
 from simads.runtime import classify_exception, create_run_id
@@ -213,7 +213,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--out-dir", type=Path, default=None, help="Generated layout directory. Default uses the active project sweep.")
     parser.add_argument("--results-dir", type=Path, default=None, help="Result directory. Default uses the active project sweep.")
     parser.add_argument("--summary", type=Path, default=None, help="Sweep summary CSV. Default uses the active project sweep.")
-    parser.add_argument("--profile", default=None, choices=profile_names(), help="ADS path profile to use.")
+    parser.add_argument("--profile", default=None, choices=profile_names(include_auto=True), help="ADS path profile to use.")
     parser.add_argument("--ads-python", type=Path, default=None, help="Override profile ADS Python.")
     parser.add_argument("--host-python", type=Path, default=None, help="Override profile host/control Python.")
     parser.add_argument("--workspace", type=Path, default=None, help="Override profile ADS workspace.")
@@ -342,7 +342,7 @@ def apply_project_defaults(args: argparse.Namespace, root: Path) -> None:
 
 
 def resolve_profile(current: str | None, configured: str | None) -> str:
-    return current or configured or "company"
+    return resolve_backend_profile("ads", current or configured or "auto")
 
 
 def run_pipeline_gate(args: argparse.Namespace) -> None:

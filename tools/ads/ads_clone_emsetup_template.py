@@ -213,7 +213,7 @@ def clone_emsetup(
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Clone/patched ADS FEM EM Setup from a template cell.")
-    parser.add_argument("--profile", default="company", choices=profile_names(), help="ADS path profile to use.")
+    parser.add_argument("--profile", default="auto", choices=profile_names(include_auto=True), help="ADS path profile to use.")
     parser.add_argument("--workspace", type=Path, default=None, help="Override profile ADS workspace.")
     parser.add_argument("--library", default=None, help="Override profile ADS library.")
     parser.add_argument("--template-cell", default=DEFAULT_TEMPLATE_CELL)

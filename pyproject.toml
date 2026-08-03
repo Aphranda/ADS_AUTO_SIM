@@ -16,12 +16,18 @@ optimizer = [
   "scipy",
   "scikit-learn",
 ]
+hfss = [
+  "pyaedt",
+]
 nn = [
   "torch",
 ]
 reports = [
   "matplotlib",
   "pandas",
+]
+test = [
+  "pytest",
 ]
 
 [tool.setuptools.packages.find]

@@ -8,6 +8,7 @@ import csv
 import math
 import os
 import sys
+import traceback
 from datetime import datetime
 from pathlib import Path
 
@@ -81,6 +82,52 @@ def patch_existing_rfpro_setup(
     changed = patch_rfpro_setup_xml(setup_xml, substrate_ls)
     if changed:
         log("Existing RFPro setup XML patched")
+
+
+def rfpro_emsetup_view_candidates(view_name: str) -> list[str]:
+    """Return likely ADS/RFPro EM setup names, preserving the most useful order."""
+
+    names: list[str] = []
+
+    def add(name: str | None) -> None:
+        if name and name not in names:
+            names.append(name)
+
+    if view_name == "emSetup":
+        add("em%Setup")
+    add(view_name)
+    if "%" in view_name:
+        add(view_name.replace("%", ""))
+    elif view_name.lower() == "emsetup":
+        add("em%Setup")
+    return names
+
+
+def log_active_analyses(empro_module: object, stage: str) -> None:
+    try:
+        analyses = getattr(empro_module.activeProject, "analyses")
+        log(f"{stage}: RFPro analysis count={len(analyses)}")
+        for idx, item in enumerate(analyses):
+            name = getattr(item, "name", "<unnamed>")
+            log(f"{stage}: analysis[{idx}] name={name} type={type(item).__name__}")
+    except Exception:
+        log(f"{stage}: failed to inspect RFPro analyses")
+        log(traceback.format_exc().rstrip())
+
+
+def create_analysis_from_emsetup(empro_module: object, candidates: list[str]):
+    last_error: Exception | None = None
+    for candidate in candidates:
+        try:
+            log(f"Trying FEM analysis from EM setup view: {candidate}")
+            analysis = empro_module.analysis.Analysis.fromEmSetup(candidate)
+            log(f"FEM analysis created from EM setup view: {candidate}")
+            return analysis, candidate
+        except Exception as exc:
+            last_error = exc
+            log(f"Failed to create FEM analysis from EM setup view: {candidate}")
+            log(traceback.format_exc().rstrip())
+    raise RuntimeError(f"Unable to create RFPro FEM analysis from EM setup candidates: {candidates}") from last_error
 
 
 def ads_create_or_update_rfpro_view(
@@ -166,6 +213,7 @@ def run_rfpro_fem(
     max_passes: int,
     on_results_action: int | None,
     output_csv: str,
+    diagnose_only: bool = False,
 ) -> dict[str, object]:
     """Runs inside an RFPro/xxPro Python context."""
     log("RFPro FEM callable entered")
@@ -183,10 +231,12 @@ def run_rfpro_fem(
     pro_lcv = ads.LibraryCellView(library=library_name, cell=cell_name, view=rfpro_view_name)
     log(f"Loading RFPro view: {library_name}:{cell_name}:{rfpro_view_name}")
     xxpro.load_pro_view(pro_lcv)
+    log_active_analyses(empro, "After RFPro view load")
 
     with empro.activeProject as project:
-        log(f"Creating FEM analysis from EM setup view: {emsetup_view_name}")
-        analysis = empro.analysis.Analysis.fromEmSetup(emsetup_view_name)
+        emsetup_candidates = rfpro_emsetup_view_candidates(emsetup_view_name)
+        log(f"Creating FEM analysis from EM setup candidates: {emsetup_candidates}")
+        analysis, selected_emsetup_view = create_analysis_from_emsetup(empro, emsetup_candidates)
         analysis.name = analysis_name
 
         options = analysis.simulationSettings
@@ -203,14 +253,37 @@ def run_rfpro_fem(
         options.farFieldEnabled = False
         options.setPresetByName("FEM")
         if max_passes > 0:
-            options.femMeshSettings.maximumNumberOfPasses = max_passes
+            min_passes = 1
+            try:
+                min_passes = int(options.femMeshSettings.minimumNumberOfPasses)
+            except Exception:
+                log("Could not read FEM minimumNumberOfPasses; using conservative minimum=1")
+            effective_max_passes = max(max_passes, min_passes + 1)
+            if effective_max_passes != max_passes:
+                log(
+                    "Adjusted FEM maximumNumberOfPasses "
+                    f"from {max_passes} to {effective_max_passes} because it must exceed minimumNumberOfPasses={min_passes}"
+                )
+            options.femMeshSettings.maximumNumberOfPasses = effective_max_passes
         if on_results_action is not None:
             analysis.onResultsAction = on_results_action
 
         empro.activeProject.analyses.clear()
         empro.activeProject.analyses.append(analysis)
+        log_active_analyses(empro, "After RFPro analysis replace")
         log("Saving RFPro project before simulation")
         project.saveActiveProject()
+
+    if diagnose_only:
+        log("diagnose_only set; RFPro analysis was created and saved without starting simulation")
+        return {
+            "workspace": workspace_path,
+            "library": library_name,
+            "cell": cell_name,
+            "analysis": analysis_name,
+            "selected_emsetup_view": selected_emsetup_view,
+            "diagnose_only": True,
+        }
 
     active_analysis = empro.activeProject.analyses[-1]
     log("Starting RFPro FEM analysis")
@@ -250,6 +323,7 @@ def run_rfpro_fem(
         "library": library_name,
         "cell": cell_name,
         "analysis": analysis_name,
+        "selected_emsetup_view": selected_emsetup_view,
         "points": len(rows),
         "output_csv": str(out_path),
     }
@@ -257,7 +331,7 @@ def run_rfpro_fem(
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Create/update RFPro view, run FEM, and export S-parameters.")
-    parser.add_argument("--profile", default="company", choices=profile_names(), help="ADS path profile to use.")
+    parser.add_argument("--profile", default="auto", choices=profile_names(include_auto=True), help="ADS path profile to use.")
     parser.add_argument("--workspace", type=Path, default=None, help="Override profile ADS workspace.")
     parser.add_argument("--library", default=None, help="Override profile ADS library.")
     parser.add_argument("--cell", required=True)
@@ -277,6 +351,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--prepare-only", action="store_true")
+    parser.add_argument("--diagnose-only", action="store_true", help="Create/save RFPro FEM analysis but do not start simulation.")
     parser.add_argument(
         "--multipython-prepare",
         action="store_true",
@@ -349,6 +424,7 @@ def main() -> None:
                 args.max_passes,
                 on_results_action,
                 str(output_csv),
+                args.diagnose_only,
             ],
         )
 

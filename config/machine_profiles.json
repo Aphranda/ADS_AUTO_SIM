@@ -1,0 +1,20 @@
+{
+  "schema_version": "0.1.0",
+  "profiles": {
+    "company": {
+      "description": "Company workstation",
+      "mac_sha256_16": [
+        "158d1c769fc87933",
+        "07e6c35905704635"
+      ],
+      "ads_profile": "company_standard",
+      "hfss_profile": "company"
+    },
+    "home": {
+      "description": "Home workstation",
+      "mac_sha256_16": [],
+      "ads_profile": "home",
+      "hfss_profile": "home"
+    }
+  }
+}

@@ -32,7 +32,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--project-id", default="bfp_6_8g_i7_fr4")
     parser.add_argument("--sweep-id", default=None)
     parser.add_argument("--pipeline-id", default=None)
-    parser.add_argument("--profile", default=None, choices=profile_names())
+    parser.add_argument("--profile", default=None, choices=profile_names(include_auto=True))
     parser.add_argument("--json-out", type=Path, default=None)
     return parser.parse_args()
 

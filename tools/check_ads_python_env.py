@@ -18,7 +18,7 @@ from simads.config import get_ads_profile, profile_names
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="ADS Python import smoke test.")
-    parser.add_argument("--profile", default=None, choices=profile_names(), help="Use ADS root from a configured profile.")
+    parser.add_argument("--profile", default="auto", choices=profile_names(include_auto=True), help="Use ADS root from a configured profile.")
     parser.add_argument("--ads-root", type=Path, default=None, help="Explicit ADS root used to set HPEESOF_DIR.")
     return parser.parse_args()
 

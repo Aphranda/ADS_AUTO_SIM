@@ -7,7 +7,7 @@ for RO4350B 0.020 inch substrate. Units are millimeters.
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from html import escape
 import argparse
 import csv
@@ -21,6 +21,7 @@ if str(_SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(_SRC_ROOT))
 
 from simads.exporters.json import write_layout_json
+from simads.config import StackupConfig, name_with_stackup_token
 from simads.geometry import Boundary, LayerMap, Layout, Polygon, Port, Rect as LayoutRect, Via
 
 
@@ -60,9 +61,43 @@ class FilterParams:
     metal_layer: str = "cond"
     via_layer: str = "pcvia1"
     via_diameter_mm: float = 0.50
-    via_pad_mm: float = 0.50
+    via_pad_mm: float = 0.3556
     via_half_outside: bool = False
     via_pad_outside: bool = False
+    stackup_metadata: dict[str, object] | None = None
+
+
+def params_with_stackup_config(
+    params: FilterParams,
+    stackup: StackupConfig,
+    *,
+    config_path: Path | None = None,
+) -> FilterParams:
+    """Apply the configured stackup's naming and physical dimensions."""
+
+    signal_layer = stackup.geometry.signal_layer
+    signal_layers = [layer for layer in stackup.layers_bottom_to_top if layer.name == signal_layer]
+    copper_thickness_mm = signal_layers[0].thickness_mm if signal_layers else params.copper_thickness_mm
+    primary = stackup.primary_dielectric
+    return replace(
+        params,
+        name=name_with_stackup_token(params.name, stackup),
+        substrate=stackup.stackup_id,
+        er=primary.er if primary and primary.er is not None else params.er,
+        dielectric_height_mm=stackup.signal_to_reference_height_mm,
+        copper_thickness_mm=copper_thickness_mm,
+        metal_layer="cond",
+        via_layer="pcvia1",
+        stackup_metadata={
+            "stackup_id": stackup.stackup_id,
+            "stackup_token": name_with_stackup_token("stackup", stackup).removeprefix("stackup_"),
+            "stackup_config": str(config_path) if config_path is not None else None,
+            "signal_layer": stackup.geometry.signal_layer,
+            "reference_ground_layer": stackup.geometry.reference_ground_layer,
+            "via_top_layer": stackup.geometry.via_top_layer,
+            "via_bottom_layer": stackup.geometry.via_bottom_layer,
+        },
+    )
 
 
 @dataclass(frozen=True)
@@ -281,6 +316,19 @@ def build_layout(params: FilterParams, rects: list[Rect | Quad] | None = None) -
         Port(name="P1", number=1, x=p1_x, y=params.tap_from_bottom_mm, width=params.w0_mm, layer=params.metal_layer),
         Port(name="P2", number=2, x=p2_x, y=params.tap_from_bottom_mm, width=params.w0_mm, layer=params.metal_layer),
     ]
+    metadata = {
+        "generator": "tools/generate_interdigital_filter_layout.py",
+        "layer_map_version": "profile-default-v1",
+        "topology": "interdigital_bpf",
+        "order": params.order,
+        "substrate": params.substrate,
+        "er": params.er,
+        "dielectric_height_mm": params.dielectric_height_mm,
+        "copper_thickness_mm": params.copper_thickness_mm,
+    }
+    if params.stackup_metadata:
+        metadata.update(params.stackup_metadata)
+
     return Layout(
         layout_id=params.name,
         units="mm",
@@ -291,16 +339,7 @@ def build_layout(params: FilterParams, rects: list[Rect | Quad] | None = None) -
         ],
         shapes=shapes,
         ports=ports,
-        metadata={
-            "generator": "tools/generate_interdigital_filter_layout.py",
-            "layer_map_version": "profile-default-v1",
-            "topology": "interdigital_bpf",
-            "order": params.order,
-            "substrate": params.substrate,
-            "er": params.er,
-            "dielectric_height_mm": params.dielectric_height_mm,
-            "copper_thickness_mm": params.copper_thickness_mm,
-        },
+        metadata=metadata,
     )
 
 

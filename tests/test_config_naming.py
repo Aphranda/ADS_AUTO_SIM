@@ -8,8 +8,12 @@ from simads.hfss.artifacts import default_project_name
 TOOLS_LAYOUT = Path("tools/layout").resolve()
 if str(TOOLS_LAYOUT) not in sys.path:
     sys.path.insert(0, str(TOOLS_LAYOUT))
+TOOLS_ADS = Path("tools/ads").resolve()
+if str(TOOLS_ADS) not in sys.path:
+    sys.path.insert(0, str(TOOLS_ADS))
 
 from generate_interdigital_filter_layout import FilterParams, params_with_stackup_config, write_outputs  # noqa: E402
+from ads_run_rfpro_fem import rfpro_emsetup_view_candidates  # noqa: E402
 
 
 def test_stackup_token_and_legacy_replacement() -> None:
@@ -49,6 +53,25 @@ def test_interdigital_layout_records_configured_stackup(tmp_path: Path) -> None:
     assert layout["metadata"]["reference_ground_layer"] == "ETCH_INNER1"
     assert layout["metadata"]["dielectric_height_mm"] == stackup.signal_to_reference_height_mm
     assert params_json["parameters"]["substrate"] == "JLC04161H_7628_1P6MM"
+
+
+def test_interdigital_default_via_pad_is_10_14_mil(tmp_path: Path) -> None:
+    params = FilterParams(name="i7_pad_probe", order=7, gaps_mm=(0.3, 0.4, 0.45, 0.45, 0.4, 0.3), via_diameter_mm=0.254)
+
+    outputs = write_outputs(params, tmp_path)
+    layout = json.loads(Path(outputs["layout_json"]).read_text(encoding="utf-8"))
+    params_json = json.loads(Path(outputs["params"]).read_text(encoding="utf-8"))
+    vias = [shape for shape in layout["shapes"] if shape["kind"] == "via"]
+
+    assert params_json["parameters"]["via_diameter_mm"] == 0.254
+    assert params_json["parameters"]["via_pad_mm"] == 0.3556
+    assert vias
+    assert all(abs(via["pad_diameter"] - 0.3556) < 1e-9 for via in vias)
+
+
+def test_rfpro_emsetup_candidates_prefer_physical_oa_view() -> None:
+    assert rfpro_emsetup_view_candidates("emSetup") == ["em%Setup", "emSetup"]
+    assert rfpro_emsetup_view_candidates("em%Setup") == ["em%Setup", "emSetup"]
 
 
 def test_hfss_default_project_name_uses_layout_stackup_metadata() -> None:
