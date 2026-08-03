@@ -20,6 +20,7 @@ from simads.config.profiles import (  # noqa: E402,F401
     resolve_host_python,
     resolve_layer_map,
     resolve_library,
+    resolve_substrate,
     resolve_substrate_library,
     resolve_workspace,
     validate_profile,

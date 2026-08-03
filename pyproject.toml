@@ -16,6 +16,9 @@ optimizer = [
   "scipy",
   "scikit-learn",
 ]
+nn = [
+  "torch",
+]
 reports = [
   "matplotlib",
   "pandas",

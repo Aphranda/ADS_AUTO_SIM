@@ -20,7 +20,7 @@
     "passband_start_ghz": 6.0,
     "passband_stop_ghz": 8.0
   },
-  "active_sweep": "interdigital_7o_fr4_round7",
+  "active_sweep": "interdigital_7o_fr4_round9_asym_gap_nn_1to10",
   "sweeps": {
     "interdigital_7o_fr4_round7": {
       "pipeline_id": "bfp_6_8g_i7_fr4_interdigital_v1",
@@ -48,6 +48,90 @@
         "random_seed": 731,
         "exploration": 0.0,
         "prediction_report": "projects/bfp_6_8g_i7_fr4/results/interdigital_7o_fr4_round7_predictions.csv"
+      }
+    },
+    "interdigital_7o_fr4_round8_refined_nn_1to10": {
+      "pipeline_id": "bfp_6_8g_i7_fr4_home_round8_refined_nn_1to10",
+      "plan": "projects/bfp_6_8g_i7_fr4/plans/filter_opt_i7_fr4_round8_refined_nn_top8.csv",
+      "layouts_dir": "projects/bfp_6_8g_i7_fr4/layouts/interdigital_7o_fr4_210um_round8_refined_nn_pool",
+      "results_dir": "projects/bfp_6_8g_i7_fr4/results/interdigital_7o_fr4_210um_round8_refined_nn_1to10",
+      "summary": "projects/bfp_6_8g_i7_fr4/results/interdigital_7o_fr4_210um_round8_refined_nn_1to10/sweep_summary.csv",
+      "target_profile": "fr4_25db_rl6",
+      "device_id": "filter.interdigital",
+      "template_cell": "BFP",
+      "setup_view": "em%Setup",
+      "rfpro_emsetup_view": "emSetup",
+      "generator": {
+        "script": "tools/generate_filter_sweep.py",
+        "layout_generator": "tools/generate_interdigital_filter_layout.py"
+      },
+      "optimizer": {
+        "strategy": "refined_parameter_nn_trust_region",
+        "dataset": "projects/bfp_6_8g_i7_fr4/results/interdigital_refined_nn_dataset.npz",
+        "checkpoint": "projects/bfp_6_8g_i7_fr4/results/interdigital_refined_surrogate.pt",
+        "candidate_pool": "projects/bfp_6_8g_i7_fr4/plans/filter_opt_i7_fr4_round8_refined_nn_pool.csv",
+        "ranking": "projects/bfp_6_8g_i7_fr4/results/interdigital_round8_refined_nn_ranking.csv",
+        "round_name": "round8",
+        "count": 8,
+        "pool_count": 512,
+        "random_seed": 808
+      }
+    },
+    "interdigital_7o_fr4_round9_asym_gap_nn_1to10": {
+      "pipeline_id": "bfp_6_8g_i7_fr4_home_round9_asym_gap_nn_1to10",
+      "plan": "projects/bfp_6_8g_i7_fr4/plans/filter_opt_i7_fr4_round9_asym_gap_nn_top8.csv",
+      "layouts_dir": "projects/bfp_6_8g_i7_fr4/layouts/interdigital_7o_fr4_210um_round9_asym_gap_nn_pool",
+      "results_dir": "projects/bfp_6_8g_i7_fr4/results/interdigital_7o_fr4_210um_round9_asym_gap_nn_1to10",
+      "summary": "projects/bfp_6_8g_i7_fr4/results/interdigital_7o_fr4_210um_round9_asym_gap_nn_1to10/sweep_summary.csv",
+      "target_profile": "fr4_25db_rl6",
+      "device_id": "filter.interdigital",
+      "template_cell": "BFP",
+      "setup_view": "em%Setup",
+      "rfpro_emsetup_view": "emSetup",
+      "generator": {
+        "script": "tools/generate_filter_sweep.py",
+        "layout_generator": "tools/generate_interdigital_filter_layout.py"
+      },
+      "optimizer": {
+        "strategy": "refined_parameter_nn_asymmetric_gap_trust_region",
+        "dataset": "projects/bfp_6_8g_i7_fr4/results/interdigital_refined_nn_dataset.npz",
+        "checkpoint": "projects/bfp_6_8g_i7_fr4/results/interdigital_refined_surrogate_h64b2.pt",
+        "candidate_pool": "projects/bfp_6_8g_i7_fr4/plans/filter_opt_i7_fr4_round9_asym_gap_nn_pool.csv",
+        "ranking": "projects/bfp_6_8g_i7_fr4/results/interdigital_round9_asym_gap_nn_ranking.csv",
+        "round_name": "round9",
+        "count": 8,
+        "pool_count": 768,
+        "random_seed": 909,
+        "seed_candidate": "i7_fr4_r8_nn0447"
+      }
+    },
+    "interdigital_7o_fr4_round9_asym_gap_nn_parallel_1to10": {
+      "pipeline_id": "bfp_6_8g_i7_fr4_home_parallel_round9_asym_gap_nn_1to10",
+      "plan": "projects/bfp_6_8g_i7_fr4/plans/filter_opt_i7_fr4_round9_asym_gap_nn_top8.csv",
+      "layouts_dir": "projects/bfp_6_8g_i7_fr4/layouts/interdigital_7o_fr4_210um_round9_asym_gap_nn_pool",
+      "results_dir": "projects/bfp_6_8g_i7_fr4/results/interdigital_7o_fr4_210um_round9_asym_gap_nn_parallel_1to10",
+      "summary": "projects/bfp_6_8g_i7_fr4/results/interdigital_7o_fr4_210um_round9_asym_gap_nn_parallel_1to10/sweep_summary.csv",
+      "target_profile": "fr4_25db_rl6",
+      "device_id": "filter.interdigital",
+      "template_cell": "SIMADS_EM_TEMPLATE_2PORT_FEM",
+      "setup_view": "em%Setup",
+      "rfpro_emsetup_view": "emSetup",
+      "generator": {
+        "script": "tools/generate_filter_sweep.py",
+        "layout_generator": "tools/generate_interdigital_filter_layout.py"
+      },
+      "optimizer": {
+        "strategy": "refined_parameter_nn_asymmetric_gap_trust_region_parallel_rfpro",
+        "dataset": "projects/bfp_6_8g_i7_fr4/results/interdigital_refined_nn_dataset.npz",
+        "checkpoint": "projects/bfp_6_8g_i7_fr4/results/interdigital_refined_surrogate_h64b2.pt",
+        "candidate_pool": "projects/bfp_6_8g_i7_fr4/plans/filter_opt_i7_fr4_round9_asym_gap_nn_pool.csv",
+        "ranking": "projects/bfp_6_8g_i7_fr4/results/interdigital_round9_asym_gap_nn_ranking.csv",
+        "round_name": "round9",
+        "count": 8,
+        "pool_count": 768,
+        "random_seed": 909,
+        "seed_candidate": "i7_fr4_r8_nn0447",
+        "parallel_workers": 2
       }
     }
   },

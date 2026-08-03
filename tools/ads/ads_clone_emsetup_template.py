@@ -24,7 +24,7 @@ for _path in (_TOOLS_ROOT, _SRC_ROOT):
     if str(_path) not in sys.path:
         sys.path.insert(0, str(_path))
 
-from ads_profiles import profile_names, resolve_library, resolve_substrate_library, resolve_workspace
+from ads_profiles import profile_names, resolve_library, resolve_substrate, resolve_substrate_library, resolve_workspace
 from simads.ads.layout import load_p1_p2_locations
 from simads.ads.workspace import find_cell_dir
 from simads.safety import AdsWriteContext, guard_directory_delete, validate_ads_cell_write
@@ -91,6 +91,15 @@ def substrate_name_from_params(params_path: Path | None) -> str | None:
     return substrate or None
 
 
+def split_substrate_ref(substrate: str | None) -> tuple[str | None, str | None]:
+    if not substrate:
+        return (None, None)
+    if ":" in substrate:
+        lib, name = substrate.split(":", 1)
+        return (lib or None, Path(name).stem or name)
+    return (None, Path(substrate).stem or substrate)
+
+
 def set_pin_snapshot(root: ET.Element, pin_name: str, x_mm: float, y_mm: float) -> None:
     for pin in root.findall(".//Pin"):
         name = pin.findtext("pinName")
@@ -118,6 +127,7 @@ def clone_emsetup(
     points_text: str,
     overwrite: bool,
     force: bool,
+    profile_substrate: str | None = None,
 ) -> Path:
     log(
         "Clone EM setup configured: "
@@ -160,12 +170,17 @@ def clone_emsetup(
     log(f"Patching EM setup XML: {xml_path}")
     tree = ET.parse(xml_path)
     root = tree.getroot()
-    substrate_lib_name = substrate_library or library
+    profile_substrate_lib, profile_substrate_name = split_substrate_ref(profile_substrate)
+    substrate_lib_name = profile_substrate_lib or substrate_library or library
     substrate_search_dirs = [workspace / substrate_lib_name]
     if substrate_lib_name != library:
         substrate_search_dirs.append(workspace / library)
     substrate_search_dirs.append(workspace / "Substrates")
-    substrate_name = substrate_name_from_params(params_path) or first_substrate_name(substrate_search_dirs, root)
+    substrate_name = (
+        profile_substrate_name
+        or substrate_name_from_params(params_path)
+        or first_substrate_name(substrate_search_dirs, root)
+    )
 
     replace_text(root, template_cell, target_cell)
     replace_text(root, f"{template_cell}_emCosim", f"{target_cell}_emCosim")
@@ -219,6 +234,7 @@ def main() -> None:
     workspace = resolve_workspace(args.profile, args.workspace)
     library = resolve_library(args.profile, args.library)
     substrate_library = resolve_substrate_library(args.profile, None)
+    profile_substrate = resolve_substrate(args.profile, None)
     xml_path = clone_emsetup(
         workspace=workspace,
         library=library,
@@ -232,6 +248,7 @@ def main() -> None:
         points_text=args.points_text,
         overwrite=args.overwrite,
         force=args.force,
+        profile_substrate=profile_substrate,
     )
     print(f"Cloned EM setup: {xml_path}", flush=True)
 

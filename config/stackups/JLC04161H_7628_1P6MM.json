@@ -1,0 +1,116 @@
+{
+  "schema_version": "0.1.0",
+  "stackup_id": "JLC04161H_7628_1P6MM",
+  "name": "JLC04161H-7628 4-layer 1.6mm stackup",
+  "vendor": "JLCPCB",
+  "board_code": "JLC04161H-7628",
+  "finished_thickness_mm": 1.6,
+  "finished_thickness_tolerance": "±10%",
+  "naming": {
+    "token": "jlc04161h_7628_1p6mm",
+    "replace_tokens": [
+      "fr4_210um",
+      "fr4_2104um",
+      "ro4350b_508um"
+    ]
+  },
+  "source": "JLCPCB controlled impedance stackup page and imported ADS substrate screenshot, checked 2026-08-02",
+  "notes": "JLCPCB public impedance data lists 7628 prepreg Dk=4.4 and core Dk=4.6. The imported ADS substrate screenshot shows 4.5 labels, likely an equivalent/simplified value. Loss tangent is not specified on the JLC stackup page; 0.02 is kept as a conservative standard FR4 value until measured/vendor Df data is available.",
+  "materials": {
+    "COPPER": {
+      "kind": "conductor",
+      "hfss_material": "copper"
+    },
+    "JLC_7628_RC49_8P6MIL": {
+      "kind": "dielectric",
+      "display_name": "7628 RC49% 8.6MIL",
+      "er": 4.4,
+      "loss_tangent": 0.02
+    },
+    "JLC_1P1MM_H_HOZ_CORE": {
+      "kind": "dielectric",
+      "display_name": "1.1MM H/HOZ COPPER",
+      "er": 4.6,
+      "loss_tangent": 0.02
+    }
+  },
+  "layers_bottom_to_top": [
+    {
+      "name": "ETCH_BOTTOM",
+      "role": "bottom_copper",
+      "kind": "conductor",
+      "material": "COPPER",
+      "thickness_mm": 0.0350,
+      "thickness_mil": 1.378,
+      "ads_layer_id": 1003
+    },
+    {
+      "name": "DIEL_PP_BOTTOM_7628_RC49_8P6MIL",
+      "role": "bottom_prepreg",
+      "kind": "dielectric",
+      "material": "JLC_7628_RC49_8P6MIL",
+      "thickness_mm": 0.2104,
+      "thickness_mil": 8.28299
+    },
+    {
+      "name": "ETCH_INNER2",
+      "role": "inner2_copper",
+      "kind": "conductor",
+      "material": "COPPER",
+      "thickness_mm": 0.0152,
+      "thickness_mil": 0.598,
+      "ads_layer_id": 1002
+    },
+    {
+      "name": "DIEL_CORE_1P1MM_H_HOZ",
+      "role": "core",
+      "kind": "dielectric",
+      "material": "JLC_1P1MM_H_HOZ_CORE",
+      "thickness_mm": 1.0650,
+      "thickness_mil": 41.9291
+    },
+    {
+      "name": "ETCH_INNER1",
+      "role": "reference_ground",
+      "kind": "conductor",
+      "material": "COPPER",
+      "thickness_mm": 0.0152,
+      "thickness_mil": 0.598,
+      "ads_layer_id": 1001
+    },
+    {
+      "name": "DIEL_PP_TOP_7628_RC49_8P6MIL",
+      "role": "top_prepreg",
+      "kind": "dielectric",
+      "material": "JLC_7628_RC49_8P6MIL",
+      "thickness_mm": 0.2104,
+      "thickness_mil": 8.28299
+    },
+    {
+      "name": "ETCH_TOP",
+      "role": "signal",
+      "kind": "conductor",
+      "material": "COPPER",
+      "thickness_mm": 0.0350,
+      "thickness_mil": 1.378,
+      "ads_layer_id": 1000
+    }
+  ],
+  "geometry": {
+    "signal_layer": "ETCH_TOP",
+    "reference_ground_layer": "ETCH_INNER1",
+    "via_top_layer": "ETCH_TOP",
+    "via_bottom_layer": "ETCH_BOTTOM",
+    "ground_plane_name": "hfss_ground_plane"
+  },
+  "ads": {
+    "expected_substrate_name": "JLC04161H_7628_1P6MM",
+    "imported_layers": {
+      "ETCH_TOP": 1000,
+      "ETCH_INNER1": 1001,
+      "ETCH_INNER2": 1002,
+      "ETCH_BOTTOM": 1003
+    },
+    "drill_layer": "DRILL_TOP_BOTTOM"
+  }
+}

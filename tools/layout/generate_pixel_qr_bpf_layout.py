@@ -19,7 +19,7 @@ if str(_SRC_ROOT) not in sys.path:
 from simads.exporters.dxf import write_dxf
 from simads.exporters.json import write_layout_json
 from simads.exporters.svg import write_svg
-from simads.geometry import Boundary, LayerMap, Layout, Port, Rect, fmt
+from simads.geometry import Boundary, LayerMap, Layout, Port, Rect, Via, fmt
 
 
 @dataclass(frozen=True)
@@ -47,6 +47,14 @@ class PixelQrBpfParams:
     seed: int = 0
     pattern: str = "qr_seed"
     custom_mask_rows: tuple[str, ...] = ()
+    via_mask_rows: tuple[str, ...] = ()
+    via_diameter_rows: tuple[str, ...] = ()
+    sub_stub_len_rows: tuple[str, ...] = ()
+    sub_stub_w_rows: tuple[str, ...] = ()
+    sub_pad_rows: tuple[str, ...] = ()
+    sub_slot_gap_rows: tuple[str, ...] = ()
+    via_diameter_mm: float = 0.18
+    via_pad_diameter_mm: float = 0.30
     mirror_x: bool = True
     force_edge_coupling: bool = True
     connect_adjacent_pixels: bool = True
@@ -82,6 +90,28 @@ def parse_mask_rows(value: str) -> tuple[str, ...]:
     return rows
 
 
+def parse_float_rows(value: str, *, field_name: str = "float_rows") -> tuple[str, ...]:
+    text = value.strip()
+    if not text:
+        return ()
+    rows = tuple(part.strip() for part in text.replace("/", ";").split(";") if part.strip())
+    if not rows:
+        return ()
+    width: int | None = None
+    normalized: list[str] = []
+    for row in rows:
+        parts = [part.strip() for part in row.split(",")]
+        if width is None:
+            width = len(parts)
+        if len(parts) != width:
+            raise ValueError(f"{field_name} must be semicolon-separated equal-width comma-separated rows")
+        values = [float(part) for part in parts]
+        if any(value < 0.0 for value in values):
+            raise ValueError(f"{field_name} may not contain negative values")
+        normalized.append(",".join(f"{value:.6g}" for value in values))
+    return tuple(normalized)
+
+
 def row_to_params(row: dict[str, str]) -> PixelQrBpfParams:
     defaults = PixelQrBpfParams()
     return PixelQrBpfParams(
@@ -105,6 +135,14 @@ def row_to_params(row: dict[str, str]) -> PixelQrBpfParams:
         seed=int(csv_value(row, "seed", defaults.seed)),
         pattern=csv_value(row, "pattern", defaults.pattern),
         custom_mask_rows=parse_mask_rows(csv_value(row, "custom_mask_rows", "")),
+        via_mask_rows=parse_mask_rows(csv_value(row, "via_mask_rows", "")),
+        via_diameter_rows=parse_float_rows(csv_value(row, "via_diameter_rows", ""), field_name="via_diameter_rows"),
+        sub_stub_len_rows=parse_float_rows(csv_value(row, "sub_stub_len_rows", ""), field_name="sub_stub_len_rows"),
+        sub_stub_w_rows=parse_float_rows(csv_value(row, "sub_stub_w_rows", ""), field_name="sub_stub_w_rows"),
+        sub_pad_rows=parse_float_rows(csv_value(row, "sub_pad_rows", ""), field_name="sub_pad_rows"),
+        sub_slot_gap_rows=parse_float_rows(csv_value(row, "sub_slot_gap_rows", ""), field_name="sub_slot_gap_rows"),
+        via_diameter_mm=float(csv_value(row, "via_diameter_mm", defaults.via_diameter_mm)),
+        via_pad_diameter_mm=float(csv_value(row, "via_pad_diameter_mm", defaults.via_pad_diameter_mm)),
         mirror_x=parse_bool(csv_value(row, "mirror_x", defaults.mirror_x)),
         force_edge_coupling=parse_bool(csv_value(row, "force_edge_coupling", defaults.force_edge_coupling)),
         connect_adjacent_pixels=parse_bool(csv_value(row, "connect_adjacent_pixels", defaults.connect_adjacent_pixels)),
@@ -186,6 +224,83 @@ def mask_rows(mask: list[list[int]]) -> list[str]:
     return ["".join(str(value) for value in row) for row in mask]
 
 
+def diameter_rows(diameters: list[list[float]]) -> list[str]:
+    return [",".join(f"{value:.6g}" for value in row) for row in diameters]
+
+
+def make_float_map(params: PixelQrBpfParams, rows: tuple[str, ...], *, field_name: str) -> list[list[float]]:
+    n = params.matrix_n
+    if not rows:
+        return [[0.0 for _ in range(n)] for _ in range(n)]
+    if len(rows) != n:
+        raise ValueError(f"{field_name} must be matrix_n x matrix_n")
+    out: list[list[float]] = []
+    for row_text in rows:
+        values = [float(part.strip()) for part in row_text.split(",") if part.strip()]
+        if len(values) != n:
+            raise ValueError(f"{field_name} must be matrix_n x matrix_n")
+        if any(value < 0.0 for value in values):
+            raise ValueError(f"{field_name} may not contain negative values")
+        out.append(values)
+    return out
+
+
+def make_via_mask(params: PixelQrBpfParams, metal_mask: list[list[int]]) -> list[list[int]]:
+    n = params.matrix_n
+    if not params.via_mask_rows:
+        return [[0 for _ in range(n)] for _ in range(n)]
+    rows = params.via_mask_rows
+    if len(rows) != n or any(len(row) != n for row in rows):
+        raise ValueError("via_mask_rows must be matrix_n x matrix_n")
+    via_mask = [[int(value) for value in row] for row in rows]
+    illegal = [
+        (row, col)
+        for row in range(n)
+        for col in range(n)
+        if via_mask[row][col] and not metal_mask[row][col]
+    ]
+    if illegal:
+        first = illegal[0]
+        raise ValueError(f"via_mask_rows may only place vias on filled metal pixels; first invalid pixel r{first[0]} c{first[1]}")
+    return via_mask
+
+
+def make_via_diameter_map(params: PixelQrBpfParams, metal_mask: list[list[int]]) -> list[list[float]]:
+    n = params.matrix_n
+    if params.via_diameter_rows:
+        rows = params.via_diameter_rows
+        if len(rows) != n:
+            raise ValueError("via_diameter_rows must be matrix_n x matrix_n")
+        via_diameters: list[list[float]] = []
+        for row_text in rows:
+            values = [float(part.strip()) for part in row_text.split(",") if part.strip()]
+            if len(values) != n:
+                raise ValueError("via_diameter_rows must be matrix_n x matrix_n")
+            via_diameters.append(values)
+        illegal = [
+            (row, col)
+            for row in range(n)
+            for col in range(n)
+            if via_diameters[row][col] > 0.0 and not metal_mask[row][col]
+        ]
+        if illegal:
+            first = illegal[0]
+            raise ValueError(f"via_diameter_rows may only place vias on filled metal pixels; first invalid pixel r{first[0]} c{first[1]}")
+        small = [
+            (row, col, via_diameters[row][col])
+            for row in range(n)
+            for col in range(n)
+            if 0.0 < via_diameters[row][col] < params.min_fab_feature_mm
+        ]
+        if small:
+            row, col, diameter = small[0]
+            raise ValueError(f"via_diameter_rows r{row} c{col} diameter {diameter:.6g} mm is smaller than min_fab_feature_mm")
+        return via_diameters
+
+    via_mask = make_via_mask(params, metal_mask)
+    return [[params.via_diameter_mm if via_mask[row][col] else 0.0 for col in range(n)] for row in range(n)]
+
+
 def build_layout(params: PixelQrBpfParams) -> Layout:
     n = params.matrix_n
     if n < 4:
@@ -199,10 +314,22 @@ def build_layout(params: PixelQrBpfParams) -> Layout:
         raise ValueError("gap_mm is smaller than min_fab_gap_mm")
     if params.feed_w_mm < params.min_fab_feature_mm:
         raise ValueError("feed_w_mm is smaller than min_fab_feature_mm")
+    if params.via_diameter_mm <= 0 or params.via_pad_diameter_mm <= 0:
+        raise ValueError("via diameters must be positive")
+    if params.via_diameter_mm < params.min_fab_feature_mm:
+        raise ValueError("via_diameter_mm is smaller than min_fab_feature_mm")
+    if params.via_pad_diameter_mm < params.via_diameter_mm:
+        raise ValueError("via_pad_diameter_mm must be >= via_diameter_mm")
     if params.coupling_overlap_mm <= 0:
         raise ValueError("coupling_overlap_mm must be positive")
 
     mask = make_mask(params)
+    via_diameters = make_via_diameter_map(params, mask)
+    via_mask = [[1 if via_diameters[row][col] > 0.0 else 0 for col in range(n)] for row in range(n)]
+    sub_stub_len = make_float_map(params, params.sub_stub_len_rows, field_name="sub_stub_len_rows")
+    sub_stub_w = make_float_map(params, params.sub_stub_w_rows, field_name="sub_stub_w_rows")
+    sub_pad = make_float_map(params, params.sub_pad_rows, field_name="sub_pad_rows")
+    sub_slot_gap = make_float_map(params, params.sub_slot_gap_rows, field_name="sub_slot_gap_rows")
     size = matrix_size(params)
     x0 = 0.0
     y0 = -size / 2.0
@@ -240,15 +367,107 @@ def build_layout(params: PixelQrBpfParams) -> Layout:
                 continue
             x = x0 + col * pitch - metal_center_offset
             y = y0 + (n - 1 - row) * pitch - metal_center_offset
+            slot_gap = sub_slot_gap[row][col]
+            if slot_gap > 0.0:
+                if slot_gap < params.min_fab_gap_mm:
+                    raise ValueError(f"sub_slot_gap_rows r{row} c{col} gap {slot_gap:.6g} mm is smaller than min_fab_gap_mm")
+                remaining_w = (metal_w - slot_gap) / 2.0
+                if remaining_w < params.min_fab_feature_mm:
+                    raise ValueError(f"sub_slot_gap_rows r{row} c{col} leaves metal width {remaining_w:.6g} mm smaller than min_fab_feature_mm")
+                shapes.append(
+                    Rect(
+                        name=f"pix_r{row:02d}_c{col:02d}",
+                        layer=params.metal_layer,
+                        x=x,
+                        y=y,
+                        w=remaining_w,
+                        h=metal_w,
+                        metadata={"role": "binary_pixel", "row": row, "col": col, "subcell": "slot_left", "slot_gap_mm": slot_gap},
+                    )
+                )
+                shapes.append(
+                    Rect(
+                        name=f"sub_slot_right_r{row:02d}_c{col:02d}",
+                        layer=params.metal_layer,
+                        x=x + remaining_w + slot_gap,
+                        y=y,
+                        w=remaining_w,
+                        h=metal_w,
+                        metadata={"role": "subcell_slot_metal", "row": row, "col": col, "slot_gap_mm": slot_gap},
+                    )
+                )
+            else:
+                shapes.append(
+                    Rect(
+                        name=f"pix_r{row:02d}_c{col:02d}",
+                        layer=params.metal_layer,
+                        x=x,
+                        y=y,
+                        w=metal_w,
+                        h=metal_w,
+                        metadata={"role": "binary_pixel", "row": row, "col": col},
+                    )
+                )
+
+    for row in range(n):
+        for col in range(n):
+            x = x0 + col * pitch - metal_center_offset
+            y = y0 + (n - 1 - row) * pitch - metal_center_offset
+            stub_len = sub_stub_len[row][col]
+            if stub_len > 0.0:
+                stub_w = sub_stub_w[row][col] if sub_stub_w[row][col] > 0.0 else min(metal_w, params.min_fab_feature_mm)
+                if stub_len < params.min_fab_feature_mm or stub_w < params.min_fab_feature_mm:
+                    raise ValueError(f"subcell stub r{row} c{col} is smaller than min_fab_feature_mm")
+                if stub_w > metal_w:
+                    raise ValueError(f"sub_stub_w_rows r{row} c{col} width {stub_w:.6g} mm exceeds metal pixel width {metal_w:.6g} mm")
+                stub_y = y - stub_len if mask[row][col] else y
+                shapes.append(
+                    Rect(
+                        name=f"sub_stub_r{row:02d}_c{col:02d}",
+                        layer=params.metal_layer,
+                        x=x + (metal_w - stub_w) / 2.0,
+                        y=stub_y,
+                        w=stub_w,
+                        h=stub_len,
+                        metadata={"role": "subcell_open_stub", "row": row, "col": col, "length_mm": stub_len, "width_mm": stub_w, "attached_to_primary_pixel": bool(mask[row][col])},
+                    )
+                )
+            pad_side = sub_pad[row][col]
+            if pad_side > 0.0:
+                if pad_side < params.min_fab_feature_mm or pad_side > metal_w:
+                    raise ValueError(f"sub_pad_rows r{row} c{col} side {pad_side:.6g} mm is outside manufacturable range")
+                pad_y = y - pad_side if mask[row][col] else y
+                shapes.append(
+                    Rect(
+                        name=f"sub_pad_r{row:02d}_c{col:02d}",
+                        layer=params.metal_layer,
+                        x=x + (metal_w - pad_side) / 2.0,
+                        y=pad_y,
+                        w=pad_side,
+                        h=pad_side,
+                        metadata={"role": "subcell_pad", "row": row, "col": col, "side_mm": pad_side, "attached_to_primary_pixel": bool(mask[row][col])},
+                    )
+                )
+
+    for row in range(n):
+        for col in range(n):
+            if not via_mask[row][col]:
+                continue
+            via_diameter_mm = via_diameters[row][col]
+            pad_delta_mm = max(0.0, params.via_pad_diameter_mm - params.via_diameter_mm)
+            via_pad_diameter_mm = via_diameter_mm + pad_delta_mm
+            center_x = x0 + col * pitch + pitch / 2.0
+            center_y = y0 + (n - 1 - row) * pitch + pitch / 2.0
             shapes.append(
-                Rect(
-                    name=f"pix_r{row:02d}_c{col:02d}",
-                    layer=params.metal_layer,
-                    x=x,
-                    y=y,
-                    w=metal_w,
-                    h=metal_w,
-                    metadata={"role": "binary_pixel", "row": row, "col": col},
+                Via(
+                    name=f"ground_via_r{row:02d}_c{col:02d}",
+                    layer=params.via_layer,
+                    x=center_x,
+                    y=center_y,
+                    diameter=via_diameter_mm,
+                    pad_diameter=via_pad_diameter_mm,
+                    pad_layer=params.metal_layer,
+                    metadata={"role": "ground_via_pixel", "row": row, "col": col, "diameter_mm": via_diameter_mm},
                 )
             )
 
@@ -304,6 +523,12 @@ def build_layout(params: PixelQrBpfParams) -> Layout:
             "topology": "pixel_qr_bpf",
             "pixel_connectivity": "adjacent_ones_edge_touching" if params.connect_adjacent_pixels else "isolated_pixels",
             "mask_rows": mask_rows(mask),
+            "via_mask_rows": mask_rows(via_mask),
+            "via_diameter_rows": diameter_rows(via_diameters),
+            "sub_stub_len_rows": diameter_rows(sub_stub_len),
+            "sub_stub_w_rows": diameter_rows(sub_stub_w),
+            "sub_pad_rows": diameter_rows(sub_pad),
+            "sub_slot_gap_rows": diameter_rows(sub_slot_gap),
             "mask_hash": mask_hash(mask),
             "substrate": params.substrate,
             "er": params.er,
@@ -317,6 +542,8 @@ def build_layout(params: PixelQrBpfParams) -> Layout:
                 "P1": "feed_left",
                 "P2": "feed_right",
                 "pixels": "pix_rXX_cXX",
+                "vias": "ground_via_rXX_cXX",
+                "subcells": "sub_stub/sub_pad/sub_slot_rXX_cXX",
             },
         },
     )
@@ -326,6 +553,7 @@ def make_params_json(params: PixelQrBpfParams, layout: Layout) -> dict[str, obje
     size = matrix_size(params)
     metal_shapes = [shape for shape in layout.shapes if isinstance(shape, Rect) and shape.layer == params.metal_layer]
     fill_count = sum(1 for shape in metal_shapes if shape.name.startswith("pix_"))
+    via_count = sum(1 for shape in layout.shapes if isinstance(shape, Via) and shape.layer == params.via_layer)
     rows = [str(row) for row in layout.metadata["mask_rows"]]
     edge_touch_count = 0
     for row_idx, row in enumerate(rows):
@@ -350,6 +578,11 @@ def make_params_json(params: PixelQrBpfParams, layout: Layout) -> dict[str, obje
             "pixel_fill_count": fill_count,
             "edge_touch_connection_count": edge_touch_count,
             "additional_connection_shape_count": 0,
+            "via_count": via_count,
+            "via_diameter_mm": params.via_diameter_mm,
+            "via_pad_diameter_mm": params.via_pad_diameter_mm,
+            "via_diameter_min_mm": min((shape.diameter for shape in layout.shapes if isinstance(shape, Via) and shape.layer == params.via_layer), default=0.0),
+            "via_diameter_max_mm": max((shape.diameter for shape in layout.shapes if isinstance(shape, Via) and shape.layer == params.via_layer), default=0.0),
             "pixel_total_count": total_pixels,
             "pixel_fill_ratio": fill_count / total_pixels,
             "mask_hash": layout.metadata["mask_hash"],
@@ -370,6 +603,12 @@ def make_params_json(params: PixelQrBpfParams, layout: Layout) -> dict[str, obje
             for port in layout.ports
         ],
         "mask_rows": layout.metadata["mask_rows"],
+        "via_mask_rows": layout.metadata["via_mask_rows"],
+        "via_diameter_rows": layout.metadata["via_diameter_rows"],
+        "sub_stub_len_rows": layout.metadata["sub_stub_len_rows"],
+        "sub_stub_w_rows": layout.metadata["sub_stub_w_rows"],
+        "sub_pad_rows": layout.metadata["sub_pad_rows"],
+        "sub_slot_gap_rows": layout.metadata["sub_slot_gap_rows"],
     }
 
 
@@ -395,6 +634,7 @@ def make_drc(params: PixelQrBpfParams, layout: Layout) -> str:
             f"  Feed width: {fmt(params.feed_w_mm)} mm -> {'PASS' if params.feed_w_mm >= params.min_fab_feature_mm else 'FAIL'}",
             f"  Adjacent black pixels edge-touching: {params.connect_adjacent_pixels}",
             f"  Additional connection shapes: 0",
+            f"  Ground vias: {derived['via_count']} (drill {fmt(derived['via_diameter_min_mm'])}-{fmt(derived['via_diameter_max_mm'])} mm, nominal pad delta {fmt(params.via_pad_diameter_mm - params.via_diameter_mm)} mm)",
             f"  Overall feature/gap gate: {'PASS' if pass_feature and pass_gap else 'FAIL'}",
             "",
             "Geometry summary",
@@ -457,6 +697,14 @@ def add_common_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--seed", type=int, default=defaults.seed)
     parser.add_argument("--pattern", default=defaults.pattern, choices=["qr_seed", "checker", "diag", "edge_coupled", "symmetric_random", "custom"])
     parser.add_argument("--custom-mask-rows", default="")
+    parser.add_argument("--via-mask-rows", default="")
+    parser.add_argument("--via-diameter-rows", default="")
+    parser.add_argument("--sub-stub-len-rows", default="")
+    parser.add_argument("--sub-stub-w-rows", default="")
+    parser.add_argument("--sub-pad-rows", default="")
+    parser.add_argument("--sub-slot-gap-rows", default="")
+    parser.add_argument("--via-diameter-mm", type=float, default=defaults.via_diameter_mm)
+    parser.add_argument("--via-pad-diameter-mm", type=float, default=defaults.via_pad_diameter_mm)
     parser.add_argument("--mirror-x", type=parse_bool, default=defaults.mirror_x)
     parser.add_argument("--force-edge-coupling", type=parse_bool, default=defaults.force_edge_coupling)
     parser.add_argument("--connect-adjacent-pixels", type=parse_bool, default=defaults.connect_adjacent_pixels)
@@ -492,6 +740,14 @@ def params_from_args(args: argparse.Namespace) -> PixelQrBpfParams:
         seed=args.seed,
         pattern=args.pattern,
         custom_mask_rows=parse_mask_rows(args.custom_mask_rows),
+        via_mask_rows=parse_mask_rows(args.via_mask_rows),
+        via_diameter_rows=parse_float_rows(args.via_diameter_rows, field_name="via_diameter_rows"),
+        sub_stub_len_rows=parse_float_rows(args.sub_stub_len_rows, field_name="sub_stub_len_rows"),
+        sub_stub_w_rows=parse_float_rows(args.sub_stub_w_rows, field_name="sub_stub_w_rows"),
+        sub_pad_rows=parse_float_rows(args.sub_pad_rows, field_name="sub_pad_rows"),
+        sub_slot_gap_rows=parse_float_rows(args.sub_slot_gap_rows, field_name="sub_slot_gap_rows"),
+        via_diameter_mm=args.via_diameter_mm,
+        via_pad_diameter_mm=args.via_pad_diameter_mm,
         mirror_x=args.mirror_x,
         force_edge_coupling=args.force_edge_coupling,
         connect_adjacent_pixels=args.connect_adjacent_pixels,

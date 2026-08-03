@@ -1,0 +1,4 @@
+baseline_id,backend,label,candidate_id,source_run_id,status,s21_5g_db,s21_6g_db,s21_7g_db,s21_8g_db,s21_9g_db,passband_min_s21_db,passband_ripple_db,worst_s11_6_8_db,worst_s22_6_8_db
+bfp_6_8g_i7_fr4_round13_i7_fr4_r13_retest_base_l555_taper_ads_rfpro_ads_round13_rfpro,ads_rfpro,ads_round13_rfpro,i7_fr4_r13_retest_base_l555_taper,bfp_6_8g_i7_fr4_round13_i7_fr4_r13_retest_base_l555_taper_home_simads_em_parallel_20260802_141512,TUNE,-26.98,-2.51,-3.06,-4.60,-55.59,-4.60,3.07,-4.26,-4.20
+bfp_6_8g_i7_fr4_round13_i7_fr4_r13_retest_base_l555_taper_hfss3dlayout_hfss_aedt_edge_port_gnd,hfss3dlayout,hfss_aedt_edge_port_gnd,i7_fr4_r13_retest_base_l555_taper,,TUNE,-20.38,-4.81,-5.08,-9.64,-27.44,-9.64,5.78,-6.78,-6.90
+bfp_6_8g_i7_fr4_round13_i7_fr4_r13_retest_base_l555_taper_hfss3dlayout_manual_hfss_manual_port_saved,hfss3dlayout_manual,hfss_manual_port_saved,i7_fr4_r13_retest_base_l555_taper,,TUNE,-20.58,-4.88,-5.06,-9.81,-27.48,-9.81,5.92,-7.06,-6.97

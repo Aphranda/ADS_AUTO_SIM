@@ -23,6 +23,9 @@ from simads.config import load_pipeline, load_project, resolve_pipeline_id, vali
 from simads.devices import list_devices
 from simads.geometry import load_layout_json, validate_layout_contract, validate_pixel_qr_bpf_layout
 from simads.runtime import classify_exception, create_run_id
+from rebuild_sweep_summary import build_rows as build_summary_rows_from_scores
+from rebuild_sweep_summary import read_csv as read_summary_csv
+from rebuild_sweep_summary import write_csv as write_summary_csv
 
 TARGET_SCORE_VERSIONS = {
     "ro4350_strict": "ro4350_strict_v1",
@@ -176,6 +179,32 @@ def write_summary(
         writer.writeheader()
         writer.writerows(rows)
     print(f"\nWrote sweep summary: {out_path}")
+
+
+def rebuild_full_summary_from_scores(
+    args: argparse.Namespace,
+    failed_rows: list[dict[str, str]],
+    *,
+    profile_id: str,
+    target_profile_id: str,
+    score_version: str,
+) -> None:
+    rows, missing = build_summary_rows_from_scores(
+        read_summary_csv(args.plan),
+        args.results_dir,
+        profile_id=profile_id,
+        pipeline_id=args.pipeline_id or "",
+        target_profile_id=target_profile_id,
+        score_version=score_version,
+    )
+    scored_candidates = {row.get("candidate", "") for row in rows}
+    rows.extend(row for row in failed_rows if row.get("candidate", "") not in scored_candidates)
+    if not rows:
+        return
+    write_summary_csv(args.summary, rows)
+    print(f"Wrote full sweep summary from score files: {args.summary}")
+    if missing:
+        print(f"Missing score rows: {len(missing)}")
 
 
 def parse_args() -> argparse.Namespace:
@@ -530,6 +559,13 @@ def main() -> None:
 
     if not args.prepare_only and not args.skip_fem and not args.dry_run:
         write_summary(run_infos, plan_rows, args.summary, failed_rows, profile_id=args.profile, target_profile_id=args.target_profile)
+        rebuild_full_summary_from_scores(
+            args,
+            failed_rows,
+            profile_id=args.profile,
+            target_profile_id=args.target_profile,
+            score_version=score_version,
+        )
 
 
 if __name__ == "__main__":

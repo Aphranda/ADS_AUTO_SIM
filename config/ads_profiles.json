@@ -22,6 +22,17 @@
                                   "setup_view":  "em%Setup",
                                   "rfpro_emsetup_view":  "emSetup",
                                   "substrate":  "BFP_lib:substrate4"
+                              },
+                     "home_simads_em_parallel":  {
+                                  "ads_root":  "D:/Hardware/Keysight/ADS2026_Update1",
+                                  "ads_python":  "D:/Hardware/Keysight/ADS2026_Update1/tools/python/python.exe",
+                                  "host_python":  "D:/Microsoft/uv-venvs/ads-automation/Scripts/python.exe",
+                                  "workspace":  "D:/Work/ADS/SIMADS_EM_PAR/SIMADS_EM_PAR",
+                                  "library":  "SIMADS_EM_PAR_lib",
+                                  "template_cell":  "SIMADS_EM_TEMPLATE_2PORT_FEM",
+                                  "setup_view":  "em%Setup",
+                                  "rfpro_emsetup_view":  "emSetup",
+                                  "substrate":  "SIMADS_EM_PAR_lib:FR4_210UM"
                               }
                  }
 }

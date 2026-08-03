@@ -1,0 +1,2 @@
+name,L_mm,tap_mm,Egap_mm,S1_mm,S2_mm,S3_mm,S4_mm,S5_mm,S6_mm,W0_mm,resonator_w_mm,substrate,er,dielectric_height_mm,copper_thickness_mm,feed_len_mm,feed_taper_len_mm,feed_tip_w_mm,feed_overlap_mm,via_diameter_mm,metal_layer,via_layer,notes
+i7_fr4_theory_marki_20260802,5.792,1.932,0.478,0.1182,0.1753,0.186,0.186,0.1753,0.1182,0.3585,0.3585,FR4_210UM,4.6,0.21,0.035,3,0,0.18,0,0.254,cond,pcvia1,Marki 7th-order Chebyshev bandpass theory dimensions; FR4 er4.6 h210um Cu35um; 6-8GHz 0.1dB ripple

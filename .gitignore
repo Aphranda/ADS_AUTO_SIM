@@ -112,3 +112,48 @@ projects/*/runs/**/.tmp/
 *.rar
 *.tar
 *.tar.gz
+# SIM project generated artifacts
+# Source of truth should be code/config/docs/stackups/curated plans/sweep summaries/baselines/reports.
+# Large candidate pools and regenerated layout/result sidecars stay local unless explicitly force-added.
+projects/*/plans/*_pool.csv
+projects/*/plans/*_smoke_pool.csv
+
+# Generated layout sidecars from plan + generator. Keep selected release/baseline inputs by force-add
+# or by copying them under projects/*/baselines/.
+projects/*/layouts/**/*.svg
+projects/*/layouts/**/*_layout.json
+projects/*/layouts/**/*_params.json
+projects/*/layouts/**/*_tuning_table.csv
+
+# Raw simulator exports and per-candidate post-processing outputs.
+# Keep compact sweep_summary.csv and baseline summaries tracked.
+projects/*/results/**/*_rfpro.csv
+projects/*/results/**/*_score.csv
+projects/*/results/**/*_trace.csv
+projects/*/results/**/*.s2p
+projects/*/results/**/svg/
+projects/*/results/**/*_s_curves.svg
+projects/*/results/**/*_overlay.svg
+
+# NN datasets, checkpoints and derived ranking/prediction reports.
+projects/*/results/**/*.pt
+projects/*/results/**/*.npz
+projects/*/results/**/*_dataset*.manifest.csv
+projects/*/results/**/*_ranking.csv
+projects/*/results/**/*_predictions.csv
+
+# Runtime execution state is local by default; freeze important evidence under baselines/.
+projects/*/runs/**
+!projects/*/baselines/**
+!projects/*/reports/**
+# SIM artifact ignore refinements
+projects/*/results/**/runs/**
+projects/*/results/**/filter_features.csv
+projects/*/results/**/missing_candidates.csv
+projects/*/results/**/parallel_run_report.csv
+projects/*/results/**/*_time_cost_report.csv
+projects/*/results/**/*.pid
+projects/*/results/**/*_ranking*.csv
+projects/*/results/**/*.predictions.csv
+projects/*/baselines/**/*.lock
+projects/*/reports/**/filter_report_tmp.pdf

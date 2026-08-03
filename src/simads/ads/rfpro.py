@@ -90,20 +90,33 @@ def normalize_substrate_info(
     preferred_substrate_lib: str | None = None,
 ) -> tuple[str, str]:
     substrate_lib, substrate_name = substrate_ls
+    substrate_names = [substrate_name]
+    if ":" in substrate_name:
+        substrate_names.append(substrate_name.split(":")[-1])
+    stem_name = Path(substrate_names[-1]).stem
+    if stem_name and stem_name not in substrate_names:
+        substrate_names.append(stem_name)
+    if stem_name:
+        with_ext = f"{stem_name}.subst"
+        if with_ext not in substrate_names:
+            substrate_names.append(with_ext)
+
     search_libraries = [substrate_lib, preferred_substrate_lib, "Substrates", library_name]
     seen: set[str] = set()
     for candidate_lib in search_libraries:
         if not candidate_lib or candidate_lib in seen:
             continue
         seen.add(candidate_lib)
-        if substrate_file_exists(workspace_path, candidate_lib, substrate_name):
-            return (candidate_lib, substrate_name)
+        for candidate_name in substrate_names:
+            if substrate_file_exists(workspace_path, candidate_lib, candidate_name):
+                return (candidate_lib, candidate_name)
 
     workspace = Path(workspace_path)
-    fallback = workspace / library_name / substrate_name
-    fallback_with_ext = workspace / library_name / f"{Path(substrate_name).stem}.subst"
-    if fallback.exists() or fallback_with_ext.exists():
-        return (library_name, substrate_name)
+    for candidate_name in substrate_names:
+        fallback = workspace / library_name / candidate_name
+        fallback_with_ext = workspace / library_name / f"{Path(candidate_name).stem}.subst"
+        if fallback.exists() or fallback_with_ext.exists():
+            return (library_name, candidate_name)
 
     subst_files = sorted((workspace / library_name).glob("*.subst"))
     if subst_files:

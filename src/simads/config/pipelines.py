@@ -109,13 +109,19 @@ class PipelineFrequencyConfig:
     stop_ghz: float = 10.0
     passband_start_ghz: float = 6.0
     passband_stop_ghz: float = 8.0
+    points: int = 121
+    plan_type: str = "Adaptive"
+    max_passes: int = 8
 
-    def to_dict(self) -> dict[str, float]:
+    def to_dict(self) -> dict[str, object]:
         return {
             "start_ghz": self.start_ghz,
             "stop_ghz": self.stop_ghz,
             "passband_start_ghz": self.passband_start_ghz,
             "passband_stop_ghz": self.passband_stop_ghz,
+            "points": self.points,
+            "plan_type": self.plan_type,
+            "max_passes": self.max_passes,
         }
 
 
@@ -256,6 +262,9 @@ def pipeline_from_mapping(data: dict[str, Any], *, root: Path | None = None) -> 
             stop_ghz=float(frequency_data.get("stop_ghz", 10.0)),
             passband_start_ghz=float(frequency_data.get("passband_start_ghz", 6.0)),
             passband_stop_ghz=float(frequency_data.get("passband_stop_ghz", 8.0)),
+            points=int(frequency_data.get("points", 121)),
+            plan_type=_optional_str(frequency_data.get("plan_type")) or "Adaptive",
+            max_passes=int(frequency_data.get("max_passes", 8)),
         ),
         scoring=PipelineScoringConfig(
             script=_optional_root_relative_path(base, scoring_data.get("script")),
@@ -311,14 +320,27 @@ def validate_pipeline(
     add("units", pipeline.units == "mm", "pipeline units must be mm")
     add("ports.unit", pipeline.ports.unit == "mm", "port units must be mm")
     add("ports.names", tuple(pipeline.ports.names) == ("P1", "P2"), "ports must be P1/P2")
-    add("frequency.start_ghz", abs(pipeline.frequency.start_ghz - 4.0) < 1e-9, "start frequency must be 4 GHz")
-    add("frequency.stop_ghz", abs(pipeline.frequency.stop_ghz - 10.0) < 1e-9, "stop frequency must be 10 GHz")
+    add("frequency.start_ghz", pipeline.frequency.start_ghz > 0.0, "start frequency must be positive")
+    add(
+        "frequency.stop_ghz",
+        pipeline.frequency.stop_ghz > pipeline.frequency.start_ghz,
+        "stop frequency must be greater than start frequency",
+    )
     add(
         "frequency.passband",
-        abs(pipeline.frequency.passband_start_ghz - 6.0) < 1e-9 and abs(pipeline.frequency.passband_stop_ghz - 8.0) < 1e-9,
-        "passband must be 6-8 GHz",
+        pipeline.frequency.start_ghz <= pipeline.frequency.passband_start_ghz
+        < pipeline.frequency.passband_stop_ghz
+        <= pipeline.frequency.stop_ghz,
+        "passband must be inside the sweep frequency range",
     )
-    add("ads.template_cell", pipeline.ads.template_cell == "interdigital_9o_ro4350b_508um_v3_wide_mm_coords", "template cell must stay fixed")
+    add("frequency.points", pipeline.frequency.points >= 2, "frequency points must be at least 2")
+    add(
+        "frequency.plan_type",
+        pipeline.frequency.plan_type in {"Adaptive", "Linear"},
+        "frequency plan type must be Adaptive or Linear",
+    )
+    add("frequency.max_passes", pipeline.frequency.max_passes >= 0, "max passes must be non-negative")
+    add("ads.template_cell", bool(pipeline.ads.template_cell), "template cell must be set by the pipeline/profile")
     add("ads.setup_view", pipeline.ads.setup_view == "em%Setup", "setup view must stay em%Setup")
     add("ads.rfpro_emsetup_view", pipeline.ads.rfpro_emsetup_view == "emSetup", "RFPro EM setup view must stay emSetup")
     add("layer_map.metal_layer", pipeline.layer_map.metal_layer == "cond", "metal layer must stay cond")

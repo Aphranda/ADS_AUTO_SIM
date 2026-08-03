@@ -199,6 +199,10 @@ def resolve_substrate_library(profile_name: str, override: str | None = None) ->
     return override if override is not None else get_ads_profile(profile_name).substrate_library
 
 
+def resolve_substrate(profile_name: str, override: str | None = None) -> str | None:
+    return override if override is not None else get_ads_profile(profile_name).substrate
+
+
 def resolve_layer_map(profile_name: str, workspace: Path, override: Path | None) -> Path:
     return override if override is not None else workspace / get_ads_profile(profile_name).layer_map.name
 

@@ -1,0 +1,57 @@
+{
+  "schema_version": "0.1.0",
+  "pipeline_id": "bfp_6_8g_i7_fr4_home_parallel_theory_marki_4to10_40",
+  "project_id": "bfp_6_8g_i7_fr4",
+  "sweep_id": "interdigital_7o_fr4_theory_marki_4to10_40",
+  "device_id": "filter.interdigital",
+  "profile_id": "home_simads_em_parallel",
+  "units": "mm",
+  "layout": {
+    "sweep_script": "tools/generate_filter_sweep.py",
+    "layout_generator_script": "tools/generate_interdigital_filter_layout.py",
+    "layout_output_dir": "projects/bfp_6_8g_i7_fr4/layouts/interdigital_7o_fr4_210um_theory_marki",
+    "params_output_dir": "projects/bfp_6_8g_i7_fr4/layouts/interdigital_7o_fr4_210um_theory_marki",
+    "require_layout_json": true,
+    "require_params_json": true
+  },
+  "ads": {
+    "import_script": "tools/ads/ads_import_dxf_add_ports.py",
+    "clone_setup_script": "tools/ads/ads_clone_emsetup_template.py",
+    "rfpro_script": "tools/ads/ads_run_rfpro_fem.py",
+    "dataset_export_script": "tools/ads/export_ads_fem_dataset.py",
+    "template_cell": "SIMADS_EM_TEMPLATE_2PORT_FEM",
+    "setup_view": "em%Setup",
+    "rfpro_emsetup_view": "emSetup",
+    "workspace_profile": "home_simads_em_parallel"
+  },
+  "layer_map": {
+    "metal_layer": "cond",
+    "via_layer": "pcvia1",
+    "boundary_layer": "EM_BOUNDARY",
+    "layer_map_strategy": "profile-default",
+    "layer_map_required": false,
+    "version": "simads-em-template-v1"
+  },
+  "ports": {
+    "names": ["P1", "P2"],
+    "location_source": "params_json",
+    "unit": "mm",
+    "pad_layer": "cond",
+    "reference": "ground"
+  },
+  "frequency": {
+    "start_ghz": 4.0,
+    "stop_ghz": 10.0,
+    "passband_start_ghz": 6.0,
+    "passband_stop_ghz": 8.0,
+    "points": 40,
+    "plan_type": "Linear",
+    "max_passes": 8
+  },
+  "scoring": {
+    "script": "tools/analyze_ads_dataset.py",
+    "target_profile": "fr4_25db_rl6",
+    "score_version": "fr4_i7_score_v1",
+    "source": "rfpro-csv"
+  }
+}

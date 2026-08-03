@@ -347,6 +347,9 @@ def main() -> None:
         if pipeline is not None
         else (project.frequency.stop_ghz if project and project.frequency.stop_ghz is not None else 10.0)
     )
+    frequency_points = pipeline.frequency.points if pipeline is not None else 121
+    frequency_plan_type = pipeline.frequency.plan_type if pipeline is not None else "Adaptive"
+    frequency_max_passes = pipeline.frequency.max_passes if pipeline is not None else 8
     started = time.monotonic()
     write_context = AdsWriteContext(
         profile_id=args.profile,
@@ -433,6 +436,9 @@ def main() -> None:
                 "score_version": score_version,
                 "frequency_start_ghz": frequency_start_ghz,
                 "frequency_stop_ghz": frequency_stop_ghz,
+                "frequency_points": frequency_points,
+                "frequency_plan_type": frequency_plan_type,
+                "frequency_max_passes": frequency_max_passes,
                 "inputs": {
                     "dxf": str(dxf) if dxf is not None else None,
                     "params": str(params) if params is not None else None,
@@ -543,6 +549,10 @@ def main() -> None:
                     args.setup_view,
                     "--params",
                     str(params),
+                    "--start-ghz",
+                    f"{frequency_start_ghz:g}",
+                    "--stop-ghz",
+                    f"{frequency_stop_ghz:g}",
                 ]
                 if args.overwrite_setup:
                     setup_cmd.append("--overwrite")
@@ -570,6 +580,16 @@ def main() -> None:
                 cell,
                 "--out",
                 str(out_csv),
+                "--start",
+                f"{frequency_start_ghz:g} GHz",
+                "--stop",
+                f"{frequency_stop_ghz:g} GHz",
+                "--points",
+                str(frequency_points),
+                "--plan-type",
+                frequency_plan_type,
+                "--max-passes",
+                str(frequency_max_passes),
             ]
             if args.on_results_action is not None:
                 fem_cmd.extend(["--on-results-action", args.on_results_action])

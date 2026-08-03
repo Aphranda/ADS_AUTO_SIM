@@ -1,0 +1,54 @@
+{
+  "schema_version": "0.1.0",
+  "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r5_via_notch_1to10",
+  "project_id": "pixel_qr_bpf_fr4_210um",
+  "sweep_id": "pixel_qr_bpf_fr4_210um_r5_via_notch_1to10",
+  "device_id": "filter.pixel_qr_bpf",
+  "profile_id": "home",
+  "units": "mm",
+  "layout": {
+    "sweep_script": "tools/generate_pixel_qr_bpf_layout.py",
+    "layout_generator_script": "tools/layout/generate_pixel_qr_bpf_layout.py",
+    "layout_output_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r5_via_notch_1to10",
+    "params_output_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r5_via_notch_1to10",
+    "require_layout_json": true,
+    "require_params_json": true
+  },
+  "ads": {
+    "import_script": "tools/ads/ads_import_dxf_add_ports.py",
+    "clone_setup_script": "tools/ads/ads_clone_emsetup_template.py",
+    "rfpro_script": "tools/ads/ads_run_rfpro_fem.py",
+    "dataset_export_script": "tools/ads/export_ads_fem_dataset.py",
+    "template_cell": "BFP",
+    "setup_view": "em%Setup",
+    "rfpro_emsetup_view": "emSetup",
+    "workspace_profile": "home"
+  },
+  "layer_map": {
+    "metal_layer": "cond",
+    "via_layer": "pcvia1",
+    "boundary_layer": "EM_BOUNDARY",
+    "layer_map_strategy": "profile-default",
+    "layer_map_required": false,
+    "version": "profile-default-v1"
+  },
+  "ports": {
+    "names": ["P1", "P2"],
+    "location_source": "params_json",
+    "unit": "mm",
+    "pad_layer": "cond",
+    "reference": "ground"
+  },
+  "frequency": {
+    "start_ghz": 1.0,
+    "stop_ghz": 10.0,
+    "passband_start_ghz": 6.0,
+    "passband_stop_ghz": 8.0
+  },
+  "scoring": {
+    "script": "tools/analyze_ads_dataset.py",
+    "target_profile": "fr4_25db_rl6",
+    "score_version": "fr4_i7_score_v1",
+    "source": "rfpro-csv"
+  }
+}

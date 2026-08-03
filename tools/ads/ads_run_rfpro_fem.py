@@ -100,7 +100,14 @@ def ads_create_or_update_rfpro_view(
     workspace = de.open_workspace(workspace_path)
     try:
         log(f"Looking up library/cell: {library_name}:{cell_name}")
-        library = de.Library.get(library_name)
+        try:
+            library = de.Library.get(library_name)
+        except RuntimeError:
+            library = None
+        if library is None:
+            library_path = Path(workspace_path) / library_name
+            log(f"ADS library is not open; opening {library_name} from {library_path}")
+            library = workspace.open_library(library_name, library_path, mode=de.LibraryMode.SHARED)
         if library is None:
             raise RuntimeError(f"ADS library not found: {library_name}")
         cell = library.cell(cell_name)

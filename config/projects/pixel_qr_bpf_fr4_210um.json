@@ -1,62 +1,742 @@
-﻿{
-    "schema_version":  "0.1.0",
-    "project_id":  "pixel_qr_bpf_fr4_210um",
-    "name":  "6-8 GHz FR4 210um QR-like pixelated BPF ADS automation project",
-    "device_family":  "filter",
-    "primary_device_type":  "filter.pixel_qr_bpf",
-    "default_profile":  "home",
-    "target_profile":  "fr4_25db_rl6",
-    "pipeline_id":  "pixel_qr_bpf_fr4_210um_v1",
-    "project_root":  "projects/pixel_qr_bpf_fr4_210um",
-    "plans_dir":  "projects/pixel_qr_bpf_fr4_210um/plans",
-    "layouts_dir":  "projects/pixel_qr_bpf_fr4_210um/layouts",
-    "results_dir":  "projects/pixel_qr_bpf_fr4_210um/results",
-    "runs_dir":  "projects/pixel_qr_bpf_fr4_210um/runs",
-    "reports_dir":  "projects/pixel_qr_bpf_fr4_210um/reports",
-    "references_dir":  "projects/pixel_qr_bpf_fr4_210um/references",
-    "frequency":  {
-                      "start_ghz":  4.0,
-                      "stop_ghz":  10.0,
-                      "passband_start_ghz":  6.0,
-                      "passband_stop_ghz":  8.0
-                  },
-    "active_sweep":  "pixel_qr_bpf_fr4_210um_r0",
-    "sweeps":  {
-                   "pixel_qr_bpf_fr4_210um_r0":  {
-                                                     "pipeline_id":  "pixel_qr_bpf_fr4_210um_v1",
-                                                     "plan":  "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r0.csv",
-                                                     "layouts_dir":  "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r0",
-                                                     "results_dir":  "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r0",
-                                                     "summary":  "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r0/sweep_summary.csv",
-                                                     "target_profile":  "fr4_25db_rl6",
-                                                     "device_id":  "filter.pixel_qr_bpf",
-                                                     "template_cell":  "interdigital_9o_ro4350b_508um_v3_wide_mm_coords",
-                                                     "setup_view":  "em%Setup",
-                                                     "rfpro_emsetup_view":  "emSetup",
-                                                     "generator":  {
-                                                                       "script":  "tools/generate_pixel_qr_bpf_layout.py",
-                                                                       "layout_generator":  "tools/layout/generate_pixel_qr_bpf_layout.py"
-                                                                   },
-                                                     "optimizer":  {
-                                                                       "strategy":  "binary_topology_seed_then_dbs",
-                                                                       "round_name":  "r0",
-                                                                       "matrix_sizes":  [
-                                                                                            8,
-                                                                                            10
-                                                                                        ],
-                                                                       "initial_patterns":  [
-                                                                                                "qr_seed",
-                                                                                                "checker",
-                                                                                                "diag",
-                                                                                                "edge_coupled",
-                                                                                                "symmetric_random"
-                                                                                            ]
-                                                                   }
-                                                 }
-               },
-    "ads":  {
-                "library":  "BFP_lib",
-                "template_cell":  "interdigital_9o_ro4350b_508um_v3_wide_mm_coords",
-                "substrate":  "6-8G_Fillter_lib:substrate4"
+{
+    "schema_version": "0.1.0",
+    "project_id": "pixel_qr_bpf_fr4_210um",
+    "name": "6-8 GHz FR4 210um QR-like pixelated BPF ADS automation project",
+    "device_family": "filter",
+    "primary_device_type": "filter.pixel_qr_bpf",
+    "default_profile": "home",
+    "target_profile": "fr4_25db_rl6",
+    "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r21_subcell_combo_1to10",
+    "project_root": "projects/pixel_qr_bpf_fr4_210um",
+    "plans_dir": "projects/pixel_qr_bpf_fr4_210um/plans",
+    "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts",
+    "results_dir": "projects/pixel_qr_bpf_fr4_210um/results",
+    "runs_dir": "projects/pixel_qr_bpf_fr4_210um/runs",
+    "reports_dir": "projects/pixel_qr_bpf_fr4_210um/reports",
+    "references_dir": "projects/pixel_qr_bpf_fr4_210um/references",
+    "frequency": {
+        "start_ghz": 1.0,
+        "stop_ghz": 10.0,
+        "passband_start_ghz": 6.0,
+        "passband_stop_ghz": 8.0
+    },
+    "active_sweep": "pixel_qr_bpf_fr4_210um_r21_subcell_combo_1to10",
+    "sweeps": {
+        "pixel_qr_bpf_fr4_210um_r0": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_v1",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r0.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r0",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r0",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r0/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "interdigital_9o_ro4350b_508um_v3_wide_mm_coords",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py"
+            },
+            "optimizer": {
+                "strategy": "binary_topology_seed_then_dbs",
+                "round_name": "r0",
+                "matrix_sizes": [
+                    8,
+                    10
+                ],
+                "initial_patterns": [
+                    "qr_seed",
+                    "checker",
+                    "diag",
+                    "edge_coupled",
+                    "symmetric_random"
+                ]
             }
+        },
+        "pixel_qr_bpf_fr4_210um_r1": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r1",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r1.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r1",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r1",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r1/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py"
+            },
+            "optimizer": {
+                "strategy": "fine_size_overlap_feed_width_scan",
+                "round_name": "r1",
+                "base_candidates": [
+                    "pixel_qr16_fr4_210um_seed0_p032_ov10",
+                    "pixel_qr16_fr4_210um_seed0_p033_ov10",
+                    "pixel_qr16_fr4_210um_seed0_p035_ov10"
+                ],
+                "retained_candidates": [
+                    "pixel_qr16_fr4_210um_seed0_p032_ov10",
+                    "pixel_qr16_fr4_210um_seed0_p033_ov10",
+                    "pixel_qr16_fr4_210um_seed0_p033_ov10_ol045",
+                    "pixel_qr16_fr4_210um_seed0_p033_ov10_ol050",
+                    "pixel_qr16_fr4_210um_seed0_p035_ov10_fw034_ol045",
+                    "pixel_qr16_fr4_210um_seed0_p035_ov10_fw038_ol045",
+                    "pixel_qr16_fr4_210um_seed0_p035_ov10_ol045",
+                    "pixel_qr16_fr4_210um_seed0_p035_ov10_ol055"
+                ]
+            }
+        },
+        "pixel_qr_bpf_fr4_210um_r2_arch_1to10": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r2_arch_1to10",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r2_arch_1to10.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r2_arch_1to10",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r2_arch_1to10",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r2_arch_1to10/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py",
+                "plan_generator": "tools/make_pixel_qr_r2_arch_candidates.py"
+            },
+            "optimizer": {
+                "strategy": "architecture_discovery_1to10g_pruned",
+                "round_name": "r2_arch_1to10",
+                "base_candidate": "pixel_qr16_fr4_210um_seed0_p035_ov10_fw038_ol045",
+                "architecture_families": [
+                    "edge_stubs",
+                    "qr_sparse"
+                ]
+            }
+        },
+        "pixel_qr_bpf_fr4_210um_r3_pixel_mutation_1to10": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r3_pixel_mutation_1to10",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r3_pixel_mutation_1to10.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r3_pixel_mutation_1to10",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r3_pixel_mutation_1to10",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r3_pixel_mutation_1to10/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py",
+                "plan_generator": "tools/make_pixel_qr_r3_pixel_mutation_candidates.py"
+            },
+            "optimizer": {
+                "strategy": "s21_surrogate_pixel_mutation_bootstrap",
+                "round_name": "r3_pixel_mutation_1to10",
+                "base_candidate": "pixel_qr16_fr4_210um_seed0_p035_ov10_fw038_ol045",
+                "dataset": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_s21_nn_dataset.npz",
+                "surrogate_script": "tools/train_pixel_qr_surrogate.py",
+                "mutation_script": "tools/make_pixel_qr_r3_pixel_mutation_candidates.py",
+                "objective": "S21-primary 6-8 GHz bandpass feedback with low-weight S11/S22 auxiliary response"
+            }
+        },
+        "pixel_qr_bpf_fr4_210um_r4_notch_combo_1to10": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r4_notch_combo_1to10",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r4_notch_combo_1to10.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r4_notch_combo_1to10",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r4_notch_combo_1to10",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r4_notch_combo_1to10/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py",
+                "plan_generator": "tools/make_pixel_qr_r4_notch_combo_candidates.py"
+            },
+            "optimizer": {
+                "strategy": "s21_surrogate_notch_combo_guarded",
+                "round_name": "r4_notch_combo_1to10",
+                "passband_bases": [
+                    "pixel_qr16_fr4_210um_r3_toggle02_03",
+                    "pixel_qr16_fr4_210um_r3_remove02_03",
+                    "pixel_qr16_fr4_210um_r3_add02_02"
+                ],
+                "notch_donors": [
+                    "pixel_qr16_fr4_210um_r3_add04_02",
+                    "pixel_qr16_fr4_210um_r3_add02_01",
+                    "pixel_qr16_fr4_210um_r3_add04_01",
+                    "pixel_qr16_fr4_210um_r3_add02_00"
+                ],
+                "dataset": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_s21_nn_dataset.npz",
+                "surrogate_script": "tools/train_pixel_qr_surrogate.py",
+                "mutation_script": "tools/make_pixel_qr_r4_notch_combo_candidates.py",
+                "ranking_script": "tools/rank_pixel_qr_surrogate_candidates.py --sort-mode guarded-r4 --guard-db -5.5",
+                "objective": "Combine R3 passband bases with small 5 GHz notch donor pixel groups while guarding 6-8 GHz S21"
+            }
+        },
+        "pixel_qr_bpf_fr4_210um_r5_via_notch_1to10": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r5_via_notch_1to10",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r5_via_notch_1to10.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r5_via_notch_1to10",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r5_via_notch_1to10",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r5_via_notch_1to10/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py",
+                "plan_generator": "tools/make_pixel_qr_r5_via_notch_candidates.py"
+            },
+            "optimizer": {
+                "strategy": "via_aware_shorted_stub_notch_probe",
+                "round_name": "r5_via_notch_1to10",
+                "passband_bases": [
+                    "pixel_qr16_fr4_210um_r4_03_toggle02_03_add04_02_keep_a03",
+                    "pixel_qr16_fr4_210um_r4_02_toggle02_03_add04_02_keep_a02",
+                    "pixel_qr16_fr4_210um_r4_06_toggle02_03_add04_01_keep_a01",
+                    "pixel_qr16_fr4_210um_r4_01_toggle02_03_add04_02_keep_a01"
+                ],
+                "via_operator": "mirrored grounded-via sets on existing metal pixels",
+                "dataset": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_s21_nn_dataset.npz",
+                "surrogate_script": "tools/train_pixel_qr_surrogate.py",
+                "mutation_script": "tools/make_pixel_qr_r5_via_notch_candidates.py",
+                "ranking_script": "tools/rank_pixel_qr_surrogate_candidates.py --sort-mode guarded-r4 --guard-db -5.5",
+                "objective": "Probe grounded-via/shorted-stub mechanisms for a stronger 5 GHz notch while guarding 6-8 GHz S21"
+            }
+        },
+        "pixel_qr_bpf_fr4_210um_r6_via_tune_1to10": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r6_via_tune_1to10",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r6_via_tune_1to10.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r6_via_tune_1to10",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r6_via_tune_1to10",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r6_via_tune_1to10/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py",
+                "plan_generator": "tools/make_pixel_qr_r6_via_tune_candidates.py"
+            },
+            "optimizer": {
+                "strategy": "mid_inner_via_position_diameter_tune",
+                "round_name": "r6_via_tune_1to10",
+                "base_candidates": [
+                    "pixel_qr16_fr4_210um_r4_02_toggle02_03_add04_02_keep_a02",
+                    "pixel_qr16_fr4_210um_r4_03_toggle02_03_add04_02_keep_a03"
+                ],
+                "via_columns": [
+                    2,
+                    3,
+                    4,
+                    5
+                ],
+                "via_diameter_mm": [
+                    0.14,
+                    0.18,
+                    0.22
+                ],
+                "dataset": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_s21_nn_dataset.npz",
+                "surrogate_script": "tools/train_pixel_qr_surrogate.py",
+                "mutation_script": "tools/make_pixel_qr_r6_via_tune_candidates.py",
+                "ranking_script": "tools/rank_pixel_qr_surrogate_candidates.py --sort-mode guarded-r4 --guard-db -5.5",
+                "objective": "Tune row8 mirrored grounded-via pair position and shorting strength to improve 5 GHz notch without 6 GHz collapse"
+            }
+        },
+        "pixel_qr_bpf_fr4_210um_r7_via_metal_trim_1to10": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r7_via_metal_trim_1to10",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r7_via_metal_trim_1to10.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r7_via_metal_trim_1to10",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r7_via_metal_trim_1to10",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r7_via_metal_trim_1to10/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py",
+                "plan_generator": "tools/make_pixel_qr_r7_via_metal_trim_candidates.py"
+            },
+            "optimizer": {
+                "strategy": "fixed_via_local_metal_trim",
+                "round_name": "r7_via_metal_trim_1to10",
+                "base_candidates": [
+                    "pixel_qr16_fr4_210um_r6_08_r4_02_via_r08c04_d0p18",
+                    "pixel_qr16_fr4_210um_r6_09_r4_02_via_r08c04_d0p22"
+                ],
+                "via_operator": "fixed mirrored grounded-via pair at row8 col4/col11",
+                "metal_operator": "1-2 mirrored add/remove groups near rows 7-9 and columns 3-5",
+                "dataset": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_s21_nn_dataset.npz",
+                "surrogate_script": "tools/train_pixel_qr_surrogate.py --val-fraction 0",
+                "mutation_script": "tools/make_pixel_qr_r7_via_metal_trim_candidates.py",
+                "ranking_script": "tools/rank_pixel_qr_surrogate_candidates.py --sort-mode guarded-r4 --guard-db -5.5",
+                "objective": "Keep the R6 5 GHz via notch while using local metal trims to recover 6-8 GHz passband edge loss"
+            }
+        },
+        "pixel_qr_bpf_fr4_210um_r8_lower_shoulder_via_refine_1to10": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r8_lower_shoulder_via_refine_1to10",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r8_lower_shoulder_via_refine_1to10.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r8_lower_shoulder_via_refine_1to10",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r8_lower_shoulder_via_refine_1to10",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r8_lower_shoulder_via_refine_1to10/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py",
+                "plan_generator": "tools/make_pixel_qr_r8_lower_shoulder_via_refine_candidates.py"
+            },
+            "optimizer": {
+                "strategy": "lower_shoulder_via_diameter_refinement",
+                "round_name": "r8_lower_shoulder_via_refine_1to10",
+                "base_candidate": "pixel_qr16_fr4_210um_r6_08_r4_02_via_r08c04_d0p18",
+                "via_operator": "fixed mirrored grounded-via pair at row8 col4/col11, diameter scan 0.16-0.22 mm",
+                "metal_operator": "mirrored lower-side additions at row9/row10 cols4-5; no upper-side removals",
+                "dataset": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_s21_nn_dataset.npz",
+                "surrogate_script": "tools/train_pixel_qr_surrogate.py --val-fraction 0",
+                "mutation_script": "tools/make_pixel_qr_r8_lower_shoulder_via_refine_candidates.py",
+                "ranking_script": "tools/rank_pixel_qr_surrogate_candidates.py --sort-mode guarded-r4 --guard-db -5.5",
+                "objective": "Refine the useful R7 lower-shoulder model to balance a 5 GHz notch against 6 GHz passband loss"
+            }
+        },
+        "pixel_qr_bpf_fr4_210um_r9_feed_overlap_comp_1to10": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r9_feed_overlap_comp_1to10",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r9_feed_overlap_comp_1to10.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r9_feed_overlap_comp_1to10",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r9_feed_overlap_comp_1to10",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r9_feed_overlap_comp_1to10/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py",
+                "plan_generator": "tools/make_pixel_qr_r9_feed_overlap_comp_candidates.py"
+            },
+            "optimizer": {
+                "strategy": "fixed_best_r8_feed_overlap_compensation",
+                "round_name": "r9_feed_overlap_comp_1to10",
+                "base_candidate": "pixel_qr16_fr4_210um_r8_11_d0p20_add_r09c04",
+                "fixed_topology": "fixed R8 best metal mask, row8 c04/c11 via pair, via_diameter 0.20 mm, r09c04 lower shoulder",
+                "feed_width_mm": [
+                    0.36,
+                    0.38,
+                    0.4
+                ],
+                "coupling_overlap_mm": [
+                    0.4,
+                    0.43,
+                    0.45,
+                    0.47,
+                    0.5
+                ],
+                "dataset": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_s21_nn_dataset.npz",
+                "surrogate_script": "tools/train_pixel_qr_surrogate.py --val-fraction 0",
+                "mutation_script": "tools/make_pixel_qr_r9_feed_overlap_comp_candidates.py",
+                "ranking_script": "tools/rank_pixel_qr_surrogate_candidates.py --sort-mode guarded-r4 --guard-db -5.5",
+                "objective": "Recover 6 GHz passband margin through external coupling compensation while checking whether the 5 GHz notch remains near -16 dB"
+            }
+        },
+        "pixel_qr_bpf_fr4_210um_r10_second_weak_via_1to10": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r10_second_weak_via_1to10",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r10_second_weak_via_1to10.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r10_second_weak_via_1to10",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r10_second_weak_via_1to10",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r10_second_weak_via_1to10/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py",
+                "plan_generator": "tools/make_pixel_qr_r10_second_weak_via_candidates.py"
+            },
+            "optimizer": {
+                "strategy": "second_weak_via_notch_probe",
+                "round_name": "r10_second_weak_via_1to10",
+                "base_candidate": "pixel_qr16_fr4_210um_r8_11_d0p20_add_r09c04",
+                "fixed_topology": "fixed R8 best metal mask and main row8 c04/c11 via pair at 0.20 mm",
+                "second_via_operator": "add mirrored weak grounded-via pair on lower-side existing metal pixels using via_diameter_rows",
+                "weak_via_diameter_mm": [
+                    0.12,
+                    0.14,
+                    0.16
+                ],
+                "dataset": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_s21_nn_dataset.npz",
+                "surrogate_script": "tools/train_pixel_qr_surrogate.py --val-fraction 0",
+                "mutation_script": "tools/make_pixel_qr_r10_second_weak_via_candidates.py",
+                "ranking_script": "tools/rank_pixel_qr_surrogate_candidates.py --sort-mode guarded-r4 --guard-db -5.5",
+                "objective": "Test whether a second weak shorted element can deepen the 5 GHz stopband while preserving the 6-8 GHz passband"
+            }
+        },
+        "pixel_qr_bpf_fr4_210um_r11_ultra_weak_via_feed_recovery_1to10": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r11_ultra_weak_via_feed_recovery_1to10",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r11_ultra_weak_via_feed_recovery_1to10.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r11_ultra_weak_via_feed_recovery_1to10",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r11_ultra_weak_via_feed_recovery_1to10",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r11_ultra_weak_via_feed_recovery_1to10/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py",
+                "plan_generator": "tools/make_pixel_qr_r11_ultra_weak_via_feed_recovery_candidates.py"
+            },
+            "optimizer": {
+                "strategy": "ultra_weak_via_feed_recovery",
+                "round_name": "r11_ultra_weak_via_feed_recovery_1to10",
+                "base_candidate": "pixel_qr16_fr4_210um_r8_11_d0p20_add_r09c04",
+                "fixed_topology": "fixed R8 best metal mask and main row8 c04/c11 via pair at 0.20 mm",
+                "operator": "near-minimum second weak via at 0.105-0.110 mm plus baseline or widened-feed recovery coupling",
+                "dataset": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_s21_nn_dataset.npz",
+                "surrogate_script": "tools/train_pixel_qr_surrogate.py --val-fraction 0",
+                "mutation_script": "tools/make_pixel_qr_r11_ultra_weak_via_feed_recovery_candidates.py",
+                "ranking_script": "tools/rank_pixel_qr_surrogate_candidates.py --sort-mode guarded-r4 --guard-db -5.5",
+                "objective": "Reduce the R10 second-via passband penalty while preserving useful 5 GHz notch improvement"
+            }
+        },
+        "pixel_qr_bpf_fr4_210um_r12_weak_metal_notch_1to10": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r12_weak_metal_notch_1to10",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r12_weak_metal_notch_1to10.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r12_weak_metal_notch_1to10",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r12_weak_metal_notch_1to10",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r12_weak_metal_notch_1to10/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py",
+                "plan_generator": "tools/make_pixel_qr_r12_weak_metal_notch_candidates.py"
+            },
+            "optimizer": {
+                "strategy": "weak_metal_only_notch_perturbation",
+                "round_name": "r12_weak_metal_notch_1to10",
+                "base_candidates": [
+                    "pixel_qr16_fr4_210um_r8_11_d0p20_add_r09c04",
+                    "pixel_qr16_fr4_210um_r9_04_fw0p36_ol0p47"
+                ],
+                "fixed_topology": "fixed main row8 c04/c11 grounded-via pair at 0.20 mm; no second via",
+                "operator": "small mirrored lower-side metal additions/removals around rows 10-12, columns 4-6",
+                "dataset": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_s21_nn_dataset.npz",
+                "surrogate_script": "tools/train_pixel_qr_surrogate.py --val-fraction 0",
+                "mutation_script": "tools/make_pixel_qr_r12_weak_metal_notch_candidates.py",
+                "ranking_script": "tools/rank_pixel_qr_surrogate_candidates.py --sort-mode guarded-r4 --guard-db -5.5",
+                "objective": "Probe weaker metal-only 5 GHz notch perturbations after R10/R11 second-via candidates over-coupled the 6 GHz passband edge"
+            }
+        },
+        "pixel_qr_bpf_fr4_210um_r13_remote_shorted_pad_1to10": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r13_remote_shorted_pad_1to10",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r13_remote_shorted_pad_1to10.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r13_remote_shorted_pad_1to10",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r13_remote_shorted_pad_1to10",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r13_remote_shorted_pad_1to10/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py",
+                "plan_generator": "tools/make_pixel_qr_r13_remote_shorted_pad_candidates.py"
+            },
+            "optimizer": {
+                "strategy": "remote_weak_shorted_pad_notch_probe",
+                "round_name": "r13_remote_shorted_pad_1to10",
+                "base_candidates": [
+                    "pixel_qr16_fr4_210um_r8_11_d0p20_add_r09c04",
+                    "pixel_qr16_fr4_210um_r9_04_fw0p36_ol0p47"
+                ],
+                "fixed_topology": "fixed main row8 c04/c11 grounded-via pair at 0.20 mm",
+                "operator": "small mirrored remote grounded pad/stub at rows 11-12, columns 4-6 using via_diameter_rows with 0.105 mm weak vias",
+                "dataset": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_s21_nn_dataset.npz",
+                "surrogate_script": "tools/train_pixel_qr_surrogate.py --val-fraction 0 --s11-loss-weight 0.1 --s21-loss-weight 1.0 --s22-loss-weight 0.1",
+                "mutation_script": "tools/make_pixel_qr_r13_remote_shorted_pad_candidates.py",
+                "ranking_script": "tools/rank_pixel_qr_surrogate_candidates.py --sort-mode guarded-r4 --guard-db -5.5",
+                "objective": "Test whether a remote weak shorted pad is stronger than R12 metal-only perturbations but less damaging to S21@6G than R10/R11 second-via candidates"
+            }
+        },
+        "pixel_qr_bpf_fr4_210um_r14_floating_stub_slit_1to10": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r14_floating_stub_slit_1to10",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r14_floating_stub_slit_1to10.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r14_floating_stub_slit_1to10",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r14_floating_stub_slit_1to10",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r14_floating_stub_slit_1to10/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py",
+                "plan_generator": "tools/make_pixel_qr_r14_floating_stub_slit_candidates.py"
+            },
+            "optimizer": {
+                "strategy": "floating_stub_slit_notch_probe",
+                "round_name": "r14_floating_stub_slit_1to10",
+                "base_candidates": [
+                    "pixel_qr16_fr4_210um_r8_11_d0p20_add_r09c04",
+                    "pixel_qr16_fr4_210um_r9_04_fw0p36_ol0p47"
+                ],
+                "fixed_topology": "fixed main row8 c04/c11 grounded-via pair at 0.20 mm; no added grounded via",
+                "operator": "floating open stubs, local slits, and small overlap recovery around rows 8-12, columns 5-6",
+                "dataset": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_s21_nn_dataset.npz",
+                "surrogate_script": "tools/train_pixel_qr_surrogate.py --val-fraction 0 --s11-loss-weight 0.1 --s21-loss-weight 1.0 --s22-loss-weight 0.1",
+                "mutation_script": "tools/make_pixel_qr_r14_floating_stub_slit_candidates.py",
+                "ranking_script": "tools/rank_pixel_qr_surrogate_candidates.py --sort-mode guarded-r4 --guard-db -5.5",
+                "objective": "Probe non-shorted 5 GHz notch mechanisms while keeping S21 as the primary feedback and S11/S22 as low-weight auxiliary response"
+            }
+        },
+        "pixel_qr_bpf_fr4_210um_r15_d0p22_feed_path_1to10": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r15_d0p22_feed_path_1to10",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r15_d0p22_feed_path_1to10.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r15_d0p22_feed_path_1to10",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r15_d0p22_feed_path_1to10",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r15_d0p22_feed_path_1to10/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py",
+                "plan_generator": "tools/make_pixel_qr_r15_d0p22_feed_path_candidates.py"
+            },
+            "optimizer": {
+                "strategy": "d0p22_feed_path_compensation",
+                "round_name": "r15_d0p22_feed_path_1to10",
+                "base_candidates": [
+                    "pixel_qr16_fr4_210um_r7_16_d0p22_add_r09c04",
+                    "pixel_qr16_fr4_210um_r8_20_d0p22_add_r09c04_r10c04",
+                    "pixel_qr16_fr4_210um_r8_18_d0p22_add_r09c04_r09c05"
+                ],
+                "fixed_topology": "main row8 c04/c11 grounded-via pair at 0.22 mm; no second via",
+                "operator": "conservative feed overlap compensation plus mirrored lower-shoulder path pixel additions/swap around rows 9-10, columns 4-5",
+                "dataset": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_s21_nn_dataset.npz",
+                "surrogate_script": "tools/train_pixel_qr_surrogate.py --val-fraction 0 --s11-loss-weight 0.1 --s21-loss-weight 1.0 --s22-loss-weight 0.1",
+                "mutation_script": "tools/make_pixel_qr_r15_d0p22_feed_path_candidates.py",
+                "ranking_script": "tools/rank_pixel_qr_surrogate_candidates.py --sort-mode guarded-r4 --guard-db -5.5",
+                "objective": "Apply R9-style feed/path compensation to the strongest d0.22 single-via 5 GHz notch family while keeping S21 as primary feedback and S11/S22 as low-weight auxiliary training targets"
+            }
+        },
+        "pixel_qr_bpf_fr4_210um_r16_d0p22_continuous_tune_1to10": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r16_d0p22_continuous_tune_1to10",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r16_d0p22_continuous_tune_1to10.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r16_d0p22_continuous_tune_1to10",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r16_d0p22_continuous_tune_1to10",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r16_d0p22_continuous_tune_1to10/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py",
+                "plan_generator": "tools/make_pixel_qr_r16_d0p22_continuous_tune_candidates.py"
+            },
+            "optimizer": {
+                "strategy": "d0p22_continuous_geometry_tune",
+                "round_name": "r16_d0p22_continuous_tune_1to10",
+                "base_candidates": [
+                    "pixel_qr16_fr4_210um_r15_05_r8d22v_keep_basefeed",
+                    "pixel_qr16_fr4_210um_r15_01_r7d22a_keep_basefeed"
+                ],
+                "fixed_topology": "fixed R15/R8 or R15/R7 d0.22 lower-shoulder metal mask; main row8 c04/c11 grounded-via pair only",
+                "operator": "continuous via diameter, feed width, and coupling overlap scan using geometry features already present in the surrogate",
+                "dataset": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_s21_nn_dataset.npz",
+                "surrogate_script": "tools/train_pixel_qr_surrogate.py --val-fraction 0 --s11-loss-weight 0.1 --s21-loss-weight 1.0 --s22-loss-weight 0.1",
+                "mutation_script": "tools/make_pixel_qr_r16_d0p22_continuous_tune_candidates.py",
+                "ranking_script": "tools/rank_pixel_qr_surrogate_candidates.py --sort-mode guarded-r4 --guard-db -5.5",
+                "objective": "Use continuous geometry tuning around the strongest d0.22 single-via family to search for incremental 5G/9G improvement while guarding 6-8 GHz S21; S11/S22 remain low-weight auxiliary training targets"
+            }
+        },
+        "pixel_qr_bpf_fr4_210um_r17_local_continuous_tune_1to10": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r17_local_continuous_tune_1to10",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r17_local_continuous_tune_1to10.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r17_local_continuous_tune_1to10",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r17_local_continuous_tune_1to10",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r17_local_continuous_tune_1to10/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py",
+                "plan_generator": "tools/make_pixel_qr_r17_local_continuous_tune_candidates.py"
+            },
+            "optimizer": {
+                "strategy": "r16_best_local_continuous_geometry_tune",
+                "round_name": "r17_local_continuous_tune_1to10",
+                "base_candidates": [
+                    "pixel_qr16_fr4_210um_r16_05_r8d22v_d0p225_fw0p36_ol0p53"
+                ],
+                "fixed_topology": "fixed measured R16 best topology; main row8 c04/c11 grounded-via pair only",
+                "operator": "fine local scan of via diameter 0.222-0.228 mm, feed width 0.35-0.37 mm, and coupling overlap 0.51-0.55 mm",
+                "dataset": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_s21_nn_dataset.npz",
+                "surrogate_script": "tools/train_pixel_qr_surrogate.py --val-fraction 0 --s11-loss-weight 0.1 --s21-loss-weight 1.0 --s22-loss-weight 0.1",
+                "mutation_script": "tools/make_pixel_qr_r17_local_continuous_tune_candidates.py",
+                "ranking_script": "tools/rank_pixel_qr_surrogate_candidates.py --sort-mode guarded-r4 --guard-db -5.5",
+                "objective": "Calibrate the surrogate around the measured R16 best local region and search for deeper 5G/9G stopband while preserving 6-8 GHz S21; S11/S22 remain low-weight auxiliary training targets"
+            }
+        },
+        "pixel_qr_bpf_fr4_210um_r18_overfill_tune_1to10": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r18_overfill_tune_1to10",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r18_overfill_tune_1to10.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r18_overfill_tune_1to10",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r18_overfill_tune_1to10",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r18_overfill_tune_1to10/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py",
+                "plan_generator": "tools/make_pixel_qr_r18_overfill_tune_candidates.py"
+            },
+            "optimizer": {
+                "strategy": "r16_best_pixel_overfill_tune",
+                "round_name": "r18_overfill_tune_1to10",
+                "base_candidates": [
+                    "pixel_qr16_fr4_210um_r16_05_r8d22v_d0p225_fw0p36_ol0p53"
+                ],
+                "fixed_topology": "fixed measured R16/R17 best topology; main row8 c04/c11 grounded-via pair only",
+                "operator": "pixel_overfill_ratio scan 0.04-0.16 with three local via/feed/overlap anchor points; gap_mm fixed because it is not physical while cell_pitch_mm is positive",
+                "dataset": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_s21_nn_dataset.npz",
+                "surrogate_script": "tools/train_pixel_qr_surrogate.py --val-fraction 0 --s11-loss-weight 0.1 --s21-loss-weight 1.0 --s22-loss-weight 0.1",
+                "mutation_script": "tools/make_pixel_qr_r18_overfill_tune_candidates.py",
+                "ranking_script": "tools/rank_pixel_qr_surrogate_candidates.py --sort-mode guarded-r4 --guard-db -5.5",
+                "objective": "Use the expanded 7-feature surrogate geometry vector to test pixel overfill as a continuous coupling operator while keeping S21 primary and S11/S22 as low-weight auxiliary targets"
+            }
+        },
+        "pixel_qr_bpf_fr4_210um_r19_local_pixel_guard_1to10": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r19_local_pixel_guard_1to10",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r19_local_pixel_guard_1to10.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r19_local_pixel_guard_1to10",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r19_local_pixel_guard_1to10",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r19_local_pixel_guard_1to10/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py",
+                "plan_generator": "tools/make_pixel_qr_r19_local_pixel_guard_candidates.py"
+            },
+            "optimizer": {
+                "strategy": "r16_best_local_pixel_guard_mutation",
+                "round_name": "r19_local_pixel_guard_1to10",
+                "base_candidates": [
+                    "pixel_qr16_fr4_210um_r16_05_r8d22v_d0p225_fw0p36_ol0p53"
+                ],
+                "fixed_via_topology": "main row8 c04/c11 grounded-via pair only; no second via",
+                "operator": "NN-visible mirrored local metal add/remove/shift edits around rows 9-12, columns 4-6, combined with center/safe/recover geometry anchors",
+                "dataset": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_s21_nn_dataset.npz",
+                "surrogate_script": "tools/train_pixel_qr_surrogate.py --val-fraction 0 --s11-loss-weight 0.1 --s21-loss-weight 1.0 --s22-loss-weight 0.1",
+                "mutation_script": "tools/make_pixel_qr_r19_local_pixel_guard_candidates.py",
+                "ranking_script": "tools/rank_pixel_qr_surrogate_candidates.py --sort-mode guarded-r4 --guard-db -5.5",
+                "objective": "Probe weak local 5G notch/pad/stub metal edits that the current CNN can represent, while guarding 6-8 GHz S21 and retaining low-weight S11/S22 training"
+            }
+        },
+        "pixel_qr_bpf_fr4_210um_r20_subcell_loading_1to10": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r20_subcell_loading_1to10",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r20_subcell_loading_1to10.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r20_subcell_loading_1to10",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r20_subcell_loading_1to10",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r20_subcell_loading_1to10/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py",
+                "plan_generator": "tools/make_pixel_qr_r20_subcell_loading_candidates.py"
+            },
+            "optimizer": {
+                "strategy": "two_level_subcell_loading",
+                "round_name": "r20_subcell_loading_1to10",
+                "base_candidates": [
+                    "pixel_qr16_fr4_210um_r19_20_safe_slot_rm_r10c05",
+                    "pixel_qr16_fr4_210um_r16_05_r8d22v_d0p225_fw0p36_ol0p53"
+                ],
+                "operator": "two-level QR structure: first-level 16x16 mask plus second-level local open stub, attached pad, and in-pixel slot maps around rows 10-12 columns 4-5",
+                "dataset": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_s21_nn_dataset.npz",
+                "surrogate_script": "tools/train_pixel_qr_surrogate.py --val-fraction 0 --s11-loss-weight 0.1 --s21-loss-weight 1.0 --s22-loss-weight 0.1",
+                "mutation_script": "tools/make_pixel_qr_r20_subcell_loading_candidates.py",
+                "ranking_script": "tools/rank_pixel_qr_surrogate_candidates.py --sort-mode guarded-r4 --guard-db -5.5",
+                "objective": "Expose local continuous loading/stub/pad/slot subcell maps to the CNN so ADS feedback can train weak 5G notch tuning without increasing global QR density"
+            }
+        },
+        "pixel_qr_bpf_fr4_210um_r21_subcell_combo_1to10": {
+            "pipeline_id": "pixel_qr_bpf_fr4_210um_home_r21_subcell_combo_1to10",
+            "plan": "projects/pixel_qr_bpf_fr4_210um/plans/pixel_qr_bpf_fr4_210um_r21_subcell_combo_1to10.csv",
+            "layouts_dir": "projects/pixel_qr_bpf_fr4_210um/layouts/pixel_qr_bpf_fr4_210um_r21_subcell_combo_1to10",
+            "results_dir": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r21_subcell_combo_1to10",
+            "summary": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_bpf_fr4_210um_r21_subcell_combo_1to10/sweep_summary.csv",
+            "target_profile": "fr4_25db_rl6",
+            "device_id": "filter.pixel_qr_bpf",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "generator": {
+                "script": "tools/generate_pixel_qr_bpf_layout.py",
+                "layout_generator": "tools/layout/generate_pixel_qr_bpf_layout.py",
+                "plan_generator": "tools/make_pixel_qr_r21_subcell_combo_candidates.py"
+            },
+            "optimizer": {
+                "strategy": "two_level_subcell_combo",
+                "round_name": "r21_subcell_combo_1to10",
+                "base_candidates": [
+                    "pixel_qr16_fr4_210um_r20_08_r19slot_slot_r10c05_g0p105",
+                    "pixel_qr16_fr4_210um_r20_01_r19slot_stub_r10c05_l0p105_w0p105",
+                    "pixel_qr16_fr4_210um_r20_11_r16best_stub_r10c05_l0p14_w0p105",
+                    "pixel_qr16_fr4_210um_r20_18_r16best_slot_r11c05_g0p105"
+                ],
+                "operator": "same six-channel two-level schema as R20, combining or resizing measured local stub/pad/slot maps around rows 10-12 columns 5/10",
+                "dataset": "projects/pixel_qr_bpf_fr4_210um/results/pixel_qr_s21_nn_dataset.npz",
+                "surrogate_script": "tools/train_pixel_qr_surrogate.py --val-fraction 0 --s11-loss-weight 0.1 --s21-loss-weight 1.0 --s22-loss-weight 0.1",
+                "mutation_script": "tools/make_pixel_qr_r21_subcell_combo_candidates.py",
+                "ranking_script": "tools/rank_pixel_qr_surrogate_candidates.py --sort-mode guarded-r4 --guard-db -5.5",
+                "objective": "Test whether measured R20 two-level subcell operators can combine into stronger 5G notch or high-side stopband while keeping the existing six-channel CNN schema and guarding 6-8 GHz S21"
+            }
+        }
+    },
+    "ads": {
+        "library": "BFP_lib",
+        "template_cell": "BFP",
+        "substrate": "BFP_lib:substrate4"
+    }
 }

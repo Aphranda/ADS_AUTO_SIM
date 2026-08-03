@@ -1,0 +1,308 @@
+{
+  "schema_version": "1.0",
+  "project_id": "bfp_6_8g_i7_fr4",
+  "policy": "immutable_artifact_hashes_no_silent_overwrite",
+  "frozen": true,
+  "immutable": true,
+  "created_at": "2026-08-02T18:48:53+08:00",
+  "entries": [
+    {
+      "baseline_id": "bfp_6_8g_i7_fr4_round13_i7_fr4_r13_retest_base_l555_taper_ads_rfpro_ads_round13_rfpro",
+      "project_id": "bfp_6_8g_i7_fr4",
+      "round_id": "round13",
+      "candidate_id": "i7_fr4_r13_retest_base_l555_taper",
+      "backend": "ads_rfpro",
+      "label": "ads_round13_rfpro",
+      "source_kind": "ads_run",
+      "source_run_id": "bfp_6_8g_i7_fr4_round13_i7_fr4_r13_retest_base_l555_taper_home_simads_em_parallel_20260802_141512",
+      "metrics": {
+        "run_id": "bfp_6_8g_i7_fr4_round13_i7_fr4_r13_retest_base_l555_taper_home_simads_em_parallel_20260802_141512",
+        "project_id": "bfp_6_8g_i7_fr4",
+        "round_id": "round13",
+        "candidate_id": "i7_fr4_r13_retest_base_l555_taper",
+        "profile_id": "home_simads_em_parallel",
+        "pipeline_id": "bfp_6_8g_i7_fr4_home_parallel_round13_retest_4to10_40",
+        "target_profile_id": "fr4_25db_rl6",
+        "score_version": "fr4_i7_score_v1",
+        "error_class": "",
+        "failed_step": "",
+        "elapsed_s": "106.491",
+        "source": "D:\\OneDrive\\4.Code\\SIM\\projects\\bfp_6_8g_i7_fr4\\results\\interdigital_7o_fr4_210um_round13_retest_4to10_40\\i7_fr4_r13_retest_base_l555_taper_mm_coords_rfpro.csv",
+        "target_profile": "fr4_25db_rl6",
+        "status": "TUNE",
+        "s21_5g_db": "-26.98",
+        "s21_6g_db": "-2.51",
+        "s21_7g_db": "-3.06",
+        "s21_8g_db": "-4.60",
+        "s21_9g_db": "-55.59",
+        "passband_min_s21_db": "-4.60",
+        "passband_ripple_db": "3.07",
+        "worst_s11_6_8_db": "-4.26",
+        "worst_s22_6_8_db": "-4.20",
+        "margin_s21_5g_db": "1.98",
+        "margin_s21_6g_db": "2.49",
+        "margin_s21_8g_db": "0.40",
+        "margin_passband_min_s21_db": "0.40",
+        "margin_passband_ripple_db": "0.93",
+        "margin_worst_s11_6_8_db": "-1.74",
+        "margin_worst_s22_6_8_db": "-1.80"
+      },
+      "artifacts": [
+        {
+          "type": "layout_json",
+          "path": "projects\\bfp_6_8g_i7_fr4\\layouts\\interdigital_7o_fr4_210um_round13_retest_4to10_40\\i7_fr4_r13_retest_base_l555_taper_layout.json",
+          "exists": true,
+          "hash": "f788a1d444e0c57bafe5958750c613fd083f4f1bd3ab35b812599e61bd526199",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        },
+        {
+          "type": "params",
+          "path": "projects\\bfp_6_8g_i7_fr4\\layouts\\interdigital_7o_fr4_210um_round13_retest_4to10_40\\i7_fr4_r13_retest_base_l555_taper_params.json",
+          "exists": true,
+          "hash": "686edf2b76c4c86bf07a6e7439de76fea024da27c3366f6972b376c6ef8290d1",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        },
+        {
+          "type": "dxf",
+          "path": "projects\\bfp_6_8g_i7_fr4\\layouts\\interdigital_7o_fr4_210um_round13_retest_4to10_40\\i7_fr4_r13_retest_base_l555_taper_mm_coords.dxf",
+          "exists": true,
+          "hash": "350e154dc215d1db201dda489578d530eb6084be3b2bc36dad4c47ed21410a2e",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        },
+        {
+          "type": "layout_svg",
+          "path": "projects\\bfp_6_8g_i7_fr4\\layouts\\interdigital_7o_fr4_210um_round13_retest_4to10_40\\i7_fr4_r13_retest_base_l555_taper.svg",
+          "exists": true,
+          "hash": "9fe07e31eac71f92af04eafc2737e24ebc4f77d4148c2b55fc373b48dd444e9a",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        },
+        {
+          "type": "drc",
+          "path": "projects\\bfp_6_8g_i7_fr4\\layouts\\interdigital_7o_fr4_210um_round13_retest_4to10_40\\i7_fr4_r13_retest_base_l555_taper_drc.txt",
+          "exists": true,
+          "hash": "83b6ae879520b40e3fa0db5d71e251339316336ff173104622b79ec616311f18",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        },
+        {
+          "type": "tuning_table",
+          "path": "projects\\bfp_6_8g_i7_fr4\\layouts\\interdigital_7o_fr4_210um_round13_retest_4to10_40\\i7_fr4_r13_retest_base_l555_taper_tuning_table.csv",
+          "exists": true,
+          "hash": "688a1c57603066457fe746cc06866f425a5d74e80561cead0c156206533259ec",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        },
+        {
+          "type": "ads_trace",
+          "path": "projects\\bfp_6_8g_i7_fr4\\results\\interdigital_7o_fr4_210um_round13_retest_4to10_40\\i7_fr4_r13_retest_base_l555_taper_mm_coords_rfpro.csv",
+          "exists": true,
+          "hash": "7d0547d26e03d781e4bccb81fa43b14a7931b29c25c39698c709b06ddeececec",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        },
+        {
+          "type": "score",
+          "path": "projects\\bfp_6_8g_i7_fr4\\results\\interdigital_7o_fr4_210um_round13_retest_4to10_40\\i7_fr4_r13_retest_base_l555_taper_mm_coords_score.csv",
+          "exists": true,
+          "hash": "09eb61f6132a0a86ff2e91427f36d2456c06221268d9272e9d4842f153c14c6c",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        },
+        {
+          "type": "fem_txt",
+          "path": "projects\\bfp_6_8g_i7_fr4\\results\\interdigital_7o_fr4_210um_round13_retest_4to10_40\\i7_fr4_r13_retest_base_l555_taper_mm_coords_FEM_a_full.csv",
+          "exists": true,
+          "hash": "f2c72166495696f6163f8d55775ce8b85b6ec365a59b410335241e2458cb4f85",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        },
+        {
+          "type": "log",
+          "path": "projects\\bfp_6_8g_i7_fr4\\results\\interdigital_7o_fr4_210um_round13_retest_4to10_40\\i7_fr4_r13_retest_base_l555_taper_mm_coords_flow.log",
+          "exists": true,
+          "hash": "787eed026898c9cb8cd511a0e4b0bc0bb6a7257cc58778603382ab465c4267e8",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        },
+        {
+          "type": "svg",
+          "path": "projects\\bfp_6_8g_i7_fr4\\results\\interdigital_7o_fr4_210um_round13_retest_4to10_40\\svg\\i7_fr4_r13_retest_base_l555_taper_s_curves.svg",
+          "exists": true,
+          "hash": "69ccd10986c9b84e0143957ae40c9652f9dcec31aa43eb70ce73291c8732ba8e",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        },
+        {
+          "type": "run_manifest",
+          "path": "projects\\bfp_6_8g_i7_fr4\\results\\interdigital_7o_fr4_210um_round13_retest_4to10_40\\runs\\bfp_6_8g_i7_fr4_round13_i7_fr4_r13_retest_base_l555_taper_home_simads_em_parallel_20260802_141512\\run_manifest.json",
+          "exists": true,
+          "hash": "e6da27405f6393c110c644dca9764cc1dad5adaa27d7325302d3106114a8d822",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        },
+        {
+          "type": "artifact_manifest",
+          "path": "projects\\bfp_6_8g_i7_fr4\\results\\interdigital_7o_fr4_210um_round13_retest_4to10_40\\runs\\bfp_6_8g_i7_fr4_round13_i7_fr4_r13_retest_base_l555_taper_home_simads_em_parallel_20260802_141512\\artifact_manifest.json",
+          "exists": true,
+          "hash": "c25486b5ecf996ea96d16cc1cfd727f3d70f9a9229325e63835880c6ce960967",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        },
+        {
+          "type": "state",
+          "path": "projects\\bfp_6_8g_i7_fr4\\results\\interdigital_7o_fr4_210um_round13_retest_4to10_40\\runs\\bfp_6_8g_i7_fr4_round13_i7_fr4_r13_retest_base_l555_taper_home_simads_em_parallel_20260802_141512\\state.json",
+          "exists": true,
+          "hash": "ec108b69f1fca71e1ab6fb10768c6fe2c20d0f78467fc151ce78c3fb53327c7f",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        }
+      ],
+      "tags": [
+        "baseline",
+        "round13",
+        "ads",
+        "rfpro",
+        "fr4_210um"
+      ],
+      "notes": "ADS/RFPro round13 retest baseline for the L555 taper geometry.",
+      "frozen": true,
+      "immutable": true,
+      "created_at": "2026-08-02T18:48:53+08:00"
+    },
+    {
+      "baseline_id": "bfp_6_8g_i7_fr4_round13_i7_fr4_r13_retest_base_l555_taper_hfss3dlayout_hfss_aedt_edge_port_gnd",
+      "project_id": "bfp_6_8g_i7_fr4",
+      "round_id": "round13",
+      "candidate_id": "i7_fr4_r13_retest_base_l555_taper",
+      "backend": "hfss3dlayout",
+      "label": "hfss_aedt_edge_port_gnd",
+      "source_kind": "hfss_verdict",
+      "source_run_id": null,
+      "metrics": {
+        "file": "projects\\bfp_6_8g_i7_fr4\\results\\hfss_verdict_i7_fr4_r13_aedt_edge_port_gnd\\i7_fr4_r13_retest_base_l555_taper_hfss.s2p",
+        "status": "TUNE",
+        "s21_5g_db": "-20.38",
+        "s21_6g_db": "-4.81",
+        "s21_7g_db": "-5.08",
+        "s21_8g_db": "-9.64",
+        "s21_9g_db": "-27.44",
+        "passband_min_s21_db": "-9.64",
+        "passband_ripple_db": "5.78",
+        "worst_s11_6_8_db": "-6.78",
+        "worst_s22_6_8_db": "-6.90",
+        "note": "5 GHz rejection is weak; narrow bandwidth or add extra LO notch/highpass."
+      },
+      "artifacts": [
+        {
+          "type": "s2p",
+          "path": "projects\\bfp_6_8g_i7_fr4\\results\\hfss_verdict_i7_fr4_r13_aedt_edge_port_gnd\\i7_fr4_r13_retest_base_l555_taper_hfss.s2p",
+          "exists": true,
+          "hash": "6f9cbb3e79e29b9ef30e2afd9e09c1af2d8b8d003534f612bb4df782019a66dc",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        },
+        {
+          "type": "score",
+          "path": "projects\\bfp_6_8g_i7_fr4\\results\\hfss_verdict_i7_fr4_r13_aedt_edge_port_gnd\\i7_fr4_r13_retest_base_l555_taper_hfss_score.csv",
+          "exists": true,
+          "hash": "b866c642e3312138d03f62087f9080b1ceadf2fd772e7636f0cf6ea0f11e43c3",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        },
+        {
+          "type": "trace_csv",
+          "path": "projects\\bfp_6_8g_i7_fr4\\results\\hfss_verdict_i7_fr4_r13_aedt_edge_port_gnd\\i7_fr4_r13_retest_base_l555_taper_hfss_trace.csv",
+          "exists": true,
+          "hash": "c8d93998c4a046a0a6b0c1400002669db666ac03becdd537c73cb7b5211a3d38",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        },
+        {
+          "type": "summary",
+          "path": "projects\\bfp_6_8g_i7_fr4\\results\\hfss_verdict_i7_fr4_r13_aedt_edge_port_gnd\\svg\\i7_fr4_r13_retest_base_l555_taper_hfss_plot_summary.csv",
+          "exists": true,
+          "hash": "a4073cabb0ec16ab875adf1be145dcd340448045b90cd59221801982225c0b9e",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        },
+        {
+          "type": "svg",
+          "path": "projects\\bfp_6_8g_i7_fr4\\results\\hfss_verdict_i7_fr4_r13_aedt_edge_port_gnd\\svg\\i7_fr4_r13_retest_base_l555_taper_hfss_s_curves.svg",
+          "exists": true,
+          "hash": "b5d9f982fbbf90472cbc62f29fbd05cb85c0578927c103feaaa7b1391dab9919",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        }
+      ],
+      "tags": [
+        "baseline",
+        "round13",
+        "hfss",
+        "aedt-edge",
+        "port-edges-gnd",
+        "fr4_210um"
+      ],
+      "notes": "HFSS automatic AEDT edge-port verdict with explicit finite GND reference.",
+      "frozen": true,
+      "immutable": true,
+      "created_at": "2026-08-02T18:48:53+08:00"
+    },
+    {
+      "baseline_id": "bfp_6_8g_i7_fr4_round13_i7_fr4_r13_retest_base_l555_taper_hfss3dlayout_manual_hfss_manual_port_saved",
+      "project_id": "bfp_6_8g_i7_fr4",
+      "round_id": "round13",
+      "candidate_id": "i7_fr4_r13_retest_base_l555_taper",
+      "backend": "hfss3dlayout_manual",
+      "label": "hfss_manual_port_saved",
+      "source_kind": "hfss_manual_verdict",
+      "source_run_id": null,
+      "metrics": {
+        "file": "projects\\bfp_6_8g_i7_fr4\\results\\hfss_verdict_i7_fr4_r13_manual_saved\\i7_fr4_r13_retest_base_l555_taper_hfss_manual_saved.s2p",
+        "status": "TUNE",
+        "s21_5g_db": "-20.58",
+        "s21_6g_db": "-4.88",
+        "s21_7g_db": "-5.06",
+        "s21_8g_db": "-9.81",
+        "s21_9g_db": "-27.48",
+        "passband_min_s21_db": "-9.81",
+        "passband_ripple_db": "5.92",
+        "worst_s11_6_8_db": "-7.06",
+        "worst_s22_6_8_db": "-6.97",
+        "note": "5 GHz rejection is weak; narrow bandwidth or add extra LO notch/highpass."
+      },
+      "artifacts": [
+        {
+          "type": "s2p",
+          "path": "projects\\bfp_6_8g_i7_fr4\\results\\hfss_verdict_i7_fr4_r13_manual_saved\\i7_fr4_r13_retest_base_l555_taper_hfss_manual_saved.s2p",
+          "exists": true,
+          "hash": "8c2b96f2d5292f8cac210c6f0d1de99bb77de1916c79261175be4c475750d907",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        },
+        {
+          "type": "score",
+          "path": "projects\\bfp_6_8g_i7_fr4\\results\\hfss_verdict_i7_fr4_r13_manual_saved\\i7_fr4_r13_retest_base_l555_taper_hfss_manual_saved_score.csv",
+          "exists": true,
+          "hash": "fc5ad48f45bde88890416dda09af0a67e357a679e1acce60bde8063c94ae6f1b",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        },
+        {
+          "type": "trace_csv",
+          "path": "projects\\bfp_6_8g_i7_fr4\\results\\hfss_verdict_i7_fr4_r13_manual_saved\\i7_fr4_r13_retest_base_l555_taper_hfss_manual_saved_trace.csv",
+          "exists": true,
+          "hash": "7b7245d7e4c00a8d7bba377408c094ce42110e34fa0a4bd2ce3bc10f7aa15dc1",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        },
+        {
+          "type": "summary",
+          "path": "projects\\bfp_6_8g_i7_fr4\\results\\hfss_verdict_i7_fr4_r13_manual_saved\\svg\\i7_fr4_r13_retest_base_l555_taper_hfss_manual_saved_plot_summary.csv",
+          "exists": true,
+          "hash": "353371ad1a23914cc05c095871589131aa119651ac6a784da393908e20e9fa57",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        },
+        {
+          "type": "svg",
+          "path": "projects\\bfp_6_8g_i7_fr4\\results\\hfss_verdict_i7_fr4_r13_manual_saved\\svg\\i7_fr4_r13_retest_base_l555_taper_hfss_manual_saved_s_curves.svg",
+          "exists": true,
+          "hash": "4c1397d29ebbc49055da4926409199f5782d79b140d7b130b334d8dfab6f24eb",
+          "producer": "tools/freeze_i7_fr4_baselines.py"
+        }
+      ],
+      "tags": [
+        "baseline",
+        "round13",
+        "hfss",
+        "manual-port",
+        "fr4_210um"
+      ],
+      "notes": "HFSS verdict exported after manual port creation by selecting the signal edge and GND reference edge.",
+      "frozen": true,
+      "immutable": true,
+      "created_at": "2026-08-02T18:48:53+08:00"
+    }
+  ]
+}

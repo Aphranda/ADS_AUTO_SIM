@@ -4,7 +4,7 @@ Status: Active
 Domain: ARCH
 Canonical: `docs/arch/ARCH_DIRECTORY_GOVERNANCE.md`
 Related: `docs/README.md`, `docs/arch/ADS版图自动仿真项目框架设计.md`, `docs/arch/ARCH_DOCS_INTERNAL_STRUCTURE_PLAN.md`, `docs/arch/ARCH_REFACTOR_TODO.md`, `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`
-Last updated: 2026-08-01
+Last updated: 2026-08-03
 Owner: ADS Automation
 
 本文档定义 `docs/` 和 `tools/` 的分层治理策略。目标是让文档和脚本可以继续增长，但不再依赖平铺文件名和人工记忆管理。
@@ -185,7 +185,41 @@ Owner: ADS Automation
 - 测试策略中的 T0/T1/T2/T3 gate 通过。
 - 涉及 ADS API 的移动必须重新运行 ADS Python API smoke。
 
-## 7. 当前建议
+
+## 7. `projects/` Git 产物治理
+
+`projects/` 下的文件按“能否复现”和“是否作为冻结证据”分级管理。Git 不应保存每轮优化产生的全量候选池、全量版图侧文件和全量仿真原始导出；这些文件会随 ADS/RFPro/HFSS/NN 迭代快速膨胀，并且可以由计划表、生成器、pipeline 配置和仿真脚本重新生成。
+
+推荐保留到 Git 的内容：
+
+| 类型 | 示例 | 原因 |
+|---|---|---|
+| 项目源配置 | `config/projects/*.json`、`config/pipelines/*.json`、`config/stackups/*.json`、`config/ads_profiles.json` | 定义项目、层叠、profile、模板、频段和流程契约。 |
+| 生成器和流程脚本 | `src/simads/**`、`tools/**` | 复现候选、导入 ADS/HFSS、评分和训练的代码源。 |
+| 精简候选计划 | `projects/*/plans/*.csv`，但不含 `*_pool.csv` | 非 pool 计划表是一次迭代的可复现入口。 |
+| 汇总结果 | `projects/*/results/**/sweep_summary.csv`、baseline summary | 便于快速比较轮次，不需要提交每个候选的原始曲线。 |
+| baseline/release 证据 | `projects/*/baselines/**`、正式 reports | 作为冻结结论、报告引用和跨电脑复核依据。 |
+| 文档和报告 | `docs/**`、`projects/*/reports/**` | 记录设计判断、流程和发布结论。 |
+
+默认不进入 Git 的内容：
+
+| 类型 | 示例 | 处理方式 |
+|---|---|---|
+| 候选池计划 | `plans/*_pool.csv` | 由生成器和随机种子复现；只提交筛选后的 top/round 计划。 |
+| 版图侧文件 | `layouts/**/*_layout.json`、`*_params.json`、`*_tuning_table.csv`、`*.svg`、`*.dxf` | 由 plan + generator 生成；关键候选需要冻结时复制到 `baselines/` 或 `git add -f`。 |
+| 原始仿真导出 | `results/**/*_rfpro.csv`、`*_score.csv`、`*.s2p`、结果 SVG | 本地保留用于分析；Git 只保存 summary/baseline/report。 |
+| NN 派生产物 | `*.npz`、`*.pt`、`*_ranking.csv`、`*_predictions.csv` | 可由已有样本和训练脚本再生成；正式模型另行做 release/baseline。 |
+| run 临时状态 | `projects/*/runs/**`、`projects/*/results/**/runs/**` | 本地排障用；长期证据进入 baseline manifest。 |
+
+如果某个被 ignore 的文件确实需要作为正式证据提交，应满足以下条件之一：
+
+- 它是 baseline/release 的唯一输入，且无法由已提交的 plan + generator 重建。
+- 它被正式报告直接引用，并且报告不能接受重新生成版本。
+- 它用于跨 ADS/HFSS/backend 对照，且需要冻结当时工具版本和文件 hash。
+
+此时优先把文件归档到 `projects/<project_id>/baselines/<baseline_id>/` 或 `projects/<project_id>/reports/`；必要时使用 `git add -f <path>` 明确标记为例外，避免全量候选目录误入 Git。
+
+## 8. 当前建议
 
 近期执行顺序：
 
