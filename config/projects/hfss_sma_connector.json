@@ -121,6 +121,21 @@
         "design": "DUAL_END_SMA_CPW_100MM",
         "fixture_type": "microstrip_connector_50r",
         "description": "Two SMA launch surrogates with a 100 mm 50R CPWG center section."
+      },
+      "ideal_50r_microstrip_30mm": {
+        "design": "IDEAL_50R_CPW_30MM",
+        "fixture_type": "microstrip_50r_through",
+        "description": "30 mm P1-to-P2 ideal 50R CPWG baseline for faster 0.5-10 GHz connector studies."
+      },
+      "single_end_connector_50r_30mm": {
+        "design": "SINGLE_END_SMA_CPW_30MM",
+        "fixture_type": "microstrip_single_connector_50r",
+        "description": "One SMA launch on P1 plus 30 mm P1-to-P2 CPWG fixture. Connector pin port uses AEDT generated name."
+      },
+      "dual_end_connector_50r_30mm": {
+        "design": "DUAL_END_SMA_CPW_30MM",
+        "fixture_type": "microstrip_connector_50r",
+        "description": "Two SMA launches in a 30 mm P1-to-P2 CPWG fixture. Connector pin ports use AEDT generated names."
       }
     },
     "connector_placement": {

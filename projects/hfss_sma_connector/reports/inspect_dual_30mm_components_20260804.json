@@ -1,0 +1,16 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "DUAL_END_SMA_CPW_30MM",
+  "component_names": [],
+  "component_ids": [],
+  "all_components": {
+    "SMA_KE_Unite_Small_Solder8": [
+      "79"
+    ],
+    "SMA_KE_Unite_Small_Solder9": [
+      "80"
+    ]
+  },
+  "selected": [],
+  "status": "inspected"
+}

@@ -1,0 +1,76 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "SMA_KE_Unite_Small_Solder",
+  "objects": [
+    {
+      "name": "Base_GND",
+      "material_name": "copper",
+      "solve_inside": "False",
+      "display_wireframe": "False",
+      "bounding_box": [
+        -4.0,
+        -3.25,
+        -3.25,
+        9.5,
+        3.25,
+        3.25
+      ]
+    },
+    {
+      "name": "PTFE_CYL",
+      "material_name": "ptfe",
+      "solve_inside": "True",
+      "display_wireframe": "False",
+      "bounding_box": [
+        0.0,
+        -2.1,
+        -2.1,
+        9.5,
+        2.1,
+        2.1
+      ]
+    },
+    {
+      "name": "Pin",
+      "material_name": "copper",
+      "solve_inside": "False",
+      "display_wireframe": "False",
+      "bounding_box": [
+        -4.0,
+        -0.625,
+        -0.625000000000001,
+        9.5,
+        0.625,
+        0.624999999999999
+      ]
+    },
+    {
+      "name": "Solder_S",
+      "material_name": "solder",
+      "solve_inside": "False",
+      "display_wireframe": "False",
+      "bounding_box": [
+        -4.0,
+        -0.472630922693267,
+        -0.5,
+        -0.5,
+        0.472630922693267,
+        -0.0473815461346613
+      ]
+    },
+    {
+      "name": "Circle1",
+      "material_name": "",
+      "solve_inside": "None",
+      "display_wireframe": "False",
+      "bounding_box": [
+        9.5,
+        -2.6,
+        -2.6,
+        9.5,
+        2.6,
+        2.6
+      ]
+    }
+  ]
+}

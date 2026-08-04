@@ -1,0 +1,48 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "SINGLE_END_SMA_CPW_100MM",
+  "layers_type": "Layers",
+  "layers_dir_filtered": [
+    "__getattribute__",
+    "__getstate__",
+    "add_layer",
+    "all_diel_layers",
+    "all_layers",
+    "all_signal_layers",
+    "change_stackup_type",
+    "drawing_layers",
+    "layer_id",
+    "layers",
+    "lengthUnitRough",
+    "stackup_layers"
+  ],
+  "all_layers": "['ETCH_TOP', 'DIEL_PP_TOP_7628_RC49_8P6MIL', 'ETCH_INNER1', 'DIEL_CORE_1P1MM_H_HOZ', 'ETCH_INNER2', 'DIEL_PP_BOTTOM_7628_RC49_8P6MIL', 'ETCH_BOTTOM', 'SIwave Regions', 'Rats', 'Errors', 'Symbols', 'Postprocessing', 'Outline']",
+  "layers": "{12: Class: ansys.aedt.core.modules.layer_stackup.Layer, 11: Class: ansys.aedt.core.modules.layer_stackup.Layer, 10: Class: ansys.aedt.core.modules.layer_stackup.Layer, 9: Class: ansys.aedt.core.modules.layer_stackup.Layer, 8: Class: ansys.aedt.core.modules.layer_stackup.Layer, 7: Class: ansys.aedt.core.modules.layer_stackup.Layer, 6: Class: ansys.aedt.core.modules.layer_stackup.Layer, 0: Class: ansys.aedt.core.modules.layer_stackup.Layer, 1: Class: ansys.aedt.core.modules.layer_stackup.Layer, 2: Class: ansys.aedt.core.modules.layer_stackup.Layer, 3: Class: ansys.aedt.core.modules.layer_stackup.Layer, 4: Class: ansys.aedt.core.modules.layer_stackup.Layer, 5: Class: ansys.aedt.core.modules.layer_stackup.Layer}",
+  "layer_id_error": "TypeError(\"Layers.layer_id() missing 1 required positional argument: 'name'\")",
+  "layer_names_error": "AttributeError(\"'Layers' object has no attribute 'layer_names'\")",
+  "drawing_layers_error": "GrpcApiError('Failed to execute gRPC AEDT command: GetAllLayerNames')",
+  "signal_layers_error": "AttributeError(\"'Layers' object has no attribute 'signal_layers'\")",
+  "stackup_layers_error": "GrpcApiError('Failed to execute gRPC AEDT command: GetAllLayerNames')",
+  "layer_details": {
+    "ETCH_TOP": {
+      "get_layer_info_error": "AttributeError(\"'Layers' object has no attribute 'get_layer_info'\")",
+      "get_layer_error": "AttributeError(\"'Layers' object has no attribute 'get_layer'\")",
+      "layer_by_name_error": "AttributeError(\"'Layers' object has no attribute 'layer_by_name'\")"
+    },
+    "DIEL_PP_TOP_7628_RC49_8P6MIL": {
+      "get_layer_info_error": "AttributeError(\"'Layers' object has no attribute 'get_layer_info'\")",
+      "get_layer_error": "AttributeError(\"'Layers' object has no attribute 'get_layer'\")",
+      "layer_by_name_error": "AttributeError(\"'Layers' object has no attribute 'layer_by_name'\")"
+    },
+    "ETCH_INNER1": {
+      "get_layer_info_error": "AttributeError(\"'Layers' object has no attribute 'get_layer_info'\")",
+      "get_layer_error": "AttributeError(\"'Layers' object has no attribute 'get_layer'\")",
+      "layer_by_name_error": "AttributeError(\"'Layers' object has no attribute 'layer_by_name'\")"
+    },
+    "ETCH_BOTTOM": {
+      "get_layer_info_error": "AttributeError(\"'Layers' object has no attribute 'get_layer_info'\")",
+      "get_layer_error": "AttributeError(\"'Layers' object has no attribute 'get_layer'\")",
+      "layer_by_name_error": "AttributeError(\"'Layers' object has no attribute 'layer_by_name'\")"
+    }
+  }
+}

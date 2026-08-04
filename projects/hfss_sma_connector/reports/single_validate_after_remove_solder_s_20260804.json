@@ -1,0 +1,45 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "backup": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_remove_solder_s_20260804_152314.aedt",
+  "source_design": "SMA_KE_Unite_Small_Solder",
+  "layout_design": "SINGLE_END_SMA_CPW_100MM",
+  "source_objects_before": [
+    "Base_GND",
+    "PTFE_CYL",
+    "Pin",
+    "Solder_S",
+    "Circle1"
+  ],
+  "solder_bbox_before": [
+    -4.0,
+    -0.472630922693267,
+    -0.5,
+    -0.5,
+    0.472630922693267,
+    -0.0473815461346613
+  ],
+  "delete_solder_result": true,
+  "source_objects_after": [
+    "Base_GND",
+    "PTFE_CYL",
+    "Pin",
+    "Circle1"
+  ],
+  "source_save_result": true,
+  "ports": [
+    "IPort@Port1;30",
+    "IPort@Port2;5"
+  ],
+  "all_ports_list": [
+    "Port1",
+    "Port2"
+  ],
+  "validate_result": 0,
+  "messages": [
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [error]  Port2: failed to collect the port geometry needed for meshing. (03:23:55 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [warning]  The mesh body associated with geometry: input_feed, on layer: ETCH_TOP, has an ambiguous net assignment.\nThis may result from a short between meshed bodies.\nNets: IN,OUT,SIG (03:23:55 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [info]  Mesh pre-processing took: 0.505sec\n (03:23:55 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [error]  An error occurred during the mesh generation.\nCheck the message window for additional details. (03:23:55 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [warning]  The cached data (mesh and solver input) for the MCAD model is out of date: SMA_KE_Unite_Small_Solder (03:23:55 PM  Aug 04, 2026)"
+  ]
+}

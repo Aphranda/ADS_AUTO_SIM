@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0",
+  "run_id": "hfss_sma_connector_fixture_30mm_single_end_sma_cpw_30mm_company_connector_20260804_204810",
+  "artifacts": [
+    {
+      "type": "layout_json",
+      "path": "projects\\hfss_sma_connector\\simulations\\single_end_connector_50r_30mm\\layouts\\single_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_layout.json",
+      "exists": true,
+      "hash": "f46665b3b1b5e5a2f309cfc0fa0c0b788ededfee5dd1b7559b235c477ed0134b",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "project_file",
+      "path": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+      "exists": true,
+      "hash": "15e97010c0304aeb49ffd39a58cf0eace980050805e68e6df40ef33d5adf3f54",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "s2p",
+      "path": "projects\\hfss_sma_connector\\simulations\\single_end_connector_50r_30mm\\results\\build\\single_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_hfss.s2p",
+      "exists": false,
+      "hash": null,
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "trace_csv",
+      "path": "projects\\hfss_sma_connector\\simulations\\single_end_connector_50r_30mm\\results\\build\\single_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_hfss_trace.csv",
+      "exists": false,
+      "hash": null,
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "score",
+      "path": "projects\\hfss_sma_connector\\simulations\\single_end_connector_50r_30mm\\results\\build\\single_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_hfss_score.csv",
+      "exists": false,
+      "hash": null,
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "svg",
+      "path": "projects\\hfss_sma_connector\\simulations\\single_end_connector_50r_30mm\\results\\build\\svg\\single_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_hfss_s_curves.svg",
+      "exists": false,
+      "hash": null,
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "summary",
+      "path": "projects\\hfss_sma_connector\\simulations\\single_end_connector_50r_30mm\\results\\build\\svg\\single_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_hfss_plot_summary.csv",
+      "exists": false,
+      "hash": null,
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "log",
+      "path": null,
+      "exists": false,
+      "hash": null,
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "state",
+      "path": "projects\\hfss_sma_connector\\simulations\\single_end_connector_50r_30mm\\runs\\build_20260804\\state.json",
+      "exists": true,
+      "hash": "14acf02759658594add49ee301cafb5c0cea8a655ff1bc25df42fc61b3ab2053",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "microstrip_connector_layout_json",
+      "path": "projects\\hfss_sma_connector\\simulations\\single_end_connector_50r_30mm\\layouts\\single_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_layout.json",
+      "exists": true,
+      "hash": "f46665b3b1b5e5a2f309cfc0fa0c0b788ededfee5dd1b7559b235c477ed0134b",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "connector_params",
+      "path": "projects\\hfss_sma_connector\\simulations\\single_end_connector_50r_30mm\\layouts\\single_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_params.json",
+      "exists": true,
+      "hash": "d287cede1d65f348fe424c1acdc6869abc636e366d1b786d7b6bdbd56bd5d5db",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "connector_hfss_model",
+      "path": null,
+      "exists": false,
+      "hash": null,
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    }
+  ],
+  "updated_at": "2026-08-04T20:48:48+08:00"
+}

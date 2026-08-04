@@ -1,0 +1,301 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "layout_design": "SINGLE_END_SMA_CPW_100MM",
+  "source_design": "SMA_KE_Unite_Small_Solder",
+  "layout": {
+    "validate_result": 0,
+    "messages": [
+      "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [error]  Failed to collect initial geometry data for: SMA_KE_Unite_Small_Solder (06:10:17 PM  Aug 04, 2026)",
+      "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [error]  Port1: failed to collect the port geometry needed for meshing. (06:10:17 PM  Aug 04, 2026)",
+      "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [error]  An error occurred during the mesh generation.\nCheck the message window for additional details. (06:10:17 PM  Aug 04, 2026)",
+      "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [warning]  MCAD model failed to mesh; check the HFSS model: SMA_KE_Unite_Small_Solder (06:10:17 PM  Aug 04, 2026)",
+      "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [warning]  The cached data (mesh and solver input) for the MCAD model is out of date: SMA_KE_Unite_Small_Solder (06:10:17 PM  Aug 04, 2026)",
+      "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [error]  Failed to derive valid HFSS port geometry for Port1 (06:10:17 PM  Aug 04, 2026)"
+    ],
+    "schematic_ports": [
+      "IPort@Port1;30",
+      "IPort@Port2;5"
+    ],
+    "schematic_components": [
+      "CompInst@SMA_KE_Unite_Small_Solder3;70;4"
+    ],
+    "schematic_component_props": {
+      "CompInst@SMA_KE_Unite_Small_Solder3;70;4": {
+        "BaseElementTab": {
+          "properties": [
+            "SchematicID",
+            "Levels",
+            "Component Location",
+            "Component Angle",
+            "Component Mirror",
+            "Use Symbol Color"
+          ],
+          "values": {
+            "SchematicID": "4",
+            "Levels": "0,1",
+            "Component Location": "-600mil , -2500mil",
+            "Component Angle": "0deg",
+            "Component Mirror": "false",
+            "Use Symbol Color": "true"
+          }
+        },
+        "ComponentTab": {
+          "properties": [
+            "Owner",
+            "ID",
+            "CompName",
+            "Library",
+            "Description",
+            "Manufacturer",
+            "Datasource",
+            "Date",
+            "Refbase",
+            "PinCount",
+            "Refdes",
+            "Symbol",
+            "Footprint"
+          ],
+          "values": {
+            "Owner": "HFSS",
+            "ID": "70",
+            "CompName": "SMA_KE_Unite_Small_Solder3",
+            "Library": "",
+            "Description": "",
+            "Manufacturer": "",
+            "Datasource": "",
+            "Date": "13:45:25 08/04/2026",
+            "Refbase": "S",
+            "PinCount": "1",
+            "Refdes": "S1",
+            "Symbol": "SMA_KE_Unite_Small_Solder3",
+            "Footprint": "_symbolFootprint_502d12a8_58ce9c60"
+          }
+        },
+        "PassedParameterTab": {
+          "properties": [
+            "Base_L",
+            "Front_L",
+            "Feet_L",
+            "Base_D",
+            "Front_W",
+            "Feet_W",
+            "PTFE_D",
+            "Pin_D",
+            "Pin_P",
+            "Hole_D",
+            "ModelName",
+            "CosimDefinition",
+            "CoSimulator",
+            "InstanceName",
+            "HFSS Mesh",
+            "HFSS Mesh Settings"
+          ],
+          "values": {
+            "Base_L": "8mm",
+            "Front_L": "1.5mm",
+            "Feet_L": "4mm",
+            "Base_D": "6.25mm",
+            "Front_W": "6.5mm",
+            "Feet_W": "1mm",
+            "PTFE_D": "4.2mm",
+            "Pin_D": "0.95mm",
+            "Pin_P": "1.7mm",
+            "Hole_D": "1.25mm",
+            "ModelName": "FieldSolver",
+            "CosimDefinition": "Edit",
+            "CoSimulator": "Default",
+            "InstanceName": "S70",
+            "HFSS Mesh": "true",
+            "HFSS Mesh Settings": "..."
+          }
+        },
+        "EM Design": {
+          "properties": [],
+          "values": {}
+        },
+        "PropDisplayMap": {
+          "properties": {
+            "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetProperties')"
+          }
+        }
+      }
+    },
+    "component_70_info": [
+      "ComponentName=SMA_KE_Unite_Small_Solder3",
+      "PlacementLayer=ETCH_TOP",
+      "LocationX=0",
+      "LocationY=0",
+      "BBoxLLx=-0.00304800000000203",
+      "BBoxLLy=0",
+      "BBoxURx=0.00508",
+      "BBoxURy=0.00508",
+      "Angle=0",
+      "Flip=false",
+      "Scale=1"
+    ],
+    "component_70_props": {
+      "BaseElementTab": {
+        "properties": [
+          "Type",
+          "LockPosition",
+          "Name",
+          "Reload Graphics",
+          "Visible",
+          "Placement",
+          "3D Placement",
+          "PlacementLayer",
+          "Location",
+          "Flipped",
+          "",
+          "Rotation",
+          "Local Origin",
+          "Rotation Axis",
+          "Rotation Axis Direction",
+          "Rotation Angle",
+          "",
+          ""
+        ],
+        "values": {
+          "Type": "Component",
+          "LockPosition": "false",
+          "Name": "70",
+          "Reload Graphics": "Refresh Dynamic Link",
+          "Visible": "true",
+          "Placement": "",
+          "3D Placement": "true",
+          "PlacementLayer": "ETCH_TOP",
+          "Location": "0 ,0 ,2.0862",
+          "Flipped": "false",
+          "": "",
+          "Rotation": "",
+          "Local Origin": "0 ,0 ,0",
+          "Rotation Axis": "Z",
+          "Rotation Axis Direction": "0 ,0 ,1",
+          "Rotation Angle": "180deg"
+        }
+      },
+      "ComponentTab": {
+        "properties": [],
+        "values": {}
+      },
+      "PassedParameterTab": {
+        "properties": [],
+        "values": {}
+      },
+      "EM Design": {
+        "properties": [],
+        "values": {}
+      },
+      "PropDisplayMap": {
+        "properties": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetProperties')"
+        }
+      }
+    }
+  },
+  "source": {
+    "model_units": "mm",
+    "object_names": [
+      "Base_GND",
+      "PTFE_CYL",
+      "Pin",
+      "Solder_S",
+      "Circle1"
+    ],
+    "variable_manager": "Class: ansys.aedt.core.application.variables.VariableManager",
+    "design_variables": {
+      "error": "AttributeError(\"'Hfss' object has no attribute 'design_variables'\")"
+    },
+    "project_variables": {
+      "error": "AttributeError(\"'Hfss' object has no attribute 'project_variables'\")"
+    },
+    "variables": {
+      "error": "AttributeError(\"'Hfss' object has no attribute 'variables'\")"
+    },
+    "variable_manager_dir": [
+      "_VariableManager__dependent_design_variables",
+      "_VariableManager__dependent_project_variables",
+      "_VariableManager__independent_design_variables",
+      "_VariableManager__independent_project_variables",
+      "__getattribute__",
+      "__getitem__",
+      "__getstate__",
+      "_all_variables",
+      "_cleanup_variables",
+      "_dependent_variables",
+      "_find_used_variable_history",
+      "_get_var_list_from_aedt",
+      "_independent_variables",
+      "_odesign",
+      "_oproject",
+      "_update_variable_dict",
+      "_variable_dict",
+      "delete_unused_variables",
+      "delete_variable",
+      "dependent_design_variable_names",
+      "dependent_design_variables",
+      "dependent_project_variable_names",
+      "dependent_project_variables",
+      "dependent_variable_names",
+      "dependent_variables",
+      "design_variable_names",
+      "design_variables",
+      "get_expression",
+      "independent_design_variable_names",
+      "independent_design_variables",
+      "independent_project_variable_names",
+      "independent_project_variables",
+      "independent_variable_names",
+      "independent_variables",
+      "post_processing_variables",
+      "project_variable_names",
+      "project_variables",
+      "set_variable",
+      "variable_names",
+      "variables"
+    ],
+    "vm_variables": {
+      "Base_L": "8mm",
+      "Front_L": "1.5mm",
+      "Feet_L": "4mm",
+      "Base_D": "6.25mm",
+      "Front_W": "6.5mm",
+      "Feet_W": "1mm",
+      "PTFE_D": "4.2mm",
+      "Pin_D": "0.95mm",
+      "Pin_P": "1.7mm",
+      "Hole_D": "1.25mm"
+    },
+    "vm_independent_variables": {
+      "Base_L": "8mm",
+      "Front_L": "1.5mm",
+      "Feet_L": "4mm",
+      "Base_D": "6.25mm",
+      "Front_W": "6.5mm",
+      "Feet_W": "1mm",
+      "PTFE_D": "4.2mm",
+      "Pin_D": "0.95mm",
+      "Pin_P": "1.7mm",
+      "Hole_D": "1.25mm"
+    },
+    "vm_dependent_variables": {},
+    "vm_design_variables": {
+      "Base_L": "8mm",
+      "Front_L": "1.5mm",
+      "Feet_L": "4mm",
+      "Base_D": "6.25mm",
+      "Front_W": "6.5mm",
+      "Feet_W": "1mm",
+      "PTFE_D": "4.2mm",
+      "Pin_D": "0.95mm",
+      "Pin_P": "1.7mm",
+      "Hole_D": "1.25mm"
+    },
+    "vm_project_variables": {},
+    "validate_full_design": [
+      "['Desktop messages:', 'Design validation check PASSED.', 'Design validation messages:', \"[warning] For broadband frequency models it is recommended to set 'Automatically use causal materials' in the HFSS Design Settings for Lossy Dielectrics.  See 'Design Settings for HFSS' in the help for more information.\", '** End of design validation messages. **', 'Excitations check:', 'Analysis setup messages:', 'Detected setup and sweep: ', 'Setup1', ' |__ Sweep']",
+      "True"
+    ],
+    "messages": []
+  }
+}

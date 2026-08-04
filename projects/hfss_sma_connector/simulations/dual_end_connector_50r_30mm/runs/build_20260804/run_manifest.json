@@ -1,0 +1,262 @@
+{
+  "schema_version": "1.0",
+  "run_id": "hfss_sma_connector_fixture_30mm_dual_end_sma_cpw_30mm_company_connector_20260804_204912",
+  "project_id": "hfss_sma_connector",
+  "round_id": "fixture_30mm",
+  "candidate_id": "dual_end_sma_cpw_30mm",
+  "device_id": "fixture.microstrip_connector",
+  "pipeline_id": null,
+  "pipeline_snapshot": null,
+  "profile_id": "company_connector",
+  "profile_snapshot": {
+    "hfss_version": "2026.1",
+    "workspace_dir": "D:\\Work\\ADS\\HFSS_VERDICT",
+    "project_model": "single_aedt_project_multiple_designs",
+    "project_action": "add",
+    "design": "DUAL_END_SMA_CPW_30MM",
+    "setup": "Setup_0p5to10G",
+    "sweep": "Sweep_0p5to10G_96pt",
+    "route": "hfss3dlayout_aedt_edge_gap_gnd_port_edges"
+  },
+  "simulator": "hfss3dlayout",
+  "sweep": {
+    "start_ghz": 0.5,
+    "stop_ghz": 10.0,
+    "points": 96,
+    "sweep_type": "Interpolating",
+    "adaptive_frequency_ghz": 7.0,
+    "spacing_ghz": 0.1,
+    "spacing_mhz": 100.0
+  },
+  "stackup": {
+    "stackup_id": "JLC04161H_7628_1P6MM",
+    "dielectric_material": "JLC_7628_RC49_8P6MIL",
+    "er": 4.4,
+    "loss_tangent": 0.02,
+    "dielectric_height_mm": 0.2104,
+    "copper_thickness_mm": 0.035,
+    "top_layer": "ETCH_TOP",
+    "dielectric_layer": "configured_multilayer",
+    "bottom_layer": "ETCH_INNER1",
+    "config_path": "E:\\OneDrive\\4.Code\\SIM\\config\\stackups\\JLC04161H_7628_1P6MM.json",
+    "signal_to_reference_height_mm": 0.2104,
+    "total_thickness_mm": 1.5862,
+    "layers_bottom_to_top": [
+      {
+        "name": "ETCH_BOTTOM",
+        "kind": "conductor",
+        "material": "COPPER",
+        "thickness_mm": 0.035,
+        "role": "bottom_copper",
+        "thickness_mil": 1.378,
+        "ads_layer_id": 1003
+      },
+      {
+        "name": "DIEL_PP_BOTTOM_7628_RC49_8P6MIL",
+        "kind": "dielectric",
+        "material": "JLC_7628_RC49_8P6MIL",
+        "thickness_mm": 0.2104,
+        "role": "bottom_prepreg",
+        "thickness_mil": 8.28299,
+        "ads_layer_id": null
+      },
+      {
+        "name": "ETCH_INNER2",
+        "kind": "conductor",
+        "material": "COPPER",
+        "thickness_mm": 0.0152,
+        "role": "inner2_copper",
+        "thickness_mil": 0.598,
+        "ads_layer_id": 1002
+      },
+      {
+        "name": "DIEL_CORE_1P1MM_H_HOZ",
+        "kind": "dielectric",
+        "material": "JLC_1P1MM_H_HOZ_CORE",
+        "thickness_mm": 1.065,
+        "role": "core",
+        "thickness_mil": 41.9291,
+        "ads_layer_id": null
+      },
+      {
+        "name": "ETCH_INNER1",
+        "kind": "conductor",
+        "material": "COPPER",
+        "thickness_mm": 0.0152,
+        "role": "reference_ground",
+        "thickness_mil": 0.598,
+        "ads_layer_id": 1001
+      },
+      {
+        "name": "DIEL_PP_TOP_7628_RC49_8P6MIL",
+        "kind": "dielectric",
+        "material": "JLC_7628_RC49_8P6MIL",
+        "thickness_mm": 0.2104,
+        "role": "top_prepreg",
+        "thickness_mil": 8.28299,
+        "ads_layer_id": null
+      },
+      {
+        "name": "ETCH_TOP",
+        "kind": "conductor",
+        "material": "COPPER",
+        "thickness_mm": 0.035,
+        "role": "signal",
+        "thickness_mil": 1.378,
+        "ads_layer_id": 1000
+      }
+    ],
+    "geometry": {
+      "signal_layer": "ETCH_TOP",
+      "reference_ground_layer": "ETCH_INNER1",
+      "via_top_layer": "ETCH_TOP",
+      "via_bottom_layer": "ETCH_BOTTOM",
+      "ground_layers": [
+        "ETCH_INNER1",
+        "ETCH_INNER2",
+        "ETCH_BOTTOM"
+      ],
+      "ground_plane_name": "hfss_ground_plane"
+    }
+  },
+  "inputs": {
+    "layout_json": "projects\\hfss_sma_connector\\simulations\\dual_end_connector_50r_30mm\\layouts\\dual_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_layout.json",
+    "microstrip_connector_layout_json": "projects\\hfss_sma_connector\\simulations\\dual_end_connector_50r_30mm\\layouts\\dual_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_layout.json",
+    "connector_params_json": "projects\\hfss_sma_connector\\simulations\\dual_end_connector_50r_30mm\\layouts\\dual_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_params.json",
+    "connector_hfss_model_path": null
+  },
+  "outputs": {
+    "aedt_project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+    "s2p": "projects\\hfss_sma_connector\\simulations\\dual_end_connector_50r_30mm\\results\\build\\dual_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_hfss.s2p",
+    "score_csv": "projects\\hfss_sma_connector\\simulations\\dual_end_connector_50r_30mm\\results\\build\\dual_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_hfss_score.csv",
+    "trace_csv": "projects\\hfss_sma_connector\\simulations\\dual_end_connector_50r_30mm\\results\\build\\dual_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_hfss_trace.csv",
+    "summary_csv": "projects\\hfss_sma_connector\\simulations\\dual_end_connector_50r_30mm\\results\\build\\svg\\dual_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_hfss_plot_summary.csv",
+    "svg": "projects\\hfss_sma_connector\\simulations\\dual_end_connector_50r_30mm\\results\\build\\svg\\dual_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_hfss_s_curves.svg",
+    "state": "projects\\hfss_sma_connector\\simulations\\dual_end_connector_50r_30mm\\runs\\build_20260804\\state.json",
+    "artifact_manifest": "projects\\hfss_sma_connector\\simulations\\dual_end_connector_50r_30mm\\runs\\build_20260804\\artifact_manifest.json"
+  },
+  "flags": {
+    "dry_run": false,
+    "build_only": true,
+    "project_model": "single_aedt_project_multiple_designs",
+    "project_action": "add",
+    "reuse_project": false,
+    "skip_ports": false,
+    "non_graphical": true,
+    "keep_open": false,
+    "configure_extents": true,
+    "route": "hfss3dlayout_aedt_edge_gap_gnd_port_edges",
+    "gnd_boundary_mode": "port-edges",
+    "port_type": "aedt-edge",
+    "reference_ground_ports": false,
+    "stackup_config": "E:\\OneDrive\\4.Code\\SIM\\config\\stackups\\JLC04161H_7628_1P6MM.json",
+    "fixture_type": "microstrip_connector_50r"
+  },
+  "result": {
+    "simulator": "hfss3dlayout",
+    "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+    "design": "DUAL_END_SMA_CPW_30MM",
+    "s2p": "projects\\hfss_sma_connector\\simulations\\dual_end_connector_50r_30mm\\results\\build\\dual_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_hfss.s2p",
+    "trace_csv": "projects\\hfss_sma_connector\\simulations\\dual_end_connector_50r_30mm\\results\\build\\dual_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_hfss_trace.csv",
+    "score_csv": "projects\\hfss_sma_connector\\simulations\\dual_end_connector_50r_30mm\\results\\build\\dual_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_hfss_score.csv",
+    "svg": "projects\\hfss_sma_connector\\simulations\\dual_end_connector_50r_30mm\\results\\build\\svg\\dual_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_hfss_s_curves.svg",
+    "summary_csv": "projects\\hfss_sma_connector\\simulations\\dual_end_connector_50r_30mm\\results\\build\\svg\\dual_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_hfss_plot_summary.csv"
+  },
+  "status": "completed",
+  "stage": "setup_ready",
+  "error_class": null,
+  "elapsed_s": 41.844,
+  "extra": {
+    "fixture_type": "microstrip_connector_50r",
+    "connector_model_version": "route_a_surrogate_v1",
+    "connector_route": "route_a_2p5d_launch_surrogate",
+    "connector_type": "edge_launch_surrogate",
+    "microstrip_connector_layout_json": "projects\\hfss_sma_connector\\simulations\\dual_end_connector_50r_30mm\\layouts\\dual_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_layout.json",
+    "connector_params_json": "projects\\hfss_sma_connector\\simulations\\dual_end_connector_50r_30mm\\layouts\\dual_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_params.json",
+    "line_w_mm": 0.3175,
+    "line_l_mm": 16.2,
+    "reference_plane_offset_mm": 0.0,
+    "port_deembed_mm": 0.0,
+    "connector_region_bbox_mm": {
+      "P1": [
+        0.0,
+        -4.0,
+        6.9,
+        8.0
+      ],
+      "P2": [
+        23.1,
+        -4.0,
+        6.9,
+        8.0
+      ]
+    },
+    "connector_port_contract": {
+      "route": "hfss3dlayout_aedt_edge_gap_gnd_port_edges",
+      "port_type": "aedt-edge",
+      "gnd_boundary_mode": "port-edges",
+      "reference_ground_ports": false,
+      "reference_name": "GND:ETCH_INNER1:hfss_ground_plane",
+      "renormalize": true,
+      "renormalize_impedance_ohm": 50.0,
+      "reference_plane_offset_mm": 0.0,
+      "port_deembed_mm": 0.0,
+      "deembed_enabled": false
+    },
+    "stackup_config": "E:\\OneDrive\\4.Code\\SIM\\config\\stackups\\JLC04161H_7628_1P6MM.json",
+    "connector_hfss_model_path": null,
+    "connector_hfss_model_version": null,
+    "connector_hfss_model_hash": null,
+    "connector_port_mapping": "logical_generated_port_names_v1",
+    "layout_summary": {
+      "layout_id": "dual_end_sma_cpw_30mm_jlc04161h_7628_1p6mm",
+      "configured_layout_id": "dual_end_sma_cpw_30mm_jlc04161h_7628_1p6mm",
+      "units": "mm",
+      "order": null,
+      "substrate": null,
+      "stackup_id": "JLC04161H_7628_1P6MM",
+      "stackup_token": "jlc04161h_7628_1p6mm",
+      "er": null,
+      "dielectric_height_mm": null,
+      "copper_thickness_mm": null,
+      "cond_shapes": 11,
+      "vias": 32,
+      "ports": 2,
+      "boundary": {
+        "name": "em_boundary",
+        "x": -1.5,
+        "y": -4.0,
+        "w": 33.0,
+        "h": 8.0,
+        "layer": "EM_BOUNDARY",
+        "kind": "boundary",
+        "metadata": {}
+      }
+    },
+    "port_edges": {
+      "p1_edge": 1,
+      "p2_edge": 3,
+      "p1_ref_edge": 1,
+      "p2_ref_edge": 3,
+      "p1_side": "left",
+      "p2_side": "right",
+      "p1_ref_side": "left",
+      "p2_ref_side": "right"
+    },
+    "gnd_boundary": {
+      "name": "em_boundary",
+      "x": 0.0,
+      "y": -4.0,
+      "w": 30.0,
+      "h": 8.0,
+      "layer": "EM_BOUNDARY",
+      "kind": "boundary",
+      "metadata": {
+        "gnd_boundary_mode": "port-edges",
+        "source_boundary": "em_boundary"
+      }
+    },
+    "error": null
+  },
+  "updated_at": "2026-08-04T20:49:53+08:00"
+}

@@ -1,0 +1,117 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "DUAL_END_SMA_CPW_30MM",
+  "project_config": "config\\projects\\hfss_sma_connector.json",
+  "connector_placement_profile": "sma_ke_unite_small_solder_3dlayout_etch_top",
+  "source_project": null,
+  "source_design": "SMA_KE_Unite_Small_Solder",
+  "operation": "import-and-place",
+  "placement": "dual",
+  "anchor": "pad-center",
+  "layout": "projects\\hfss_sma_connector\\simulations\\dual_end_connector_50r_30mm\\layouts\\dual_end_sma_cpw_30mm_jlc04161h_7628_1p6mm_layout.json",
+  "z_mode": "fixed",
+  "z_inputs": {
+    "z_mm": 2.0862,
+    "pad_top_z_mm": 0.0,
+    "solder_bottom_z_mm": -0.5,
+    "solder_intrusion_mm": 0.0,
+    "solder_intrusion_mil": 5.0
+  },
+  "targets": [
+    {
+      "side": "P1",
+      "x_mm": 0.0,
+      "y_mm": 2.755455298081545e-16,
+      "z_mm": 2.0862,
+      "angle_deg": 180.0,
+      "component_name": "SMA_KE_Unite_Small_Solder1",
+      "component_id": null
+    },
+    {
+      "side": "P2",
+      "x_mm": 29.85,
+      "y_mm": 0.0,
+      "z_mm": 2.0862,
+      "angle_deg": 0.0,
+      "component_name": "SMA_KE_Unite_Small_Solder2",
+      "component_id": null
+    }
+  ],
+  "execute": true,
+  "save": true,
+  "before_components": {},
+  "placed": [
+    {
+      "id": "79",
+      "side": "P1",
+      "requested_location_mm": [
+        0.0,
+        2.755455298081545e-16,
+        2.0862
+      ],
+      "requested_angle_deg": 180.0,
+      "component_name": "SMA_KE_Unite_Small_Solder1",
+      "after": {
+        "id": "79",
+        "Location": "0 ,2.75545529808154e-16 ,2.0862",
+        "Rotation Angle": "180deg",
+        "3D Placement": "true",
+        "Local Origin": "0 ,0 ,0",
+        "component_info": [
+          "ComponentName=SMA_KE_Unite_Small_Solder8",
+          "PlacementLayer=ETCH_TOP",
+          "LocationX=0",
+          "LocationY=0",
+          "BBoxLLx=-0.00304800000000203",
+          "BBoxLLy=0",
+          "BBoxURx=0.00508",
+          "BBoxURy=0.00508",
+          "Angle=0",
+          "Flip=false",
+          "Scale=1"
+        ]
+      }
+    },
+    {
+      "id": "80",
+      "side": "P2",
+      "requested_location_mm": [
+        29.85,
+        0.0,
+        2.0862
+      ],
+      "requested_angle_deg": 0.0,
+      "component_name": "SMA_KE_Unite_Small_Solder2",
+      "after": {
+        "id": "80",
+        "Location": "29.85 ,0 ,2.0862",
+        "Rotation Angle": "0deg",
+        "3D Placement": "true",
+        "Local Origin": "0 ,0 ,0",
+        "component_info": [
+          "ComponentName=SMA_KE_Unite_Small_Solder9",
+          "PlacementLayer=ETCH_TOP",
+          "LocationX=0",
+          "LocationY=0",
+          "BBoxLLx=-0.00304800000000203",
+          "BBoxLLy=0",
+          "BBoxURx=0.00508",
+          "BBoxURy=0.00508",
+          "Angle=0",
+          "Flip=false",
+          "Scale=1"
+        ]
+      }
+    }
+  ],
+  "after_components": {
+    "SMA_KE_Unite_Small_Solder8": [
+      "79"
+    ],
+    "SMA_KE_Unite_Small_Solder9": [
+      "80"
+    ]
+  },
+  "saved": true,
+  "status": "placed"
+}

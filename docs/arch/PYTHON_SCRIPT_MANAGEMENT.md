@@ -1,10 +1,10 @@
-﻿# Python 脚本管理方案
+# Python 脚本管理方案
 
 Status: Draft
 Domain: PY
 Canonical: `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`
 Related: `docs/arch/ADS版图自动仿真项目框架设计.md`, `docs/env/ENV_ADS_API_CAPABILITY_MATRIX.md`, `projects/bfp_6_8g_i7_fr4/docs/ADS自动仿真流程说明.md`
-Last updated: 2026-08-01
+Last updated: 2026-08-04
 Owner: ADS Automation
 
 本文档用于管理 SIM 项目中的 Python 脚本。目标不是立即重构目录，而是先把脚本分层、可复用模块、运行环境和输入输出契约固定下来。
@@ -53,6 +53,7 @@ CLI 编排流程。
 | `make_i7_fr4_round*.py` | host | deprecated | 历史候选生成 | 收敛为 optimizer 配置。 |
 | `make_next_filter_candidates.py` | host | experimental | 下一轮候选生成 | 与 optimizer 合并。 |
 | `patch_ads_substrate_pcvia.py` | ads | maintenance | substrate/via 修补 | 默认禁用，保留审计日志。 |
+| `tools/hfss/audit_connector_parameters.py` | host/pyaedt | candidate | HFSS 连接器 source/project/instance 参数审计和工程 `$sma_` 变量同步 | 保留为 HFSS connector gate；禁止文本写 `.aedt`，写入只能通过 PyAEDT/API 的 `--sync-project-variables --execute --save`。 |
 
 ## 3. 可复用模块清单
 
@@ -123,7 +124,7 @@ P2 建立 src/simads 包和兼容 CLI。
 ```
 ## 7. 已落地的第一批重构
 
-Last updated: 2026-08-01
+Last updated: 2026-08-04
 
 本轮开始按框架执行 P0 级重构，但不移动旧目录、不删除旧脚本，先建立兼容模块和可追溯运行产物。
 

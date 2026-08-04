@@ -309,8 +309,13 @@ Owner: ADS Automation
 - [x] 新增 microstrip+connector generator：输入 stackup/50R template 和 connector 参数，输出微带线+连接器 layout JSON。
 - [x] 增加连接器区域 DRC gate：pad、clearance、via、edge setback、mechanical envelope、左右对称和板厂工艺限制。
 - [x] 扩展 HFSS workflow/manifest，记录 `fixture_type=microstrip_connector_50r`、`connector_model_version`、`connector_route`、`microstrip_connector_layout_json`、`connector_params_json`、`connector_hfss_model_path`、`connector_hfss_model_hash`、`connector_port_mapping`、`line_w_mm`、`line_l_mm`、`reference_plane_offset_mm` 和 `port_deembed_mm`。
-- [ ] 在 AEDT GUI 中手动完成连接器 pin interface port 标准命名，禁止用 `.aedt` 文本补丁重命名；目标为 SINGLE=`Port1/Port2`，DUAL=`Port1/Port2`。
-- [ ] 手动端口改名后，用只读检查脚本记录 design/port/net 状态，作为继续求解前 gate。
+- [x] 新增连接器参数审计/同步脚本 `tools/hfss/audit_connector_parameters.py`，固定 source design 变量、工程 `$sma_` 变量、3D Layout instance passed parameters 和关键对象 bbox 的检查口径。
+- [x] 2026-08-04 已在公司电脑对 `D:\Work\ADS\HFSS_VERDICT\hfss_sma_connector_cpw.aedt` 执行 source-to-project 参数同步并保存；同步报告位于 `projects/hfss_sma_connector/reports/connector_parameter_sync_project_vars_20260804.json` 和 `projects/hfss_sma_connector/reports/connector_parameter_sync_project_vars_resync_20260804.json`。
+- [ ] 修复 `SMA_KE_Unite_Small_Solder` 源模型的中心导体几何：当前 `Pin` bbox 仍为 `1.25mm`，与 `Hole_D` 一致而非 `Pin_D=0.95mm`；修复后必须重新运行 `audit_connector_parameters.py`，并以 `Pin diameter from bbox` 通过作为继续 Validate/solve 的 gate。
+- [x] 端口命名规则勘误：HFSS 3D Layout connector pin interface port 不能强制改名；改名后会报错。端口名称必须以 AEDT 自动生成结果为准。
+- [ ] 后续探索安全改名路径：仅允许使用 AEDT/PyAEDT 官方 API，需证明改名后 Validate 和 solve 均不报错，并记录 excitation/report/dataset 引用是否同步更新；当前主流程先按不改名执行。
+- [ ] 将端口处理从 `Port1/Port2` 字面命名改为 logical port mapping：manifest/score/report 记录 `logical_port=P1/P2` 与 AEDT generated port name 的对应关系。
+- [ ] 用只读检查脚本记录 design/port/net 状态，确认实际 generated port name、component ID、pin name 和 reference conductor 均有效，作为继续求解前 gate。
 - [ ] 对 3-5 个 smoke 候选先做 layout gate，再选择 1 个候选执行 HFSS solve，输出 S2P/trace/score/compare/manifest。
 - [ ] 将评分扩展为 50R baseline delta 口径，重点比较通带 S21 劣化、S11/S22、端口对称性和 4-10 GHz 宽频回波尖峰。
 - [ ] Route C 使用用户提供的连接器 HFSS 模型复核前 2-3 个 launch 候选。

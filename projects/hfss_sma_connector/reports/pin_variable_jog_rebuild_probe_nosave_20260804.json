@@ -1,0 +1,93 @@
+{
+  "before": {
+    "bbox_mm": [
+      -4.0,
+      -0.625,
+      -0.625000000000001,
+      9.5,
+      0.625,
+      0.624999999999999
+    ],
+    "size_y_mm": 1.25,
+    "size_z_mm": 1.25,
+    "pin_d_expr": "0.95mm"
+  },
+  "steps": [
+    {
+      "set_expr": "0.951mm",
+      "set_result": "True",
+      "validate_result": "True",
+      "cleanup_result": "None",
+      "bbox": {
+        "bbox_mm": [
+          -4.0,
+          -0.625,
+          -0.625000000000001,
+          9.5,
+          0.625,
+          0.624999999999999
+        ],
+        "size_y_mm": 1.25,
+        "size_z_mm": 1.25,
+        "pin_d_expr": "0.951mm"
+      }
+    },
+    {
+      "set_expr": "0.95mm",
+      "set_result": "True",
+      "validate_result": "True",
+      "cleanup_result": "None",
+      "bbox": {
+        "bbox_mm": [
+          -4.0,
+          -0.625,
+          -0.625000000000001,
+          9.5,
+          0.625,
+          0.624999999999999
+        ],
+        "size_y_mm": 1.25,
+        "size_z_mm": 1.25,
+        "pin_d_expr": "0.95mm"
+      }
+    },
+    {
+      "set_expr": "1.0mm",
+      "set_result": "True",
+      "validate_result": "False",
+      "cleanup_result": "None",
+      "bbox": {
+        "bbox_mm": [
+          -4.0,
+          -0.625,
+          -0.625000000000001,
+          9.5,
+          0.625,
+          0.624999999999999
+        ],
+        "size_y_mm": 1.25,
+        "size_z_mm": 1.25,
+        "pin_d_expr": "1mm"
+      }
+    },
+    {
+      "set_expr": "0.95mm",
+      "set_result": "True",
+      "validate_result": "True",
+      "cleanup_result": "None",
+      "bbox": {
+        "bbox_mm": [
+          -4.0,
+          -0.625,
+          -0.625000000000001,
+          9.5,
+          0.625,
+          0.624999999999999
+        ],
+        "size_y_mm": 1.25,
+        "size_z_mm": 1.25,
+        "pin_d_expr": "0.95mm"
+      }
+    }
+  ]
+}

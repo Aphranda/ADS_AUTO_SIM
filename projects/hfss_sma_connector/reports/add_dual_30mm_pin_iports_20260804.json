@@ -1,0 +1,51 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "DUAL_END_SMA_CPW_30MM",
+  "project_config": "config\\projects\\hfss_sma_connector.json",
+  "connector_placement_profile": "sma_ke_unite_small_solder_3dlayout_etch_top",
+  "placement": null,
+  "single_side": "P1",
+  "components": [],
+  "component_ids": [
+    "79",
+    "80"
+  ],
+  "selection_suffix": "395",
+  "before_ports": [
+    "IPort@Port1;1",
+    "IPort@Port2;5"
+  ],
+  "selected": [
+    {
+      "component": "SMA_KE_Unite_Small_Solder8",
+      "id": "79",
+      "raw": "CompInst@SMA_KE_Unite_Small_Solder8;79;6",
+      "selection": "CompInst@SMA_KE_Unite_Small_Solder8;79;395",
+      "status": "selected",
+      "source": "component_id"
+    },
+    {
+      "component": "SMA_KE_Unite_Small_Solder9",
+      "id": "80",
+      "raw": "CompInst@SMA_KE_Unite_Small_Solder9;80;8",
+      "selection": "CompInst@SMA_KE_Unite_Small_Solder9;80;395",
+      "status": "selected",
+      "source": "component_id"
+    }
+  ],
+  "execute": true,
+  "save": true,
+  "add_pin_iports_result": "None",
+  "after_ports": [
+    "IPort@Port1;1",
+    "IPort@Port2;5",
+    "IPort@Pin_T1;9",
+    "IPort@Pin_T2;13"
+  ],
+  "new_ports": [
+    "IPort@Pin_T1;9",
+    "IPort@Pin_T2;13"
+  ],
+  "saved": true,
+  "status": "added"
+}

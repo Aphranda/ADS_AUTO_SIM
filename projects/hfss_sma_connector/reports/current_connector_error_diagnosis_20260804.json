@@ -1,0 +1,314 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "layout_design": "SINGLE_END_SMA_CPW_100MM",
+  "source_design": "SMA_KE_Unite_Small_Solder",
+  "layout": {
+    "validate_result": "0",
+    "messages": [
+      "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [error]  Failed to collect initial geometry data for: SMA_KE_Unite_Small_Solder (06:27:21 PM  Aug 04, 2026)",
+      "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [error]  Port1: failed to collect the port geometry needed for meshing. (06:27:21 PM  Aug 04, 2026)",
+      "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [error]  An error occurred during the mesh generation.\nCheck the message window for additional details. (06:27:21 PM  Aug 04, 2026)",
+      "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [warning]  MCAD model failed to mesh; check the HFSS model: SMA_KE_Unite_Small_Solder (06:27:21 PM  Aug 04, 2026)",
+      "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [warning]  The cached data (mesh and solver input) for the MCAD model is out of date: SMA_KE_Unite_Small_Solder (06:27:21 PM  Aug 04, 2026)",
+      "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [error]  Failed to derive valid HFSS port geometry for Port1 (06:27:21 PM  Aug 04, 2026)"
+    ],
+    "schematic_ports": [
+      "IPort@Port1;30",
+      "IPort@Port2;5"
+    ],
+    "schematic_components": [
+      "CompInst@SMA_KE_Unite_Small_Solder3;70;4"
+    ],
+    "schematic_component_props": {
+      "CompInst@SMA_KE_Unite_Small_Solder3;70;4": {
+        "BaseElementTab": {
+          "properties": [
+            "SchematicID",
+            "Levels",
+            "Component Location",
+            "Component Angle",
+            "Component Mirror",
+            "Use Symbol Color"
+          ],
+          "values": {
+            "SchematicID": "4",
+            "Levels": "0,1",
+            "Component Location": "-600mil , -2500mil",
+            "Component Angle": "0deg",
+            "Component Mirror": "false",
+            "Use Symbol Color": "true"
+          }
+        },
+        "ComponentTab": {
+          "properties": [
+            "Owner",
+            "ID",
+            "CompName",
+            "Library",
+            "Description",
+            "Manufacturer",
+            "Datasource",
+            "Date",
+            "Refbase",
+            "PinCount",
+            "Refdes",
+            "Symbol",
+            "Footprint"
+          ],
+          "values": {
+            "Owner": "HFSS",
+            "ID": "70",
+            "CompName": "SMA_KE_Unite_Small_Solder3",
+            "Library": "",
+            "Description": "",
+            "Manufacturer": "",
+            "Datasource": "",
+            "Date": "13:45:25 08/04/2026",
+            "Refbase": "S",
+            "PinCount": "1",
+            "Refdes": "S1",
+            "Symbol": "SMA_KE_Unite_Small_Solder3",
+            "Footprint": "_symbolFootprint_4d0a2588_61b04ce0"
+          }
+        },
+        "PassedParameterTab": {
+          "properties": [
+            "Base_L",
+            "Front_L",
+            "Feet_L",
+            "Base_D",
+            "Front_W",
+            "Feet_W",
+            "PTFE_D",
+            "Pin_D",
+            "Pin_P",
+            "Hole_D",
+            "ModelName",
+            "CosimDefinition",
+            "CoSimulator",
+            "InstanceName",
+            "HFSS Mesh",
+            "HFSS Mesh Settings"
+          ],
+          "values": {
+            "Base_L": "8mm",
+            "Front_L": "1.5mm",
+            "Feet_L": "4mm",
+            "Base_D": "6.25mm",
+            "Front_W": "6.5mm",
+            "Feet_W": "1mm",
+            "PTFE_D": "4.2mm",
+            "Pin_D": "0.95mm",
+            "Pin_P": "1.7mm",
+            "Hole_D": "1.25mm",
+            "ModelName": "FieldSolver",
+            "CosimDefinition": "Edit",
+            "CoSimulator": "Default",
+            "InstanceName": "S70",
+            "HFSS Mesh": "true",
+            "HFSS Mesh Settings": "..."
+          }
+        }
+      }
+    },
+    "component_70_info": [
+      "ComponentName=SMA_KE_Unite_Small_Solder3",
+      "PlacementLayer=ETCH_TOP",
+      "LocationX=0",
+      "LocationY=0",
+      "BBoxLLx=-0.00304800000000203",
+      "BBoxLLy=0",
+      "BBoxURx=0.00508",
+      "BBoxURy=0.00508",
+      "Angle=0",
+      "Flip=false",
+      "Scale=1"
+    ],
+    "component_70_base_props": {
+      "properties": [
+        "Type",
+        "LockPosition",
+        "Name",
+        "Reload Graphics",
+        "Visible",
+        "Placement",
+        "3D Placement",
+        "PlacementLayer",
+        "Location",
+        "Flipped",
+        "",
+        "Rotation",
+        "Local Origin",
+        "Rotation Axis",
+        "Rotation Axis Direction",
+        "Rotation Angle",
+        "",
+        ""
+      ],
+      "values": {
+        "Type": "Component",
+        "LockPosition": "false",
+        "Name": "70",
+        "Reload Graphics": "Refresh Dynamic Link",
+        "Visible": "true",
+        "Placement": "",
+        "3D Placement": "true",
+        "PlacementLayer": "ETCH_TOP",
+        "Location": "0 ,0 ,2.0862",
+        "Flipped": "false",
+        "": "",
+        "Rotation": "",
+        "Local Origin": "0 ,0 ,0",
+        "Rotation Axis": "Z",
+        "Rotation Axis Direction": "0 ,0 ,1",
+        "Rotation Angle": "180deg"
+      }
+    },
+    "nets": [
+      "<NO-NET>",
+      "GND",
+      "IN",
+      "OUT",
+      "Port1",
+      "Port2",
+      "SIG"
+    ],
+    "objects_by_key_nets": {
+      "IN": [
+        "input_feed",
+        "input_taper",
+        "input_taperAQXI5B",
+        "input_feed38X12B"
+      ],
+      "SIG": [
+        "through_line",
+        "through_lineKZMD57"
+      ],
+      "OUT": [
+        "output_feed",
+        "output_feedATS3V2"
+      ],
+      "Port1": [
+        "Port1"
+      ],
+      "Port2": [
+        "70:Pin_T1",
+        "Port2"
+      ]
+    }
+  },
+  "source": {
+    "validate_full_design": [
+      "['Desktop messages:', 'Design validation check PASSED.', 'Design validation messages:', \"[warning] For broadband frequency models it is recommended to set 'Automatically use causal materials' in the HFSS Design Settings for Lossy Dielectrics.  See 'Design Settings for HFSS' in the help for more information.\", '** End of design validation messages. **', 'Excitations check:', 'Analysis setup messages:', 'Detected setup and sweep: ', 'Setup1', ' |__ Sweep']",
+      "True"
+    ],
+    "messages": [],
+    "variables": {
+      "Base_L": "8mm",
+      "Front_L": "1.5mm",
+      "Feet_L": "4mm",
+      "Base_D": "6.25mm",
+      "Front_W": "6.5mm",
+      "Feet_W": "1mm",
+      "PTFE_D": "4.2mm",
+      "Pin_D": "0.95mm",
+      "Pin_P": "1.7mm",
+      "Hole_D": "1.25mm"
+    },
+    "model_units": "mm",
+    "object_names": [
+      "Base_GND",
+      "PTFE_CYL",
+      "Pin",
+      "Solder_S",
+      "Circle1"
+    ],
+    "object_bbox": {
+      "Pin": {
+        "bbox_mm": [
+          -4.0,
+          -0.625,
+          -0.625000000000001,
+          9.5,
+          0.625,
+          0.624999999999999
+        ],
+        "size_mm": [
+          13.5,
+          1.25,
+          1.25
+        ],
+        "material": "copper",
+        "solve_inside": "False"
+      },
+      "Solder_S": {
+        "bbox_mm": [
+          -4.0,
+          -0.472630922693267,
+          -0.5,
+          -0.5,
+          0.472630922693267,
+          -0.0473815461346613
+        ],
+        "size_mm": [
+          3.5,
+          0.945261845386534,
+          0.4526184538653387
+        ],
+        "material": "solder",
+        "solve_inside": "False"
+      },
+      "Base_GND": {
+        "bbox_mm": [
+          -4.0,
+          -3.25,
+          -3.25,
+          9.5,
+          3.25,
+          3.25
+        ],
+        "size_mm": [
+          13.5,
+          6.5,
+          6.5
+        ],
+        "material": "copper",
+        "solve_inside": "False"
+      },
+      "PTFE_CYL": {
+        "bbox_mm": [
+          0.0,
+          -2.1,
+          -2.1,
+          9.5,
+          2.1,
+          2.1
+        ],
+        "size_mm": [
+          9.5,
+          4.2,
+          4.2
+        ],
+        "material": "ptfe",
+        "solve_inside": "True"
+      },
+      "Circle1": {
+        "bbox_mm": [
+          9.5,
+          -2.6,
+          -2.6,
+          9.5,
+          2.6,
+          2.6
+        ],
+        "size_mm": [
+          0.0,
+          5.2,
+          5.2
+        ],
+        "material": "",
+        "solve_inside": "None"
+      }
+    }
+  }
+}

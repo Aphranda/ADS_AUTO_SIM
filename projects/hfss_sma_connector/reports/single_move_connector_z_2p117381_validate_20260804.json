@@ -1,0 +1,44 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "SINGLE_END_SMA_CPW_100MM",
+  "component_id": "70",
+  "backup": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_move_connector_z_2p117381_20260804_153334.aedt",
+  "new_location_mm": [
+    0.0,
+    0.0,
+    2.1173815461346615
+  ],
+  "before": {
+    "Location": "0.4 ,0 ,2.07",
+    "Rotation Angle": "180deg",
+    "3D Placement": "true",
+    "Local Origin": "0 ,0 ,0",
+    "PlacementLayer": "ETCH_TOP"
+  },
+  "change_result": "None",
+  "after": {
+    "Location": "0 ,0 ,2.11738154613466",
+    "Rotation Angle": "180deg",
+    "3D Placement": "true",
+    "Local Origin": "0 ,0 ,0",
+    "PlacementLayer": "ETCH_TOP"
+  },
+  "save_result": true,
+  "ports": [
+    "IPort@Port1;30",
+    "IPort@Port2;5"
+  ],
+  "all_ports_list": [
+    "Port1",
+    "Port2"
+  ],
+  "validate_result": 0,
+  "messages": [
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [error]  Failed to collect initial geometry data for: SMA_KE_Unite_Small_Solder (03:34:15 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [error]  Port1: failed to collect the port geometry needed for meshing. (03:34:15 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [error]  An error occurred during the mesh generation.\nCheck the message window for additional details. (03:34:15 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [warning]  MCAD model failed to mesh; check the HFSS model: SMA_KE_Unite_Small_Solder (03:34:15 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [warning]  The cached data (mesh and solver input) for the MCAD model is out of date: SMA_KE_Unite_Small_Solder (03:34:15 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [error]  Failed to derive valid HFSS port geometry for Port1 (03:34:15 PM  Aug 04, 2026)"
+  ]
+}

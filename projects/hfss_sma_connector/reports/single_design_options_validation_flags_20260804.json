@@ -1,0 +1,24 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "SINGLE_END_SMA_CPW_100MM",
+  "backup": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_design_options_validation_flags_20260804_150907.aedt",
+  "arg": [
+    "NAME:Options",
+    "IgnoreUnclassifiedObjects:=",
+    true,
+    "SkipIntersectionChecks:=",
+    true,
+    "EnableDesignIntersectionCheck:=",
+    false
+  ],
+  "design_options_result": "None",
+  "save_result": true,
+  "saved_field_counts": {
+    "IgnoreUnclassifiedObjects=true": 0,
+    "IgnoreUnclassifiedObjects=false": 3,
+    "SkipIntersectionChecks=true": 0,
+    "SkipIntersectionChecks=false": 3,
+    "EnableDesignIntersectionCheck=true": 5,
+    "EnableDesignIntersectionCheck=false": 1
+  }
+}

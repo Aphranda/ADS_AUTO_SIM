@@ -53,6 +53,76 @@ Owner: ADS Automation
 当前重构已进入 P2 阶段：外部 ADS workspace 不移动，仓库内 ADS 项目资产以 `projects/<project_id>/` 为有效边界。P0/P1 的数据契约、manifest、score/summary 追溯、baseline freeze、workspace 写入安全 gate、run state machine、结果治理、制造鲁棒性和报告发布 gate 已落地；当前重点是将旧脚本内部逻辑逐步收敛到 `src/simads` 模块，并保证新增器件分支使用独立项目目录。
 
 ## 任务记录
+### ARCH-REFACTOR-TASK-20260804-017 - HFSS Connector 30mm Fixture Designs
+
+- 状态：进行中
+- 日期：2026-08-04
+- 任务目标：
+  - 在现有连接器专用 AEDT 工程中追加 30 mm 快速仿真 design，降低 0.5-10 GHz 连接器迭代仿真规模。
+  - 保留 100MM 历史 design，不覆盖原有仿真分支。
+  - 按“不改名”策略放置连接器 pin interface ports。
+- 完成内容：
+  - 生成 30 mm layout/params/svg：ideal、single-end connector、dual-end connector 三套。
+  - 追加 `IDEAL_50R_CPW_30MM`、`SINGLE_END_SMA_CPW_30MM`、`DUAL_END_SMA_CPW_30MM` 到 `D:\Work\ADS\HFSS_VERDICT\hfss_sma_connector_cpw.aedt`。
+  - 三个 design 均设置 `Setup_0p5to10G` 和 `Sweep_0p5to10G_96pt`，当前执行到 build-only，未启动 solve。
+  - single 放置 connector component ID `78`，位置 `0,0,2.0862`，旋转 `180deg`，生成 connector pin port `Pin_T1`。
+  - dual 放置 connector component ID `79/80`，位置分别为 `0,0,2.0862` 和 `29.85,0,2.0862`，生成 connector pin ports `Pin_T1/Pin_T2`。
+- 验证结果：
+  - 只读检查确认三个 30MM design 均已保存。
+  - `IDEAL_50R_CPW_30MM` 端口为 `Port1/Port2`。
+  - `SINGLE_END_SMA_CPW_30MM` 端口为 `Port1/Port2/Pin_T1`。
+  - `DUAL_END_SMA_CPW_30MM` 端口为 `Port1/Port2/Pin_T1/Pin_T2`。
+  - 连接器实例均为 `3D Placement=true`，placement layer 为 `ETCH_TOP`，Z 回读为 `2.0862`。
+- 还需完成：
+  - 明确 connector pin port 与 PCB edge port 的求解使用口径，必要时在仿真前禁用或删除不参与求解的临时 edge ports。
+  - 源连接器 `Pin` bbox 仍需修复；该问题未因 30 mm design 追加而解决。
+  - 后续再执行 Validate/solve，并根据报错决定是否调整 port mapping 或连接器源模型。
+- 关联文件：
+  - `config/projects/hfss_sma_connector.json`
+  - `projects/hfss_sma_connector/simulations/ideal_50r_microstrip_30mm/`
+  - `projects/hfss_sma_connector/simulations/single_end_connector_50r_30mm/`
+  - `projects/hfss_sma_connector/simulations/dual_end_connector_50r_30mm/`
+  - `projects/hfss_sma_connector/reports/inspect_after_30mm_add_20260804.json`
+  - `projects/hfss_sma_connector/reports/inspect_single_30mm_iports_20260804.json`
+  - `projects/hfss_sma_connector/reports/inspect_dual_30mm_iports_20260804.json`
+- 下一步：
+  - 先确定 30 mm connector fixture 的有效端口集合，再进行 Validate 和首轮 solve。
+### ARCH-REFACTOR-TASK-20260804-016 - HFSS Connector Parameter Sync and Geometry Audit
+
+- 状态：进行中
+- 日期：2026-08-04
+- 任务目标：
+  - 将连接器源模型变量、工程级 `$sma_` 变量和 3D Layout 实例传参统一到可审计口径。
+  - 通过 API 同步参数并保存工程，避免通过文本方式修改 `.aedt/.aedb/.aedtresults`。
+  - 明确当前 RFPRO/HFSS MCAD 报错是否由缺失变量、实例传参或源几何不一致导致。
+- 完成内容：
+  - 新增并使用 `tools/hfss/audit_connector_parameters.py`，审计 source HFSS design variables、project variables、3D Layout instance `PassedParameterTab` 和关键对象 bbox。
+  - 对 `D:\Work\ADS\HFSS_VERDICT\hfss_sma_connector_cpw.aedt` 执行 `--sync-project-variables --execute --save`，将 `Base_L/Front_L/Feet_L/Base_D/Front_W/Feet_W/PTFE_D/Pin_D/Pin_P/Hole_D` 同步为工程 `$sma_` 变量。
+  - 生成同步报告 `projects/hfss_sma_connector/reports/connector_parameter_sync_project_vars_20260804.json`，并在用户要求“同步一下”后重新执行一次同步，生成 `connector_parameter_sync_project_vars_resync_20260804.json`。
+  - 确认当前有效 layout 实例为 ID `73`，component `SMA_KE_Unite_Small_Solder6`，placement 为 `Location=0,0,2.0862`、`Local Origin=0,0,0`、`Rotation Angle=180deg`。
+  - 确认同步后 source/project/instance 参数一致：`Pin_D=0.95mm`、`Hole_D=1.25mm`、`PTFE_D=4.2mm`、`Pin_P=1.7mm` 等均一致。
+- 验证结果：
+  - API 同步保存成功，AEDT 非图形会话已关闭；同步后未发现 `.lock` 文件或 `ansysedt.exe` 残留进程。
+  - 审计报告 `summary.status=fail`，失败原因不是变量同步，而是 source connector 几何检查失败。
+  - `Pin diameter from bbox` 实测 `1.25mm`，匹配 `Hole_D`，不匹配 `Pin_D=0.95mm`；`Solder_S` bbox 宽度约 `0.945mm`，匹配 `Pin_D`。
+- 还需完成：
+  - 修复或重建 `SMA_KE_Unite_Small_Solder` 源模型中的 `Pin` 几何历史，确保中心导体全程使用 `Pin_D/2`，`Hole_D` 只用于孔/避让。
+  - 几何修复后重新运行 `audit_connector_parameters.py`，以 source/project/instance 参数一致且 `Pin` bbox 匹配 `Pin_D` 作为继续 Validate/solve 的前置 gate。
+  - 几何 gate 通过后再处理可能存在的重复 PCB object/net assignment 问题，并重新执行 `SINGLE_END_SMA_CPW_100MM` Validate。
+- 关联文件：
+  - `tools/hfss/audit_connector_parameters.py`
+  - `projects/hfss_sma_connector/reports/connector_parameter_sync_project_vars_20260804.json`
+  - `projects/hfss_sma_connector/reports/connector_parameter_audit_after_sync_20260804.json`
+  - `projects/hfss_sma_connector/reports/connector_parameter_sync_project_vars_resync_20260804.json`
+  - `docs/flow/FLOW_HFSS_CONNECTOR_LAYOUT_OPTIMIZATION.md`
+  - `docs/arch/ARCH_REFACTOR_TODO.md`
+- 追加结论：
+  - 端口命名策略更新：HFSS 3D Layout pin interface port 创建后不再重命名；生成是什么样就保留什么名称，自动流程只维护 AEDT 原始端口名到物理 P1/P2 的映射。
+- 下一步：
+  - 优先修复 source connector `Pin` 几何，再刷新/重插 3D Layout connector instance；通过参数/几何审计和端口映射 gate 后再启动 HFSS Validate 和仿真。
+  - 端口命名策略同步修正：取消强制改名为 `Port1/Port2` 的路线，保留 AEDT generated port name，并在 manifest/score/report 中维护 logical port mapping。
+  - 后续保留独立探索项：研究是否存在官方 API 可安全改名并同步 excitation/report/dataset 引用；在证明前，当前流程先按不改名执行。
+
 
 ### ARCH-REFACTOR-TASK-20260804-015 - HFSS Connector Dedicated Profile Split
 

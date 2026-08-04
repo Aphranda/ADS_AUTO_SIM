@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "run_id": "hfss_sma_connector_fixture_30mm_ideal_50r_cpw_30mm_company_connector_20260804_204700",
+  "artifacts": [
+    {
+      "type": "layout_json",
+      "path": "projects\\hfss_sma_connector\\simulations\\ideal_50r_microstrip_30mm\\layouts\\ideal_50r_cpw_30mm_jlc04161h_7628_1p6mm_baseline_layout.json",
+      "exists": true,
+      "hash": "b551f27d0ddb0fedbfa20904e78ba4f5582309963769abc996a2dbfcae56adc5",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "project_file",
+      "path": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+      "exists": true,
+      "hash": "3687131951665e5532fa7fdf2e7e02109dca650f18f9d85110cea7f1e853cc22",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "s2p",
+      "path": "projects\\hfss_sma_connector\\simulations\\ideal_50r_microstrip_30mm\\results\\build\\ideal_50r_cpw_30mm_jlc04161h_7628_1p6mm_baseline_hfss.s2p",
+      "exists": false,
+      "hash": null,
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "trace_csv",
+      "path": "projects\\hfss_sma_connector\\simulations\\ideal_50r_microstrip_30mm\\results\\build\\ideal_50r_cpw_30mm_jlc04161h_7628_1p6mm_baseline_hfss_trace.csv",
+      "exists": false,
+      "hash": null,
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "score",
+      "path": "projects\\hfss_sma_connector\\simulations\\ideal_50r_microstrip_30mm\\results\\build\\ideal_50r_cpw_30mm_jlc04161h_7628_1p6mm_baseline_hfss_score.csv",
+      "exists": false,
+      "hash": null,
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "svg",
+      "path": "projects\\hfss_sma_connector\\simulations\\ideal_50r_microstrip_30mm\\results\\build\\svg\\ideal_50r_cpw_30mm_jlc04161h_7628_1p6mm_baseline_hfss_s_curves.svg",
+      "exists": false,
+      "hash": null,
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "summary",
+      "path": "projects\\hfss_sma_connector\\simulations\\ideal_50r_microstrip_30mm\\results\\build\\svg\\ideal_50r_cpw_30mm_jlc04161h_7628_1p6mm_baseline_hfss_plot_summary.csv",
+      "exists": false,
+      "hash": null,
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "log",
+      "path": null,
+      "exists": false,
+      "hash": null,
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "state",
+      "path": "projects\\hfss_sma_connector\\simulations\\ideal_50r_microstrip_30mm\\runs\\build_20260804\\state.json",
+      "exists": true,
+      "hash": "e017e23d83f7c98f2f3ed181d0717eab7badf70a405c48140d5cf7f398e66e67",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    }
+  ],
+  "updated_at": "2026-08-04T20:47:40+08:00"
+}

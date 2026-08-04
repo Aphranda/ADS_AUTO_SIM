@@ -1,0 +1,130 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "SMA_KE_Unite_Small_Solder",
+  "before": {
+    "bbox_mm": [
+      -4.0,
+      -0.625,
+      -0.625000000000001,
+      9.5,
+      0.625,
+      0.624999999999999
+    ],
+    "size_y_mm": 1.25,
+    "size_z_mm": 1.25
+  },
+  "attempts": [
+    {
+      "method": "variable_manager.set_variable Pin_D same",
+      "result": "True",
+      "pin_bbox_after": {
+        "bbox_mm": [
+          -4.0,
+          -0.625,
+          -0.625000000000001,
+          9.5,
+          0.625,
+          0.624999999999999
+        ],
+        "size_y_mm": 1.25,
+        "size_z_mm": 1.25
+      }
+    },
+    {
+      "method": "modeler.refresh",
+      "result": "None",
+      "pin_bbox_after": {
+        "bbox_mm": [
+          -4.0,
+          -0.625,
+          -0.625000000000001,
+          9.5,
+          0.625,
+          0.624999999999999
+        ],
+        "size_y_mm": 1.25,
+        "size_z_mm": 1.25
+      }
+    },
+    {
+      "method": "modeler.refresh_all_ids",
+      "result": "5",
+      "pin_bbox_after": {
+        "bbox_mm": [
+          -4.0,
+          -0.625,
+          -0.625000000000001,
+          9.5,
+          0.625,
+          0.624999999999999
+        ],
+        "size_y_mm": 1.25,
+        "size_z_mm": 1.25
+      }
+    },
+    {
+      "method": "oeditor.PrepareModel",
+      "error": "GrpcApiError('Failed to execute gRPC AEDT command: PrepareModel')",
+      "pin_bbox_after": {
+        "bbox_mm": [
+          -4.0,
+          -0.625,
+          -0.625000000000001,
+          9.5,
+          0.625,
+          0.624999999999999
+        ],
+        "size_y_mm": 1.25,
+        "size_z_mm": 1.25
+      }
+    },
+    {
+      "method": "odesign.GenerateModelDef",
+      "error": "GrpcApiError('Failed to execute gRPC AEDT command: GenerateModelDef')",
+      "pin_bbox_after": {
+        "bbox_mm": [
+          -4.0,
+          -0.625,
+          -0.625000000000001,
+          9.5,
+          0.625,
+          0.624999999999999
+        ],
+        "size_y_mm": 1.25,
+        "size_z_mm": 1.25
+      }
+    },
+    {
+      "method": "odesign.ValidateDesign",
+      "result": "True",
+      "pin_bbox_after": {
+        "bbox_mm": [
+          -4.0,
+          -0.625,
+          -0.625000000000001,
+          9.5,
+          0.625,
+          0.624999999999999
+        ],
+        "size_y_mm": 1.25,
+        "size_z_mm": 1.25
+      }
+    },
+    {
+      "method": "oeditor.CleanUpModel",
+      "result": "None",
+      "pin_bbox_after": {
+        "bbox_mm": [
+          -4.0,
+          -0.625,
+          -0.625000000000001,
+          9.5,
+          0.625,
+          0.624999999999999
+        ],
+        "size_y_mm": 1.25,
+        "size_z_mm": 1.25
+      }
+    }
+  ]
+}

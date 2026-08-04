@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "run_id": "hfss_sma_connector_fixture_30mm_single_end_sma_cpw_30mm_company_connector_20260804_204810",
+  "candidate_id": "single_end_sma_cpw_30mm",
+  "profile_id": "company_connector",
+  "stage": "setup_ready",
+  "status": "completed",
+  "failed_step": null,
+  "error_class": null,
+  "message": "HFSS workflow completed.",
+  "elapsed_s": 37.828,
+  "updated_at": "2026-08-04T20:48:48+08:00"
+}

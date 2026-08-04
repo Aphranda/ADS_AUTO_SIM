@@ -242,15 +242,26 @@ artifact_manifest
 - [x] `SINGLE_END_SMA_CPW_100MM` 已替换为 small connector component ID `67`，placement readback 为 `Location=0,0,2.07`、`Rotation Angle=180deg`、`3D Placement=true`。
 - [x] `DUAL_END_SMA_CPW_100MM` 已替换为 small connector component ID `68/69`；ID `68` placement 为 `0,0,2.07`、`180deg`，ID `69` placement 为 `113.65,0,2.07`、`0deg`。
 - [x] 连接器 pin interface port 添加已独立为 `tools/hfss/add_connector_pin_iports.py`，支持从 `config/projects/hfss_sma_connector.json` 的 connector placement profile 自动读取 P1/P2 组件，也支持 `--component` 和 `--component-id` 手动指定。
-- [ ] 在 AEDT GUI 中手动将连接器 pin interface port 改成标准 `PortN` 命名；当前不再使用文本补丁或端口重命名脚本修改工程。
-- [ ] 手动改名后，用只读检查确认 `SINGLE_END_SMA_CPW_100MM` 端口为 `Port1/Port2`，`DUAL_END_SMA_CPW_100MM` 端口为 `Port1/Port2`。
+- [x] 新增 `tools/hfss/audit_connector_parameters.py`，用于只读审计源 HFSS connector design、工程 `$sma_` 变量、3D Layout instance `PassedParameterTab` 和源几何 bbox；脚本支持 `--sync-project-variables --execute --save` 将源 design 变量同步为工程级 `$sma_` 变量。
+- [x] 2026-08-04 公司电脑已执行连接器参数同步：工程 `D:\Work\ADS\HFSS_VERDICT\hfss_sma_connector_cpw.aedt`，源 design `SMA_KE_Unite_Small_Solder`，layout design `SINGLE_END_SMA_CPW_100MM`。同步报告为 `projects/hfss_sma_connector/reports/connector_parameter_sync_project_vars_20260804.json` 和 `projects/hfss_sma_connector/reports/connector_parameter_sync_project_vars_resync_20260804.json`。
+- [x] 同步后工程变量和实例传参一致：`$sma_Pin_D=0.95mm`、`$sma_Hole_D=1.25mm`、`$sma_PTFE_D=4.2mm`、`$sma_Pin_P=1.7mm` 等参数均已写入工程变量表并与 source design/instance 参数一致。
+- [x] 当前有效连接器实例为 schematic component ID `73`，component name `SMA_KE_Unite_Small_Solder6`；layout placement 为 `Location=0,0,2.0862`、`Local Origin=0,0,0`、`Rotation Angle=180deg`、`PlacementLayer=ETCH_TOP`。后续脚本应以 readback 的 effective component ID 为准，不能只依赖请求传入的旧 ID `70`。
+- [ ] 修复源连接器模型几何：同步后审计仍显示 `Pin` bbox 直径为 `1.25mm`，匹配 `Hole_D` 而不是 `Pin_D=0.95mm`；`Solder_S` bbox 宽度约 `0.945mm`，已匹配 `Pin_D`。该问题属于 source connector 几何历史/Unite 后实体尺寸不一致，不能通过再次同步变量解决，应通过 AEDT GUI 或正式 API 重建/修正源 connector model，确保中心导体全程使用 `Pin_D/2`，`Hole_D` 仅用于孔/避让。
+- [x] 2026-08-04 端口命名规则勘误：connector pin interface port 不能强制改名；改名后会触发 AEDT/HFSS 报错。后续端口名称以 AEDT 自动生成结果为准，例如 `Pin_T1` 或同类生成名。
+- [ ] 端口改名作为后续探索项单独处理：目标是确认是否存在 AEDT 官方 API 路径可同时更新 excitation、schematic IPort、3D component passed parameter、report/Dataset 引用和 solver 内部映射；在该探索完成前，正式流程不得改名。
+- [ ] 脚本和 manifest 增加 logical port mapping：保留 AEDT 原始 port name，同时记录 `logical_port=P1/P2`、component ID、component name、pin name、reference conductor 和 placement 信息；评分和报告使用逻辑端口映射，不再依赖 `Port1/Port2` 字面名称。
+- [ ] 用只读检查脚本记录 `SINGLE_END_SMA_CPW_100MM` 和 `DUAL_END_SMA_CPW_100MM` 的实际 generated port name，并验证每个逻辑端口均能映射到有效 excitation。
+- [x] 2026-08-04 已在现有工程追加 30 mm 快速仿真 design：`IDEAL_50R_CPW_30MM`、`SINGLE_END_SMA_CPW_30MM`、`DUAL_END_SMA_CPW_30MM`；频段为 `0.5-10 GHz`，setup/sweep 为 `Setup_0p5to10G` / `Sweep_0p5to10G_96pt`，当前仅 build-only，未启动求解。
+- [x] 30 mm design 已放置连接器和端口：single 使用 component ID `78`，connector port 为 `Pin_T1`；dual 使用 component ID `79/80`，connector ports 为 `Pin_T1/Pin_T2`；端口不改名，后续通过 logical port mapping 使用。
 
 2026-08-04 暂停状态：
+
+- 端口命名原则：生成是什么样，就是什么样；自动流程不得把 pin interface port 重命名为人为统一名称。
 
 - 已停止继续写 AEDT 工程，等待明天继续验证。
 - DUAL 端口被用户删除后，`add_connector_pin_iports.py --project-config config\projects\hfss_sma_connector.json --placement dual` 可以正确从 profile 选中 ID `68/69`，但一次性多选执行未生成端口。
 - 单独对 DUAL component ID `68` 执行 `AddPinIPorts` 可生成 `Pin_T1`；单独对 ID `69` 执行未新增端口，原因初判为两个 small connector 内部 pin 名均为 `Pin_T1`，AEDT 不允许第二个同名 IPort 自动创建。
-- `odesign.RenamePort("Pin_T1", "Port1")` 对当前 3D Layout schematic IPort 失败，明天应优先用 `SchematicEditor.ChangeProperty` 直接修改 `PassedParameterTab.PortName`，或在 GUI 中完成端口改名后再由脚本继续添加第二个端口。
+- `odesign.RenamePort("Pin_T1", "Port1")` 对当前 3D Layout schematic IPort 失败；已确认端口不应改名，后续取消 `PortN` 标准命名要求，改为保留 AEDT generated port name 并建立 logical port mapping。
 - 新增 `tools/hfss/inspect_schematic_iports.py` 用于只读读取 `SchematicEditor.GetAllPorts()` 和 IPort 属性；明天继续前先运行该脚本确认当前 GUI/保存状态。
 
 当前 2026-08-03 Home profile 首次结果：
