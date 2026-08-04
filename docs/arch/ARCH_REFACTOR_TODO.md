@@ -4,7 +4,7 @@ Status: Active
 Domain: ARCH
 Canonical: `docs/arch/ARCH_REFACTOR_TODO.md`
 Related: `docs/arch/ADS版图自动仿真项目框架设计.md`, `docs/arch/ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md`, `docs/arch/ARCH_REFACTOR_TASK_PROGRESS.md`, `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`
-Last updated: 2026-08-03
+Last updated: 2026-08-04
 Owner: ADS Automation
 
 本文档跟踪 ADS 版图自动仿真项目从现有 `tools/*.py` 脚本集合向框架化平台演进的重构待办。TODO 文档只记录验收标准、推荐执行顺序、P0/P1/P2 待办和当前风险；每次实际任务闭环记录写入 `ARCH_REFACTOR_TASK_PROGRESS.md`。当前已开始首批 `tools/ads/` 和 `tools/layout/` 物理分拆，旧路径保留兼容 wrapper。
@@ -308,6 +308,8 @@ Owner: ADS Automation
 - [x] 新增 microstrip+connector generator：输入 stackup/50R template 和 connector 参数，输出微带线+连接器 layout JSON。
 - [x] 增加连接器区域 DRC gate：pad、clearance、via、edge setback、mechanical envelope、左右对称和板厂工艺限制。
 - [x] 扩展 HFSS workflow/manifest，记录 `fixture_type=microstrip_connector_50r`、`connector_model_version`、`connector_route`、`microstrip_connector_layout_json`、`connector_params_json`、`connector_hfss_model_path`、`connector_hfss_model_hash`、`connector_port_mapping`、`line_w_mm`、`line_l_mm`、`reference_plane_offset_mm` 和 `port_deembed_mm`。
+- [ ] 在 AEDT GUI 中手动完成连接器 pin interface port 标准命名，禁止用 `.aedt` 文本补丁重命名；目标为 SINGLE=`Port1/Port2`，DUAL=`Port1/Port2`。
+- [ ] 手动端口改名后，用只读检查脚本记录 design/port/net 状态，作为继续求解前 gate。
 - [ ] 对 3-5 个 smoke 候选先做 layout gate，再选择 1 个候选执行 HFSS solve，输出 S2P/trace/score/compare/manifest。
 - [ ] 将评分扩展为 50R baseline delta 口径，重点比较通带 S21 劣化、S11/S22、端口对称性和 4-10 GHz 宽频回波尖峰。
 - [ ] Route C 使用用户提供的连接器 HFSS 模型复核前 2-3 个 launch 候选。

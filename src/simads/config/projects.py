@@ -12,6 +12,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from simads.hfss_contracts import HFSS_PROJECT_ACTION_NEW, HFSS_PROJECT_MODEL_PER_DESIGN
+
 from .profiles import repo_root
 
 
@@ -48,6 +50,38 @@ class ProjectFrequency:
             "stop_ghz": self.stop_ghz,
             "passband_start_ghz": self.passband_start_ghz,
             "passband_stop_ghz": self.passband_stop_ghz,
+        }
+
+
+@dataclass(frozen=True)
+class ProjectHfssConfig:
+    profile: str | None = None
+    workspace_dir: Path | None = None
+    aedt_project: Path | None = None
+    project_model: str = HFSS_PROJECT_MODEL_PER_DESIGN
+    project_action: str = HFSS_PROJECT_ACTION_NEW
+    stackup_config: Path | None = None
+    route: str | None = None
+    port_type: str | None = None
+    gnd_boundary_mode: str | None = None
+    setup: str | None = None
+    sweep: str | None = None
+    simulations: dict[str, object] = field(default_factory=dict)
+
+    def to_dict(self) -> dict[str, object]:
+        return {
+            "profile": self.profile,
+            "workspace_dir": str(self.workspace_dir) if self.workspace_dir is not None else None,
+            "aedt_project": str(self.aedt_project) if self.aedt_project is not None else None,
+            "project_model": self.project_model,
+            "project_action": self.project_action,
+            "stackup_config": str(self.stackup_config) if self.stackup_config is not None else None,
+            "route": self.route,
+            "port_type": self.port_type,
+            "gnd_boundary_mode": self.gnd_boundary_mode,
+            "setup": self.setup,
+            "sweep": self.sweep,
+            "simulations": self.simulations,
         }
 
 
@@ -106,6 +140,7 @@ class ProjectConfig:
     pipeline_id: str | None = None
     frequency: ProjectFrequency = ProjectFrequency()
     ads: ProjectAdsConfig = ProjectAdsConfig()
+    hfss: ProjectHfssConfig = ProjectHfssConfig()
     active_sweep: str | None = None
     sweeps: dict[str, SweepConfig] = field(default_factory=dict)
 
@@ -140,6 +175,7 @@ class ProjectConfig:
             "references_dir": str(self.references_dir),
             "frequency": self.frequency.to_dict(),
             "ads": self.ads.to_dict(),
+            "hfss": self.hfss.to_dict(),
             "sweeps": {name: sweep.to_dict() for name, sweep in self.sweeps.items()},
         }
 
@@ -224,6 +260,7 @@ def project_from_mapping(data: dict[str, Any], *, root: Path | None = None) -> P
     project_root = _path_from_mapping(base, data, "project_root", project_root_fallback)
     frequency_data = data.get("frequency") if isinstance(data.get("frequency"), dict) else {}
     ads_data = data.get("ads") if isinstance(data.get("ads"), dict) else {}
+    hfss_data = data.get("hfss") if isinstance(data.get("hfss"), dict) else {}
     sweep_data = data.get("sweeps") if isinstance(data.get("sweeps"), dict) else {}
     sweeps = {
         str(sweep_id): sweep_from_mapping(base, str(sweep_id), mapping)
@@ -261,6 +298,20 @@ def project_from_mapping(data: dict[str, Any], *, root: Path | None = None) -> P
             stackup_config=_optional_root_relative_path(base, ads_data.get("stackup_config")),
             setup_view=str(ads_data["setup_view"]) if ads_data.get("setup_view") else None,
             rfpro_emsetup_view=str(ads_data["rfpro_emsetup_view"]) if ads_data.get("rfpro_emsetup_view") else None,
+        ),
+        hfss=ProjectHfssConfig(
+            profile=str(hfss_data["profile"]) if hfss_data.get("profile") else None,
+            workspace_dir=_optional_root_relative_path(base, hfss_data.get("workspace_dir")),
+            aedt_project=_optional_root_relative_path(base, hfss_data.get("aedt_project") or hfss_data.get("project")),
+            project_model=str(hfss_data.get("project_model") or HFSS_PROJECT_MODEL_PER_DESIGN),
+            project_action=str(hfss_data.get("project_action") or hfss_data.get("action") or HFSS_PROJECT_ACTION_NEW),
+            stackup_config=_optional_root_relative_path(base, hfss_data.get("stackup_config")),
+            route=str(hfss_data["route"]) if hfss_data.get("route") else None,
+            port_type=str(hfss_data["port_type"]) if hfss_data.get("port_type") else None,
+            gnd_boundary_mode=str(hfss_data["gnd_boundary_mode"]) if hfss_data.get("gnd_boundary_mode") else None,
+            setup=str(hfss_data["setup"]) if hfss_data.get("setup") else None,
+            sweep=str(hfss_data["sweep"]) if hfss_data.get("sweep") else None,
+            simulations=hfss_data.get("simulations") if isinstance(hfss_data.get("simulations"), dict) else {},
         ),
         sweeps=sweeps,
     )

@@ -1,0 +1,44 @@
+{
+  "project": "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "DUAL_END_SMA_CPW_100MM",
+  "components": [
+    "SMA_KE_Unite_Small_Solder1",
+    "SMA_KE_Unite_Small_Solder2"
+  ],
+  "selection_suffix": "395",
+  "before_ports": [
+    "IPort@Port2;3",
+    "IPort@Port1;9"
+  ],
+  "selected": [
+    {
+      "component": "SMA_KE_Unite_Small_Solder1",
+      "id": "68",
+      "raw": "CompInst@SMA_KE_Unite_Small_Solder1;68;13",
+      "selection": "CompInst@SMA_KE_Unite_Small_Solder1;68;395",
+      "status": "selected"
+    },
+    {
+      "component": "SMA_KE_Unite_Small_Solder2",
+      "id": "69",
+      "raw": "CompInst@SMA_KE_Unite_Small_Solder2;69;16",
+      "selection": "CompInst@SMA_KE_Unite_Small_Solder2;69;395",
+      "status": "selected"
+    }
+  ],
+  "execute": true,
+  "save": true,
+  "backups": [
+    "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_pin_iports_20260804_014435.aedt",
+    "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_pin_iports_20260804_014435.aedb",
+    "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_pin_iports_20260804_014435.aedtresults"
+  ],
+  "add_pin_iports_result": "None",
+  "after_ports": [
+    "IPort@Port2;3",
+    "IPort@Port1;9"
+  ],
+  "new_ports": [],
+  "saved": true,
+  "status": "added"
+}

@@ -1,0 +1,81 @@
+{
+  "project": "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "SINGLE_END_SMA_CPW_100MM",
+  "source_project": null,
+  "source_design": "SMA_KE_Unite_solder",
+  "operation": "move-existing",
+  "placement": "single",
+  "anchor": "pad-center",
+  "layout": "projects\\hfss_sma_connector\\simulations\\single_end_connector_50r\\layouts\\nominal\\single_end_connector_cpw_100mm_jlc04161h_7628_1p6mm_layout.json",
+  "z_mode": "solder-bottom-to-pad-top",
+  "z_inputs": {
+    "z_mm": 0.0,
+    "pad_top_z_mm": 0.0,
+    "solder_bottom_z_mm": -0.5,
+    "solder_intrusion_mm": 0.0,
+    "solder_intrusion_mil": 5.0
+  },
+  "targets": [
+    {
+      "side": "P2",
+      "x_mm": 106.75,
+      "y_mm": 0.0,
+      "z_mm": 0.373,
+      "angle_deg": 0.0,
+      "component_name": "SMA_KE_Unite_solder3",
+      "component_id": null
+    }
+  ],
+  "execute": true,
+  "save": true,
+  "backups": [
+    "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_connector_place_20260804_011744.aedt",
+    "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_connector_place_20260804_011744.aedb",
+    "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_connector_place_20260804_011744.aedtresults"
+  ],
+  "before_components": {
+    "SMA_KE_Unite_solder3": [
+      "63"
+    ]
+  },
+  "placed": [
+    {
+      "id": "63",
+      "side": "P2",
+      "requested_location_mm": [
+        106.75,
+        0.0,
+        0.373
+      ],
+      "requested_angle_deg": 0.0,
+      "component_name": "SMA_KE_Unite_solder3",
+      "after": {
+        "id": "63",
+        "Location": "106.75 ,0 ,0.373",
+        "Rotation Angle": "0deg",
+        "3D Placement": "true",
+        "Local Origin": "0 ,0 ,0",
+        "component_info": [
+          "ComponentName=SMA_KE_Unite_solder3",
+          "PlacementLayer=ETCH_TOP",
+          "LocationX=0",
+          "LocationY=0",
+          "BBoxLLx=-0.00304800000000203",
+          "BBoxLLy=0",
+          "BBoxURx=0.00508",
+          "BBoxURy=0.00508",
+          "Angle=0",
+          "Flip=false",
+          "Scale=1"
+        ]
+      }
+    }
+  ],
+  "after_components": {
+    "SMA_KE_Unite_solder3": [
+      "63"
+    ]
+  },
+  "saved": true,
+  "status": "placed"
+}

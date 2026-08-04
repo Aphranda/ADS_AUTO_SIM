@@ -9,6 +9,7 @@ for path in (TOOLS, TOOLS_LAYOUT):
         sys.path.insert(0, str(path))
 
 from simads.config import (
+    load_project,
     load_stackup_config,
     name_with_stackup_token,
     path_with_stackup_token,
@@ -164,6 +165,9 @@ def test_pipeline_can_configure_hfss_backend() -> None:
                 "workflow_script": "tools/hfss/run_hfss3dlayout_filter_verdict.py",
                 "profile": "home",
                 "workspace_dir": "D:/Work/ADS/SIMADS_EM_PAR/HFSS_VERDICT",
+                "aedt_project": "D:/Work/ADS/SIMADS_EM_PAR/HFSS_VERDICT/shared_connector.aedt",
+                "project_model": "single_aedt_project_multiple_designs",
+                "project_action": "add",
                 "route": "reliable",
                 "stackup_config": "config/stackups/JLC04161H_7628_1P6MM.json",
                 "design": "I7_FR4_HFSS_VERDICT",
@@ -177,8 +181,22 @@ def test_pipeline_can_configure_hfss_backend() -> None:
     assert pipeline.simulation_backends == ("ads_rfpro", "hfss3dlayout")
     assert pipeline.hfss.profile == "home"
     assert pipeline.hfss.route == "reliable"
+    assert pipeline.hfss.aedt_project is not None
+    assert pipeline.hfss.aedt_project.name == "shared_connector.aedt"
+    assert pipeline.hfss.project_model == "single_aedt_project_multiple_designs"
+    assert pipeline.hfss.project_action == "add"
     assert pipeline.to_dict()["simulation_backends"] == ["ads_rfpro", "hfss3dlayout"]
     assert pipeline.to_dict()["hfss"]["port_type"] == "aedt-edge"
+
+
+def test_project_can_configure_hfss_add_design_mode() -> None:
+    project = load_project("hfss_sma_connector")
+
+    assert project.hfss.aedt_project is not None
+    assert project.hfss.aedt_project.name == "hfss_sma_connector_cpw.aedt"
+    assert project.hfss.project_model == "single_aedt_project_multiple_designs"
+    assert project.hfss.project_action == "add"
+    assert project.hfss.simulations["dual_end_connector_50r"]["design"] == "DUAL_END_SMA_CPW_100MM"
 
 
 def test_ads_layout_import_command_can_force_generated_dxf_subset() -> None:

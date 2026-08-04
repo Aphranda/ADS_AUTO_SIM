@@ -1,0 +1,52 @@
+{
+  "project": "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "DUAL_END_SMA_CPW_100MM",
+  "ports": [
+    "IPort@Pin_T1;12"
+  ],
+  "components": [
+    "CompInst@SMA_KE_Unite_Small_Solder1;68;13",
+    "CompInst@SMA_KE_Unite_Small_Solder2;69;16"
+  ],
+  "port_details": [
+    {
+      "port": "IPort@Pin_T1;12",
+      "properties": {
+        "BaseElementTab": [
+          "SchematicID",
+          "Levels",
+          "Component Location",
+          "Component Angle",
+          "Component Mirror",
+          "Use Symbol Color"
+        ],
+        "EM Design": [],
+        "ComponentTab": [],
+        "PassedParameterTab": [
+          "PinCount",
+          "PortName"
+        ],
+        "PropDisplayMap": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetProperties')"
+        }
+      },
+      "values": {
+        "BaseElementTab": {
+          "SchematicID": "12",
+          "Levels": "0,1",
+          "Component Location": "-400mil , -1700mil",
+          "Component Angle": "90deg",
+          "Component Mirror": "false",
+          "Use Symbol Color": "true"
+        },
+        "EM Design": {},
+        "ComponentTab": {},
+        "PassedParameterTab": {
+          "PinCount": "1",
+          "PortName": "Pin_T1"
+        }
+      }
+    }
+  ],
+  "status": "inspected"
+}

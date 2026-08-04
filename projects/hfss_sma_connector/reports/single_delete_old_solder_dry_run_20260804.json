@@ -1,0 +1,22 @@
+{
+  "project": "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "SINGLE_END_SMA_CPW_100MM",
+  "components": [
+    "SMA_KE_Unite_solder3"
+  ],
+  "before": [
+    "CompInst@SMA_KE_Unite_solder3;63;10"
+  ],
+  "selected": [
+    {
+      "raw": "CompInst@SMA_KE_Unite_solder3;63;10",
+      "component": "SMA_KE_Unite_solder3",
+      "id": "63",
+      "suffix": "10",
+      "selection": "CompInst@SMA_KE_Unite_solder3;63;10"
+    }
+  ],
+  "execute": false,
+  "save": false,
+  "status": "dry_run"
+}

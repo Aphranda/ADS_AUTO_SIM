@@ -15,6 +15,7 @@ if str(_SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(_SRC_ROOT))
 
 from simads.config import get_hfss_profile, load_pipeline, load_project, resolve_pipeline_id
+from simads.hfss_contracts import HFSS_PROJECT_ACTIONS, HFSS_PROJECT_MODELS
 
 
 def repo_root() -> Path:
@@ -43,6 +44,9 @@ def build_hfss_command(args: argparse.Namespace, pipeline) -> list[str]:
     hfss_profile = get_hfss_profile(args.hfss_profile or pipeline.hfss.profile or "auto")
     workflow = pipeline.hfss.workflow_script or Path("tools/hfss/run_hfss3dlayout_filter_verdict.py")
     out_dir = args.out_dir or repo_root() / "projects" / pipeline.project_id / "results" / "hfss" / args.candidate
+    project_model = args.hfss_project_model or pipeline.hfss.project_model
+    project_action = args.hfss_project_action or pipeline.hfss.project_action
+    aedt_project = args.hfss_project or pipeline.hfss.aedt_project
     command = [
         str(hfss_profile.host_python),
         str(workflow),
@@ -52,8 +56,10 @@ def build_hfss_command(args: argparse.Namespace, pipeline) -> list[str]:
         str(args.layout),
         "--out-dir",
         str(out_dir),
-        "--project-name",
-        hfss_project_name(args.candidate, args.project_name),
+        "--project-model",
+        project_model,
+        "--project-action",
+        project_action,
         "--design",
         pipeline.hfss.design,
         "--version",
@@ -83,6 +89,10 @@ def build_hfss_command(args: argparse.Namespace, pipeline) -> list[str]:
         "--device-id",
         args.device_id or pipeline.device_id,
     ]
+    if aedt_project is not None:
+        command.extend(["--project", str(aedt_project)])
+    else:
+        command.extend(["--project-name", hfss_project_name(args.candidate, args.project_name)])
     if args.round_id:
         command.extend(["--round-id", args.round_id])
     if pipeline.hfss.workspace_dir is not None:
@@ -146,6 +156,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--hfss-profile", default=None, help="HFSS profile override.")
     parser.add_argument("--layout", type=Path, default=None, help="SIM layout JSON for HFSS backend.")
     parser.add_argument("--out-dir", type=Path, default=None)
+    parser.add_argument("--hfss-project", type=Path, default=None, help="HFSS AEDT project path override.")
+    parser.add_argument("--hfss-project-model", choices=HFSS_PROJECT_MODELS, default=None, help="HFSS AEDT organization model override.")
+    parser.add_argument("--hfss-project-action", choices=HFSS_PROJECT_ACTIONS, default=None, help="HFSS project action override: new or add.")
     parser.add_argument("--project-name", default=None, help="HFSS AEDT project name override.")
     parser.add_argument("--run-id", default=None)
     parser.add_argument("--run-dir", type=Path, default=None)

@@ -44,6 +44,13 @@ def _geometry_options(options: GeometryBuildOptions | argparse.Namespace) -> Geo
     return GeometryBuildOptions.from_args(options)
 
 
+def _shape_net(shape: dict[str, Any], name: str | None) -> str:
+    metadata = shape.get("metadata")
+    if isinstance(metadata, dict) and metadata.get("net"):
+        return str(metadata["net"])
+    return net_for_shape(name)
+
+
 def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOptions | argparse.Namespace) -> list[str]:
     geometry = _geometry_options(options)
     signal_layers = {"cond", geometry.signal_layer}
@@ -71,7 +78,7 @@ def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOpti
                 [shape["x"], shape["y"]],
                 [shape["w"], shape["h"]],
                 name=name,
-                net=net_for_shape(name),
+                net=_shape_net(shape, name),
             )
             if obj:
                 names.append(obj.name)
@@ -81,7 +88,7 @@ def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOpti
                 [[float(x), float(y)] for x, y in shape["points"]],
                 units="mm",
                 name=name,
-                net=net_for_shape(name),
+                net=_shape_net(shape, name),
             )
             if obj:
                 names.append(obj.name)

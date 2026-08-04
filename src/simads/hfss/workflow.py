@@ -20,9 +20,19 @@ from simads.runtime import (
     exception_summary,
     write_simulation_manifests,
 )
-from simads.hfss.artifacts import default_project_name, expected_hfss_outputs, resolve_project_path
+from simads.hfss.artifacts import (
+    HFSS_PROJECT_ACTION_ADD,
+    HFSS_PROJECT_ACTION_NEW,
+    HFSS_PROJECT_ACTIONS,
+    HFSS_PROJECT_MODEL_PER_DESIGN,
+    HFSS_PROJECT_MODELS,
+    default_project_name,
+    expected_hfss_outputs,
+    resolve_project_path,
+)
 from simads.hfss.build import build_hfss_layout_project
 from simads.hfss.connector import FIXTURE_TYPE as MICROSTRIP_CONNECTOR_FIXTURE_TYPE
+from simads.hfss.connector import SINGLE_CONNECTOR_FIXTURE_TYPE
 from simads.hfss.layout_io import collect_layout_summary, configured_layout_id, load_layout
 from simads.hfss.plans import RELIABLE_HFSS_ROUTE, apply_hfss_route_defaults
 from simads.hfss.ports import (
@@ -159,7 +169,8 @@ def _connector_port_reference_name(args: argparse.Namespace, metadata: dict[str,
 
 def connector_fixture_metadata(args: argparse.Namespace, layout: dict[str, Any]) -> dict[str, Any]:
     metadata = layout.get("metadata", {})
-    if metadata.get("fixture_type") != MICROSTRIP_CONNECTOR_FIXTURE_TYPE:
+    fixture_type = metadata.get("fixture_type")
+    if fixture_type not in {MICROSTRIP_CONNECTOR_FIXTURE_TYPE, SINGLE_CONNECTOR_FIXTURE_TYPE}:
         return {}
     params_json = _connector_params_json(args, metadata)
     model_path = getattr(args, "connector_hfss_model_path", None) or metadata.get("connector_hfss_model_path")
@@ -170,7 +181,7 @@ def connector_fixture_metadata(args: argparse.Namespace, layout: dict[str, Any])
     port_deembed_mm = float(metadata.get("port_deembed_mm", 0.0) or 0.0)
     reference_plane_offset_mm = float(metadata.get("reference_plane_offset_mm", 0.0) or 0.0)
     return {
-        "fixture_type": MICROSTRIP_CONNECTOR_FIXTURE_TYPE,
+        "fixture_type": fixture_type,
         "connector_model_version": metadata.get("connector_model_version"),
         "connector_route": metadata.get("connector_route"),
         "connector_type": metadata.get("connector_type"),
@@ -260,6 +271,13 @@ def hfss_dry_run_payload(
             "candidate_id": manifest_context.candidate_id,
             "profile_id": args.profile_id,
         },
+        "project_contract": {
+            "project_model": args.project_model,
+            "project_action": args.project_action,
+            "reuse_project": args.reuse_project,
+            "project": str(resolve_project_path(args, layout)),
+            "design": args.design,
+        },
     }
     if connector:
         payload["connector"] = connector
@@ -316,6 +334,8 @@ def build_hfss_manifest_payload(
             profile_snapshot={
                 "hfss_version": args.version,
                 "workspace_dir": str(args.workspace_dir),
+                "project_model": args.project_model,
+                "project_action": args.project_action,
                 "design": args.design,
                 "setup": args.setup,
                 "sweep": args.sweep,
@@ -336,6 +356,8 @@ def build_hfss_manifest_payload(
         flags={
             "dry_run": args.dry_run,
             "build_only": args.build_only,
+            "project_model": args.project_model,
+            "project_action": args.project_action,
             "reuse_project": args.reuse_project,
             "skip_ports": args.skip_ports,
             "non_graphical": args.non_graphical,
@@ -374,7 +396,7 @@ def write_hfss_manifests(
     outputs = expected_hfss_outputs(args, layout)
     payload = build_hfss_manifest_payload(args, layout, run_id=run_id, result=result, error=error)
     connector_artifacts = None
-    if layout.get("metadata", {}).get("fixture_type") == MICROSTRIP_CONNECTOR_FIXTURE_TYPE:
+    if layout.get("metadata", {}).get("fixture_type") in {MICROSTRIP_CONNECTOR_FIXTURE_TYPE, SINGLE_CONNECTOR_FIXTURE_TYPE}:
         connector_artifacts = [
             artifact_entry("microstrip_connector_layout_json", args.layout, producer="run_hfss3dlayout_filter_verdict.py"),
             artifact_entry(
@@ -430,9 +452,12 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
     layout = load_layout(args.layout)
     stackup_config = stackup_config_from_args(args)
     project = resolve_project_path(args, layout)
+    if args.project_action == HFSS_PROJECT_ACTION_ADD and args.project is None and args.project_name is None:
+        raise ValueError("--project-action add requires --project or --project-name to identify the project space")
     project.parent.mkdir(parents=True, exist_ok=True)
     args.out_dir.mkdir(parents=True, exist_ok=True)
-    init_project = str(project) if args.reuse_project and project.exists() else None
+    reuse_project = args.reuse_project or args.project_action == HFSS_PROJECT_ACTION_ADD
+    init_project = str(project) if reuse_project and project.exists() else None
 
     app = Hfss3dLayout(
         project=init_project,
@@ -501,6 +526,21 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--workspace-dir", type=Path, default=None)
     parser.add_argument("--project", type=Path, default=None)
     parser.add_argument("--project-name", default=None)
+    parser.add_argument(
+        "--project-model",
+        choices=HFSS_PROJECT_MODELS,
+        default=HFSS_PROJECT_MODEL_PER_DESIGN,
+        help=(
+            "HFSS AEDT organization model. per_design_project keeps the historical one-project-per-case flow; "
+            "single_aedt_project_multiple_designs stores multiple designs in one AEDT project."
+        ),
+    )
+    parser.add_argument(
+        "--project-action",
+        choices=HFSS_PROJECT_ACTIONS,
+        default=HFSS_PROJECT_ACTION_NEW,
+        help="new creates a fresh project path; add opens the named project and appends the requested design.",
+    )
     parser.add_argument("--reuse-project", action="store_true")
     parser.add_argument("--design", default="I7_FR4_HFSS_VERDICT")
     parser.add_argument("--version", default=None)

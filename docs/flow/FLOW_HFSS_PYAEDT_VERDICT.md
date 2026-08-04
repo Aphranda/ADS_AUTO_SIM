@@ -1,5 +1,7 @@
 # HFSS/pyAEDT Backend 流程
 
+Last updated: 2026-08-04
+
 ## 目标
 
 用 HFSS 3D Layout 作为 ADS/RFPro 之外的标准仿真 backend。当前仍保留“裁决/复核”用途：对 ADS/RFPro 的关键候选做独立复核，判断当前七阶 FR4 交指带通滤波器在 `S11/S22` 上的漂移是否来自 ADS 模板、端口、拟合数据源或版图本身。后续标准 pipeline 入口通过 `simulation_backends=ads_rfpro|hfss3dlayout|both` 选择 ADS、HFSS 或双后端运行。
@@ -14,6 +16,13 @@
 - 当前裁决输入：`projects\bfp_6_8g_i7_fr4\layouts\interdigital_7o_fr4_210um_round13_retest_4to10_40\i7_fr4_r13_retest_base_l555_taper_layout.json`
 - 当前自动化主 route：`hfss3dlayout_aedt_edge_gap_gnd_port_edges`，CLI 可用 `--route reliable` 展开。
 - 当前主层叠配置：`config\stackups\JLC04161H_7628_1P6MM.json`
+
+## AEDT 工程文件访问边界
+
+- 禁止把 `.aedt` 当文本文件做结构性修改；端口、net、component instance、layout、layer、setup、boundary 和 sweep 的变更必须走 AEDT/pyAEDT/EDB API 或 GUI。
+- `.aedt` 文本读取只允许用于已保存工程的只读审计、差异分析和报告生成；只读脚本不得写回 `.aedt`、`.aedb` 或 `.aedtresults`。
+- 如果 API 修改失败，应记录失败命令、设计名、对象名和 AEDT 错误，再决定补 API adapter 或人工 GUI 操作；不得自动退回到字符串替换。
+- 真实 API 写入前必须备份 `.aedt`、`.aedb`、`.aedtresults`，同一 AEDT 工程必须串行操作，避免并行 gRPC/pyAEDT 会话。
 
 ## 建模策略
 

@@ -1,0 +1,23 @@
+{
+  "project": "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "DUAL_END_SMA_CPW_100MM",
+  "components": [
+    "SMA_KE_Unite_solder1"
+  ],
+  "selection_suffix": "395",
+  "before_ports": [
+    "IPort@S2_1_Pin_T1;3"
+  ],
+  "selected": [
+    {
+      "component": "SMA_KE_Unite_solder1",
+      "id": "60",
+      "raw": "CompInst@SMA_KE_Unite_solder1;60;6",
+      "selection": "CompInst@SMA_KE_Unite_solder1;60;395",
+      "status": "selected"
+    }
+  ],
+  "execute": false,
+  "save": false,
+  "status": "dry_run"
+}

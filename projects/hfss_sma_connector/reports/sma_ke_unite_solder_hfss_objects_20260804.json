@@ -1,0 +1,303 @@
+{
+  "project": "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "project_name": "hfss_sma_connector_cpw",
+  "active_design": "SMA_KE_Unite_solder",
+  "app": "hfss",
+  "all_designs": [
+    "DUAL_END_SMA_CPW_100MM",
+    "IDEAL_50R_CPW_100MM",
+    "SMA_KE_Unite_solder",
+    "SMA_KE_Unite",
+    "SINGLE_END_SMA_CPW_100MM"
+  ],
+  "selected_designs": [
+    "SMA_KE_Unite_solder"
+  ],
+  "designs": [
+    {
+      "design": "SMA_KE_Unite_solder",
+      "design_type": "{'error': \"GrpcApiError('Failed to execute gRPC AEDT command: GetProjectByName')\"}",
+      "active": true,
+      "app_design_type": "HFSS",
+      "solution_type": "Terminal",
+      "setups": [
+        "Setup1"
+      ],
+      "ports": [],
+      "excitations": [],
+      "boundaries": [
+        {
+          "name": "Pin_T1",
+          "type": "Lumped Port",
+          "props": {
+            "ID": 1,
+            "BoundType": "Terminal",
+            "IsComponent": false,
+            "Faces": [
+              78
+            ],
+            "ParentBndID": 0,
+            "ImpedanceType": "Impedance",
+            "TerminalResistance": "50ohm"
+          }
+        },
+        {
+          "name": "1",
+          "type": "Lumped Port",
+          "props": {
+            "ID": 0,
+            "BoundType": "Lumped Port",
+            "IsComponent": false,
+            "Faces": [
+              236
+            ],
+            "LumpedPortType": "Terminal",
+            "DoDeembed": false,
+            "ParentBndID": -1,
+            "RenormalizeAllTerminals": true,
+            "TerminalIDList": [
+              1
+            ],
+            "LumpedPortSheetID": -1,
+            "Impedance": "50ohm"
+          }
+        }
+      ],
+      "object_groups": {
+        "Solids": {
+          "count": 5,
+          "names": [
+            "Base_GND",
+            "PTFE_CYL",
+            "Pin",
+            "Pin_solder",
+            "Region"
+          ]
+        },
+        "Sheets": {
+          "count": 1,
+          "names": [
+            "Circle1"
+          ]
+        },
+        "Lines": {
+          "count": 0,
+          "names": []
+        },
+        "Unclassified": {
+          "count": 0,
+          "names": []
+        },
+        "Non Model": {
+          "count": 0,
+          "names": []
+        },
+        "Measure": {
+          "count": 0,
+          "names": []
+        },
+        "Planes": {
+          "count": 0,
+          "names": []
+        },
+        "Points": {
+          "count": 0,
+          "names": []
+        }
+      },
+      "objects": [
+        {
+          "name": "Base_GND",
+          "Geometry3DAttributeTab": {
+            "Name": "Base_GND",
+            "Material": "\"copper\"",
+            "Solve Inside": "false",
+            "Orientation": "Global",
+            "Model": "true",
+            "Group": "Model",
+            "Display Wireframe": "false",
+            "Material Appearance": "false",
+            "Color": "65535",
+            "Transparent": "0"
+          },
+          "material_name": "copper",
+          "solve_inside": false,
+          "group_name": "Model",
+          "transparency": 0.0,
+          "color": [
+            255,
+            255,
+            0
+          ],
+          "bounding_box": [
+            -4.0,
+            -3.25,
+            -3.25,
+            9.5,
+            3.25,
+            3.25
+          ]
+        },
+        {
+          "name": "PTFE_CYL",
+          "Geometry3DAttributeTab": {
+            "Name": "PTFE_CYL",
+            "Material": "\"PTFE\"",
+            "Solve Inside": "true",
+            "Orientation": "Global",
+            "Model": "true",
+            "Group": "Model",
+            "Display Wireframe": "false",
+            "Material Appearance": "false",
+            "Color": "16777215",
+            "Transparent": "0"
+          },
+          "material_name": "ptfe",
+          "solve_inside": true,
+          "group_name": "Model",
+          "transparency": 0.0,
+          "color": [
+            255,
+            255,
+            255
+          ],
+          "bounding_box": [
+            0.0,
+            -2.1,
+            -2.1,
+            9.5,
+            2.1,
+            2.1
+          ]
+        },
+        {
+          "name": "Pin",
+          "Geometry3DAttributeTab": {
+            "Name": "Pin",
+            "Material": "\"copper\"",
+            "Solve Inside": "false",
+            "Orientation": "Global",
+            "Model": "true",
+            "Group": "Model",
+            "Display Wireframe": "false",
+            "Material Appearance": "false",
+            "Color": "65535",
+            "Transparent": "0"
+          },
+          "material_name": "copper",
+          "solve_inside": false,
+          "group_name": "Model",
+          "transparency": 0.0,
+          "color": [
+            255,
+            255,
+            0
+          ],
+          "bounding_box": [
+            -4.0,
+            -0.625,
+            -0.625000000000001,
+            9.5,
+            0.625,
+            0.624999999999999
+          ]
+        },
+        {
+          "name": "Pin_solder",
+          "Geometry3DAttributeTab": {
+            "Name": "Pin_solder",
+            "Material": "\"solder\"",
+            "Solve Inside": "false",
+            "Orientation": "Global",
+            "Model": "true",
+            "Group": "Model",
+            "Display Wireframe": "false",
+            "Material Appearance": "false",
+            "Color": "8421504",
+            "Transparent": "0"
+          },
+          "material_name": "solder",
+          "solve_inside": false,
+          "group_name": "Model",
+          "transparency": 0.0,
+          "color": [
+            128,
+            128,
+            128
+          ],
+          "bounding_box": [
+            -4.0,
+            -0.75,
+            -0.5,
+            -0.5,
+            0.75,
+            0.35
+          ]
+        },
+        {
+          "name": "Region",
+          "Geometry3DAttributeTab": {
+            "Name": "Region",
+            "Material": "\"vacuum\"",
+            "Solve Inside": "true",
+            "Orientation": "Global",
+            "Model": "true",
+            "Group": "Model",
+            "Display Wireframe": "true",
+            "Material Appearance": "false",
+            "Color": "9416591",
+            "Transparent": "0"
+          },
+          "material_name": "vacuum",
+          "solve_inside": true,
+          "group_name": "Model",
+          "transparency": 0.0,
+          "color": [
+            143,
+            175,
+            143
+          ],
+          "bounding_box": [
+            -4.0,
+            -3.25,
+            -3.25,
+            9.5,
+            3.25,
+            3.25
+          ]
+        },
+        {
+          "name": "Circle1",
+          "Geometry3DAttributeTab": {
+            "Name": "Circle1",
+            "Orientation": "Global",
+            "Model": "true",
+            "Group": "Model",
+            "Display Wireframe": "false",
+            "Material Appearance": "false",
+            "Color": "9416591",
+            "Transparent": "0"
+          },
+          "material_name": "",
+          "solve_inside": null,
+          "group_name": "Model",
+          "transparency": 0.0,
+          "color": [
+            143,
+            175,
+            143
+          ],
+          "bounding_box": [
+            9.5,
+            -2.6,
+            -2.6,
+            9.5,
+            2.6,
+            2.6
+          ]
+        }
+      ],
+      "objects_truncated": false
+    }
+  ]
+}

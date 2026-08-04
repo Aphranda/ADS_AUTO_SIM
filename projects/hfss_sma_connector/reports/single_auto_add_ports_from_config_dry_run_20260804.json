@@ -1,0 +1,30 @@
+{
+  "project": "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "SINGLE_END_SMA_CPW_100MM",
+  "project_config": "config\\projects\\hfss_sma_connector.json",
+  "connector_placement_profile": "sma_ke_unite_small_solder_3dlayout_etch_top",
+  "placement": "single",
+  "single_side": "P1",
+  "components": [
+    "SMA_KE_Unite_Small_Solder1"
+  ],
+  "component_ids": [],
+  "selection_suffix": "395",
+  "before_ports": [
+    "IPort@Port1;30",
+    "IPort@Port2;34"
+  ],
+  "selected": [
+    {
+      "component": "SMA_KE_Unite_Small_Solder1",
+      "id": "67",
+      "raw": "CompInst@SMA_KE_Unite_Small_Solder1;67;11",
+      "selection": "CompInst@SMA_KE_Unite_Small_Solder1;67;395",
+      "status": "selected",
+      "source": "component"
+    }
+  ],
+  "execute": false,
+  "save": false,
+  "status": "dry_run"
+}

@@ -4,7 +4,7 @@ Status: Active
 Domain: ARCH
 Canonical: `docs/arch/ARCH_REFACTOR_TASK_PROGRESS.md`
 Related: `docs/arch/ARCH_REFACTOR_TODO.md`, `docs/arch/ADS版图自动仿真项目框架设计.md`, `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`
-Last updated: 2026-08-03
+Last updated: 2026-08-04
 Owner: ADS Automation
 
 本文档记录 ADS 自动仿真项目重构的正式任务进度。TODO 细分以 `ARCH_REFACTOR_TODO.md` 为准；架构原则以 `ADS版图自动仿真项目框架设计.md` 和 `ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md` 为准。
@@ -53,6 +53,147 @@ Owner: ADS Automation
 当前重构已进入 P2 阶段：外部 ADS workspace 不移动，仓库内 ADS 项目资产以 `projects/<project_id>/` 为有效边界。P0/P1 的数据契约、manifest、score/summary 追溯、baseline freeze、workspace 写入安全 gate、run state machine、结果治理、制造鲁棒性和报告发布 gate 已落地；当前重点是将旧脚本内部逻辑逐步收敛到 `src/simads` 模块，并保证新增器件分支使用独立项目目录。
 
 ## 任务记录
+
+### ARCH-REFACTOR-TASK-20260804-014 - HFSS Small SMA Connector Swap And Pin IPort Script
+
+- 状态：进行中
+- 日期：2026-08-04
+- 任务目标：
+  - 将当前 HFSS SMA 连接器流程从 `SMA_KE_Unite_solder` 切换到 `SMA_KE_Unite_Small_Solder`。
+  - 固化“连接器位置 profile + 独立 pin interface port 添加脚本”的流程，后续其他连接器只新增 profile，不改 `.aedt` 文本。
+- 完成内容：
+  - `config/projects/hfss_sma_connector.json` 新增 `sma_ke_unite_small_solder_3dlayout_etch_top` profile，并设为 `hfss.connector_placement.default_profile`。
+  - small profile 记录 `connector_model=SMA_KE_Unite_Small_Solder`、`p1_component_name=SMA_KE_Unite_Small_Solder1`、`p2_component_name=SMA_KE_Unite_Small_Solder2`、`z_mm=2.07`、`force_3d_placement=true`。
+  - `tools/hfss/place_layout_connector_instances.py` 支持从 connector placement profile 读取 `source_design`、P1/P2 component name、component id、placement offsets 和 Z；无 profile 时不再默认使用旧连接器的 `-2.25 mm` solder offset。
+  - 新增 `tools/hfss/delete_schematic_component_instances.py`，只通过 AEDT `SchematicEditor` API 删除指定 schematic component instance，默认 dry-run，执行时备份 `.aedt/.aedb/.aedtresults`。
+  - `tools/hfss/add_schematic_component_instance.py` 增加 `--backup`。
+  - `tools/hfss/add_connector_pin_iports.py` 独立化：支持 `--project-config --placement single|dual` 从当前 connector profile 自动解析 P1/P2 组件，也支持 `--component` 和 `--component-id` 手动指定。
+  - 新增 `tools/hfss/inspect_schematic_iports.py`，通过 AEDT API 只读检查 `SchematicEditor.GetAllPorts()`、IPort properties 和 schematic components。
+  - 在 `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\hfss_sma_connector_cpw.aedt` 中，`SINGLE_END_SMA_CPW_100MM` 已替换为 `SMA_KE_Unite_Small_Solder1`，`DUAL_END_SMA_CPW_100MM` 已替换为 `SMA_KE_Unite_Small_Solder1/2`；旧 `SMA_KE_Unite_solder1/2/3` schematic instances 已删除。
+- 验证结果：
+  - `D:\Microsoft\uv-venvs\ads-automation\Scripts\python.exe -m py_compile tools\hfss\add_connector_pin_iports.py tools\hfss\inspect_schematic_iports.py` 通过。
+  - `python -m json.tool config\projects\hfss_sma_connector.json` 通过。
+  - SINGLE live Layout readback：component ID `67`，`Location=0, 0, 2.07`，`Rotation Angle=180deg`，`3D Placement=true`。
+  - DUAL live Layout readback：component ID `68` 位于 `0, 0, 2.07`、`180deg`；component ID `69` 位于 `113.65, 0, 2.07`、`0deg`。
+  - DUAL 删除端口后，独立脚本 dry-run 从 config 正确选中 `SMA_KE_Unite_Small_Solder1;68` 和 `SMA_KE_Unite_Small_Solder2;69`。
+  - 对 DUAL component ID `68` 单独执行 `AddPinIPorts` 成功生成 `IPort@Pin_T1;12`。
+- 还需完成：
+  - DUAL component ID `69` 仍未自动生成第二个 IPort；判断原因是两个 small connector 内部 pin 均为 `Pin_T1`，第一个 IPort 存在后，AEDT 不再自动创建第二个同名 IPort。
+  - `Hfss3dLayout.odesign.RenamePort("Pin_T1", "Port1")` 对当前 3D Layout schematic IPort 报 `GrpcApiError`，明天需要改用 `SchematicEditor.ChangeProperty` 路径或 GUI 完成端口改名/释放同名 pin。
+  - SINGLE 当前端口读回为 `Pin_T1/Port1`，DUAL 当前自动脚本阶段至少生成了 `Pin_T1`；最终仍需统一为 `Port1/Port2` 并只读确认。
+  - 后续脚本应增加 `--per-component` 或默认逐个执行模式，避免多选 `AddPinIPorts` 对 DUAL 不生成端口。
+- 关联文件：
+  - `config/projects/hfss_sma_connector.json`
+  - `tools/hfss/place_layout_connector_instances.py`
+  - `tools/hfss/add_connector_pin_iports.py`
+  - `tools/hfss/add_schematic_component_instance.py`
+  - `tools/hfss/delete_schematic_component_instances.py`
+  - `tools/hfss/inspect_schematic_iports.py`
+  - `projects/hfss_sma_connector/reports/dual_auto_add_ports_from_config_execute_20260804.json`
+  - `projects/hfss_sma_connector/reports/dual_auto_add_port_component68_execute_20260804.json`
+  - `projects/hfss_sma_connector/reports/dual_auto_add_port_component69_execute_20260804.json`
+  - `projects/hfss_sma_connector/reports/dual_schematic_iports_after_first_auto_port_20260804.json`
+- 下一步：
+  - 明天先只读检查 DUAL 当前 schematic IPort 状态。
+  - 使用 `SchematicEditor.ChangeProperty` 探索将 `Pin_T1` 改为 `Port1`；成功后再对 component ID `69` 添加第二个 `Pin_T1`，再改为 `Port2`。
+  - 最终用 `inspect_aedt_project.py --backend file` 和 `inspect_schematic_iports.py` 归档 `SINGLE/DUAL` 端口均为 `Port1/Port2` 后，再进入 HFSS solve 前检查。
+
+### ARCH-REFACTOR-TASK-20260804-013 - HFSS AEDT File Edit Boundary And Manual Port Rename TODO
+
+- 状态：进行中
+- 日期：2026-08-04
+- 任务目标：
+  - 固化 HFSS/AEDT 工程修改边界：禁止通过直接编辑 `.aedt` 文本修改工程结构。
+  - 将连接器 pin interface port 标准命名改为 AEDT GUI 手动待办，不再继续脚本重命名。
+- 完成内容：
+  - 在 HFSS 连接器流程文档中新增 AEDT 工程修改安全边界，规定端口、net、component instance、layout、layer、setup、boundary 和 sweep 等结构修改必须走 AEDT/pyAEDT/EDB API 或 GUI。
+  - 在 HFSS backend 总流程文档中同步 `.aedt` 只读审计与禁止写回规则。
+  - 在重构 TODO 的 HFSS connector extension 下新增手动端口改名待办：SINGLE 目标 `Port1/Port2`，DUAL 目标 `Port1/Port2`。
+  - 记录历史出现过的文本补丁路径，明确 `tools/hfss/rename_aedt_design_ports_text.py` 后续禁止作为工程修改入口。
+- 验证结果：
+  - 本次只修改 Markdown 文档，未对 `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\hfss_sma_connector_cpw.aedt` 执行端口重命名或文件级写入。
+- 还需完成：
+  - 用户在 AEDT GUI 手动完成端口命名。
+  - 手动改名后，用只读检查脚本记录 `SINGLE_END_SMA_CPW_100MM` 和 `DUAL_END_SMA_CPW_100MM` 的 design/port/net 状态。
+- 关联文件：
+  - `docs/flow/FLOW_HFSS_CONNECTOR_LAYOUT_OPTIMIZATION.md`
+  - `docs/flow/FLOW_HFSS_PYAEDT_VERDICT.md`
+  - `docs/arch/ARCH_REFACTOR_TODO.md`
+  - `tools/hfss/rename_aedt_design_ports_text.py`
+- 下一步：
+  - 等待 GUI 手动端口改名完成，再执行只读核验并继续 HFSS solve 前 gate。
+
+### ARCH-REFACTOR-TASK-20260803-012 - HFSS Project Model New/Add Contract
+
+- 状态：完成
+- 日期：2026-08-03
+- 任务目标：
+  - 将 HFSS “一个工程多个仿真/design”的组织方式固化为可选模式。
+  - 将后续迭代动作明确区分为 `new` 和 `add`。
+  - 当前 `hfss_sma_connector` 项目使用 `add`，在同一个 AEDT 工程中追加仿真项。
+- 完成内容：
+  - 新增 `src/simads/hfss_contracts.py`，定义 `project_model` 和 `project_action` 稳定枚举。
+  - `tools/hfss/run_hfss3dlayout_filter_verdict.py` 支持 `--project-model` 和 `--project-action new|add`。
+  - `project_action=add` 会打开指定 AEDT 工程并追加当前 design；`--reuse-project` 保留为兼容旧命令。
+  - `PipelineHfssConfig` 支持 `aedt_project`、`project_model`、`project_action`，标准 runner 会传递到 HFSS workflow。
+  - `ProjectConfig` 支持读取项目级 `hfss` 配置，`config/projects/hfss_sma_connector.json` 已标记为 `project_model=single_aedt_project_multiple_designs`、`project_action=add`。
+  - 已核验 `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\hfss_sma_connector_cpw.aedt` 内包含 `IDEAL_50R_CPW_100MM`、`SINGLE_END_SMA_CPW_100MM`、`DUAL_END_SMA_CPW_100MM` 三个 design。
+- 验证结果：
+  - `python -m py_compile src\simads\hfss_contracts.py src\simads\hfss\artifacts.py src\simads\hfss\workflow.py src\simads\config\pipelines.py src\simads\config\projects.py src\simads\config\__init__.py tools\run_sim_filter_candidate.py` 通过。
+  - `python -m json.tool config\projects\hfss_sma_connector.json` 通过。
+  - `python -m pytest -q tests\test_config_naming.py tests\test_run_sim_filter_candidate.py tests\test_hfss_connector.py tests\test_hfss_layout.py tests\test_hfss_build.py tests\test_state_machine.py` 通过，33 passed。
+  - HFSS dry-run 输出 `project_contract.project_model=single_aedt_project_multiple_designs`、`project_contract.project_action=add`、project=`D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\hfss_sma_connector_cpw.aedt`。
+- 还需完成：
+  - 后续批量 DoE 需要决定每一轮是 `new` 创建新项目空间，还是 `add` 追加到现有优化工程。
+  - 当前只完成 build-only 工程搭建，仍需执行三项 design 的真实 solve 和结果对比。
+- 关联文件：
+  - `src/simads/hfss_contracts.py`
+  - `src/simads/hfss/workflow.py`
+  - `src/simads/config/pipelines.py`
+  - `src/simads/config/projects.py`
+  - `tools/run_sim_filter_candidate.py`
+  - `config/projects/hfss_sma_connector.json`
+  - `projects/hfss_sma_connector/microstrip_connector/README.md`
+  - `docs/flow/FLOW_HFSS_CONNECTOR_LAYOUT_OPTIMIZATION.md`
+- 下一步：
+  - 先在 `hfss_sma_connector_cpw.aedt` 中 solve `IDEAL_50R_CPW_100MM`，确认 Results 表格可见曲线，再跑 single-end 和 dual-end。
+
+### ARCH-REFACTOR-TASK-20260803-011 - HFSS SMA Connector Fixture First Solve
+
+- 状态：完成
+- 日期：2026-08-03
+- 任务目标：
+  - 新建独立 `hfss_sma_connector` 项目，不并入滤波器 pipeline。
+  - 使用 `JLC04161H_7628_1P6MM` 标准层叠生成 100 mm 50R 微带 baseline。
+  - 生成两端连接器 launch 的 100 mm 微带 surrogate fixture，并与 baseline 做 HFSS S 参数对比。
+- 完成内容：
+  - 新增 `--total-l-mm` 到 `tools/layout/generate_microstrip_connector_layout.py`，用于生成严格 P1-to-P2 总长的理想 baseline。
+  - 新增 `params_with_total_len()`，避免手动倒算 connector launch 长度导致 baseline 变成 107 mm。
+  - 生成 `projects/hfss_sma_connector/microstrip_connector/layouts/ideal_100mm_50r/` 和 `layouts/connector_100mm_50r/`。
+  - Home profile 下完成 ideal baseline 和 connector surrogate 两个 HFSS 3D Layout solve。
+  - 生成 `ideal_vs_connector_compare.csv`、`ideal_vs_connector_summary.csv` 和 `ideal_vs_connector.svg`。
+  - 记录参考 SMA 模型 `D:\Work\ADS\HFSS_SMA_Connector\SMA_KE.aedt`，SHA256=`2D30182981CBABA74C1C1277AC92A27748C6734F7FA3EE8C1EB1975297A8A10E`。
+- 验证结果：
+  - `python -m pytest -q tests\test_hfss_connector.py` 通过，10 passed。
+  - `python -m py_compile src\simads\hfss\connector.py src\simads\hfss\workflow.py tools\layout\generate_microstrip_connector_layout.py` 通过。
+  - dry-run 确认 route=`hfss3dlayout_aedt_edge_gap_gnd_port_edges`，port_type=`aedt-edge`，GND reference=`ETCH_INNER1:hfss_ground_plane`。
+  - baseline solve：AEDT reported `3m09s`，S2P 输出到 `projects\hfss_sma_connector\microstrip_connector\results\ideal_100mm_50r\`，`passband_min_s21=-3.10 dB`，`worst_s11/s22=-23.41/-24.14 dB`。
+  - connector surrogate solve：AEDT reported `4m59s`，S2P 输出到 `projects\hfss_sma_connector\microstrip_connector\results\connector_100mm_50r\`，`passband_min_s21=-8.02 dB`，`worst_s11/s22=-2.72/-2.75 dB`。
+  - delta compare：6-8 GHz 内 `S21` mean abs delta=`3.43 dB`，`S11/S22` mean abs delta=`22.35/24.35 dB`。
+- 还需完成：
+  - 默认 surrogate launch 严重失配，需要建立首批 DoE 扫描 pad/taper/feed/clearance/via fence。
+  - 当前 connector run 只记录参考 `SMA_KE.aedt`，尚未导入完整 3D SMA 模型；Route C 仍需建立 import/placement adapter。
+  - `--reuse-project` 在重建 stackup 时会触发 AEDT `RemoveLayer(ETCH_INNER1)` 错误；当前真实 solve 使用新的项目名从空项目构建。
+- 关联文件：
+  - `src/simads/hfss/connector.py`
+  - `src/simads/hfss/workflow.py`
+  - `tools/layout/generate_microstrip_connector_layout.py`
+  - `tests/test_hfss_connector.py`
+  - `projects/hfss_sma_connector/microstrip_connector/README.md`
+  - `docs/flow/FLOW_HFSS_CONNECTOR_LAYOUT_OPTIMIZATION.md`
+- 下一步：
+  - 建立 `projects/hfss_sma_connector/microstrip_connector/plans/` 下的第一批 DoE 参数表。
+  - 先跑 3-5 个对称 launch 候选，目标是把 6-8 GHz worst S11/S22 拉回到至少 -10 dB，再考虑完整 3D SMA 模型导入。
 
 ### ARCH-REFACTOR-TASK-20260803-010 - HFSS Round13 Three-Candidate Solve
 

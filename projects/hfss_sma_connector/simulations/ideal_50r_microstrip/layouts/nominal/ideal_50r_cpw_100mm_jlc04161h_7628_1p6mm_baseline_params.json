@@ -1,0 +1,1791 @@
+{
+  "schema_version": "0.1.0",
+  "fixture_type": "microstrip_50r_through",
+  "parameters": {
+    "name": "ideal_50r_cpw_100mm_jlc04161h_7628_1p6mm",
+    "connector_type": "edge_launch_surrogate",
+    "connector_model_version": "route_a_surrogate_v1",
+    "connector_route": "route_a_2p5d_launch_surrogate",
+    "stackup_id": "JLC04161H_7628_1P6MM",
+    "stackup_token": "jlc04161h_7628_1p6mm",
+    "stackup_config": "config\\stackups\\JLC04161H_7628_1P6MM.json",
+    "line_w_mm": 0.3175,
+    "line_l_mm": 86.2,
+    "edge_margin_mm": 1.5,
+    "pin_pad_w_mm": 1.2,
+    "pin_pad_l_mm": 4.8,
+    "pad_to_edge_mm": 0.0,
+    "taper_l_mm": 1.6,
+    "taper_w_start_mm": 1.2,
+    "taper_w_end_mm": 0.3175,
+    "launch_feed_l_mm": 0.5,
+    "gnd_clearance_mm": 0.3,
+    "transmission_line_model": "grounded_coplanar_waveguide",
+    "cpw_ground_gap_mm": 0.2032,
+    "cpw_ground_enabled": true,
+    "line_via_pitch_mm": 2.0,
+    "line_via_enabled": true,
+    "anti_pad_w_mm": 1.8,
+    "via_d_mm": 0.3,
+    "via_pad_d_mm": 0.55,
+    "via_pitch_mm": 0.8,
+    "via_count": 4,
+    "fence_offset_mm": 0.55,
+    "fence_pitch_mm": 1.2,
+    "fence_span_mm": 4.2,
+    "reference_plane_offset_mm": 0.0,
+    "port_deembed_mm": 0.0,
+    "board_width_mm": 8.0,
+    "min_fab_feature_mm": 0.1524,
+    "mirror": true,
+    "signal_layer": "ETCH_TOP",
+    "reference_ground_layer": "ETCH_INNER1",
+    "via_top_layer": "ETCH_TOP",
+    "via_bottom_layer": "ETCH_BOTTOM",
+    "ground_layers": [
+      "ETCH_INNER1",
+      "ETCH_INNER2",
+      "ETCH_BOTTOM"
+    ],
+    "ground_plane_name": "hfss_ground_plane",
+    "metal_layer": "cond",
+    "via_layer": "pcvia1",
+    "boundary_layer": "EM_BOUNDARY"
+  },
+  "ports": {
+    "P1": [
+      0.0,
+      0.0
+    ],
+    "P2": [
+      100.0,
+      0.0
+    ]
+  },
+  "derived": {
+    "launch_len_mm": 6.9,
+    "total_len_mm": 100.0,
+    "connector_region_bbox_mm": {
+      "P1": [
+        0.0,
+        -4.0,
+        6.9,
+        8.0
+      ],
+      "P2": [
+        93.10000000000001,
+        -4.0,
+        6.9,
+        8.0
+      ]
+    }
+  },
+  "layout": {
+    "layout_id": "ideal_50r_cpw_100mm_jlc04161h_7628_1p6mm_baseline",
+    "units": "mm",
+    "layers": [
+      {
+        "name": "cond",
+        "purpose": "drawing",
+        "ads_layer": null,
+        "dxf_layer": "cond",
+        "gds_layer": null,
+        "gds_datatype": 0
+      },
+      {
+        "name": "pcvia1",
+        "purpose": "drawing",
+        "ads_layer": null,
+        "dxf_layer": "pcvia1",
+        "gds_layer": null,
+        "gds_datatype": 0
+      },
+      {
+        "name": "EM_BOUNDARY",
+        "purpose": "drawing",
+        "ads_layer": null,
+        "dxf_layer": "EM_BOUNDARY",
+        "gds_layer": null,
+        "gds_datatype": 0
+      }
+    ],
+    "shapes": [
+      {
+        "name": "em_boundary",
+        "x": -1.5,
+        "y": -4.0,
+        "w": 103.0,
+        "h": 8.0,
+        "layer": "EM_BOUNDARY",
+        "kind": "boundary",
+        "metadata": {}
+      },
+      {
+        "name": "line_top_ground",
+        "layer": "cond",
+        "x": 0.0,
+        "y": 0.36195,
+        "w": 100.0,
+        "h": 3.63805,
+        "kind": "rect",
+        "metadata": {
+          "role": "gcpw_top_ground",
+          "net": "GND"
+        }
+      },
+      {
+        "name": "line_bottom_ground",
+        "layer": "cond",
+        "x": 0.0,
+        "y": -4.0,
+        "w": 100.0,
+        "h": 3.63805,
+        "kind": "rect",
+        "metadata": {
+          "role": "gcpw_bottom_ground",
+          "net": "GND"
+        }
+      },
+      {
+        "name": "input_feed",
+        "layer": "cond",
+        "x": 0.0,
+        "y": -0.15875,
+        "w": 0.5,
+        "h": 0.3175,
+        "kind": "rect",
+        "metadata": {
+          "role": "gcpw_50r_baseline"
+        }
+      },
+      {
+        "name": "through_line",
+        "layer": "cond",
+        "x": 0.5,
+        "y": -0.15875,
+        "w": 99.0,
+        "h": 0.3175,
+        "kind": "rect",
+        "metadata": {
+          "role": "gcpw_50r_baseline"
+        }
+      },
+      {
+        "name": "output_feed",
+        "layer": "cond",
+        "x": 99.5,
+        "y": -0.15875,
+        "w": 0.5,
+        "h": 0.3175,
+        "kind": "rect",
+        "metadata": {
+          "role": "gcpw_50r_baseline"
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_1",
+        "layer": "pcvia1",
+        "x": 1.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 0
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_2",
+        "layer": "pcvia1",
+        "x": 3.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 1
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_3",
+        "layer": "pcvia1",
+        "x": 5.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 2
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_4",
+        "layer": "pcvia1",
+        "x": 7.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 3
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_5",
+        "layer": "pcvia1",
+        "x": 9.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 4
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_6",
+        "layer": "pcvia1",
+        "x": 11.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 5
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_7",
+        "layer": "pcvia1",
+        "x": 13.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 6
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_8",
+        "layer": "pcvia1",
+        "x": 15.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 7
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_9",
+        "layer": "pcvia1",
+        "x": 17.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 8
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_10",
+        "layer": "pcvia1",
+        "x": 19.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 9
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_11",
+        "layer": "pcvia1",
+        "x": 21.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 10
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_12",
+        "layer": "pcvia1",
+        "x": 23.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 11
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_13",
+        "layer": "pcvia1",
+        "x": 25.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 12
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_14",
+        "layer": "pcvia1",
+        "x": 27.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 13
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_15",
+        "layer": "pcvia1",
+        "x": 29.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 14
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_16",
+        "layer": "pcvia1",
+        "x": 31.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 15
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_17",
+        "layer": "pcvia1",
+        "x": 33.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 16
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_18",
+        "layer": "pcvia1",
+        "x": 35.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 17
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_19",
+        "layer": "pcvia1",
+        "x": 37.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 18
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_20",
+        "layer": "pcvia1",
+        "x": 39.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 19
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_21",
+        "layer": "pcvia1",
+        "x": 41.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 20
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_22",
+        "layer": "pcvia1",
+        "x": 43.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 21
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_23",
+        "layer": "pcvia1",
+        "x": 45.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 22
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_24",
+        "layer": "pcvia1",
+        "x": 47.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 23
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_25",
+        "layer": "pcvia1",
+        "x": 49.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 24
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_26",
+        "layer": "pcvia1",
+        "x": 51.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 25
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_27",
+        "layer": "pcvia1",
+        "x": 53.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 26
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_28",
+        "layer": "pcvia1",
+        "x": 55.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 27
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_29",
+        "layer": "pcvia1",
+        "x": 57.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 28
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_30",
+        "layer": "pcvia1",
+        "x": 59.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 29
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_31",
+        "layer": "pcvia1",
+        "x": 61.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 30
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_32",
+        "layer": "pcvia1",
+        "x": 63.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 31
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_33",
+        "layer": "pcvia1",
+        "x": 65.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 32
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_34",
+        "layer": "pcvia1",
+        "x": 67.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 33
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_35",
+        "layer": "pcvia1",
+        "x": 69.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 34
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_36",
+        "layer": "pcvia1",
+        "x": 71.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 35
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_37",
+        "layer": "pcvia1",
+        "x": 73.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 36
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_38",
+        "layer": "pcvia1",
+        "x": 75.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 37
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_39",
+        "layer": "pcvia1",
+        "x": 77.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 38
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_40",
+        "layer": "pcvia1",
+        "x": 79.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 39
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_41",
+        "layer": "pcvia1",
+        "x": 81.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 40
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_42",
+        "layer": "pcvia1",
+        "x": 83.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 41
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_43",
+        "layer": "pcvia1",
+        "x": 85.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 42
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_44",
+        "layer": "pcvia1",
+        "x": 87.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 43
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_45",
+        "layer": "pcvia1",
+        "x": 89.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 44
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_46",
+        "layer": "pcvia1",
+        "x": 91.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 45
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_47",
+        "layer": "pcvia1",
+        "x": 93.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 46
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_48",
+        "layer": "pcvia1",
+        "x": 95.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 47
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_49",
+        "layer": "pcvia1",
+        "x": 97.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 48
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_50",
+        "layer": "pcvia1",
+        "x": 99.0,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 49
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_1",
+        "layer": "pcvia1",
+        "x": 1.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 0
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_2",
+        "layer": "pcvia1",
+        "x": 3.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 1
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_3",
+        "layer": "pcvia1",
+        "x": 5.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 2
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_4",
+        "layer": "pcvia1",
+        "x": 7.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 3
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_5",
+        "layer": "pcvia1",
+        "x": 9.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 4
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_6",
+        "layer": "pcvia1",
+        "x": 11.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 5
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_7",
+        "layer": "pcvia1",
+        "x": 13.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 6
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_8",
+        "layer": "pcvia1",
+        "x": 15.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 7
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_9",
+        "layer": "pcvia1",
+        "x": 17.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 8
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_10",
+        "layer": "pcvia1",
+        "x": 19.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 9
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_11",
+        "layer": "pcvia1",
+        "x": 21.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 10
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_12",
+        "layer": "pcvia1",
+        "x": 23.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 11
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_13",
+        "layer": "pcvia1",
+        "x": 25.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 12
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_14",
+        "layer": "pcvia1",
+        "x": 27.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 13
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_15",
+        "layer": "pcvia1",
+        "x": 29.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 14
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_16",
+        "layer": "pcvia1",
+        "x": 31.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 15
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_17",
+        "layer": "pcvia1",
+        "x": 33.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 16
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_18",
+        "layer": "pcvia1",
+        "x": 35.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 17
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_19",
+        "layer": "pcvia1",
+        "x": 37.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 18
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_20",
+        "layer": "pcvia1",
+        "x": 39.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 19
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_21",
+        "layer": "pcvia1",
+        "x": 41.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 20
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_22",
+        "layer": "pcvia1",
+        "x": 43.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 21
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_23",
+        "layer": "pcvia1",
+        "x": 45.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 22
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_24",
+        "layer": "pcvia1",
+        "x": 47.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 23
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_25",
+        "layer": "pcvia1",
+        "x": 49.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 24
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_26",
+        "layer": "pcvia1",
+        "x": 51.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 25
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_27",
+        "layer": "pcvia1",
+        "x": 53.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 26
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_28",
+        "layer": "pcvia1",
+        "x": 55.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 27
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_29",
+        "layer": "pcvia1",
+        "x": 57.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 28
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_30",
+        "layer": "pcvia1",
+        "x": 59.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 29
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_31",
+        "layer": "pcvia1",
+        "x": 61.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 30
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_32",
+        "layer": "pcvia1",
+        "x": 63.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 31
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_33",
+        "layer": "pcvia1",
+        "x": 65.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 32
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_34",
+        "layer": "pcvia1",
+        "x": 67.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 33
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_35",
+        "layer": "pcvia1",
+        "x": 69.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 34
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_36",
+        "layer": "pcvia1",
+        "x": 71.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 35
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_37",
+        "layer": "pcvia1",
+        "x": 73.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 36
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_38",
+        "layer": "pcvia1",
+        "x": 75.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 37
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_39",
+        "layer": "pcvia1",
+        "x": 77.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 38
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_40",
+        "layer": "pcvia1",
+        "x": 79.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 39
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_41",
+        "layer": "pcvia1",
+        "x": 81.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 40
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_42",
+        "layer": "pcvia1",
+        "x": 83.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 41
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_43",
+        "layer": "pcvia1",
+        "x": 85.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 42
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_44",
+        "layer": "pcvia1",
+        "x": 87.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 43
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_45",
+        "layer": "pcvia1",
+        "x": 89.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 44
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_46",
+        "layer": "pcvia1",
+        "x": 91.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 45
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_47",
+        "layer": "pcvia1",
+        "x": 93.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 46
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_48",
+        "layer": "pcvia1",
+        "x": 95.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 47
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_49",
+        "layer": "pcvia1",
+        "x": 97.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 48
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_50",
+        "layer": "pcvia1",
+        "x": 99.0,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 49
+        }
+      }
+    ],
+    "ports": [
+      {
+        "name": "P1",
+        "number": 1,
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.3175,
+        "layer": "cond",
+        "orientation_deg": 180.0,
+        "reference": null,
+        "kind": "port",
+        "metadata": {}
+      },
+      {
+        "name": "P2",
+        "number": 2,
+        "x": 100.0,
+        "y": 0.0,
+        "width": 0.3175,
+        "layer": "cond",
+        "orientation_deg": 0.0,
+        "reference": null,
+        "kind": "port",
+        "metadata": {}
+      }
+    ],
+    "metadata": {
+      "generator": "simads.hfss.connector",
+      "fixture_type": "microstrip_50r_through",
+      "baseline_for_fixture_type": "microstrip_connector_50r",
+      "topology": "microstrip_50r_through",
+      "transmission_line_model": "grounded_coplanar_waveguide",
+      "cpw_ground_gap_mm": 0.2032,
+      "line_via_pitch_mm": 2.0,
+      "line_w_mm": 0.3175,
+      "line_l_mm": 100.0,
+      "reference_plane_offset_mm": 0.0,
+      "port_deembed_mm": 0.0,
+      "parameters": {
+        "name": "ideal_50r_cpw_100mm_jlc04161h_7628_1p6mm",
+        "connector_type": "edge_launch_surrogate",
+        "connector_model_version": "route_a_surrogate_v1",
+        "connector_route": "route_a_2p5d_launch_surrogate",
+        "stackup_id": "JLC04161H_7628_1P6MM",
+        "stackup_token": "jlc04161h_7628_1p6mm",
+        "stackup_config": "config\\stackups\\JLC04161H_7628_1P6MM.json",
+        "line_w_mm": 0.3175,
+        "line_l_mm": 86.2,
+        "edge_margin_mm": 1.5,
+        "pin_pad_w_mm": 1.2,
+        "pin_pad_l_mm": 4.8,
+        "pad_to_edge_mm": 0.0,
+        "taper_l_mm": 1.6,
+        "taper_w_start_mm": 1.2,
+        "taper_w_end_mm": 0.3175,
+        "launch_feed_l_mm": 0.5,
+        "gnd_clearance_mm": 0.3,
+        "transmission_line_model": "grounded_coplanar_waveguide",
+        "cpw_ground_gap_mm": 0.2032,
+        "cpw_ground_enabled": true,
+        "line_via_pitch_mm": 2.0,
+        "line_via_enabled": true,
+        "anti_pad_w_mm": 1.8,
+        "via_d_mm": 0.3,
+        "via_pad_d_mm": 0.55,
+        "via_pitch_mm": 0.8,
+        "via_count": 4,
+        "fence_offset_mm": 0.55,
+        "fence_pitch_mm": 1.2,
+        "fence_span_mm": 4.2,
+        "reference_plane_offset_mm": 0.0,
+        "port_deembed_mm": 0.0,
+        "board_width_mm": 8.0,
+        "min_fab_feature_mm": 0.1524,
+        "mirror": true,
+        "signal_layer": "ETCH_TOP",
+        "reference_ground_layer": "ETCH_INNER1",
+        "via_top_layer": "ETCH_TOP",
+        "via_bottom_layer": "ETCH_BOTTOM",
+        "ground_layers": [
+          "ETCH_INNER1",
+          "ETCH_INNER2",
+          "ETCH_BOTTOM"
+        ],
+        "ground_plane_name": "hfss_ground_plane",
+        "metal_layer": "cond",
+        "via_layer": "pcvia1",
+        "boundary_layer": "EM_BOUNDARY"
+      },
+      "layer_map_version": "microstrip-connector-logical-v1",
+      "signal_layer": "ETCH_TOP",
+      "reference_ground_layer": "ETCH_INNER1",
+      "via_top_layer": "ETCH_TOP",
+      "via_bottom_layer": "ETCH_BOTTOM",
+      "ground_layers": [
+        "ETCH_INNER1",
+        "ETCH_INNER2",
+        "ETCH_BOTTOM"
+      ],
+      "ground_plane_name": "hfss_ground_plane",
+      "stackup_id": "JLC04161H_7628_1P6MM",
+      "stackup_token": "jlc04161h_7628_1p6mm",
+      "stackup_config": "config\\stackups\\JLC04161H_7628_1P6MM.json"
+    }
+  }
+}

@@ -6,6 +6,14 @@ import argparse
 from pathlib import Path
 from typing import Any
 
+from simads.hfss_contracts import (
+    HFSS_PROJECT_ACTION_ADD,
+    HFSS_PROJECT_ACTION_NEW,
+    HFSS_PROJECT_ACTIONS,
+    HFSS_PROJECT_MODEL_PER_DESIGN,
+    HFSS_PROJECT_MODEL_SINGLE_AEDT,
+    HFSS_PROJECT_MODELS,
+)
 from simads.hfss.layout_io import configured_layout_id
 
 
@@ -34,4 +42,14 @@ def expected_hfss_outputs(args: argparse.Namespace, layout: dict[str, Any]) -> d
     }
 
 
-__all__ = ["default_project_name", "expected_hfss_outputs", "resolve_project_path"]
+__all__ = [
+    "HFSS_PROJECT_MODEL_PER_DESIGN",
+    "HFSS_PROJECT_MODEL_SINGLE_AEDT",
+    "HFSS_PROJECT_MODELS",
+    "HFSS_PROJECT_ACTION_ADD",
+    "HFSS_PROJECT_ACTION_NEW",
+    "HFSS_PROJECT_ACTIONS",
+    "default_project_name",
+    "expected_hfss_outputs",
+    "resolve_project_path",
+]

@@ -11,10 +11,12 @@ from simads.geometry import to_dict, validate_layout_contract
 from simads.hfss.connector import (
     BASELINE_FIXTURE_TYPE,
     FIXTURE_TYPE,
+    SINGLE_CONNECTOR_FIXTURE_TYPE,
     ConnectorLaunchParams,
     assert_connector_layout_valid,
     build_layout,
     build_microstrip_baseline_layout,
+    build_single_connector_layout,
     launch_len,
     params_with_total_len,
     params_with_stackup_config,
@@ -76,6 +78,8 @@ def hfss_args(layout_path: Path, out_dir: Path, **overrides) -> Namespace:
         "workspace_dir": out_dir / "workspace",
         "project": None,
         "project_name": None,
+        "project_model": "per_design_project",
+        "project_action": "new",
         "reuse_project": False,
         "design": "CONNECTOR_SMOKE",
         "version": "2026.1",
@@ -210,11 +214,23 @@ def test_microstrip_connector_layout_is_compatible_with_hfss_geometry_builder() 
     assert "hfss_ground_plane" in names
     assert "input_feed" in names
     assert "output_feed" in names
-    assert any(call == ("rect", "ETCH_TOP", [0.0, -0.6], [1.9, 1.2], "input_feed", "IN") for call in app.modeler.calls)
+    assert "center_line_top_ground" in names
+    assert any(
+        call[0] == "rect"
+        and call[1] == "ETCH_TOP"
+        and call[4] == "input_feed"
+        and call[5] == "IN"
+        and call[2][0] == pytest.approx(0.0)
+        and call[2][1] == pytest.approx(-params.pin_pad_w_mm / 2.0)
+        and call[3][0] == pytest.approx(params.pin_pad_l_mm + params.launch_feed_l_mm)
+        and call[3][1] == pytest.approx(params.pin_pad_w_mm)
+        for call in app.modeler.calls
+    )
+    assert any(call[0] == "rect" and call[4] == "center_line_top_ground" and call[5] == "GND" for call in app.modeler.calls)
     assert any(call[0] == "via" and call[4] == "ETCH_TOP" and call[5] == "ETCH_BOTTOM" for call in app.modeler.calls)
 
 
-def test_microstrip_baseline_layout_is_connector_free_and_hfss_compatible(tmp_path: Path) -> None:
+def test_microstrip_baseline_layout_is_connector_launch_free_and_hfss_compatible(tmp_path: Path) -> None:
     params = stackup_params(name="connector_baseline_probe", via_count=2)
     layout = build_microstrip_baseline_layout(params)
     layout_json = to_dict(layout)
@@ -237,7 +253,9 @@ def test_microstrip_baseline_layout_is_connector_free_and_hfss_compatible(tmp_pa
 
     assert layout.metadata["fixture_type"] == BASELINE_FIXTURE_TYPE
     assert layout.metadata["baseline_for_fixture_type"] == FIXTURE_TYPE
-    assert len([shape for shape in layout_json["shapes"] if shape["kind"] == "via"]) == 0
+    assert not any(shape.get("metadata", {}).get("role") == "connector_launch_signal" for shape in layout_json["shapes"])
+    assert len([shape for shape in layout_json["shapes"] if shape["kind"] == "via"]) > 0
+    assert any(shape["name"] == "line_top_ground" and shape["metadata"]["net"] == "GND" for shape in layout_json["shapes"])
     assert "input_feed" in names
     assert "output_feed" in names
     assert params_payload["fixture_type"] == BASELINE_FIXTURE_TYPE
@@ -252,6 +270,41 @@ def test_microstrip_baseline_can_target_exact_total_length() -> None:
     assert layout.ports[0].x == 0.0
     assert layout.ports[1].x == pytest.approx(100.0)
     assert layout.metadata["line_l_mm"] == pytest.approx(100.0)
+
+
+def test_single_ended_connector_layout_has_one_launch_and_one_ideal_port(tmp_path: Path) -> None:
+    params = stackup_params(name="single_connector_probe", line_l_mm=100.0, via_count=2)
+    layout = build_single_connector_layout(params)
+    layout_json = to_dict(layout)
+    app = FakeApp()
+
+    names = create_geometry(
+        app,
+        layout_json,
+        GeometryBuildOptions(
+            gnd_boundary_mode="port-edges",
+            signal_layer="ETCH_TOP",
+            reference_ground_layer="ETCH_INNER1",
+            via_top_layer="ETCH_TOP",
+            via_bottom_layer="ETCH_BOTTOM",
+            ground_plane_name="hfss_ground_plane",
+        ),
+    )
+    outputs = write_fixture_outputs(params, tmp_path, fixture_type=SINGLE_CONNECTOR_FIXTURE_TYPE)
+    params_payload = json.loads(outputs["params"].read_text(encoding="utf-8"))
+
+    assert layout.metadata["fixture_type"] == SINGLE_CONNECTOR_FIXTURE_TYPE
+    assert layout.metadata["connector_side"] == "P1"
+    assert layout.ports[0].width == pytest.approx(params.pin_pad_w_mm)
+    assert layout.ports[1].width == pytest.approx(params.line_w_mm)
+    assert layout.ports[1].x == pytest.approx(launch_len(params) + params.line_l_mm)
+    assert len([shape for shape in layout_json["shapes"] if shape["kind"] == "via"]) > 4
+    assert "input_feed" in names
+    assert "through_line" in names
+    assert "output_feed" in names
+    assert any(call[0] == "rect" and call[4] == "center_line_top_ground" and call[5] == "GND" for call in app.modeler.calls)
+    assert params_payload["fixture_type"] == SINGLE_CONNECTOR_FIXTURE_TYPE
+    assert params_payload["derived"]["total_len_mm"] == pytest.approx(launch_len(params) + params.line_l_mm)
 
 
 def test_microstrip_connector_drc_rejects_too_small_clearance() -> None:

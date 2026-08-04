@@ -1,0 +1,32 @@
+{
+  "project": "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "SINGLE_END_SMA_CPW_100MM",
+  "source_project": null,
+  "source_design": "SMA_KE_Unite_solder",
+  "operation": "move-existing",
+  "placement": "single",
+  "anchor": "pad-center",
+  "layout": "projects\\hfss_sma_connector\\simulations\\single_end_connector_50r\\layouts\\nominal\\single_end_connector_cpw_100mm_jlc04161h_7628_1p6mm_layout.json",
+  "z_mode": "solder-bottom-to-pad-top",
+  "z_inputs": {
+    "z_mm": 0.0,
+    "pad_top_z_mm": 0.0,
+    "solder_bottom_z_mm": -0.5,
+    "solder_intrusion_mm": 0.0,
+    "solder_intrusion_mil": 5.0
+  },
+  "targets": [
+    {
+      "side": "P2",
+      "x_mm": 106.75,
+      "y_mm": 0.0,
+      "z_mm": -0.373,
+      "angle_deg": 0.0,
+      "component_name": "SMA_KE_Unite_solder3",
+      "component_id": null
+    }
+  ],
+  "execute": false,
+  "save": false,
+  "status": "dry_run"
+}

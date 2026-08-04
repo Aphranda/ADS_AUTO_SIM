@@ -109,6 +109,33 @@ def test_create_geometry_accepts_layout_shapes_on_configured_signal_layer() -> N
     assert app.modeler.calls[1] == ("rect", "ETCH_TOP", [-1.0, 0.0], [0.5, 0.2], "input_feed", "IN")
 
 
+def test_create_geometry_honors_explicit_shape_net_metadata() -> None:
+    layout = {
+        "ports": [
+            {"number": 1, "x": -1.0, "y": 0.0},
+            {"number": 2, "x": 2.0, "y": 0.0},
+        ],
+        "shapes": [
+            {"kind": "boundary", "layer": "EM_BOUNDARY", "name": "boundary", "x": -2.0, "y": -1.0, "w": 5.0, "h": 3.0},
+            {
+                "kind": "rect",
+                "layer": "cond",
+                "name": "center_line_top_ground",
+                "x": 0.0,
+                "y": 0.3,
+                "w": 1.0,
+                "h": 0.7,
+                "metadata": {"net": "GND"},
+            },
+        ],
+    }
+    app = FakeApp()
+
+    create_geometry(app, layout, Namespace(gnd_boundary_mode="port-edges"))
+
+    assert app.modeler.calls[1] == ("rect", "TOP", [0.0, 0.3], [1.0, 0.7], "center_line_top_ground", "GND")
+
+
 def test_create_geometry_accepts_explicit_options_without_cli_namespace() -> None:
     layout = {
         "ports": [

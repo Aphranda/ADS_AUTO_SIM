@@ -1,0 +1,170 @@
+{
+  "schema_version": "0.1.0",
+  "project_id": "hfss_sma_connector",
+  "name": "HFSS SMA connector launch optimization project",
+  "device_family": "connector_fixture",
+  "primary_device_type": "fixture.microstrip_connector",
+  "default_profile": "home",
+  "target_profile": null,
+  "pipeline_id": null,
+  "project_root": "projects/hfss_sma_connector",
+  "plans_dir": "projects/hfss_sma_connector/plans",
+  "layouts_dir": "projects/hfss_sma_connector/layouts",
+  "results_dir": "projects/hfss_sma_connector/results",
+  "runs_dir": "projects/hfss_sma_connector/runs",
+  "reports_dir": "projects/hfss_sma_connector/reports",
+  "references_dir": "projects/hfss_sma_connector/references",
+  "frequency": {
+    "start_ghz": 0.5,
+    "stop_ghz": 10.0,
+    "passband_start_ghz": 6.0,
+    "passband_stop_ghz": 8.0
+  },
+  "active_sweep": "dual_end_connector_50r",
+  "sweeps": {
+    "ideal_50r_microstrip": {
+      "pipeline_id": null,
+      "plan": "projects/hfss_sma_connector/plans/ideal_50r_microstrip.csv",
+      "layouts_dir": "projects/hfss_sma_connector/simulations/ideal_50r_microstrip/layouts",
+      "results_dir": "projects/hfss_sma_connector/simulations/ideal_50r_microstrip/results",
+      "summary": "projects/hfss_sma_connector/simulations/ideal_50r_microstrip/results/sweep_summary.csv",
+      "profile": "home",
+      "device_id": "fixture.microstrip_50r",
+      "generator": {
+        "script": "tools/layout/generate_microstrip_connector_layout.py",
+        "fixture_type": "microstrip_50r_through",
+        "stackup_config": "config/stackups/JLC04161H_7628_1P6MM.json",
+        "total_l_mm": 100.0,
+        "line_w_mm": 0.3175,
+        "cpw_ground_gap_mm": 0.2032,
+        "units": "mm"
+      },
+      "optimizer": {
+        "strategy": "fixed_baseline"
+      }
+    },
+    "single_end_connector_50r": {
+      "pipeline_id": null,
+      "plan": "projects/hfss_sma_connector/plans/single_end_connector_50r_doe.csv",
+      "layouts_dir": "projects/hfss_sma_connector/simulations/single_end_connector_50r/layouts",
+      "results_dir": "projects/hfss_sma_connector/simulations/single_end_connector_50r/results",
+      "summary": "projects/hfss_sma_connector/simulations/single_end_connector_50r/results/sweep_summary.csv",
+      "profile": "home",
+      "device_id": "fixture.microstrip_single_connector",
+      "generator": {
+        "script": "tools/layout/generate_microstrip_connector_layout.py",
+        "fixture_type": "microstrip_single_connector_50r",
+        "stackup_config": "config/stackups/JLC04161H_7628_1P6MM.json",
+        "line_l_mm": 100.0,
+        "line_w_mm": 0.3175,
+        "cpw_ground_gap_mm": 0.2032,
+        "pin_pad_w_mm": 1.2,
+        "pin_pad_l_mm": 4.8,
+        "taper_w_start_mm": 1.2,
+        "taper_w_end_mm": 0.3175,
+        "units": "mm"
+      },
+      "optimizer": {
+        "strategy": "symmetric_launch_doe_seed"
+      }
+    },
+    "dual_end_connector_50r": {
+      "pipeline_id": null,
+      "plan": "projects/hfss_sma_connector/plans/dual_end_connector_50r_doe.csv",
+      "layouts_dir": "projects/hfss_sma_connector/simulations/dual_end_connector_50r/layouts",
+      "results_dir": "projects/hfss_sma_connector/simulations/dual_end_connector_50r/results",
+      "summary": "projects/hfss_sma_connector/simulations/dual_end_connector_50r/results/sweep_summary.csv",
+      "profile": "home",
+      "device_id": "fixture.microstrip_connector",
+      "generator": {
+        "script": "tools/layout/generate_microstrip_connector_layout.py",
+        "fixture_type": "microstrip_connector_50r",
+        "stackup_config": "config/stackups/JLC04161H_7628_1P6MM.json",
+        "line_l_mm": 100.0,
+        "line_w_mm": 0.3175,
+        "cpw_ground_gap_mm": 0.2032,
+        "pin_pad_w_mm": 1.2,
+        "pin_pad_l_mm": 4.8,
+        "taper_w_start_mm": 1.2,
+        "taper_w_end_mm": 0.3175,
+        "units": "mm"
+      },
+      "optimizer": {
+        "strategy": "symmetric_launch_doe"
+      }
+    }
+  },
+  "hfss": {
+    "profile": "home",
+    "workspace_dir": "D:/Work/ADS/SIMADS_EM_PAR/HFSS_VERDICT",
+    "aedt_project": "D:/Work/ADS/SIMADS_EM_PAR/HFSS_VERDICT/hfss_sma_connector_cpw.aedt",
+    "project_model": "single_aedt_project_multiple_designs",
+    "project_action": "add",
+    "stackup_config": "config/stackups/JLC04161H_7628_1P6MM.json",
+    "route": "reliable",
+    "port_type": "aedt-edge",
+    "gnd_boundary_mode": "port-edges",
+    "setup": "Setup_0p5to10G",
+    "sweep": "Sweep_0p5to10G_96pt",
+    "simulations": {
+      "ideal_50r_microstrip": {
+        "design": "IDEAL_50R_CPW_100MM",
+        "fixture_type": "microstrip_50r_through",
+        "description": "Exact 100 mm P1-to-P2 ideal 50R CPWG baseline."
+      },
+      "single_end_connector_50r": {
+        "design": "SINGLE_END_SMA_CPW_100MM",
+        "fixture_type": "microstrip_single_connector_50r",
+        "description": "One SMA launch surrogate on P1 plus 100 mm 50R CPWG and ideal P2 port."
+      },
+      "dual_end_connector_50r": {
+        "design": "DUAL_END_SMA_CPW_100MM",
+        "fixture_type": "microstrip_connector_50r",
+        "description": "Two SMA launch surrogates with a 100 mm 50R CPWG center section."
+      }
+    },
+    "connector_placement": {
+      "default_profile": "sma_ke_unite_small_solder_3dlayout_etch_top",
+      "profiles": {
+        "sma_ke_unite_small_solder_3dlayout_etch_top": {
+          "connector_model": "SMA_KE_Unite_Small_Solder",
+          "placement_layer": "ETCH_TOP",
+          "notes": "Active replacement connector profile created on 2026-08-04. Initial Z uses the manually corrected 3D Layout reference value from the previous SMA flow and must be visually confirmed for this connector model.",
+          "z_mode": "fixed",
+          "z_mm": 2.07,
+          "force_3d_placement": true,
+          "p1_angle_deg": 180.0,
+          "p2_angle_deg": 0.0,
+          "p1_component_name": "SMA_KE_Unite_Small_Solder1",
+          "p2_component_name": "SMA_KE_Unite_Small_Solder2",
+          "p1_offset_x_mm": -0.15,
+          "p1_offset_y_mm": 0.0,
+          "p2_offset_x_mm": 0.0,
+          "p2_offset_y_mm": 0.0,
+          "p1_solder_offset_x_mm": -2.25,
+          "p1_solder_offset_y_mm": 0.0,
+          "p2_solder_offset_x_mm": -2.25,
+          "p2_solder_offset_y_mm": 0.0
+        },
+        "sma_ke_unite_solder_3dlayout_etch_top": {
+          "connector_model": "SMA_KE_Unite_solder",
+          "placement_layer": "ETCH_TOP",
+          "notes": "Measured from manually corrected SINGLE_END_SMA_CPW_100MM placement on 2026-08-04. This value is connector-model and import-orientation specific; do not reuse for other connectors without re-measuring.",
+          "z_mode": "fixed",
+          "z_mm": 2.07,
+          "force_3d_placement": true,
+          "p1_angle_deg": 180.0,
+          "p2_angle_deg": 0.0,
+          "p1_offset_x_mm": 0.0,
+          "p1_offset_y_mm": 0.0,
+          "p2_offset_x_mm": 0.0,
+          "p2_offset_y_mm": 0.0,
+          "p1_solder_offset_x_mm": -2.25,
+          "p1_solder_offset_y_mm": 0.0,
+          "p2_solder_offset_x_mm": -2.25,
+          "p2_solder_offset_y_mm": 0.0
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "project": "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "SINGLE_END_SMA_CPW_100MM",
+  "components": [
+    "SMA_KE_Unite_solder3"
+  ],
+  "before": [
+    "CompInst@SMA_KE_Unite_solder3;63;10",
+    "CompInst@SMA_KE_Unite_Small_Solder1;67;11"
+  ],
+  "selected": [
+    {
+      "raw": "CompInst@SMA_KE_Unite_solder3;63;10",
+      "component": "SMA_KE_Unite_solder3",
+      "id": "63",
+      "suffix": "10",
+      "selection": "CompInst@SMA_KE_Unite_solder3;63;10"
+    }
+  ],
+  "execute": true,
+  "save": true,
+  "backups": [
+    "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_delete_schematic_component_20260804_014609.aedt",
+    "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_delete_schematic_component_20260804_014609.aedb",
+    "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_delete_schematic_component_20260804_014609.aedtresults"
+  ],
+  "delete_result": "None",
+  "after": [
+    "CompInst@SMA_KE_Unite_Small_Solder1;67;11"
+  ],
+  "saved": true,
+  "status": "deleted"
+}

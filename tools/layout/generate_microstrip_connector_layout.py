@@ -15,6 +15,7 @@ if str(_SRC_ROOT) not in sys.path:
 from simads.hfss.connector import (
     BASELINE_FIXTURE_TYPE,
     FIXTURE_TYPE,
+    SINGLE_CONNECTOR_FIXTURE_TYPE,
     ConnectorLaunchParams,
     load_params,
     load_stackup_params,
@@ -28,13 +29,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--params", type=Path, default=None, help="Optional connector params JSON.")
     parser.add_argument("--out-dir", type=Path, required=True)
     parser.add_argument("--name", default=None)
-    parser.add_argument("--fixture-type", choices=[FIXTURE_TYPE, BASELINE_FIXTURE_TYPE], default=FIXTURE_TYPE)
+    parser.add_argument("--fixture-type", choices=[FIXTURE_TYPE, SINGLE_CONNECTOR_FIXTURE_TYPE, BASELINE_FIXTURE_TYPE], default=FIXTURE_TYPE)
     parser.add_argument("--stackup-config", type=Path, default=Path("config/stackups/JLC04161H_7628_1P6MM.json"))
     parser.add_argument("--line-w-mm", type=float, default=None)
     parser.add_argument("--line-l-mm", type=float, default=None)
     parser.add_argument("--total-l-mm", type=float, default=None, help="Set exact P1-to-P2 fixture length; mutually exclusive with --line-l-mm.")
+    parser.add_argument("--cpw-ground-gap-mm", type=float, default=None)
+    parser.add_argument("--line-via-pitch-mm", type=float, default=None)
     parser.add_argument("--pin-pad-w-mm", type=float, default=None)
+    parser.add_argument("--pin-pad-l-mm", type=float, default=None)
     parser.add_argument("--taper-l-mm", type=float, default=None)
+    parser.add_argument("--taper-w-start-mm", type=float, default=None)
+    parser.add_argument("--taper-w-end-mm", type=float, default=None)
     parser.add_argument("--via-count", type=int, default=None)
     return parser.parse_args()
 
@@ -49,8 +55,13 @@ def main() -> None:
         for key, value in {
             "name": args.name,
             "line_w_mm": args.line_w_mm,
+            "cpw_ground_gap_mm": args.cpw_ground_gap_mm,
+            "line_via_pitch_mm": args.line_via_pitch_mm,
             "pin_pad_w_mm": args.pin_pad_w_mm,
+            "pin_pad_l_mm": args.pin_pad_l_mm,
             "taper_l_mm": args.taper_l_mm,
+            "taper_w_start_mm": args.taper_w_start_mm,
+            "taper_w_end_mm": args.taper_w_end_mm,
             "via_count": args.via_count,
         }.items()
         if value is not None

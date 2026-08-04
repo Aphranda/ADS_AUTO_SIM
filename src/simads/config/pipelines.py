@@ -10,6 +10,12 @@ from typing import Any
 from .hfss_profiles import HfssProfile, validate_hfss_profile
 from .profiles import AdsProfile, repo_root
 from .projects import ProjectConfig, SweepConfig, root_relative_path
+from simads.hfss_contracts import (
+    HFSS_PROJECT_ACTION_NEW,
+    HFSS_PROJECT_ACTIONS,
+    HFSS_PROJECT_MODEL_PER_DESIGN,
+    HFSS_PROJECT_MODELS,
+)
 from .stackups import load_stackup_config
 from simads.stackups.ads import ads_stackup_layer_map
 from simads.devices import get_device
@@ -75,6 +81,9 @@ class PipelineHfssConfig:
     workflow_script: Path | None = Path("tools/hfss/run_hfss3dlayout_filter_verdict.py")
     profile: str | None = None
     workspace_dir: Path | None = None
+    aedt_project: Path | None = None
+    project_model: str = HFSS_PROJECT_MODEL_PER_DESIGN
+    project_action: str = HFSS_PROJECT_ACTION_NEW
     route: str = "reliable"
     stackup_config: Path | None = None
     design: str = "I7_FR4_HFSS_VERDICT"
@@ -88,6 +97,9 @@ class PipelineHfssConfig:
             "workflow_script": str(self.workflow_script) if self.workflow_script is not None else None,
             "profile": self.profile,
             "workspace_dir": str(self.workspace_dir) if self.workspace_dir is not None else None,
+            "aedt_project": str(self.aedt_project) if self.aedt_project is not None else None,
+            "project_model": self.project_model,
+            "project_action": self.project_action,
             "route": self.route,
             "stackup_config": str(self.stackup_config) if self.stackup_config is not None else None,
             "design": self.design,
@@ -305,6 +317,9 @@ def pipeline_from_mapping(data: dict[str, Any], *, root: Path | None = None) -> 
             workflow_script=_optional_root_relative_path(base, hfss_data.get("workflow_script", "tools/hfss/run_hfss3dlayout_filter_verdict.py")),
             profile=_optional_str(hfss_data.get("profile")),
             workspace_dir=_optional_root_relative_path(base, hfss_data.get("workspace_dir")),
+            aedt_project=_optional_root_relative_path(base, hfss_data.get("aedt_project") or hfss_data.get("project")),
+            project_model=_optional_str(hfss_data.get("project_model")) or HFSS_PROJECT_MODEL_PER_DESIGN,
+            project_action=_optional_str(hfss_data.get("project_action")) or _optional_str(hfss_data.get("action")) or HFSS_PROJECT_ACTION_NEW,
             route=_optional_str(hfss_data.get("route")) or "reliable",
             stackup_config=_optional_root_relative_path(base, hfss_data.get("stackup_config")),
             design=_optional_str(hfss_data.get("design")) or "I7_FR4_HFSS_VERDICT",
@@ -511,6 +526,15 @@ def validate_pipeline(
 
     if "hfss3dlayout" in pipeline.simulation_backends:
         add("hfss.route", pipeline.hfss.route in {"custom", "reliable", "hfss3dlayout_aedt_edge_gap_gnd_port_edges"}, "HFSS route must be custom or reliable")
+        add("hfss.project_model", pipeline.hfss.project_model in HFSS_PROJECT_MODELS, "HFSS project model must be supported")
+        add("hfss.project_action", pipeline.hfss.project_action in HFSS_PROJECT_ACTIONS, "HFSS project action must be new or add")
+        if pipeline.hfss.project_action == "add":
+            add(
+                "hfss.aedt_project",
+                pipeline.hfss.aedt_project is not None,
+                "HFSS project_action=add requires hfss.aedt_project or hfss.project",
+                pipeline.hfss.aedt_project,
+            )
         add("hfss.port_type", pipeline.hfss.port_type in {"aedt-edge", "edge-gap", "pin-gap", "circuit", "wave"}, "HFSS port type must be supported")
         add("hfss.gnd_boundary_mode", pipeline.hfss.gnd_boundary_mode in {"em-boundary", "port-edges"}, "HFSS GND boundary mode must be supported")
         if pipeline.hfss.stackup_config is not None:

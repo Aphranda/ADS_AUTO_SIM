@@ -1,0 +1,115 @@
+{
+  "project": "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "DUAL_END_SMA_CPW_100MM",
+  "source_project": null,
+  "source_design": "SMA_KE_Unite_solder",
+  "operation": "move-existing",
+  "placement": "dual",
+  "anchor": "pad-center",
+  "layout": "projects\\hfss_sma_connector\\simulations\\dual_end_connector_50r\\layouts\\nominal\\dual_end_connector_cpw_100mm_jlc04161h_7628_1p6mm_layout.json",
+  "targets": [
+    {
+      "side": "P1",
+      "x_mm": 0.1499999999999999,
+      "y_mm": 2.755455298081545e-16,
+      "angle_deg": 180.0,
+      "component_name": "SMA_KE_Unite_solder1",
+      "component_id": null
+    },
+    {
+      "side": "P2",
+      "x_mm": 113.64999999999999,
+      "y_mm": 0.0,
+      "angle_deg": 0.0,
+      "component_name": "SMA_KE_Unite_solder2",
+      "component_id": null
+    }
+  ],
+  "execute": true,
+  "save": true,
+  "backups": [
+    "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_connector_place_20260804_005239.aedt",
+    "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_connector_place_20260804_005239.aedb",
+    "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_connector_place_20260804_005239.aedtresults"
+  ],
+  "before_components": {
+    "SMA_KE_Unite_solder1": [
+      "60"
+    ],
+    "SMA_KE_Unite_solder2": [
+      "61"
+    ]
+  },
+  "placed": [
+    {
+      "id": "60",
+      "side": "P1",
+      "requested_location_mm": [
+        0.1499999999999999,
+        2.755455298081545e-16,
+        0.0
+      ],
+      "requested_angle_deg": 180.0,
+      "component_name": "SMA_KE_Unite_solder1",
+      "after": {
+        "id": "60",
+        "Location": "0.15 ,2.75545529808154e-16",
+        "Angle": "180deg",
+        "3D Placement": "false",
+        "component_info": [
+          "ComponentName=SMA_KE_Unite_solder1",
+          "PlacementLayer=ETCH_TOP",
+          "LocationX=0.00015",
+          "LocationY=2.75545529808154e-19",
+          "BBoxLLx=-0.00493",
+          "BBoxLLy=-0.00508",
+          "BBoxURx=0.00319800000000203",
+          "BBoxURy=2.75545529808154e-19",
+          "Angle=180",
+          "Flip=false",
+          "Scale=1"
+        ]
+      }
+    },
+    {
+      "id": "61",
+      "side": "P2",
+      "requested_location_mm": [
+        113.64999999999999,
+        0.0,
+        0.0
+      ],
+      "requested_angle_deg": 0.0,
+      "component_name": "SMA_KE_Unite_solder2",
+      "after": {
+        "id": "61",
+        "Location": "113.65 ,0",
+        "Angle": "0deg",
+        "3D Placement": "false",
+        "component_info": [
+          "ComponentName=SMA_KE_Unite_solder2",
+          "PlacementLayer=ETCH_TOP",
+          "LocationX=0.11365",
+          "LocationY=0",
+          "BBoxLLx=0.110601999999998",
+          "BBoxLLy=0",
+          "BBoxURx=0.11873",
+          "BBoxURy=0.00508",
+          "Angle=0",
+          "Flip=false",
+          "Scale=1"
+        ]
+      }
+    }
+  ],
+  "after_components": {
+    "SMA_KE_Unite_solder1": [
+      "60"
+    ],
+    "SMA_KE_Unite_solder2": [
+      "61"
+    ]
+  },
+  "saved": true,
+  "status": "placed"
+}
