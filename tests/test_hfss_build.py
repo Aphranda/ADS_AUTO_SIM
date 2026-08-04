@@ -59,9 +59,14 @@ class FakeModeler:
 class FakeDesign:
     def __init__(self) -> None:
         self.extents = None
+        self.design_options = []
 
     def EditHfssExtents(self, payload):
         self.extents = payload
+
+    def DesignOptions(self, payload):
+        self.design_options.append(payload)
+        return None
 
 
 class FakeApp:
@@ -104,6 +109,7 @@ def test_build_hfss_layout_project_is_independent_from_workflow() -> None:
         skip_ports=True,
         setup="Setup_4to10G",
         mesh_size_factor=2.0,
+        enable_design_intersection_check=None,
         adaptive_frequency_ghz=7.0,
         start_ghz=4.0,
         stop_ghz=10.0,
@@ -125,5 +131,50 @@ def test_build_hfss_layout_project_is_independent_from_workflow() -> None:
     assert app.saved_project == ("case.aedt", True)
     assert result["geometry_count"] == 2
     assert result["ports"] == []
+    assert result["design_options"] is None
     assert result["setup"] == "Setup_4to10G"
     assert result["sweep"] == "Sweep_4to10G_40pt"
+
+
+def test_build_hfss_layout_project_can_disable_design_intersection_check() -> None:
+    layout = {
+        "metadata": {"er": 4.6, "dielectric_height_mm": 0.2104, "copper_thickness_mm": 0.035},
+        "ports": [],
+        "shapes": [
+            {"kind": "boundary", "layer": "EM_BOUNDARY", "name": "boundary", "x": -2.0, "y": -1.0, "w": 4.0, "h": 2.0},
+        ],
+    }
+    args = Namespace(
+        er=None,
+        loss_tangent=None,
+        substrate_height_mm=None,
+        copper_thickness_mm=None,
+        gnd_boundary_mode="em-boundary",
+        configure_extents=False,
+        skip_ports=True,
+        setup="Setup_4to10G",
+        mesh_size_factor=2.0,
+        enable_design_intersection_check=False,
+        adaptive_frequency_ghz=7.0,
+        start_ghz=4.0,
+        stop_ghz=10.0,
+        points=40,
+        sweep="Sweep_4to10G_40pt",
+        sweep_type="Interpolating",
+        interpolation_tol_percent=0.5,
+        interpolation_max_solutions=120,
+        build_only=True,
+    )
+    app = FakeApp()
+
+    result = build_hfss_layout_project(app, layout, args, project_path=Path("case.aedt")).to_dict()
+
+    assert app.odesign.design_options == [
+        [
+            "NAME:Options",
+            "EnableDesignIntersectionCheck:=",
+            False,
+        ]
+    ]
+    assert result["design_options"]["EnableDesignIntersectionCheck"] is False
+    assert result["design_options"]["applied"] is True

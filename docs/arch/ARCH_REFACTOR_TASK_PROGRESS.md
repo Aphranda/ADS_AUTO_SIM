@@ -53,6 +53,40 @@ Owner: ADS Automation
 当前重构已进入 P2 阶段：外部 ADS workspace 不移动，仓库内 ADS 项目资产以 `projects/<project_id>/` 为有效边界。P0/P1 的数据契约、manifest、score/summary 追溯、baseline freeze、workspace 写入安全 gate、run state machine、结果治理、制造鲁棒性和报告发布 gate 已落地；当前重点是将旧脚本内部逻辑逐步收敛到 `src/simads` 模块，并保证新增器件分支使用独立项目目录。
 
 ## 任务记录
+### ARCH-REFACTOR-TASK-20260804-018 - HFSS Connector Design Intersection Check Gate
+
+- 状态：完成
+- 日期：2026-08-04
+- 任务目标：
+  - 将 HFSS 连接器 fixture 的网格报错原因从 connector `Pin` 几何猜测中剥离出来，固化 Design Settings 中的网格选项。
+  - 在自动 workflow 中显式关闭 `Enable Design-level intersection checks`，避免 3D connector 与 PCB launch 接触处触发设计级交叉检查。
+  - 当前验证环境为家里电脑 HFSS profile `home`，连接器工程路径为 `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\hfss_sma_connector_cpw.aedt`。
+- 完成内容：
+  - `src/simads/hfss/build.py` 增加 `DesignOptions(["NAME:Options", "EnableDesignIntersectionCheck:=", false])` 调用能力。
+  - `tools/hfss/run_hfss3dlayout_filter_verdict.py` 通过 workflow 支持 `--enable-design-intersection-check` / `--no-enable-design-intersection-check`。
+  - `config/projects/hfss_sma_connector.json` 将连接器项目默认 HFSS profile 切到 `home`，并登记 `enable_design_intersection_check=false`。
+  - 连接器 README 的当前 home 30 mm rebuild 命令加入 `--no-enable-design-intersection-check`。
+  - `FLOW_HFSS_CONNECTOR_LAYOUT_OPTIMIZATION.md` 和 TODO 记录该网格 gate。
+- 验证结果：
+  - 单元测试覆盖默认不改 AEDT 选项、显式关闭时调用 `DesignOptions` 并写入 build result。
+  - 2026-08-04 已用 home host Python 非图形 AEDT 打开并保存 `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\hfss_sma_connector_cpw.aedt`，对 6 个连接器 fixture design 写入 `EnableDesignIntersectionCheck=false`。
+  - 写入报告：`projects/hfss_sma_connector/reports/home_set_design_intersection_check_false_20260804.json`，6 个 design 均为 `status=updated`、`applied=true`。
+  - 外部工程备份：`D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\hfss_sma_connector_cpw.before_design_options_20260804_225228.aedt/.aedb/.aedtresults`。
+- 还需完成：
+  - 在 AEDT 中重新对 `SINGLE_END_SMA_CPW_30MM` 执行 Validate，确认取消勾选后端口/网格报错消失。
+  - 若 30 mm single 通过，再按同口径验证 dual 和首轮 solve。
+- 关联文件：
+  - `src/simads/hfss/build.py`
+  - `src/simads/hfss/workflow.py`
+  - `tools/run_sim_filter_candidate.py`
+  - `config/projects/hfss_sma_connector.json`
+  - `projects/hfss_sma_connector/microstrip_connector/README.md`
+  - `projects/hfss_sma_connector/reports/home_set_design_intersection_check_false_20260804.json`
+  - `docs/flow/FLOW_HFSS_CONNECTOR_LAYOUT_OPTIMIZATION.md`
+  - `docs/arch/ARCH_REFACTOR_TODO.md`
+- 下一步：
+  - 在 `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\hfss_sma_connector_cpw.aedt` 中先 Validate `SINGLE_END_SMA_CPW_30MM`，确认取消 design-level intersection checks 后网格/端口报错消失，再进入 dual validate 和 single/dual solve。
+
 ### ARCH-REFACTOR-TASK-20260804-017 - HFSS Connector 30mm Fixture Designs
 
 - 状态：进行中
@@ -63,7 +97,7 @@ Owner: ADS Automation
   - 按“不改名”策略放置连接器 pin interface ports。
 - 完成内容：
   - 生成 30 mm layout/params/svg：ideal、single-end connector、dual-end connector 三套。
-  - 追加 `IDEAL_50R_CPW_30MM`、`SINGLE_END_SMA_CPW_30MM`、`DUAL_END_SMA_CPW_30MM` 到 `D:\Work\ADS\HFSS_VERDICT\hfss_sma_connector_cpw.aedt`。
+  - 追加 `IDEAL_50R_CPW_30MM`、`SINGLE_END_SMA_CPW_30MM`、`DUAL_END_SMA_CPW_30MM` 到家里连接器工程 `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\hfss_sma_connector_cpw.aedt`。
   - 三个 design 均设置 `Setup_0p5to10G` 和 `Sweep_0p5to10G_96pt`，当前执行到 build-only，未启动 solve。
   - single 放置 connector component ID `78`，位置 `0,0,2.0862`，旋转 `180deg`，生成 connector pin port `Pin_T1`。
   - dual 放置 connector component ID `79/80`，位置分别为 `0,0,2.0862` 和 `29.85,0,2.0862`，生成 connector pin ports `Pin_T1/Pin_T2`。

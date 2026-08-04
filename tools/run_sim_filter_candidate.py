@@ -101,6 +101,18 @@ def build_hfss_command(args: argparse.Namespace, pipeline) -> list[str]:
         command.extend(["--stackup-config", str(pipeline.hfss.stackup_config)])
     if pipeline.hfss.non_graphical:
         command.append("--non-graphical")
+    override_intersection_check = getattr(args, "hfss_enable_design_intersection_check", None)
+    enable_intersection_check = (
+        override_intersection_check
+        if override_intersection_check is not None
+        else pipeline.hfss.enable_design_intersection_check
+    )
+    if enable_intersection_check is not None:
+        command.append(
+            "--enable-design-intersection-check"
+            if enable_intersection_check
+            else "--no-enable-design-intersection-check"
+        )
     if args.build_only:
         command.append("--build-only")
     if args.hfss_dry_run:
@@ -159,6 +171,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--hfss-project", type=Path, default=None, help="HFSS AEDT project path override.")
     parser.add_argument("--hfss-project-model", choices=HFSS_PROJECT_MODELS, default=None, help="HFSS AEDT organization model override.")
     parser.add_argument("--hfss-project-action", choices=HFSS_PROJECT_ACTIONS, default=None, help="HFSS project action override: new or add.")
+    parser.add_argument(
+        "--hfss-enable-design-intersection-check",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Override HFSS Design Settings > Enable Design-level intersection checks.",
+    )
     parser.add_argument("--project-name", default=None, help="HFSS AEDT project name override.")
     parser.add_argument("--run-id", default=None)
     parser.add_argument("--run-dir", type=Path, default=None)

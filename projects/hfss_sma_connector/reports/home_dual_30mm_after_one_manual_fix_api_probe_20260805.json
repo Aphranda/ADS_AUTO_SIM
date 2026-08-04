@@ -1,0 +1,354 @@
+{
+  "project": "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "designs": [
+    {
+      "design": "DUAL_END_SMA_CPW_30MM",
+      "components": [
+        "CompInst@SMA_KE_Unite_Small_Solder8;79;6",
+        "CompInst@SMA_KE_Unite_Small_Solder9;80;8"
+      ],
+      "ports": {
+        "ok": true,
+        "value": [
+          "IPort@S2_1_Pin_T1;30",
+          "IPort@S1_1_Pin_T1;15"
+        ]
+      },
+      "nets": {
+        "ok": true,
+        "value": [
+          "Wire@S1_1_Pin_T1;25",
+          "Wire@S2_1_Pin_T1;35",
+          "Wire@S1_1_Pin_T1;17"
+        ]
+      },
+      "net_connections": {
+        "Wire@S1_1_Pin_T1;25": {
+          "ok": true,
+          "value": []
+        },
+        "Wire@S2_1_Pin_T1;35": {
+          "ok": true,
+          "value": []
+        },
+        "Wire@S1_1_Pin_T1;17": {
+          "ok": true,
+          "value": []
+        }
+      },
+      "port_details": [
+        {
+          "port": "S2_1_Pin_T1",
+          "port_info": {
+            "ok": true,
+            "value": []
+          },
+          "BaseElementTab_properties": {
+            "ok": true,
+            "value": [
+              "InterfacePort"
+            ]
+          },
+          "BaseElementTab_values": {
+            "InterfacePort": {
+              "ok": true,
+              "value": "S2_1_Pin_T1"
+            }
+          },
+          "SchematicElementTab_properties": {
+            "ok": false,
+            "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+            "call": "GetProperties(SchematicElementTab, S2_1_Pin_T1)"
+          },
+          "PassedParameterTab_properties": {
+            "ok": true,
+            "value": [
+              "InterfacePort"
+            ]
+          },
+          "PassedParameterTab_values": {
+            "InterfacePort": {
+              "ok": true,
+              "value": "S2_1_Pin_T1"
+            }
+          }
+        },
+        {
+          "port": "IPort@S2_1_Pin_T1;30",
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=S2_1_Pin_T1",
+              "X=-0.025400",
+              "Y=-0.063500",
+              "Angle=90.000000",
+              "Flip=false",
+              "WireId=Wire@S2_1_Pin_T1;35"
+            ]
+          },
+          "BaseElementTab_properties": {
+            "ok": true,
+            "value": [
+              "SchematicID",
+              "Levels",
+              "Component Location",
+              "Component Angle",
+              "Component Mirror",
+              "Use Symbol Color"
+            ]
+          },
+          "BaseElementTab_values": {
+            "SchematicID": {
+              "ok": true,
+              "value": "30"
+            },
+            "Levels": {
+              "ok": true,
+              "value": "0,1"
+            },
+            "Component Location": {
+              "ok": true,
+              "value": "-1000mil , -2500mil"
+            },
+            "Component Angle": {
+              "ok": true,
+              "value": "90deg"
+            },
+            "Component Mirror": {
+              "ok": true,
+              "value": "false"
+            },
+            "Use Symbol Color": {
+              "ok": true,
+              "value": "true"
+            }
+          },
+          "SchematicElementTab_properties": {
+            "ok": false,
+            "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+            "call": "GetProperties(SchematicElementTab, IPort@S2_1_Pin_T1;30)"
+          },
+          "PassedParameterTab_properties": {
+            "ok": true,
+            "value": [
+              "PinCount",
+              "PortName"
+            ]
+          },
+          "PassedParameterTab_values": {
+            "PinCount": {
+              "ok": true,
+              "value": "1"
+            },
+            "PortName": {
+              "ok": true,
+              "value": "S2_1_Pin_T1"
+            }
+          }
+        },
+        {
+          "port": "S1_1_Pin_T1",
+          "port_info": {
+            "ok": true,
+            "value": []
+          },
+          "BaseElementTab_properties": {
+            "ok": true,
+            "value": [
+              "InterfacePort"
+            ]
+          },
+          "BaseElementTab_values": {
+            "InterfacePort": {
+              "ok": true,
+              "value": "S1_1_Pin_T1"
+            }
+          },
+          "SchematicElementTab_properties": {
+            "ok": false,
+            "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+            "call": "GetProperties(SchematicElementTab, S1_1_Pin_T1)"
+          },
+          "PassedParameterTab_properties": {
+            "ok": true,
+            "value": [
+              "InterfacePort"
+            ]
+          },
+          "PassedParameterTab_values": {
+            "InterfacePort": {
+              "ok": true,
+              "value": "S1_1_Pin_T1"
+            }
+          }
+        },
+        {
+          "port": "IPort@S1_1_Pin_T1;15",
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=S1_1_Pin_T1",
+              "X=0.000000",
+              "Y=0.000000",
+              "Angle=0.000000",
+              "Flip=false",
+              "WireId=Wire@S1_1_Pin_T1;17"
+            ]
+          },
+          "BaseElementTab_properties": {
+            "ok": true,
+            "value": [
+              "SchematicID",
+              "Levels",
+              "Component Location",
+              "Component Angle",
+              "Component Mirror",
+              "Use Symbol Color"
+            ]
+          },
+          "BaseElementTab_values": {
+            "SchematicID": {
+              "ok": true,
+              "value": "15"
+            },
+            "Levels": {
+              "ok": true,
+              "value": "0,1"
+            },
+            "Component Location": {
+              "ok": true,
+              "value": "0mil , 0mil"
+            },
+            "Component Angle": {
+              "ok": true,
+              "value": "0deg"
+            },
+            "Component Mirror": {
+              "ok": true,
+              "value": "false"
+            },
+            "Use Symbol Color": {
+              "ok": true,
+              "value": "true"
+            }
+          },
+          "SchematicElementTab_properties": {
+            "ok": false,
+            "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+            "call": "GetProperties(SchematicElementTab, IPort@S1_1_Pin_T1;15)"
+          },
+          "PassedParameterTab_properties": {
+            "ok": true,
+            "value": [
+              "PinCount",
+              "PortName"
+            ]
+          },
+          "PassedParameterTab_values": {
+            "PinCount": {
+              "ok": true,
+              "value": "1"
+            },
+            "PortName": {
+              "ok": true,
+              "value": "S1_1_Pin_T1"
+            }
+          }
+        }
+      ],
+      "component_details": [
+        {
+          "raw": "CompInst@SMA_KE_Unite_Small_Solder8;79;6",
+          "component": "SMA_KE_Unite_Small_Solder8",
+          "id": "79",
+          "suffix": "6",
+          "selection_variants": {
+            "CompInst@SMA_KE_Unite_Small_Solder8;79;6": {
+              "pins": {
+                "ok": true,
+                "value": [
+                  "Pin_T1"
+                ]
+              },
+              "pin_details": {
+                "Pin_T1": {
+                  "info": {
+                    "ok": true,
+                    "value": [
+                      "X=-0.005080",
+                      "Y=-0.043180",
+                      "Angle=0.000000",
+                      "Flip=false",
+                      "WireId=Wire@S1_1_Pin_T1;25"
+                    ]
+                  },
+                  "location_true": {
+                    "ok": true,
+                    "value": -0.00508
+                  },
+                  "location_false": {
+                    "ok": true,
+                    "value": -0.04318
+                  }
+                }
+              }
+            },
+            "CompInst@SMA_KE_Unite_Small_Solder8;79;395": {
+              "pins": {
+                "ok": true,
+                "value": []
+              },
+              "pin_details": {}
+            }
+          }
+        },
+        {
+          "raw": "CompInst@SMA_KE_Unite_Small_Solder9;80;8",
+          "component": "SMA_KE_Unite_Small_Solder9",
+          "id": "80",
+          "suffix": "8",
+          "selection_variants": {
+            "CompInst@SMA_KE_Unite_Small_Solder9;80;8": {
+              "pins": {
+                "ok": true,
+                "value": [
+                  "Pin_T1"
+                ]
+              },
+              "pin_details": {
+                "Pin_T1": {
+                  "info": {
+                    "ok": true,
+                    "value": [
+                      "X=-0.005080",
+                      "Y=-0.063500",
+                      "Angle=0.000000",
+                      "Flip=false",
+                      "WireId=Wire@S2_1_Pin_T1;35"
+                    ]
+                  },
+                  "location_true": {
+                    "ok": true,
+                    "value": -0.00508
+                  },
+                  "location_false": {
+                    "ok": true,
+                    "value": -0.0635
+                  }
+                }
+              }
+            },
+            "CompInst@SMA_KE_Unite_Small_Solder9;80;395": {
+              "pins": {
+                "ok": true,
+                "value": []
+              },
+              "pin_details": {}
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "status": "probed"
+}

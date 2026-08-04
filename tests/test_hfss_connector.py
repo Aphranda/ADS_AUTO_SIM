@@ -107,6 +107,7 @@ def hfss_args(layout_path: Path, out_dir: Path, **overrides) -> Namespace:
         "port_horizontal_extent_factor": 5.0,
         "port_vertical_extent_factor": 3.0,
         "port_radial_extent_factor": 0.0,
+        "enable_design_intersection_check": None,
         "skip_ports": False,
         "reference_ground_ports": True,
         "p1_edge": None,

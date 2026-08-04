@@ -1,17 +1,17 @@
 # HFSS 微带线+连接器联合仿真优化方案
 
-Status: Draft
+Status: Active
 Domain: FLOW
 Canonical: `docs/flow/FLOW_HFSS_CONNECTOR_LAYOUT_OPTIMIZATION.md`
 Related: `docs/flow/FLOW_HFSS_PYAEDT_VERDICT.md`, `docs/flow/FLOW_STANDARD_PIPELINE_CONTRACT.md`, `docs/arch/ARCH_REFACTOR_TODO.md`, `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`
-Last updated: 2026-08-04
+Last updated: 2026-08-05
 Owner: ADS Automation
 
 本文档定义 HFSS 独立扩展项：用一段标准 50 ohm CPWG/GCPW 传输线和两端连接器组成联合仿真模型，通过 HFSS 自动化迭代连接器与传输线 launch 处的版图参数，使 CPWG-连接器过渡的 S 参数表现更优。该流程不引入滤波器、谐振器或其他功能结构，目的是降低系统复杂度，把优化对象集中在连接器焊盘、锥形过渡、地过孔、参考地和端口参考面。
 
-当前公司电脑落地方式：`D:\Work\ADS\HFSS_VERDICT\hfss_sma_connector_cpw.aedt` 是连接器仿真专用单一 AEDT 工程，工程内包含 `IDEAL_50R_CPW_100MM`、`SINGLE_END_SMA_CPW_100MM`、`DUAL_END_SMA_CPW_100MM` 三个 HFSS 3D Layout design。后续连接器优化项目应沿用“一个 AEDT project space，下方多个 design/simulation”的组织方式，而不是每个仿真单独新建 `.aedt`。
+当前落地方式是双环境同一工程组织：家里电脑使用 HFSS profile `home` 和 `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\hfss_sma_connector_cpw.aedt` 作为当前验证工程；公司电脑镜像使用 HFSS profile `company_connector` 和 `D:\Work\ADS\HFSS_VERDICT\hfss_sma_connector_cpw.aedt`。连接器优化项目沿用“一个 AEDT project space，下方多个 design/simulation”的组织方式，而不是每个仿真单独新建 `.aedt`。
 
-路径边界必须严格区分：`D:\Work\ADS\HFSS_VERDICT` 只用于微带线+连接器联合仿真，对应 HFSS profile `company_connector`；公司电脑滤波器/常规 HFSS backend 继续使用原有工程根 `D:\Work\ADS\SIMADS_STANDARD\HFSS`，不得把滤波器候选迁入连接器专用目录。历史 Home/round13 记录中出现的 `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT` 保留作结果追溯，不批量重写。
+路径边界必须严格区分：家里当前连接器工程只走 `home` profile 和 `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT`；公司连接器镜像只走 `company_connector` profile 和 `D:\Work\ADS\HFSS_VERDICT`；公司电脑滤波器/常规 HFSS backend 继续使用原有工程根 `D:\Work\ADS\SIMADS_STANDARD\HFSS`，不得把滤波器候选迁入连接器专用目录。
 
 HFSS project contract 已固化为两个维度：
 
@@ -126,6 +126,102 @@ HFSS project contract 已固化为两个维度：
 
 ## 5. 自动化流程
 
+### 5.1 SMA launch 补偿策略（2026-08-05）
+
+当前 30 mm 连接器夹具的首要失配风险来自 SMA 中心针焊盘偏大。该结构等效为 launch 处局部电容偏大、阻抗偏低，表现为 S11/S22 恶化，并通过反射间接拉低 S21。后续优化不得只追求插损，应先压低 launch 回波，再看相对无连接器 50R baseline 的 S21 delta。
+
+公开资料给出的处理方向一致：连接器中心针 landing pad 和 PCB 传输线交界处需要做阻抗补偿；常用手段包括缩小焊盘、加长/调窄 taper、调整共面地间隙、保证地回流 via 连续，以及在参考地层做局部 cut-out / anti-pad 来降低焊盘寄生电容。参考资料包括 Southwest Microwave end-launch connector test board 文章、MDPI Electronics 2024 SMA connector sub-10 GHz performance 对 reference plane cut-out 的测试，以及 reference-plane cut-out 方法论文。资料入口：
+
+- https://www.microwavejournal.com/articles/6009-50-ghz-end-launch-connector-test-boards
+- https://www.mdpi.com/2079-9292/13/14/2686
+- https://www.mdpi.com/1424-8220/22/3/964
+- https://doi.org/10.3390/electronics11131990
+
+本项目第一轮采用以下工程策略：
+
+- 优先缩小中心焊盘：`pin_pad_w_mm` 和 `pin_pad_l_mm` 是第一优先级变量；焊盘只保留制造和焊接可靠所需尺寸。
+- 优化 taper：增大 `taper_l_mm`，并允许 `taper_w_start_mm` 小于焊盘宽度，避免焊盘到 50R CPWG 主线突变。
+- L2 参考地局部挖空：先只对 `ETCH_INNER1` 在中心焊盘和 taper 起始区域下方做 cut-out，不先挖 `ETCH_INNER2/ETCH_BOTTOM`。cut-out 目标是降低焊盘到参考地的电容，而不是破坏 SMA 外壳和 via fence 的回流路径。
+- cut-out 必须参数化：记录 `l2_cutout_enabled`、`l2_cutout_shape`、`l2_cutout_w_mm`、`l2_cutout_l_mm`、`l2_cutout_offset_x_mm`、`l2_cutout_taper_l_mm`、`l2_cutout_corner_r_mm` 和 `l2_cutout_keep_gnd_via_clearance_mm`。若当前 layout schema 暂不能表达内层挖空，先在候选计划中登记这些字段，并在 generator/HFSS build 中补齐实现。
+- 不使用普通 lumped 补偿器件：10 GHz 上普通贴片电容/电感的封装寄生、自谐振、焊盘寄生和装配误差会主导结果；本项目补偿只使用可制造的分布式微带/CPW 几何，包括线宽、长度、taper、参考地 cut-out、短高阻抗段和受控 stub。
+- 串联电感性补偿：若 S11/TDR 显示焊盘处为低阻抗凹陷，可尝试在焊盘与 50R 主线之间加入短高阻抗段或更窄 taper tip，等效增加分布式串联电感来补偿焊盘 shunt capacitance。该方法优先于随意增加开路 stub。
+- 短截线补偿仅作为二轮窄带候选：开路或短路 stub 是谐振/频率选择结构，可能改善某一中心频段，但容易在 0.5-10 GHz 宽带内引入新尖峰。只有当 baseline/single 结果显示 6-8 GHz 有稳定单一失配中心时，才加入 `stub_type=open|short`、`stub_l_mm`、`stub_w_mm`、`stub_offset_x_mm` 的窄带 DOE。
+- Smith 圆图调谐：每次仿真必须保留复数 S 参数，并用 `z=(1+Gamma)/(1-Gamma)` 转为 50 ohm 归一化输入阻抗。若目标频段内 `r<1` 且 `x<0`，优先减小焊盘电容或加入短高阻抗串联段；若 `r<1` 且 `x>0`，优先减小串联电感或增加局部电容；若轨迹绕圈或跨越实轴，说明结构已进入谐振补偿，优先回退到更宽带的 pad/taper/cut-out 方案。
+- 保持回流连续：连接器地脚、顶层共面地和 via fence 不得被 cut-out 切断；via 与中心焊盘距离作为独立变量扫参。
+- 第二层以下挖空作为第二轮变量：只有当 L2 cut-out 仍无法改善 S11，或 TDR/场分布显示 launch 仍明显电容性时，才增加 `l3_cutout_enabled` 或更深层 cut-out。
+
+首轮真实 HFSS solve 控制在 6-8 个候选；计划表允许登记带 gate 的备用候选，只有前序 Smith/score 条件满足时才进入求解队列：
+
+| 候选组 | 变化 | 目的 |
+|---|---|---|
+| baseline | 当前 30 mm single/ideal | 建立无连接器和当前连接器 delta。 |
+| small_pad | 减小 `pin_pad_w_mm/pin_pad_l_mm` | 降低焊盘电容。 |
+| long_taper | 增大 `taper_l_mm`，调小 `taper_w_start_mm` | 平滑阻抗过渡。 |
+| l2_cutout_s/m | 在 `ETCH_INNER1` 小/中等面积挖空 | 验证参考地 cut-out 是否改善 S11。 |
+| pad_taper_cutout | 小焊盘 + 长 taper + L2 cut-out | 测试组合补偿。 |
+| high_z_series | 焊盘后短高阻抗段 / 更窄 taper tip | 用串联电感补偿焊盘电容。 |
+| via_relief | 调整 via fence 到中心焊盘距离 | 避免回流过近导致额外电容，同时保持地连续。 |
+
+L2 cut-out 形状选择：
+
+| 形状 | 参数 | 适用场景 | 风险 |
+|---|---|---|---|
+| `rect` | `w/l/offset_x` | 首轮基准，最容易实现和解释。 | 直角处可能引入局部场集中，尺寸过大时回流路径变差。 |
+| `rounded_rect` | `w/l/corner_r/offset_x` | 比矩形更平滑，适合最终候选复核。 | generator/HFSS build 需要支持圆角或多段近似。 |
+| `tapered` | `w_start/w_end/l/taper_l/offset_x` | cut-out 随焊盘到窄线过渡逐渐收敛，更像宽带补偿。 | 参数多，容易和金属 taper 强耦合，首轮只做 1 个样本。 |
+| `dogbone` | `pad_w/pad_l/neck_w/neck_l` | 只释放焊盘正下方和 taper 起点，保留两侧回流。 | 形状复杂，需确认 via fence clearance。 |
+| `slot` | `slot_w/slot_l/offset_x` | 只沿中心线挖窄槽，微调电容。 | 补偿力度有限，可能不足以修正大焊盘。 |
+
+首轮实现优先级：`rect` 小/中尺寸 + `tapered` 一个随形样本。`rounded_rect/dogbone/slot` 先进入计划，不作为第一批真实 HFSS 候选，除非矩形 cut-out 显示明确改善但出现局部尖峰。
+
+### 5.2 定稿前独立检索与评审（2026-08-05）
+
+连接器 launch 优化方案必须至少经过三组独立资料检索和评审后才能定稿。三组证据不能来自同一篇文章的重复解读，且每组评审都要落回本项目可执行变量。
+
+**评审 A：edge-launch SMA/GCPW 实测和厂商测试板**
+
+- 资料入口：Southwest Microwave 50 GHz end-launch connector test board 文章，MDPI Electronics 2024 sub-10 GHz SMA connector performance 论文。
+- 结论：SMA 过渡处的中心 pad、taper、地回流 via 和参考面几何共同决定 S11。连接器本体不是唯一变量；PCB launch 的阻抗补偿必须作为独立优化对象。
+- 对本项目的约束：当前 `pin_pad_w_mm=1.2`、`pin_pad_l_mm=4.8`、`taper_l_mm=1.6` 导致宽线段过长，首轮必须把“有效宽焊盘长度”作为主变量压缩，而不是只改 via 或端口。
+
+**评审 B：参考平面 cut-out / anti-pad**
+
+- 资料入口：reference plane cut-out 方法论文、MDPI SMA sub-10 GHz connector 论文。
+- 结论：大焊盘下方的参考地会形成显著 shunt capacitance；L2 cut-out 可以降低该电容并把 Smith 轨迹从低阻抗电容区拉回。但 cut-out 过大时会破坏回流路径，转成过度电感或产生局部谐振。
+- 对本项目的约束：第一轮只挖 `ETCH_INNER1`，只覆盖中心焊盘和 taper 起点，不切断顶层共面地、连接器地脚和 via fence。矩形小/中尺寸优先；`tapered` 只做一个样本；更复杂形状放二轮。
+
+**评审 C：分布式补偿、短高阻抗段和 stub 风险**
+
+- 资料入口：微带不连续补偿、Smith 圆图匹配和 connector launch 调谐资料。
+- 结论：10 GHz 内普通 lumped 电容/电感不适合作为首选补偿。焊盘电容过大时，短高阻抗传输线段可以提供分布式串联电感，通常比开路/短路 stub 更宽带。stub 本质更接近窄带谐振补偿，可能改善 6-8 GHz 某一点，但也可能在 0.5-10 GHz 引入尖峰。
+- 对本项目的约束：首轮允许 `series_hi_z_*`，禁止默认启用 stub。只有复数 S2P 显示 6-8 GHz 存在稳定单峰失配，且 4-10 GHz 没有宽带低阻抗趋势时，二轮才加入 stub。
+
+基于三组评审，当前定稿前 gate 为：
+
+- 必须先完成 `IDEAL_50R_CPW_30MM` 和 `SINGLE_END_SMA_CPW_30MM` 复数 S2P 对比。
+- 必须计算 6-8 GHz 与 4-10 GHz 的 `z=(1+Gamma)/(1-Gamma)` 归一化阻抗范围。
+- 若 `r<1, x<0` 占主导，第一动作是减小 pad 电容：缩小/缩短 pad，或增加 L2 cut-out；第二动作才是短高阻抗段。
+- 若 `r>1, x>0` 占主导，说明 cut-out 或高阻抗段过强，应回退 cut-out 或缩短/加宽高阻抗段。
+- 若轨迹绕圈、尖峰或 6-8 GHz 外出现新回波峰，当前候选不得定稿，即使 7 GHz 单点 S11 改善。
+
+### 5.3 首轮参数范围冻结
+
+首轮 DOE 的参数范围按“宽带根因修正”冻结，不做全因子暴力扫描：
+
+| 参数 | 当前值 | 首轮范围 | 定稿约束 |
+|---|---:|---:|---|
+| `pin_pad_w_mm` | `1.2` | `0.90-1.20` | 真实制造候选不得小于连接器中心针/焊接可靠下限；若 source connector `Pin` bbox 仍未修复，低于 `0.95` 的样本只作为电趋势样本。 |
+| `pin_pad_l_mm` | `4.8` | `2.0-4.8` | 优先缩短宽焊盘有效长度；机械接触必需区域不能删除。 |
+| `taper_l_mm` | `1.6` | `2.4-4.0` | 小焊盘样本必须配长 taper，避免 1.2 mm 直接跳到 0.3175 mm。 |
+| `taper_w_start_mm` | `1.2` | `0.85-1.10` | 允许 taper 起点小于焊盘宽度，用短 neck 降低电容突变。 |
+| `gnd_clearance_mm` | `0.30` | `0.30-0.45` | 只小范围释放顶层共面地，不能切断连接器地回流。 |
+| `fence_offset_mm` | `0.55` | `0.55-0.95` | 当前 via 距中心焊盘较近，扫远一点判断是否减小额外电容；不能超过导致回流绕行的距离。 |
+| `l2_cutout_w_mm` | `off` | `1.4/1.8/2.2` | 只对 `ETCH_INNER1`；cut-out 边缘需避开 via pad 和 GND net。 |
+| `l2_cutout_l_mm` | `off` | `3.0/4.2/5.4` | 覆盖 pad 和 taper 起点；不延伸到整段 50R 主线。 |
+| `series_hi_z_w_mm` | `off` | `0.18-0.24` | 必须大于板厂最小线宽，长度短于 1 mm，避免成为明显谐振结构。 |
+| `series_hi_z_l_mm` | `off` | `0.4-1.0` | 只在 Smith 显示电容性低阻抗时启用。 |
+| `stub_*` | `off` | 二轮待定 | 首轮禁用；只在窄带单峰失配时引入。 |
+
 ```text
 stackup + 50R microstrip template
   -> connector launch 参数表
@@ -165,6 +261,8 @@ run manifest 必须明确 `fixture_type=microstrip_connector_50r`、`stackup_con
 - `delta_worst_return_6_8_db`：相对 50R baseline 的回波劣化。
 - `s11_s22_balance_db`：左右端口对称性。
 - `passband_phase_slope` 或 group delay：后续需要相位一致性时再加入。
+- `smith_zin_r_6_8_min/max`、`smith_zin_x_6_8_min/max`：由复数 S11/S22 计算的 50 ohm 归一化阻抗范围。
+- `smith_tuning_hint`：基于 `r/x` 和轨迹形态给出的下一轮补偿方向，例如 `reduce_pad_capacitance`、`add_series_inductance`、`reduce_series_inductance`、`avoid_narrowband_stub`。
 
 优化目标优先级：
 
@@ -173,6 +271,16 @@ run manifest 必须明确 `fixture_type=microstrip_connector_50r`、`stackup_con
 3. 减小 P1/P2 不对称，避免一端 launch 优、一端 launch 差。
 4. 0.5-10 GHz 内避免出现明显局部谐振或高频回波尖峰。
 5. 满足连接器 footprint、板边距离、地过孔和板厂制造约束。
+
+Smith-guided 下一轮决策：
+
+| Smith / 阻抗现象 | 物理判断 | 优先动作 |
+|---|---|---|
+| `r<1, x<0` | 焊盘/参考地电容偏大，局部阻抗偏低 | 缩小 pad、增大 L2 cut-out、加短高阻抗串联段。 |
+| `r<1, x>0` | 串联电感偏大但电阻仍偏低 | 缩短/加宽高阻抗段，减小过长 taper 或过远回流路径。 |
+| `r>1, x>0` | 过度电感性或 cut-out 过大 | 减小 cut-out，增加局部电容或缩短 series 段。 |
+| `r>1, x<0` | 过度电容补偿但电阻偏高 | 调整 taper 起点、局部加宽，检查 via/地回流不连续。 |
+| 轨迹绕圈/尖峰 | 窄带谐振或 stub 过强 | 回退 stub，优先使用宽带 pad/taper/cut-out。 |
 
 ## 7. 数据契约补充
 
@@ -253,10 +361,15 @@ artifact_manifest
 - [ ] 用只读检查脚本记录 `SINGLE_END_SMA_CPW_100MM` 和 `DUAL_END_SMA_CPW_100MM` 的实际 generated port name，并验证每个逻辑端口均能映射到有效 excitation。
 - [x] 2026-08-04 已在现有工程追加 30 mm 快速仿真 design：`IDEAL_50R_CPW_30MM`、`SINGLE_END_SMA_CPW_30MM`、`DUAL_END_SMA_CPW_30MM`；频段为 `0.5-10 GHz`，setup/sweep 为 `Setup_0p5to10G` / `Sweep_0p5to10G_96pt`，当前仅 build-only，未启动求解。
 - [x] 30 mm design 已放置连接器和端口：single 使用 component ID `78`，connector port 为 `Pin_T1`；dual 使用 component ID `79/80`，connector ports 为 `Pin_T1/Pin_T2`；端口不改名，后续通过 logical port mapping 使用。
+- [x] 2026-08-04 网格报错口径更新：connector fixture design 必须取消勾选 Design Settings > HFSS Meshing Method > `Enable Design-level intersection checks`。自动 workflow 使用 `--no-enable-design-intersection-check` 写入 `EnableDesignIntersectionCheck=false`，避免 3D connector 与 PCB launch 接触处触发设计级交叉检查导致端口/网格报错。
+- [x] 当前家里环境连接器工程：HFSS profile `home`，workspace `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT`，project `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\hfss_sma_connector_cpw.aedt`；公司镜像仍使用 `company_connector` 和 `D:\Work\ADS\HFSS_VERDICT`。
+- [x] 2026-08-04 已对家里当前工程执行 DesignOptions 写入并保存：`IDEAL_50R_CPW_100MM`、`SINGLE_END_SMA_CPW_100MM`、`DUAL_END_SMA_CPW_100MM`、`IDEAL_50R_CPW_30MM`、`SINGLE_END_SMA_CPW_30MM`、`DUAL_END_SMA_CPW_30MM` 均设置 `EnableDesignIntersectionCheck=false`；报告为 `projects/hfss_sma_connector/reports/home_set_design_intersection_check_false_20260804.json`。
 
 2026-08-04 暂停状态：
 
 - 端口命名原则：生成是什么样，就是什么样；自动流程不得把 pin interface port 重命名为人为统一名称。
+- 网格设置原则：连接器夹具默认关闭 design-level intersection checks；后续 validate/solve 前需用只读检查或保存后的 AEDT 字段确认该选项已关闭。
+- 当前环境原则：家里电脑使用 `home` profile 和 `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT`；不要把公司 `company_connector` 路径当作当前验证路径。
 
 - 已停止继续写 AEDT 工程，等待明天继续验证。
 - DUAL 端口被用户删除后，`add_connector_pin_iports.py --project-config config\projects\hfss_sma_connector.json --placement dual` 可以正确从 profile 选中 ID `68/69`，但一次性多选执行未生成端口。
@@ -274,7 +387,11 @@ artifact_manifest
 
 ### Phase 3: 连接处参数优化
 
-- [ ] 建立首批 DoE 参数表。
+- [ ] 建立首批 DoE 参数表：先覆盖 small pad、long taper、L2 cut-out、via relief，不超过 8 个候选。
+- [ ] 在 layout schema/generator 中增加 L2 reference-plane cut-out 字段和几何输出；实现前先在 plan 中登记参数，避免手工修改 AEDT。
+- [ ] 在 layout schema/generator 中增加高阻抗串联补偿段字段：`series_hi_z_enabled`、`series_hi_z_l_mm`、`series_hi_z_w_mm`、`series_hi_z_offset_x_mm`。
+- [ ] 仅当 6-8 GHz 呈现窄带单峰失配时，再增加 stub 补偿字段：`stub_type`、`stub_l_mm`、`stub_w_mm`、`stub_offset_x_mm`；宽带首轮不默认启用 stub。
+- [ ] 先跑 `IDEAL_50R_CPW_30MM` 无连接器 baseline，再跑 `SINGLE_END_SMA_CPW_30MM` 当前连接器对比，生成 delta 指标。
 - [ ] 用 HFSS 批量运行微带线+连接器联合仿真候选。
 - [ ] 基于 score 和 delta 指标生成下一批局部候选。
 - [ ] 判断对称设计和非对称补偿哪一种更优。

@@ -64,6 +64,7 @@ class ProjectHfssConfig:
     route: str | None = None
     port_type: str | None = None
     gnd_boundary_mode: str | None = None
+    enable_design_intersection_check: bool | None = None
     setup: str | None = None
     sweep: str | None = None
     simulations: dict[str, object] = field(default_factory=dict)
@@ -79,6 +80,7 @@ class ProjectHfssConfig:
             "route": self.route,
             "port_type": self.port_type,
             "gnd_boundary_mode": self.gnd_boundary_mode,
+            "enable_design_intersection_check": self.enable_design_intersection_check,
             "setup": self.setup,
             "sweep": self.sweep,
             "simulations": self.simulations,
@@ -309,6 +311,11 @@ def project_from_mapping(data: dict[str, Any], *, root: Path | None = None) -> P
             route=str(hfss_data["route"]) if hfss_data.get("route") else None,
             port_type=str(hfss_data["port_type"]) if hfss_data.get("port_type") else None,
             gnd_boundary_mode=str(hfss_data["gnd_boundary_mode"]) if hfss_data.get("gnd_boundary_mode") else None,
+            enable_design_intersection_check=(
+                bool(hfss_data["enable_design_intersection_check"])
+                if "enable_design_intersection_check" in hfss_data
+                else None
+            ),
             setup=str(hfss_data["setup"]) if hfss_data.get("setup") else None,
             sweep=str(hfss_data["sweep"]) if hfss_data.get("sweep") else None,
             simulations=hfss_data.get("simulations") if isinstance(hfss_data.get("simulations"), dict) else {},

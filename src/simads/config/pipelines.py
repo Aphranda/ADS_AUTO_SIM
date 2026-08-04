@@ -90,6 +90,7 @@ class PipelineHfssConfig:
     version: str = "2026.1"
     port_type: str = "aedt-edge"
     gnd_boundary_mode: str = "port-edges"
+    enable_design_intersection_check: bool | None = None
     non_graphical: bool = True
 
     def to_dict(self) -> dict[str, object]:
@@ -106,6 +107,7 @@ class PipelineHfssConfig:
             "version": self.version,
             "port_type": self.port_type,
             "gnd_boundary_mode": self.gnd_boundary_mode,
+            "enable_design_intersection_check": self.enable_design_intersection_check,
             "non_graphical": self.non_graphical,
         }
 
@@ -326,6 +328,11 @@ def pipeline_from_mapping(data: dict[str, Any], *, root: Path | None = None) -> 
             version=_optional_str(hfss_data.get("version")) or "2026.1",
             port_type=_optional_str(hfss_data.get("port_type")) or "aedt-edge",
             gnd_boundary_mode=_optional_str(hfss_data.get("gnd_boundary_mode")) or "port-edges",
+            enable_design_intersection_check=(
+                bool(hfss_data["enable_design_intersection_check"])
+                if "enable_design_intersection_check" in hfss_data
+                else None
+            ),
             non_graphical=bool(hfss_data.get("non_graphical", True)),
         ),
         layer_map=PipelineLayerConfig(

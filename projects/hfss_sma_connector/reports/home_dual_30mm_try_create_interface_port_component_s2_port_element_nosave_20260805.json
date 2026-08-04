@@ -1,0 +1,282 @@
+{
+  "project": "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "DUAL_END_SMA_CPW_30MM",
+  "execute": true,
+  "save": false,
+  "before_port_list": [
+    "S1_1_Pin_T1",
+    "S2_1_Pin_T1"
+  ],
+  "before_schematic_ports": [
+    "IPort@S2_1_Pin_T1;30",
+    "IPort@S1_1_Pin_T1;15"
+  ],
+  "before_boundary_props": {
+    "S1_1_Pin_T1": {
+      "properties": [
+        "Port",
+        "Boundary Type",
+        "Override Impedance",
+        "Impedance",
+        "Magnitude",
+        "Phase",
+        "Renormalize",
+        "Renormalize Impedance",
+        "DeembedParasiticPortInductance"
+      ],
+      "values": {
+        "Port": {
+          "ok": true,
+          "value": "S1_1_Pin_T1"
+        },
+        "Boundary Type": {
+          "ok": true,
+          "value": "Port"
+        },
+        "Override Impedance": {
+          "ok": true,
+          "value": "false"
+        },
+        "Impedance": {
+          "ok": true,
+          "value": "50ohm"
+        },
+        "Magnitude": {
+          "ok": true,
+          "value": "1V"
+        },
+        "Phase": {
+          "ok": true,
+          "value": "0deg"
+        },
+        "Renormalize": {
+          "ok": true,
+          "value": "true"
+        },
+        "Renormalize Impedance": {
+          "ok": true,
+          "value": "50ohm + 0i ohm"
+        },
+        "DeembedParasiticPortInductance": {
+          "ok": true,
+          "value": "false"
+        }
+      }
+    },
+    "S2_1_Pin_T1": {
+      "properties": [
+        "Port",
+        "Boundary Type",
+        "Reference",
+        "Impedance",
+        "Magnitude",
+        "Phase",
+        "Renormalize",
+        "Renormalize Impedance",
+        "DeembedParasiticPortInductance",
+        "HFSS Type",
+        "Orientation"
+      ],
+      "values": {
+        "Port": {
+          "ok": true,
+          "value": "S2_1_Pin_T1"
+        },
+        "Boundary Type": {
+          "ok": true,
+          "value": "Port"
+        },
+        "Reference": {
+          "ok": true,
+          "value": ""
+        },
+        "Impedance": {
+          "ok": true,
+          "value": "50ohm"
+        },
+        "Magnitude": {
+          "ok": true,
+          "value": "1V"
+        },
+        "Phase": {
+          "ok": true,
+          "value": "0deg"
+        },
+        "Renormalize": {
+          "ok": true,
+          "value": "true"
+        },
+        "Renormalize Impedance": {
+          "ok": true,
+          "value": "50ohm + 0i ohm"
+        },
+        "DeembedParasiticPortInductance": {
+          "ok": true,
+          "value": "false"
+        },
+        "HFSS Type": {
+          "ok": true,
+          "value": "Gap"
+        },
+        "Orientation": {
+          "ok": true,
+          "value": "Vertical"
+        }
+      }
+    }
+  },
+  "delete": [],
+  "after_delete_port_list": [
+    "S1_1_Pin_T1",
+    "S2_1_Pin_T1"
+  ],
+  "after_delete_schematic_ports": [
+    "IPort@S2_1_Pin_T1;30",
+    "IPort@S1_1_Pin_T1;15"
+  ],
+  "attempts": [
+    {
+      "method": "layout_create_interface_port_component",
+      "component": "S2_1_Pin_T1",
+      "net": "Pin_T1",
+      "before_port_list": [
+        "S1_1_Pin_T1",
+        "S2_1_Pin_T1"
+      ],
+      "before_schematic_ports": [
+        "IPort@S2_1_Pin_T1;30",
+        "IPort@S1_1_Pin_T1;15"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreateInterfacePortComponent",
+        "call": "CreateInterfacePortComponent(S2_1_Pin_T1)"
+      },
+      "after_port_list": [
+        "S1_1_Pin_T1",
+        "S2_1_Pin_T1"
+      ],
+      "after_schematic_ports": [
+        "IPort@S2_1_Pin_T1;30",
+        "IPort@S1_1_Pin_T1;15"
+      ],
+      "new_port_list": [],
+      "new_schematic_ports": []
+    }
+  ],
+  "after_boundary_props": {
+    "S1_1_Pin_T1": {
+      "properties": [
+        "Port",
+        "Boundary Type",
+        "Override Impedance",
+        "Impedance",
+        "Magnitude",
+        "Phase",
+        "Renormalize",
+        "Renormalize Impedance",
+        "DeembedParasiticPortInductance"
+      ],
+      "values": {
+        "Port": {
+          "ok": true,
+          "value": "S1_1_Pin_T1"
+        },
+        "Boundary Type": {
+          "ok": true,
+          "value": "Port"
+        },
+        "Override Impedance": {
+          "ok": true,
+          "value": "false"
+        },
+        "Impedance": {
+          "ok": true,
+          "value": "50ohm"
+        },
+        "Magnitude": {
+          "ok": true,
+          "value": "1V"
+        },
+        "Phase": {
+          "ok": true,
+          "value": "0deg"
+        },
+        "Renormalize": {
+          "ok": true,
+          "value": "true"
+        },
+        "Renormalize Impedance": {
+          "ok": true,
+          "value": "50ohm + 0i ohm"
+        },
+        "DeembedParasiticPortInductance": {
+          "ok": true,
+          "value": "false"
+        }
+      }
+    },
+    "S2_1_Pin_T1": {
+      "properties": [
+        "Port",
+        "Boundary Type",
+        "Reference",
+        "Impedance",
+        "Magnitude",
+        "Phase",
+        "Renormalize",
+        "Renormalize Impedance",
+        "DeembedParasiticPortInductance",
+        "HFSS Type",
+        "Orientation"
+      ],
+      "values": {
+        "Port": {
+          "ok": true,
+          "value": "S2_1_Pin_T1"
+        },
+        "Boundary Type": {
+          "ok": true,
+          "value": "Port"
+        },
+        "Reference": {
+          "ok": true,
+          "value": ""
+        },
+        "Impedance": {
+          "ok": true,
+          "value": "50ohm"
+        },
+        "Magnitude": {
+          "ok": true,
+          "value": "1V"
+        },
+        "Phase": {
+          "ok": true,
+          "value": "0deg"
+        },
+        "Renormalize": {
+          "ok": true,
+          "value": "true"
+        },
+        "Renormalize Impedance": {
+          "ok": true,
+          "value": "50ohm + 0i ohm"
+        },
+        "DeembedParasiticPortInductance": {
+          "ok": true,
+          "value": "false"
+        },
+        "HFSS Type": {
+          "ok": true,
+          "value": "Gap"
+        },
+        "Orientation": {
+          "ok": true,
+          "value": "Vertical"
+        }
+      }
+    }
+  },
+  "status": "no_candidate_created"
+}

@@ -262,6 +262,9 @@ def hfss_dry_run_payload(
             "open_region_frequency_ghz": args.open_region_frequency_ghz,
             "radiation_factor": args.radiation_factor,
         },
+        "design_options": {
+            "enable_design_intersection_check": args.enable_design_intersection_check,
+        },
         "manifest": {
             "write_manifest": args.write_manifest,
             "run_id": run_id,
@@ -368,6 +371,7 @@ def build_hfss_manifest_payload(
             "port_type": args.port_type,
             "reference_ground_ports": args.reference_ground_ports,
             "stackup_config": str(getattr(args, "stackup_config", "")) if getattr(args, "stackup_config", None) is not None else None,
+            "enable_design_intersection_check": args.enable_design_intersection_check,
             "fixture_type": connector.get("fixture_type") if connector else metadata.get("fixture_type"),
         },
         result=result_spec,
@@ -575,6 +579,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--interpolation-tol-percent", type=float, default=0.5)
     parser.add_argument("--interpolation-max-solutions", type=int, default=120)
     parser.add_argument("--mesh-size-factor", type=float, default=2.0)
+    parser.add_argument(
+        "--enable-design-intersection-check",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help=(
+            "Set HFSS Design Settings > HFSS Meshing Method > Enable Design-level intersection checks. "
+            "Use --no-enable-design-intersection-check for connector fixtures with intentional 3D component contact."
+        ),
+    )
     parser.add_argument("--port-type", choices=["aedt-edge", "edge-gap", "pin-gap", "circuit", "wave"], default="aedt-edge")
     parser.add_argument("--port-reference-name", default=None)
     parser.add_argument("--port-pec-launch-width", default="0.04mm")

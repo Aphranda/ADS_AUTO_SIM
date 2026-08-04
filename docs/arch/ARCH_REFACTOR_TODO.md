@@ -4,7 +4,7 @@ Status: Active
 Domain: ARCH
 Canonical: `docs/arch/ARCH_REFACTOR_TODO.md`
 Related: `docs/arch/ADS版图自动仿真项目框架设计.md`, `docs/arch/ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md`, `docs/arch/ARCH_REFACTOR_TASK_PROGRESS.md`, `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`
-Last updated: 2026-08-04
+Last updated: 2026-08-05
 Owner: ADS Automation
 
 本文档跟踪 ADS 版图自动仿真项目从现有 `tools/*.py` 脚本集合向框架化平台演进的重构待办。TODO 文档只记录验收标准、推荐执行顺序、P0/P1/P2 待办和当前风险；每次实际任务闭环记录写入 `ARCH_REFACTOR_TASK_PROGRESS.md`。当前已开始首批 `tools/ads/` 和 `tools/layout/` 物理分拆，旧路径保留兼容 wrapper。
@@ -305,6 +305,7 @@ Owner: ADS Automation
 - [ ] 登记用户提供的连接器 HFSS 模型路径、版本、hash、端口定义、坐标基准和参考面。
 - [ ] 固定层叠、50R 线宽、联合仿真模型长度、板边位置、端口参考面和求解频段。
 - [x] 将公司电脑连接器 HFSS profile 独立为 `company_connector`，固定 `D:\Work\ADS\HFSS_VERDICT` 为连接器专用工作区；公司滤波器/常规 HFSS backend 保持原工作区 `D:\Work\ADS\SIMADS_STANDARD\HFSS`。
+- [x] 家里电脑也有连接器项目，当前验证使用 HFSS profile `home`，workspace `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT`，AEDT project `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\hfss_sma_connector_cpw.aedt`。
 - [x] 建立 connector launch 参数 schema，覆盖 signal pad、taper、ground clearance、via fence、reference plane、deembed 和 P1/P2 symmetry。
 - [x] 新增 microstrip+connector generator：输入 stackup/50R template 和 connector 参数，输出微带线+连接器 layout JSON。
 - [x] 增加连接器区域 DRC gate：pad、clearance、via、edge setback、mechanical envelope、左右对称和板厂工艺限制。
@@ -316,7 +317,18 @@ Owner: ADS Automation
 - [ ] 后续探索安全改名路径：仅允许使用 AEDT/PyAEDT 官方 API，需证明改名后 Validate 和 solve 均不报错，并记录 excitation/report/dataset 引用是否同步更新；当前主流程先按不改名执行。
 - [ ] 将端口处理从 `Port1/Port2` 字面命名改为 logical port mapping：manifest/score/report 记录 `logical_port=P1/P2` 与 AEDT generated port name 的对应关系。
 - [ ] 用只读检查脚本记录 design/port/net 状态，确认实际 generated port name、component ID、pin name 和 reference conductor 均有效，作为继续求解前 gate。
+- [x] 2026-08-05 已修复家里 `DUAL_END_SMA_CPW_30MM` 的 S2 connector pin port：通过 AEDT Layout API 删除错误 `IPort@S2_1_Pin_T1;30`，再调用 `CreatePortsOnComponents(["NAME:elements", "80"])`，生成正确 `S2_1_Pin_T1` EdgePort；保存前已备份工程，报告为 `projects/hfss_sma_connector/reports/home_dual_30mm_recreate_s2_component_pin_edge_port_save_20260805.json`。
+- [x] 2026-08-05 DUAL 端口保存后只读审计通过：`S1_1_Pin_T1` 为 `Type=EdgePort` 且连接 `ComponentPin 79 Pin_T1`；`S2_1_Pin_T1` 为 `Type=EdgePort` 且连接 `ComponentPin 80 Pin_T1`；两者均不再混入 `InterfacePort`。
+- [ ] 将发现的 component-pin port 创建路径收敛为正式脚本：输入 component id / generated port name / pin name，执行备份、删除错误 IPort、`CreatePortsOnComponents(["NAME:elements", id])`、只读审计和保存；探索脚本 `try_official_port_create_elements.py` 保留为诊断依据。
+- [x] 连接器 fixture 关闭 design-level intersection checks：Design Settings > HFSS Meshing Method > `Enable Design-level intersection checks` 必须取消勾选，CLI 使用 `--profile home --no-enable-design-intersection-check` 更新家里连接器工程。
 - [ ] 对 3-5 个 smoke 候选先做 layout gate，再选择 1 个候选执行 HFSS solve，输出 S2P/trace/score/compare/manifest。
+- [ ] 2026-08-05 首轮优化按 Smith 圆图调谐口径推进：先跑 `IDEAL_50R_CPW_30MM` 无连接器 baseline，再跑 `SINGLE_END_SMA_CPW_30MM` 当前连接器，对比复数 S11/S22 并计算归一化阻抗 `z=(1+Gamma)/(1-Gamma)`。
+- [x] 2026-08-05 首轮优化方案完成三组独立检索与评审：edge-launch SMA/GCPW 实测、reference-plane cut-out、分布式补偿/stub 风险；结论已写入 `FLOW_HFSS_CONNECTOR_LAYOUT_OPTIMIZATION.md`。
+- [x] 2026-08-05 已建立首轮 DOE 计划表 `projects/hfss_sma_connector/plans/connector_launch_doe_20260805.csv`，覆盖 baseline/current、small pad、long taper、L2 rect/tapered cut-out、high-Z series 和 via relief。
+- [ ] 首轮 DOE 增加 L2 reference-plane cut-out 变量：`l2_cutout_enabled`、`l2_cutout_shape`、`l2_cutout_w_mm`、`l2_cutout_l_mm`、`l2_cutout_offset_x_mm`、`l2_cutout_taper_l_mm`、`l2_cutout_corner_r_mm`、`l2_cutout_keep_gnd_via_clearance_mm`。
+- [ ] L2 cut-out 首轮只实现/验证 `rect` 小中尺寸和一个 `tapered` 随形样本；`rounded_rect/dogbone/slot` 先作为二轮候选，避免参数爆炸。
+- [ ] 首轮 DOE 增加串联高阻抗补偿变量：`series_hi_z_enabled`、`series_hi_z_l_mm`、`series_hi_z_w_mm`、`series_hi_z_offset_x_mm`，用于把大焊盘导致的电容性 Smith 轨迹拉回 50 ohm。
+- [ ] 短截线/stub 补偿只作为二轮窄带候选：只有当 6-8 GHz 呈现稳定单峰失配时，才扫 `stub_type`、`stub_l_mm`、`stub_w_mm`、`stub_offset_x_mm`。
 - [ ] 将评分扩展为 50R baseline delta 口径，重点比较通带 S21 劣化、S11/S22、端口对称性和 4-10 GHz 宽频回波尖峰。
 - [ ] Route C 使用用户提供的连接器 HFSS 模型复核前 2-3 个 launch 候选。
 - [ ] 最终合并验证作为最后事项：连接器 launch 冻结并完成微带线+连接器联合仿真/Route C 复核后，再移植到滤波器 PCB 做少量整板验证。

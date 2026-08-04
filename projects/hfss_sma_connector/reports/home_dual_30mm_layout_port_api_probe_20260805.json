@@ -1,0 +1,471 @@
+{
+  "project": "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "DUAL_END_SMA_CPW_30MM",
+  "app_port_list": {
+    "ok": true,
+    "value": [
+      "S1_1_Pin_T1",
+      "S2_1_Pin_T1"
+    ]
+  },
+  "app_excitations": {
+    "ok": true,
+    "value": []
+  },
+  "layout_methods": [
+    "AddCircuitRefPort",
+    "AddObject",
+    "AddPinGroupRefPort",
+    "AddPortsToAllNets",
+    "AddPortsToNet",
+    "AddRefPort",
+    "AlignObjects",
+    "AlignPorts",
+    "AssignCircuitRefPort",
+    "AssignRefPort",
+    "ClearRefPort",
+    "ConnectPortInstancesToPins",
+    "ConvertPlanetoTrace",
+    "CreateCircuitPort",
+    "CreateCircuitPortsOnComponents",
+    "CreateComponent",
+    "CreateCurrentSourcePort",
+    "CreateDCTerminalComponent",
+    "CreateEdgePort",
+    "CreateExtendedNet",
+    "CreateGroundPortComponent",
+    "CreateInterfacePort",
+    "CreateInterfacePortComponent",
+    "CreateNPort",
+    "CreateNetClass",
+    "CreateObjectFromPolygon",
+    "CreatePinGroupPort",
+    "CreatePinGroupPortsOnComponents",
+    "CreatePinGroupsAndPorts",
+    "CreatePortInstancePorts",
+    "CreatePortsOnComponents",
+    "CreatePortsOnComponentsByNet",
+    "CreateVoltageProbePort",
+    "CreateVoltageSourcePort",
+    "DefeatureObjects",
+    "DelExtendedNet",
+    "DelNetClass",
+    "DeleteNets",
+    "DissolveComponents",
+    "Edit3DComponentDefinitions",
+    "EditComponent",
+    "EnableComponents",
+    "ExpandWithPorts",
+    "ExportAcis",
+    "ExportCAD",
+    "ExportDXF",
+    "ExportELC",
+    "ExportGDSII",
+    "ExportGerber",
+    "ExportImage",
+    "ExportMaterialToHFSSUDP",
+    "ExportNCDrill",
+    "ExportStackupXML",
+    "ExportStride",
+    "ExportToHFSSUDP",
+    "FilterObjectList",
+    "FindObjects",
+    "FindObjectsByPoint",
+    "FindObjectsByPolygon",
+    "GetCSObjects",
+    "GetChildObject",
+    "GetComponentInfo",
+    "GetComponentPinInfo",
+    "GetComponentPins",
+    "GetNetClassNets",
+    "GetNetClasses",
+    "GetNetConnections",
+    "GetNets",
+    "GetPortInfo",
+    "GetPortInstances",
+    "HighlightNet",
+    "ImportDXF",
+    "ImportGDSII",
+    "ImportStackupXML",
+    "ModifyExtendedNet",
+    "ModifyNetClass",
+    "PushExcitations",
+    "RemovePort",
+    "RemovePortsFromAllNets",
+    "RemovePortsFromNet",
+    "RemovePortsOnComponents",
+    "RenameNet",
+    "SelectAllNetViolations",
+    "SelectNetConnected",
+    "SetHfssPortsVisible",
+    "SetNetColor",
+    "SetNetVisible",
+    "ToggleNetHighlight",
+    "Update3DComponentDefinitions",
+    "UpdateExtendedNets"
+  ],
+  "schematic_ports": {
+    "ok": true,
+    "value": [
+      "IPort@S2_1_Pin_T1;30",
+      "IPort@S1_1_Pin_T1;15"
+    ]
+  },
+  "schematic_components": {
+    "ok": true,
+    "value": [
+      "CompInst@SMA_KE_Unite_Small_Solder8;79;6",
+      "CompInst@SMA_KE_Unite_Small_Solder9;80;8"
+    ]
+  },
+  "layout_calls": {
+    "GetAllPorts": {
+      "ok": false,
+      "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetAllPorts",
+      "call": "GetAllPorts"
+    },
+    "GetAllNets": {
+      "ok": false,
+      "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetAllNets",
+      "call": "GetAllNets"
+    },
+    "GetAllObjects": {
+      "ok": false,
+      "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetAllObjects",
+      "call": "GetAllObjects"
+    },
+    "GetAllElements": {
+      "ok": false,
+      "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetAllElements",
+      "call": "GetAllElements"
+    },
+    "GetComponents": {
+      "ok": false,
+      "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetComponents",
+      "call": "GetComponents"
+    },
+    "GetComponentNames": {
+      "ok": false,
+      "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetComponentNames",
+      "call": "GetComponentNames"
+    },
+    "GetComponentPins": {
+      "ok": false,
+      "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetComponentPins",
+      "call": "GetComponentPins"
+    },
+    "GetExcitations": {
+      "ok": false,
+      "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetExcitations",
+      "call": "GetExcitations"
+    },
+    "GetNetNames": {
+      "ok": false,
+      "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetNetNames",
+      "call": "GetNetNames"
+    }
+  },
+  "layout_properties": {
+    "S1": {
+      "BaseElementTab": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(BaseElementTab, S1)"
+        }
+      },
+      "EM Design": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(EM Design, S1)"
+        }
+      },
+      "Geometry3DAttributeTab": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(Geometry3DAttributeTab, S1)"
+        }
+      },
+      "PassedParameterTab": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(PassedParameterTab, S1)"
+        }
+      }
+    },
+    "S2": {
+      "BaseElementTab": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(BaseElementTab, S2)"
+        }
+      },
+      "EM Design": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(EM Design, S2)"
+        }
+      },
+      "Geometry3DAttributeTab": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(Geometry3DAttributeTab, S2)"
+        }
+      },
+      "PassedParameterTab": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(PassedParameterTab, S2)"
+        }
+      }
+    },
+    "S79": {
+      "BaseElementTab": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(BaseElementTab, S79)"
+        }
+      },
+      "EM Design": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(EM Design, S79)"
+        }
+      },
+      "Geometry3DAttributeTab": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(Geometry3DAttributeTab, S79)"
+        }
+      },
+      "PassedParameterTab": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(PassedParameterTab, S79)"
+        }
+      }
+    },
+    "S80": {
+      "BaseElementTab": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(BaseElementTab, S80)"
+        }
+      },
+      "EM Design": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(EM Design, S80)"
+        }
+      },
+      "Geometry3DAttributeTab": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(Geometry3DAttributeTab, S80)"
+        }
+      },
+      "PassedParameterTab": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(PassedParameterTab, S80)"
+        }
+      }
+    },
+    "SMA_KE_Unite_Small_Solder8": {
+      "BaseElementTab": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(BaseElementTab, SMA_KE_Unite_Small_Solder8)"
+        }
+      },
+      "EM Design": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(EM Design, SMA_KE_Unite_Small_Solder8)"
+        }
+      },
+      "Geometry3DAttributeTab": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(Geometry3DAttributeTab, SMA_KE_Unite_Small_Solder8)"
+        }
+      },
+      "PassedParameterTab": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(PassedParameterTab, SMA_KE_Unite_Small_Solder8)"
+        }
+      }
+    },
+    "SMA_KE_Unite_Small_Solder9": {
+      "BaseElementTab": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(BaseElementTab, SMA_KE_Unite_Small_Solder9)"
+        }
+      },
+      "EM Design": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(EM Design, SMA_KE_Unite_Small_Solder9)"
+        }
+      },
+      "Geometry3DAttributeTab": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(Geometry3DAttributeTab, SMA_KE_Unite_Small_Solder9)"
+        }
+      },
+      "PassedParameterTab": {
+        "properties": {
+          "ok": false,
+          "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetProperties",
+          "call": "GetProperties(PassedParameterTab, SMA_KE_Unite_Small_Solder9)"
+        }
+      }
+    }
+  },
+  "boundary_props": {
+    "S1_1_Pin_T1": {
+      "properties": {
+        "ok": true,
+        "value": [
+          "Port",
+          "Boundary Type",
+          "Override Impedance",
+          "Impedance",
+          "Magnitude",
+          "Phase",
+          "Renormalize",
+          "Renormalize Impedance",
+          "DeembedParasiticPortInductance"
+        ]
+      },
+      "values": {
+        "Port": {
+          "ok": true,
+          "value": "S1_1_Pin_T1"
+        },
+        "Boundary Type": {
+          "ok": true,
+          "value": "Port"
+        },
+        "Override Impedance": {
+          "ok": true,
+          "value": "false"
+        },
+        "Impedance": {
+          "ok": true,
+          "value": "50ohm"
+        },
+        "Magnitude": {
+          "ok": true,
+          "value": "1V"
+        },
+        "Phase": {
+          "ok": true,
+          "value": "0deg"
+        },
+        "Renormalize": {
+          "ok": true,
+          "value": "true"
+        },
+        "Renormalize Impedance": {
+          "ok": true,
+          "value": "50ohm + 0i ohm"
+        },
+        "DeembedParasiticPortInductance": {
+          "ok": true,
+          "value": "false"
+        }
+      }
+    },
+    "S2_1_Pin_T1": {
+      "properties": {
+        "ok": true,
+        "value": [
+          "Port",
+          "Boundary Type",
+          "Reference",
+          "Impedance",
+          "Magnitude",
+          "Phase",
+          "Renormalize",
+          "Renormalize Impedance",
+          "DeembedParasiticPortInductance",
+          "HFSS Type",
+          "Orientation"
+        ]
+      },
+      "values": {
+        "Port": {
+          "ok": true,
+          "value": "S2_1_Pin_T1"
+        },
+        "Boundary Type": {
+          "ok": true,
+          "value": "Port"
+        },
+        "Reference": {
+          "ok": true,
+          "value": ""
+        },
+        "Impedance": {
+          "ok": true,
+          "value": "50ohm"
+        },
+        "Magnitude": {
+          "ok": true,
+          "value": "1V"
+        },
+        "Phase": {
+          "ok": true,
+          "value": "0deg"
+        },
+        "Renormalize": {
+          "ok": true,
+          "value": "true"
+        },
+        "Renormalize Impedance": {
+          "ok": true,
+          "value": "50ohm + 0i ohm"
+        },
+        "DeembedParasiticPortInductance": {
+          "ok": true,
+          "value": "false"
+        },
+        "HFSS Type": {
+          "ok": true,
+          "value": "Gap"
+        },
+        "Orientation": {
+          "ok": true,
+          "value": "Vertical"
+        }
+      }
+    }
+  },
+  "status": "probed"
+}

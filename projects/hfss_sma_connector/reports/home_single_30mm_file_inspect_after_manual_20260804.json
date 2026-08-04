@@ -1,0 +1,533 @@
+{
+  "backend": "file",
+  "project": "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "exists": true,
+  "size_bytes": 1188316,
+  "top_level_designs": [
+    {
+      "name": "IDEAL_50R_CPW_100MM",
+      "kind_code": 16,
+      "active_flag": 2,
+      "connector_like": false
+    },
+    {
+      "name": "SMA_KE_Unite_solder1",
+      "kind_code": 8,
+      "active_flag": 1,
+      "connector_like": true
+    },
+    {
+      "name": "SMA_KE_Unite_Small_Solder1",
+      "kind_code": 8,
+      "active_flag": 1,
+      "connector_like": true
+    },
+    {
+      "name": "SINGLE_END_SMA_CPW_100MM",
+      "kind_code": 16,
+      "active_flag": 2,
+      "connector_like": true
+    },
+    {
+      "name": "DUAL_END_SMA_CPW_100MM",
+      "kind_code": 16,
+      "active_flag": 0,
+      "connector_like": true
+    },
+    {
+      "name": "SMA_KE_Unite",
+      "kind_code": 0,
+      "active_flag": 0,
+      "connector_like": true
+    },
+    {
+      "name": "SMA_KE_Unite_Small_Solder2",
+      "kind_code": 8,
+      "active_flag": 1,
+      "connector_like": true
+    },
+    {
+      "name": "SMA_KE_Unite_solder",
+      "kind_code": 0,
+      "active_flag": 0,
+      "connector_like": true
+    },
+    {
+      "name": "SMA_KE_Unite_solder2",
+      "kind_code": 8,
+      "active_flag": 1,
+      "connector_like": true
+    },
+    {
+      "name": "SMA_KE_Unite_solder3",
+      "kind_code": 8,
+      "active_flag": 1,
+      "connector_like": true
+    },
+    {
+      "name": "SMA_KE_Unite_Small_Solder",
+      "kind_code": 0,
+      "active_flag": 0,
+      "connector_like": true
+    },
+    {
+      "name": "SMA_KE_Unite_Small_Solder3",
+      "kind_code": 8,
+      "active_flag": 1,
+      "connector_like": true
+    },
+    {
+      "name": "SMA_KE_Unite_Small_Solder4",
+      "kind_code": 8,
+      "active_flag": 1,
+      "connector_like": true
+    },
+    {
+      "name": "SMA_KE_Unite_Small_Solder5",
+      "kind_code": 8,
+      "active_flag": 1,
+      "connector_like": true
+    },
+    {
+      "name": "SMA_KE_Unite_Small_Solder6",
+      "kind_code": 8,
+      "active_flag": 1,
+      "connector_like": true
+    },
+    {
+      "name": "IDEAL_50R_CPW_30MM",
+      "kind_code": 16,
+      "active_flag": 2,
+      "connector_like": false
+    },
+    {
+      "name": "SINGLE_END_SMA_CPW_30MM",
+      "kind_code": 16,
+      "active_flag": 2,
+      "connector_like": true
+    },
+    {
+      "name": "DUAL_END_SMA_CPW_30MM",
+      "kind_code": 16,
+      "active_flag": 2,
+      "connector_like": true
+    },
+    {
+      "name": "SMA_KE_Unite_Small_Solder7",
+      "kind_code": 8,
+      "active_flag": 1,
+      "connector_like": true
+    },
+    {
+      "name": "SMA_KE_Unite_Small_Solder8",
+      "kind_code": 8,
+      "active_flag": 1,
+      "connector_like": true
+    },
+    {
+      "name": "SMA_KE_Unite_Small_Solder9",
+      "kind_code": 8,
+      "active_flag": 1,
+      "connector_like": true
+    }
+  ],
+  "selected_designs": [
+    "SINGLE_END_SMA_CPW_30MM"
+  ],
+  "designs": [
+    {
+      "design": "SINGLE_END_SMA_CPW_30MM",
+      "occurrences": 14,
+      "connector_like": true,
+      "top_level_entry": {
+        "name": "SINGLE_END_SMA_CPW_30MM",
+        "kind_code": 16,
+        "active_flag": 2,
+        "connector_like": true
+      },
+      "planar_circuit": true,
+      "component_instances": [
+        {
+          "id": "78",
+          "component": "SMA_KE_Unite_Small_Solder7",
+          "instance_name": "S78",
+          "schematic": {
+            "component": "SMA_KE_Unite_Small_Solder7",
+            "page": "A",
+            "symbol_id": "72",
+            "orientation_code": 6,
+            "mode": "normal",
+            "x_m": -0.00762,
+            "y_m": -0.04572,
+            "angle_deg": 0.0
+          }
+        }
+      ],
+      "ports": [
+        {
+          "name": "Port2",
+          "domain": "0, -1, 2, ''"
+        },
+        {
+          "name": "S1_1_Pin_T1",
+          "domain": "0, -1, 2, ''"
+        }
+      ],
+      "nets": [
+        "GND",
+        "IN",
+        "OUT",
+        "Port2",
+        "S1_1_Pin_T1",
+        "SIG"
+      ]
+    }
+  ],
+  "connector_like_names": [
+    "SMA_KE_Unite_solder1",
+    "SMA_KE_Unite_Small_Solder1",
+    "SINGLE_END_SMA_CPW_100MM",
+    "DUAL_END_SMA_CPW_100MM",
+    "SMA_KE_Unite",
+    "SMA_KE_Unite_Small_Solder2",
+    "SMA_KE_Unite_solder",
+    "SMA_KE_Unite_solder2",
+    "SMA_KE_Unite_solder3",
+    "SMA_KE_Unite_Small_Solder",
+    "SMA_KE_Unite_Small_Solder3",
+    "SMA_KE_Unite_Small_Solder4",
+    "SMA_KE_Unite_Small_Solder5",
+    "SMA_KE_Unite_Small_Solder6",
+    "SINGLE_END_SMA_CPW_30MM",
+    "DUAL_END_SMA_CPW_30MM",
+    "SMA_KE_Unite_Small_Solder7",
+    "SMA_KE_Unite_Small_Solder8",
+    "SMA_KE_Unite_Small_Solder9"
+  ],
+  "token_lines": [
+    {
+      "line": 86,
+      "text": "VariableProp('$sma_Base_L', 'UD', '', '8mm', oa(i=false, int=false, Min='4mm', Max='12mm', MinStep='0.08mm', MaxStep='0.8mm', MinFocus='4mm', MaxFocus='12mm', UseManufacturableValues='false', Level='[4: 12] mm'), sa(i=false, int=false, Min="
+    },
+    {
+      "line": 87,
+      "text": "VariableProp('$sma_Front_L', 'UD', '', '1.5mm', oa(i=false, int=false, Min='0.75mm', Max='2.25mm', MinStep='0.015mm', MaxStep='0.15mm', MinFocus='0.75mm', MaxFocus='2.25mm', UseManufacturableValues='false', Level='[0.75: 2.25] mm'), sa(i=fa"
+    },
+    {
+      "line": 88,
+      "text": "VariableProp('$sma_Feet_L', 'UD', '', '4mm', oa(i=false, int=false, Min='2mm', Max='6mm', MinStep='0.04mm', MaxStep='0.4mm', MinFocus='2mm', MaxFocus='6mm', UseManufacturableValues='false', Level='[2: 6] mm'), sa(i=false, int=false, Min='2m"
+    },
+    {
+      "line": 89,
+      "text": "VariableProp('$sma_Base_D', 'UD', '', '6.25mm', oa(i=false, int=false, Min='3.125mm', Max='9.375mm', MinStep='0.0625mm', MaxStep='0.625mm', MinFocus='3.125mm', MaxFocus='9.375mm', UseManufacturableValues='false', Level='[3.125: 9.375] mm'),"
+    },
+    {
+      "line": 90,
+      "text": "VariableProp('$sma_Front_W', 'UD', '', '6.5mm', oa(i=false, int=false, Min='3.25mm', Max='9.75mm', MinStep='0.065mm', MaxStep='0.65mm', MinFocus='3.25mm', MaxFocus='9.75mm', UseManufacturableValues='false', Level='[3.25: 9.75] mm'), sa(i=fa"
+    },
+    {
+      "line": 91,
+      "text": "VariableProp('$sma_Feet_W', 'UD', '', '1mm', oa(i=false, int=false, Min='0.5mm', Max='1.5mm', MinStep='0.01mm', MaxStep='0.1mm', MinFocus='0.5mm', MaxFocus='1.5mm', UseManufacturableValues='false', Level='[0.5: 1.5] mm'), sa(i=false, int=fa"
+    },
+    {
+      "line": 92,
+      "text": "VariableProp('$sma_PTFE_D', 'UD', '', '4.2mm', oa(i=false, int=false, Min='2.1mm', Max='6.3mm', MinStep='0.042mm', MaxStep='0.42mm', MinFocus='2.1mm', MaxFocus='6.3mm', UseManufacturableValues='false', Level='[2.1: 6.3] mm'), sa(i=false, in"
+    },
+    {
+      "line": 93,
+      "text": "VariableProp('$sma_Pin_D', 'UD', '', '0.95mm', oa(i=false, int=false, Min='0.475mm', Max='1.425mm', MinStep='0.0095mm', MaxStep='0.095mm', MinFocus='0.475mm', MaxFocus='1.425mm', UseManufacturableValues='false', Level='[0.475: 1.425] mm'), "
+    },
+    {
+      "line": 94,
+      "text": "VariableProp('$sma_Pin_P', 'UD', '', '1.7mm', oa(i=false, int=false, Min='0.85mm', Max='2.55mm', MinStep='0.017mm', MaxStep='0.17mm', MinFocus='0.85mm', MaxFocus='2.55mm', UseManufacturableValues='false', Level='[0.85: 2.55] mm'), sa(i=fals"
+    },
+    {
+      "line": 95,
+      "text": "VariableProp('$sma_Hole_D', 'UD', '', '1.25mm', oa(i=false, int=false, Min='0.625mm', Max='1.875mm', MinStep='0.0125mm', MaxStep='0.125mm', MinFocus='0.625mm', MaxFocus='1.875mm', UseManufacturableValues='false', Level='[0.625: 1.875] mm'),"
+    },
+    {
+      "line": 97,
+      "text": "VariableOrders[10: '$sma_Base_L', '$sma_Front_L', '$sma_Feet_L', '$sma_Base_D', '$sma_Front_W', '$sma_Feet_W', '$sma_PTFE_D', '$sma_Pin_D', '$sma_Pin_P', '$sma_Hole_D']"
+    },
+    {
+      "line": 465,
+      "text": "$begin 'SMA_KE_Unite_solder1'"
+    },
+    {
+      "line": 481,
+      "text": "Image(Rect(0, 0, 0, 0, 0.00254, 0.00254, 0.00508, 0.00508, 0, 0, 8192), ImageData('D:/Work/ADS/SIMADS_EM_PAR/HFSS_VERDICT/hfss_sma_connector_cpw.aedtresults/70861520178577382154.gif', 1, 'hI2g1--E++U+6+30t-3oUX0Y+ZGQ++CNl0k+8++++R4pkOKpb9a7"
+    },
+    {
+      "line": 497,
+      "text": "$end 'SMA_KE_Unite_solder1'"
+    },
+    {
+      "line": 498,
+      "text": "$begin 'SMA_KE_Unite_Small_Solder1'"
+    },
+    {
+      "line": 514,
+      "text": "Image(Rect(0, 0, 0, 0, 0.00254, 0.00254, 0.00508, 0.00508, 0, 0, 8192), ImageData('F:/1.Hardware/HFSS/HFSS_SMA_Connector/UWB_COUPLER_SMA.aedtresults/354434540177832368028.gif', 1, 'hI2g1--E++U+6+30t-3oXLScfAWA++CNl0k+8++++R4pkOKpb9a7hQCrRjt"
+    },
+    {
+      "line": 518,
+      "text": "Oxad28t0PgCgbA2zNMFH6umE06h4gXcHB9n-1svmTE9SuWwrLc-0-P6u0GH7amjVPq7g5GG+F1JhwyjCIzHzqG7hz5PmXhEeucpIukLkvHeH9CvPRN9Vqs23TPjC77xwStUCYAqCJ7pY+AkLRdpYhtdbq6HRGRN7FqEtY3wXAnqxLDGCpbPRDbt3OyzNOqDhxizI020GEoIYaRhWihYknT1eHrvHeHz8LhOLOYKWw+6LqvnW"
+    },
+    {
+      "line": 529,
+      "text": "$end 'SMA_KE_Unite_Small_Solder1'"
+    },
+    {
+      "line": 530,
+      "text": "$begin 'SINGLE_END_SMA_CPW_100MM'"
+    },
+    {
+      "line": 555,
+      "text": "$end 'SINGLE_END_SMA_CPW_100MM'"
+    },
+    {
+      "line": 556,
+      "text": "$begin 'DUAL_END_SMA_CPW_100MM'"
+    },
+    {
+      "line": 569,
+      "text": "$end 'DUAL_END_SMA_CPW_100MM'"
+    },
+    {
+      "line": 570,
+      "text": "$begin 'SMA_KE_Unite'"
+    },
+    {
+      "line": 582,
+      "text": "$end 'SMA_KE_Unite'"
+    },
+    {
+      "line": 583,
+      "text": "$begin 'SMA_KE_Unite_Small_Solder2'"
+    },
+    {
+      "line": 599,
+      "text": "Image(Rect(0, 0, 0, 0, 0.00254, 0.00254, 0.00508, 0.00508, 0, 0, 8192), ImageData('F:/1.Hardware/HFSS/HFSS_SMA_Connector/UWB_COUPLER_SMA.aedtresults/356534540177832369031.gif', 1, 'hI2g1--E++U+6+30t-3oXLScfAWA++CNl0k+8++++R4pkOKpb9a7hQCrRjt"
+    },
+    {
+      "line": 603,
+      "text": "Oxad28t0PgCgbA2zNMFH6umE06h4gXcHB9n-1svmTE9SuWwrLc-0-P6u0GH7amjVPq7g5GG+F1JhwyjCIzHzqG7hz5PmXhEeucpIukLkvHeH9CvPRN9Vqs23TPjC77xwStUCYAqCJ7pY+AkLRdpYhtdbq6HRGRN7FqEtY3wXAnqxLDGCpbPRDbt3OyzNOqDhxizI020GEoIYaRhWihYknT1eHrvHeHz8LhOLOYKWw+6LqvnW"
+    },
+    {
+      "line": 614,
+      "text": "$end 'SMA_KE_Unite_Small_Solder2'"
+    },
+    {
+      "line": 615,
+      "text": "$begin 'SMA_KE_Unite_solder'"
+    },
+    {
+      "line": 627,
+      "text": "$end 'SMA_KE_Unite_solder'"
+    },
+    {
+      "line": 628,
+      "text": "$begin 'SMA_KE_Unite_solder2'"
+    },
+    {
+      "line": 644,
+      "text": "Image(Rect(0, 0, 0, 0, 0.00254, 0.00254, 0.00508, 0.00508, 0, 0, 8192), ImageData('D:/Work/ADS/SIMADS_EM_PAR/HFSS_VERDICT/hfss_sma_connector_cpw.aedtresults/70A01520178577382957.gif', 1, 'hI2g1--E++U+6+30t-3oUX0Y+ZGQ++CNl0k+8++++R4pkOKpb9a7"
+    },
+    {
+      "line": 660,
+      "text": "$end 'SMA_KE_Unite_solder2'"
+    },
+    {
+      "line": 661,
+      "text": "$begin 'SMA_KE_Unite_solder3'"
+    },
+    {
+      "line": 677,
+      "text": "Image(Rect(0, 0, 0, 0, 0.00254, 0.00254, 0.00508, 0.00508, 0, 0, 8192), ImageData('D:/Work/ADS/SIMADS_EM_PAR/HFSS_VERDICT/hfss_sma_connector_cpw.aedtresults/70BA1520178577383761.gif', 1, 'hI2g1--E++U+6+30t-3oUX0Y+ZGQ++CNl0k+8++++R4pkOKpb9a7"
+    },
+    {
+      "line": 693,
+      "text": "$end 'SMA_KE_Unite_solder3'"
+    },
+    {
+      "line": 694,
+      "text": "$begin 'SMA_KE_Unite_Small_Solder'"
+    },
+    {
+      "line": 706,
+      "text": "$end 'SMA_KE_Unite_Small_Solder'"
+    },
+    {
+      "line": 707,
+      "text": "$begin 'SMA_KE_Unite_Small_Solder3'"
+    },
+    {
+      "line": 726,
+      "text": "$end 'SMA_KE_Unite_Small_Solder3'"
+    },
+    {
+      "line": 727,
+      "text": "$begin 'SMA_KE_Unite_Small_Solder4'"
+    },
+    {
+      "line": 743,
+      "text": "Image(Rect(0, 0, 0, 0, 0.00254, 0.00254, 0.00508, 0.00508, 0, 0, 8192), ImageData('D:/Work/ADS/HFSS_VERDICT/hfss_sma_connector_cpw.aedtresults/68362163617858233418.gif', 1, 'hI2g1--E++U+6+30t-3qRGP3oAGQ++CNl0k+8++++R4pkOKpb9a7hQCrRjNbehn7e3"
+    },
+    {
+      "line": 759,
+      "text": "$end 'SMA_KE_Unite_Small_Solder4'"
+    },
+    {
+      "line": 760,
+      "text": "$begin 'SMA_KE_Unite_Small_Solder5'"
+    },
+    {
+      "line": 776,
+      "text": "Image(Rect(0, 0, 0, 0, 0.00254, 0.00254, 0.00508, 0.00508, 0, 0, 8192), ImageData('D:/Work/ADS/HFSS_VERDICT/hfss_sma_connector_cpw.aedtresults/684621636178582334611.gif', 1, 'hI2g1--E++U+6+30t-3qRGP3oAGQ++CNl0k+8++++R4pkOKpb9a7hQCrRjNbehn7e"
+    },
+    {
+      "line": 792,
+      "text": "$end 'SMA_KE_Unite_Small_Solder5'"
+    },
+    {
+      "line": 793,
+      "text": "$begin 'SMA_KE_Unite_Small_Solder6'"
+    },
+    {
+      "line": 809,
+      "text": "Image(Rect(0, 0, 0, 0, 0.00254, 0.00254, 0.00508, 0.00508, 0, 0, 8192), ImageData('D:/Work/ADS/HFSS_VERDICT/hfss_sma_connector_cpw.aedtresults/5080440178584155127.gif', 1, 'hI2g1--E++U+6+30t-3qWW52Nz-w++CNl0k+8++++R4pkOKpb9a7hQCrRivbmhmdO3M"
+    },
+    {
+      "line": 823,
+      "text": "$end 'SMA_KE_Unite_Small_Solder6'"
+    },
+    {
+      "line": 850,
+      "text": "$begin 'SINGLE_END_SMA_CPW_30MM'"
+    },
+    {
+      "line": 876,
+      "text": "$end 'SINGLE_END_SMA_CPW_30MM'"
+    },
+    {
+      "line": 877,
+      "text": "$begin 'DUAL_END_SMA_CPW_30MM'"
+    },
+    {
+      "line": 903,
+      "text": "$end 'DUAL_END_SMA_CPW_30MM'"
+    },
+    {
+      "line": 904,
+      "text": "$begin 'SMA_KE_Unite_Small_Solder7'"
+    },
+    {
+      "line": 920,
+      "text": "Image(Rect(0, 0, 0, 0, 0.00254, 0.00254, 0.00508, 0.00508, 0, 0, 8192), ImageData('D:/Work/ADS/SIMADS_EM_PAR/HFSS_VERDICT/hfss_sma_connector_cpw.aedtresults/069812208178585582630.gif', 1, 'hI2g1--E++U+6+30t-3qRGP3oAGQ++CNl0k+8++++R4pkOKpb9a"
+    },
+    {
+      "line": 936,
+      "text": "$end 'SMA_KE_Unite_Small_Solder7'"
+    },
+    {
+      "line": 937,
+      "text": "$begin 'SMA_KE_Unite_Small_Solder8'"
+    },
+    {
+      "line": 956,
+      "text": "$end 'SMA_KE_Unite_Small_Solder8'"
+    },
+    {
+      "line": 957,
+      "text": "$begin 'SMA_KE_Unite_Small_Solder9'"
+    },
+    {
+      "line": 976,
+      "text": "$end 'SMA_KE_Unite_Small_Solder9'"
+    },
+    {
+      "line": 979,
+      "text": "$begin 'SMA_KE_Unite_solder1'"
+    },
+    {
+      "line": 980,
+      "text": "Name='SMA_KE_Unite_solder1'"
+    },
+    {
+      "line": 986,
+      "text": "ImageFile='D:/Work/ADS/SIMADS_EM_PAR/HFSS_VERDICT/hfss_sma_connector_cpw.aedtresults/70861520178577382154.gif'"
+    },
+    {
+      "line": 992,
+      "text": "DesignName='SMA_KE_Unite_solder'"
+    },
+    {
+      "line": 1028,
+      "text": "WB_SystemID='SMA_KE_Unite_solder'"
+    },
+    {
+      "line": 1040,
+      "text": "$end 'SMA_KE_Unite_solder1'"
+    },
+    {
+      "line": 1041,
+      "text": "$begin 'SMA_KE_Unite_Small_Solder1'"
+    },
+    {
+      "line": 1042,
+      "text": "Name='SMA_KE_Unite_Small_Solder1'"
+    },
+    {
+      "line": 1048,
+      "text": "ImageFile='F:/1.Hardware/HFSS/HFSS_SMA_Connector/UWB_COUPLER_SMA.aedtresults/354434540177832368028.gif'"
+    },
+    {
+      "line": 1054,
+      "text": "DesignName='SMA_KE_Unite_Small_Solder'"
+    },
+    {
+      "line": 1092,
+      "text": "filename='D:/Work/ADS/HFSS_SMA_Connector/UWB_COUPLER_SMA.aedt'"
+    },
+    {
+      "line": 1102,
+      "text": "$end 'SMA_KE_Unite_Small_Solder1'"
+    },
+    {
+      "line": 1103,
+      "text": "$begin 'SMA_KE_Unite_solder2'"
+    },
+    {
+      "line": 1104,
+      "text": "Name='SMA_KE_Unite_solder2'"
+    },
+    {
+      "line": 1110,
+      "text": "ImageFile='D:/Work/ADS/SIMADS_EM_PAR/HFSS_VERDICT/hfss_sma_connector_cpw.aedtresults/70A01520178577382957.gif'"
+    },
+    {
+      "line": 1116,
+      "text": "DesignName='SMA_KE_Unite_solder'"
+    },
+    {
+      "line": 1152,
+      "text": "WB_SystemID='SMA_KE_Unite_solder'"
+    },
+    {
+      "line": 1164,
+      "text": "$end 'SMA_KE_Unite_solder2'"
+    },
+    {
+      "line": 1165,
+      "text": "$begin 'SMA_KE_Unite_Small_Solder2'"
+    },
+    {
+      "line": 1166,
+      "text": "Name='SMA_KE_Unite_Small_Solder2'"
+    }
+  ],
+  "notes": [
+    "file backend reads only saved AEDT content and does not see unsaved AEDT GUI changes",
+    "use --backend pyaedt for live session details"
+  ]
+}

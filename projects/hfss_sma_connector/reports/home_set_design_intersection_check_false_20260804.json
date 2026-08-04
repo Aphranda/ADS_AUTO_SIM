@@ -1,0 +1,68 @@
+{
+  "project": "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "project_config": "config\\projects\\hfss_sma_connector.json",
+  "backups": [
+    "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_design_options_20260804_225228.aedt",
+    "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_design_options_20260804_225228.aedb",
+    "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_design_options_20260804_225228.aedtresults"
+  ],
+  "save": true,
+  "keep_open": false,
+  "enable_design_intersection_check": false,
+  "designs": [
+    {
+      "design": "IDEAL_50R_CPW_100MM",
+      "status": "updated",
+      "design_options": {
+        "EnableDesignIntersectionCheck": false,
+        "applied": true,
+        "result": null
+      }
+    },
+    {
+      "design": "SINGLE_END_SMA_CPW_100MM",
+      "status": "updated",
+      "design_options": {
+        "EnableDesignIntersectionCheck": false,
+        "applied": true,
+        "result": null
+      }
+    },
+    {
+      "design": "DUAL_END_SMA_CPW_100MM",
+      "status": "updated",
+      "design_options": {
+        "EnableDesignIntersectionCheck": false,
+        "applied": true,
+        "result": null
+      }
+    },
+    {
+      "design": "IDEAL_50R_CPW_30MM",
+      "status": "updated",
+      "design_options": {
+        "EnableDesignIntersectionCheck": false,
+        "applied": true,
+        "result": null
+      }
+    },
+    {
+      "design": "SINGLE_END_SMA_CPW_30MM",
+      "status": "updated",
+      "design_options": {
+        "EnableDesignIntersectionCheck": false,
+        "applied": true,
+        "result": null
+      }
+    },
+    {
+      "design": "DUAL_END_SMA_CPW_30MM",
+      "status": "updated",
+      "design_options": {
+        "EnableDesignIntersectionCheck": false,
+        "applied": true,
+        "result": null
+      }
+    }
+  ]
+}

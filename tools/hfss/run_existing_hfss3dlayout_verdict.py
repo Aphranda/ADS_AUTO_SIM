@@ -94,6 +94,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         non_graphical=args.non_graphical,
         new_desktop=True,
         close_on_exit=not args.keep_open,
+        remove_lock=args.remove_lock,
     )
     try:
         result: dict[str, Any] = {
@@ -139,11 +140,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--export-only", action="store_true")
     parser.add_argument("--non-graphical", action="store_true")
     parser.add_argument("--keep-open", action="store_true")
+    parser.add_argument("--remove-lock", action="store_true")
+    parser.add_argument("--output", type=Path, default=None)
     return parser.parse_args()
 
 
 def main() -> None:
-    print(json.dumps(run(parse_args()), ensure_ascii=False, indent=2))
+    args = parse_args()
+    text = json.dumps(run(args), ensure_ascii=False, indent=2)
+    print(text)
+    if args.output:
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        args.output.write_text(text + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

@@ -36,6 +36,7 @@ def test_build_hfss_command_uses_pipeline_contract() -> None:
                 "design": "I7_FR4_HFSS_VERDICT",
                 "port_type": "aedt-edge",
                 "gnd_boundary_mode": "port-edges",
+                "enable_design_intersection_check": False,
             },
         },
         root=Path.cwd(),
@@ -72,6 +73,7 @@ def test_build_hfss_command_uses_pipeline_contract() -> None:
     assert "--build-only" in command
     assert "--dry-run" in command
     assert "--write-manifest" in command
+    assert "--no-enable-design-intersection-check" in command
     assert command[command.index("--candidate-id") + 1] == "candidate_a"
     assert command[command.index("--round-id") + 1] == "round1"
     assert command[command.index("--device-id") + 1] == "filter.interdigital"

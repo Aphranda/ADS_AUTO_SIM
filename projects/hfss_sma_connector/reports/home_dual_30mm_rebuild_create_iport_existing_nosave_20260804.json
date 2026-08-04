@@ -1,0 +1,229 @@
+{
+  "project": "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "DUAL_END_SMA_CPW_30MM",
+  "delete_ports": [
+    "Pin_T1",
+    "Pin_T2"
+  ],
+  "before_ports": [
+    "IPort@Pin_T1;9",
+    "IPort@Pin_T2;13"
+  ],
+  "delete_targets": [
+    "IPort@Pin_T1;9",
+    "IPort@Pin_T2;13"
+  ],
+  "before_port_info": [
+    {
+      "port": "IPort@Pin_T1;9",
+      "name": "Pin_T1",
+      "raw": [
+        "Name=Pin_T1",
+        "X=-0.022860",
+        "Y=-0.043180",
+        "Angle=90.000000",
+        "Flip=false",
+        "WireId=Wire@Pin_T1;10"
+      ],
+      "x": -0.02286,
+      "y": -0.04318,
+      "angle": 90.0,
+      "wire_id": "Wire@Pin_T1;10"
+    },
+    {
+      "port": "IPort@Pin_T2;13",
+      "name": "Pin_T2",
+      "raw": [
+        "Name=Pin_T2",
+        "X=-0.025400",
+        "Y=-0.063500",
+        "Angle=90.000000",
+        "Flip=false",
+        "WireId=Wire@Pin_T2;14"
+      ],
+      "x": -0.0254,
+      "y": -0.0635,
+      "angle": 90.0,
+      "wire_id": "Wire@Pin_T2;14"
+    }
+  ],
+  "component_ids": [
+    "79",
+    "80"
+  ],
+  "selection_suffix": "raw",
+  "selected": [
+    {
+      "component": "SMA_KE_Unite_Small_Solder8",
+      "id": "79",
+      "raw": "CompInst@SMA_KE_Unite_Small_Solder8;79;6",
+      "selection": "CompInst@SMA_KE_Unite_Small_Solder8;79;6",
+      "status": "selected",
+      "pin": "Pin_T1",
+      "pin_info": {
+        "selection": "CompInst@SMA_KE_Unite_Small_Solder8;79;6",
+        "pin": "Pin_T1",
+        "raw": [
+          "X=-0.010160",
+          "Y=-0.043180",
+          "Angle=0.000000",
+          "Flip=false",
+          "WireId=Wire@Pin_T1;10"
+        ],
+        "x": -0.01016,
+        "y": -0.04318,
+        "angle": 0.0,
+        "wire_id": "Wire@Pin_T1;10"
+      }
+    },
+    {
+      "component": "SMA_KE_Unite_Small_Solder9",
+      "id": "80",
+      "raw": "CompInst@SMA_KE_Unite_Small_Solder9;80;8",
+      "selection": "CompInst@SMA_KE_Unite_Small_Solder9;80;8",
+      "status": "selected",
+      "pin": "Pin_T1",
+      "pin_info": {
+        "selection": "CompInst@SMA_KE_Unite_Small_Solder9;80;8",
+        "pin": "Pin_T1",
+        "raw": [
+          "X=-0.017780",
+          "Y=-0.063500",
+          "Angle=0.000000",
+          "Flip=false",
+          "WireId=Wire@Pin_T2;14"
+        ],
+        "x": -0.01778,
+        "y": -0.0635,
+        "angle": 0.0,
+        "wire_id": "Wire@Pin_T2;14"
+      }
+    }
+  ],
+  "expected_ports": [
+    "S1_1_Pin_T1",
+    "S2_1_Pin_T1"
+  ],
+  "add_method": "create-iport-existing",
+  "execute": true,
+  "save": false,
+  "delete_result": "None",
+  "ports_after_delete": [],
+  "create_iport_results": [
+    {
+      "name": "S1_1_Pin_T1",
+      "source": {
+        "port": "IPort@Pin_T1;9",
+        "name": "Pin_T1",
+        "raw": [
+          "Name=Pin_T1",
+          "X=-0.022860",
+          "Y=-0.043180",
+          "Angle=90.000000",
+          "Flip=false",
+          "WireId=Wire@Pin_T1;10"
+        ],
+        "x": -0.02286,
+        "y": -0.04318,
+        "angle": 90.0,
+        "wire_id": "Wire@Pin_T1;10"
+      },
+      "result": "IPort@S1_1_Pin_T1;20"
+    },
+    {
+      "name": "S2_1_Pin_T1",
+      "source": {
+        "port": "IPort@Pin_T2;13",
+        "name": "Pin_T2",
+        "raw": [
+          "Name=Pin_T2",
+          "X=-0.025400",
+          "Y=-0.063500",
+          "Angle=90.000000",
+          "Flip=false",
+          "WireId=Wire@Pin_T2;14"
+        ],
+        "x": -0.0254,
+        "y": -0.0635,
+        "angle": 90.0,
+        "wire_id": "Wire@Pin_T2;14"
+      },
+      "result": "IPort@S2_1_Pin_T1;30"
+    }
+  ],
+  "after_ports": [
+    "IPort@S1_1_Pin_T1;20",
+    "IPort@S2_1_Pin_T1;30"
+  ],
+  "new_ports": [
+    "IPort@S1_1_Pin_T1;20",
+    "IPort@S2_1_Pin_T1;30"
+  ],
+  "after_port_info": [
+    {
+      "port": "IPort@S1_1_Pin_T1;20",
+      "name": "S1_1_Pin_T1",
+      "raw": [
+        "Name=S1_1_Pin_T1",
+        "X=-0.022860",
+        "Y=-0.043180",
+        "Angle=90.000000",
+        "Flip=false",
+        "WireId=Wire@S1_1_Pin_T1;25"
+      ],
+      "x": -0.02286,
+      "y": -0.04318,
+      "angle": 90.0,
+      "wire_id": "Wire@S1_1_Pin_T1;25"
+    },
+    {
+      "port": "IPort@S2_1_Pin_T1;30",
+      "name": "S2_1_Pin_T1",
+      "raw": [
+        "Name=S2_1_Pin_T1",
+        "X=-0.025400",
+        "Y=-0.063500",
+        "Angle=90.000000",
+        "Flip=false",
+        "WireId=Wire@S2_1_Pin_T1;35"
+      ],
+      "x": -0.0254,
+      "y": -0.0635,
+      "angle": 90.0,
+      "wire_id": "Wire@S2_1_Pin_T1;35"
+    }
+  ],
+  "after_pin_info": [
+    {
+      "selection": "CompInst@SMA_KE_Unite_Small_Solder8;79;6",
+      "pin": "Pin_T1",
+      "raw": [
+        "X=-0.010160",
+        "Y=-0.043180",
+        "Angle=0.000000",
+        "Flip=false",
+        "WireId=Wire@S1_1_Pin_T1;25"
+      ],
+      "x": -0.01016,
+      "y": -0.04318,
+      "angle": 0.0,
+      "wire_id": "Wire@S1_1_Pin_T1;25"
+    },
+    {
+      "selection": "CompInst@SMA_KE_Unite_Small_Solder9;80;8",
+      "pin": "Pin_T1",
+      "raw": [
+        "X=-0.017780",
+        "Y=-0.063500",
+        "Angle=0.000000",
+        "Flip=false",
+        "WireId=Wire@S2_1_Pin_T1;35"
+      ],
+      "x": -0.01778,
+      "y": -0.0635,
+      "angle": 0.0,
+      "wire_id": "Wire@S2_1_Pin_T1;35"
+    }
+  ],
+  "status": "rebuilt"
+}

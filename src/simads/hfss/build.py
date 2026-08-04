@@ -27,6 +27,7 @@ class HfssLayoutBuildResult:
     gnd_boundary: dict[str, Any] | None
     ports: list[str]
     port_edges: dict[str, Any]
+    design_options: dict[str, Any] | None
     extents_configured: bool
     stackup_config: dict[str, Any] | None
     setup: str
@@ -44,6 +45,25 @@ def _legacy_stackup_values(args: argparse.Namespace, metadata: dict[str, Any]) -
     core_h_mm = float(args.substrate_height_mm or metadata.get("dielectric_height_mm", 0.21))
     cu_t_mm = float(args.copper_thickness_mm or metadata.get("copper_thickness_mm", 0.035))
     return er, loss_tangent, core_h_mm, cu_t_mm
+
+
+def configure_design_intersection_check(app: Any, enabled: bool | None) -> dict[str, Any] | None:
+    if enabled is None:
+        return None
+    payload = [
+        "NAME:Options",
+        "EnableDesignIntersectionCheck:=",
+        bool(enabled),
+    ]
+    try:
+        result = app.odesign.DesignOptions(payload)
+    except AttributeError:
+        return {"EnableDesignIntersectionCheck": bool(enabled), "applied": False, "reason": "DesignOptions unavailable"}
+    return {
+        "EnableDesignIntersectionCheck": bool(enabled),
+        "applied": True,
+        "result": result,
+    }
 
 
 def build_hfss_layout_project(
@@ -76,6 +96,11 @@ def build_hfss_layout_project(
     else:
         ports, port_edges = create_ports(app, layout, args)
 
+    design_options = configure_design_intersection_check(
+        app,
+        getattr(args, "enable_design_intersection_check", None),
+    )
+
     setup = app.create_setup(
         name=args.setup,
         MeshSizeFactor=args.mesh_size_factor,
@@ -102,6 +127,7 @@ def build_hfss_layout_project(
         gnd_boundary=gnd_boundary,
         ports=ports,
         port_edges=port_edges,
+        design_options=design_options,
         extents_configured=extents_configured,
         stackup_config=stackup_config.to_dict() if stackup_config is not None else None,
         setup=getattr(setup, "name", args.setup),
@@ -111,4 +137,4 @@ def build_hfss_layout_project(
     )
 
 
-__all__ = ["HfssLayoutBuildResult", "build_hfss_layout_project"]
+__all__ = ["HfssLayoutBuildResult", "build_hfss_layout_project", "configure_design_intersection_check"]

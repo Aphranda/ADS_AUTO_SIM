@@ -4,7 +4,7 @@
   "name": "HFSS SMA connector launch optimization project",
   "device_family": "connector_fixture",
   "primary_device_type": "fixture.microstrip_connector",
-  "default_profile": "company_connector",
+  "default_profile": "home",
   "target_profile": null,
   "pipeline_id": null,
   "project_root": "projects/hfss_sma_connector",
@@ -28,7 +28,7 @@
       "layouts_dir": "projects/hfss_sma_connector/simulations/ideal_50r_microstrip/layouts",
       "results_dir": "projects/hfss_sma_connector/simulations/ideal_50r_microstrip/results",
       "summary": "projects/hfss_sma_connector/simulations/ideal_50r_microstrip/results/sweep_summary.csv",
-      "profile": "company_connector",
+      "profile": "home",
       "device_id": "fixture.microstrip_50r",
       "generator": {
         "script": "tools/layout/generate_microstrip_connector_layout.py",
@@ -49,7 +49,7 @@
       "layouts_dir": "projects/hfss_sma_connector/simulations/single_end_connector_50r/layouts",
       "results_dir": "projects/hfss_sma_connector/simulations/single_end_connector_50r/results",
       "summary": "projects/hfss_sma_connector/simulations/single_end_connector_50r/results/sweep_summary.csv",
-      "profile": "company_connector",
+      "profile": "home",
       "device_id": "fixture.microstrip_single_connector",
       "generator": {
         "script": "tools/layout/generate_microstrip_connector_layout.py",
@@ -74,7 +74,7 @@
       "layouts_dir": "projects/hfss_sma_connector/simulations/dual_end_connector_50r/layouts",
       "results_dir": "projects/hfss_sma_connector/simulations/dual_end_connector_50r/results",
       "summary": "projects/hfss_sma_connector/simulations/dual_end_connector_50r/results/sweep_summary.csv",
-      "profile": "company_connector",
+      "profile": "home",
       "device_id": "fixture.microstrip_connector",
       "generator": {
         "script": "tools/layout/generate_microstrip_connector_layout.py",
@@ -95,15 +95,16 @@
     }
   },
   "hfss": {
-    "profile": "company_connector",
-    "workspace_dir": "D:/Work/ADS/HFSS_VERDICT",
-    "aedt_project": "D:/Work/ADS/HFSS_VERDICT/hfss_sma_connector_cpw.aedt",
+    "profile": "home",
+    "workspace_dir": "D:/Work/ADS/SIMADS_EM_PAR/HFSS_VERDICT",
+    "aedt_project": "D:/Work/ADS/SIMADS_EM_PAR/HFSS_VERDICT/hfss_sma_connector_cpw.aedt",
     "project_model": "single_aedt_project_multiple_designs",
     "project_action": "add",
     "stackup_config": "config/stackups/JLC04161H_7628_1P6MM.json",
     "route": "reliable",
     "port_type": "aedt-edge",
     "gnd_boundary_mode": "port-edges",
+    "enable_design_intersection_check": false,
     "setup": "Setup_0p5to10G",
     "sweep": "Sweep_0p5to10G_96pt",
     "simulations": {
