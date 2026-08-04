@@ -1,7 +1,7 @@
 # HFSS SMA Connector CPWG Fixture
 
 Status: Active
-Last updated: 2026-08-03
+Last updated: 2026-08-04
 
 本项目是独立 HFSS 连接器仿真夹具，不并入 `bfp_6_8g_i7_fr4` 滤波器 pipeline。当前约定是一个 AEDT 工程内放多个 HFSS 3D Layout design，不为每个 fixture 新建独立 `.aedt`。
 
@@ -17,10 +17,10 @@ Last updated: 2026-08-03
 - Single-end SMA fixture: P1 SMA launch + `100.0 mm` 50R CPWG + ideal P2 port, total `106.9 mm`
 - Dual-end SMA fixture: two SMA launches + `100.0 mm` 50R CPWG center section, total `113.8 mm`
 - HFSS sweep: `0.5 GHz` to `10 GHz`, `96` points
-- HFSS profile: `home`
+- HFSS profile: `company_connector`
 - AEDT version: `2026.1`
-- HFSS workspace: `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT`
-- Combined AEDT project: `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\hfss_sma_connector_cpw.aedt`
+- HFSS workspace: `D:\Work\ADS\HFSS_VERDICT`
+- Combined AEDT project: `D:\Work\ADS\HFSS_VERDICT\hfss_sma_connector_cpw.aedt`
 - Reference SMA model: `D:\Work\ADS\HFSS_SMA_Connector\SMA_KE.aedt`
 
 ## AEDT Project
@@ -40,9 +40,9 @@ Build-only manifests were written for each design under `projects/hfss_sma_conne
 Each command uses `project_action=add` to append or rebuild a design in the same AEDT project:
 
 ```powershell
-D:\Microsoft\uv-venvs\ads-automation\Scripts\python.exe tools\hfss\run_hfss3dlayout_filter_verdict.py --profile home --workspace-dir D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT --project D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\hfss_sma_connector_cpw.aedt --project-model single_aedt_project_multiple_designs --project-action add --layout projects\hfss_sma_connector\simulations\ideal_50r_microstrip\layouts\nominal\ideal_50r_cpw_100mm_jlc04161h_7628_1p6mm_baseline_layout.json --out-dir projects\hfss_sma_connector\simulations\ideal_50r_microstrip\results\nominal --design IDEAL_50R_CPW_100MM --route reliable --stackup-config config\stackups\JLC04161H_7628_1P6MM.json --start-ghz 0.5 --stop-ghz 10 --points 96 --setup Setup_0p5to10G --sweep Sweep_0p5to10G_96pt --build-only --write-manifest --project-id hfss_sma_connector --round-id ideal_50r_microstrip --device-id fixture.microstrip_50r --candidate-id ideal_50r_cpw_100mm
-D:\Microsoft\uv-venvs\ads-automation\Scripts\python.exe tools\hfss\run_hfss3dlayout_filter_verdict.py --profile home --workspace-dir D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT --project D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\hfss_sma_connector_cpw.aedt --project-model single_aedt_project_multiple_designs --project-action add --layout projects\hfss_sma_connector\simulations\single_end_connector_50r\layouts\nominal\single_end_connector_cpw_100mm_jlc04161h_7628_1p6mm_layout.json --out-dir projects\hfss_sma_connector\simulations\single_end_connector_50r\results\nominal --design SINGLE_END_SMA_CPW_100MM --route reliable --stackup-config config\stackups\JLC04161H_7628_1P6MM.json --start-ghz 0.5 --stop-ghz 10 --points 96 --setup Setup_0p5to10G --sweep Sweep_0p5to10G_96pt --build-only --write-manifest --project-id hfss_sma_connector --round-id single_end_connector_50r --device-id fixture.microstrip_single_connector --candidate-id single_end_connector_cpw_100mm
-D:\Microsoft\uv-venvs\ads-automation\Scripts\python.exe tools\hfss\run_hfss3dlayout_filter_verdict.py --profile home --workspace-dir D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT --project D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\hfss_sma_connector_cpw.aedt --project-model single_aedt_project_multiple_designs --project-action add --layout projects\hfss_sma_connector\simulations\dual_end_connector_50r\layouts\nominal\dual_end_connector_cpw_100mm_jlc04161h_7628_1p6mm_layout.json --out-dir projects\hfss_sma_connector\simulations\dual_end_connector_50r\results\nominal --design DUAL_END_SMA_CPW_100MM --route reliable --stackup-config config\stackups\JLC04161H_7628_1P6MM.json --start-ghz 0.5 --stop-ghz 10 --points 96 --setup Setup_0p5to10G --sweep Sweep_0p5to10G_96pt --build-only --write-manifest --project-id hfss_sma_connector --round-id dual_end_connector_50r --device-id fixture.microstrip_connector --candidate-id dual_end_connector_cpw_100mm
+D:\Microsoft\Python\ads-automation\Scripts\python.exe tools\hfss\run_hfss3dlayout_filter_verdict.py --profile company_connector --workspace-dir D:\Work\ADS\HFSS_VERDICT --project D:\Work\ADS\HFSS_VERDICT\hfss_sma_connector_cpw.aedt --project-model single_aedt_project_multiple_designs --project-action add --layout projects\hfss_sma_connector\simulations\ideal_50r_microstrip\layouts\nominal\ideal_50r_cpw_100mm_jlc04161h_7628_1p6mm_baseline_layout.json --out-dir projects\hfss_sma_connector\simulations\ideal_50r_microstrip\results\nominal --design IDEAL_50R_CPW_100MM --route reliable --stackup-config config\stackups\JLC04161H_7628_1P6MM.json --start-ghz 0.5 --stop-ghz 10 --points 96 --setup Setup_0p5to10G --sweep Sweep_0p5to10G_96pt --build-only --write-manifest --project-id hfss_sma_connector --round-id ideal_50r_microstrip --device-id fixture.microstrip_50r --candidate-id ideal_50r_cpw_100mm
+D:\Microsoft\Python\ads-automation\Scripts\python.exe tools\hfss\run_hfss3dlayout_filter_verdict.py --profile company_connector --workspace-dir D:\Work\ADS\HFSS_VERDICT --project D:\Work\ADS\HFSS_VERDICT\hfss_sma_connector_cpw.aedt --project-model single_aedt_project_multiple_designs --project-action add --layout projects\hfss_sma_connector\simulations\single_end_connector_50r\layouts\nominal\single_end_connector_cpw_100mm_jlc04161h_7628_1p6mm_layout.json --out-dir projects\hfss_sma_connector\simulations\single_end_connector_50r\results\nominal --design SINGLE_END_SMA_CPW_100MM --route reliable --stackup-config config\stackups\JLC04161H_7628_1P6MM.json --start-ghz 0.5 --stop-ghz 10 --points 96 --setup Setup_0p5to10G --sweep Sweep_0p5to10G_96pt --build-only --write-manifest --project-id hfss_sma_connector --round-id single_end_connector_50r --device-id fixture.microstrip_single_connector --candidate-id single_end_connector_cpw_100mm
+D:\Microsoft\Python\ads-automation\Scripts\python.exe tools\hfss\run_hfss3dlayout_filter_verdict.py --profile company_connector --workspace-dir D:\Work\ADS\HFSS_VERDICT --project D:\Work\ADS\HFSS_VERDICT\hfss_sma_connector_cpw.aedt --project-model single_aedt_project_multiple_designs --project-action add --layout projects\hfss_sma_connector\simulations\dual_end_connector_50r\layouts\nominal\dual_end_connector_cpw_100mm_jlc04161h_7628_1p6mm_layout.json --out-dir projects\hfss_sma_connector\simulations\dual_end_connector_50r\results\nominal --design DUAL_END_SMA_CPW_100MM --route reliable --stackup-config config\stackups\JLC04161H_7628_1P6MM.json --start-ghz 0.5 --stop-ghz 10 --points 96 --setup Setup_0p5to10G --sweep Sweep_0p5to10G_96pt --build-only --write-manifest --project-id hfss_sma_connector --round-id dual_end_connector_50r --device-id fixture.microstrip_connector --candidate-id dual_end_connector_cpw_100mm
 ```
 
 ## Next

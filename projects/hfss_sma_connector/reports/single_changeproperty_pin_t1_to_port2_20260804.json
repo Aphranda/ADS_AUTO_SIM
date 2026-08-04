@@ -1,0 +1,44 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "SINGLE_END_SMA_CPW_100MM",
+  "backup": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_pin_t1_to_port2_20260804_144551.aedt",
+  "action": "ChangeProperty PassedParameterTab.PortName Pin_T1 -> Port2",
+  "before_ports": [
+    "IPort@Port1;30",
+    "IPort@Pin_T1;5"
+  ],
+  "before_port_names": {
+    "IPort@Port1;30": "Port1",
+    "IPort@Pin_T1;5": "Pin_T1"
+  },
+  "target": "IPort@Pin_T1;5",
+  "change_arg": [
+    "NAME:AllTabs",
+    [
+      "NAME:PassedParameterTab",
+      [
+        "NAME:PropServers",
+        "IPort@Pin_T1;5"
+      ],
+      [
+        "NAME:ChangedProps",
+        [
+          "NAME:PortName",
+          "Value:=",
+          "Port2"
+        ]
+      ]
+    ]
+  ],
+  "change_result": "None",
+  "after_ports": [
+    "IPort@Port1;30",
+    "IPort@Pin_T1;5"
+  ],
+  "after_port_names": {
+    "IPort@Port1;30": "Port1",
+    "IPort@Pin_T1;5": "Pin_T1"
+  },
+  "save_result": true,
+  "status": "changed_saved"
+}

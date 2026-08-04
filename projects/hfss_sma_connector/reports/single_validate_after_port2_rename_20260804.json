@@ -1,0 +1,20 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "SINGLE_END_SMA_CPW_100MM",
+  "ports": [
+    "IPort@Port1;30",
+    "IPort@Port2;5"
+  ],
+  "all_ports_list": [
+    "Port1",
+    "Port2"
+  ],
+  "validate_result": 0,
+  "messages": [
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [error]  Port2: failed to collect the port geometry needed for meshing. (02:53:04 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [warning]  The mesh body associated with geometry: input_feed38X12B, on layer: ETCH_TOP, has an ambiguous net assignment.\nThis may result from a short between meshed bodies.\nNets: IN,OUT,SIG (02:53:04 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [info]  Mesh pre-processing took: 0.425sec\n (02:53:04 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [error]  An error occurred during the mesh generation.\nCheck the message window for additional details. (02:53:04 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [warning]  The cached data (mesh and solver input) for the MCAD model is out of date: SMA_KE_Unite_Small_Solder (02:53:04 PM  Aug 04, 2026)"
+  ]
+}

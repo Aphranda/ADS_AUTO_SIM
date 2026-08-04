@@ -1,0 +1,38 @@
+{
+  "odesign_methods": [
+    "AddDesignVariablesForDynamicLink",
+    "DeleteDesignInstance",
+    "DesignOptions",
+    "EditCoSimulationOptions",
+    "EditEDBCompCoSimulationOptions",
+    "EditOptions",
+    "ExportDesignPoint",
+    "GetDesignID",
+    "GetDesignName",
+    "GetDesignType",
+    "GetTemperatureSettings",
+    "InsertDesign",
+    "PasteDesign",
+    "RenameDesignInstance",
+    "SetDesignMode",
+    "SetTemperatureSettings"
+  ],
+  "modules": {
+    "SolveSetups": [
+      "SetQ3DNetSettings"
+    ],
+    "AnalysisSetup": {
+      "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetModule')"
+    },
+    "ModelSetup": {
+      "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetModule')"
+    },
+    "MeshSetup": {
+      "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetModule')"
+    },
+    "Options": {
+      "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetModule')"
+    },
+    "Excitations": []
+  }
+}

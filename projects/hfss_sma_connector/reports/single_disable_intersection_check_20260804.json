@@ -1,0 +1,16 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "SINGLE_END_SMA_CPW_100MM",
+  "backup_aedt": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_skip_intersection_20260804_143353.aedt",
+  "set_meshing_settings": true,
+  "validate_circuit_result": 0,
+  "messages_0": [
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [error]  Failed to collect initial geometry data for: SMA_KE_Unite_Small_Solder (02:34:16 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [error]  Port1: failed to collect the port geometry needed for meshing. (02:34:16 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [error]  An error occurred during the mesh generation.\nCheck the message window for additional details. (02:34:16 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [warning]  MCAD model failed to mesh; check the HFSS model: SMA_KE_Unite_Small_Solder (02:34:16 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [warning]  The cached data (mesh and solver input) for the MCAD model is out of date: SMA_KE_Unite_Small_Solder (02:34:16 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_100MM, [error]  Failed to derive valid HFSS port geometry for Port1 (02:34:16 PM  Aug 04, 2026)"
+  ],
+  "saved": true
+}

@@ -304,6 +304,7 @@ Owner: ADS Automation
 - [ ] 固定连接器类型或等效 footprint 版本，明确 Route A/B/C 使用边界。
 - [ ] 登记用户提供的连接器 HFSS 模型路径、版本、hash、端口定义、坐标基准和参考面。
 - [ ] 固定层叠、50R 线宽、联合仿真模型长度、板边位置、端口参考面和求解频段。
+- [x] 将公司电脑连接器 HFSS profile 独立为 `company_connector`，固定 `D:\Work\ADS\HFSS_VERDICT` 为连接器专用工作区；公司滤波器/常规 HFSS backend 保持原工作区 `D:\Work\ADS\SIMADS_STANDARD\HFSS`。
 - [x] 建立 connector launch 参数 schema，覆盖 signal pad、taper、ground clearance、via fence、reference plane、deembed 和 P1/P2 symmetry。
 - [x] 新增 microstrip+connector generator：输入 stackup/50R template 和 connector 参数，输出微带线+连接器 layout JSON。
 - [x] 增加连接器区域 DRC gate：pad、clearance、via、edge setback、mechanical envelope、左右对称和板厂工艺限制。

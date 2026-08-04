@@ -11,6 +11,16 @@
       "stackup_config": "config/stackups/JLC04161H_7628_1P6MM.json",
       "non_graphical": true
     },
+    "company_connector": {
+      "ansys_root": "D:/Hardware/ANAYS",
+      "ansysedt": "D:/Hardware/ANAYS/ANSYS Inc/v261/AnsysEM/ansysedt.exe",
+      "host_python": "D:/Microsoft/Python/ads-automation/Scripts/python.exe",
+      "workspace_dir": "D:/Work/ADS/HFSS_VERDICT",
+      "version": "2026.1",
+      "route": "reliable",
+      "stackup_config": "config/stackups/JLC04161H_7628_1P6MM.json",
+      "non_graphical": true
+    },
     "home": {
       "ansys_root": "D:/Hardware/ANSYS",
       "ansysedt": "D:/Hardware/ANSYS/ANSYS Inc/v261/AnsysEM/ansysedt.exe",

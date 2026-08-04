@@ -1,0 +1,72 @@
+{
+  "objects": {
+    "input_taper": {
+      "name": "input_taper",
+      "type": "Polygons3DLayout",
+      "net_name": "IN",
+      "placement_layer": "ETCH_TOP",
+      "points": [
+        {
+          "repr": "Class: ansys.aedt.core.modeler.pcb.object_3d_layout.Points3dLayout",
+          "type": "Points3dLayout",
+          "position": "[0.0053, -0.0006]",
+          "point": "Instance of an Aedt object:41"
+        },
+        {
+          "repr": "Class: ansys.aedt.core.modeler.pcb.object_3d_layout.Points3dLayout",
+          "type": "Points3dLayout",
+          "position": "[0.006900000000000001, -0.00015875]",
+          "point": "Instance of an Aedt object:42"
+        },
+        {
+          "repr": "Class: ansys.aedt.core.modeler.pcb.object_3d_layout.Points3dLayout",
+          "type": "Points3dLayout",
+          "position": "[0.006900000000000001, 0.00015875]",
+          "point": "Instance of an Aedt object:43"
+        },
+        {
+          "repr": "Class: ansys.aedt.core.modeler.pcb.object_3d_layout.Points3dLayout",
+          "type": "Points3dLayout",
+          "position": "[0.0053, 0.0006]",
+          "point": "Instance of an Aedt object:44"
+        }
+      ],
+      "negative": "False",
+      "properties_error": "AttributeError(\"'Polygons3DLayout' object has no attribute 'properties'\")"
+    },
+    "input_taperAQXI5B": {
+      "name": "input_taperAQXI5B",
+      "type": "Polygons3DLayout",
+      "net_name": "IN",
+      "placement_layer": "ETCH_TOP",
+      "points": [
+        {
+          "repr": "Class: ansys.aedt.core.modeler.pcb.object_3d_layout.Points3dLayout",
+          "type": "Points3dLayout",
+          "position": "[0.0053, -0.0006]",
+          "point": "Instance of an Aedt object:46"
+        },
+        {
+          "repr": "Class: ansys.aedt.core.modeler.pcb.object_3d_layout.Points3dLayout",
+          "type": "Points3dLayout",
+          "position": "[0.006900000000000001, -0.00015875]",
+          "point": "Instance of an Aedt object:47"
+        },
+        {
+          "repr": "Class: ansys.aedt.core.modeler.pcb.object_3d_layout.Points3dLayout",
+          "type": "Points3dLayout",
+          "position": "[0.006900000000000001, 0.00015875]",
+          "point": "Instance of an Aedt object:48"
+        },
+        {
+          "repr": "Class: ansys.aedt.core.modeler.pcb.object_3d_layout.Points3dLayout",
+          "type": "Points3dLayout",
+          "position": "[0.0053, 0.0006]",
+          "point": "Instance of an Aedt object:49"
+        }
+      ],
+      "negative": "False",
+      "properties_error": "AttributeError(\"'Polygons3DLayout' object has no attribute 'properties'\")"
+    }
+  }
+}

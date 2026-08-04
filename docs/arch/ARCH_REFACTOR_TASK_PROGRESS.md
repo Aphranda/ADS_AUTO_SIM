@@ -54,6 +54,33 @@ Owner: ADS Automation
 
 ## 任务记录
 
+### ARCH-REFACTOR-TASK-20260804-015 - HFSS Connector Dedicated Profile Split
+
+- 状态：完成
+- 日期：2026-08-04
+- 任务目标：
+  - 明确公司电脑上 `D:\Work\ADS\HFSS_VERDICT` 是微带线+连接器联合仿真专用路径。
+  - 保持公司电脑滤波器/常规 HFSS backend 使用原有工作区 `D:\Work\ADS\SIMADS_STANDARD\HFSS`，避免连接器与滤波器工程混用。
+- 完成内容：
+  - `config/hfss_profiles.json` 中新增 `company_connector`，指向 `D:\Work\ADS\HFSS_VERDICT`。
+  - `company` HFSS profile 恢复为滤波器/常规 HFSS 工作区 `D:\Work\ADS\SIMADS_STANDARD\HFSS`。
+  - `config/projects/hfss_sma_connector.json` 的默认 profile、sweep profile 和 HFSS profile 切换为 `company_connector`。
+  - 连接器项目 README 中的命令统一改为 `--profile company_connector`。
+  - `FLOW_HFSS_CONNECTOR_LAYOUT_OPTIMIZATION.md` 明确连接器专用路径边界；`FLOW_HFSS_PYAEDT_VERDICT.md` 明确公司滤波器 HFSS 工作区仍使用原路径，同时保留 Home/历史 round13 路径说明。
+- 验证结果：
+  - 本任务只修改 JSON/Markdown 配置文档，未启动 AEDT/HFSS，未修改 `.aedt/.aedb/.aedtresults`。
+- 还需完成：
+  - 用只读 profile/pipeline gate 验证 `company_connector`、`company` 和滤波器 pipeline 的路径解析。
+  - 历史报告和 run artifact 中的旧路径保留作追溯，不批量重写。
+- 关联文件：
+  - `config/hfss_profiles.json`
+  - `config/projects/hfss_sma_connector.json`
+  - `projects/hfss_sma_connector/microstrip_connector/README.md`
+  - `docs/flow/FLOW_HFSS_CONNECTOR_LAYOUT_OPTIMIZATION.md`
+  - `docs/flow/FLOW_HFSS_PYAEDT_VERDICT.md`
+- 下一步：
+  - 执行 JSON/schema、profile loader 和 `src\simads\hfss\workflow.py` 编译检查。
+
 ### ARCH-REFACTOR-TASK-20260804-014 - HFSS Small SMA Connector Swap And Pin IPort Script
 
 - 状态：进行中

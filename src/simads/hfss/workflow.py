@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """Run an HFSS 3D Layout verdict simulation from a SIM layout JSON."""
 
 from __future__ import annotations

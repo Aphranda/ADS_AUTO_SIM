@@ -8,11 +8,13 @@ Last updated: 2026-08-04
 
 ## 当前基线
 
-- HFSS 安装根目录：`D:\Hardware\ANSYS`
-- AEDT 可执行文件：`D:\Hardware\ANSYS\ANSYS Inc\v261\AnsysEM\ansysedt.exe`
-- pyAEDT 环境：`D:\Microsoft\uv-venvs\ads-automation`
+- HFSS 安装根目录：`D:\Hardware\ANAYS`
+- AEDT 可执行文件：`D:\Hardware\ANAYS\ANSYS Inc\v261\AnsysEM\ansysedt.exe`
+- pyAEDT 环境：`D:\Microsoft\Python\ads-automation`
 - AEDT 版本参数：`2026.1`
-- HFSS 工作区：`D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT`
+- 公司电脑滤波器/常规 HFSS 工作区：`D:\Work\ADS\SIMADS_STANDARD\HFSS`
+- Home/历史 round13 滤波器 HFSS 工作区：`D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT`
+- 连接器专用 HFSS 工作区：`D:\Work\ADS\HFSS_VERDICT`，仅用于 `hfss_sma_connector` 微带线+连接器联合仿真，不作为滤波器候选工作区。
 - 当前裁决输入：`projects\bfp_6_8g_i7_fr4\layouts\interdigital_7o_fr4_210um_round13_retest_4to10_40\i7_fr4_r13_retest_base_l555_taper_layout.json`
 - 当前自动化主 route：`hfss3dlayout_aedt_edge_gap_gnd_port_edges`，CLI 可用 `--route reliable` 展开。
 - 当前主层叠配置：`config\stackups\JLC04161H_7628_1P6MM.json`

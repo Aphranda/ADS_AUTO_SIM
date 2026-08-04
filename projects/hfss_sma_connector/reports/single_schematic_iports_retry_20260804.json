@@ -1,0 +1,90 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "SINGLE_END_SMA_CPW_100MM",
+  "ports": [
+    "IPort@Port1;30",
+    "IPort@Port2;34"
+  ],
+  "components": [
+    "CompInst@SMA_KE_Unite_Small_Solder1;67;11"
+  ],
+  "port_details": [
+    {
+      "port": "IPort@Port1;30",
+      "properties": {
+        "BaseElementTab": [
+          "SchematicID",
+          "Levels",
+          "Component Location",
+          "Component Angle",
+          "Component Mirror",
+          "Use Symbol Color"
+        ],
+        "EM Design": [],
+        "ComponentTab": [],
+        "PassedParameterTab": [
+          "PinCount",
+          "PortName"
+        ],
+        "PropDisplayMap": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetProperties')"
+        }
+      },
+      "values": {
+        "BaseElementTab": {
+          "SchematicID": "30",
+          "Levels": "0,1",
+          "Component Location": "0mil , 0mil",
+          "Component Angle": "0deg",
+          "Component Mirror": "false",
+          "Use Symbol Color": "true"
+        },
+        "EM Design": {},
+        "ComponentTab": {},
+        "PassedParameterTab": {
+          "PinCount": "0",
+          "PortName": "Port1"
+        }
+      }
+    },
+    {
+      "port": "IPort@Port2;34",
+      "properties": {
+        "BaseElementTab": [
+          "SchematicID",
+          "Levels",
+          "Component Location",
+          "Component Angle",
+          "Component Mirror",
+          "Use Symbol Color"
+        ],
+        "EM Design": [],
+        "ComponentTab": [],
+        "PassedParameterTab": [
+          "PinCount",
+          "PortName"
+        ],
+        "PropDisplayMap": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetProperties')"
+        }
+      },
+      "values": {
+        "BaseElementTab": {
+          "SchematicID": "34",
+          "Levels": "0,1",
+          "Component Location": "-600mil , -1000mil",
+          "Component Angle": "0deg",
+          "Component Mirror": "false",
+          "Use Symbol Color": "true"
+        },
+        "EM Design": {},
+        "ComponentTab": {},
+        "PassedParameterTab": {
+          "PinCount": "1",
+          "PortName": "Port2"
+        }
+      }
+    }
+  ],
+  "status": "inspected"
+}

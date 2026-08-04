@@ -1,0 +1,65 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "SINGLE_END_SMA_CPW_100MM",
+  "backup": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_setproperty_pin_t1_to_port2_20260804_144834.aedt",
+  "attempts": [
+    {
+      "method": "SetPropertyValue",
+      "error": "GrpcApiError('Failed to execute gRPC AEDT command: SetPropertyValue')",
+      "ports": [
+        "IPort@Port1;30",
+        "IPort@Pin_T1;5"
+      ],
+      "values": {
+        "IPort@Port1;30": "Port1",
+        "IPort@Pin_T1;5": "Pin_T1"
+      }
+    },
+    {
+      "method": "SetPropValue",
+      "error": "TypeError('AedtPropServer.SetPropValue() takes 3 positional arguments but 5 were given')",
+      "ports": [
+        "IPort@Port1;30",
+        "IPort@Pin_T1;5"
+      ],
+      "values": {
+        "IPort@Port1;30": "Port1",
+        "IPort@Pin_T1;5": "Pin_T1"
+      }
+    },
+    {
+      "method": "SetPropertyValue_id",
+      "error": "GrpcApiError('Failed to execute gRPC AEDT command: SetPropertyValue')",
+      "ports": [
+        "IPort@Port1;30",
+        "IPort@Pin_T1;5"
+      ],
+      "values": {
+        "IPort@Port1;30": "Port1",
+        "IPort@Pin_T1;5": "Pin_T1"
+      }
+    },
+    {
+      "method": "SetPropValue_id",
+      "error": "TypeError('AedtPropServer.SetPropValue() takes 3 positional arguments but 5 were given')",
+      "ports": [
+        "IPort@Port1;30",
+        "IPort@Pin_T1;5"
+      ],
+      "values": {
+        "IPort@Port1;30": "Port1",
+        "IPort@Pin_T1;5": "Pin_T1"
+      }
+    }
+  ],
+  "before_ports": [
+    "IPort@Port1;30",
+    "IPort@Pin_T1;5"
+  ],
+  "target": "IPort@Pin_T1;5",
+  "before": {
+    "IPort@Port1;30": "Port1",
+    "IPort@Pin_T1;5": "Pin_T1"
+  },
+  "status": "not_changed_not_saved"
+}

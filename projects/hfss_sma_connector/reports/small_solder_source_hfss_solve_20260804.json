@@ -1,0 +1,21 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "SMA_KE_Unite_Small_Solder",
+  "setup": "Setup1",
+  "validate_simple_before": true,
+  "analyze_result": true,
+  "messages_0": [
+    "Project: hfss_sma_connector_cpw, Design: SMA_KE_Unite_Small_Solder (Terminal Network), [warning]  For broadband frequency models it is recommended to set 'Automatically use causal materials' in the HFSS Design Settings for Lossy Dielectrics.  See 'Design Settings for HFSS' in the help for more information. (02:37:10 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SMA_KE_Unite_Small_Solder (Terminal Network), [warning]  For broadband frequency models it is recommended to set 'Automatically use causal materials' in the HFSS Design Settings for Lossy Dielectrics.  See 'Design Settings for HFSS' in the help for more information. (02:37:16 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SMA_KE_Unite_Small_Solder (Terminal Network), [info]  An interpolating frequency sweep with 401 points has been started using HFSS - Solving Distributed. (02:38:14 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SMA_KE_Unite_Small_Solder (Terminal Network), [info]  Interpolating frequency sweep complete. Converged. (02:38:14 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SMA_KE_Unite_Small_Solder (Terminal Network), [info]  Normal completion of simulation on server: Local Machine. (02:38:14 PM  Aug 04, 2026)"
+  ],
+  "messages_1": [
+    "Project: hfss_sma_connector_cpw, Design: SMA_KE_Unite_Small_Solder (Terminal Network), [warning]  For broadband frequency models it is recommended to set 'Automatically use causal materials' in the HFSS Design Settings for Lossy Dielectrics.  See 'Design Settings for HFSS' in the help for more information. (02:37:10 PM  Aug 04, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SMA_KE_Unite_Small_Solder (Terminal Network), [warning]  For broadband frequency models it is recommended to set 'Automatically use causal materials' in the HFSS Design Settings for Lossy Dielectrics.  See 'Design Settings for HFSS' in the help for more information. (02:37:16 PM  Aug 04, 2026)"
+  ],
+  "messages_2": [],
+  "messages_3": [],
+  "saved": true
+}

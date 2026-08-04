@@ -9,7 +9,9 @@ Owner: ADS Automation
 
 本文档定义 HFSS 独立扩展项：用一段标准 50 ohm CPWG/GCPW 传输线和两端连接器组成联合仿真模型，通过 HFSS 自动化迭代连接器与传输线 launch 处的版图参数，使 CPWG-连接器过渡的 S 参数表现更优。该流程不引入滤波器、谐振器或其他功能结构，目的是降低系统复杂度，把优化对象集中在连接器焊盘、锥形过渡、地过孔、参考地和端口参考面。
 
-当前 Home 电脑落地方式：`D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\hfss_sma_connector_cpw.aedt` 是单一 AEDT 工程，工程内包含 `IDEAL_50R_CPW_100MM`、`SINGLE_END_SMA_CPW_100MM`、`DUAL_END_SMA_CPW_100MM` 三个 HFSS 3D Layout design。后续连接器优化项目应沿用“一个 AEDT project space，下方多个 design/simulation”的组织方式，而不是每个仿真单独新建 `.aedt`。
+当前公司电脑落地方式：`D:\Work\ADS\HFSS_VERDICT\hfss_sma_connector_cpw.aedt` 是连接器仿真专用单一 AEDT 工程，工程内包含 `IDEAL_50R_CPW_100MM`、`SINGLE_END_SMA_CPW_100MM`、`DUAL_END_SMA_CPW_100MM` 三个 HFSS 3D Layout design。后续连接器优化项目应沿用“一个 AEDT project space，下方多个 design/simulation”的组织方式，而不是每个仿真单独新建 `.aedt`。
+
+路径边界必须严格区分：`D:\Work\ADS\HFSS_VERDICT` 只用于微带线+连接器联合仿真，对应 HFSS profile `company_connector`；公司电脑滤波器/常规 HFSS backend 继续使用原有工程根 `D:\Work\ADS\SIMADS_STANDARD\HFSS`，不得把滤波器候选迁入连接器专用目录。历史 Home/round13 记录中出现的 `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT` 保留作结果追溯，不批量重写。
 
 HFSS project contract 已固化为两个维度：
 

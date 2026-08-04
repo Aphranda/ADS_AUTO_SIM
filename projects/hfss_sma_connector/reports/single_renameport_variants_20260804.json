@@ -1,0 +1,81 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "SINGLE_END_SMA_CPW_100MM",
+  "backup": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.before_renameport_variants_20260804_145103.aedt",
+  "attempts": [
+    {
+      "method": "odesign.RenamePort",
+      "error": "GrpcApiError('Failed to execute gRPC AEDT command: RenamePort')",
+      "state": {
+        "app_ports": [
+          "Pin_T1",
+          "Port1"
+        ],
+        "editor_ports": [
+          "IPort@Port1;30",
+          "IPort@Pin_T1;5"
+        ],
+        "all_ports_list": [
+          "Pin_T1",
+          "Port1"
+        ],
+        "circuit_ports": []
+      }
+    },
+    {
+      "method": "odesign.RenameSource",
+      "error": "GrpcApiError('Failed to execute gRPC AEDT command: RenameSource')",
+      "state": {
+        "app_ports": [
+          "Pin_T1",
+          "Port1"
+        ],
+        "editor_ports": [
+          "IPort@Port1;30",
+          "IPort@Pin_T1;5"
+        ],
+        "all_ports_list": [
+          "Pin_T1",
+          "Port1"
+        ],
+        "circuit_ports": []
+      }
+    },
+    {
+      "method": "exc.Rename",
+      "result": "None",
+      "state": {
+        "app_ports": [
+          "Port1",
+          "Port2"
+        ],
+        "editor_ports": [
+          "IPort@Port1;30",
+          "IPort@Port2;5"
+        ],
+        "all_ports_list": [
+          "Port1",
+          "Port2"
+        ],
+        "circuit_ports": []
+      }
+    }
+  ],
+  "before": {
+    "app_ports": [
+      "Pin_T1",
+      "Port1"
+    ],
+    "editor_ports": [
+      "IPort@Port1;30",
+      "IPort@Pin_T1;5"
+    ],
+    "all_ports_list": [
+      "Pin_T1",
+      "Port1"
+    ],
+    "circuit_ports": []
+  },
+  "status": "changed_saved",
+  "save_result": true
+}

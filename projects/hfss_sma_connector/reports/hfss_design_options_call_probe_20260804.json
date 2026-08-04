@@ -1,0 +1,14 @@
+{
+  "DesignOptions": {
+    "repr": "<bound method AedtObjWrapper.__GetObjMethod__.<locals>.DynamicFunc of <ansys.aedt.core.internal.grpc_plugin_dll_class.AedtPropServer object at 0x000001F4ED1D5D00>>",
+    "dir": [],
+    "signature": "(*args)",
+    "noarg_error": "GrpcApiError('Failed to execute gRPC AEDT command: DesignOptions')"
+  },
+  "EditOptions": {
+    "repr": "<bound method AedtObjWrapper.__GetObjMethod__.<locals>.DynamicFunc of <ansys.aedt.core.internal.grpc_plugin_dll_class.AedtPropServer object at 0x000001F4ED1D5D00>>",
+    "dir": [],
+    "signature": "(*args)",
+    "noarg_error": "GrpcApiError('Failed to execute gRPC AEDT command: EditOptions')"
+  }
+}
