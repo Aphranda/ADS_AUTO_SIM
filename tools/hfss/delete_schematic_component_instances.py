@@ -95,11 +95,18 @@ def delete_components(args: argparse.Namespace) -> dict[str, Any]:
             matches = by_component.get(component, [])
             for instance in matches:
                 selected.append({**instance, "selection": instance["raw"]})
+        component_ids = {str(item) for item in args.component_id}
+        if component_ids:
+            for instance in (_parse_component_instance(item) for item in before):
+                if instance and instance["id"] in component_ids:
+                    selected.append({**instance, "selection": instance["raw"]})
+        selected = list({item["selection"]: item for item in selected}.values())
 
         payload: dict[str, Any] = {
             "project": str(args.project),
             "design": args.design,
             "components": args.component,
+            "component_ids": args.component_id,
             "before": before,
             "selected": selected,
             "execute": args.execute,
@@ -131,13 +138,16 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Delete schematic component instances from a 3D Layout design.")
     parser.add_argument("--project", type=Path, required=True)
     parser.add_argument("--design", required=True)
-    parser.add_argument("--component", action="append", required=True)
+    parser.add_argument("--component", action="append", default=[])
+    parser.add_argument("--component-id", action="append", default=[])
     parser.add_argument("--execute", action="store_true")
     parser.add_argument("--save", action="store_true")
     parser.add_argument("--backup", action="store_true")
     parser.add_argument("--version", default="2026.1")
-    parser.add_argument("--non-graphical", action="store_true")
-    parser.add_argument("--new-desktop", action="store_true")
+    parser.add_argument("--non-graphical", action="store_true", default=True)
+    parser.add_argument("--graphical", action="store_false", dest="non_graphical")
+    parser.add_argument("--new-desktop", action="store_true", default=True)
+    parser.add_argument("--attach-existing", action="store_false", dest="new_desktop")
     parser.add_argument("--remove-lock", action="store_true")
     parser.add_argument("--keep-attached", action="store_true")
     parser.add_argument("--close-projects", action="store_true")

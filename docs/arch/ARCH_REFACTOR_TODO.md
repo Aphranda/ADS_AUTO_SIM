@@ -319,7 +319,9 @@ Owner: ADS Automation
 - [ ] 用只读检查脚本记录 design/port/net 状态，确认实际 generated port name、component ID、pin name 和 reference conductor 均有效，作为继续求解前 gate。
 - [x] 2026-08-05 已修复家里 `DUAL_END_SMA_CPW_30MM` 的 S2 connector pin port：通过 AEDT Layout API 删除错误 `IPort@S2_1_Pin_T1;30`，再调用 `CreatePortsOnComponents(["NAME:elements", "80"])`，生成正确 `S2_1_Pin_T1` EdgePort；保存前已备份工程，报告为 `projects/hfss_sma_connector/reports/home_dual_30mm_recreate_s2_component_pin_edge_port_save_20260805.json`。
 - [x] 2026-08-05 DUAL 端口保存后只读审计通过：`S1_1_Pin_T1` 为 `Type=EdgePort` 且连接 `ComponentPin 79 Pin_T1`；`S2_1_Pin_T1` 为 `Type=EdgePort` 且连接 `ComponentPin 80 Pin_T1`；两者均不再混入 `InterfacePort`。
-- [ ] 将发现的 component-pin port 创建路径收敛为正式脚本：输入 component id / generated port name / pin name，执行备份、删除错误 IPort、`CreatePortsOnComponents(["NAME:elements", id])`、只读审计和保存；探索脚本 `try_official_port_create_elements.py` 保留为诊断依据。
+- [x] 将发现的 component-pin port 创建路径收敛为正式脚本：新增 `tools/hfss/recreate_connector_component_pin_port.py`，输入 component id / generated port name / pin name，执行备份、删除错误 IPort 和旧 schematic wire、`CreatePortsOnComponents(["NAME:elements", id])`、将生成的 schematic IPort 移动到空白安全坐标、校验与现有 pin/port 不重叠、再用 `SchematicEditor.CreateWire` 显式连接到 connector component pin，最后只读审计和保存；探索脚本 `try_official_port_create_elements.py` 保留为诊断依据。
+- [ ] 端口 schematic 连接安全 gate：创建/移动 IPort 时不得与现有 connector pin、port 或 wire 端点重叠，否则 AEDT 会自动接到已有线并重新形成错误连接；自动化默认先删除旧线、远离对象放置 IPort，再显式拉线连接。
+- [ ] 端口物理激励 gate 勘误：`Type=EdgePort + ComponentPin` 仍可能是无箭头的 component-pin-only 端口，`GetPortInfo` 显示 `ConnectionPoints=NONE`，仿真会表现为低频强隔离/高频电容耦合；正式流程必须对比手动端口属性，改为创建 connector 3D 子模型内部 excitation/port instance 上的端口，而不是只挂到 schematic component pin。
 - [x] 连接器 fixture 关闭 design-level intersection checks：Design Settings > HFSS Meshing Method > `Enable Design-level intersection checks` 必须取消勾选，CLI 使用 `--profile home --no-enable-design-intersection-check` 更新家里连接器工程。
 - [ ] 对 3-5 个 smoke 候选先做 layout gate，再选择 1 个候选执行 HFSS solve，输出 S2P/trace/score/compare/manifest。
 - [ ] 2026-08-05 首轮优化按 Smith 圆图调谐口径推进：先跑 `IDEAL_50R_CPW_30MM` 无连接器 baseline，再跑 `SINGLE_END_SMA_CPW_30MM` 当前连接器，对比复数 S11/S22 并计算归一化阻抗 `z=(1+Gamma)/(1-Gamma)`。
