@@ -1,0 +1,11 @@
+{"label": "inspect_hfss3dlayout_layer_bboxes", "operation": "watch_start", "status": "running", "timestamp_epoch": 1785933038.98, "parent_pid": 22704, "target_pids": [35488]}
+{"label": "inspect_hfss3dlayout_layer_bboxes", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785933039.043, "duration_s": 0.063, "target_pids": [35488], "candidate_count": 1, "eligible_pids": [35488]}
+{"label": "inspect_hfss3dlayout_layer_bboxes", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785933039.045, "duration_s": 0.078, "mode": "dry_run", "eligible_pids": [35488]}
+{"label": "inspect_hfss3dlayout_layer_bboxes", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785933039.045, "duration_s": 0.078, "parent_alive": true, "elapsed_s": 0.078}
+{"label": "inspect_hfss3dlayout_layer_bboxes", "operation": "parent_exit_detected", "status": "ok", "timestamp_epoch": 1785933049.047, "parent_pid": 22704}
+{"label": "inspect_hfss3dlayout_layer_bboxes", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785933049.054, "duration_s": 0.0, "target_pids": [35488], "candidate_count": 0, "eligible_pids": []}
+{"label": "inspect_hfss3dlayout_layer_bboxes", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785933049.055, "duration_s": 0.0, "mode": "dry_run", "eligible_pids": []}
+{"label": "inspect_hfss3dlayout_layer_bboxes", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785933049.056, "duration_s": 0.0, "parent_alive": false, "elapsed_s": 10.078}
+{"label": "inspect_hfss3dlayout_layer_bboxes", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785933059.063, "duration_s": 0.016, "target_pids": [35488], "candidate_count": 0, "eligible_pids": []}
+{"label": "inspect_hfss3dlayout_layer_bboxes", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785933059.065, "duration_s": 0.016, "mode": "execute", "eligible_pids": []}
+{"label": "inspect_hfss3dlayout_layer_bboxes", "operation": "watch_finish", "status": "ok", "timestamp_epoch": 1785933059.065, "duration_s": 20.094, "reason": "reap_complete", "watch_elapsed_s": 20.094}

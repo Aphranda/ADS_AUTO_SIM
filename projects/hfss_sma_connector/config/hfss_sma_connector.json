@@ -31,7 +31,7 @@
   "layout_optimization": {
     "active_simulation": "single_end_connector_50r_30mm",
     "active_design": "SINGLE_END_SMA_CPW_30MM",
-    "active_candidate": "gap1p5_novia_l2_l4",
+    "active_candidate": "gap1p5_novia_l2l3_l4",
     "generator_script": "tools/layout/generate_microstrip_connector_layout.py",
     "replacement_script": "tools/hfss/replace_hfss3dlayout_layout_primitives.py",
     "solver_script": "tools/hfss/run_existing_hfss3dlayout_verdict.py",

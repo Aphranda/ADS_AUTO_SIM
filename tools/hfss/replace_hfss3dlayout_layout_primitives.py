@@ -84,6 +84,19 @@ def _full_rebuild_delete_names(layout: dict[str, Any], geometry: GeometryBuildOp
     for name in _delete_names(_selected_shapes(layout, "single-p1-pcb-full")):
         if name not in names:
             names.append(name)
+    # Optional source-layout primitives can disappear between connector
+    # candidates. Keep them in the full rebuild delete set so a later candidate
+    # cannot inherit copper from an earlier tuning run.
+    for name in (
+        "input_series_hi_z",
+        "output_series_hi_z",
+        "p1_l2_cutout_rect_extend_right",
+        "p2_l2_cutout_rect_extend_left",
+        "p1_l3_cutout_rect_extend_right",
+        "p2_l3_cutout_rect_extend_left",
+    ):
+        if name not in names:
+            names.append(name)
     # Full rebuilds must remove source primitives that may be absent from a new
     # candidate, for example when an iteration disables connector launch vias.
     for prefix in ("ground_via_p1_top", "ground_via_p1_bottom", "ground_via_p2_top", "ground_via_p2_bottom"):

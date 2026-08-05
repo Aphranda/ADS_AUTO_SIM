@@ -1,0 +1,531 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "SINGLE_END_SMA_CPW_30MM",
+  "layers": [
+    "ETCH_INNER1",
+    "ETCH_INNER2",
+    "ETCH_TOP",
+    "ETCH_BOTTOM"
+  ],
+  "name_filters": [
+    "ground",
+    "cutout",
+    "input",
+    "through",
+    "output"
+  ],
+  "aedt_startup": {
+    "PYAEDT_USE_PRE_GRPC_ARGS": "True",
+    "grpc_secure_mode_env": "False",
+    "SIMADS_AEDT_WAIT_FOR_LICENSE": "True",
+    "SIMADS_AEDT_DESKTOP_TIMEOUT_S": "300",
+    "SIMADS_AEDT_USER_ROOT": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "HOME": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "USERPROFILE": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "APPDATA": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user\\AppData\\Roaming",
+    "LOCALAPPDATA": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user\\AppData\\Local",
+    "TEMP": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user\\Temp",
+    "settings.grpc_secure_mode": false,
+    "settings.grpc_local": true,
+    "settings.grpc_listen_all": false,
+    "settings.wait_for_license": true,
+    "settings.desktop_launch_timeout": 300,
+    "settings.enable_desktop_logs": false,
+    "settings.use_grpc_api": null,
+    "settings.number_of_grpc_api_retries": 6
+  },
+  "aedt_lock": {
+    "label": "inspect_hfss3dlayout_layer_bboxes",
+    "pid": 22704,
+    "started_epoch": 1785933024.688,
+    "lock_path": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_automation.lock"
+  },
+  "aedt_reaper": {
+    "started": true,
+    "label": "inspect_hfss3dlayout_layer_bboxes",
+    "aedt_process_id": 35488,
+    "parent_pid": 22704,
+    "reaper_pid": 31560,
+    "execute": true,
+    "execute_requested": true,
+    "terminate_disabled": false,
+    "script_started": true,
+    "execute_block_reason": null,
+    "output": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\inspect_hfss3dlayout_layer_bboxes_22704_35488.json",
+    "event_log": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\inspect_hfss3dlayout_layer_bboxes_22704_35488.jsonl",
+    "owner_record": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\inspect_hfss3dlayout_layer_bboxes_22704_35488.owner.json",
+    "silent": true,
+    "helper_executable": "D:\\Microsoft\\Python\\ads-automation\\Scripts\\pythonw.exe",
+    "target_create_time_epoch": 1785933026.0490208
+  },
+  "ready": {
+    "auto_open": {
+      "api": null,
+      "ok": false,
+      "result": "set_auto_open is unavailable for this AEDT app"
+    },
+    "timeout_s": 120.0,
+    "settle_s": 2,
+    "design_name": "SINGLE_END_SMA_CPW_30MM",
+    "project_name": "hfss_sma_connector_cpw",
+    "project_name_error": null,
+    "modeler_loaded": true,
+    "setup_names": [
+      "Setup_0p5to10G"
+    ]
+  },
+  "ports": [
+    "Port1",
+    "S1_1_Pin_T1"
+  ],
+  "objects_by_layer": {
+    "ETCH_INNER1": {
+      "count": 2,
+      "names": [
+        "hfss_ground_plane",
+        "p1_l2_cutout_rect"
+      ],
+      "objects": [
+        {
+          "name": "hfss_ground_plane",
+          "layer_query": "ETCH_INNER1",
+          "primitive_found": true,
+          "net_name": "GND",
+          "negative": false,
+          "bbox_raw": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "bbox_mm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_mm": [
+            0.0,
+            0.0
+          ],
+          "center_mm": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "name": "p1_l2_cutout_rect",
+          "layer_query": "ETCH_INNER1",
+          "primitive_found": true,
+          "net_name": "GND",
+          "negative": true,
+          "bbox_raw": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "bbox_mm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_mm": [
+            0.0,
+            0.0
+          ],
+          "center_mm": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    "ETCH_INNER2": {
+      "count": 2,
+      "names": [
+        "l3_ground_plane",
+        "p1_l3_cutout_rect"
+      ],
+      "objects": [
+        {
+          "name": "l3_ground_plane",
+          "layer_query": "ETCH_INNER2",
+          "primitive_found": true,
+          "net_name": "GND",
+          "negative": false,
+          "bbox_raw": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "bbox_mm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_mm": [
+            0.0,
+            0.0
+          ],
+          "center_mm": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "name": "p1_l3_cutout_rect",
+          "layer_query": "ETCH_INNER2",
+          "primitive_found": true,
+          "net_name": "GND",
+          "negative": true,
+          "bbox_raw": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "bbox_mm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_mm": [
+            0.0,
+            0.0
+          ],
+          "center_mm": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    "ETCH_TOP": {
+      "count": 10,
+      "names": [
+        "input_series_hi_z",
+        "p1_launch_bottom_ground",
+        "center_line_bottom_ground",
+        "input_feed",
+        "input_neck",
+        "input_taper",
+        "through_line",
+        "output_feed",
+        "center_line_top_ground",
+        "p1_launch_top_ground"
+      ],
+      "objects": [
+        {
+          "name": "input_series_hi_z",
+          "layer_query": "ETCH_TOP",
+          "primitive_found": true,
+          "net_name": "IN",
+          "negative": false,
+          "bbox_raw": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "bbox_mm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_mm": [
+            0.0,
+            0.0
+          ],
+          "center_mm": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "name": "p1_launch_bottom_ground",
+          "layer_query": "ETCH_TOP",
+          "primitive_found": true,
+          "net_name": "GND",
+          "negative": false,
+          "bbox_raw": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "bbox_mm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_mm": [
+            0.0,
+            0.0
+          ],
+          "center_mm": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "name": "center_line_bottom_ground",
+          "layer_query": "ETCH_TOP",
+          "primitive_found": true,
+          "net_name": "GND",
+          "negative": false,
+          "bbox_raw": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "bbox_mm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_mm": [
+            0.0,
+            0.0
+          ],
+          "center_mm": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "name": "input_feed",
+          "layer_query": "ETCH_TOP",
+          "primitive_found": true,
+          "net_name": "IN",
+          "negative": false,
+          "bbox_raw": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "bbox_mm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_mm": [
+            0.0,
+            0.0
+          ],
+          "center_mm": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "name": "input_neck",
+          "layer_query": "ETCH_TOP",
+          "primitive_found": true,
+          "net_name": "IN",
+          "negative": false,
+          "bbox_raw": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "bbox_mm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_mm": [
+            0.0,
+            0.0
+          ],
+          "center_mm": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "name": "input_taper",
+          "layer_query": "ETCH_TOP",
+          "primitive_found": true,
+          "net_name": "IN",
+          "negative": false,
+          "bbox_raw": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "bbox_mm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_mm": [
+            0.0,
+            0.0
+          ],
+          "center_mm": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "name": "through_line",
+          "layer_query": "ETCH_TOP",
+          "primitive_found": true,
+          "net_name": "SIG",
+          "negative": false,
+          "bbox_raw": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "bbox_mm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_mm": [
+            0.0,
+            0.0
+          ],
+          "center_mm": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "name": "output_feed",
+          "layer_query": "ETCH_TOP",
+          "primitive_found": true,
+          "net_name": "OUT",
+          "negative": false,
+          "bbox_raw": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "bbox_mm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_mm": [
+            0.0,
+            0.0
+          ],
+          "center_mm": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "name": "center_line_top_ground",
+          "layer_query": "ETCH_TOP",
+          "primitive_found": true,
+          "net_name": "GND",
+          "negative": false,
+          "bbox_raw": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "bbox_mm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_mm": [
+            0.0,
+            0.0
+          ],
+          "center_mm": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "name": "p1_launch_top_ground",
+          "layer_query": "ETCH_TOP",
+          "primitive_found": true,
+          "net_name": "GND",
+          "negative": false,
+          "bbox_raw": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "bbox_mm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_mm": [
+            0.0,
+            0.0
+          ],
+          "center_mm": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    "ETCH_BOTTOM": {
+      "count": 1,
+      "names": [
+        "l4_ground_plane"
+      ],
+      "objects": [
+        {
+          "name": "l4_ground_plane",
+          "layer_query": "ETCH_BOTTOM",
+          "primitive_found": true,
+          "net_name": "GND",
+          "negative": false,
+          "bbox_raw": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "bbox_mm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_mm": [
+            0.0,
+            0.0
+          ],
+          "center_mm": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    }
+  }
+}

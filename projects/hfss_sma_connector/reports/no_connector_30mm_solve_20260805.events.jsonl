@@ -1,0 +1,26 @@
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "lifecycle_start", "status": "running", "timestamp_epoch": 1785930796.105, "elapsed_s": 0.0}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "apply_pyaedt_settings", "status": "running", "timestamp_epoch": 1785930796.619, "elapsed_s": 0.516}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "apply_pyaedt_settings", "status": "ok", "timestamp_epoch": 1785930796.62, "elapsed_s": 0.516, "duration_s": 0.0}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "start_hfss3dlayout", "status": "running", "timestamp_epoch": 1785930796.622, "elapsed_s": 0.516}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "start_hfss3dlayout", "status": "ok", "timestamp_epoch": 1785930810.072, "elapsed_s": 13.969, "duration_s": 13.453}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "wait_for_hfss3dlayout_ready", "status": "running", "timestamp_epoch": 1785930810.104, "elapsed_s": 14.0}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "wait_for_hfss3dlayout_ready", "status": "ok", "timestamp_epoch": 1785930813.163, "elapsed_s": 17.063, "duration_s": 3.063}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "read_ports", "status": "running", "timestamp_epoch": 1785930813.163, "elapsed_s": 17.063}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "read_ports", "status": "ok", "timestamp_epoch": 1785930813.167, "elapsed_s": 17.063, "duration_s": 0.0}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "analyze_setup", "status": "running", "timestamp_epoch": 1785930813.168, "elapsed_s": 17.063, "setup": "Setup_0p5to10G"}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "analyze_setup", "status": "ok", "timestamp_epoch": 1785930837.561, "elapsed_s": 41.453, "duration_s": 24.39}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "export_touchstone", "status": "running", "timestamp_epoch": 1785930837.561, "elapsed_s": 41.453, "attempts": 3}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "export_touchstone", "status": "ok", "timestamp_epoch": 1785930838.051, "elapsed_s": 41.953, "duration_s": 0.5}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "score_s2p", "status": "running", "timestamp_epoch": 1785930838.052, "elapsed_s": 41.953, "tool": "analyze_connector_s2p.py"}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "score_s2p", "status": "ok", "timestamp_epoch": 1785930840.322, "elapsed_s": 44.219, "duration_s": 2.266}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "convert_s2p_to_trace_csv", "status": "running", "timestamp_epoch": 1785930840.322, "elapsed_s": 44.219}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "convert_s2p_to_trace_csv", "status": "ok", "timestamp_epoch": 1785930840.333, "elapsed_s": 44.235, "duration_s": 0.016}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "write_plot_summary", "status": "running", "timestamp_epoch": 1785930840.334, "elapsed_s": 44.235}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "write_plot_summary", "status": "ok", "timestamp_epoch": 1785930840.337, "elapsed_s": 44.235, "duration_s": 0.0}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "plot_sparam_svg", "status": "running", "timestamp_epoch": 1785930840.337, "elapsed_s": 44.235, "tool": "plot_connector_s_curves_svg.py"}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "plot_sparam_svg", "status": "ok", "timestamp_epoch": 1785930843.234, "elapsed_s": 47.125, "duration_s": 2.89}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "read_messages", "status": "running", "timestamp_epoch": 1785930843.235, "elapsed_s": 47.125}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "read_messages", "status": "ok", "timestamp_epoch": 1785930843.258, "elapsed_s": 47.157, "duration_s": 0.032}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "release_desktop", "status": "running", "timestamp_epoch": 1785930843.259, "elapsed_s": 47.157}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "release_desktop", "status": "ok", "timestamp_epoch": 1785930847.002, "elapsed_s": 50.891, "duration_s": 3.734}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "lifecycle_finish", "status": "ok", "timestamp_epoch": 1785930847.003, "elapsed_s": 50.891, "total_elapsed_s": 50.891}
