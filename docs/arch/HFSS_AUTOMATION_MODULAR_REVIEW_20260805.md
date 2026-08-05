@@ -396,3 +396,27 @@ python -m pytest tests\test_hfss_layout.py tests\test_hfss_replace_layout.py tes
 ```
 
 结果：layout/replace/policy 快速测试 11 passed。
+
+## 当前第十二步修改
+
+本轮完成连接器参考地缺口实体化：
+
+- `src/simads/hfss/connector.py`
+  - 新增 reference-ground 正向切片逻辑，把 L2 cutout 候选转换为 `reference_ground_plane` 分片。
+  - 保留 `reference_ground_cutout` 作为报告/评审和旧对象清理元数据，不交给 HFSS 执行 subtract。
+  - L3 在配置 cutout 时同样使用正向参考地分片；L4 仍按配置输出完整参考地平面。
+- `src/simads/hfss/layout.py`
+  - 当 layout JSON 已显式提供当前 reference layer 的 `reference_ground_plane` 时，不再自动铺一整板默认 GND，避免盖掉 generator 已实体化的缺口。
+- `tests/test_hfss_connector.py` / `tests/test_hfss_layout.py`
+  - 覆盖 L2 cutout-enabled connector layout 会输出 `hfss_ground_plane` 分片。
+  - 覆盖显式 L2 reference plane 会抑制默认整板 GND。
+  - 覆盖 HFSS builder 不创建 cutout、不执行 subtract。
+
+已验证：
+
+```text
+python -m pytest tests\test_hfss_layout.py tests\test_hfss_connector.py tests\test_hfss_replace_layout.py tests\test_hfss_quality_gate.py
+python tools\hfss\run_hfss_quality_gate.py --profile home --output .simads\gates\hfss_quality_gate_latest.json
+```
+
+结果：快速测试 27 passed；完整 gate 通过，HFSS 相关 pytest 53 passed，AEDT 2026.1 non-graphical smoke 通过，完整 gate elapsed 20.049 s。

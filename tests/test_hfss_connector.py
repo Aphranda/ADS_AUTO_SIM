@@ -14,6 +14,7 @@ from simads.hfss.connector import (
     SINGLE_CONNECTOR_FIXTURE_TYPE,
     ConnectorLaunchParams,
     assert_connector_layout_valid,
+    board_height,
     build_layout,
     build_microstrip_baseline_layout,
     build_single_connector_layout,
@@ -307,9 +308,24 @@ def test_microstrip_connector_can_emit_l2_cutout_and_hi_z_series() -> None:
 
     assert all(check.ok for check in validate_connector_layout(layout, params))
     assert any(shape["kind"] == "reference_ground_cutout" for shape in layout_json["shapes"])
+    l2_planes = [
+        shape
+        for shape in layout_json["shapes"]
+        if shape["kind"] == "reference_ground_plane" and shape.get("metadata", {}).get("target_layer") == "reference_ground_layer"
+    ]
+    assert len(l2_planes) > 1
+    assert any(shape["name"] == "hfss_ground_plane" for shape in l2_planes)
     assert "input_series_hi_z" in names
     assert "output_series_hi_z" in names
+    assert "hfss_ground_plane" in names
     assert "p1_l2_cutout_rect" not in names
+    assert not any(
+        call[0] == "rect"
+        and call[1] == "ETCH_INNER1"
+        and call[3][0] == pytest.approx(total_len(params))
+        and call[3][1] == pytest.approx(board_height(params))
+        for call in app.modeler.calls
+    )
     assert not any(call[0] == "subtract" for call in app.modeler.calls)
 
 
@@ -418,13 +434,14 @@ def test_single_connector_can_extend_cropped_reference_planes_right() -> None:
 
     total_l = launch_len(params) + params.line_l_mm
     assert layout.metadata["reference_ground_extend_right_mm"] == pytest.approx(1.5)
-    assert any(
-        call[0] == "rect"
-        and call[4] == "hfss_ground_plane"
-        and call[2][0] == pytest.approx(0.0)
-        and call[3][0] == pytest.approx(total_l + 1.5)
-        for call in app.modeler.calls
-    )
+    l2_planes = [
+        shape
+        for shape in layout_json["shapes"]
+        if shape["kind"] == "reference_ground_plane" and shape.get("metadata", {}).get("target_layer") == "reference_ground_layer"
+    ]
+    assert any(shape["name"] == "hfss_ground_plane" for shape in l2_planes)
+    assert min(float(shape["x"]) for shape in l2_planes) == pytest.approx(0.0)
+    assert max(float(shape["x"]) + float(shape["w"]) for shape in l2_planes) == pytest.approx(total_l + 1.5)
     assert any(
         shape["name"] == "l3_ground_plane"
         and shape["x"] == pytest.approx(0.0)

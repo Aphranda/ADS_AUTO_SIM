@@ -285,6 +285,114 @@ def _reference_ground_plane_rect(name: str, x: float, y: float, w: float, h: flo
     )
 
 
+def _reference_shape_target(shape: Rect | Polygon) -> str:
+    target = shape.metadata.get("target_layer")
+    return str(target or "reference_ground_layer")
+
+
+def _shape_bbox(shape: Rect | Polygon) -> tuple[float, float, float, float]:
+    if isinstance(shape, Rect):
+        x0 = float(shape.x)
+        y0 = float(shape.y)
+        return x0, y0, x0 + float(shape.w), y0 + float(shape.h)
+    xs = [float(point[0]) for point in shape.points]
+    ys = [float(point[1]) for point in shape.points]
+    return min(xs), min(ys), max(xs), max(ys)
+
+
+def _reference_ground_bbox(params: ConnectorLaunchParams, total_l: float, *, extend_left_mm: float, extend_right_mm: float) -> tuple[float, float, float, float]:
+    board_h = board_height(params)
+    source_x0 = -params.edge_margin_mm
+    source_x1 = total_l + params.edge_margin_mm
+    x0 = max(source_x0, -max(0.0, extend_left_mm))
+    x1 = min(source_x1, total_l + max(0.0, extend_right_mm))
+    return x0, -board_h / 2.0, x1, board_h / 2.0
+
+
+def _unique_breaks(values: list[float]) -> list[float]:
+    output: list[float] = []
+    for value in sorted(values):
+        if not output or abs(value - output[-1]) > 1e-9:
+            output.append(value)
+    return output
+
+
+def _merge_intervals(intervals: list[tuple[float, float]]) -> list[tuple[float, float]]:
+    merged: list[tuple[float, float]] = []
+    for x0, x1 in sorted(intervals):
+        if not merged or x0 > merged[-1][1] + 1e-9:
+            merged.append((x0, x1))
+            continue
+        merged[-1] = (merged[-1][0], max(merged[-1][1], x1))
+    return merged
+
+
+def _clip_bbox_to_base(
+    bbox: tuple[float, float, float, float],
+    base: tuple[float, float, float, float],
+    *,
+    min_feature_mm: float,
+) -> tuple[float, float, float, float] | None:
+    x0, y0, x1, y1 = bbox
+    bx0, by0, bx1, by1 = base
+    clipped = max(x0, bx0), max(y0, by0), min(x1, bx1), min(y1, by1)
+    cx0, cy0, cx1, cy1 = clipped
+    if cx1 - cx0 < min_feature_mm or cy1 - cy0 < min_feature_mm:
+        return None
+    return clipped
+
+
+def _ground_plane_parts_around_cutouts(
+    base_name: str,
+    base: tuple[float, float, float, float],
+    cutouts: list[Rect | Polygon],
+    *,
+    side: str,
+    target_layer: str,
+    min_feature_mm: float,
+) -> list[Rect]:
+    bx0, by0, bx1, by1 = base
+    clipped = [
+        clipped
+        for shape in cutouts
+        for clipped in [_clip_bbox_to_base(_shape_bbox(shape), base, min_feature_mm=min_feature_mm)]
+        if clipped is not None
+    ]
+    if not clipped:
+        return [_reference_ground_plane_rect(base_name, bx0, by0, bx1 - bx0, by1 - by0, side=side, target_layer=target_layer)]
+
+    xs = _unique_breaks([bx0, bx1, *(value for x0, _, x1, _ in clipped for value in (x0, x1))])
+    ys = _unique_breaks([by0, by1, *(value for _, y0, _, y1 in clipped for value in (y0, y1))])
+    specs: list[tuple[float, float, float, float]] = []
+    for y0, y1 in zip(ys, ys[1:], strict=False):
+        if y1 - y0 < min_feature_mm:
+            continue
+        intervals: list[tuple[float, float]] = []
+        cy = (y0 + y1) / 2.0
+        for x0, x1 in zip(xs, xs[1:], strict=False):
+            cx = (x0 + x1) / 2.0
+            if any(vx0 < cx < vx1 and vy0 < cy < vy1 for vx0, vy0, vx1, vy1 in clipped):
+                continue
+            intervals.append((x0, x1))
+        for x0, x1 in _merge_intervals(intervals):
+            if x1 - x0 < min_feature_mm:
+                continue
+            specs.append((x0, y0, x1 - x0, y1 - y0))
+
+    return [
+        _reference_ground_plane_rect(
+            base_name if index == 0 else f"{base_name}_part_{index}",
+            x,
+            y,
+            w,
+            h,
+            side=side,
+            target_layer=target_layer,
+        )
+        for index, (x, y, w, h) in enumerate(specs)
+    ]
+
+
 def _taper(name: str, x0: float, x1: float, w0: float, w1: float, *, role: str) -> Polygon:
     return Polygon(
         name=name,
@@ -617,53 +725,82 @@ def build_reference_ground_cutouts(params: ConnectorLaunchParams, *, sides: tupl
     return output
 
 
+def build_l2_ground_planes(params: ConnectorLaunchParams, *, sides: tuple[str, ...], single: bool = False) -> list[Rect]:
+    if not params.l2_cutout_enabled:
+        return []
+    total_l = single_connector_port_locations(params)[1][0] if single else total_len(params)
+    cutouts = [
+        shape
+        for shape in build_reference_ground_cutouts(params, sides=sides)
+        if _reference_shape_target(shape) == "reference_ground_layer"
+    ]
+    return _ground_plane_parts_around_cutouts(
+        params.ground_plane_name,
+        _reference_ground_bbox(
+            params,
+            total_l,
+            extend_left_mm=params.reference_ground_extend_left_mm,
+            extend_right_mm=params.reference_ground_extend_right_mm,
+        ),
+        cutouts,
+        side="ALL",
+        target_layer="reference_ground_layer",
+        min_feature_mm=params.min_fab_feature_mm,
+    )
+
+
 def build_l3_ground_planes(params: ConnectorLaunchParams, *, sides: tuple[str, ...], single: bool = False) -> list[Rect]:
     if not params.l2_cutout_enabled:
         return []
-    board_h = board_height(params)
     total_l = single_connector_port_locations(params)[1][0] if single else total_len(params)
-    boundary_x0 = -params.edge_margin_mm
-    boundary_x1 = total_l + params.edge_margin_mm
+    cutouts = build_reference_ground_cutouts(params, sides=sides)
 
-    def plane(name: str, target_layer: str | None, margin_mm: float, extend_left_mm: float, extend_right_mm: float) -> Rect | None:
+    def plane(name: str, target_layer: str | None, margin_mm: float, extend_left_mm: float, extend_right_mm: float) -> list[Rect]:
         if not target_layer:
-            return None
+            return []
         margin = max(0.0, margin_mm)
-        left_extend = max(margin, max(0.0, extend_left_mm))
-        right_extend = max(margin, max(0.0, extend_right_mm))
-        x = max(boundary_x0, -left_extend)
-        right = min(boundary_x1, total_l + right_extend)
-        w = right - x
-        if w < params.min_fab_feature_mm:
-            return None
-        return _reference_ground_plane_rect(name, x, -board_h / 2.0, w, board_h, side="ALL", target_layer=target_layer)
+        base = _reference_ground_bbox(
+            params,
+            total_l,
+            extend_left_mm=max(margin, max(0.0, extend_left_mm)),
+            extend_right_mm=max(margin, max(0.0, extend_right_mm)),
+        )
+        layer_cutouts = [shape for shape in cutouts if _reference_shape_target(shape) == target_layer]
+        return _ground_plane_parts_around_cutouts(
+            name,
+            base,
+            layer_cutouts,
+            side="ALL",
+            target_layer=target_layer,
+            min_feature_mm=params.min_fab_feature_mm,
+        )
 
     output: list[Rect] = []
     l3_layer = _l3_target_layer(params)
     if params.l3_ground_enabled:
-        l3_plane = plane(
-            "l3_ground_plane",
-            l3_layer,
-            params.l3_ground_margin_mm,
-            params.l3_ground_extend_left_mm,
-            params.l3_ground_extend_right_mm,
+        output.extend(
+            plane(
+                "l3_ground_plane",
+                l3_layer,
+                params.l3_ground_margin_mm,
+                params.l3_ground_extend_left_mm,
+                params.l3_ground_extend_right_mm,
+            )
         )
-        if l3_plane is not None:
-            output.append(l3_plane)
     l4_layer = params.l4_ground_layer or next(
         (layer for layer in reversed(params.ground_layers) if layer not in {params.reference_ground_layer, l3_layer}),
         None,
     )
     if params.l4_ground_enabled:
-        l4_plane = plane(
-            "l4_ground_plane",
-            l4_layer,
-            params.l4_ground_margin_mm,
-            params.l4_ground_extend_left_mm,
-            params.l4_ground_extend_right_mm,
+        output.extend(
+            plane(
+                "l4_ground_plane",
+                l4_layer,
+                params.l4_ground_margin_mm,
+                params.l4_ground_extend_left_mm,
+                params.l4_ground_extend_right_mm,
+            )
         )
-        if l4_plane is not None:
-            output.append(l4_plane)
     return output
 
 
@@ -862,6 +999,7 @@ def build_layout(params: ConnectorLaunchParams) -> Layout:
             *build_gcpw_ground_rails(params, dual_connector_gcpw_segments(params)),
             *build_signal_shapes(params),
             *build_vias(params),
+            *build_l2_ground_planes(params, sides=("P1", "P2")),
             *build_reference_ground_cutouts(params, sides=("P1", "P2")),
             *build_l3_ground_planes(params, sides=("P1", "P2")),
         ],
@@ -941,6 +1079,7 @@ def build_single_connector_layout(params: ConnectorLaunchParams) -> Layout:
             _rect("through_line", left_l, 0.0, center_l, params.line_w_mm, role="gcpw_50r"),
             _rect("output_feed", left_l + center_l, 0.0, output_feed_l, params.line_w_mm, role="gcpw_50r"),
             *build_single_connector_vias(params),
+            *build_l2_ground_planes(params, sides=("P1",), single=True),
             *build_reference_ground_cutouts(params, sides=("P1",)),
             *build_l3_ground_planes(params, sides=("P1",), single=True),
         ],
@@ -1141,6 +1280,7 @@ __all__ = [
     "build_single_connector_layout",
     "build_gcpw_ground_rails",
     "build_line_via_fence",
+    "build_l2_ground_planes",
     "build_reference_ground_cutouts",
     "build_l3_ground_planes",
     "build_signal_shapes",

@@ -88,6 +88,7 @@ Last updated: 2026-08-06
   - HFSS 不执行候选级局部挖空、negative primitive、boolean subtract 或 direct void patch。
   - `reference_ground_cutout` 只允许作为旧对象删除名或评审元数据；新候选的 L2/L3/L4 缺口必须由 layout generator 输出为真实参考地几何。
   - `replace_hfss3dlayout_layout_primitives.py` 的 dry-run policy 已登记 `allowed_geometry_boolean_scope=none`。
+  - 连接器 generator 已将 L2 reference-ground cutout 实体化为 `reference_ground_plane` 分片；L3 配置 cutout 时也由正向地平面分片表达，HFSS builder 只加载 primitives。
 
 ## P2 ADS/HFSS 裁决和对照
 

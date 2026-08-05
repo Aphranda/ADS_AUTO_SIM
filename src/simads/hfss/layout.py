@@ -80,6 +80,15 @@ def _create_reference_ground_plane(app: Any, shape: dict[str, Any], geometry: Ge
     )
 
 
+def _has_explicit_reference_ground_plane(layout: dict[str, Any], geometry: GeometryBuildOptions) -> bool:
+    for shape in layout.get("shapes", []):
+        if not isinstance(shape, dict) or shape.get("kind") != "reference_ground_plane":
+            continue
+        if _target_ground_layer(shape, geometry) == geometry.reference_ground_layer:
+            return True
+    return False
+
+
 def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOptions | argparse.Namespace) -> list[str]:
     geometry = _geometry_options(options)
     signal_layers = {"cond", geometry.signal_layer}
@@ -87,7 +96,7 @@ def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOpti
     boundary = resolve_gnd_boundary(layout, geometry)
     gnd = None
     ground_by_layer: dict[str, Any] = {}
-    if boundary:
+    if boundary and not _has_explicit_reference_ground_plane(layout, geometry):
         gnd = app.modeler.create_rectangle(
             geometry.reference_ground_layer,
             [boundary["x"], boundary["y"]],

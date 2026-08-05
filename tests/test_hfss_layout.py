@@ -168,6 +168,45 @@ def test_create_geometry_accepts_explicit_options_without_cli_namespace() -> Non
     assert app.modeler.calls[1] == ("rect", "L1_TOP", [-1.0, 0.0], [0.5, 0.2], "input_feed", "IN")
 
 
+def test_create_geometry_uses_explicit_reference_ground_plane_without_default() -> None:
+    layout = {
+        "ports": [
+            {"number": 1, "x": -1.0, "y": 0.0},
+            {"number": 2, "x": 2.0, "y": 0.0},
+        ],
+        "shapes": [
+            {"kind": "boundary", "layer": "EM_BOUNDARY", "name": "boundary", "x": -2.0, "y": -1.0, "w": 5.0, "h": 3.0},
+            {
+                "kind": "reference_ground_plane",
+                "layer": "GND",
+                "name": "l2_ground_part",
+                "x": -1.0,
+                "y": -1.0,
+                "w": 3.0,
+                "h": 1.0,
+                "metadata": {"target_layer": "L2_GND"},
+            },
+            {"kind": "rect", "layer": "cond", "name": "input_feed", "x": -1.0, "y": 0.0, "w": 0.5, "h": 0.2},
+        ],
+    }
+    app = FakeApp()
+
+    names = create_geometry(
+        app,
+        layout,
+        GeometryBuildOptions(
+            gnd_boundary_mode="port-edges",
+            signal_layer="L1_TOP",
+            reference_ground_layer="L2_GND",
+            ground_plane_name="configured_gnd",
+        ),
+    )
+
+    assert names == ["l2_ground_part", "input_feed"]
+    assert app.modeler.calls[0] == ("rect", "L2_GND", [-1.0, -1.0], [3.0, 1.0], "l2_ground_part", "GND")
+    assert all(call[4] != "configured_gnd" for call in app.modeler.calls)
+
+
 def test_create_geometry_skips_reference_ground_cutout_without_boolean_subtract() -> None:
     layout = {
         "ports": [],
