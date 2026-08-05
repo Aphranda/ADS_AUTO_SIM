@@ -50,11 +50,14 @@ HFSS 3D Layout gRPC 的稳定流程：
 
 AEDT 进程回收规则：
 
-- 独立脚本为 `tools/hfss/reap_aedt_processes.py`。默认 dry-run，只列出候选；加 `--execute` 才会终止进程。
-- 自动化入口启动后会拉起隐藏 reaper：监控目标 AEDT PID 和父进程 PID，父进程退出并等待 grace 时间后才判断是否回收。
-- 默认只回收没有可见窗口的 `ansysedt.exe` / `ansysedtsv.exe`，防止误杀用户正在使用的 GUI。
+- 独立脚本为 `tools/hfss/reap_aedt_processes.py`。自动化启动 AEDT 时必须写入 `.owner.json`，记录本脚本本次拥有的 AEDT PID、create time、父进程 PID 和 `script_started=true`。
+- 自动化入口启动后会拉起隐藏生命周期监控：`start_aedt_reaper()` 在 Windows 上优先使用 `pythonw.exe`，并叠加 `CREATE_NO_WINDOW`、`DETACHED_PROCESS` 和 `STARTUPINFO(SW_HIDE)`，避免弹出独立 cmd/console 窗口。
+- 生命周期监控只处理 owner record 中登记的目标 PID；未登记的 AEDT 进程，包括用户手动启动的 GUI、attach-existing 会话、其它脚本的 AEDT，一律不作为回收目标。
+- 父进程退出并等待 grace 时间后才判断是否回收；回收前必须再次匹配 owner record 中的 PID 和 create time，create time 不匹配时跳过，避免 PID 复用误杀。
+- 默认只允许回收本脚本登记且没有可见窗口的 `ansysedt.exe` / `ansysedtsv.exe`；缺少 owner record、`script_started=false` 或缺少 create-time 校验时，即使传入 `--execute` 也不终止。
 - 显式 `--keep-open` / `--keep-attached` 的调试场景只记录监控结果，不执行回收。
-- reaper 输出写入 `.simads\aedt_reaper\`；手动 dry-run 报告可写到 `projects\hfss_sma_connector\reports\aedt_reaper_dry_run_20260805.json`。
+- reaper summary JSON 和 JSONL event log 写入 `.simads\aedt_reaper\`；事件包含 `watch_start`、`scan_processes`、`watch_heartbeat`、`parent_exit_detected`、`reap_process`、`watch_finish`，并记录每次扫描/回收耗时。
+- 主要 HFSS 操作入口使用 `OperationLifecycle` 记录阶段耗时；当前 `replace_hfss3dlayout_layout_primitives.py` 覆盖 AEDT 启动、ready、端口删除、对象扫描、源版图删除、新版图绘制、PCB 输出端口重建、保存、release，`run_existing_hfss3dlayout_verdict.py` 覆盖 ready、solve、Touchstone 导出、score、trace CSV、SVG 和消息读取。
 
 当前已接入生命周期监控的入口：
 

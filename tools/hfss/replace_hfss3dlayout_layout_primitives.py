@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Replace selected HFSS 3D Layout PCB primitives without touching ports.
+"""Replace HFSS 3D Layout PCB primitives without touching connector objects.
 
-This tool is intentionally narrower than the normal build workflow. It is for
-connector launch tuning after the SMA component and ports have already been
-fixed in AEDT. The default scope updates only local P1 launch PCB objects and
-preserves schematic components, IPorts, the 50R through section, and the P2
-edge-port carrier object.
+This tool is for connector launch tuning after the SMA component has already
+been fixed in AEDT. The production flow always deletes the existing source PCB
+layout, draws the new layout from JSON, and recreates only the PCB remote edge
+port. Candidate iteration must not call incremental or candidate-specific
+boolean operations against the existing AEDT layout.
 """
 
 from __future__ import annotations
@@ -21,14 +21,15 @@ if str(_SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(_SRC_ROOT))
 
 from simads.hfss.aedt_startup import (
+    OperationLifecycle,
     aedt_automation_lock,
     apply_grpc_startup_compat,
     apply_pyaedt_settings,
     start_aedt_reaper,
     startup_snapshot,
+    wait_for_hfss3dlayout_ready,
 )
-from simads.hfss.layout import GeometryBuildOptions, _create_cutout_tool, _shape_net, _subtract_from_ground
-from simads.hfss.layout import _create_reference_ground_plane
+from simads.hfss.layout import GeometryBuildOptions, create_geometry
 from simads.hfss.ports import (
     apply_aedt_edge_gap_port_template,
     default_port_reference_name,
@@ -36,32 +37,6 @@ from simads.hfss.ports import (
 )
 
 apply_grpc_startup_compat()
-
-
-P1_LOCAL_LAUNCH_NAMES = {
-    "p1_launch_top_ground",
-    "p1_launch_bottom_ground",
-    "input_feed",
-    "input_neck",
-    "input_series_hi_z",
-    "input_taper",
-}
-
-P1_CONNECTED_LAUNCH_NAMES = {
-    *P1_LOCAL_LAUNCH_NAMES,
-    "center_line_top_ground",
-    "center_line_bottom_ground",
-    "through_line",
-}
-
-PRESERVED_NAMES = {
-    "em_boundary",
-    "hfss_ground_plane",
-    "center_line_top_ground",
-    "center_line_bottom_ground",
-    "through_line",
-    "output_feed",
-}
 
 
 def _json_default(value: Any) -> str:
@@ -79,36 +54,10 @@ def _shape_name(shape: dict[str, Any]) -> str:
     return str(shape.get("name", ""))
 
 
-def _is_p1_local_launch_shape(shape: dict[str, Any]) -> bool:
-    name = _shape_name(shape)
-    if name in P1_LOCAL_LAUNCH_NAMES:
-        return True
-    if name.startswith("ground_via_p1_"):
-        return True
-    if shape.get("kind") == "reference_ground_cutout":
-        metadata = shape.get("metadata", {})
-        return isinstance(metadata, dict) and metadata.get("side") == "P1"
-    if shape.get("kind") == "reference_ground_plane":
-        metadata = shape.get("metadata", {})
-        return isinstance(metadata, dict) and metadata.get("side") in {"P1", "ALL"}
-    return False
-
-
-def _is_p1_connected_launch_shape(shape: dict[str, Any]) -> bool:
-    name = _shape_name(shape)
-    if _is_p1_local_launch_shape(shape) or name in P1_CONNECTED_LAUNCH_NAMES:
-        return True
-    return name.startswith("gcpw_line_via_")
-
-
 def _selected_shapes(layout: dict[str, Any], scope: str) -> list[dict[str, Any]]:
     shapes = [shape for shape in layout.get("shapes", []) if isinstance(shape, dict)]
-    if scope == "single-p1-launch-local":
-        return [shape for shape in shapes if _is_p1_local_launch_shape(shape)]
-    if scope == "single-p1-launch-connected":
-        return [shape for shape in shapes if _is_p1_connected_launch_shape(shape)]
-    if scope == "all-pcb-except-p2-port-carrier":
-        return [shape for shape in shapes if _shape_name(shape) not in PRESERVED_NAMES]
+    if scope == "single-p1-pcb-full":
+        return shapes
     raise ValueError(f"unsupported replacement scope: {scope}")
 
 
@@ -118,8 +67,6 @@ def _delete_names_for_shape(shape: dict[str, Any]) -> list[str]:
         return []
     if shape.get("kind") == "via":
         return [f"{name}_pad", name]
-    if shape.get("kind") == "reference_ground_cutout":
-        return []
     return [name]
 
 
@@ -130,6 +77,14 @@ def _delete_names(shapes: list[dict[str, Any]]) -> list[str]:
             if name and name not in output:
                 output.append(name)
     return output
+
+
+def _full_rebuild_delete_names(layout: dict[str, Any], geometry: GeometryBuildOptions) -> list[str]:
+    names = [geometry.ground_plane_name]
+    for name in _delete_names(_selected_shapes(layout, "single-p1-pcb-full")):
+        if name not in names:
+            names.append(name)
+    return names
 
 
 def _matches_aedt_generated_name(actual: str, base: str) -> bool:
@@ -254,56 +209,11 @@ def _create_pcb_output_port(app: Any, layout: dict[str, Any], args: argparse.Nam
     }
 
 
-def _create_shape(app: Any, shape: dict[str, Any], geometry: GeometryBuildOptions) -> Any | None:
-    kind = shape.get("kind")
-    layer = shape.get("layer")
-    name = _shape_name(shape)
-    signal_layers = {"cond", geometry.signal_layer}
-    if kind == "rect" and layer in signal_layers:
-        return app.modeler.create_rectangle(
-            geometry.signal_layer,
-            [shape["x"], shape["y"]],
-            [shape["w"], shape["h"]],
-            name=name,
-            net=_shape_net(shape, name),
-        )
-    if kind == "polygon" and layer in signal_layers:
-        return app.modeler.create_polygon(
-            geometry.signal_layer,
-            [[float(x), float(y)] for x, y in shape["points"]],
-            units="mm",
-            name=name,
-            net=_shape_net(shape, name),
-        )
-    if kind == "via":
-        pad_d = float(shape.get("pad_diameter") or shape.get("diameter"))
-        via_d = float(shape.get("diameter") or pad_d)
-        pad = app.modeler.create_circle(
-            geometry.signal_layer,
-            float(shape["x"]),
-            float(shape["y"]),
-            pad_d / 2.0,
-            name=f"{name}_pad",
-            net="GND",
-        )
-        via = app.modeler.create_via(
-            x=float(shape["x"]),
-            y=float(shape["y"]),
-            hole_diam=via_d,
-            top_layer=geometry.via_top_layer,
-            bot_layer=geometry.via_bottom_layer,
-            name=name,
-            net="GND",
-        )
-        return [item for item in (pad, via) if item]
-    if kind == "reference_ground_cutout":
-        return _create_cutout_tool(app, shape, geometry)
-    if kind == "reference_ground_plane":
-        return _create_reference_ground_plane(app, shape, geometry)
-    return None
-
-
 def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
+    lifecycle = OperationLifecycle(
+        "replace_hfss3dlayout_layout_primitives",
+        output=args.output.with_suffix(".events.jsonl") if getattr(args, "output", None) else None,
+    )
     layout = _load_layout(args.layout)
     geometry = GeometryBuildOptions(
         gnd_boundary_mode=args.gnd_boundary_mode,
@@ -314,105 +224,125 @@ def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
         ground_plane_name=args.ground_plane_name,
     )
     selected_shapes = _selected_shapes(layout, args.scope)
-    requested_delete = _delete_names(selected_shapes)
+    requested_delete = _full_rebuild_delete_names(layout, geometry)
     payload: dict[str, Any] = {
         "project": str(args.project),
         "design": args.design,
         "layout": str(args.layout),
         "scope": args.scope,
-        "preserved_names": sorted(PRESERVED_NAMES),
+        "workflow": "delete_source_layout_draw_new_layout_recreate_pcb_output_port",
+        "layout_update_policy": {
+            "mode": "full_source_layout_rebuild",
+            "candidate_level_boolean_ops": False,
+            "candidate_level_incremental_ops": False,
+            "allowed_geometry_boolean_scope": "inside_create_geometry_only_for_declared_layout_json_shapes",
+        },
         "selected_shape_names": [_shape_name(shape) for shape in selected_shapes],
         "requested_delete_names": requested_delete,
         "notes": [
-            "Schematic connector instances and IPorts are never selected by this tool.",
+            "Schematic connector instances and connector pin IPorts are never selected by this tool.",
             "If --recreate-pcb-output-port is used, only the output_feed/P2 PCB edge port is created; no P1 PCB port is created.",
-            "Reference-ground cutouts are subtractive; an existing L2 cutout cannot be cleanly shrunk without rebuilding the ground plane.",
+            "Layout iteration uses full delete/rebuild; this single operation covers candidate updates.",
+            "Do not patch individual boolean cutouts, direct voids, or partial deltas between candidates.",
+            "Reference-ground cutouts are geometry semantics in layout JSON and are applied only while drawing the new source layout.",
         ],
-        "pcb_output_port": {
-            "recreate": bool(args.recreate_pcb_output_port),
-            "delete_port_names": list(args.delete_pcb_port_name),
-            "primitive": "output_feed",
-            "logical_port": "P2",
-        },
+        "pcb_output_port": {"recreate": bool(args.recreate_pcb_output_port), "delete_port_names": list(args.delete_pcb_port_name), "primitive": "output_feed", "logical_port": "P2"},
         "execute": args.execute,
         "save": args.save,
     }
     if not args.execute:
         payload["status"] = "dry_run"
+        payload["lifecycle"] = lifecycle.finish(status="dry_run")
         return payload
 
     from ansys.aedt.core import Hfss3dLayout, settings
 
-    apply_pyaedt_settings(settings)
+    with lifecycle.timed("apply_pyaedt_settings"):
+        apply_pyaedt_settings(settings)
     payload["aedt_startup"] = startup_snapshot(settings)
+    final_lifecycle_status = "failed"
 
-    with aedt_automation_lock("replace_hfss3dlayout_layout_primitives") as lock_info:
+    with lifecycle.timed("acquire_aedt_automation_lock"):
+        lock_cm = aedt_automation_lock("replace_hfss3dlayout_layout_primitives")
+        lock_info = lock_cm.__enter__()
+    try:
         payload["aedt_lock"] = lock_info
-        app = Hfss3dLayout(
-            project=str(args.project),
-            design=args.design,
-            version=args.version,
-            non_graphical=args.non_graphical,
-            new_desktop=args.new_desktop,
-            close_on_exit=False,
-            remove_lock=args.remove_lock,
-        )
+        with lifecycle.timed("start_hfss3dlayout"):
+            app = Hfss3dLayout(
+                project=str(args.project),
+                design=args.design,
+                version=args.version,
+                non_graphical=args.non_graphical,
+                new_desktop=args.new_desktop,
+                close_on_exit=False,
+                remove_lock=args.remove_lock,
+            )
         payload["aedt_reaper"] = start_aedt_reaper(
             app,
             label="replace_hfss3dlayout_layout_primitives",
             execute=not args.keep_attached,
+            script_started=bool(args.new_desktop and args.non_graphical),
         )
         try:
-            payload["before_ports"] = _schematic_ports(app)
-            layout_editor = app.odesign.SetActiveEditor("Layout")
-            existing = _existing_layout_objects(app.modeler, layout_editor)
+            with lifecycle.timed("wait_for_hfss3dlayout_ready"):
+                payload["aedt_ready"] = wait_for_hfss3dlayout_ready(
+                    app,
+                    timeout_s=args.ready_timeout_s,
+                    settle_s=args.ready_settle_s,
+                )
+            with lifecycle.timed("read_before_ports"):
+                payload["before_ports"] = _schematic_ports(app)
+            if args.recreate_pcb_output_port:
+                with lifecycle.timed("delete_existing_pcb_output_port"):
+                    payload["pcb_output_port_delete"] = _delete_schematic_ports_by_name(app, list(args.delete_pcb_port_name))
+            with lifecycle.timed("inspect_existing_layout_objects"):
+                layout_editor = app.odesign.SetActiveEditor("Layout")
+                existing = _existing_layout_objects(app.modeler, layout_editor)
             payload["existing_candidate_count"] = len(existing)
             delete_existing = _resolve_existing_delete_names(existing, requested_delete)
             payload["delete_existing_names"] = delete_existing
             if delete_existing:
-                payload["delete_result"] = _delete_layout_objects(layout_editor, delete_existing)
+                with lifecycle.timed("delete_source_layout_objects", object_count=len(delete_existing)):
+                    payload["delete_result"] = _delete_layout_objects(layout_editor, delete_existing)
                 if not payload["delete_result"]["ok"]:
                     payload["status"] = "delete_failed_no_create_no_save"
+                    final_lifecycle_status = "failed"
                     return payload
-            created: list[str] = []
-            cutout_tools: list[Any] = []
-            for shape in selected_shapes:
-                obj = _create_shape(app, shape, geometry)
-                if shape.get("kind") == "reference_ground_cutout":
-                    if obj:
-                        cutout_tools.append(obj)
-                    continue
-                if isinstance(obj, list):
-                    created.extend(str(getattr(item, "name", item)) for item in obj)
-                elif obj:
-                    created.append(str(getattr(obj, "name", obj)))
-            if cutout_tools:
-                _subtract_from_ground(app, geometry.ground_plane_name, cutout_tools)
-                created.extend(str(getattr(item, "name", item)) for item in cutout_tools)
+            with lifecycle.timed("draw_new_layout_from_json", shape_count=len(selected_shapes)):
+                created = create_geometry(app, layout, geometry)
             payload["created_names"] = created
             if args.recreate_pcb_output_port:
-                payload["pcb_output_port_delete"] = _delete_schematic_ports_by_name(app, list(args.delete_pcb_port_name))
-                app.odesign.SetActiveEditor("Layout")
-                payload["pcb_output_port_create"] = _create_pcb_output_port(app, layout, args)
-            payload["after_ports"] = _schematic_ports(app)
+                with lifecycle.timed("recreate_pcb_output_port"):
+                    app.odesign.SetActiveEditor("Layout")
+                    payload["pcb_output_port_create"] = _create_pcb_output_port(app, layout, args)
+            with lifecycle.timed("read_after_ports"):
+                payload["after_ports"] = _schematic_ports(app)
             if args.save:
-                payload["saved"] = bool(app.save_project(str(args.project), overwrite=True))
+                with lifecycle.timed("save_aedt_project"):
+                    payload["saved"] = bool(app.save_project(str(args.project), overwrite=True))
             payload["status"] = "replaced"
+            final_lifecycle_status = "ok"
             return payload
         finally:
             if not args.keep_attached:
-                app.release_desktop(close_projects=args.close_projects, close_desktop=args.close_desktop)
+                with lifecycle.timed("release_desktop"):
+                    app.release_desktop(close_projects=args.close_projects, close_desktop=args.close_desktop)
+    finally:
+        with lifecycle.timed("release_aedt_automation_lock"):
+            lock_cm.__exit__(None, None, None)
+        if "lifecycle" not in payload:
+            payload["lifecycle"] = lifecycle.finish(status=final_lifecycle_status)
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Replace selected HFSS 3D Layout PCB primitives without touching ports.")
+    parser = argparse.ArgumentParser(description="Delete and redraw the HFSS 3D Layout PCB source layout without touching connector objects.")
     parser.add_argument("--project", type=Path, required=True)
     parser.add_argument("--design", required=True)
     parser.add_argument("--layout", type=Path, required=True)
     parser.add_argument(
         "--scope",
-        choices=["single-p1-launch-local", "single-p1-launch-connected", "all-pcb-except-p2-port-carrier"],
-        default="single-p1-launch-local",
+        choices=["single-p1-pcb-full"],
+        default="single-p1-pcb-full",
     )
     parser.add_argument("--signal-layer", default="ETCH_TOP")
     parser.add_argument("--reference-ground-layer", default="ETCH_INNER1")
@@ -443,6 +373,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--keep-attached", action="store_true")
     parser.add_argument("--close-projects", action="store_true")
     parser.add_argument("--close-desktop", action="store_true")
+    parser.add_argument("--ready-timeout-s", type=float, default=120.0)
+    parser.add_argument("--ready-settle-s", type=float, default=3.0)
     parser.add_argument("--output", type=Path, default=None)
     return parser.parse_args()
 

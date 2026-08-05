@@ -53,13 +53,15 @@ CLI 编排流程。
 | `make_i7_fr4_round*.py` | host | deprecated | 历史候选生成 | 收敛为 optimizer 配置。 |
 | `make_next_filter_candidates.py` | host | experimental | 下一轮候选生成 | 与 optimizer 合并。 |
 | `patch_ads_substrate_pcvia.py` | ads | maintenance | substrate/via 修补 | 默认禁用，保留审计日志。 |
+| `tools/layout/generate_microstrip_connector_layout.py` | host | stable | 生成 50R CPWG、单端/双端 SMA launch、L2 cutout、L3 reference plane 的连接器候选版图 | 支持 `--project-config` + `--layout-candidate` 从 `config/projects/hfss_sma_connector.json` 读取候选参数；当前单端优化必须让 `fixture_type=microstrip_single_connector_50r` 从配置或 params 继承，避免 CLI 漏参退回双端。 |
 | `tools/hfss/audit_connector_parameters.py` | host/pyaedt | candidate | HFSS 连接器 source/project/instance 参数审计和工程 `$sma_` 变量同步 | 保留为 HFSS connector gate；禁止文本写 `.aedt`，写入只能通过 PyAEDT/API 的 `--sync-project-variables --execute --save`。 |
-| `tools/hfss/replace_hfss3dlayout_layout_primitives.py` | host/pyaedt | stable | 在既有 HFSS 3D Layout 工程中只替换选定 PCB primitive，不触碰 schematic connector instance 和既有 IPort | 当前用于 `SINGLE_END_SMA_CPW_30MM` 连接器 launch 优化；默认 dry-run，真实写入需 `--execute --save`，并必须使用 PyAEDT/API，不允许文本修改 `.aedt`。 |
-| `tools/hfss/run_existing_hfss3dlayout_verdict.py` | host/pyaedt | stable | 对既有 HFSS 3D Layout design 执行 solve/export/postprocess，不重建版图 | 当前连接器仿真使用 `Setup_0p5to10G` / `Sweep_0p5to10G_96pt` 和 `connector_fullband_v1`；失败时输出 AEDT messages 和诊断 JSON。 |
-| `tools/hfss/reap_aedt_processes.py` | host | stable | 监控并回收 non-graphical AEDT 自动化残留进程 | 默认 dry-run；自动化入口通过 `start_aedt_reaper()` 按目标 PID 和父 PID 拉起隐藏监控，只回收无可见窗口进程，`--keep-open/--keep-attached` 场景不执行回收。 |
+| `tools/hfss/replace_hfss3dlayout_layout_primitives.py` | host/pyaedt | stable | 在既有 HFSS 3D Layout 工程中统一删除并重绘 PCB 源版图，不触碰 schematic connector instance 和连接器 pin IPort | 当前用于 `SINGLE_END_SMA_CPW_30MM` 连接器 launch 优化；默认 dry-run，真实写入需 `--execute --save`，只允许 `delete source layout -> draw new layout -> recreate PCB output port`，禁止候选级增量 cutout/direct void/局部布尔补丁，并必须使用 PyAEDT/API，不允许文本修改 `.aedt`。 |
+| `tools/hfss/run_existing_hfss3dlayout_verdict.py` | host/pyaedt | stable | 对既有 HFSS 3D Layout design 执行 solve/export/postprocess，不重建版图 | 当前连接器仿真使用 `Setup_0p5to10G` / `Sweep_0p5to10G_96pt` 和 `connector_fullband_v1`；使用 `OperationLifecycle` 记录 ready/solve/export/postprocess/release 耗时，后处理 Python 子进程使用隐藏启动参数；失败时输出 AEDT messages 和诊断 JSON。 |
+| `tools/hfss/reap_aedt_processes.py` | host | stable | 监控并回收本脚本启动的 non-graphical AEDT 生命周期 | 自动化入口通过 `start_aedt_reaper()` 写入 owner record，按本脚本登记的目标 PID、父 PID 和 create time 拉起隐藏生命周期监控，Windows 优先 `pythonw.exe` 防止 cmd 弹窗；脚本结束后只回收 owner record 中登记且 create time 匹配的无窗口 AEDT，未登记的 AEDT、用户 GUI 和 attach-existing 会话一律不处理，输出 summary JSON 和 JSONL event log，`--keep-open/--keep-attached` 场景不执行回收。 |
 | `tools/hfss/check_aedt_non_graphical_startup.py` | host/pyaedt | stable | 检查 AEDT non-graphical gRPC 启动、版本和项目/design 加载 | 使用 `aedt_startup.py` 的 gRPC 兼容入口和 reaper；输出启动参数、进程前后状态和错误栈。 |
 | `tools/hfss/inspect_aedt_project.py` | host/pyaedt | stable | 只读审计 AEDT project/design/port/object 信息 | `--backend file` 只读解析已保存 `.aedt`；`--backend pyaedt` 可非图形读取 live project，不得写回工程。 |
 | `tools/plot_connector_s_curves_svg.py` | host | stable | 绘制连接器全频带 S11/S21/S22 SVG | 使用连接器 0.5-10 GHz 全频带口径，不再标注滤波器 6-8 GHz passband。 |
+| `tools/plot_connector_smith_svg.py` | host | stable | 绘制连接器 S11/S22 Smith 圆图 SVG | 使用 Touchstone 复数 S 参数生成 50 ohm 归一化阻抗轨迹，用于判断 L2 cutout 长度/宽度、pad 电容和串联补偿方向。 |
 | `tools/plot_connector_before_after_svg.py` | host | candidate | 生成未优化/已优化 S 参数叠加 SVG | 未优化曲线使用淡色虚线，优化曲线使用实线；用于连接器报告，不用于滤波器报告。 |
 | `tools/analyze_connector_s2p.py` | host | stable | 连接器 S2P 独立评分和 Smith 指标提取 | 输出 `connector_fullband_v1`、`optimization_cost`、`connector_score`、`smith_z_*` 和 `smith_tuning_hint`，作为后续参数优化器主输入。 |
 

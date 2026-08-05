@@ -1,0 +1,17 @@
+{
+  "mode": "execute",
+  "timestamp_epoch": 1785920890.353,
+  "target_pids": [
+    11408
+  ],
+  "no_window_only": true,
+  "allow_windowed": false,
+  "min_age_s": 0.0,
+  "started_after_epoch": null,
+  "candidates": [],
+  "eligible_pids": [],
+  "reap_results": [],
+  "parent_pid": 592,
+  "parent_alive": false,
+  "watch_elapsed_s": 290.484
+}

@@ -340,6 +340,7 @@ def inspect_project(args: argparse.Namespace) -> dict[str, Any]:
                 app,
                 label=f"inspect_aedt_project_{args.app}_primary",
                 execute=not args.keep_attached,
+                script_started=bool(args.new_desktop and args.non_graphical),
             )
         ]
         try:
@@ -368,6 +369,7 @@ def inspect_project(args: argparse.Namespace) -> dict[str, Any]:
                                 design_app,
                                 label=f"inspect_aedt_project_{args.app}_{idx}",
                                 execute=not args.keep_attached,
+                                script_started=bool(args.new_desktop and args.non_graphical),
                             )
                         )
                     try:

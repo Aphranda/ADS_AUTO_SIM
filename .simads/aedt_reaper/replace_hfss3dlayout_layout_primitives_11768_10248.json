@@ -1,0 +1,49 @@
+{
+  "mode": "execute",
+  "timestamp_epoch": 1785918436.69,
+  "target_pids": [
+    10248
+  ],
+  "no_window_only": true,
+  "allow_windowed": false,
+  "min_age_s": 0.0,
+  "started_after_epoch": null,
+  "candidates": [
+    {
+      "pid": 10248,
+      "ppid": 11768,
+      "name": "ansysedt.exe",
+      "exe": "D:\\Hardware\\ANAYS\\ANSYS Inc\\v261\\AnsysEM\\ansysedt.exe",
+      "cmdline": [
+        "D:\\Hardware\\ANAYS\\ANSYS Inc\\v261\\AnsysEM\\ansysedt.exe",
+        "-grpcsrv",
+        "62376",
+        "-ng",
+        "-waitforlicense"
+      ],
+      "create_time": 1785918400.0189404,
+      "age_s": 36.662,
+      "status": "running",
+      "has_visible_window": false,
+      "window_titles": [],
+      "eligible": true,
+      "match_reasons": [
+        "explicit_pid",
+        "aedt_process_name"
+      ]
+    }
+  ],
+  "eligible_pids": [
+    10248
+  ],
+  "reap_results": [
+    {
+      "pid": 10248,
+      "action": "terminate",
+      "ok": true
+    }
+  ],
+  "parent_pid": 11768,
+  "parent_alive": false,
+  "watch_elapsed_s": 20.297
+}

@@ -1,0 +1,73 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "SINGLE_END_SMA_CPW_30MM",
+  "aedt_startup": {
+    "PYAEDT_USE_PRE_GRPC_ARGS": "True",
+    "grpc_secure_mode_env": "False",
+    "SIMADS_AEDT_WAIT_FOR_LICENSE": "True",
+    "SIMADS_AEDT_DESKTOP_TIMEOUT_S": "300",
+    "SIMADS_AEDT_USER_ROOT": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "HOME": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "USERPROFILE": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "APPDATA": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user\\AppData\\Roaming",
+    "LOCALAPPDATA": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user\\AppData\\Local",
+    "TEMP": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user\\Temp",
+    "settings.grpc_secure_mode": false,
+    "settings.grpc_local": true,
+    "settings.grpc_listen_all": false,
+    "settings.wait_for_license": true,
+    "settings.desktop_launch_timeout": 300,
+    "settings.enable_desktop_logs": false,
+    "settings.use_grpc_api": true,
+    "settings.number_of_grpc_api_retries": 6
+  },
+  "aedt_reaper": {
+    "started": true,
+    "label": "run_existing_hfss3dlayout_verdict",
+    "aedt_process_id": 34436,
+    "parent_pid": 11400,
+    "reaper_pid": 21196,
+    "execute": true,
+    "output": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\run_existing_hfss3dlayout_verdict_11400_34436.json"
+  },
+  "ports": [
+    "Port1",
+    "S1_1_Pin_T1"
+  ],
+  "setup": "Setup_0p5to10G",
+  "sweep": "Sweep_0p5to10G_96pt",
+  "analyze": true,
+  "status": "ok",
+  "stage": "completed",
+  "analyze_return": true,
+  "s2p": "projects\\hfss_sma_connector\\simulations\\single_end_connector_50r_30mm\\results\\small_pad_l2_rect_l3_same_anchor_a\\single_30mm_small_pad_l2_rect_l3_same_anchor_a.s2p",
+  "postprocess_profile": "connector",
+  "score": "projects\\hfss_sma_connector\\simulations\\single_end_connector_50r_30mm\\results\\small_pad_l2_rect_l3_same_anchor_a\\single_30mm_small_pad_l2_rect_l3_same_anchor_a_score.csv",
+  "trace_csv": "projects\\hfss_sma_connector\\simulations\\single_end_connector_50r_30mm\\results\\small_pad_l2_rect_l3_same_anchor_a\\single_30mm_small_pad_l2_rect_l3_same_anchor_a_trace.csv",
+  "svg_dir": "projects\\hfss_sma_connector\\simulations\\single_end_connector_50r_30mm\\results\\small_pad_l2_rect_l3_same_anchor_a\\svg",
+  "messages": [
+    "failed to read messages: TypeError: 'MessageList' object is not iterable"
+  ],
+  "aedt_messages": [
+    "Project: *Global - Messages, [info]  gRPC server started on port 53409 of local host. Only connections from the local host initiated by the same user are permitted.\n",
+    "Project: hfss_sma_connector_cpw, Design: SMA_KE_Unite_Small_Solder (Terminal Network), [info]  Normal completion of simulation on server: Local Machine. (04:11:16 PM  Aug 05, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  The mesh body associated with geometry: input_feed, on layer: ETCH_TOP, has an ambiguous net assignment.\nThis may result from a short between meshed bodies.\nNets: SIG,IN,OUT (04:11:21 PM  Aug 05, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [info]  Mesh pre-processing took: 0.228sec\n (04:11:21 PM  Aug 05, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [info]  Model assembly took: 2.206sec\n (04:11:21 PM  Aug 05, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Major Mesh Repair (Phi Plus) on body \"gcpw_line_via_top_2\" (04:11:59 PM  Aug 05, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Major Mesh Repair (Phi Plus) on body \"gcpw_line_via_top_5\" (04:11:59 PM  Aug 05, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Major Mesh Repair (Phi Plus) on body \"gcpw_line_via_bottom_6\" (04:11:59 PM  Aug 05, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Minor Mesh Repair (Phi Plus) on body \"ground_via_p1_bottom_1\" (04:11:59 PM  Aug 05, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Minor Mesh Repair (Phi Plus) on body \"ground_via_p1_bottom_4\" (04:11:59 PM  Aug 05, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Minor Mesh Repair (Phi Plus) on body \"ground_via_p1_top_4\" (04:11:59 PM  Aug 05, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Minor Mesh Repair (Phi Plus) on body \"gcpw_line_via_bottom_3\" (04:11:59 PM  Aug 05, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Minor Mesh Repair (Phi Plus) on body \"gcpw_line_via_top_3\" (04:11:59 PM  Aug 05, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Minor Mesh Repair (Phi Plus) on body \"gcpw_line_via_bottom_7\" (04:11:59 PM  Aug 05, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Minor Mesh Repair (Phi Plus) on body \"gcpw_line_via_top_7\" (04:11:59 PM  Aug 05, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Minor Mesh Repair (Phi Plus) on body \"gcpw_line_via_top_9\" (04:11:59 PM  Aug 05, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Minor Mesh Repair (Phi Plus) on body \"gcpw_line_via_bottom_11\" (04:11:59 PM  Aug 05, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [info]  An interpolating frequency sweep with 96 points has been started using HFSS - Solving Distributed. (04:13:20 PM  Aug 05, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [info]  Interpolating frequency sweep complete. Converged. (04:15:38 PM  Aug 05, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [info]  Touchstone export: Writing to \"D:/Work/ADS_AUTO_SIM/projects/hfss_sma_connector/simulations/single_end_connector_50r_30mm/results/small_pad_l2_rect_l3_same_anchor_a/single_30mm_small_pad_l2_rect_l3_same_anchor_a.s2p\" (04:15:40 PM  Aug 05, 2026)"
+  ]
+}

@@ -88,6 +88,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 app,
                 label="check_aedt_non_graphical_startup",
                 execute=not args.keep_attached,
+                script_started=bool(args.new_desktop and args.non_graphical),
             )
             try:
                 payload.update(

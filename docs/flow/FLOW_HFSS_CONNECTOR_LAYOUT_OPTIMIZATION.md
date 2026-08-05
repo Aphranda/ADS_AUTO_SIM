@@ -435,8 +435,10 @@ artifact_manifest
 - 对比历史候选，`small_pad_l2_rect_same_anchor_a` 明显优于 `small_pad_same_anchor_a` 和 `series_hi_z_same_anchor_a`，后两者 `optimization_cost` 约为 `150+`，不作为下一轮优先方向。
 - Smith 指标显示 `smith_z_r_min/max=0.50/1.76`、`smith_z_x_min/max=-0.80/0.71`，当前 tuning hint 为 `reduce_pad_capacitance_or_add_short_series_inductance`。下一轮仍按减小焊盘电容或极短串联高阻抗补偿推进，不引入 stub。
 - 因 L2 被挖空，已在 generator/schema/HFSS layout builder 中加入 `reference_ground_plane`，用于生成完整 L3 参考层。`small_pad_l2_rect_l3_same_anchor_a` 已生成 layout JSON、params JSON 和 SVG；SVG 展示 `L1 ETCH_TOP` 与 `L2 ETCH_INNER1`，并包含 `L3 ETCH_INNER2` 的 `l3_ground_plane`。
-- `small_pad_l2_rect_l3_same_anchor_a` 目前只完成 dry-run，尚未写入 AEDT 工程、尚未 solve。dry-run 报告为 `projects\hfss_sma_connector\reports\single_30mm_small_pad_l2_rect_l3_same_anchor_a_layout_only_local_dry_run_20260805.json`，选中对象包含 `p1_l2_cutout_rect` 与 `l3_ground_plane`，且未触碰 schematic connector instance 和 IPort。
-- 下次执行真实 L3 替换前必须先备份 `.aedt` 和 `.aedb`；`.aedtresults` 如存在锁定的 `.semaphore` 文件，可跳过该类临时锁文件。执行后跳过 Validate，直接按 `Setup_0p5to10G` / `Sweep_0p5to10G_96pt` 求解导出。
+- `small_pad_l2_rect_l3_same_anchor_a` 已完成非图形写入、求解、导出和连接器全频带评分。结果为 `optimization_cost=78.987`、`connector_score=21.013`、状态 `TUNE`；全频带最差回波为 `s22=-8.24 dB @ 7.4 GHz`，相对 L2-only 最佳候选退化，作为 L3 架构基线而不是当前最佳。
+- 当前配置化 active candidate 为 `small_pad_l2_rect_l3_cutout_w1p6_l4p6_a`：从 `config\projects\hfss_sma_connector.json` 的 `layout_optimization` 读取参数，`fixture_type` 固定为 `microstrip_single_connector_50r`，compare gate 禁止 `p2_l2_cutout_rect`，并要求 `p1_l2_cutout_rect` 与 `l3_ground_plane` 存在。
+- 后续版图迭代统一采用 `delete source layout -> draw new layout -> recreate PCB output port` 口径：删除旧 PCB 源版图对象，按新版 `layout.json` 完整绘制 L1/L2/L3/via/through/output_feed，再只删除并重建远端 PCB 端口 `Port1`；连接器实例和连接器 pin 端口 `S1_1_Pin_T1` 不进入删除列表。这个统一操作完全覆盖候选版图更新，不再在 workflow 层增加更细化的布尔/增量入口。
+- 禁止为单个候选引入增量 cutout、direct void、局部布尔补丁或其它候选专用版图操作；这些旁路会破坏迭代收敛和结果可比性。L2 cut-out、L3 reference plane 等差异只能作为 `layout.json` 的几何语义进入 `create_geometry()` 的一次性重绘过程，不允许直接对已存在 AEDT 版图做局部修补。真实替换前必须先确认 regenerated layout 为单端并备份 `.aedt` 和 `.aedb`。执行后跳过 Validate，直接按 `Setup_0p5to10G` / `Sweep_0p5to10G_96pt` 求解导出。
 - 后处理必须继续使用连接器独立评分 `connector_fullband_v1`，频段为 `0.5-10 GHz` 全频带，不再使用任何滤波器或 `6-8 GHz` passband 口径。
 
 ### Phase 4: 连接器高保真复核

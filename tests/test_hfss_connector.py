@@ -18,6 +18,7 @@ from simads.hfss.connector import (
     build_microstrip_baseline_layout,
     build_single_connector_layout,
     launch_len,
+    load_fixture_type,
     params_with_total_len,
     params_with_stackup_config,
     port_locations,
@@ -374,6 +375,13 @@ def test_single_ended_connector_layout_has_one_launch_and_one_ideal_port(tmp_pat
     assert any(call[0] == "rect" and call[4] == "center_line_top_ground" and call[5] == "GND" for call in app.modeler.calls)
     assert params_payload["fixture_type"] == SINGLE_CONNECTOR_FIXTURE_TYPE
     assert params_payload["derived"]["total_len_mm"] == pytest.approx(launch_len(params) + params.line_l_mm)
+
+
+def test_single_connector_params_json_preserves_single_end_fixture_type(tmp_path: Path) -> None:
+    outputs = write_fixture_outputs(stackup_params(name="single_fixture_probe"), tmp_path, fixture_type=SINGLE_CONNECTOR_FIXTURE_TYPE)
+
+    assert load_fixture_type(outputs["params"]) == SINGLE_CONNECTOR_FIXTURE_TYPE
+    assert "p2_l2_cutout_rect" not in outputs["layout_json"].read_text(encoding="utf-8")
 
 
 def test_microstrip_connector_drc_rejects_too_small_clearance() -> None:

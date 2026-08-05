@@ -194,9 +194,13 @@ def test_project_can_configure_hfss_add_design_mode() -> None:
 
     assert project.hfss.aedt_project is not None
     assert project.hfss.aedt_project.name == "hfss_sma_connector_cpw.aedt"
+    assert project.hfss.workspace_dir is not None
+    assert project.hfss.workspace_dir.name == "HFSS_VERDICT"
     assert project.hfss.project_model == "single_aedt_project_multiple_designs"
     assert project.hfss.project_action == "add"
-    assert project.hfss.simulations["dual_end_connector_50r"]["design"] == "DUAL_END_SMA_CPW_100MM"
+    assert project.active_sweep == "single_end_connector_50r_30mm"
+    assert project.frequency.passband_start_ghz is None
+    assert project.hfss.simulations["single_end_connector_50r_30mm"]["design"] == "SINGLE_END_SMA_CPW_30MM"
 
 
 def test_ads_layout_import_command_can_force_generated_dxf_subset() -> None:

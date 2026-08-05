@@ -21,6 +21,7 @@ LOGICAL_VIA_LAYER = "pcvia1"
 BOUNDARY_LAYER = "EM_BOUNDARY"
 REFERENCE_GROUND_CUTOUT_LAYER = "reference_ground_cutout"
 REFERENCE_GROUND_PLANE_LAYER = "reference_ground_plane"
+FIXTURE_TYPES = (FIXTURE_TYPE, SINGLE_CONNECTOR_FIXTURE_TYPE, BASELINE_FIXTURE_TYPE)
 
 
 @dataclass(frozen=True)
@@ -71,6 +72,9 @@ class ConnectorLaunchParams:
     l3_ground_enabled: bool = True
     l3_ground_layer: str | None = None
     l3_ground_margin_mm: float = 0.0
+    l4_ground_enabled: bool = False
+    l4_ground_layer: str | None = None
+    l4_ground_margin_mm: float = 0.0
     stub_enabled: bool = False
     stub_type: str = "none"
     stub_l_mm: float = 0.0
@@ -128,6 +132,7 @@ def params_with_stackup_config(
         signal_layer=stackup.geometry.signal_layer,
         reference_ground_layer=stackup.geometry.reference_ground_layer,
         l3_ground_layer=next((layer for layer in stackup.geometry.ground_layers if layer != stackup.geometry.reference_ground_layer), None),
+        l4_ground_layer=stackup.geometry.via_bottom_layer,
         via_top_layer=stackup.geometry.via_top_layer,
         via_bottom_layer=stackup.geometry.via_bottom_layer,
         ground_layers=stackup.geometry.ground_layers,
@@ -164,6 +169,17 @@ def load_params(path: Path) -> ConnectorLaunchParams:
     if not isinstance(params_data, dict):
         raise ValueError(f"connector params.parameters must be a JSON object: {path}")
     return params_from_mapping(params_data)
+
+
+def load_fixture_type(path: Path | None, default: str = FIXTURE_TYPE) -> str:
+    """Load the top-level fixture type from a connector params JSON."""
+
+    if path is None:
+        return default
+    data = json.loads(path.read_text(encoding="utf-8-sig"))
+    if isinstance(data, dict) and data.get("fixture_type") in FIXTURE_TYPES:
+        return str(data["fixture_type"])
+    return default
 
 
 def launch_len(params: ConnectorLaunchParams) -> float:
@@ -415,19 +431,36 @@ def build_reference_ground_cutouts(params: ConnectorLaunchParams, *, sides: tupl
 
 
 def build_l3_ground_planes(params: ConnectorLaunchParams, *, sides: tuple[str, ...], single: bool = False) -> list[Rect]:
-    if not params.l2_cutout_enabled or not params.l3_ground_enabled:
-        return []
-    target_layer = params.l3_ground_layer or next((layer for layer in params.ground_layers if layer != params.reference_ground_layer), None)
-    if not target_layer:
+    if not params.l2_cutout_enabled:
         return []
     board_h = board_height(params)
-    margin = max(0.0, params.l3_ground_margin_mm)
     total_l = single_connector_port_locations(params)[1][0] if single else total_len(params)
-    x = -margin
-    w = total_l + 2.0 * margin
-    if w < params.min_fab_feature_mm:
-        return []
-    return [_reference_ground_plane_rect("l3_ground_plane", x, -board_h / 2.0, w, board_h, side="ALL", target_layer=target_layer)]
+
+    def plane(name: str, target_layer: str | None, margin_mm: float) -> Rect | None:
+        if not target_layer:
+            return None
+        margin = max(0.0, margin_mm)
+        x = -margin
+        w = total_l + 2.0 * margin
+        if w < params.min_fab_feature_mm:
+            return None
+        return _reference_ground_plane_rect(name, x, -board_h / 2.0, w, board_h, side="ALL", target_layer=target_layer)
+
+    output: list[Rect] = []
+    l3_layer = params.l3_ground_layer or next((layer for layer in params.ground_layers if layer != params.reference_ground_layer), None)
+    if params.l3_ground_enabled:
+        l3_plane = plane("l3_ground_plane", l3_layer, params.l3_ground_margin_mm)
+        if l3_plane is not None:
+            output.append(l3_plane)
+    l4_layer = params.l4_ground_layer or next(
+        (layer for layer in reversed(params.ground_layers) if layer not in {params.reference_ground_layer, l3_layer}),
+        None,
+    )
+    if params.l4_ground_enabled:
+        l4_plane = plane("l4_ground_plane", l4_layer, params.l4_ground_margin_mm)
+        if l4_plane is not None:
+            output.append(l4_plane)
+    return output
 
 
 def dual_connector_gcpw_segments(params: ConnectorLaunchParams) -> list[tuple[str, float, float, float]]:
@@ -542,6 +575,7 @@ def build_layout(params: ConnectorLaunchParams) -> Layout:
         "via_bottom_layer": params.via_bottom_layer,
         "ground_layers": list(params.ground_layers),
         "l3_ground_layer": params.l3_ground_layer,
+        "l4_ground_layer": params.l4_ground_layer,
         "ground_plane_name": params.ground_plane_name,
         "stackup_id": params.stackup_id,
         "stackup_token": params.stackup_token,
@@ -616,6 +650,7 @@ def build_single_connector_layout(params: ConnectorLaunchParams) -> Layout:
         "via_bottom_layer": params.via_bottom_layer,
         "ground_layers": list(params.ground_layers),
         "l3_ground_layer": params.l3_ground_layer,
+        "l4_ground_layer": params.l4_ground_layer,
         "ground_plane_name": params.ground_plane_name,
         "stackup_id": params.stackup_id,
         "stackup_token": params.stackup_token,
@@ -817,6 +852,7 @@ __all__ = [
     "BOUNDARY_LAYER",
     "BASELINE_FIXTURE_TYPE",
     "FIXTURE_TYPE",
+    "FIXTURE_TYPES",
     "SINGLE_CONNECTOR_FIXTURE_TYPE",
     "LOGICAL_SIGNAL_LAYER",
     "LOGICAL_VIA_LAYER",
@@ -839,6 +875,7 @@ __all__ = [
     "dual_connector_gcpw_segments",
     "launch_len",
     "load_params",
+    "load_fixture_type",
     "load_stackup_params",
     "params_from_mapping",
     "params_with_total_len",

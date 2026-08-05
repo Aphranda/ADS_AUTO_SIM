@@ -490,6 +490,7 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
                 app,
                 label="simads_hfss_workflow_run_hfss_primary",
                 execute=not args.keep_open,
+                script_started=bool(args.non_graphical),
             )
         ]
         desktop_released = False
@@ -536,6 +537,7 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
                                 app,
                                 label="simads_hfss_workflow_run_hfss_reopen",
                                 execute=not args.keep_open,
+                                script_started=bool(args.non_graphical),
                             )
                         )
                         desktop_released = False

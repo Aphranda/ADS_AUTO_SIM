@@ -12,6 +12,70 @@ import sys
 from typing import Any
 
 
+class OperationLifecycle:
+    """Small structured lifecycle log with per-operation timing."""
+
+    def __init__(self, label: str, *, output: str | Path | None = None) -> None:
+        self.label = label
+        self.started_monotonic = time.monotonic()
+        self.started_epoch = time.time()
+        self.output = Path(output) if output else None
+        self.events: list[dict[str, Any]] = []
+        if self.output:
+            self.output.parent.mkdir(parents=True, exist_ok=True)
+        self.mark("lifecycle_start", status="running")
+
+    def mark(self, operation: str, *, status: str = "ok", **extra: Any) -> dict[str, Any]:
+        event = {
+            "label": self.label,
+            "operation": operation,
+            "status": status,
+            "timestamp_epoch": round(time.time(), 3),
+            "elapsed_s": round(time.monotonic() - self.started_monotonic, 3),
+        }
+        event.update(extra)
+        self.events.append(event)
+        if self.output:
+            with self.output.open("a", encoding="utf-8") as fp:
+                fp.write(json.dumps(event, ensure_ascii=False, default=str) + "\n")
+        return event
+
+    @contextmanager
+    def timed(self, operation: str, **extra: Any):
+        started = time.monotonic()
+        self.mark(operation, status="running", **extra)
+        try:
+            yield
+        except BaseException as exc:
+            self.mark(
+                operation,
+                status="failed",
+                duration_s=round(time.monotonic() - started, 3),
+                error_type=type(exc).__name__,
+                error=str(exc),
+            )
+            raise
+        else:
+            self.mark(operation, status="ok", duration_s=round(time.monotonic() - started, 3))
+
+    def finish(self, *, status: str = "ok", **extra: Any) -> dict[str, Any]:
+        self.mark("lifecycle_finish", status=status, total_elapsed_s=round(time.monotonic() - self.started_monotonic, 3), **extra)
+        return self.summary(status=status)
+
+    def summary(self, *, status: str | None = None) -> dict[str, Any]:
+        payload = {
+            "label": self.label,
+            "status": status or (self.events[-1]["status"] if self.events else "unknown"),
+            "started_epoch": round(self.started_epoch, 3),
+            "elapsed_s": round(time.monotonic() - self.started_monotonic, 3),
+            "event_count": len(self.events),
+            "events": self.events,
+        }
+        if self.output:
+            payload["event_log"] = str(self.output)
+        return payload
+
+
 def apply_grpc_startup_compat() -> None:
     """Use the legacy insecure gRPC startup path before PyAEDT imports AEDT."""
 
@@ -96,6 +160,43 @@ def startup_snapshot(settings: Any | None = None) -> dict[str, Any]:
             if hasattr(settings, name):
                 payload[f"settings.{name}"] = getattr(settings, name)
     return payload
+
+
+def _silent_python_executable() -> str:
+    """Prefer pythonw.exe for hidden Windows helper processes."""
+
+    executable = Path(sys.executable)
+    if os.name == "nt" and executable.name.lower() == "python.exe":
+        pythonw = executable.with_name("pythonw.exe")
+        if pythonw.exists():
+            return str(pythonw)
+    return str(executable)
+
+
+def hidden_subprocess_kwargs() -> dict[str, Any]:
+    kwargs: dict[str, Any] = {
+        "stdin": subprocess.DEVNULL,
+        "stdout": subprocess.DEVNULL,
+        "stderr": subprocess.DEVNULL,
+    }
+    if os.name == "nt":
+        creationflags = getattr(subprocess, "CREATE_NO_WINDOW", 0) | getattr(subprocess, "DETACHED_PROCESS", 0)
+        startupinfo = subprocess.STARTUPINFO()
+        startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+        startupinfo.wShowWindow = 0
+        kwargs.update({"creationflags": creationflags, "startupinfo": startupinfo, "close_fds": True})
+    else:
+        kwargs["start_new_session"] = True
+    return kwargs
+
+
+def _process_create_time(pid: int) -> float | None:
+    try:
+        import psutil
+
+        return float(psutil.Process(pid).create_time())
+    except Exception:
+        return None
 
 
 def _clean_design_name(name: Any) -> str:
@@ -258,6 +359,7 @@ def start_aedt_reaper(
     parent_pid: int | None = None,
     execute: bool | None = None,
     timeout_s: float | None = None,
+    script_started: bool = False,
 ) -> dict[str, Any]:
     """Start a detached monitor that reaps this automation AEDT after exit."""
 
@@ -271,10 +373,26 @@ def start_aedt_reaper(
     run_dir.mkdir(parents=True, exist_ok=True)
     parent = parent_pid if parent_pid is not None else os.getpid()
     output = run_dir / f"{label}_{parent}_{pid}.json"
+    event_log = run_dir / f"{label}_{parent}_{pid}.jsonl"
+    owner_record = run_dir / f"{label}_{parent}_{pid}.owner.json"
+    target_create_time = _process_create_time(pid)
+    owner_payload = {
+        "label": label,
+        "owner_pid": parent,
+        "aedt_process_id": pid,
+        "target_create_time_epoch": target_create_time,
+        "script_started": bool(script_started),
+        "created_epoch": round(time.time(), 3),
+    }
+    owner_record.write_text(json.dumps(owner_payload, ensure_ascii=False, indent=2, default=str) + "\n", encoding="utf-8")
     command = [
-        sys.executable,
+        _silent_python_executable(),
         str(reaper),
         "--watch",
+        "--label",
+        label,
+        "--owner-record",
+        str(owner_record),
         "--pid",
         str(pid),
         "--parent-pid",
@@ -287,21 +405,26 @@ def start_aedt_reaper(
         str(timeout_s if timeout_s is not None else _env_int("SIMADS_AEDT_REAPER_TIMEOUT_S", 14400)),
         "--output",
         str(output),
+        "--event-log",
+        str(event_log),
     ]
-    should_execute = _env_bool("SIMADS_AEDT_REAPER_EXECUTE", True) if execute is None else execute
+    if target_create_time is not None:
+        command.extend(["--target-create-time-epoch", f"{target_create_time:.6f}"])
+    execute_requested = _env_bool("SIMADS_AEDT_REAPER_EXECUTE", True) if execute is None else bool(execute)
+    terminate_disabled = _env_bool("SIMADS_AEDT_REAPER_DISABLE_TERMINATE", False)
+    should_execute = execute_requested and script_started and not terminate_disabled
     if should_execute:
         command.append("--execute")
-    creationflags = 0
-    if os.name == "nt":
-        creationflags = subprocess.CREATE_NO_WINDOW | subprocess.DETACHED_PROCESS
+    execute_block_reason = None
+    if execute_requested and not script_started:
+        execute_block_reason = "target AEDT was not marked as started by this script"
+    elif execute_requested and terminate_disabled:
+        execute_block_reason = "SIMADS_AEDT_REAPER_DISABLE_TERMINATE is true"
     try:
         proc = subprocess.Popen(
             command,
             cwd=str(_repo_root()),
-            stdin=subprocess.DEVNULL,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-            creationflags=creationflags,
+            **hidden_subprocess_kwargs(),
         )
     except Exception as exc:
         return {"started": False, "reason": f"{type(exc).__name__}: {exc}", "aedt_process_id": pid}
@@ -312,7 +435,16 @@ def start_aedt_reaper(
         "parent_pid": parent,
         "reaper_pid": proc.pid,
         "execute": should_execute,
+        "execute_requested": execute_requested,
+        "terminate_disabled": terminate_disabled,
+        "script_started": script_started,
+        "execute_block_reason": execute_block_reason,
         "output": str(output),
+        "event_log": str(event_log),
+        "owner_record": str(owner_record),
+        "silent": True,
+        "helper_executable": command[0],
+        "target_create_time_epoch": target_create_time,
     }
 
 
@@ -374,6 +506,8 @@ __all__ = [
     "apply_grpc_startup_compat",
     "apply_pyaedt_settings",
     "disable_aedt_auto_open",
+    "hidden_subprocess_kwargs",
+    "OperationLifecycle",
     "stable_export_touchstone",
     "start_aedt_reaper",
     "startup_snapshot",
