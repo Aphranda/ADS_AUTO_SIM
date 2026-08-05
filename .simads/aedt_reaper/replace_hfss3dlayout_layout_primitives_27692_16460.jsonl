@@ -1,0 +1,23 @@
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "watch_start", "status": "running", "timestamp_epoch": 1785928842.285, "parent_pid": 27692, "target_pids": [16460]}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785928842.341, "duration_s": 0.062, "target_pids": [16460], "candidate_count": 1, "eligible_pids": [16460]}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785928842.343, "duration_s": 0.062, "mode": "dry_run", "eligible_pids": [16460]}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785928842.344, "duration_s": 0.062, "parent_alive": true, "elapsed_s": 0.062}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785928852.362, "duration_s": 0.016, "target_pids": [16460], "candidate_count": 1, "eligible_pids": [16460]}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785928852.363, "duration_s": 0.016, "mode": "dry_run", "eligible_pids": [16460]}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785928852.364, "duration_s": 0.016, "parent_alive": true, "elapsed_s": 10.078}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785928862.376, "duration_s": 0.016, "target_pids": [16460], "candidate_count": 1, "eligible_pids": [16460]}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785928862.378, "duration_s": 0.016, "mode": "dry_run", "eligible_pids": [16460]}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785928862.38, "duration_s": 0.016, "parent_alive": true, "elapsed_s": 20.094}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785928872.397, "duration_s": 0.015, "target_pids": [16460], "candidate_count": 1, "eligible_pids": [16460]}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785928872.398, "duration_s": 0.015, "mode": "dry_run", "eligible_pids": [16460]}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785928872.398, "duration_s": 0.015, "parent_alive": true, "elapsed_s": 30.109}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785928882.416, "duration_s": 0.016, "target_pids": [16460], "candidate_count": 1, "eligible_pids": [16460]}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785928882.417, "duration_s": 0.016, "mode": "dry_run", "eligible_pids": [16460]}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785928882.417, "duration_s": 0.016, "parent_alive": true, "elapsed_s": 40.125}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "parent_exit_detected", "status": "ok", "timestamp_epoch": 1785928892.42, "parent_pid": 27692}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785928892.435, "duration_s": 0.015, "target_pids": [16460], "candidate_count": 0, "eligible_pids": []}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785928892.437, "duration_s": 0.015, "mode": "dry_run", "eligible_pids": []}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785928892.438, "duration_s": 0.031, "parent_alive": false, "elapsed_s": 50.156}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785928902.447, "duration_s": 0.0, "target_pids": [16460], "candidate_count": 0, "eligible_pids": []}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785928902.448, "duration_s": 0.0, "mode": "execute", "eligible_pids": []}
+{"label": "replace_hfss3dlayout_layout_primitives", "operation": "watch_finish", "status": "ok", "timestamp_epoch": 1785928902.449, "duration_s": 60.156, "reason": "reap_complete", "watch_elapsed_s": 60.156}

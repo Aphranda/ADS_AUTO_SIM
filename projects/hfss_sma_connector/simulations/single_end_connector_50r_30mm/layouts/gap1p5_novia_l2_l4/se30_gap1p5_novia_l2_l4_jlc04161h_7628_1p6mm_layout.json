@@ -1,5 +1,5 @@
 {
-  "layout_id": "se30_gap1p5_novia_l2l3_l4_jlc04161h_7628_1p6mm",
+  "layout_id": "se30_gap1p5_novia_l2_l4_jlc04161h_7628_1p6mm",
   "units": "mm",
   "layers": [
     {
@@ -553,20 +553,6 @@
       }
     },
     {
-      "name": "p1_l3_cutout_rect",
-      "layer": "reference_ground_cutout",
-      "x": 0.15,
-      "y": -0.8,
-      "w": 3.8,
-      "h": 1.6,
-      "kind": "reference_ground_cutout",
-      "metadata": {
-        "role": "reference_ground_cutout",
-        "target_layer": "ETCH_INNER2",
-        "side": "P1"
-      }
-    },
-    {
       "name": "l3_ground_plane",
       "layer": "reference_ground_plane",
       "x": -0.0,
@@ -649,7 +635,7 @@
       ]
     },
     "parameters": {
-      "name": "se30_gap1p5_novia_l2l3_l4_jlc04161h_7628_1p6mm",
+      "name": "se30_gap1p5_novia_l2_l4_jlc04161h_7628_1p6mm",
       "connector_type": "edge_launch_surrogate",
       "connector_model_version": "route_a_surrogate_v1",
       "connector_route": "route_a_2p5d_launch_surrogate",
@@ -699,11 +685,11 @@
       "l2_cutout_taper_l_mm": 0.0,
       "l2_cutout_corner_r_mm": 0.0,
       "l2_cutout_keep_gnd_via_clearance_mm": 0.0,
-      "l3_cutout_enabled": true,
-      "l3_cutout_shape": "rect",
-      "l3_cutout_w_mm": 1.6,
-      "l3_cutout_l_mm": 3.8,
-      "l3_cutout_offset_x_mm": 0.15,
+      "l3_cutout_enabled": false,
+      "l3_cutout_shape": "none",
+      "l3_cutout_w_mm": 0.0,
+      "l3_cutout_l_mm": 0.0,
+      "l3_cutout_offset_x_mm": 0.0,
       "l3_cutout_taper_l_mm": 0.0,
       "l3_ground_enabled": true,
       "l3_ground_layer": "ETCH_INNER2",

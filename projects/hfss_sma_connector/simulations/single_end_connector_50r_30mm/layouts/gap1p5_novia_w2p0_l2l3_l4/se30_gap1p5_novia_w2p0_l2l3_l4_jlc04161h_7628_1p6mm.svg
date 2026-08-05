@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1575.428571" viewBox="0 0 1200 1575.428571">
   <rect x="0" y="0" width="1200" height="1575.428571" fill="#ffffff"/>
-  <text x="16" y="24" font-family="Arial, sans-serif" font-size="16" fill="#111827">se30_gap1p5_novia_l2l3_l4_jlc04161h_7628_1p6mm</text>
+  <text x="16" y="24" font-family="Arial, sans-serif" font-size="16" fill="#111827">se30_gap1p5_novia_w2p0_l2l3_l4_jlc04161h_7628_1p6mm</text>
   <text x="16" y="52" font-family="Arial, sans-serif" font-size="14" fill="#111827">L1 ETCH_TOP</text>
   <rect x="34.285714" y="70.285714" width="1131.428571" height="274.285714" fill="none" stroke="#64748b" stroke-width="1"><title>em_boundary</title></rect>
   <polygon points="85.714286,139.714286 322.285714,195.018857 322.285714,70.285714 85.714286,70.285714" fill="#2563eb" stroke="none" stroke-width="1" opacity="0.82"><title>p1_launch_top_ground</title></polygon>
@@ -102,8 +102,8 @@
   <circle cx="973.714286" cy="628.124" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_bottom_10</title></circle>
   <circle cx="1042.285714" cy="628.124" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_bottom_11 pad</title></circle>
   <circle cx="1042.285714" cy="628.124" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_bottom_11</title></circle>
-  <rect x="90.857143" y="578.857143" width="130.285714" height="54.857143" fill="#ffffff" stroke="none" stroke-width="1" opacity="1"><title>p1_l2_cutout_rect</title></rect>
-  <rect x="90.857143" y="578.857143" width="130.285714" height="54.857143" fill="none" stroke="#dc2626" stroke-width="1" opacity="1"><title>p1_l2_cutout_rect</title></rect>
+  <rect x="90.857143" y="572" width="130.285714" height="68.571429" fill="#ffffff" stroke="none" stroke-width="1" opacity="1"><title>p1_l2_cutout_rect</title></rect>
+  <rect x="90.857143" y="572" width="130.285714" height="68.571429" fill="none" stroke="#dc2626" stroke-width="1" opacity="1"><title>p1_l2_cutout_rect</title></rect>
   <text x="16" y="849.714286" font-family="Arial, sans-serif" font-size="14" fill="#111827">L3 ETCH_INNER2</text>
   <rect x="85.714286" y="868" width="1028.571429" height="274.285714" fill="#16a34a" stroke="none" stroke-width="1" opacity="0.26"><title>l3_ground_plane</title></rect>
   <circle cx="356.571429" cy="983.304571" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_1 pad</title></circle>
@@ -150,8 +150,8 @@
   <circle cx="973.714286" cy="1026.981143" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_10</title></circle>
   <circle cx="1042.285714" cy="1026.981143" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_11 pad</title></circle>
   <circle cx="1042.285714" cy="1026.981143" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_11</title></circle>
-  <rect x="90.857143" y="977.714286" width="130.285714" height="54.857143" fill="#ffffff" stroke="none" stroke-width="1" opacity="1"><title>p1_l3_cutout_rect</title></rect>
-  <rect x="90.857143" y="977.714286" width="130.285714" height="54.857143" fill="none" stroke="#dc2626" stroke-width="1" opacity="1"><title>p1_l3_cutout_rect</title></rect>
+  <rect x="90.857143" y="970.857143" width="130.285714" height="68.571429" fill="#ffffff" stroke="none" stroke-width="1" opacity="1"><title>p1_l3_cutout_rect</title></rect>
+  <rect x="90.857143" y="970.857143" width="130.285714" height="68.571429" fill="none" stroke="#dc2626" stroke-width="1" opacity="1"><title>p1_l3_cutout_rect</title></rect>
   <text x="16" y="1248.571429" font-family="Arial, sans-serif" font-size="14" fill="#111827">L4 ETCH_BOTTOM</text>
   <rect x="85.714286" y="1266.857143" width="1028.571429" height="274.285714" fill="#16a34a" stroke="none" stroke-width="1" opacity="0.26"><title>l4_ground_plane</title></rect>
   <circle cx="356.571429" cy="1382.161714" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_1 pad</title></circle>

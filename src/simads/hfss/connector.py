@@ -927,6 +927,11 @@ def validate_connector_layout(layout: Layout, params: ConnectorLaunchParams) -> 
     def add(name: str, ok: bool, message: str) -> None:
         checks.append(ConnectorLayoutCheck(name, ok, message))
 
+    def launch_return_clearance_for_cutout() -> float:
+        if not params.launch_ground_via_enabled:
+            return float("inf")
+        return params.pin_pad_w_mm / 2.0 + params.gnd_clearance_mm - params.l2_cutout_w_mm / 2.0
+
     numeric = params.to_dict()
     for key, value in numeric.items():
         if key.endswith("_mm") and isinstance(value, (float, int)):
@@ -946,7 +951,7 @@ def validate_connector_layout(layout: Layout, params: ConnectorLaunchParams) -> 
         add("params.l2_cutout_shape", params.l2_cutout_shape in {"none", "rect", "rounded_rect", "tapered"}, "l2_cutout_shape must be rect, rounded_rect, or tapered")
         add("params.l2_cutout_w_mm", params.l2_cutout_w_mm >= params.min_fab_feature_mm, "l2_cutout_w_mm must satisfy min fab feature")
         add("params.l2_cutout_l_mm", params.l2_cutout_l_mm >= params.min_fab_feature_mm, "l2_cutout_l_mm must satisfy min fab feature")
-        via_clearance = params.pin_pad_w_mm / 2.0 + params.gnd_clearance_mm - params.l2_cutout_w_mm / 2.0
+        via_clearance = launch_return_clearance_for_cutout()
         add(
             "params.l2_cutout_keep_gnd_via_clearance_mm",
             via_clearance >= params.l2_cutout_keep_gnd_via_clearance_mm,

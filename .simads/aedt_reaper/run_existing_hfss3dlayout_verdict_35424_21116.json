@@ -1,0 +1,20 @@
+{
+  "mode": "execute",
+  "timestamp_epoch": 1785929838.99,
+  "target_pids": [
+    21116
+  ],
+  "no_window_only": true,
+  "allow_windowed": false,
+  "min_age_s": 0.0,
+  "started_after_epoch": null,
+  "target_create_time_epoch": 1785929655.93701,
+  "owner_record": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\run_existing_hfss3dlayout_verdict_35424_21116.owner.json",
+  "candidates": [],
+  "eligible_pids": [],
+  "reap_results": [],
+  "duration_s": 0.0,
+  "parent_pid": 35424,
+  "parent_alive": false,
+  "watch_elapsed_s": 170.453
+}

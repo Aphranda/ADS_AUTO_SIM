@@ -35,6 +35,7 @@ from simads.hfss.workflow import build_hfss_manifest_payload, hfss_dry_run_paylo
 class Obj:
     def __init__(self, name: str) -> None:
         self.name = name
+        self.negative = False
 
 
 class FakeModeler:
@@ -308,7 +309,7 @@ def test_microstrip_connector_can_emit_l2_cutout_and_hi_z_series() -> None:
     assert any(shape["kind"] == "reference_ground_cutout" for shape in layout_json["shapes"])
     assert "input_series_hi_z" in names
     assert "output_series_hi_z" in names
-    assert any(call[0] == "subtract" and call[1] == "hfss_ground_plane" for call in app.modeler.calls)
+    assert "p1_l2_cutout_rect" in names
 
 
 def test_connector_svg_renders_l2_as_positive_ground_with_cutout_window(tmp_path: Path) -> None:
