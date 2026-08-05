@@ -1,0 +1,54 @@
+{
+  "ideal_30": {
+    "points": 96,
+    "worst_return_db,f,key": null,
+    "worst_return_6_8_db,f,key": null,
+    "s21_min_db": null,
+    "s21_max_db": null,
+    "s21_avg_db": null,
+    "s21_ripple_db": null,
+    "s21_min_6_8_db": null,
+    "s21_avg_6_8_db": null
+  },
+  "single_old_30": {
+    "points": 96,
+    "worst_return_db,f,key": null,
+    "worst_return_6_8_db,f,key": null,
+    "s21_min_db": null,
+    "s21_max_db": null,
+    "s21_avg_db": null,
+    "s21_ripple_db": null,
+    "s21_min_6_8_db": null,
+    "s21_avg_6_8_db": null
+  },
+  "dual_old_30": {
+    "points": 96,
+    "worst_return_db,f,key": null,
+    "worst_return_6_8_db,f,key": null,
+    "s21_min_db": null,
+    "s21_max_db": null,
+    "s21_avg_db": null,
+    "s21_ripple_db": null,
+    "s21_min_6_8_db": null,
+    "s21_avg_6_8_db": null
+  },
+  "single_small_pad_same_anchor_a": {
+    "points": 96,
+    "worst_return_db,f,key": [
+      -3.3392,
+      7.4,
+      "s22"
+    ],
+    "worst_return_6_8_db,f,key": [
+      -3.3392,
+      7.4,
+      "s22"
+    ],
+    "s21_min_db": -4.57736,
+    "s21_max_db": -0.159081,
+    "s21_avg_db": -2.45374275,
+    "s21_ripple_db": 4.418279,
+    "s21_min_6_8_db": -3.9968,
+    "s21_avg_6_8_db": -3.6280499999999996
+  }
+}

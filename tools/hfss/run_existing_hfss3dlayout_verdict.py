@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Analyze an existing HFSS 3D Layout project and export verdict S-parameters."""
+"""Analyze an existing HFSS 3D Layout project and export S-parameters."""
 
 from __future__ import annotations
 
@@ -15,10 +15,12 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 AEDT_VERSION = "2026.1"
 
 
-def run_post_tools(s2p: Path, score_csv: Path, out_dir: Path, candidate: str) -> dict[str, str]:
+def run_post_tools(s2p: Path, score_csv: Path, out_dir: Path, candidate: str, profile: str) -> dict[str, str]:
     trace_csv = out_dir / f"{candidate}_trace.csv"
+    analyzer = "analyze_connector_s2p.py" if profile == "connector" else "analyze_filter_s2p.py"
+    plotter = "plot_connector_s_curves_svg.py" if profile == "connector" else "plot_filter_s_curves_svg.py"
     subprocess.run(
-        [sys.executable, str(REPO_ROOT / "tools" / "analyze_filter_s2p.py"), str(s2p), "--out", str(score_csv)],
+        [sys.executable, str(REPO_ROOT / "tools" / analyzer), str(s2p), "--out", str(score_csv)],
         check=True,
     )
     convert_s2p_to_csv(s2p, trace_csv)
@@ -26,30 +28,32 @@ def run_post_tools(s2p: Path, score_csv: Path, out_dir: Path, candidate: str) ->
     svg_dir.mkdir(parents=True, exist_ok=True)
     summary_csv = svg_dir / f"{candidate}_plot_summary.csv"
     write_plot_summary(trace_csv, candidate, summary_csv)
-    subprocess.run(
+    plot_command = [
+        sys.executable,
+        str(REPO_ROOT / "tools" / plotter),
+        "--summary",
+        str(summary_csv),
+    ]
+    if profile == "filter":
+        plot_command.extend(["--results-dir", str(out_dir)])
+    plot_command.extend(
         [
-            sys.executable,
-            str(REPO_ROOT / "tools" / "plot_filter_s_curves_svg.py"),
-            "--summary",
-            str(summary_csv),
-            "--results-dir",
-            str(out_dir),
             "--out-dir",
             str(svg_dir),
             "--sparams",
             "s11,s21,s22",
             "--no-overlay",
-        ],
-        check=True,
+        ]
     )
+    subprocess.run(plot_command, check=True)
     return {"score": str(score_csv), "trace_csv": str(trace_csv), "svg_dir": str(svg_dir)}
 
 
 def convert_s2p_to_csv(s2p: Path, out_csv: Path) -> None:
     sys.path.insert(0, str(REPO_ROOT / "tools"))
-    from analyze_filter_s2p import read_s2p
+    from analyze_connector_s2p import read_s2p_db
 
-    samples = read_s2p(s2p)
+    samples = read_s2p_db(s2p)
     import csv
 
     with out_csv.open("w", newline="", encoding="utf-8") as fp:
@@ -119,7 +123,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         result["s2p"] = str(s2p_path)
         if s2p_path.exists():
             score_csv = args.score_out or args.out_dir / f"{args.candidate}_score.csv"
-            result.update(run_post_tools(s2p_path, score_csv, args.out_dir, args.candidate))
+            result["postprocess_profile"] = args.postprocess_profile
+            result.update(run_post_tools(s2p_path, score_csv, args.out_dir, args.candidate, args.postprocess_profile))
         return result
     finally:
         if not args.keep_open:
@@ -137,6 +142,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--out-dir", type=Path, required=True)
     parser.add_argument("--s2p", type=Path, default=None)
     parser.add_argument("--score-out", type=Path, default=None)
+    parser.add_argument("--postprocess-profile", choices=["connector", "filter"], default="connector")
     parser.add_argument("--export-only", action="store_true")
     parser.add_argument("--non-graphical", action="store_true")
     parser.add_argument("--keep-open", action="store_true")

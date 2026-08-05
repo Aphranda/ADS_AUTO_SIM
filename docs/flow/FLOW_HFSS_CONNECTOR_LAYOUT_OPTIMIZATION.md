@@ -45,7 +45,7 @@ HFSS project contract 已固化为两个维度：
 - 参数化 P1/P2 两端连接器过渡区域。
 - 自动生成 CPWG+connector layout JSON 或 HFSS 几何输入。
 - 用 HFSS 作为主要求解器，输出包含连接器/launch 影响的 S2P、trace CSV、score CSV、SVG 和 manifest。
-- 以连接处参数为主变量进行迭代，优化 0.5-10 GHz 范围内的 S11/S22、S21 插损、端口对称性和 6-8 GHz 目标频段表现。
+- 以连接处参数为主变量进行迭代，优化 0.5-10 GHz 全频带范围内的 S11/S22、S21 插损、幅度平坦度和端口对称性。
 - 将理想 50 ohm CPWG through line 或无连接器 50R CPWG 作为 baseline，用 delta 指标判断连接器结构是否引入额外劣化。
 
 ## 2. 初始边界
@@ -117,7 +117,7 @@ HFSS project contract 已固化为两个维度：
 |---|---|---|
 | 50R 微带线 | `line_w_mm`、`line_l_mm`、`edge_margin_mm` | 参考阻抗、传输相位、去嵌稳定性。 |
 | 信号 pad | `pin_pad_w_mm`、`pin_pad_l_mm`、`pad_to_edge_mm` | 输入电容、端口阻抗、低频/高频回波。 |
-| 锥形过渡 | `taper_l_mm`、`taper_w_start_mm`、`taper_w_end_mm` | 阻抗连续性、通带回波、插损。 |
+| 锥形过渡 | `taper_l_mm`、`taper_w_start_mm`、`taper_w_end_mm` | 阻抗连续性、全频带回波、插损。 |
 | launch 短线 | `launch_feed_l_mm`、`reference_plane_offset_mm` | 相位、端口去嵌、左右一致性。 |
 | 地间隙 | `gnd_clearance_mm`、`anti_pad_w_mm` | pad 寄生电容、奇偶模耦合。 |
 | 地过孔 | `via_d_mm`、`via_pad_d_mm`、`via_pitch_mm`、`via_count` | 返回电流路径、壳体接地、S11/S22。 |
@@ -145,7 +145,7 @@ HFSS project contract 已固化为两个维度：
 - cut-out 必须参数化：记录 `l2_cutout_enabled`、`l2_cutout_shape`、`l2_cutout_w_mm`、`l2_cutout_l_mm`、`l2_cutout_offset_x_mm`、`l2_cutout_taper_l_mm`、`l2_cutout_corner_r_mm` 和 `l2_cutout_keep_gnd_via_clearance_mm`。若当前 layout schema 暂不能表达内层挖空，先在候选计划中登记这些字段，并在 generator/HFSS build 中补齐实现。
 - 不使用普通 lumped 补偿器件：10 GHz 上普通贴片电容/电感的封装寄生、自谐振、焊盘寄生和装配误差会主导结果；本项目补偿只使用可制造的分布式微带/CPW 几何，包括线宽、长度、taper、参考地 cut-out、短高阻抗段和受控 stub。
 - 串联电感性补偿：若 S11/TDR 显示焊盘处为低阻抗凹陷，可尝试在焊盘与 50R 主线之间加入短高阻抗段或更窄 taper tip，等效增加分布式串联电感来补偿焊盘 shunt capacitance。该方法优先于随意增加开路 stub。
-- 短截线补偿仅作为二轮窄带候选：开路或短路 stub 是谐振/频率选择结构，可能改善某一中心频段，但容易在 0.5-10 GHz 宽带内引入新尖峰。只有当 baseline/single 结果显示 6-8 GHz 有稳定单一失配中心时，才加入 `stub_type=open|short`、`stub_l_mm`、`stub_w_mm`、`stub_offset_x_mm` 的窄带 DOE。
+- 短截线补偿仅作为二轮定位候选：开路或短路 stub 是谐振/频率选择结构，可能改善某一局部失配点，但容易在 0.5-10 GHz 全频带内引入新尖峰。只有当 full-band 复数 S 参数显示稳定单一失配中心、且不会破坏相邻频段时，才加入 `stub_type=open|short`、`stub_l_mm`、`stub_w_mm`、`stub_offset_x_mm` 的 DOE。
 - Smith 圆图调谐：每次仿真必须保留复数 S 参数，并用 `z=(1+Gamma)/(1-Gamma)` 转为 50 ohm 归一化输入阻抗。若目标频段内 `r<1` 且 `x<0`，优先减小焊盘电容或加入短高阻抗串联段；若 `r<1` 且 `x>0`，优先减小串联电感或增加局部电容；若轨迹绕圈或跨越实轴，说明结构已进入谐振补偿，优先回退到更宽带的 pad/taper/cut-out 方案。
 - 保持回流连续：连接器地脚、顶层共面地和 via fence 不得被 cut-out 切断；via 与中心焊盘距离作为独立变量扫参。
 - 第二层以下挖空作为第二轮变量：只有当 L2 cut-out 仍无法改善 S11，或 TDR/场分布显示 launch 仍明显电容性时，才增加 `l3_cutout_enabled` 或更深层 cut-out。
@@ -193,16 +193,16 @@ L2 cut-out 形状选择：
 **评审 C：分布式补偿、短高阻抗段和 stub 风险**
 
 - 资料入口：微带不连续补偿、Smith 圆图匹配和 connector launch 调谐资料。
-- 结论：10 GHz 内普通 lumped 电容/电感不适合作为首选补偿。焊盘电容过大时，短高阻抗传输线段可以提供分布式串联电感，通常比开路/短路 stub 更宽带。stub 本质更接近窄带谐振补偿，可能改善 6-8 GHz 某一点，但也可能在 0.5-10 GHz 引入尖峰。
-- 对本项目的约束：首轮允许 `series_hi_z_*`，禁止默认启用 stub。只有复数 S2P 显示 6-8 GHz 存在稳定单峰失配，且 4-10 GHz 没有宽带低阻抗趋势时，二轮才加入 stub。
+- 结论：10 GHz 内普通 lumped 电容/电感不适合作为首选补偿。焊盘电容过大时，短高阻抗传输线段可以提供分布式串联电感，通常比开路/短路 stub 更宽带。stub 本质更接近局部谐振补偿，可能改善某一点，但也可能在 0.5-10 GHz 引入尖峰。
+- 对本项目的约束：首轮允许 `series_hi_z_*`，禁止默认启用 stub。只有复数 S2P 显示全频带内存在稳定单峰失配，且相邻频段没有宽带低阻抗趋势时，二轮才加入 stub。
 
 基于三组评审，当前定稿前 gate 为：
 
 - 必须先完成 `IDEAL_50R_CPW_30MM` 和 `SINGLE_END_SMA_CPW_30MM` 复数 S2P 对比。
-- 必须计算 6-8 GHz 与 4-10 GHz 的 `z=(1+Gamma)/(1-Gamma)` 归一化阻抗范围。
+- 必须计算 0.5-10 GHz 全频带的 `z=(1+Gamma)/(1-Gamma)` 归一化阻抗范围。
 - 若 `r<1, x<0` 占主导，第一动作是减小 pad 电容：缩小/缩短 pad，或增加 L2 cut-out；第二动作才是短高阻抗段。
 - 若 `r>1, x>0` 占主导，说明 cut-out 或高阻抗段过强，应回退 cut-out 或缩短/加宽高阻抗段。
-- 若轨迹绕圈、尖峰或 6-8 GHz 外出现新回波峰，当前候选不得定稿，即使 7 GHz 单点 S11 改善。
+- 若轨迹绕圈、尖峰或局部单点改善伴随其它频段回波峰，当前候选不得定稿。
 
 ### 5.3 首轮参数范围冻结
 
@@ -251,23 +251,53 @@ run manifest 必须明确 `fixture_type=microstrip_connector_50r`、`stackup_con
 
 连接器优化的评分对象是 50R 微带线+连接器联合仿真模型，不是完整滤波器。评分既看最终 S 参数，也看相对理想 50R through line 或无连接器 50R 微带线的劣化量。
 
+连接器评分系统独立于滤波器评分系统，当前版本为 `connector_fullband_v1`，默认 profile 为 `sma_launch_fullband_0p5_10g_v1`。后处理入口为 `tools/analyze_connector_s2p.py`，核心库为 `src/simads/scoring/connector.py`。后续参数优化器应直接读取该 score CSV，不再消费 `passband_*`、`worst_s11_6_8_db` 或滤波器 `target_profile` 字段。
+
+评分系统输出两类排序字段：
+
+- `optimization_cost`：优化器主目标，越小越好。该值由全频带最差回波、最差/平均插损、S21 ripple 和 S11/S22 balance 的超限惩罚加权得到。
+- `connector_score`：报告展示分数，`100 - optimization_cost` 后截断到 `0-100`，越高越好。
+
+默认 tuning gate：
+
+- `target_worst_return_db=-10 dB`
+- `target_s21_min_db=-1.5 dB`
+- `target_s21_avg_db=-0.75 dB`
+- `target_s21_ripple_db=1.0 dB`
+- `target_balance_db=1.5 dB`
+
+默认 release/pass gate：
+
+- `pass_worst_return_db=-15 dB`
+- `pass_s21_min_db=-1.0 dB`
+- `pass_s21_avg_db=-0.5 dB`
+- `pass_s21_ripple_db=0.75 dB`
+- `pass_balance_db=1.0 dB`
+
+状态定义：
+
+- `TUNE`：至少一项 tuning gate 未达标，继续迭代。
+- `CANDIDATE`：达到 tuning gate，但未达到 release/pass gate，可进入高保真复核或局部细调。
+- `PASS_CANDIDATE`：达到 release/pass gate，可作为当前连接器 launch 推荐候选。
+
 建议指标：
 
-- `worst_s11_4_10_db`、`worst_s22_4_10_db`：连接器 launch 宽频回波。
-- `worst_s11_6_8_db`、`worst_s22_6_8_db`：目标频段回波。
-- `min_s21_6_8_db`：目标频段最差插损。
-- `s21_ripple_6_8_db`：目标频段幅度平坦度。
-- `delta_min_s21_6_8_db`：相对 50R baseline 的插损劣化。
-- `delta_worst_return_6_8_db`：相对 50R baseline 的回波劣化。
-- `s11_s22_balance_db`：左右端口对称性。
-- `passband_phase_slope` 或 group delay：后续需要相位一致性时再加入。
-- `smith_zin_r_6_8_min/max`、`smith_zin_x_6_8_min/max`：由复数 S11/S22 计算的 50 ohm 归一化阻抗范围。
-- `smith_tuning_hint`：基于 `r/x` 和轨迹形态给出的下一轮补偿方向，例如 `reduce_pad_capacitance`、`add_series_inductance`、`reduce_series_inductance`、`avoid_narrowband_stub`。
+- `worst_s11_0p5_10g_db`、`worst_s22_0p5_10g_db`：连接器 launch 全频带回波。
+- `worst_return_0p5_10g_db`、`worst_return_param`、`worst_return_freq_ghz`：全频带最差回波及其位置。
+- `s21_min_0p5_10g_db`：全频带最差插损。
+- `s21_avg_0p5_10g_db`：全频带平均插损。
+- `s21_ripple_0p5_10g_db`：全频带幅度平坦度。
+- `delta_s21_avg_vs_ideal_0p5_10g_db`：相对 50R baseline 的平均插损劣化。
+- `delta_worst_return_vs_ideal_0p5_10g_db`：相对 50R baseline 的回波劣化。
+- `s11_s22_balance_max_0p5_10g_db`：左右端口回波差异。
+- `phase_slope_0p5_10g` 或 group delay：后续需要相位一致性时再加入。
+- `smith_z_r_min/max_0p5_10g`、`smith_z_x_min/max_0p5_10g`：由复数 S11/S22 计算的 50 ohm 归一化阻抗范围。
+- `smith_tuning_hint`：基于 `r/x` 和轨迹形态给出的下一轮补偿方向，例如 `reduce_pad_capacitance`、`add_series_inductance`、`reduce_series_inductance`、`avoid_local_resonance`。
 
 优化目标优先级：
 
-1. 6-8 GHz 内 S11/S22 尽量低，优先减少连接器处反射。
-2. 6-8 GHz 内 S21 插损尽量接近 50R through baseline。
+1. 0.5-10 GHz 内 S11/S22 尽量低，优先减少连接器处反射。
+2. 0.5-10 GHz 内 S21 插损尽量接近 50R through baseline。
 3. 减小 P1/P2 不对称，避免一端 launch 优、一端 launch 差。
 4. 0.5-10 GHz 内避免出现明显局部谐振或高频回波尖峰。
 5. 满足连接器 footprint、板边距离、地过孔和板厂制造约束。
@@ -380,9 +410,9 @@ artifact_manifest
 当前 2026-08-03 Home profile 首次结果：
 
 - 项目目录：`projects/hfss_sma_connector/microstrip_connector/`
-- baseline：`100 mm` P1-to-P2 理想 50R through line，`passband_min_s21=-3.10 dB`，`worst_s11_6_8=-23.41 dB`，`worst_s22_6_8=-24.14 dB`。
-- connector surrogate：中间 `100 mm` 50R 微带 + 两端各 `3.5 mm` launch，`passband_min_s21=-8.02 dB`，`worst_s11_6_8=-2.72 dB`，`worst_s22_6_8=-2.75 dB`。
-- delta compare：6-8 GHz 内 `S21` 平均绝对差约 `3.43 dB`，`S11/S22` 平均绝对差约 `22.35/24.35 dB`。
+- baseline：`100 mm` P1-to-P2 理想 50R through line，历史 score 字段来自旧滤波器后处理脚本，后续按 connector full-band score 重新生成。
+- connector surrogate：中间 `100 mm` 50R 微带 + 两端各 `3.5 mm` launch，历史 score 字段来自旧滤波器后处理脚本，后续按 connector full-band score 重新生成。
+- delta compare：后续统一按 0.5-10 GHz 的 S21 平均/最差劣化、最差回波劣化和 S21 ripple 输出。
 - 结论：默认 Route A surrogate launch 严重失配，下一步先做连接器 launch 参数 DoE；完整 3D SMA 模型导入放到 Route C。
 
 ### Phase 3: 连接处参数优化
@@ -390,7 +420,7 @@ artifact_manifest
 - [ ] 建立首批 DoE 参数表：先覆盖 small pad、long taper、L2 cut-out、via relief，不超过 8 个候选。
 - [ ] 在 layout schema/generator 中增加 L2 reference-plane cut-out 字段和几何输出；实现前先在 plan 中登记参数，避免手工修改 AEDT。
 - [ ] 在 layout schema/generator 中增加高阻抗串联补偿段字段：`series_hi_z_enabled`、`series_hi_z_l_mm`、`series_hi_z_w_mm`、`series_hi_z_offset_x_mm`。
-- [ ] 仅当 6-8 GHz 呈现窄带单峰失配时，再增加 stub 补偿字段：`stub_type`、`stub_l_mm`、`stub_w_mm`、`stub_offset_x_mm`；宽带首轮不默认启用 stub。
+- [ ] 仅当 0.5-10 GHz 全频带内呈现稳定局部单峰失配时，再增加 stub 补偿字段：`stub_type`、`stub_l_mm`、`stub_w_mm`、`stub_offset_x_mm`；宽带首轮不默认启用 stub。
 - [ ] 先跑 `IDEAL_50R_CPW_30MM` 无连接器 baseline，再跑 `SINGLE_END_SMA_CPW_30MM` 当前连接器对比，生成 delta 指标。
 - [ ] 用 HFSS 批量运行微带线+连接器联合仿真候选。
 - [ ] 基于 score 和 delta 指标生成下一批局部候选。
