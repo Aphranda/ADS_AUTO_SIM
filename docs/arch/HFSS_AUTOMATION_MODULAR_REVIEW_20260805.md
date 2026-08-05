@@ -28,6 +28,7 @@ Last updated: 2026-08-06
 - `src/simads/hfss/aedt_startup.py`：非 GUI 启动兼容、项目锁、自动 reaper、ready 等生命周期能力。
 - `src/simads/hfss/layout.py`：SIM layout JSON 到 HFSS primitive。
 - `src/simads/hfss/ports.py`：边推断、GND boundary、AEDT/EDB 端口创建与属性 patch。
+- `src/simads/hfss/project.py`：project path、project action、reuse/init project 和锁对象选择计划。
 - `src/simads/hfss/build.py`：stackup、geometry、ports、setup/sweep、save。
 - `src/simads/hfss/solve.py`：analyze、Touchstone export、post-process。
 - `src/simads/hfss/results.py`：S2P 后处理。
@@ -130,6 +131,7 @@ AI 后续只走这几类入口：
 - [x] P2: 将 `workflow.py` 中 manifest/connector metadata 派生拆到 `hfss.manifest` / `hfss.connector_contract`。
 - [x] P2: 把 report 生成从手工 HTML patch 演进成读取 manifest/artifacts 的可重复报告流程。
 - [x] P2: 固化 `layout.py` 不在 HFSS 中执行 reference-ground cutout/negative/subtract 操作；候选差异只能通过删除旧 layout primitives 后加载新生成 layout 表达。
+- [x] P2: 新增 `hfss.project`，把 project path/action/reuse/init-project 合同从 workflow 中抽离为纯计划模块。
 
 ## 当前第一步修改
 
@@ -420,3 +422,28 @@ python tools\hfss\run_hfss_quality_gate.py --profile home --output .simads\gates
 ```
 
 结果：快速测试 27 passed；完整 gate 通过，HFSS 相关 pytest 53 passed，AEDT 2026.1 non-graphical smoke 通过，完整 gate elapsed 20.049 s。
+
+## 当前第十三步修改
+
+本轮完成 HFSS project 计划模块抽取：
+
+- 新增 `src/simads/hfss/project.py`
+  - `HfssProjectPlan` 固化 project path、design、project model/action、reuse 和 `init_project`。
+  - `resolve_hfss_project_plan()` 统一校验 `project_action=add` 必须显式给出 `--project` 或 `--project-name`。
+  - 保留 `default_project_name()` 与 `resolve_project_path()` 兼容能力。
+- `src/simads/hfss/workflow.py`
+  - build/run 阶段改为消费 `HfssProjectPlan`，不再在 workflow 内散落 project action 与 reuse/init-project 派生逻辑。
+  - dry-run `project_contract` 直接来自 project plan。
+- `src/simads/hfss/artifacts.py` / `src/simads/hfss/__init__.py`
+  - 保持旧导入入口兼容，并导出 `HfssProjectPlan` / `resolve_hfss_project_plan()`。
+- `tools/hfss/run_hfss_quality_gate.py`
+  - 将 `hfss.project` 和 `tests/test_hfss_project.py` 纳入默认 gate。
+
+已验证：
+
+```text
+python -m pytest tests\test_hfss_project.py tests\test_hfss_manifest_contracts.py tests\test_hfss_build.py tests\test_hfss_quality_gate.py
+python tools\hfss\run_hfss_quality_gate.py --profile home --output .simads\gates\hfss_quality_gate_latest.json
+```
+
+结果：project/manifest/build/gate 快速测试 10 passed；完整 gate 通过，HFSS 相关 pytest 56 passed，AEDT 2026.1 non-graphical smoke 通过，完整 gate elapsed 20.913 s。

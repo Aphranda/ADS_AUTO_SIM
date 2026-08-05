@@ -14,14 +14,11 @@ from simads.runtime import (
     SimulationRunContext,
 )
 from simads.hfss.artifacts import (
-    HFSS_PROJECT_ACTION_ADD,
     HFSS_PROJECT_ACTION_NEW,
     HFSS_PROJECT_ACTIONS,
     HFSS_PROJECT_MODEL_PER_DESIGN,
     HFSS_PROJECT_MODELS,
-    default_project_name,
     expected_hfss_outputs,
-    resolve_project_path,
 )
 from simads.hfss.build import build_hfss_layout_project
 from simads.hfss.connector_contract import connector_fixture_metadata
@@ -43,6 +40,7 @@ from simads.hfss.manifest import (
     write_hfss_manifests,
 )
 from simads.hfss.plans import RELIABLE_HFSS_ROUTE, apply_hfss_route_defaults
+from simads.hfss.project import resolve_hfss_project_plan
 from simads.hfss.ports import (
     create_gap_edge_ports_in_edb,
     infer_pin_ports,
@@ -74,6 +72,7 @@ def hfss_dry_run_payload(
     port_edges = resolve_port_edges(layout, args.p1_edge, args.p2_edge, args.p1_ref_edge, args.p2_ref_edge)
     pin_ports = infer_pin_ports(layout)
     connector = connector_fixture_metadata(args, layout)
+    project_plan = resolve_hfss_project_plan(args, layout)
     payload: dict[str, Any] = {
         "mode": "dry_run",
         "summary": summary,
@@ -123,13 +122,7 @@ def hfss_dry_run_payload(
             "candidate_id": manifest_context.candidate_id,
             "profile_id": args.profile_id,
         },
-        "project_contract": {
-            "project_model": args.project_model,
-            "project_action": args.project_action,
-            "reuse_project": args.reuse_project,
-            "project": str(resolve_project_path(args, layout)),
-            "design": args.design,
-        },
+        "project_contract": project_plan.to_contract(),
     }
     if connector:
         payload["connector"] = connector
@@ -144,19 +137,19 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
     apply_hfss_route_defaults(args)
     layout = load_layout(args.layout)
     stackup_config = stackup_config_from_args(args)
-    project = resolve_project_path(args, layout)
-    if args.project_action == HFSS_PROJECT_ACTION_ADD and args.project is None and args.project_name is None:
-        raise ValueError("--project-action add requires --project or --project-name to identify the project space")
-    project.parent.mkdir(parents=True, exist_ok=True)
-    args.out_dir.mkdir(parents=True, exist_ok=True)
-    reuse_project = args.reuse_project or args.project_action == HFSS_PROJECT_ACTION_ADD
-    init_project = str(project) if reuse_project and project.exists() else None
+    project_plan = resolve_hfss_project_plan(args, layout)
+    project = project_plan.project_path
+    project_plan.ensure_directories(args.out_dir)
 
     with aedt_automation_lock("simads.hfss.workflow.run_hfss") as lock_info:
-        project_lock = prepare_aedt_project_lock(init_project) if init_project is not None else {"action": "not_applicable", "reason": "new project"}
+        project_lock = (
+            prepare_aedt_project_lock(project_plan.lock_project)
+            if project_plan.lock_project is not None
+            else {"action": "not_applicable", "reason": "new project"}
+        )
         app = Hfss3dLayout(
-            project=init_project,
-            design=args.design,
+            project=project_plan.init_project,
+            design=project_plan.design,
             version=args.version,
             non_graphical=args.non_graphical,
             new_desktop=True,
@@ -205,7 +198,7 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
                         result["post_patch_project_lock"] = prepare_aedt_project_lock(project)
                         app = Hfss3dLayout(
                             project=str(project),
-                            design=args.design,
+                            design=project_plan.design,
                             version=args.version,
                             non_graphical=args.non_graphical,
                             new_desktop=True,

@@ -14,18 +14,8 @@ from simads.hfss_contracts import (
     HFSS_PROJECT_MODEL_SINGLE_AEDT,
     HFSS_PROJECT_MODELS,
 )
+from simads.hfss.project import default_project_name, resolve_project_path
 from simads.hfss.layout_io import configured_layout_id
-
-
-def default_project_name(layout: dict[str, Any]) -> str:
-    return f"{configured_layout_id(layout)}_hfss_verdict"
-
-
-def resolve_project_path(args: argparse.Namespace, layout: dict[str, Any]) -> Path:
-    if args.project:
-        return args.project
-    project_name = args.project_name or default_project_name(layout)
-    return args.workspace_dir / f"{project_name}.aedt"
 
 
 def expected_hfss_outputs(args: argparse.Namespace, layout: dict[str, Any]) -> dict[str, Path]:

@@ -24,6 +24,7 @@ from simads.hfss.plans import (
     apply_hfss_route_defaults,
     build_reliable_hfss_verdict_plan,
 )
+from simads.hfss.project import HfssProjectPlan, resolve_hfss_project_plan
 from simads.hfss.solve import HfssSolveExportResult, solve_and_export_hfss
 from simads.hfss.session import Hfss3dLayoutSession, Hfss3dLayoutSessionConfig, open_hfss3dlayout_session
 from simads.hfss.connector import (
@@ -39,6 +40,7 @@ from simads.hfss.connector import (
 
 __all__ = [
     "Hfss3dLayoutVerdictPlan",
+    "HfssProjectPlan",
     "HfssLayoutBuildResult",
     "HfssSolveExportResult",
     "Hfss3dLayoutSession",
@@ -74,6 +76,7 @@ __all__ = [
     "load_layout",
     "open_hfss3dlayout_session",
     "resolve_gnd_boundary",
+    "resolve_hfss_project_plan",
     "resolve_project_path",
     "resolve_port_edges",
     "solve_and_export_hfss",

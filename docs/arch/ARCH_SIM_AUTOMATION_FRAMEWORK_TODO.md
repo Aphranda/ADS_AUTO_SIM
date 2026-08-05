@@ -48,7 +48,7 @@ Last updated: 2026-08-06
 
 ## P1 HFSS 模块拆分
 
-- [ ] HFSS 自动化模块化二阶段收敛。
+- [x] HFSS 自动化模块化二阶段收敛。
   - 评审文档：`docs/arch/HFSS_AUTOMATION_MODULAR_REVIEW_20260805.md`。
   - [x] 将 existing-project solve 后处理从 `tools/hfss/run_existing_hfss3dlayout_verdict.py` 收敛到 `src/simads/hfss/results.py`。
   - [x] connector 后处理 profile 输出 Smith 图，`solve.py` 按 fixture_type 自动选择 connector/filter profile。
@@ -60,6 +60,7 @@ Last updated: 2026-08-06
   - [x] 将 HFSS 代码修改 gate 固化到统一检查脚本：纯 Python pytest/py_compile 通过后，必须用 home/company profile 的 host Python 启动 AEDT API smoke；业务工程修改仍需单独实测。
   - [x] 将 `rebuild_connector_pin_iports.py` 收敛到 `hfss.port_plans`，保留为多端口批量 wrapper。
   - [x] 增加 connector port 验收报告：layout ports、schematic IPorts、wire ids、ConnectionPoints、component-pin-only rejected 列表。
+  - [x] 新增 `hfss.project`，集中 project path、project_action、reuse/init_project 和锁对象选择的纯计划逻辑。
 
 - [x] 将 `src/simads/hfss/workflow.py` 拆成更细模块。
   - [x] `layout_io.py`: layout JSON 读取、配置化 layout id、摘要。
