@@ -17,7 +17,7 @@ optimizer = [
   "scikit-learn",
 ]
 hfss = [
-  "pyaedt",
+  "pyaedt==1.3.0",
 ]
 nn = [
   "torch",

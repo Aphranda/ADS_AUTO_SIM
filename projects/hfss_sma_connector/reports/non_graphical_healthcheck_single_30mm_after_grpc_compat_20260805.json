@@ -1,0 +1,79 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "project_name": "hfss_sma_connector_cpw",
+  "active_design": "SINGLE_END_SMA_CPW_30MM",
+  "app": "hfss3dlayout",
+  "aedt_startup": {
+    "PYAEDT_USE_PRE_GRPC_ARGS": "True",
+    "grpc_secure_mode_env": "False",
+    "SIMADS_AEDT_WAIT_FOR_LICENSE": "True",
+    "SIMADS_AEDT_DESKTOP_TIMEOUT_S": "300"
+  },
+  "all_designs": [
+    "SINGLE_END_SMA_CPW_100MM",
+    "SMA_KE_Unite",
+    "IDEAL_50R_CPW_30MM",
+    "IDEAL_50R_CPW_100MM",
+    "SMA_KE_Unite_solder",
+    "DUAL_END_SMA_CPW_100MM",
+    "DUAL_END_SMA_CPW_30MM",
+    "SMA_KE_Unite_Small_Solder",
+    "SINGLE_END_SMA_CPW_30MM"
+  ],
+  "selected_designs": [
+    "SINGLE_END_SMA_CPW_30MM"
+  ],
+  "designs": [
+    {
+      "design": "SINGLE_END_SMA_CPW_30MM",
+      "design_type": "{'error': \"GrpcApiError('Failed to execute gRPC AEDT command: GetProjectByName')\"}",
+      "active": true,
+      "app_design_type": "HFSS 3D Layout Design",
+      "solution_type": "HFSS3DLayout",
+      "setups": [
+        "Setup_0p5to10G"
+      ],
+      "ports": [
+        "Port1",
+        "S1_1_Pin_T1"
+      ],
+      "excitations": [],
+      "boundaries": [
+        {
+          "name": "Port1",
+          "type": "Port"
+        },
+        {
+          "name": "S1_1_Pin_T1",
+          "type": "Port"
+        }
+      ],
+      "object_groups": {
+        "Solids": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetObjectsInGroup')"
+        },
+        "Sheets": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetObjectsInGroup')"
+        },
+        "Lines": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetObjectsInGroup')"
+        },
+        "Unclassified": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetObjectsInGroup')"
+        },
+        "Non Model": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetObjectsInGroup')"
+        },
+        "Measure": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetObjectsInGroup')"
+        },
+        "Planes": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetObjectsInGroup')"
+        },
+        "Points": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetObjectsInGroup')"
+        }
+      }
+    }
+  ]
+}

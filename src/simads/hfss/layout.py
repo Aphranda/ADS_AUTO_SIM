@@ -63,6 +63,9 @@ def _subtract_from_ground(app: Any, ground: Any, tools: list[Any]) -> None:
         raise RuntimeError("reference ground cut-out requested, but modeler.subtract is unavailable")
     errors: list[str] = []
     for call_args, kwargs in [
+        ((ground, tools), {}),
+        ((ground, [_object_name(tool) for tool in tools]), {}),
+        ((_object_name(ground), [_object_name(tool) for tool in tools]), {}),
         ((ground, tools), {"keep_originals": False}),
         ((ground, tools, False), {}),
         (([ground], tools), {"keep_originals": False}),

@@ -13,6 +13,13 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 AEDT_VERSION = "2026.1"
+SRC_ROOT = REPO_ROOT / "src"
+if str(SRC_ROOT) not in sys.path:
+    sys.path.insert(0, str(SRC_ROOT))
+
+from simads.hfss.aedt_startup import apply_grpc_startup_compat, apply_pyaedt_settings, startup_snapshot
+
+apply_grpc_startup_compat()
 
 
 def run_post_tools(s2p: Path, score_csv: Path, out_dir: Path, candidate: str, profile: str) -> dict[str, str]:
@@ -88,7 +95,9 @@ def object_names(items: Any) -> list[str]:
 
 
 def run(args: argparse.Namespace) -> dict[str, Any]:
-    from ansys.aedt.core import Hfss3dLayout
+    from ansys.aedt.core import Hfss3dLayout, settings
+
+    apply_pyaedt_settings(settings)
 
     args.out_dir.mkdir(parents=True, exist_ok=True)
     app = Hfss3dLayout(
@@ -104,6 +113,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         result: dict[str, Any] = {
             "project": str(args.project),
             "design": args.design,
+            "aedt_startup": startup_snapshot(settings),
             "ports": object_names(getattr(app, "ports", [])),
             "setup": args.setup,
             "sweep": args.sweep,
@@ -144,7 +154,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--score-out", type=Path, default=None)
     parser.add_argument("--postprocess-profile", choices=["connector", "filter"], default="connector")
     parser.add_argument("--export-only", action="store_true")
-    parser.add_argument("--non-graphical", action="store_true")
+    parser.add_argument("--non-graphical", action="store_true", default=True)
+    parser.add_argument("--graphical", action="store_false", dest="non_graphical")
     parser.add_argument("--keep-open", action="store_true")
     parser.add_argument("--remove-lock", action="store_true")
     parser.add_argument("--output", type=Path, default=None)

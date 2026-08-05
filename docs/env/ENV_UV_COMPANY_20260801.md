@@ -43,6 +43,31 @@ D:\Microsoft\uv-venvs\ads-automation\Scripts\python.exe
 
 从 `2026-08-01` 起，`src/simads/config/profiles.py` 优先读取 `config/ads_profiles.json`，源码中的 profile 数据只作为配置文件缺失时的兜底默认值。公司/家里电脑切换时，应优先维护 `config/ads_profiles.json`，避免 JSON 和源码双写漂移。
 
+## HFSS/PyAEDT 版本口径
+
+当前公司 HFSS 连接器自动化环境固定为：
+
+```text
+AEDT: 2026.1
+Python: D:\Microsoft\Python\ads-automation\Scripts\python.exe
+pyaedt==1.3.0
+pyedb==0.81.0
+ansys-edb-core==0.3.3
+grpcio==1.83.0
+protobuf==6.33.6
+```
+
+`pyaedt 1.3.0` 是当前稳定版；项目 `pyproject.toml` 的 `hfss` extra 固定该版本，避免后续环境重建时 PyAEDT 自动漂移。AEDT 2026.1 non-graphical 启动默认使用 SIMADS 兼容入口：
+
+```text
+PYAEDT_USE_PRE_GRPC_ARGS=True
+grpc_secure_mode=False
+SIMADS_AEDT_WAIT_FOR_LICENSE=True
+SIMADS_AEDT_DESKTOP_TIMEOUT_S=300
+```
+
+该入口会把 PyAEDT gRPC transport 从 WNUA 切到 INSECURE，避免公司机 non-graphical gRPC server 启动失败。
+
 ## 验证结果
 
 ```text

@@ -20,12 +20,15 @@ _SRC_ROOT = Path(__file__).resolve().parents[2] / "src"
 if str(_SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(_SRC_ROOT))
 
+from simads.hfss.aedt_startup import apply_grpc_startup_compat, apply_pyaedt_settings, startup_snapshot
 from simads.hfss.layout import GeometryBuildOptions, _create_cutout_tool, _shape_net, _subtract_from_ground
 from simads.hfss.ports import (
     apply_aedt_edge_gap_port_template,
     default_port_reference_name,
     infer_port_edge,
 )
+
+apply_grpc_startup_compat()
 
 
 P1_LOCAL_LAUNCH_NAMES = {
@@ -326,7 +329,10 @@ def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
         payload["status"] = "dry_run"
         return payload
 
-    from ansys.aedt.core import Hfss3dLayout
+    from ansys.aedt.core import Hfss3dLayout, settings
+
+    apply_pyaedt_settings(settings)
+    payload["aedt_startup"] = startup_snapshot(settings)
 
     app = Hfss3dLayout(
         project=str(args.project),

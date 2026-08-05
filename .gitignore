@@ -49,6 +49,7 @@ htmlcov/
 tmp/
 temp/
 .cache/
+projects/hfss_sma_connector/backups/
 
 # ADS local machine/session files
 hpeesofsim.cfg

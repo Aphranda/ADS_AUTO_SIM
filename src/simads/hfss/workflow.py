@@ -33,6 +33,7 @@ from simads.hfss.artifacts import (
 from simads.hfss.build import build_hfss_layout_project
 from simads.hfss.connector import FIXTURE_TYPE as MICROSTRIP_CONNECTOR_FIXTURE_TYPE
 from simads.hfss.connector import SINGLE_CONNECTOR_FIXTURE_TYPE
+from simads.hfss.aedt_startup import apply_grpc_startup_compat, apply_pyaedt_settings, startup_snapshot
 from simads.hfss.layout_io import collect_layout_summary, configured_layout_id, load_layout
 from simads.hfss.plans import RELIABLE_HFSS_ROUTE, apply_hfss_route_defaults
 from simads.hfss.ports import (
@@ -55,6 +56,8 @@ from simads.hfss.stackup import (
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 AEDT_VERSION = "2026.1"
+
+apply_grpc_startup_compat()
 
 
 def stackup_config_from_args(args: argparse.Namespace) -> StackupConfig | None:
@@ -451,7 +454,9 @@ def completed_hfss_stage(args: argparse.Namespace, result: dict[str, Any]) -> st
 
 
 def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
-    from ansys.aedt.core import Hfss3dLayout
+    from ansys.aedt.core import Hfss3dLayout, settings
+
+    apply_pyaedt_settings(settings)
 
     apply_hfss_route_defaults(args)
     layout = load_layout(args.layout)
@@ -483,6 +488,7 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
             stackup_config=stackup_config,
         ).to_dict()
         result["layout"] = str(args.layout)
+        result["aedt_startup"] = startup_snapshot(settings)
         if args.patch_edb_port_properties and args.port_type in {"edge-gap", "pin-gap"} and not args.skip_ports:
             if args.keep_open:
                 result["edb_port_patch"] = {"skipped": True, "reason": "keep_open"}

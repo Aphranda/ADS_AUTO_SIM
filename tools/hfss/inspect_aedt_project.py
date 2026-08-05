@@ -16,6 +16,14 @@ import re
 import sys
 from typing import Any
 
+_SRC_ROOT = Path(__file__).resolve().parents[2] / "src"
+if str(_SRC_ROOT) not in sys.path:
+    sys.path.insert(0, str(_SRC_ROOT))
+
+from simads.hfss.aedt_startup import apply_grpc_startup_compat, apply_pyaedt_settings, startup_snapshot
+
+apply_grpc_startup_compat()
+
 
 def _json_default(value: Any) -> str:
     return str(value)
@@ -295,11 +303,15 @@ def _inspect_design(
 
 def _create_app(args: argparse.Namespace, *, design: str | None = None) -> Any:
     if args.app == "hfss":
-        from ansys.aedt.core import Hfss
+        from ansys.aedt.core import Hfss, settings
+
+        apply_pyaedt_settings(settings)
 
         cls = Hfss
     else:
-        from ansys.aedt.core import Hfss3dLayout
+        from ansys.aedt.core import Hfss3dLayout, settings
+
+        apply_pyaedt_settings(settings)
 
         cls = Hfss3dLayout
 
@@ -324,6 +336,7 @@ def inspect_project(args: argparse.Namespace) -> dict[str, Any]:
             "project_name": getattr(app, "project_name", None),
             "active_design": getattr(app, "design_name", None),
             "app": args.app,
+            "aedt_startup": startup_snapshot(),
             "all_designs": all_designs,
             "selected_designs": selected,
             "designs": [],
