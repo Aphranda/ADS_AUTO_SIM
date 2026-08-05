@@ -15,7 +15,7 @@ from .validation import LayoutCheck, load_layout_json, point_on_layer, validate_
 
 
 Point = tuple[float, float]
-ShapeKind = Literal["rect", "polygon", "path", "via", "port", "boundary"]
+ShapeKind = Literal["rect", "polygon", "path", "via", "port", "boundary", "reference_ground_cutout"]
 
 
 @dataclass(frozen=True)

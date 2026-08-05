@@ -41,7 +41,21 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--taper-l-mm", type=float, default=None)
     parser.add_argument("--taper-w-start-mm", type=float, default=None)
     parser.add_argument("--taper-w-end-mm", type=float, default=None)
+    parser.add_argument("--gnd-clearance-mm", type=float, default=None)
+    parser.add_argument("--fence-offset-mm", type=float, default=None)
     parser.add_argument("--via-count", type=int, default=None)
+    parser.add_argument("--l2-cutout-enabled", action=argparse.BooleanOptionalAction, default=None)
+    parser.add_argument("--l2-cutout-shape", default=None)
+    parser.add_argument("--l2-cutout-w-mm", type=float, default=None)
+    parser.add_argument("--l2-cutout-l-mm", type=float, default=None)
+    parser.add_argument("--l2-cutout-offset-x-mm", type=float, default=None)
+    parser.add_argument("--l2-cutout-taper-l-mm", type=float, default=None)
+    parser.add_argument("--l2-cutout-corner-r-mm", type=float, default=None)
+    parser.add_argument("--l2-cutout-keep-gnd-via-clearance-mm", type=float, default=None)
+    parser.add_argument("--series-hi-z-enabled", action=argparse.BooleanOptionalAction, default=None)
+    parser.add_argument("--series-hi-z-w-mm", type=float, default=None)
+    parser.add_argument("--series-hi-z-l-mm", type=float, default=None)
+    parser.add_argument("--series-hi-z-offset-x-mm", type=float, default=None)
     return parser.parse_args()
 
 
@@ -62,7 +76,21 @@ def main() -> None:
             "taper_l_mm": args.taper_l_mm,
             "taper_w_start_mm": args.taper_w_start_mm,
             "taper_w_end_mm": args.taper_w_end_mm,
+            "gnd_clearance_mm": args.gnd_clearance_mm,
+            "fence_offset_mm": args.fence_offset_mm,
             "via_count": args.via_count,
+            "l2_cutout_enabled": args.l2_cutout_enabled,
+            "l2_cutout_shape": args.l2_cutout_shape,
+            "l2_cutout_w_mm": args.l2_cutout_w_mm,
+            "l2_cutout_l_mm": args.l2_cutout_l_mm,
+            "l2_cutout_offset_x_mm": args.l2_cutout_offset_x_mm,
+            "l2_cutout_taper_l_mm": args.l2_cutout_taper_l_mm,
+            "l2_cutout_corner_r_mm": args.l2_cutout_corner_r_mm,
+            "l2_cutout_keep_gnd_via_clearance_mm": args.l2_cutout_keep_gnd_via_clearance_mm,
+            "series_hi_z_enabled": args.series_hi_z_enabled,
+            "series_hi_z_w_mm": args.series_hi_z_w_mm,
+            "series_hi_z_l_mm": args.series_hi_z_l_mm,
+            "series_hi_z_offset_x_mm": args.series_hi_z_offset_x_mm,
         }.items()
         if value is not None
     }

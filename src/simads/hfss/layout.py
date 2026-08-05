@@ -51,11 +51,58 @@ def _shape_net(shape: dict[str, Any], name: str | None) -> str:
     return net_for_shape(name)
 
 
+def _object_name(obj: Any) -> str:
+    return getattr(obj, "name", str(obj))
+
+
+def _subtract_from_ground(app: Any, ground: Any, tools: list[Any]) -> None:
+    if not tools:
+        return
+    subtract = getattr(app.modeler, "subtract", None)
+    if subtract is None:
+        raise RuntimeError("reference ground cut-out requested, but modeler.subtract is unavailable")
+    errors: list[str] = []
+    for call_args, kwargs in [
+        ((ground, tools), {"keep_originals": False}),
+        ((ground, tools, False), {}),
+        (([ground], tools), {"keep_originals": False}),
+        (([_object_name(ground)], [_object_name(tool) for tool in tools]), {"keep_originals": False}),
+        ((_object_name(ground), [_object_name(tool) for tool in tools], False), {}),
+    ]:
+        try:
+            subtract(*call_args, **kwargs)
+            return
+        except Exception as exc:
+            errors.append(str(exc))
+    raise RuntimeError(f"failed to subtract reference ground cut-outs: {'; '.join(errors)}")
+
+
+def _create_cutout_tool(app: Any, shape: dict[str, Any], geometry: GeometryBuildOptions) -> Any:
+    kind = shape.get("kind")
+    name = shape.get("name")
+    if kind == "reference_ground_cutout" and "points" in shape:
+        return app.modeler.create_polygon(
+            geometry.reference_ground_layer,
+            [[float(x), float(y)] for x, y in shape["points"]],
+            units="mm",
+            name=name,
+            net="GND",
+        )
+    return app.modeler.create_rectangle(
+        geometry.reference_ground_layer,
+        [shape["x"], shape["y"]],
+        [shape["w"], shape["h"]],
+        name=name,
+        net="GND",
+    )
+
+
 def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOptions | argparse.Namespace) -> list[str]:
     geometry = _geometry_options(options)
     signal_layers = {"cond", geometry.signal_layer}
     names: list[str] = []
     boundary = resolve_gnd_boundary(layout, geometry)
+    gnd = None
     if boundary:
         gnd = app.modeler.create_rectangle(
             geometry.reference_ground_layer,
@@ -66,10 +113,18 @@ def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOpti
         )
         if gnd:
             names.append(gnd.name)
+    cutout_tools: list[Any] = []
     for shape in layout.get("shapes", []):
         kind = shape.get("kind")
         layer = shape.get("layer")
         if layer == "EM_BOUNDARY" or kind == "boundary":
+            continue
+        if kind == "reference_ground_cutout":
+            if gnd is None:
+                raise RuntimeError("reference ground cut-out requested, but no reference ground plane was created")
+            tool = _create_cutout_tool(app, shape, geometry)
+            if tool:
+                cutout_tools.append(tool)
             continue
         name = shape.get("name")
         if kind == "rect" and layer in signal_layers:
@@ -116,6 +171,7 @@ def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOpti
                 names.append(pad.name)
             if via:
                 names.append(via.name)
+    _subtract_from_ground(app, gnd, cutout_tools)
     return names
 
 

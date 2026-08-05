@@ -56,6 +56,10 @@ class FakeModeler:
         self.calls.append(("via", x, y, hole_diam, top_layer, bot_layer, name, net))
         return Obj(name)
 
+    def subtract(self, blank, tools, keep_originals=False):
+        self.calls.append(("subtract", getattr(blank, "name", str(blank)), [getattr(tool, "name", str(tool)) for tool in tools], keep_originals))
+        return True
+
 
 class FakeApp:
     def __init__(self) -> None:
@@ -223,7 +227,7 @@ def test_microstrip_connector_layout_is_compatible_with_hfss_geometry_builder() 
         and call[5] == "IN"
         and call[2][0] == pytest.approx(0.0)
         and call[2][1] == pytest.approx(-params.pin_pad_w_mm / 2.0)
-        and call[3][0] == pytest.approx(params.pin_pad_l_mm + params.launch_feed_l_mm)
+        and call[3][0] == pytest.approx(params.pin_pad_l_mm)
         and call[3][1] == pytest.approx(params.pin_pad_w_mm)
         for call in app.modeler.calls
     )
@@ -260,6 +264,46 @@ def test_microstrip_baseline_layout_is_connector_launch_free_and_hfss_compatible
     assert "input_feed" in names
     assert "output_feed" in names
     assert params_payload["fixture_type"] == BASELINE_FIXTURE_TYPE
+
+
+def test_microstrip_connector_can_emit_l2_cutout_and_hi_z_series() -> None:
+    params = stackup_params(
+        name="connector_l2_hiz_probe",
+        pin_pad_w_mm=1.0,
+        pin_pad_l_mm=2.8,
+        taper_w_start_mm=0.9,
+        taper_l_mm=3.0,
+        l2_cutout_enabled=True,
+        l2_cutout_shape="rect",
+        l2_cutout_w_mm=1.6,
+        l2_cutout_l_mm=3.6,
+        l2_cutout_offset_x_mm=0.25,
+        series_hi_z_enabled=True,
+        series_hi_z_w_mm=0.24,
+        series_hi_z_l_mm=0.6,
+    )
+    layout = build_layout(params)
+    layout_json = to_dict(layout)
+    app = FakeApp()
+
+    names = create_geometry(
+        app,
+        layout_json,
+        GeometryBuildOptions(
+            gnd_boundary_mode="port-edges",
+            signal_layer="ETCH_TOP",
+            reference_ground_layer="ETCH_INNER1",
+            via_top_layer="ETCH_TOP",
+            via_bottom_layer="ETCH_BOTTOM",
+            ground_plane_name="hfss_ground_plane",
+        ),
+    )
+
+    assert all(check.ok for check in validate_connector_layout(layout, params))
+    assert any(shape["kind"] == "reference_ground_cutout" for shape in layout_json["shapes"])
+    assert "input_series_hi_z" in names
+    assert "output_series_hi_z" in names
+    assert any(call[0] == "subtract" and call[1] == "hfss_ground_plane" for call in app.modeler.calls)
 
 
 def test_microstrip_baseline_can_target_exact_total_length() -> None:

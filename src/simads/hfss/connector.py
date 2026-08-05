@@ -40,6 +40,10 @@ class ConnectorLaunchParams:
     taper_w_start_mm: float = 1.2
     taper_w_end_mm: float = 0.3175
     launch_feed_l_mm: float = 0.50
+    series_hi_z_enabled: bool = False
+    series_hi_z_w_mm: float = 0.0
+    series_hi_z_l_mm: float = 0.0
+    series_hi_z_offset_x_mm: float = 0.0
     gnd_clearance_mm: float = 0.30
     transmission_line_model: str = "grounded_coplanar_waveguide"
     cpw_ground_gap_mm: float = 0.2032
@@ -54,6 +58,19 @@ class ConnectorLaunchParams:
     fence_offset_mm: float = 0.55
     fence_pitch_mm: float = 1.20
     fence_span_mm: float = 4.20
+    l2_cutout_enabled: bool = False
+    l2_cutout_shape: str = "none"
+    l2_cutout_w_mm: float = 0.0
+    l2_cutout_l_mm: float = 0.0
+    l2_cutout_offset_x_mm: float = 0.0
+    l2_cutout_taper_l_mm: float = 0.0
+    l2_cutout_corner_r_mm: float = 0.0
+    l2_cutout_keep_gnd_via_clearance_mm: float = 0.0
+    stub_enabled: bool = False
+    stub_type: str = "none"
+    stub_l_mm: float = 0.0
+    stub_w_mm: float = 0.0
+    stub_offset_x_mm: float = 0.0
     reference_plane_offset_mm: float = 0.0
     port_deembed_mm: float = 0.0
     board_width_mm: float = 8.0
@@ -120,7 +137,9 @@ def params_from_mapping(data: dict[str, Any]) -> ConnectorLaunchParams:
             continue
         if key in {"via_count"}:
             kwargs[key] = int(value)
-        elif key in {"mirror", "cpw_ground_enabled", "line_via_enabled"}:
+        elif key == "l2_cutout_shape" and value in {"", None}:
+            kwargs[key] = "none"
+        elif key in {"mirror", "cpw_ground_enabled", "line_via_enabled"} or key.endswith("_enabled"):
             kwargs[key] = bool(value)
         elif key == "ground_layers" and isinstance(value, list):
             kwargs[key] = tuple(str(item) for item in value)
@@ -142,7 +161,8 @@ def load_params(path: Path) -> ConnectorLaunchParams:
 
 
 def launch_len(params: ConnectorLaunchParams) -> float:
-    return params.pad_to_edge_mm + params.pin_pad_l_mm + params.launch_feed_l_mm + params.taper_l_mm
+    series_l = params.series_hi_z_l_mm if params.series_hi_z_enabled else 0.0
+    return params.pad_to_edge_mm + params.pin_pad_l_mm + series_l + params.launch_feed_l_mm + params.taper_l_mm
 
 
 def total_len(params: ConnectorLaunchParams) -> float:
@@ -165,6 +185,29 @@ def _rect(name: str, x: float, y_center: float, w: float, h: float, *, role: str
 
 def _ground_rect(name: str, x: float, y: float, w: float, h: float, *, role: str) -> Rect:
     return Rect(name=name, layer=LOGICAL_SIGNAL_LAYER, x=x, y=y, w=w, h=h, metadata={"role": role, "net": "GND"})
+
+
+def _reference_ground_cutout_rect(name: str, x: float, y_center: float, w: float, h: float, *, side: str) -> Rect:
+    return Rect(
+        name=name,
+        layer="reference_ground_cutout",
+        x=x,
+        y=y_center - h / 2.0,
+        w=w,
+        h=h,
+        kind="reference_ground_cutout",
+        metadata={"role": "reference_ground_cutout", "target_layer": "reference_ground_layer", "side": side},
+    )
+
+
+def _reference_ground_cutout_polygon(name: str, points: list[tuple[float, float]], *, side: str) -> Polygon:
+    return Polygon(
+        name=name,
+        layer="reference_ground_cutout",
+        points=points,
+        kind="reference_ground_cutout",
+        metadata={"role": "reference_ground_cutout", "target_layer": "reference_ground_layer", "side": side},
+    )
 
 
 def _taper(name: str, x0: float, x1: float, w0: float, w1: float, *, role: str) -> Polygon:
@@ -263,37 +306,93 @@ def single_connector_port_locations(params: ConnectorLaunchParams) -> tuple[tupl
     return (0.0, 0.0), (launch_len(params) + params.line_l_mm, 0.0)
 
 
+def _series_l(params: ConnectorLaunchParams) -> float:
+    return params.series_hi_z_l_mm if params.series_hi_z_enabled else 0.0
+
+
+def _left_launch_signal_shapes(params: ConnectorLaunchParams) -> list[Rect | Polygon]:
+    pad_len = params.pad_to_edge_mm + params.pin_pad_l_mm
+    series_l = _series_l(params)
+    neck_x0 = pad_len + series_l
+    taper_x0 = neck_x0 + params.launch_feed_l_mm
+    shapes: list[Rect | Polygon] = [
+        _rect("input_feed", 0.0, 0.0, pad_len, params.pin_pad_w_mm, role="connector_launch_pad"),
+    ]
+    if params.series_hi_z_enabled and series_l > 0.0:
+        shapes.append(_rect("input_series_hi_z", pad_len, 0.0, series_l, params.series_hi_z_w_mm, role="connector_launch_series_hi_z"))
+    if params.launch_feed_l_mm > 0.0:
+        shapes.append(_rect("input_neck", neck_x0, 0.0, params.launch_feed_l_mm, params.taper_w_start_mm, role="connector_launch_neck"))
+    shapes.append(_taper("input_taper", taper_x0, taper_x0 + params.taper_l_mm, params.taper_w_start_mm, params.taper_w_end_mm, role="connector_launch_taper"))
+    return shapes
+
+
+def _right_launch_signal_shapes(params: ConnectorLaunchParams, *, x0: float) -> list[Rect | Polygon]:
+    taper_x0 = x0
+    taper_x1 = taper_x0 + params.taper_l_mm
+    neck_x0 = taper_x1
+    neck_x1 = neck_x0 + params.launch_feed_l_mm
+    series_l = _series_l(params)
+    series_x0 = neck_x1
+    pad_x0 = series_x0 + series_l
+    pad_len = params.pad_to_edge_mm + params.pin_pad_l_mm
+    shapes: list[Rect | Polygon] = [
+        _right_taper("output_taper", taper_x0, taper_x1, params.taper_w_end_mm, params.taper_w_start_mm, role="connector_launch_taper"),
+    ]
+    if params.launch_feed_l_mm > 0.0:
+        shapes.append(_rect("output_neck", neck_x0, 0.0, params.launch_feed_l_mm, params.taper_w_start_mm, role="connector_launch_neck"))
+    if params.series_hi_z_enabled and series_l > 0.0:
+        shapes.append(_rect("output_series_hi_z", series_x0, 0.0, series_l, params.series_hi_z_w_mm, role="connector_launch_series_hi_z"))
+    shapes.append(_rect("output_feed", pad_x0, 0.0, pad_len, params.pin_pad_w_mm, role="connector_launch_pad"))
+    return shapes
+
+
 def build_signal_shapes(params: ConnectorLaunchParams) -> list[Rect | Polygon]:
-    left_feed_len = params.pad_to_edge_mm + params.pin_pad_l_mm + params.launch_feed_l_mm
-    left_taper_x0 = left_feed_len
-    left_taper_x1 = left_taper_x0 + params.taper_l_mm
-    line_x0 = left_taper_x1
+    line_x0 = launch_len(params)
     line_x1 = line_x0 + params.line_l_mm
-    right_taper_x0 = line_x1
-    right_taper_x1 = right_taper_x0 + params.taper_l_mm
-    right_feed_len = params.pad_to_edge_mm + params.pin_pad_l_mm + params.launch_feed_l_mm
 
     return [
-        _rect("input_feed", 0.0, 0.0, left_feed_len, params.taper_w_start_mm, role="connector_launch_signal"),
-        _taper(
-            "input_taper",
-            left_taper_x0,
-            left_taper_x1,
-            params.taper_w_start_mm,
-            params.taper_w_end_mm,
-            role="connector_launch_taper",
-        ),
+        *_left_launch_signal_shapes(params),
         _rect("through_line", line_x0, 0.0, params.line_l_mm, params.line_w_mm, role="microstrip_50r"),
-        _right_taper(
-            "output_taper",
-            right_taper_x0,
-            right_taper_x1,
-            params.taper_w_end_mm,
-            params.taper_w_start_mm,
-            role="connector_launch_taper",
-        ),
-        _rect("output_feed", right_taper_x1, 0.0, right_feed_len, params.taper_w_start_mm, role="connector_launch_signal"),
+        *_right_launch_signal_shapes(params, x0=line_x1),
     ]
+
+
+def _cutout_shape_for_side(params: ConnectorLaunchParams, side: str, total_l: float) -> Rect | Polygon | None:
+    if not params.l2_cutout_enabled or params.l2_cutout_l_mm <= 0.0 or params.l2_cutout_w_mm <= 0.0:
+        return None
+    offset = max(0.0, params.l2_cutout_offset_x_mm)
+    length = params.l2_cutout_l_mm
+    width = params.l2_cutout_w_mm
+    if side == "P1":
+        x0 = params.pad_to_edge_mm + offset
+        x1 = x0 + length
+    else:
+        x1 = total_l - params.pad_to_edge_mm - offset
+        x0 = x1 - length
+    shape = params.l2_cutout_shape.lower()
+    if shape == "tapered":
+        taper_l = min(max(params.l2_cutout_taper_l_mm, 0.0), length)
+        neck_w = max(params.line_w_mm + 2.0 * params.cpw_ground_gap_mm, params.min_fab_feature_mm)
+        if side == "P1":
+            flat_x = x1 - taper_l
+            points = [(x0, -width / 2.0), (flat_x, -width / 2.0), (x1, -neck_w / 2.0), (x1, neck_w / 2.0), (flat_x, width / 2.0), (x0, width / 2.0)]
+        else:
+            flat_x = x0 + taper_l
+            points = [(x0, -neck_w / 2.0), (flat_x, -width / 2.0), (x1, -width / 2.0), (x1, width / 2.0), (flat_x, width / 2.0), (x0, neck_w / 2.0)]
+        return _reference_ground_cutout_polygon(f"{side.lower()}_l2_cutout_tapered", points, side=side)
+    if shape in {"rect", "rounded_rect", "none"}:
+        return _reference_ground_cutout_rect(f"{side.lower()}_l2_cutout_rect", x0, 0.0, length, width, side=side)
+    raise ValueError(f"unsupported l2_cutout_shape: {params.l2_cutout_shape}")
+
+
+def build_reference_ground_cutouts(params: ConnectorLaunchParams, *, sides: tuple[str, ...]) -> list[Rect | Polygon]:
+    total_l = total_len(params)
+    output: list[Rect | Polygon] = []
+    for side in sides:
+        shape = _cutout_shape_for_side(params, side, total_l)
+        if shape is not None:
+            output.append(shape)
+    return output
 
 
 def dual_connector_gcpw_segments(params: ConnectorLaunchParams) -> list[tuple[str, float, float, float]]:
@@ -419,8 +518,15 @@ def build_layout(params: ConnectorLaunchParams) -> Layout:
             LayerMap(name=params.metal_layer, dxf_layer=params.metal_layer),
             LayerMap(name=params.via_layer, dxf_layer=params.via_layer),
             LayerMap(name=params.boundary_layer, dxf_layer=params.boundary_layer),
+            LayerMap(name="reference_ground_cutout", dxf_layer="reference_ground_cutout"),
         ],
-        shapes=[boundary, *build_gcpw_ground_rails(params, dual_connector_gcpw_segments(params)), *build_signal_shapes(params), *build_vias(params)],
+        shapes=[
+            boundary,
+            *build_gcpw_ground_rails(params, dual_connector_gcpw_segments(params)),
+            *build_signal_shapes(params),
+            *build_vias(params),
+            *build_reference_ground_cutouts(params, sides=("P1", "P2")),
+        ],
         ports=ports,
         metadata={key: value for key, value in metadata.items() if value is not None},
     )
@@ -437,9 +543,7 @@ def build_single_connector_layout(params: ConnectorLaunchParams) -> Layout:
         w=total_l + 2.0 * params.edge_margin_mm,
         h=board_h,
     )
-    left_feed_len = params.pad_to_edge_mm + params.pin_pad_l_mm + params.launch_feed_l_mm
-    left_taper_x0 = left_feed_len
-    left_taper_x1 = left_taper_x0 + params.taper_l_mm
+    left_l = launch_len(params)
     output_feed_l = max(params.launch_feed_l_mm, params.min_fab_feature_mm)
     center_l = params.line_l_mm - output_feed_l
     if center_l < params.min_fab_feature_mm:
@@ -485,22 +589,16 @@ def build_single_connector_layout(params: ConnectorLaunchParams) -> Layout:
             LayerMap(name=params.metal_layer, dxf_layer=params.metal_layer),
             LayerMap(name=params.via_layer, dxf_layer=params.via_layer),
             LayerMap(name=params.boundary_layer, dxf_layer=params.boundary_layer),
+            LayerMap(name="reference_ground_cutout", dxf_layer="reference_ground_cutout"),
         ],
         shapes=[
             boundary,
             *build_gcpw_ground_rails(params, single_connector_gcpw_segments(params)),
-            _rect("input_feed", 0.0, 0.0, left_feed_len, params.taper_w_start_mm, role="connector_launch_signal"),
-            _taper(
-                "input_taper",
-                left_taper_x0,
-                left_taper_x1,
-                params.taper_w_start_mm,
-                params.taper_w_end_mm,
-                role="connector_launch_taper",
-            ),
-            _rect("through_line", left_taper_x1, 0.0, center_l, params.line_w_mm, role="gcpw_50r"),
-            _rect("output_feed", left_taper_x1 + center_l, 0.0, output_feed_l, params.line_w_mm, role="gcpw_50r"),
+            *_left_launch_signal_shapes(params),
+            _rect("through_line", left_l, 0.0, center_l, params.line_w_mm, role="gcpw_50r"),
+            _rect("output_feed", left_l + center_l, 0.0, output_feed_l, params.line_w_mm, role="gcpw_50r"),
             *build_single_connector_vias(params),
+            *build_reference_ground_cutouts(params, sides=("P1",)),
         ],
         ports=ports,
         metadata={key: value for key, value in metadata.items() if value is not None},
@@ -582,8 +680,25 @@ def validate_connector_layout(layout: Layout, params: ConnectorLaunchParams) -> 
             add(f"params.{key}", float(value) >= 0.0, f"{key} must be non-negative")
     add("params.line_l_mm", params.line_l_mm >= 5.0, "line_l_mm must leave a stable 50R baseline section")
     add("params.line_w_mm", params.line_w_mm >= params.min_fab_feature_mm, "line_w_mm must satisfy min fab feature")
+    add("params.pin_pad_w_mm", params.pin_pad_w_mm >= params.min_fab_feature_mm, "pin_pad_w_mm must satisfy min fab feature")
+    add("params.pin_pad_l_mm", params.pin_pad_l_mm >= params.min_fab_feature_mm, "pin_pad_l_mm must satisfy min fab feature")
+    add("params.taper_w_start_mm", params.taper_w_start_mm >= params.min_fab_feature_mm, "taper_w_start_mm must satisfy min fab feature")
+    add("params.taper_w_end_mm", params.taper_w_end_mm >= params.min_fab_feature_mm, "taper_w_end_mm must satisfy min fab feature")
     add("params.taper_l_mm", params.taper_l_mm >= params.min_fab_feature_mm, "taper_l_mm must satisfy min fab feature")
     add("params.gnd_clearance_mm", params.gnd_clearance_mm >= params.min_fab_feature_mm, "gnd_clearance_mm must satisfy min fab feature")
+    if params.series_hi_z_enabled:
+        add("params.series_hi_z_w_mm", params.series_hi_z_w_mm >= params.min_fab_feature_mm, "series_hi_z_w_mm must satisfy min fab feature")
+        add("params.series_hi_z_l_mm", params.series_hi_z_l_mm >= params.min_fab_feature_mm, "series_hi_z_l_mm must satisfy min fab feature")
+    if params.l2_cutout_enabled:
+        add("params.l2_cutout_shape", params.l2_cutout_shape in {"none", "rect", "rounded_rect", "tapered"}, "l2_cutout_shape must be rect, rounded_rect, or tapered")
+        add("params.l2_cutout_w_mm", params.l2_cutout_w_mm >= params.min_fab_feature_mm, "l2_cutout_w_mm must satisfy min fab feature")
+        add("params.l2_cutout_l_mm", params.l2_cutout_l_mm >= params.min_fab_feature_mm, "l2_cutout_l_mm must satisfy min fab feature")
+        via_clearance = params.pin_pad_w_mm / 2.0 + params.gnd_clearance_mm - params.l2_cutout_w_mm / 2.0
+        add(
+            "params.l2_cutout_keep_gnd_via_clearance_mm",
+            via_clearance >= params.l2_cutout_keep_gnd_via_clearance_mm,
+            "l2 cut-out must preserve clearance to top-layer ground/via return path",
+        )
     add("params.via_count", params.via_count >= 0, "via_count must be non-negative")
     if params.via_count > 1:
         add("params.via_pitch_mm", params.via_pitch_mm >= params.via_pad_d_mm + params.min_fab_feature_mm, "via_pitch_mm must separate via pads")
@@ -672,6 +787,7 @@ __all__ = [
     "build_single_connector_layout",
     "build_gcpw_ground_rails",
     "build_line_via_fence",
+    "build_reference_ground_cutouts",
     "build_signal_shapes",
     "build_single_connector_vias",
     "build_vias",
