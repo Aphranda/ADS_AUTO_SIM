@@ -1,0 +1,169 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "DUAL_END_SMA_CPW_30MM",
+  "ports": [
+    "IPort@Port1;1",
+    "IPort@Port2;5",
+    "IPort@Pin_T1;9",
+    "IPort@Pin_T2;13"
+  ],
+  "components": [
+    "CompInst@SMA_KE_Unite_Small_Solder8;79;6",
+    "CompInst@SMA_KE_Unite_Small_Solder9;80;8"
+  ],
+  "port_details": [
+    {
+      "port": "IPort@Port1;1",
+      "properties": {
+        "BaseElementTab": [
+          "SchematicID",
+          "Levels",
+          "Component Location",
+          "Component Angle",
+          "Component Mirror",
+          "Use Symbol Color"
+        ],
+        "EM Design": [],
+        "ComponentTab": [],
+        "PassedParameterTab": [
+          "PinCount",
+          "PortName"
+        ],
+        "PropDisplayMap": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetProperties')"
+        }
+      },
+      "values": {
+        "BaseElementTab": {
+          "SchematicID": "1",
+          "Levels": "0,1",
+          "Component Location": "0mil , 0mil",
+          "Component Angle": "0deg",
+          "Component Mirror": "false",
+          "Use Symbol Color": "true"
+        },
+        "EM Design": {},
+        "ComponentTab": {},
+        "PassedParameterTab": {
+          "PinCount": "0",
+          "PortName": "Port1"
+        }
+      }
+    },
+    {
+      "port": "IPort@Port2;5",
+      "properties": {
+        "BaseElementTab": [
+          "SchematicID",
+          "Levels",
+          "Component Location",
+          "Component Angle",
+          "Component Mirror",
+          "Use Symbol Color"
+        ],
+        "EM Design": [],
+        "ComponentTab": [],
+        "PassedParameterTab": [
+          "PinCount",
+          "PortName"
+        ],
+        "PropDisplayMap": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetProperties')"
+        }
+      },
+      "values": {
+        "BaseElementTab": {
+          "SchematicID": "5",
+          "Levels": "0,1",
+          "Component Location": "0mil , -1000mil",
+          "Component Angle": "0deg",
+          "Component Mirror": "false",
+          "Use Symbol Color": "true"
+        },
+        "EM Design": {},
+        "ComponentTab": {},
+        "PassedParameterTab": {
+          "PinCount": "0",
+          "PortName": "Port2"
+        }
+      }
+    },
+    {
+      "port": "IPort@Pin_T1;9",
+      "properties": {
+        "BaseElementTab": [
+          "SchematicID",
+          "Levels",
+          "Component Location",
+          "Component Angle",
+          "Component Mirror",
+          "Use Symbol Color"
+        ],
+        "EM Design": [],
+        "ComponentTab": [],
+        "PassedParameterTab": [
+          "PinCount",
+          "PortName"
+        ],
+        "PropDisplayMap": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetProperties')"
+        }
+      },
+      "values": {
+        "BaseElementTab": {
+          "SchematicID": "9",
+          "Levels": "0,1",
+          "Component Location": "-400mil , -1700mil",
+          "Component Angle": "90deg",
+          "Component Mirror": "false",
+          "Use Symbol Color": "true"
+        },
+        "EM Design": {},
+        "ComponentTab": {},
+        "PassedParameterTab": {
+          "PinCount": "1",
+          "PortName": "Pin_T1"
+        }
+      }
+    },
+    {
+      "port": "IPort@Pin_T2;13",
+      "properties": {
+        "BaseElementTab": [
+          "SchematicID",
+          "Levels",
+          "Component Location",
+          "Component Angle",
+          "Component Mirror",
+          "Use Symbol Color"
+        ],
+        "EM Design": [],
+        "ComponentTab": [],
+        "PassedParameterTab": [
+          "PinCount",
+          "PortName"
+        ],
+        "PropDisplayMap": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetProperties')"
+        }
+      },
+      "values": {
+        "BaseElementTab": {
+          "SchematicID": "13",
+          "Levels": "0,1",
+          "Component Location": "-700mil , -2500mil",
+          "Component Angle": "90deg",
+          "Component Mirror": "false",
+          "Use Symbol Color": "true"
+        },
+        "EM Design": {},
+        "ComponentTab": {},
+        "PassedParameterTab": {
+          "PinCount": "1",
+          "PortName": "Pin_T2"
+        }
+      }
+    }
+  ],
+  "status": "inspected"
+}

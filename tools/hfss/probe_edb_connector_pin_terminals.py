@@ -58,7 +58,7 @@ def _pin_info(pin: Any) -> dict[str, Any]:
 def probe(args: argparse.Namespace) -> dict[str, Any]:
     from pyedb import Edb
 
-    edb = Edb(edbpath=str(args.edb), edbversion=args.version)
+    edb = Edb(edbpath=str(args.edb), cellname=args.cell, isreadonly=True, version=args.version)
     try:
         payload: dict[str, Any] = {
             "edb": str(args.edb),
@@ -71,7 +71,13 @@ def probe(args: argparse.Namespace) -> dict[str, Any]:
         for term in edb.layout.terminals:
             payload["terminals"].append(_obj_info(term))
         for component in args.component:
-            comp = edb.components.instances[component]
+            comp = edb.components.instances.get(component)
+            if comp is None:
+                payload["component_details"][component] = {
+                    "status": "missing",
+                    "available_components": payload["components_keys"],
+                }
+                continue
             payload["component_details"][component] = {
                 "info": _obj_info(comp),
                 "pins": _safe("pins.keys", lambda comp=comp: list(comp.pins.keys())),
@@ -88,7 +94,8 @@ def probe(args: argparse.Namespace) -> dict[str, Any]:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Probe connector pin terminals with PyEDB.")
     parser.add_argument("--edb", type=Path, required=True)
-    parser.add_argument("--component", action="append", default=["S1", "S2"])
+    parser.add_argument("--cell", default=None)
+    parser.add_argument("--component", action="append", default=[])
     parser.add_argument("--version", default="2026.1")
     parser.add_argument("--output", type=Path)
     return parser.parse_args()

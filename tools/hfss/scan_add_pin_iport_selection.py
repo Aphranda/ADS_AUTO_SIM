@@ -27,6 +27,32 @@ def _pin_info(editor: Any, selection: str, pin: str) -> list[str] | str:
         return repr(exc)
 
 
+def _safe(call) -> Any:
+    try:
+        value = call()
+        if isinstance(value, (list, tuple)):
+            return [str(item) for item in value]
+        return value
+    except Exception as exc:
+        return {"error": repr(exc)}
+
+
+def _layout_port_info(layout: Any, port: str) -> dict[str, Any]:
+    server = f"Excitations:{port}"
+    props = _safe(lambda: layout.GetProperties("EM Design", server))
+    values = {}
+    if isinstance(props, list):
+        for prop in props:
+            values[str(prop)] = _safe(lambda prop=prop: layout.GetPropertyValue("EM Design", server, prop))
+    return {
+        "port": port,
+        "get_port_info": _safe(lambda: layout.GetPortInfo(port)),
+        "get_net_connections": _safe(lambda: layout.GetNetConnections(port)),
+        "em_properties": props,
+        "em_values": values,
+    }
+
+
 def scan(args: argparse.Namespace) -> dict[str, Any]:
     from ansys.aedt.core import Hfss3dLayout
 
@@ -84,6 +110,12 @@ def scan(args: argparse.Namespace) -> dict[str, Any]:
             item["after_ports"] = after_attempt
             item["new_ports"] = [port for port in after_attempt if port not in before_attempt]
             item["raw_pin_info"] = _pin_info(editor, base_raw, args.pin)
+            layout = app.odesign.SetActiveEditor("Layout")
+            layout_port_names = [port.removeprefix("IPort@").split(";", 1)[0] for port in item["new_ports"]]
+            item["new_layout_port_info"] = {
+                port: _layout_port_info(layout, port) for port in layout_port_names
+            }
+            editor = app.odesign.SetActiveEditor("SchematicEditor")
             attempts.append(item)
             if item["new_ports"]:
                 payload["attempts"] = attempts

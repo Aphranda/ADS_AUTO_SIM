@@ -1,0 +1,51 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "DUAL_END_SMA_CPW_30MM",
+  "component": "SMA_KE_Unite_Small_Solder9",
+  "component_id": "80",
+  "delete_port": "Pin_T2",
+  "before_ports": [
+    "IPort@Port1;1",
+    "IPort@Port2;5",
+    "IPort@Pin_T1;9",
+    "IPort@Pin_T2;13"
+  ],
+  "delete_targets": [
+    "IPort@Pin_T2;13"
+  ],
+  "execute": true,
+  "save": false,
+  "delete_result": "None",
+  "after_delete_ports": [
+    "IPort@Port1;1",
+    "IPort@Port2;5",
+    "IPort@Pin_T1;9"
+  ],
+  "attempts": [
+    {
+      "suffix": "8",
+      "selection": "CompInst@SMA_KE_Unite_Small_Solder9;80;8",
+      "pins": [
+        "Pin_T1"
+      ],
+      "result": "None",
+      "after_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;16"
+      ],
+      "new_ports": [
+        "IPort@Pin_T2;16"
+      ],
+      "raw_pin_info": [
+        "X=-0.017780",
+        "Y=-0.063500",
+        "Angle=0.000000",
+        "Flip=false",
+        "WireId=Wire@Pin_T2;17"
+      ]
+    }
+  ],
+  "status": "created_candidate"
+}

@@ -1,0 +1,3276 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "DUAL_END_SMA_CPW_30MM",
+  "component": "79",
+  "component_id": "79",
+  "schematic_component_id": "",
+  "pin": "Pin_T1",
+  "port": "Pin_T1",
+  "execute": true,
+  "before_ports": [
+    "Pin_T1",
+    "Pin_T2",
+    "Port1",
+    "Port2"
+  ],
+  "before_schematic_ports": [
+    "IPort@Port1;1",
+    "IPort@Port2;5",
+    "IPort@Pin_T1;9",
+    "IPort@Pin_T2;13"
+  ],
+  "before_port_info": {
+    "Pin_T1": {
+      "port_info": {
+        "ok": true,
+        "value": [
+          "Name=Pin_T1",
+          "Type=Pin, Padstack: NoPad SMT East",
+          "X=-0.009500",
+          "Y=0.000000",
+          "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+          "NetName=Pin_T1"
+        ]
+      },
+      "net_connections": {
+        "ok": true,
+        "value": [
+          "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+          "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+        ]
+      }
+    },
+    "Pin_T2": {
+      "port_info": {
+        "ok": true,
+        "value": [
+          "Name=Pin_T2",
+          "Type=Pin, Padstack: NoPad SMT East",
+          "X=0.039350",
+          "Y=-0.000000",
+          "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+          "NetName=Pin_T2"
+        ]
+      },
+      "net_connections": {
+        "ok": true,
+        "value": [
+          "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+          "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+        ]
+      }
+    },
+    "Port1": {
+      "port_info": {
+        "ok": true,
+        "value": [
+          "Name=Port1",
+          "Type=EdgePort",
+          "X=0.000000",
+          "Y=0.000000",
+          "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+          "NetName=Port1"
+        ]
+      },
+      "net_connections": {
+        "ok": true,
+        "value": [
+          "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+        ]
+      }
+    },
+    "Port2": {
+      "port_info": {
+        "ok": true,
+        "value": [
+          "Name=Port2",
+          "Type=EdgePort",
+          "X=0.030000",
+          "Y=0.000000",
+          "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+          "NetName=Port2"
+        ]
+      },
+      "net_connections": {
+        "ok": true,
+        "value": [
+          "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+        ]
+      }
+    }
+  },
+  "component_pin_info": {
+    "ok": true,
+    "value": [
+      "Type=EdgePort",
+      "X=0.002540",
+      "Y=-0.002540",
+      "ConnectionPoints= NONE",
+      "NetName=Pin_T1"
+    ]
+  },
+  "elements": [
+    "79",
+    "79:Pin_T1",
+    "Pin_T1",
+    "0:79",
+    "1:79",
+    "79:0",
+    "79:1",
+    "0:79:Pin_T1",
+    "1:79:Pin_T1",
+    "SMA_KE_Unite_Small_Solder8",
+    "SMA_KE_Unite_Small_Solder8:Pin_T1",
+    "CompInst@SMA_KE_Unite_Small_Solder8;79;6",
+    "Pin_T1:Pin_T1"
+  ],
+  "attempts": [
+    {
+      "method": "CreatePortInstancePorts",
+      "element": "79",
+      "call_args": [
+        "NAME:elements",
+        "79"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortInstancePorts",
+        "call": "CreatePortInstancePorts"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortsOnComponents",
+      "element": "79",
+      "call_args": [
+        "NAME:elements",
+        "79"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortsOnComponents",
+        "call": "CreatePortsOnComponents"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortInstancePorts",
+      "element": "79:Pin_T1",
+      "call_args": [
+        "NAME:elements",
+        "79:Pin_T1"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortInstancePorts",
+        "call": "CreatePortInstancePorts"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortsOnComponents",
+      "element": "79:Pin_T1",
+      "call_args": [
+        "NAME:elements",
+        "79:Pin_T1"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortsOnComponents",
+        "call": "CreatePortsOnComponents"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortInstancePorts",
+      "element": "Pin_T1",
+      "call_args": [
+        "NAME:elements",
+        "Pin_T1"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortInstancePorts",
+        "call": "CreatePortInstancePorts"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortsOnComponents",
+      "element": "Pin_T1",
+      "call_args": [
+        "NAME:elements",
+        "Pin_T1"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortsOnComponents",
+        "call": "CreatePortsOnComponents"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortInstancePorts",
+      "element": "0:79",
+      "call_args": [
+        "NAME:elements",
+        "0:79"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortInstancePorts",
+        "call": "CreatePortInstancePorts"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortsOnComponents",
+      "element": "0:79",
+      "call_args": [
+        "NAME:elements",
+        "0:79"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortsOnComponents",
+        "call": "CreatePortsOnComponents"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortInstancePorts",
+      "element": "1:79",
+      "call_args": [
+        "NAME:elements",
+        "1:79"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortInstancePorts",
+        "call": "CreatePortInstancePorts"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortsOnComponents",
+      "element": "1:79",
+      "call_args": [
+        "NAME:elements",
+        "1:79"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortsOnComponents",
+        "call": "CreatePortsOnComponents"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortInstancePorts",
+      "element": "79:0",
+      "call_args": [
+        "NAME:elements",
+        "79:0"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortInstancePorts",
+        "call": "CreatePortInstancePorts"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortsOnComponents",
+      "element": "79:0",
+      "call_args": [
+        "NAME:elements",
+        "79:0"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortsOnComponents",
+        "call": "CreatePortsOnComponents"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortInstancePorts",
+      "element": "79:1",
+      "call_args": [
+        "NAME:elements",
+        "79:1"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortInstancePorts",
+        "call": "CreatePortInstancePorts"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortsOnComponents",
+      "element": "79:1",
+      "call_args": [
+        "NAME:elements",
+        "79:1"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortsOnComponents",
+        "call": "CreatePortsOnComponents"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortInstancePorts",
+      "element": "0:79:Pin_T1",
+      "call_args": [
+        "NAME:elements",
+        "0:79:Pin_T1"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortInstancePorts",
+        "call": "CreatePortInstancePorts"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortsOnComponents",
+      "element": "0:79:Pin_T1",
+      "call_args": [
+        "NAME:elements",
+        "0:79:Pin_T1"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortsOnComponents",
+        "call": "CreatePortsOnComponents"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortInstancePorts",
+      "element": "1:79:Pin_T1",
+      "call_args": [
+        "NAME:elements",
+        "1:79:Pin_T1"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortInstancePorts",
+        "call": "CreatePortInstancePorts"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortsOnComponents",
+      "element": "1:79:Pin_T1",
+      "call_args": [
+        "NAME:elements",
+        "1:79:Pin_T1"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortsOnComponents",
+        "call": "CreatePortsOnComponents"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortInstancePorts",
+      "element": "SMA_KE_Unite_Small_Solder8",
+      "call_args": [
+        "NAME:elements",
+        "SMA_KE_Unite_Small_Solder8"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortInstancePorts",
+        "call": "CreatePortInstancePorts"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortsOnComponents",
+      "element": "SMA_KE_Unite_Small_Solder8",
+      "call_args": [
+        "NAME:elements",
+        "SMA_KE_Unite_Small_Solder8"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortsOnComponents",
+        "call": "CreatePortsOnComponents"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortInstancePorts",
+      "element": "SMA_KE_Unite_Small_Solder8:Pin_T1",
+      "call_args": [
+        "NAME:elements",
+        "SMA_KE_Unite_Small_Solder8:Pin_T1"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortInstancePorts",
+        "call": "CreatePortInstancePorts"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortsOnComponents",
+      "element": "SMA_KE_Unite_Small_Solder8:Pin_T1",
+      "call_args": [
+        "NAME:elements",
+        "SMA_KE_Unite_Small_Solder8:Pin_T1"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortsOnComponents",
+        "call": "CreatePortsOnComponents"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortInstancePorts",
+      "element": "CompInst@SMA_KE_Unite_Small_Solder8;79;6",
+      "call_args": [
+        "NAME:elements",
+        "CompInst@SMA_KE_Unite_Small_Solder8;79;6"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortInstancePorts",
+        "call": "CreatePortInstancePorts"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortsOnComponents",
+      "element": "CompInst@SMA_KE_Unite_Small_Solder8;79;6",
+      "call_args": [
+        "NAME:elements",
+        "CompInst@SMA_KE_Unite_Small_Solder8;79;6"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortsOnComponents",
+        "call": "CreatePortsOnComponents"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortInstancePorts",
+      "element": "Pin_T1:Pin_T1",
+      "call_args": [
+        "NAME:elements",
+        "Pin_T1:Pin_T1"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortInstancePorts",
+        "call": "CreatePortInstancePorts"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    },
+    {
+      "method": "CreatePortsOnComponents",
+      "element": "Pin_T1:Pin_T1",
+      "call_args": [
+        "NAME:elements",
+        "Pin_T1:Pin_T1"
+      ],
+      "before_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "before_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "result": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: CreatePortsOnComponents",
+        "call": "CreatePortsOnComponents"
+      },
+      "after_ports": [
+        "Pin_T1",
+        "Pin_T2",
+        "Port1",
+        "Port2"
+      ],
+      "after_schematic_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T1;9",
+        "IPort@Pin_T2;13"
+      ],
+      "new_ports": [],
+      "new_schematic_ports": [],
+      "after_port_info": {
+        "Pin_T1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T1",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=-0.009500",
+              "Y=0.000000",
+              "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Pin_T2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Pin_T2",
+              "Type=Pin, Padstack: NoPad SMT East",
+              "X=0.039350",
+              "Y=-0.000000",
+              "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Pin_T2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+              "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+            ]
+          }
+        },
+        "Port1": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port1",
+              "Type=EdgePort",
+              "X=0.000000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.000000 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+              "NetName=Port1"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+            ]
+          }
+        },
+        "Port2": {
+          "port_info": {
+            "ok": true,
+            "value": [
+              "Name=Port2",
+              "Type=EdgePort",
+              "X=0.030000",
+              "Y=0.000000",
+              "ConnectionPoints= 0.030000 0.000000 Dir:0.000000 Layer: ETCH_TOP",
+              "NetName=Port2"
+            ]
+          },
+          "net_connections": {
+            "ok": true,
+            "value": [
+              "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+            ]
+          }
+        }
+      },
+      "good_ports": [],
+      "component_pin_only_ports": []
+    }
+  ],
+  "status": "no_good_candidate_not_saved"
+}

@@ -1,0 +1,225 @@
+{
+  "edb": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedb",
+  "version": "2026.1",
+  "active_cell": {
+    "ok": true,
+    "value": "DUAL_END_SMA_CPW_30MM"
+  },
+  "components_keys": {
+    "ok": true,
+    "value": []
+  },
+  "terminals": [
+    {
+      "name": {
+        "ok": true,
+        "value": "Port1"
+      },
+      "terminal_type": {
+        "ok": true,
+        "value": "edge"
+      },
+      "boundary_type": {
+        "ok": true,
+        "value": "port"
+      },
+      "is_reference_terminal": {
+        "ok": true,
+        "value": false
+      },
+      "is_circuit_port": {
+        "ok": true,
+        "value": false
+      },
+      "impedance": {
+        "ok": true,
+        "value": 50.0
+      },
+      "hfss_type": {
+        "ok": true,
+        "value": "Gap"
+      },
+      "net_name": {
+        "ok": true,
+        "value": "Port1"
+      }
+    },
+    {
+      "name": {
+        "ok": true,
+        "value": "Port2"
+      },
+      "terminal_type": {
+        "ok": true,
+        "value": "edge"
+      },
+      "boundary_type": {
+        "ok": true,
+        "value": "port"
+      },
+      "is_reference_terminal": {
+        "ok": true,
+        "value": false
+      },
+      "is_circuit_port": {
+        "ok": true,
+        "value": false
+      },
+      "impedance": {
+        "ok": true,
+        "value": 50.0
+      },
+      "hfss_type": {
+        "ok": true,
+        "value": "Gap"
+      },
+      "net_name": {
+        "ok": true,
+        "value": "Port2"
+      }
+    },
+    {
+      "name": {
+        "ok": true,
+        "value": "Pin_T1"
+      },
+      "terminal_type": {
+        "ok": true,
+        "value": "padstack_inst"
+      },
+      "boundary_type": {
+        "ok": true,
+        "value": "port"
+      },
+      "is_reference_terminal": {
+        "ok": true,
+        "value": false
+      },
+      "is_circuit_port": {
+        "ok": true,
+        "value": false
+      },
+      "impedance": {
+        "ok": true,
+        "value": 50.0
+      },
+      "hfss_type": {
+        "ok": true,
+        "value": "Gap"
+      },
+      "net_name": {
+        "ok": true,
+        "value": "Pin_T1"
+      },
+      "edb_uid": {
+        "ok": true,
+        "value": 8589934594
+      },
+      "id": {
+        "ok": true,
+        "value": 8589934594
+      },
+      "position": {
+        "ok": true,
+        "value": [
+          "-0.0095",
+          "1.8726408579923413e-18"
+        ]
+      },
+      "location": {
+        "ok": true,
+        "value": [
+          "-0.0095",
+          "1.8726408579923413e-18"
+        ]
+      }
+    },
+    {
+      "name": {
+        "ok": true,
+        "value": "Pin_T2"
+      },
+      "terminal_type": {
+        "ok": true,
+        "value": "padstack_inst"
+      },
+      "boundary_type": {
+        "ok": true,
+        "value": "port"
+      },
+      "is_reference_terminal": {
+        "ok": true,
+        "value": false
+      },
+      "is_circuit_port": {
+        "ok": true,
+        "value": false
+      },
+      "impedance": {
+        "ok": true,
+        "value": 50.0
+      },
+      "hfss_type": {
+        "ok": true,
+        "value": "Gap"
+      },
+      "net_name": {
+        "ok": true,
+        "value": "Pin_T2"
+      },
+      "edb_uid": {
+        "ok": true,
+        "value": 8589934595
+      },
+      "id": {
+        "ok": true,
+        "value": 8589934595
+      },
+      "position": {
+        "ok": true,
+        "value": [
+          "0.03935000000000001",
+          "-4.336808689942018e-19"
+        ]
+      },
+      "location": {
+        "ok": true,
+        "value": [
+          "0.03935000000000001",
+          "-4.336808689942018e-19"
+        ]
+      }
+    }
+  ],
+  "component_details": {
+    "SMA_KE_Unite_Small_Solder8": {
+      "status": "missing",
+      "available_components": {
+        "ok": true,
+        "value": []
+      }
+    },
+    "SMA_KE_Unite_Small_Solder9": {
+      "status": "missing",
+      "available_components": {
+        "ok": true,
+        "value": []
+      }
+    },
+    "S79": {
+      "status": "missing",
+      "available_components": {
+        "ok": true,
+        "value": []
+      }
+    },
+    "S80": {
+      "status": "missing",
+      "available_components": {
+        "ok": true,
+        "value": []
+      }
+    }
+  },
+  "status": "probed"
+}

@@ -1,0 +1,92 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "DUAL_END_SMA_CPW_30MM",
+  "component": "SMA_KE_Unite_Small_Solder8",
+  "component_id": "79",
+  "delete_port": "Pin_T1",
+  "before_ports": [
+    "IPort@Port1;1",
+    "IPort@Port2;5",
+    "IPort@Pin_T1;9",
+    "IPort@Pin_T2;13"
+  ],
+  "delete_targets": [
+    "IPort@Pin_T1;9"
+  ],
+  "execute": true,
+  "save": false,
+  "delete_result": "None",
+  "after_delete_ports": [
+    "IPort@Port1;1",
+    "IPort@Port2;5",
+    "IPort@Pin_T2;13"
+  ],
+  "attempts": [
+    {
+      "suffix": "6",
+      "selection": "CompInst@SMA_KE_Unite_Small_Solder8;79;6",
+      "pins": [
+        "Pin_T1"
+      ],
+      "result": "None",
+      "after_ports": [
+        "IPort@Port1;1",
+        "IPort@Port2;5",
+        "IPort@Pin_T2;13",
+        "IPort@Pin_T1;16"
+      ],
+      "new_ports": [
+        "IPort@Pin_T1;16"
+      ],
+      "raw_pin_info": [
+        "X=-0.010160",
+        "Y=-0.043180",
+        "Angle=0.000000",
+        "Flip=false",
+        "WireId=Wire@Pin_T1;17"
+      ],
+      "new_layout_port_info": {
+        "Pin_T1": {
+          "port": "Pin_T1",
+          "get_port_info": [
+            "Name=Pin_T1",
+            "Type=Pin, Padstack: NoPad SMT East",
+            "X=-0.009500",
+            "Y=0.000000",
+            "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+            "NetName=Pin_T1"
+          ],
+          "get_net_connections": [
+            "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+            "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+          ],
+          "em_properties": [
+            "Port",
+            "Boundary Type",
+            "Reference",
+            "Impedance",
+            "Magnitude",
+            "Phase",
+            "Renormalize",
+            "Renormalize Impedance",
+            "DeembedParasiticPortInductance",
+            "HFSS Type"
+          ],
+          "em_values": {
+            "Port": "Pin_T1",
+            "Boundary Type": "Port",
+            "Reference": "",
+            "Impedance": "50ohm",
+            "Magnitude": "1V",
+            "Phase": "0deg",
+            "Renormalize": "true",
+            "Renormalize Impedance": "50ohm + 0i ohm",
+            "DeembedParasiticPortInductance": "false",
+            "HFSS Type": "**Invalid**"
+          }
+        }
+      }
+    }
+  ],
+  "status": "created_candidate"
+}

@@ -1,0 +1,442 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "DUAL_END_SMA_CPW_30MM",
+  "ports": [
+    "Pin_T1",
+    "Pin_T2"
+  ],
+  "reference": "ETCH_INNER1:GND:hfss_ground_plane",
+  "execute": true,
+  "save": false,
+  "before_port_list": {
+    "ok": true,
+    "value": [
+      "Pin_T1",
+      "Pin_T2",
+      "Port1",
+      "Port2"
+    ]
+  },
+  "before_props": {
+    "Pin_T1": {
+      "properties": {
+        "ok": true,
+        "value": [
+          "Port",
+          "Boundary Type",
+          "Reference",
+          "Impedance",
+          "Magnitude",
+          "Phase",
+          "Renormalize",
+          "Renormalize Impedance",
+          "DeembedParasiticPortInductance",
+          "HFSS Type"
+        ]
+      },
+      "values": {
+        "Port": {
+          "ok": true,
+          "value": "Pin_T1"
+        },
+        "Boundary Type": {
+          "ok": true,
+          "value": "Port"
+        },
+        "Reference": {
+          "ok": true,
+          "value": ""
+        },
+        "Impedance": {
+          "ok": true,
+          "value": "50ohm"
+        },
+        "Magnitude": {
+          "ok": true,
+          "value": "1V"
+        },
+        "Phase": {
+          "ok": true,
+          "value": "0deg"
+        },
+        "Renormalize": {
+          "ok": true,
+          "value": "true"
+        },
+        "Renormalize Impedance": {
+          "ok": true,
+          "value": "50ohm + 0i ohm"
+        },
+        "DeembedParasiticPortInductance": {
+          "ok": true,
+          "value": "false"
+        },
+        "HFSS Type": {
+          "ok": true,
+          "value": "**Invalid**"
+        }
+      }
+    },
+    "Pin_T2": {
+      "properties": {
+        "ok": true,
+        "value": [
+          "Port",
+          "Boundary Type",
+          "Reference",
+          "Impedance",
+          "Magnitude",
+          "Phase",
+          "Renormalize",
+          "Renormalize Impedance",
+          "DeembedParasiticPortInductance",
+          "HFSS Type"
+        ]
+      },
+      "values": {
+        "Port": {
+          "ok": true,
+          "value": "Pin_T2"
+        },
+        "Boundary Type": {
+          "ok": true,
+          "value": "Port"
+        },
+        "Reference": {
+          "ok": true,
+          "value": ""
+        },
+        "Impedance": {
+          "ok": true,
+          "value": "50ohm"
+        },
+        "Magnitude": {
+          "ok": true,
+          "value": "1V"
+        },
+        "Phase": {
+          "ok": true,
+          "value": "0deg"
+        },
+        "Renormalize": {
+          "ok": true,
+          "value": "true"
+        },
+        "Renormalize Impedance": {
+          "ok": true,
+          "value": "50ohm + 0i ohm"
+        },
+        "DeembedParasiticPortInductance": {
+          "ok": true,
+          "value": "false"
+        },
+        "HFSS Type": {
+          "ok": true,
+          "value": "**Invalid**"
+        }
+      }
+    }
+  },
+  "before_port_info": {
+    "Pin_T1": {
+      "port_info": {
+        "ok": true,
+        "value": [
+          "Name=Pin_T1",
+          "Type=Pin, Padstack: NoPad SMT East",
+          "X=-0.009500",
+          "Y=0.000000",
+          "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+          "NetName=Pin_T1"
+        ]
+      },
+      "net_connections": {
+        "ok": true,
+        "value": [
+          "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+          "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+        ]
+      }
+    },
+    "Pin_T2": {
+      "port_info": {
+        "ok": true,
+        "value": [
+          "Name=Pin_T2",
+          "Type=Pin, Padstack: NoPad SMT East",
+          "X=0.039350",
+          "Y=-0.000000",
+          "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+          "NetName=Pin_T2"
+        ]
+      },
+      "net_connections": {
+        "ok": true,
+        "value": [
+          "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+          "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+        ]
+      }
+    }
+  },
+  "patch": {
+    "Pin_T1": {
+      "HFSS Type": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: SetPropertyValue",
+        "call": "SetPropertyValue(Excitations:Pin_T1, HFSS Type)"
+      },
+      "Reference": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: SetPropertyValue",
+        "call": "SetPropertyValue(Excitations:Pin_T1, Reference)"
+      },
+      "Impedance": {
+        "ok": true,
+        "value": null
+      },
+      "Renormalize": {
+        "ok": true,
+        "value": null
+      },
+      "Renormalize Impedance": {
+        "ok": true,
+        "value": null
+      },
+      "DeembedParasiticPortInductance": {
+        "ok": true,
+        "value": null
+      },
+      "Orientation": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: SetPropertyValue",
+        "call": "SetPropertyValue(Excitations:Pin_T1, Orientation)"
+      }
+    },
+    "Pin_T2": {
+      "HFSS Type": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: SetPropertyValue",
+        "call": "SetPropertyValue(Excitations:Pin_T2, HFSS Type)"
+      },
+      "Reference": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: SetPropertyValue",
+        "call": "SetPropertyValue(Excitations:Pin_T2, Reference)"
+      },
+      "Impedance": {
+        "ok": true,
+        "value": null
+      },
+      "Renormalize": {
+        "ok": true,
+        "value": null
+      },
+      "Renormalize Impedance": {
+        "ok": true,
+        "value": null
+      },
+      "DeembedParasiticPortInductance": {
+        "ok": true,
+        "value": null
+      },
+      "Orientation": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: SetPropertyValue",
+        "call": "SetPropertyValue(Excitations:Pin_T2, Orientation)"
+      }
+    }
+  },
+  "after_props": {
+    "Pin_T1": {
+      "properties": {
+        "ok": true,
+        "value": [
+          "Port",
+          "Boundary Type",
+          "Reference",
+          "Impedance",
+          "Magnitude",
+          "Phase",
+          "Renormalize",
+          "Renormalize Impedance",
+          "DeembedParasiticPortInductance",
+          "HFSS Type"
+        ]
+      },
+      "values": {
+        "Port": {
+          "ok": true,
+          "value": "Pin_T1"
+        },
+        "Boundary Type": {
+          "ok": true,
+          "value": "Port"
+        },
+        "Reference": {
+          "ok": true,
+          "value": ""
+        },
+        "Impedance": {
+          "ok": true,
+          "value": "50ohm"
+        },
+        "Magnitude": {
+          "ok": true,
+          "value": "1V"
+        },
+        "Phase": {
+          "ok": true,
+          "value": "0deg"
+        },
+        "Renormalize": {
+          "ok": true,
+          "value": "true"
+        },
+        "Renormalize Impedance": {
+          "ok": true,
+          "value": "50ohm"
+        },
+        "DeembedParasiticPortInductance": {
+          "ok": true,
+          "value": "false"
+        },
+        "HFSS Type": {
+          "ok": true,
+          "value": "**Invalid**"
+        }
+      }
+    },
+    "Pin_T2": {
+      "properties": {
+        "ok": true,
+        "value": [
+          "Port",
+          "Boundary Type",
+          "Reference",
+          "Impedance",
+          "Magnitude",
+          "Phase",
+          "Renormalize",
+          "Renormalize Impedance",
+          "DeembedParasiticPortInductance",
+          "HFSS Type"
+        ]
+      },
+      "values": {
+        "Port": {
+          "ok": true,
+          "value": "Pin_T2"
+        },
+        "Boundary Type": {
+          "ok": true,
+          "value": "Port"
+        },
+        "Reference": {
+          "ok": true,
+          "value": ""
+        },
+        "Impedance": {
+          "ok": true,
+          "value": "50ohm"
+        },
+        "Magnitude": {
+          "ok": true,
+          "value": "1V"
+        },
+        "Phase": {
+          "ok": true,
+          "value": "0deg"
+        },
+        "Renormalize": {
+          "ok": true,
+          "value": "true"
+        },
+        "Renormalize Impedance": {
+          "ok": true,
+          "value": "50ohm"
+        },
+        "DeembedParasiticPortInductance": {
+          "ok": true,
+          "value": "false"
+        },
+        "HFSS Type": {
+          "ok": true,
+          "value": "**Invalid**"
+        }
+      }
+    }
+  },
+  "after_port_info": {
+    "Pin_T1": {
+      "port_info": {
+        "ok": true,
+        "value": [
+          "Name=Pin_T1",
+          "Type=Pin, Padstack: NoPad SMT East",
+          "X=-0.009500",
+          "Y=0.000000",
+          "ConnectionPoints= -0.009500 0.000000 Dir:180.000000 Layer: ETCH_BOTTOM; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER2; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_INNER1; -0.009500 0.000000 Dir:180.000000 Layer: ETCH_TOP",
+          "NetName=Pin_T1"
+        ]
+      },
+      "net_connections": {
+        "ok": true,
+        "value": [
+          "InterfacePort Pin_T1 Pin_T1 -0.009500 0.000000 Padstack: NoPad SMT East",
+          "ComponentPin 79 Pin_T1 0.002540 -0.002540 PinPadstack: Symbol"
+        ]
+      }
+    },
+    "Pin_T2": {
+      "port_info": {
+        "ok": true,
+        "value": [
+          "Name=Pin_T2",
+          "Type=Pin, Padstack: NoPad SMT East",
+          "X=0.039350",
+          "Y=-0.000000",
+          "ConnectionPoints= 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_BOTTOM; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER2; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_INNER1; 0.039350 -0.000000 Dir:0.000000 Layer: ETCH_TOP",
+          "NetName=Pin_T2"
+        ]
+      },
+      "net_connections": {
+        "ok": true,
+        "value": [
+          "InterfacePort Pin_T2 Pin_T2 0.039350 -0.000000 Padstack: NoPad SMT East",
+          "ComponentPin 80 Pin_T1 0.027310 0.002540 PinPadstack: Symbol"
+        ]
+      }
+    }
+  },
+  "after_port_list": {
+    "ok": true,
+    "value": [
+      "Pin_T1",
+      "Pin_T2",
+      "Port1",
+      "Port2"
+    ]
+  },
+  "validate_design": {
+    "ok": false,
+    "error": "GrpcApiError: Failed to execute gRPC AEDT command: ValidateDesign",
+    "call": "ValidateDesign"
+  },
+  "validate_simple": {
+    "ok": false,
+    "error": "GrpcApiError: Failed to execute gRPC AEDT command: ValidateDesign",
+    "call": "validate_simple"
+  },
+  "post_validate_port_list": {
+    "ok": false,
+    "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetAllPortsList",
+    "call": "post_validate_port_list"
+  },
+  "messages": {
+    "ok": false,
+    "error": "AttributeError: Error in Executing Method.",
+    "call": "GetMessages"
+  },
+  "status": "patched_not_saved"
+}
