@@ -1,0 +1,38 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "SINGLE_END_SMA_CPW_30MM_SMALL_PAD_A",
+  "project_config": null,
+  "connector_placement_profile": null,
+  "placement": "single",
+  "single_side": "P1",
+  "components": [],
+  "component_ids": [
+    "86"
+  ],
+  "selection_suffix": "395",
+  "before_ports": [
+    "IPort@Port1;1"
+  ],
+  "selected": [
+    {
+      "component": "SMA_KE_Unite_Small_Solder13",
+      "id": "86",
+      "raw": "CompInst@SMA_KE_Unite_Small_Solder13;86;4",
+      "selection": "CompInst@SMA_KE_Unite_Small_Solder13;86;395",
+      "status": "selected",
+      "source": "component_id"
+    }
+  ],
+  "execute": true,
+  "save": true,
+  "add_pin_iports_result": "None",
+  "after_ports": [
+    "IPort@Port1;1",
+    "IPort@Pin_T1;5"
+  ],
+  "new_ports": [
+    "IPort@Pin_T1;5"
+  ],
+  "saved": true,
+  "status": "added"
+}

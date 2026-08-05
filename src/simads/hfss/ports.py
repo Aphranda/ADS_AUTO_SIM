@@ -480,6 +480,9 @@ def resolve_port_edges(
 def create_ports(app: Any, layout: dict[str, Any], args: argparse.Namespace) -> tuple[list[str], dict[str, Any]]:
     created: list[str] = []
     edges = resolve_port_edges(layout, args.p1_edge, args.p2_edge, args.p1_ref_edge, args.p2_ref_edge)
+    skip_port_numbers = {int(item) for item in getattr(args, "skip_port_number", [])}
+    create_p1 = 1 not in skip_port_numbers
+    create_p2 = 2 not in skip_port_numbers
     if args.port_type == "edge-gap":
         p1 = None
         p2 = None
@@ -492,21 +495,29 @@ def create_ports(app: Any, layout: dict[str, Any], args: argparse.Namespace) -> 
         }
     elif args.port_type == "pin-gap":
         pin_ports = infer_pin_ports(layout)
-        p1 = app.create_pin_port(
-            name=pin_ports["p1"]["name"],
-            x=pin_ports["p1"]["x"],
-            y=pin_ports["p1"]["y"],
-            rotation=pin_ports["p1"]["rotation"],
-            top_layer=signal_layer(args),
-            bottom_layer=reference_ground_layer(args),
+        p1 = (
+            app.create_pin_port(
+                name=pin_ports["p1"]["name"],
+                x=pin_ports["p1"]["x"],
+                y=pin_ports["p1"]["y"],
+                rotation=pin_ports["p1"]["rotation"],
+                top_layer=signal_layer(args),
+                bottom_layer=reference_ground_layer(args),
+            )
+            if create_p1
+            else None
         )
-        p2 = app.create_pin_port(
-            name=pin_ports["p2"]["name"],
-            x=pin_ports["p2"]["x"],
-            y=pin_ports["p2"]["y"],
-            rotation=pin_ports["p2"]["rotation"],
-            top_layer=signal_layer(args),
-            bottom_layer=reference_ground_layer(args),
+        p2 = (
+            app.create_pin_port(
+                name=pin_ports["p2"]["name"],
+                x=pin_ports["p2"]["x"],
+                y=pin_ports["p2"]["y"],
+                rotation=pin_ports["p2"]["rotation"],
+                top_layer=signal_layer(args),
+                bottom_layer=reference_ground_layer(args),
+            )
+            if create_p2
+            else None
         )
         edges["pin_ports"] = pin_ports
         edges["pin_gap_template"] = {
@@ -516,16 +527,8 @@ def create_ports(app: Any, layout: dict[str, Any], args: argparse.Namespace) -> 
             "pec_launch_width": args.port_pec_launch_width,
         }
     elif args.port_type == "aedt-edge":
-        p1 = app.create_edge_port(
-            "input_feed",
-            edges["p1_edge"],
-            is_circuit_port=False,
-        )
-        p2 = app.create_edge_port(
-            "output_feed",
-            edges["p2_edge"],
-            is_circuit_port=False,
-        )
+        p1 = app.create_edge_port("input_feed", edges["p1_edge"], is_circuit_port=False) if create_p1 else None
+        p2 = app.create_edge_port("output_feed", edges["p2_edge"], is_circuit_port=False) if create_p2 else None
         edge_ports = {
             "reference_primitive": None,
             "reference_name": port_reference_name(args),
@@ -539,24 +542,34 @@ def create_ports(app: Any, layout: dict[str, Any], args: argparse.Namespace) -> 
             edge_ports["p2"] = apply_aedt_edge_gap_port_template(app, getattr(p2, "name", str(p2)), args)
         edges["aedt_edge_template"] = edge_ports
     elif args.port_type == "wave":
-        p1 = app.create_wave_port("input_feed", edges["p1_edge"])
-        p2 = app.create_wave_port("output_feed", edges["p2_edge"])
+        p1 = app.create_wave_port("input_feed", edges["p1_edge"]) if create_p1 else None
+        p2 = app.create_wave_port("output_feed", edges["p2_edge"]) if create_p2 else None
     else:
         reference = ground_plane_name(args) if args.reference_ground_ports else None
-        p1 = app.create_edge_port(
-            "input_feed",
-            edges["p1_edge"],
-            is_circuit_port=True,
-            reference_primitive=reference,
-            reference_edge_number=edges["p1_ref_edge"],
+        p1 = (
+            app.create_edge_port(
+                "input_feed",
+                edges["p1_edge"],
+                is_circuit_port=True,
+                reference_primitive=reference,
+                reference_edge_number=edges["p1_ref_edge"],
+            )
+            if create_p1
+            else None
         )
-        p2 = app.create_edge_port(
-            "output_feed",
-            edges["p2_edge"],
-            is_circuit_port=True,
-            reference_primitive=reference,
-            reference_edge_number=edges["p2_ref_edge"],
+        p2 = (
+            app.create_edge_port(
+                "output_feed",
+                edges["p2_edge"],
+                is_circuit_port=True,
+                reference_primitive=reference,
+                reference_edge_number=edges["p2_ref_edge"],
+            )
+            if create_p2
+            else None
         )
+    edges["created_port_numbers"] = [number for number, enabled in ((1, create_p1), (2, create_p2)) if enabled]
+    edges["skipped_port_numbers"] = sorted(skip_port_numbers)
     for port in (p1, p2):
         if port:
             created.append(getattr(port, "name", str(port)))

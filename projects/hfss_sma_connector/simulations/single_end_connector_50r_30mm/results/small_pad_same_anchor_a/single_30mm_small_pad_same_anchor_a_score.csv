@@ -1,0 +1,2 @@
+file,status,s21_5g_db,s21_6g_db,s21_7g_db,s21_8g_db,s21_9g_db,passband_min_s21_db,passband_ripple_db,worst_s11_6_8_db,worst_s22_6_8_db,note
+projects\hfss_sma_connector\simulations\single_end_connector_50r_30mm\results\small_pad_same_anchor_a\single_30mm_small_pad_same_anchor_a.s2p,TUNE,-2.40,-2.91,-3.75,-3.97,-3.66,-4.00,1.08,-4.21,-3.34,5 GHz rejection is weak; narrow bandwidth or add extra LO notch/highpass.

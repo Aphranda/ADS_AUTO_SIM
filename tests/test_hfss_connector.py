@@ -149,6 +149,7 @@ def hfss_args(layout_path: Path, out_dir: Path, **overrides) -> Namespace:
         "connector_hfss_model_version": None,
         "connector_hfss_model_hash": None,
         "connector_port_mapping": None,
+        "skip_port_number": [],
     }
     data.update(overrides)
     return Namespace(**data)
@@ -192,6 +193,9 @@ def test_microstrip_connector_smoke_variants_pass_connector_drc(tmp_path: Path) 
         assert outputs["layout_json"].exists()
         assert outputs["params"].exists()
         assert outputs["svg"].exists()
+        svg_text = outputs["svg"].read_text(encoding="utf-8")
+        assert "L1 ETCH_TOP" in svg_text
+        assert "L2 ETCH_INNER1" in svg_text
         payload = json.loads(outputs["params"].read_text(encoding="utf-8"))
         assert payload["fixture_type"] == FIXTURE_TYPE
         assert payload["ports"]["P1"] == list(port_locations(params)[0])
@@ -304,6 +308,26 @@ def test_microstrip_connector_can_emit_l2_cutout_and_hi_z_series() -> None:
     assert "input_series_hi_z" in names
     assert "output_series_hi_z" in names
     assert any(call[0] == "subtract" and call[1] == "hfss_ground_plane" for call in app.modeler.calls)
+
+
+def test_connector_svg_renders_l2_as_positive_ground_with_cutout_window(tmp_path: Path) -> None:
+    params = stackup_params(
+        name="connector_l2_svg_probe",
+        l2_cutout_enabled=True,
+        l2_cutout_shape="rect",
+        l2_cutout_w_mm=1.4,
+        l2_cutout_l_mm=3.0,
+        l2_cutout_offset_x_mm=0.3,
+    )
+
+    outputs = write_fixture_outputs(params, tmp_path, fixture_type=SINGLE_CONNECTOR_FIXTURE_TYPE)
+    svg_text = outputs["svg"].read_text(encoding="utf-8")
+
+    assert "L1 ETCH_TOP" in svg_text
+    assert "L2 ETCH_INNER1" in svg_text
+    assert 'fill="#16a34a"' in svg_text
+    assert 'fill="#ffffff"' in svg_text
+    assert 'fill="none" stroke="#dc2626"' in svg_text
 
 
 def test_microstrip_baseline_can_target_exact_total_length() -> None:

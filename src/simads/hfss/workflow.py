@@ -363,6 +363,7 @@ def build_hfss_manifest_payload(
             "project_action": args.project_action,
             "reuse_project": args.reuse_project,
             "skip_ports": args.skip_ports,
+            "skip_port_number": list(getattr(args, "skip_port_number", [])),
             "non_graphical": args.non_graphical,
             "keep_open": args.keep_open,
             "configure_extents": args.configure_extents,
@@ -596,6 +597,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--port-radial-extent-factor", type=float, default=0.0)
     parser.add_argument("--patch-edb-port-properties", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--skip-ports", action="store_true", help="Build layout, stackup, GND plane, and vias without creating ports.")
+    parser.add_argument("--skip-port-number", type=int, action="append", default=[], choices=[1, 2], help="Skip creating one layout edge/pin port while keeping the other port.")
     parser.add_argument("--reference-ground-ports", dest="reference_ground_ports", action="store_true")
     parser.add_argument("--no-reference-ground-ports", dest="reference_ground_ports", action="store_false")
     parser.set_defaults(reference_ground_ports=False)
