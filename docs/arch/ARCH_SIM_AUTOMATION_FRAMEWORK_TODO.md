@@ -3,7 +3,7 @@
 Status: Active
 Domain: ARCH
 Related: `docs/arch/ARCH_SIM_AUTOMATION_FRAMEWORK.md`, `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`
-Last updated: 2026-08-02
+Last updated: 2026-08-06
 
 本文档把 ADS、HFSS、NN 联合演进拆成可编码任务。执行顺序以稳定数据闭环为优先：先把每次仿真的输入、输出、日志和运行状态记录清楚，再继续拆 ADS/HFSS 后端和神经网络数据集。
 
@@ -54,8 +54,12 @@ Last updated: 2026-08-02
   - [x] connector 后处理 profile 输出 Smith 图，`solve.py` 按 fixture_type 自动选择 connector/filter profile。
   - [x] 新增 `hfss.session` 上下文，集中 AEDT lock、project lock、Hfss3dLayout 启动、ready、reaper、release。
   - [x] 将 `replace_hfss3dlayout_layout_primitives.py` 改用 `hfss.session`，保持默认 non-graphical/new desktop。
-  - [ ] 建立 `PortPlan` / `ConnectorPinPortPlan`，固化 connector pin Create + schematic connect + validate 流程。
-  - [ ] 将稳定端口创建逻辑从 `try_*` probe 脚本抽入库模块，probe 只保留诊断用途。
+  - [x] 建立 `PortPlan` / `ConnectorPinPortPlan`，固化 connector pin Create + schematic connect + validate 流程。
+  - [x] 将稳定端口创建逻辑从 `try_*` probe 脚本抽入库模块，probe 只保留诊断用途。
+  - [x] 新增独立 AEDT smoke 工程入口 `tools/hfss/create_hfss3dlayout_smoke_project.py`，通过 PyAEDT API 在 `.simads/aedt_smoke/` 创建最小 HFSS 3D Layout 工程、setup/sweep 并保存。
+  - [x] 将 HFSS 代码修改 gate 固化到统一检查脚本：纯 Python pytest/py_compile 通过后，必须用 home/company profile 的 host Python 启动 AEDT API smoke；业务工程修改仍需单独实测。
+  - [x] 将 `rebuild_connector_pin_iports.py` 收敛到 `hfss.port_plans`，保留为多端口批量 wrapper。
+  - [x] 增加 connector port 验收报告：layout ports、schematic IPorts、wire ids、ConnectionPoints、component-pin-only rejected 列表。
 
 - [x] 将 `src/simads/hfss/workflow.py` 拆成更细模块。
   - [x] `layout_io.py`: layout JSON 读取、配置化 layout id、摘要。

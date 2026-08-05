@@ -4,7 +4,7 @@ Status: Draft
 Domain: PY
 Canonical: `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`
 Related: `docs/arch/ADS版图自动仿真项目框架设计.md`, `docs/env/ENV_ADS_API_CAPABILITY_MATRIX.md`, `projects/bfp_6_8g_i7_fr4/docs/ADS自动仿真流程说明.md`
-Last updated: 2026-08-05
+Last updated: 2026-08-06
 Owner: ADS Automation
 
 本文档用于管理 SIM 项目中的 Python 脚本。目标不是立即重构目录，而是先把脚本分层、可复用模块、运行环境和输入输出契约固定下来。
@@ -59,6 +59,10 @@ CLI 编排流程。
 | `tools/hfss/run_existing_hfss3dlayout_verdict.py` | host/pyaedt | stable | 对既有 HFSS 3D Layout design 执行 solve/export/postprocess，不重建版图 | 当前连接器仿真使用 `Setup_0p5to10G` / `Sweep_0p5to10G_96pt` 和 `connector_fullband_v1`；使用 `OperationLifecycle` 记录 ready/solve/export/postprocess/release 耗时，后处理 Python 子进程使用隐藏启动参数；失败时输出 AEDT messages 和诊断 JSON。 |
 | `tools/hfss/reap_aedt_processes.py` | host | stable | 监控并回收本脚本启动的 non-graphical AEDT 生命周期 | 自动化入口通过 `start_aedt_reaper()` 写入 owner record，按本脚本登记的目标 PID、父 PID 和 create time 拉起隐藏生命周期监控，Windows 优先 `pythonw.exe` 防止 cmd 弹窗；脚本结束后只回收 owner record 中登记且 create time 匹配的无窗口 AEDT，未登记的 AEDT、用户 GUI 和 attach-existing 会话一律不处理，输出 summary JSON 和 JSONL event log，`--keep-open/--keep-attached` 场景不执行回收。 |
 | `tools/hfss/check_aedt_non_graphical_startup.py` | host/pyaedt | stable | 检查 AEDT non-graphical gRPC 启动、版本和项目/design 加载 | 使用 `aedt_startup.py` 的 gRPC 兼容入口和 reaper；输出启动参数、进程前后状态和错误栈。 |
+| `tools/hfss/check_hfss_script_classes.py` | host | stable | 检查 HFSS tool 脚本分类登记 | 读取 `tools/hfss/script_classes.json`，要求所有 `tools/hfss/*.py` 登记 runtime/class，禁止 `try_*`、`probe_*`、`scan_*` 进入 production，禁止 text unsafe 脚本作为生产路径。 |
+| `tools/hfss/create_hfss3dlayout_smoke_project.py` | host/pyaedt | stable | HFSS 代码修改后的真实 AEDT API smoke gate | 使用 `hfss.session` 默认 non-graphical/new desktop，在 `.simads/aedt_smoke/` 创建独立最小 HFSS 3D Layout 工程、setup/sweep 并保存；不触碰业务工程，不直接编辑 `.aedt/.aedb` 文本。 |
+| `tools/hfss/run_hfss_quality_gate.py` | host/pyaedt | stable | HFSS 代码修改统一 gate | 按 HFSS profile 选择 host Python，串联 py_compile、HFSS pytest、AEDT API smoke；pytest 临时目录和 gate/smoke 输出固定在 `.simads/`，作为每次 HFSS 修改后的默认实测入口。 |
+| `tools/hfss/rebuild_connector_pin_iports.py` | host/pyaedt | stable | 批量重建 connector pin IPort | 作为 `hfss.port_plans.ConnectorPinPortPlan` 的多端口 wrapper，默认 non-graphical/new desktop；支持从 schematic component instance 推导 component/raw/pin，执行 delete old IPort、CreatePortsOnComponents、schematic connect、validate，统一保存。 |
 | `tools/hfss/inspect_aedt_project.py` | host/pyaedt | stable | 只读审计 AEDT project/design/port/object 信息 | `--backend file` 只读解析已保存 `.aedt`；`--backend pyaedt` 可非图形读取 live project，不得写回工程。 |
 | `tools/plot_connector_s_curves_svg.py` | host | stable | 绘制连接器全频带 S11/S21/S22 SVG | 使用连接器 0.5-10 GHz 全频带口径，不再标注滤波器 6-8 GHz passband。 |
 | `tools/plot_connector_smith_svg.py` | host | stable | 绘制连接器 S11/S22 Smith 圆图 SVG | 使用 Touchstone 复数 S 参数生成 50 ohm 归一化阻抗轨迹，用于判断 L2 cutout 长度/宽度、pad 电容和串联补偿方向。 |

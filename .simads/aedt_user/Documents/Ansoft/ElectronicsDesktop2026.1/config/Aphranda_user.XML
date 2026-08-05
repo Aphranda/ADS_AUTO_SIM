@@ -53,6 +53,11 @@
       </KEY>
       <KEY ObjectName="Schematic" RegObjectType="0">
         <KEYS>
+          <KEY ObjectName="PageDefaults" RegObjectType="0">
+            <VALUES>
+              <VALUE ObjectName="PageProps" Value="PageProps(Title='', Author='', Number='', Project='', ProjectPath='', Design='', Date='')" ValueType="2"/>
+            </VALUES>
+          </KEY>
           <KEY ObjectName="Preferences" RegObjectType="0">
             <VALUES>
               <VALUE ObjectName="AutoWireNameSetup" Value="AutoWireNameSetup('A', 0, 1, true, 0)" ValueType="2"/>

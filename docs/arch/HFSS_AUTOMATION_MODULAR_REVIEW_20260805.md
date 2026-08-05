@@ -2,7 +2,7 @@
 
 Status: Active
 Domain: ARCH/HFSS
-Last updated: 2026-08-05
+Last updated: 2026-08-06
 
 ## 评审目标
 
@@ -111,17 +111,23 @@ AI 后续只走这几类入口：
 5. 报告更新  
    从 manifest 和 artifacts 生成报告资产，HTML 引用报告目录内 assets；不把工程文件当文档编辑。
 
+6. HFSS 代码改动实测
+   每次修改 HFSS API、AEDT 生命周期、版图构建、端口、求解或后处理相关代码后，除了纯 Python 测试，还必须启动 AEDT 做 API smoke。默认使用 non-graphical/new desktop，不附着 GUI；测试工程固定隔离在 `.simads/aedt_smoke/`，不触碰业务 `.aedt`。
+
 ## 待办
 
 - [x] P0: 将 existing-project solve 后处理从 `tools/hfss/run_existing_hfss3dlayout_verdict.py` 收敛到 `src/simads/hfss/results.py`。
 - [x] P0: connector postprocess profile 输出 Smith 图，并让 `solve.py` 根据 fixture_type 自动选择 connector/filter profile。
 - [x] P0: 增加 `hfss.session`，把 `aedt_automation_lock + prepare_aedt_project_lock + Hfss3dLayout + wait_for_hfss3dlayout_ready + reaper + release` 封装为上下文管理器。
 - [x] P0: 给 `replace_hfss3dlayout_layout_primitives.py` 改用 `hfss.session`，保持默认 non-graphical/new desktop。
-- [ ] P1: 建立 `PortPlan` / `ConnectorPinPortPlan` dataclass，固化“connector pin Create + schematic connect + validate”流程。
-- [ ] P1: 将稳定端口代码从 `try_official_port_create_elements.py` 抽入 `src/simads/hfss/port_plans.py`，probe 脚本只调用库函数或保留为诊断。
-- [ ] P1: 增加端口验收报告：layout ports、schematic IPorts、connection points、boundary warning、port count。
-- [ ] P1: 建立 `tools/hfss/probes/` 或文档标签，把 `try_*`/`probe_*` 与生产 CLI 分开。
-- [ ] P2: 将 `workflow.py` 中 manifest/connector metadata 派生拆到 `hfss.manifest` / `hfss.connector_contract`。
+- [x] P1: 建立 `PortPlan` / `ConnectorPinPortPlan` dataclass，固化“connector pin Create + schematic connect + validate”流程。
+- [x] P1: 将稳定端口代码从 `try_official_port_create_elements.py` 抽入 `src/simads/hfss/port_plans.py`，probe 脚本只调用库函数或保留为诊断。
+- [x] P1: 将 `rebuild_connector_pin_iports.py` 收敛到 `hfss.port_plans`，保留为多端口批量 wrapper。
+- [x] P1: 新增独立 AEDT API smoke 工程脚本 `tools/hfss/create_hfss3dlayout_smoke_project.py`，用于 HFSS 代码修改后的真实 AEDT 启动和最小工程创建验证。
+- [x] P1: 增加端口验收报告：layout ports、schematic IPorts、connection points、boundary warning、port count。
+- [x] P1: 建立 `tools/hfss/probes/` 或文档标签，把 `try_*`/`probe_*` 与生产 CLI 分开。
+- [x] P1: 建立统一 HFSS gate wrapper，按 profile 自动选择 host Python，并串联 py_compile、pytest、AEDT smoke。
+- [x] P2: 将 `workflow.py` 中 manifest/connector metadata 派生拆到 `hfss.manifest` / `hfss.connector_contract`。
 - [ ] P2: 把 report 生成从手工 HTML patch 演进成读取 manifest/artifacts 的可重复报告流程。
 - [ ] P2: 对 `layout.py` reference_ground_cutout 行为增加真实 AEDT/单元双层验证，确认 negative primitive 与 subtract 语义是否一致。
 
@@ -170,3 +176,174 @@ python -m pytest tests\test_aedt_lifecycle.py tests\test_run_existing_hfss3dlayo
 ```
 
 结果：11 passed。
+
+## 当前第三步修改
+
+本轮完成连接器 pin 端口生产流程固化：
+
+- 新增 `src/simads/hfss/port_plans.py`
+  - `ConnectorPinPortPlan` 固化单个 connector pin port 的创建计划。
+  - `execute_connector_pin_port_plan` 执行：删除旧 schematic IPort、调用官方 `CreatePortsOnComponents`、验证 layout port、移动 schematic IPort 到安全空白位置、创建 wire 连接 connector pin、按需保存。
+  - 验收条件明确拒绝 `ConnectionPoints=NONE` 的 component-pin-only 伪成功端口，也拒绝仍连到 `InterfacePort` 的错误对象。
+- `tools/hfss/recreate_connector_component_pin_port.py`
+  - 从 probe wrapper 改为生产入口。
+  - 默认使用 `hfss.session`，保持 non-graphical/new desktop。
+  - 不附着 GUI，不直接编辑 AEDT/AEDB 文本。
+- 新增 `tests/test_hfss_port_plans.py`
+  - 覆盖 ConnectionPoints 验收。
+  - 覆盖删除旧 IPort、创建 connector pin edge port、移动 IPort、连线、保存的成功路径。
+
+已验证：
+
+```text
+python -m py_compile src\simads\hfss\port_plans.py src\simads\hfss\__init__.py tools\hfss\recreate_connector_component_pin_port.py tests\test_hfss_port_plans.py
+python -m pytest tests\test_hfss_port_plans.py
+```
+
+结果：2 passed。
+
+## 当前第四步修改
+
+本轮建立 HFSS AEDT API smoke 工程入口：
+
+- 新增 `tools/hfss/create_hfss3dlayout_smoke_project.py`
+  - 复用 `hfss.session`，默认 non-graphical/new desktop，不附着 GUI。
+  - 通过 API 创建最小 HFSS 3D Layout 工程：材料、三层 stackup、GND、信号铜皮、extents、setup/sweep。
+  - 工程固定输出到 `.simads/aedt_smoke/hfss3dlayout_api_smoke.aedt`，结果 JSON 和 lifecycle JSONL 也写入 `.simads/aedt_smoke/`。
+  - 不创建业务端口、不求解、不直接编辑 `.aedt/.aedb` 文本。
+
+已验证：
+
+```text
+python -m py_compile tools\hfss\create_hfss3dlayout_smoke_project.py
+D:\Microsoft\uv-venvs\ads-automation\Scripts\python.exe tools\hfss\create_hfss3dlayout_smoke_project.py --output .simads\aedt_smoke\latest_smoke.json
+```
+
+结果：AEDT 2026.1 non-graphical/new desktop 启动通过，`start_hfss3dlayout` 15.083 s，总耗时 20.09 s；创建并保存 `.simads/aedt_smoke/hfss3dlayout_api_smoke.aedt`，setup 为 `Setup_4to10G`，sweep 为 `Sweep_4to10G_21pt`。
+
+## 当前第五步修改
+
+本轮建立统一 HFSS gate wrapper：
+
+- 新增 `tools/hfss/run_hfss_quality_gate.py`
+  - 读取 `config/hfss_profiles.json`，按 profile 自动选择 `host_python`。
+  - 串联 `py_compile`、HFSS 相关 pytest、AEDT API smoke。
+  - pytest 的 `basetemp/cache_dir` 固定到 `.simads/`，避免写用户 Temp 导致权限不稳定。
+  - 子进程输出按 UTF-8 收集，结果写 `.simads/gates/hfss_quality_gate_latest.json`。
+- `tools/hfss/create_hfss3dlayout_smoke_project.py`
+  - 默认每次从 fresh AEDT project 创建，再保存覆盖 smoke 工程；只有显式 `--reuse-project` 才打开旧 smoke project。
+  - 保存前检查目标 `.aedt.lock`，记录到 `smoke_output_lock`。
+
+已验证：
+
+```text
+python -m py_compile tools\hfss\run_hfss_quality_gate.py tests\test_hfss_quality_gate.py
+python -m pytest tests\test_hfss_quality_gate.py
+python tools\hfss\run_hfss_quality_gate.py --profile home --output .simads\gates\hfss_quality_gate_latest.json
+```
+
+结果：完整 gate 通过；host Python 为 `D:\Microsoft\uv-venvs\ads-automation\Scripts\python.exe`，HFSS 相关 pytest `20 passed`，AEDT smoke 18.532 s。
+
+## 当前第六步修改
+
+本轮将批量连接器 pin IPort 重建脚本收敛到生产端口计划：
+
+- `tools/hfss/rebuild_connector_pin_iports.py`
+  - 改为复用 `hfss.session`，默认 non-graphical/new desktop，不附着 GUI。
+  - 批量构造 `ConnectorPinPortPlan`，执行统一的 connector pin Create、schematic IPort 移动、wire 连接和端口验收逻辑。
+  - 兼容旧的 `--delete-port`、`--component-id`、`--expected-port` 参数，并支持显式 `--component`、`--component-def`、`--raw-component`、`--pin`。
+  - 旧 `create-iport-*` 坐标建端口路径只保留为非生产兼容检查，不再执行。
+- `tools/hfss/run_hfss_quality_gate.py`
+  - 默认 py_compile/pytest 清单加入批量端口 wrapper 和对应测试。
+- `tests/test_hfss_rebuild_connector_pin_iports.py`
+  - 覆盖从 schematic component instance 推导 `ConnectorPinPortPlan`。
+  - 覆盖批量执行每个 plan，最后统一保存一次。
+
+已验证：
+
+```text
+python -m py_compile tools\hfss\run_hfss_quality_gate.py tools\hfss\rebuild_connector_pin_iports.py tests\test_hfss_quality_gate.py tests\test_hfss_rebuild_connector_pin_iports.py
+python -m pytest tests\test_hfss_quality_gate.py tests\test_hfss_port_plans.py tests\test_hfss_rebuild_connector_pin_iports.py
+python tools\hfss\run_hfss_quality_gate.py --profile home --output .simads\gates\hfss_quality_gate_latest.json
+```
+
+结果：快速测试 7 passed；完整 gate 通过，默认 HFSS pytest `22 passed`，AEDT smoke 18.622 s。
+
+## 当前第七步修改
+
+本轮增加 connector port 验收报告：
+
+- `src/simads/hfss/port_plans.py`
+  - 新增 `connector_port_acceptance_report()`，输出 layout ports、schematic IPorts、wire ids、ConnectionPoints、端口计数、boundary/port warning 和 rejected 列表。
+  - `execute_connector_pin_port_plan()` 的 dry-run、成功、失败结果均附带 `acceptance_report`。
+  - 明确列出 `component_pin_only_rejected`，用于识别 `ConnectionPoints=NONE` 的伪成功端口。
+- `tools/hfss/rebuild_connector_pin_iports.py`
+  - 批量执行完成后输出整个批次的最终 `acceptance_report`。
+- `tests/test_hfss_port_plans.py`
+  - 覆盖验收报告状态、ConnectionPoints 读回、schematic wire id 和 component-pin-only rejected 列表。
+
+已验证：
+
+```text
+python -m py_compile src\simads\hfss\port_plans.py tools\hfss\rebuild_connector_pin_iports.py tests\test_hfss_port_plans.py tests\test_hfss_rebuild_connector_pin_iports.py
+python -m pytest tests\test_hfss_port_plans.py tests\test_hfss_rebuild_connector_pin_iports.py
+python tools\hfss\run_hfss_quality_gate.py --profile home --output .simads\gates\hfss_quality_gate_latest.json
+```
+
+结果：端口相关测试 5 passed；完整 gate 通过，默认 HFSS pytest `23 passed`，AEDT smoke 27.354 s。
+
+## 当前第八步修改
+
+本轮建立 HFSS 脚本分类治理：
+
+- 新增 `tools/hfss/script_classes.json`
+  - 覆盖当前 `tools/hfss/*.py` 共 38 个脚本。
+  - 明确区分 `production`、`diagnostic`、`probe`、`maintenance`、`legacy_text_unsafe`。
+  - `try_*`、`probe_*`、`scan_*` 全部标记为 `probe` 且 `production_allowed=false`。
+  - `rename_aedt_design_ports_text.py` 标记为 `legacy_text_unsafe`，继续禁止作为 HFSS 工程修改路径。
+- 新增 `tools/hfss/check_hfss_script_classes.py`
+  - 检查每个 HFSS tool 脚本都已登记。
+  - 检查 probe 前缀不能进入 production。
+  - 检查 probe 和 legacy text unsafe 不能 `production_allowed=true`。
+- `tools/hfss/run_hfss_quality_gate.py`
+  - 默认 py_compile/pytest 清单加入脚本分类检查。
+- 新增 `tests/test_hfss_script_classes.py`。
+
+已验证：
+
+```text
+python tools\hfss\check_hfss_script_classes.py
+python -m py_compile tools\hfss\check_hfss_script_classes.py tools\hfss\run_hfss_quality_gate.py tests\test_hfss_script_classes.py
+python -m pytest tests\test_hfss_script_classes.py tests\test_hfss_quality_gate.py
+python tools\hfss\run_hfss_quality_gate.py --profile home --output .simads\gates\hfss_quality_gate_latest.json
+```
+
+结果：分类检查 `script_count=38`、无 missing/stale/errors；完整 gate 通过，默认 HFSS pytest `25 passed`，AEDT smoke 18.777 s。
+
+## 当前第九步修改
+
+本轮拆分 `workflow.py` 的 manifest 与 connector contract 逻辑：
+
+- 新增 `src/simads/hfss/connector_contract.py`
+  - `connector_fixture_metadata()` 负责从 layout metadata、CLI args 和旁路 params JSON 派生连接器 fixture 合同。
+  - `connector_port_reference_name()` 固化 `GND:<layer>:<primitive>` 参考名派生。
+  - `is_connector_fixture()` 统一判断连接器 fixture 类型。
+- 新增 `src/simads/hfss/manifest.py`
+  - 承接 `stackup_config_from_args()`、`infer_round_id()`、`default_candidate_id()`。
+  - 承接 `build_hfss_manifest_payload()`、`write_hfss_manifests()`、`completed_hfss_stage()`。
+- `src/simads/hfss/workflow.py`
+  - 删除 manifest/connector metadata 具体实现，保留 CLI 编排、dry-run payload 和 `run_hfss()`。
+  - 通过导入保持原 `simads.hfss.workflow.build_hfss_manifest_payload` 等兼容入口。
+- `src/simads/hfss/__init__.py`
+  - 导出 connector contract 和 manifest helper。
+- 新增 `tests/test_hfss_manifest_contracts.py`，覆盖拆分模块与 workflow 兼容导入。
+
+已验证：
+
+```text
+python -m py_compile src\simads\hfss\__init__.py src\simads\hfss\workflow.py src\simads\hfss\manifest.py src\simads\hfss\connector_contract.py tools\hfss\run_hfss_quality_gate.py tests\test_hfss_manifest_contracts.py
+python -m pytest tests\test_hfss_manifest_contracts.py tests\test_hfss_connector.py tests\test_hfss_quality_gate.py
+python tools\hfss\run_hfss_quality_gate.py --profile home --output .simads\gates\hfss_quality_gate_latest.json
+```
+
+结果：manifest/connector 快速测试 20 passed；完整 gate 通过，默认 HFSS pytest `27 passed`，AEDT smoke 27.484 s。

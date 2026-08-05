@@ -50,6 +50,12 @@ tmp/
 temp/
 .cache/
 projects/hfss_sma_connector/backups/
+.simads/aedt_smoke/
+.simads/aedt_reaper/create_hfss3dlayout_smoke_project_*
+.simads/aedt_user/Documents/Ansoft/Project*/
+.simads/gates/
+.simads/pytest_tmp/
+.simads/pytest_cache/
 
 # ADS local machine/session files
 hpeesofsim.cfg

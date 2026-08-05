@@ -1,0 +1,240 @@
+{
+  "schema_version": "1.0",
+  "classes": {
+    "production": "Supported automation entry points for normal HFSS workflows.",
+    "diagnostic": "Read-only or validation tools that may inspect AEDT state.",
+    "probe": "Experimental API discovery scripts. Do not call from production workflows.",
+    "maintenance": "Focused project maintenance actions that require explicit operator intent.",
+    "legacy_text_unsafe": "Legacy text-editing scripts kept only for audit; do not use for HFSS project changes."
+  },
+  "scripts": {
+    "tools/hfss/add_connector_pin_iports.py": {
+      "class": "maintenance",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "Legacy connector IPort helper; production connector pin ports use hfss.port_plans."
+    },
+    "tools/hfss/add_schematic_component_instance.py": {
+      "class": "maintenance",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "Manual component placement helper, not part of automated solve flow."
+    },
+    "tools/hfss/audit_connector_parameters.py": {
+      "class": "diagnostic",
+      "runtime": "host/pyaedt",
+      "production_allowed": true,
+      "notes": "Connector parameter audit and optional API-only variable sync."
+    },
+    "tools/hfss/check_aedt_non_graphical_startup.py": {
+      "class": "diagnostic",
+      "runtime": "host/pyaedt",
+      "production_allowed": true,
+      "notes": "AEDT startup smoke and environment diagnosis."
+    },
+    "tools/hfss/check_hfss_script_classes.py": {
+      "class": "diagnostic",
+      "runtime": "host",
+      "production_allowed": true,
+      "notes": "Validates this script classification registry."
+    },
+    "tools/hfss/create_hfss3dlayout_smoke_project.py": {
+      "class": "production",
+      "runtime": "host/pyaedt",
+      "production_allowed": true,
+      "notes": "Real AEDT API smoke gate using an isolated project."
+    },
+    "tools/hfss/delete_schematic_component_instances.py": {
+      "class": "maintenance",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "Explicit component deletion helper."
+    },
+    "tools/hfss/inspect_aedt_project.py": {
+      "class": "diagnostic",
+      "runtime": "host/pyaedt",
+      "production_allowed": true,
+      "notes": "Read-only project/design/port inspection."
+    },
+    "tools/hfss/inspect_hfss3dlayout_layer_bboxes.py": {
+      "class": "diagnostic",
+      "runtime": "host/pyaedt",
+      "production_allowed": true,
+      "notes": "Layer bounding box inspection."
+    },
+    "tools/hfss/inspect_layout_component_instances.py": {
+      "class": "diagnostic",
+      "runtime": "host/pyaedt",
+      "production_allowed": true,
+      "notes": "Component instance inspection."
+    },
+    "tools/hfss/inspect_schematic_iports.py": {
+      "class": "diagnostic",
+      "runtime": "host/pyaedt",
+      "production_allowed": true,
+      "notes": "Schematic IPort inspection."
+    },
+    "tools/hfss/place_layout_connector_instances.py": {
+      "class": "maintenance",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "Connector instance placement helper."
+    },
+    "tools/hfss/probe_3d_component_definition_api.py": {
+      "class": "probe",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "API discovery only."
+    },
+    "tools/hfss/probe_edb_connector_pin_terminals.py": {
+      "class": "probe",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "API discovery only."
+    },
+    "tools/hfss/probe_layout_port_api.py": {
+      "class": "probe",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "API discovery only."
+    },
+    "tools/hfss/probe_layout_port_mapping_methods.py": {
+      "class": "probe",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "API discovery only."
+    },
+    "tools/hfss/probe_schematic_iport_api.py": {
+      "class": "probe",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "API discovery only."
+    },
+    "tools/hfss/reap_aedt_processes.py": {
+      "class": "production",
+      "runtime": "host",
+      "production_allowed": true,
+      "notes": "Owner-record based non-graphical AEDT process reaper."
+    },
+    "tools/hfss/rebuild_connector_pin_iports.py": {
+      "class": "production",
+      "runtime": "host/pyaedt",
+      "production_allowed": true,
+      "notes": "Batch wrapper for hfss.port_plans connector pin port rebuild."
+    },
+    "tools/hfss/recreate_component_pin_edge_port.py": {
+      "class": "maintenance",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "Legacy helper; production uses recreate_connector_component_pin_port.py."
+    },
+    "tools/hfss/recreate_connector_component_pin_port.py": {
+      "class": "production",
+      "runtime": "host/pyaedt",
+      "production_allowed": true,
+      "notes": "Single connector pin port production wrapper."
+    },
+    "tools/hfss/recreate_detached_iport_for_component_pin.py": {
+      "class": "maintenance",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "Legacy detached IPort helper."
+    },
+    "tools/hfss/rename_aedt_design_ports_text.py": {
+      "class": "legacy_text_unsafe",
+      "runtime": "host",
+      "production_allowed": false,
+      "notes": "Text patcher retained only for audit; HFSS project changes must use API."
+    },
+    "tools/hfss/rename_hfss3dlayout_ports.py": {
+      "class": "maintenance",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "Explicit port rename helper."
+    },
+    "tools/hfss/replace_hfss3dlayout_layout_primitives.py": {
+      "class": "production",
+      "runtime": "host/pyaedt",
+      "production_allowed": true,
+      "notes": "API-only PCB source layout replacement in existing HFSS 3D Layout projects."
+    },
+    "tools/hfss/run_existing_hfss3dlayout_verdict.py": {
+      "class": "production",
+      "runtime": "host/pyaedt",
+      "production_allowed": true,
+      "notes": "Solve/export/postprocess existing HFSS 3D Layout designs."
+    },
+    "tools/hfss/run_hfss3dlayout_filter_verdict.py": {
+      "class": "production",
+      "runtime": "host/pyaedt",
+      "production_allowed": true,
+      "notes": "Build/solve filter HFSS 3D Layout verdict flow."
+    },
+    "tools/hfss/run_hfss_quality_gate.py": {
+      "class": "production",
+      "runtime": "host/pyaedt",
+      "production_allowed": true,
+      "notes": "HFSS code quality gate."
+    },
+    "tools/hfss/scan_add_pin_iport_selection.py": {
+      "class": "probe",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "Selection API discovery only."
+    },
+    "tools/hfss/set_hfss3dlayout_design_options.py": {
+      "class": "maintenance",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "Explicit design option update helper."
+    },
+    "tools/hfss/try_component_pin_edge_port.py": {
+      "class": "probe",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "API discovery only."
+    },
+    "tools/hfss/try_component_pin_port_methods.py": {
+      "class": "probe",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "API discovery only."
+    },
+    "tools/hfss/try_layout_component_ports.py": {
+      "class": "probe",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "API discovery only."
+    },
+    "tools/hfss/try_official_port_create_elements.py": {
+      "class": "probe",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "API discovery only; stable logic lives in hfss.port_plans."
+    },
+    "tools/hfss/try_pin_port_gap_property_patch.py": {
+      "class": "probe",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "API discovery only."
+    },
+    "tools/hfss/try_port_instance_elements.py": {
+      "class": "probe",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "API discovery only."
+    },
+    "tools/hfss/try_port_property_shape.py": {
+      "class": "probe",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "API discovery only."
+    },
+    "tools/hfss/validate_hfss3dlayout_design_api.py": {
+      "class": "diagnostic",
+      "runtime": "host/pyaedt",
+      "production_allowed": true,
+      "notes": "HFSS 3D Layout API validation helper."
+    }
+  }
+}
