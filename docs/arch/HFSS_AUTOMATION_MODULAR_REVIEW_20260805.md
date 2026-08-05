@@ -128,8 +128,8 @@ AI 后续只走这几类入口：
 - [x] P1: 建立 `tools/hfss/probes/` 或文档标签，把 `try_*`/`probe_*` 与生产 CLI 分开。
 - [x] P1: 建立统一 HFSS gate wrapper，按 profile 自动选择 host Python，并串联 py_compile、pytest、AEDT smoke。
 - [x] P2: 将 `workflow.py` 中 manifest/connector metadata 派生拆到 `hfss.manifest` / `hfss.connector_contract`。
-- [ ] P2: 把 report 生成从手工 HTML patch 演进成读取 manifest/artifacts 的可重复报告流程。
-- [ ] P2: 对 `layout.py` reference_ground_cutout 行为增加真实 AEDT/单元双层验证，确认 negative primitive 与 subtract 语义是否一致。
+- [x] P2: 把 report 生成从手工 HTML patch 演进成读取 manifest/artifacts 的可重复报告流程。
+- [x] P2: 固化 `layout.py` 不在 HFSS 中执行 reference-ground cutout/negative/subtract 操作；候选差异只能通过删除旧 layout primitives 后加载新生成 layout 表达。
 
 ## 当前第一步修改
 
@@ -347,3 +347,52 @@ python tools\hfss\run_hfss_quality_gate.py --profile home --output .simads\gates
 ```
 
 结果：manifest/connector 快速测试 20 passed；完整 gate 通过，默认 HFSS pytest `27 passed`，AEDT smoke 27.484 s。
+
+## 当前第十步修改
+
+本轮建立报告资产 manifest 和依赖校验流程：
+
+- 新增 `src/simads/reports/manifest_report.py`
+  - 从 HTML 抽取本地 `src`、`href`、`poster` 和 CSS `url(...)` 依赖。
+  - 统一输出 POSIX 风格相对路径，便于 home/company 环境复现。
+  - 拒绝缺失 assets 和指向报告目录外的本地引用。
+- 新增 `tools/reports/build_report_manifest.py`
+  - 对报告目录生成 `report_manifest.json`。
+  - 默认 strict 校验，缺失或越界引用返回失败。
+- `tools/hfss/run_hfss_quality_gate.py`
+  - 将报告 manifest 模块、CLI 和测试纳入 HFSS 模块化 gate。
+- 当前 SP8T 报告目录已生成 `report_manifest.json`，HTML 引用的本地 assets 均存在且位于报告目录内。
+
+已验证：
+
+```text
+python -m py_compile src\simads\reports\__init__.py src\simads\reports\manifest_report.py tools\reports\build_report_manifest.py tests\test_report_manifest.py tools\hfss\run_hfss_quality_gate.py
+python -m pytest tests\test_report_manifest.py tests\test_hfss_quality_gate.py
+python tools\reports\build_report_manifest.py --report-dir projects\hfss_sma_connector\reports\SP8T开关连接器设计优化报告
+```
+
+结果：报告快速测试 6 passed；SP8T 报告 manifest 状态为 `ok`。
+
+## 当前第十一步修改
+
+本轮按生产约束纠偏 HFSS 版图替换策略：
+
+- `src/simads/hfss/layout.py`
+  - `reference_ground_cutout` 不再创建 negative 工具图形，也不调用 `modeler.subtract`。
+  - HFSS builder 只负责从 layout JSON 创建实际铜皮、过孔、参考地平面等 primitives。
+  - 如果候选需要 L2/L3/L4 缺口，必须由上游 layout generator 输出真实的参考地铜皮/平面形状，而不是让 HFSS 对已有平面做局部挖空。
+- `tools/hfss/replace_hfss3dlayout_layout_primitives.py`
+  - dry-run policy 明确 `allowed_geometry_boolean_scope=none`。
+  - `reference_ground_cutout` 只允许作为旧对象删除名或评审元数据，不允许作为新建 HFSS cutout 操作。
+- `tests/test_hfss_layout.py` / `tests/test_hfss_replace_layout.py`
+  - 覆盖 `reference_ground_cutout` 被跳过且不会触发 boolean/subtract。
+  - 覆盖 replace policy 固化为完整删除旧 primitives、重载新 layout。
+
+已验证：
+
+```text
+python -m py_compile src\simads\hfss\layout.py tools\hfss\replace_hfss3dlayout_layout_primitives.py tools\hfss\create_hfss3dlayout_smoke_project.py tools\hfss\run_hfss_quality_gate.py tests\test_hfss_layout.py tests\test_hfss_replace_layout.py
+python -m pytest tests\test_hfss_layout.py tests\test_hfss_replace_layout.py tests\test_hfss_quality_gate.py
+```
+
+结果：layout/replace/policy 快速测试 11 passed。

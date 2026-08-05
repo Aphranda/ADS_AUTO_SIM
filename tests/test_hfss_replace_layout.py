@@ -54,7 +54,8 @@ def test_replace_layout_dry_run_declares_full_rebuild_policy(tmp_path: Path, mon
         "mode": "full_source_layout_rebuild",
         "candidate_level_boolean_ops": False,
         "candidate_level_incremental_ops": False,
-        "allowed_geometry_boolean_scope": "inside_create_geometry_only_for_declared_layout_json_shapes",
+        "allowed_geometry_boolean_scope": "none",
+        "reference_ground_cutout_handling": "delete_stale_objects_only_do_not_create_or_subtract",
     }
     assert "hfss_ground_plane" in payload["requested_delete_names"]
     assert "p1_l2_cutout_rect" in payload["requested_delete_names"]

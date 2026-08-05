@@ -84,7 +84,17 @@ Last updated: 2026-08-06
   - 默认扫频：4-10 GHz，40 点；细化裁决可切到 91 点或 200 MHz 间隔。
   - CLI：`--route reliable` 会展开到完整 route 名称和可靠端口/GND/extents 参数。
 
+- [x] 固化 HFSS 版图替换策略为“删除旧 primitives 后重载新 layout”。
+  - HFSS 不执行候选级局部挖空、negative primitive、boolean subtract 或 direct void patch。
+  - `reference_ground_cutout` 只允许作为旧对象删除名或评审元数据；新候选的 L2/L3/L4 缺口必须由 layout generator 输出为真实参考地几何。
+  - `replace_hfss3dlayout_layout_primitives.py` 的 dry-run policy 已登记 `allowed_geometry_boolean_scope=none`。
+
 ## P2 ADS/HFSS 裁决和对照
+
+- [x] 建立 SP8T 报告资产 manifest 和依赖校验流程。
+  - 新增 `simads.reports.manifest_report`，从 HTML 抽取本地 `src`/`href`/CSS `url(...)` 依赖，生成 `report_manifest.json`。
+  - 新增 `tools/reports/build_report_manifest.py`，校验报告 HTML 引用只指向报告目录内 assets，缺失或越界引用会失败。
+  - 当前 SP8T 报告目录已生成 `projects/hfss_sma_connector/reports/SP8T开关连接器设计优化报告/report_manifest.json`，依赖闭合。
 
 - [x] 增加 ADS/HFSS compare workflow。
   - 输入同一个 layout JSON。

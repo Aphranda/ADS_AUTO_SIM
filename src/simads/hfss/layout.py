@@ -51,60 +51,6 @@ def _shape_net(shape: dict[str, Any], name: str | None) -> str:
     return net_for_shape(name)
 
 
-def _object_name(obj: Any) -> str:
-    return getattr(obj, "name", str(obj))
-
-
-def _subtract_from_ground(app: Any, ground: Any, tools: list[Any]) -> None:
-    if not tools:
-        return
-    subtract = getattr(app.modeler, "subtract", None)
-    if subtract is None:
-        raise RuntimeError("reference ground cut-out requested, but modeler.subtract is unavailable")
-    errors: list[str] = []
-    for call_args, kwargs in [
-        ((ground, tools), {}),
-        ((ground, [_object_name(tool) for tool in tools]), {}),
-        ((_object_name(ground), [_object_name(tool) for tool in tools]), {}),
-        ((ground, tools), {"keep_originals": False}),
-        ((ground, tools, False), {}),
-        (([ground], tools), {"keep_originals": False}),
-        (([_object_name(ground)], [_object_name(tool) for tool in tools]), {"keep_originals": False}),
-        ((_object_name(ground), [_object_name(tool) for tool in tools], False), {}),
-    ]:
-        try:
-            subtract(*call_args, **kwargs)
-            return
-        except Exception as exc:
-            errors.append(str(exc))
-    raise RuntimeError(f"failed to subtract reference ground cut-outs: {'; '.join(errors)}")
-
-
-def _create_cutout_tool(app: Any, shape: dict[str, Any], geometry: GeometryBuildOptions) -> Any:
-    kind = shape.get("kind")
-    name = shape.get("name")
-    layer = _target_ground_layer(shape, geometry)
-    if kind == "reference_ground_cutout" and "points" in shape:
-        tool = app.modeler.create_polygon(
-            layer,
-            [[float(x), float(y)] for x, y in shape["points"]],
-            units="mm",
-            name=name,
-            net="GND",
-        )
-    else:
-        tool = app.modeler.create_rectangle(
-            layer,
-            [shape["x"], shape["y"]],
-            [shape["w"], shape["h"]],
-            name=name,
-            net="GND",
-        )
-    if tool is not None and hasattr(tool, "negative"):
-        tool.negative = True
-    return tool
-
-
 def _target_ground_layer(shape: dict[str, Any], geometry: GeometryBuildOptions) -> str:
     metadata = shape.get("metadata")
     if isinstance(metadata, dict):
@@ -152,18 +98,15 @@ def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOpti
         if gnd:
             names.append(gnd.name)
             ground_by_layer[geometry.reference_ground_layer] = gnd
-    cutout_tools_by_layer: dict[str, list[Any]] = {}
     for shape in layout.get("shapes", []):
         kind = shape.get("kind")
         layer = shape.get("layer")
         if layer == "EM_BOUNDARY" or kind == "boundary":
             continue
         if kind == "reference_ground_cutout":
-            target_layer = _target_ground_layer(shape, geometry)
-            tool = _create_cutout_tool(app, shape, geometry)
-            if tool:
-                names.append(tool.name)
-                cutout_tools_by_layer.setdefault(target_layer, []).append(tool)
+            # Cutouts must be materialized by the layout generator as actual
+            # ground-plane geometry. HFSS replacement only reloads layout
+            # primitives and never applies candidate-level boolean edits.
             continue
         if kind == "reference_ground_plane":
             obj = _create_reference_ground_plane(app, shape, geometry)
@@ -216,10 +159,6 @@ def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOpti
                 names.append(pad.name)
             if via:
                 names.append(via.name)
-    for target_layer, cutout_tools in cutout_tools_by_layer.items():
-        target_ground = ground_by_layer.get(target_layer)
-        if target_ground is None:
-            raise RuntimeError(f"reference ground cut-out requested for {target_layer}, but no ground plane was created")
     return names
 
 

@@ -36,6 +36,9 @@ DEFAULT_COMPILE_TARGETS = [
     "src/simads/hfss/results.py",
     "src/simads/hfss/solve.py",
     "src/simads/hfss/workflow.py",
+    "src/simads/reports/__init__.py",
+    "src/simads/reports/manifest_report.py",
+    "tools/reports/build_report_manifest.py",
     "tools/hfss/check_hfss_script_classes.py",
     "tools/hfss/create_hfss3dlayout_smoke_project.py",
     "tools/hfss/recreate_connector_component_pin_port.py",
@@ -47,6 +50,8 @@ DEFAULT_COMPILE_TARGETS = [
 DEFAULT_PYTEST_TARGETS = [
     "tests/test_aedt_lifecycle.py",
     "tests/test_hfss_build.py",
+    "tests/test_hfss_connector.py",
+    "tests/test_hfss_layout.py",
     "tests/test_hfss_port_plans.py",
     "tests/test_hfss_rebuild_connector_pin_iports.py",
     "tests/test_hfss_replace_layout.py",
@@ -54,6 +59,7 @@ DEFAULT_PYTEST_TARGETS = [
     "tests/test_hfss_script_classes.py",
     "tests/test_hfss_manifest_contracts.py",
     "tests/test_hfss_solve.py",
+    "tests/test_report_manifest.py",
     "tests/test_run_existing_hfss3dlayout_verdict.py",
 ]
 

@@ -6,11 +6,13 @@ from simads.hfss.layout import GeometryBuildOptions, create_geometry
 class Obj:
     def __init__(self, name: str) -> None:
         self.name = name
+        self.negative = False
 
 
 class FakeModeler:
     def __init__(self) -> None:
         self.calls = []
+        self.subtract_calls = []
 
     def create_rectangle(self, layer, origin, size, name, net):
         self.calls.append(("rect", layer, origin, size, name, net))
@@ -27,6 +29,10 @@ class FakeModeler:
     def create_via(self, x, y, hole_diam, top_layer, bot_layer, name, net):
         self.calls.append(("via", x, y, hole_diam, top_layer, bot_layer, name, net))
         return Obj(name)
+
+    def subtract(self, blank, tools, *args, **kwargs):
+        self.subtract_calls.append((blank, tools, args, kwargs))
+        return True
 
 
 class FakeApp:
@@ -160,3 +166,62 @@ def test_create_geometry_accepts_explicit_options_without_cli_namespace() -> Non
     assert names == ["configured_gnd", "input_feed"]
     assert app.modeler.calls[0] == ("rect", "L2_GND", [-1.0, -1.0], [3.0, 3.0], "configured_gnd", "GND")
     assert app.modeler.calls[1] == ("rect", "L1_TOP", [-1.0, 0.0], [0.5, 0.2], "input_feed", "IN")
+
+
+def test_create_geometry_skips_reference_ground_cutout_without_boolean_subtract() -> None:
+    layout = {
+        "ports": [],
+        "shapes": [
+            {"kind": "boundary", "layer": "EM_BOUNDARY", "name": "boundary", "x": -2.0, "y": -1.0, "w": 4.0, "h": 2.0},
+            {
+                "kind": "reference_ground_cutout",
+                "layer": "GND",
+                "name": "launch_l2_void",
+                "x": -0.5,
+                "y": -0.25,
+                "w": 1.0,
+                "h": 0.5,
+            },
+        ],
+    }
+    app = FakeApp()
+
+    names = create_geometry(app, layout, GeometryBuildOptions(reference_ground_layer="GND"))
+
+    assert names == ["hfss_ground_plane"]
+    assert len(app.modeler.calls) == 1
+    assert app.modeler.subtract_calls == []
+
+
+def test_create_geometry_skips_explicit_reference_ground_cutout_without_boolean_subtract() -> None:
+    layout = {
+        "ports": [],
+        "shapes": [
+            {"kind": "boundary", "layer": "EM_BOUNDARY", "name": "boundary", "x": -2.0, "y": -1.0, "w": 4.0, "h": 2.0},
+            {
+                "kind": "reference_ground_plane",
+                "layer": "GND",
+                "name": "l3_reference_plane",
+                "x": -2.0,
+                "y": -1.0,
+                "w": 4.0,
+                "h": 2.0,
+                "metadata": {"target_layer": "L3_GND"},
+            },
+            {
+                "kind": "reference_ground_cutout",
+                "layer": "GND",
+                "name": "l3_connector_void",
+                "points": [[-0.5, -0.2], [0.5, -0.2], [0.5, 0.2], [-0.5, 0.2]],
+                "metadata": {"target_layer": "L3_GND"},
+            },
+        ],
+    }
+    app = FakeApp()
+
+    create_geometry(app, layout, GeometryBuildOptions(reference_ground_layer="L2_GND"))
+
+    assert app.modeler.calls[0][1] == "L2_GND"
+    assert app.modeler.calls[1][1] == "L3_GND"
+    assert len(app.modeler.calls) == 2
+    assert app.modeler.subtract_calls == []
