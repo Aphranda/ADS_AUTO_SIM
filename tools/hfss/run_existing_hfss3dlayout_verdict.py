@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import subprocess
 import sys
 import traceback
 from pathlib import Path
@@ -21,13 +20,10 @@ if str(SRC_ROOT) not in sys.path:
 from simads.hfss.aedt_startup import (
     OperationLifecycle,
     apply_grpc_startup_compat,
-    apply_pyaedt_settings,
-    hidden_subprocess_kwargs,
     stable_export_touchstone,
-    start_aedt_reaper,
-    startup_snapshot,
-    wait_for_hfss3dlayout_ready,
 )
+from simads.hfss.results import run_post_tools as run_hfss_post_tools
+from simads.hfss.session import Hfss3dLayoutSessionConfig, open_hfss3dlayout_session
 
 apply_grpc_startup_compat()
 
@@ -41,79 +37,15 @@ def run_post_tools(
     lifecycle: OperationLifecycle | None = None,
 ) -> dict[str, str]:
     trace_csv = out_dir / f"{candidate}_trace.csv"
-    analyzer = "analyze_connector_s2p.py" if profile == "connector" else "analyze_filter_s2p.py"
-    plotter = "plot_connector_s_curves_svg.py" if profile == "connector" else "plot_filter_s_curves_svg.py"
-    analyze_command = [sys.executable, str(REPO_ROOT / "tools" / analyzer), str(s2p), "--out", str(score_csv)]
-    if lifecycle:
-        with lifecycle.timed("score_s2p", tool=analyzer):
-            subprocess.run(analyze_command, check=True, **hidden_subprocess_kwargs())
-        with lifecycle.timed("convert_s2p_to_trace_csv"):
-            convert_s2p_to_csv(s2p, trace_csv)
-    else:
-        subprocess.run(analyze_command, check=True, **hidden_subprocess_kwargs())
-        convert_s2p_to_csv(s2p, trace_csv)
-    svg_dir = out_dir / "svg"
-    svg_dir.mkdir(parents=True, exist_ok=True)
-    summary_csv = svg_dir / f"{candidate}_plot_summary.csv"
-    if lifecycle:
-        with lifecycle.timed("write_plot_summary"):
-            write_plot_summary(trace_csv, candidate, summary_csv)
-    else:
-        write_plot_summary(trace_csv, candidate, summary_csv)
-    plot_command = [
-        sys.executable,
-        str(REPO_ROOT / "tools" / plotter),
-        "--summary",
-        str(summary_csv),
-    ]
-    if profile == "filter":
-        plot_command.extend(["--results-dir", str(out_dir)])
-    plot_command.extend(
-        [
-            "--out-dir",
-            str(svg_dir),
-            "--sparams",
-            "s11,s21,s22",
-            "--no-overlay",
-        ]
+    return run_hfss_post_tools(
+        s2p,
+        score_csv,
+        trace_csv,
+        out_dir / "svg",
+        candidate,
+        profile=profile,
+        lifecycle=lifecycle,
     )
-    if lifecycle:
-        with lifecycle.timed("plot_sparam_svg", tool=plotter):
-            subprocess.run(plot_command, check=True, **hidden_subprocess_kwargs())
-    else:
-        subprocess.run(plot_command, check=True, **hidden_subprocess_kwargs())
-    return {"score": str(score_csv), "trace_csv": str(trace_csv), "svg_dir": str(svg_dir)}
-
-
-def convert_s2p_to_csv(s2p: Path, out_csv: Path) -> None:
-    sys.path.insert(0, str(REPO_ROOT / "tools"))
-    from analyze_connector_s2p import read_s2p_db
-
-    samples = read_s2p_db(s2p)
-    import csv
-
-    with out_csv.open("w", newline="", encoding="utf-8") as fp:
-        writer = csv.DictWriter(fp, fieldnames=["freq_ghz", "s11_db", "s21_db", "s12_db", "s22_db"])
-        writer.writeheader()
-        for freq, s11, s21, s12, s22 in samples:
-            writer.writerow(
-                {
-                    "freq_ghz": f"{freq:.9g}",
-                    "s11_db": f"{s11:.6g}",
-                    "s21_db": f"{s21:.6g}",
-                    "s12_db": f"{s12:.6g}",
-                    "s22_db": f"{s22:.6g}",
-                }
-            )
-
-
-def write_plot_summary(trace_csv: Path, candidate: str, summary_csv: Path) -> None:
-    import csv
-
-    with summary_csv.open("w", newline="", encoding="utf-8") as fp:
-        writer = csv.DictWriter(fp, fieldnames=["candidate", "source"])
-        writer.writeheader()
-        writer.writerow({"candidate": candidate, "source": str(trace_csv)})
 
 
 def object_names(items: Any) -> list[str]:
@@ -160,83 +92,74 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         "run_existing_hfss3dlayout_verdict",
         output=args.output.with_suffix(".events.jsonl") if getattr(args, "output", None) else None,
     )
-    from ansys.aedt.core import Hfss3dLayout, settings
-
-    with lifecycle.timed("apply_pyaedt_settings"):
-        apply_pyaedt_settings(settings)
-
     args.out_dir.mkdir(parents=True, exist_ok=True)
     app = None
     result: dict[str, Any] | None = None
+    session_metadata: dict[str, Any] = {}
     final_lifecycle_status = "failed"
-    with lifecycle.timed("start_hfss3dlayout"):
-        app = Hfss3dLayout(
-            project=str(args.project),
+    try:
+        session_config = Hfss3dLayoutSessionConfig(
+            label="run_existing_hfss3dlayout_verdict",
+            project=args.project,
             design=args.design,
             version=args.version,
             non_graphical=args.non_graphical,
             new_desktop=True,
             close_on_exit=not args.keep_open,
+            keep_open=args.keep_open,
+            close_projects=True,
+            close_desktop=True,
             remove_lock=args.remove_lock,
+            ready_setup=args.setup,
+            ready_sweep=args.sweep,
+            ready_timeout_s=args.ready_timeout_s,
+            ready_settle_s=args.ready_settle_s,
+            reaper_script_started=bool(args.non_graphical),
         )
-    aedt_reaper = start_aedt_reaper(
-        app,
-        label="run_existing_hfss3dlayout_verdict",
-        execute=not args.keep_open,
-        script_started=bool(args.non_graphical),
-    )
-    try:
-        with lifecycle.timed("wait_for_hfss3dlayout_ready"):
-            ready = wait_for_hfss3dlayout_ready(
-                app,
-                setup=args.setup,
-                sweep=args.sweep,
-                timeout_s=args.ready_timeout_s,
-                settle_s=args.ready_settle_s,
-            )
-        result: dict[str, Any] = {
-            "project": str(args.project),
-            "design": args.design,
-            "aedt_startup": startup_snapshot(settings),
-            "aedt_reaper": aedt_reaper,
-            "aedt_ready": ready,
-            "setup": args.setup,
-            "sweep": args.sweep,
-            "analyze": not args.export_only,
-            "status": "running",
-        }
-        with lifecycle.timed("read_ports"):
-            result["ports"] = object_names(getattr(app, "ports", []))
-        if not args.export_only:
-            result["stage"] = "analyze_setup"
-            with lifecycle.timed("analyze_setup", setup=args.setup):
-                result["analyze_return"] = app.analyze_setup(args.setup)
-        s2p = args.s2p or args.out_dir / f"{args.candidate}.s2p"
-        result["stage"] = "export_touchstone"
-        with lifecycle.timed("export_touchstone", attempts=args.export_attempts):
-            exported, export_attempts = stable_export_touchstone(
-                app,
-                setup=args.setup,
-                sweep=args.sweep,
-                output_file=str(s2p),
-                attempts=args.export_attempts,
-                delay_s=args.export_retry_delay_s,
-                renormalization=True,
-                impedance=50,
-            )
-        result["export_attempts"] = export_attempts
-        s2p_path = Path(exported or s2p)
-        result["s2p"] = str(s2p_path)
-        if s2p_path.exists():
-            result["stage"] = "postprocess"
-            score_csv = args.score_out or args.out_dir / f"{args.candidate}_score.csv"
-            result["postprocess_profile"] = args.postprocess_profile
-            result.update(run_post_tools(s2p_path, score_csv, args.out_dir, args.candidate, args.postprocess_profile, lifecycle))
-        result["status"] = "ok"
-        result["stage"] = "completed"
-        with lifecycle.timed("read_messages"):
-            result["messages"] = _safe_messages(app, aedt_messages=False)
-            result["aedt_messages"] = _safe_messages(app, aedt_messages=True)
+        with open_hfss3dlayout_session(session_config, lifecycle) as session:
+            app = session.app
+            session_metadata = session.metadata()
+            result = {
+                "project": str(args.project),
+                "design": args.design,
+                **session_metadata,
+                "setup": args.setup,
+                "sweep": args.sweep,
+                "analyze": not args.export_only,
+                "status": "running",
+            }
+            with lifecycle.timed("read_ports"):
+                result["ports"] = object_names(getattr(app, "ports", []))
+            if not args.export_only:
+                result["stage"] = "analyze_setup"
+                with lifecycle.timed("analyze_setup", setup=args.setup):
+                    result["analyze_return"] = app.analyze_setup(args.setup)
+            s2p = args.s2p or args.out_dir / f"{args.candidate}.s2p"
+            result["stage"] = "export_touchstone"
+            with lifecycle.timed("export_touchstone", attempts=args.export_attempts):
+                exported, export_attempts = stable_export_touchstone(
+                    app,
+                    setup=args.setup,
+                    sweep=args.sweep,
+                    output_file=str(s2p),
+                    attempts=args.export_attempts,
+                    delay_s=args.export_retry_delay_s,
+                    renormalization=True,
+                    impedance=50,
+                )
+            result["export_attempts"] = export_attempts
+            s2p_path = Path(exported or s2p)
+            result["s2p"] = str(s2p_path)
+            if s2p_path.exists():
+                result["stage"] = "postprocess"
+                score_csv = args.score_out or args.out_dir / f"{args.candidate}_score.csv"
+                result["postprocess_profile"] = args.postprocess_profile
+                result.update(run_post_tools(s2p_path, score_csv, args.out_dir, args.candidate, args.postprocess_profile, lifecycle))
+            result["status"] = "ok"
+            result["stage"] = "completed"
+            with lifecycle.timed("read_messages"):
+                result["messages"] = _safe_messages(app, aedt_messages=False)
+                result["aedt_messages"] = _safe_messages(app, aedt_messages=True)
         final_lifecycle_status = "ok"
         return result
     except BaseException as exc:
@@ -254,12 +177,10 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "messages": _safe_messages(app, aedt_messages=False),
             "aedt_messages": _safe_messages(app, aedt_messages=True),
         }
+        result.update({key: value for key, value in session_metadata.items() if value is not None})
         final_lifecycle_status = "failed"
         return result
     finally:
-        if not args.keep_open and app is not None:
-            with lifecycle.timed("release_desktop"):
-                app.release_desktop(close_projects=True, close_desktop=True)
         if result is not None and "lifecycle" not in result:
             result["lifecycle"] = lifecycle.finish(status=final_lifecycle_status)
 

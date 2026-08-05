@@ -12,6 +12,9 @@ import sys
 from typing import Any
 
 
+AEDT_PROCESS_NAMES = {"ansysedt.exe", "ansysedtsv.exe", "ansysedt", "ansysedtsv"}
+
+
 class OperationLifecycle:
     """Small structured lifecycle log with per-operation timing."""
 
@@ -197,6 +200,118 @@ def _process_create_time(pid: int) -> float | None:
         return float(psutil.Process(pid).create_time())
     except Exception:
         return None
+
+
+def _project_lock_path(project: str | Path | None) -> Path | None:
+    if project is None:
+        return None
+    path = Path(project)
+    if not str(path).lower().endswith(".aedt"):
+        return None
+    return Path(str(path) + ".lock")
+
+
+def _read_short_text(path: Path, *, limit: int = 4096) -> str:
+    try:
+        with path.open("r", encoding="utf-8-sig", errors="replace") as fp:
+            return fp.read(limit)
+    except Exception:
+        return ""
+
+
+def _active_aedt_processes() -> tuple[list[dict[str, Any]], str | None]:
+    try:
+        import psutil
+    except Exception as exc:
+        return [], f"psutil_unavailable: {type(exc).__name__}: {exc}"
+
+    processes: list[dict[str, Any]] = []
+    for proc in psutil.process_iter(["pid", "name"]):
+        try:
+            name = str(proc.info.get("name") or proc.name() or "")
+        except psutil.Error:
+            continue
+        if name.lower() not in AEDT_PROCESS_NAMES:
+            continue
+        try:
+            create_time = float(proc.create_time())
+        except psutil.Error:
+            create_time = None
+        processes.append(
+            {
+                "pid": int(proc.pid),
+                "name": name,
+                "create_time": create_time,
+                "age_s": round(time.time() - create_time, 3) if create_time else None,
+            }
+        )
+    return sorted(processes, key=lambda item: int(item["pid"])), None
+
+
+def prepare_aedt_project_lock(
+    project: str | Path | None,
+    *,
+    remove_stale: bool = True,
+    force_remove: bool = False,
+) -> dict[str, Any]:
+    """Inspect and optionally remove a stale AEDT project lock file.
+
+    The safe default only removes ``*.aedt.lock`` when no AEDT process is
+    running. Active AEDT processes may be a user GUI or another automation
+    session, so their locks must be left intact unless the caller explicitly
+    requests ``force_remove``.
+    """
+
+    lock_path = _project_lock_path(project)
+    payload: dict[str, Any] = {
+        "project": str(project) if project is not None else None,
+        "lock_path": str(lock_path) if lock_path is not None else None,
+        "exists": False,
+        "removed": False,
+        "action": "not_applicable",
+    }
+    if lock_path is None:
+        payload["reason"] = "project is not an .aedt path"
+        return payload
+    payload["exists"] = lock_path.exists()
+    if not payload["exists"]:
+        payload["action"] = "none"
+        return payload
+
+    payload["lock_preview"] = _read_short_text(lock_path)
+    processes, process_error = _active_aedt_processes()
+    payload["active_aedt_processes"] = processes
+    if process_error:
+        payload["process_probe_error"] = process_error
+    if not remove_stale:
+        payload["action"] = "kept"
+        payload["reason"] = "remove_stale disabled"
+        return payload
+    if processes and not force_remove:
+        payload["action"] = "kept"
+        payload["reason"] = "active AEDT process exists"
+        return payload
+    if process_error and not force_remove:
+        payload["action"] = "kept"
+        payload["reason"] = "could not safely inspect AEDT processes"
+        return payload
+
+    try:
+        lock_path.unlink()
+    except FileNotFoundError:
+        payload["action"] = "already_removed"
+        payload["exists_after"] = False
+        return payload
+    except Exception as exc:
+        payload["action"] = "remove_failed"
+        payload["error_type"] = type(exc).__name__
+        payload["error"] = str(exc)
+        payload["exists_after"] = lock_path.exists()
+        return payload
+    payload["action"] = "removed_stale_lock"
+    payload["removed"] = True
+    payload["exists_after"] = lock_path.exists()
+    return payload
 
 
 def _clean_design_name(name: Any) -> str:
@@ -508,6 +623,7 @@ __all__ = [
     "disable_aedt_auto_open",
     "hidden_subprocess_kwargs",
     "OperationLifecycle",
+    "prepare_aedt_project_lock",
     "stable_export_touchstone",
     "start_aedt_reaper",
     "startup_snapshot",

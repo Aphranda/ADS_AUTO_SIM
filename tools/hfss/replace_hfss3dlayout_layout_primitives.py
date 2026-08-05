@@ -22,12 +22,7 @@ if str(_SRC_ROOT) not in sys.path:
 
 from simads.hfss.aedt_startup import (
     OperationLifecycle,
-    aedt_automation_lock,
     apply_grpc_startup_compat,
-    apply_pyaedt_settings,
-    start_aedt_reaper,
-    startup_snapshot,
-    wait_for_hfss3dlayout_ready,
 )
 from simads.hfss.layout import GeometryBuildOptions, create_geometry
 from simads.hfss.ports import (
@@ -35,6 +30,7 @@ from simads.hfss.ports import (
     default_port_reference_name,
     infer_port_edge,
 )
+from simads.hfss.session import Hfss3dLayoutSessionConfig, open_hfss3dlayout_session
 
 apply_grpc_startup_compat()
 
@@ -275,41 +271,26 @@ def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
         payload["lifecycle"] = lifecycle.finish(status="dry_run")
         return payload
 
-    from ansys.aedt.core import Hfss3dLayout, settings
-
-    with lifecycle.timed("apply_pyaedt_settings"):
-        apply_pyaedt_settings(settings)
-    payload["aedt_startup"] = startup_snapshot(settings)
     final_lifecycle_status = "failed"
-
-    with lifecycle.timed("acquire_aedt_automation_lock"):
-        lock_cm = aedt_automation_lock("replace_hfss3dlayout_layout_primitives")
-        lock_info = lock_cm.__enter__()
     try:
-        payload["aedt_lock"] = lock_info
-        with lifecycle.timed("start_hfss3dlayout"):
-            app = Hfss3dLayout(
-                project=str(args.project),
-                design=args.design,
-                version=args.version,
-                non_graphical=args.non_graphical,
-                new_desktop=args.new_desktop,
-                close_on_exit=False,
-                remove_lock=args.remove_lock,
-            )
-        payload["aedt_reaper"] = start_aedt_reaper(
-            app,
+        session_config = Hfss3dLayoutSessionConfig(
             label="replace_hfss3dlayout_layout_primitives",
-            execute=not args.keep_attached,
-            script_started=bool(args.new_desktop and args.non_graphical),
+            project=args.project,
+            design=args.design,
+            version=args.version,
+            non_graphical=args.non_graphical,
+            new_desktop=args.new_desktop,
+            close_on_exit=False,
+            keep_open=args.keep_attached,
+            close_projects=args.close_projects,
+            close_desktop=args.close_desktop,
+            remove_lock=args.remove_lock,
+            ready_timeout_s=args.ready_timeout_s,
+            ready_settle_s=args.ready_settle_s,
         )
-        try:
-            with lifecycle.timed("wait_for_hfss3dlayout_ready"):
-                payload["aedt_ready"] = wait_for_hfss3dlayout_ready(
-                    app,
-                    timeout_s=args.ready_timeout_s,
-                    settle_s=args.ready_settle_s,
-                )
+        with open_hfss3dlayout_session(session_config, lifecycle) as session:
+            app = session.app
+            payload.update(session.metadata())
             with lifecycle.timed("read_before_ports"):
                 payload["before_ports"] = _schematic_ports(app)
             if args.recreate_pcb_output_port:
@@ -343,13 +324,7 @@ def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
             payload["status"] = "replaced"
             final_lifecycle_status = "ok"
             return payload
-        finally:
-            if not args.keep_attached:
-                with lifecycle.timed("release_desktop"):
-                    app.release_desktop(close_projects=args.close_projects, close_desktop=args.close_desktop)
     finally:
-        with lifecycle.timed("release_aedt_automation_lock"):
-            lock_cm.__exit__(None, None, None)
         if "lifecycle" not in payload:
             payload["lifecycle"] = lifecycle.finish(status=final_lifecycle_status)
 

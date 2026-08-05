@@ -22,6 +22,7 @@ from simads.hfss.plans import (
     build_reliable_hfss_verdict_plan,
 )
 from simads.hfss.solve import HfssSolveExportResult, solve_and_export_hfss
+from simads.hfss.session import Hfss3dLayoutSession, Hfss3dLayoutSessionConfig, open_hfss3dlayout_session
 from simads.hfss.connector import (
     FIXTURE_TYPE,
     SINGLE_CONNECTOR_FIXTURE_TYPE,
@@ -37,6 +38,8 @@ __all__ = [
     "Hfss3dLayoutVerdictPlan",
     "HfssLayoutBuildResult",
     "HfssSolveExportResult",
+    "Hfss3dLayoutSession",
+    "Hfss3dLayoutSessionConfig",
     "GeometryBuildOptions",
     "ConnectorLaunchParams",
     "FIXTURE_TYPE",
@@ -60,6 +63,7 @@ __all__ = [
     "default_project_name",
     "expected_hfss_outputs",
     "load_layout",
+    "open_hfss3dlayout_session",
     "resolve_gnd_boundary",
     "resolve_project_path",
     "resolve_port_edges",

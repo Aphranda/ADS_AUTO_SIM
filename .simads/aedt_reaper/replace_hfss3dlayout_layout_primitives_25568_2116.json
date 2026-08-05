@@ -1,0 +1,53 @@
+{
+  "mode": "execute",
+  "timestamp_epoch": 1785939599.225,
+  "target_pids": [
+    2116
+  ],
+  "no_window_only": true,
+  "allow_windowed": false,
+  "min_age_s": 0.0,
+  "started_after_epoch": null,
+  "target_create_time_epoch": 1785939549.17187,
+  "owner_record": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\replace_hfss3dlayout_layout_primitives_25568_2116.owner.json",
+  "candidates": [
+    {
+      "pid": 2116,
+      "ppid": 25568,
+      "name": "ansysedt.exe",
+      "exe": "D:\\Hardware\\ANSYS\\ANSYS Inc\\v261\\AnsysEM\\ansysedt.exe",
+      "cmdline": [
+        "D:\\Hardware\\ANSYS\\ANSYS Inc\\v261\\AnsysEM\\ansysedt.exe",
+        "-grpcsrv",
+        "12766",
+        "-ng",
+        "-waitforlicense"
+      ],
+      "create_time": 1785939549.17187,
+      "age_s": 50.044,
+      "status": "running",
+      "has_visible_window": false,
+      "window_titles": [],
+      "eligible": true,
+      "match_reasons": [
+        "explicit_pid",
+        "aedt_process_name"
+      ]
+    }
+  ],
+  "eligible_pids": [
+    2116
+  ],
+  "reap_results": [
+    {
+      "pid": 2116,
+      "action": "terminate",
+      "ok": true,
+      "duration_s": 0.155
+    }
+  ],
+  "duration_s": 0.167,
+  "parent_pid": 25568,
+  "parent_alive": false,
+  "watch_elapsed_s": 40.241
+}

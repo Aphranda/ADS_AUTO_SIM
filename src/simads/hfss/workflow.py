@@ -37,6 +37,7 @@ from simads.hfss.aedt_startup import (
     aedt_automation_lock,
     apply_grpc_startup_compat,
     apply_pyaedt_settings,
+    prepare_aedt_project_lock,
     start_aedt_reaper,
     startup_snapshot,
 )
@@ -476,6 +477,7 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
     init_project = str(project) if reuse_project and project.exists() else None
 
     with aedt_automation_lock("simads.hfss.workflow.run_hfss") as lock_info:
+        project_lock = prepare_aedt_project_lock(init_project) if init_project is not None else {"action": "not_applicable", "reason": "new project"}
         app = Hfss3dLayout(
             project=init_project,
             design=args.design,
@@ -483,7 +485,7 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
             non_graphical=args.non_graphical,
             new_desktop=True,
             close_on_exit=not args.keep_open,
-            remove_lock=True,
+            remove_lock=bool(project_lock.get("removed")),
         )
         aedt_reapers = [
             start_aedt_reaper(
@@ -505,6 +507,7 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
             result["layout"] = str(args.layout)
             result["aedt_startup"] = startup_snapshot(settings)
             result["aedt_lock"] = lock_info
+            result["project_lock"] = project_lock
             result["aedt_reapers"] = aedt_reapers
             if args.patch_edb_port_properties and args.port_type in {"edge-gap", "pin-gap"} and not args.skip_ports:
                 if args.keep_open:
@@ -523,6 +526,7 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
                         result["edb_port_patch"] = patch_gap_ports_in_edb(project_edb_path(project), args)
                         continue_after_patch = True
                     if continue_after_patch:
+                        result["post_patch_project_lock"] = prepare_aedt_project_lock(project)
                         app = Hfss3dLayout(
                             project=str(project),
                             design=args.design,
@@ -530,7 +534,7 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
                             non_graphical=args.non_graphical,
                             new_desktop=True,
                             close_on_exit=True,
-                            remove_lock=True,
+                            remove_lock=bool(result["post_patch_project_lock"].get("removed")),
                         )
                         aedt_reapers.append(
                             start_aedt_reaper(

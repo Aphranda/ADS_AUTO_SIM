@@ -44,3 +44,17 @@ def test_gnd_boundary_can_align_to_port_cross_sections() -> None:
     assert boundary["x"] == -3.0
     assert boundary["w"] == 6.0
     assert boundary["metadata"]["gnd_boundary_mode"] == "port-edges"
+
+
+def test_gnd_boundary_can_extend_cropped_reference_plane_to_em_boundary() -> None:
+    layout = sample_layout()
+    layout["metadata"]["reference_ground_extend_left_mm"] = 1.0
+    layout["metadata"]["reference_ground_extend_right_mm"] = 4.0
+    args = Namespace(gnd_boundary_mode="port-edges")
+
+    boundary = resolve_gnd_boundary(layout, args)
+
+    assert boundary["x"] == -4.0
+    assert boundary["w"] == 9.0
+    assert boundary["metadata"]["reference_ground_extend_left_mm"] == 1.0
+    assert boundary["metadata"]["reference_ground_extend_right_mm"] == 4.0

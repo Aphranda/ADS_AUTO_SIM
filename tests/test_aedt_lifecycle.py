@@ -5,7 +5,10 @@ from pathlib import Path
 
 import pytest
 
-from simads.hfss.aedt_startup import OperationLifecycle, hidden_subprocess_kwargs
+from simads.hfss import aedt_startup
+from simads.hfss.aedt_startup import OperationLifecycle, hidden_subprocess_kwargs, prepare_aedt_project_lock
+from simads.hfss import session as hfss_session
+from simads.hfss.session import Hfss3dLayoutSessionConfig, open_hfss3dlayout_session
 
 
 def _load_reaper_module():
@@ -47,6 +50,131 @@ def test_hidden_subprocess_kwargs_are_no_window_on_windows() -> None:
     if "creationflags" in kwargs:
         assert kwargs["creationflags"] != 0
         assert kwargs["startupinfo"] is not None
+
+
+def test_prepare_aedt_project_lock_removes_stale_lock_without_aedt_process(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    project = tmp_path / "unit.aedt"
+    lock = tmp_path / "unit.aedt.lock"
+    project.write_text("", encoding="utf-8")
+    lock.write_text("stale", encoding="utf-8")
+    monkeypatch.setattr(aedt_startup, "_active_aedt_processes", lambda: ([], None))
+
+    payload = prepare_aedt_project_lock(project)
+
+    assert payload["action"] == "removed_stale_lock"
+    assert payload["removed"] is True
+    assert not lock.exists()
+
+
+def test_prepare_aedt_project_lock_keeps_lock_when_aedt_process_exists(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    project = tmp_path / "unit.aedt"
+    lock = tmp_path / "unit.aedt.lock"
+    project.write_text("", encoding="utf-8")
+    lock.write_text("active", encoding="utf-8")
+    monkeypatch.setattr(aedt_startup, "_active_aedt_processes", lambda: ([{"pid": 123, "name": "ansysedt.exe"}], None))
+
+    payload = prepare_aedt_project_lock(project)
+
+    assert payload["action"] == "kept"
+    assert payload["reason"] == "active AEDT process exists"
+    assert payload["removed"] is False
+    assert lock.exists()
+
+
+def test_open_hfss3dlayout_session_manages_lock_ready_reaper_and_release(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    calls: list[tuple[str, object]] = []
+
+    class FakeLock:
+        def __enter__(self):
+            calls.append(("lock_enter", None))
+            return {"label": "unit_session", "lock_path": "unit.lock"}
+
+        def __exit__(self, exc_type, exc, tb):
+            calls.append(("lock_exit", exc_type))
+
+    class FakeApp:
+        def __init__(self, **kwargs):
+            self.kwargs = kwargs
+            calls.append(("app_init", kwargs))
+
+        def release_desktop(self, **kwargs):
+            calls.append(("release_desktop", kwargs))
+
+    fake_settings = object()
+    monkeypatch.setattr(hfss_session, "apply_pyaedt_settings", lambda settings: calls.append(("settings", settings)))
+    monkeypatch.setattr(hfss_session, "startup_snapshot", lambda settings: {"settings": "snapshot"})
+    monkeypatch.setattr(hfss_session, "aedt_automation_lock", lambda label: FakeLock())
+    monkeypatch.setattr(
+        hfss_session,
+        "prepare_aedt_project_lock",
+        lambda project, remove_stale=True, force_remove=False: {
+            "project": str(project),
+            "removed": True,
+            "remove_stale": remove_stale,
+            "force_remove": force_remove,
+        },
+    )
+    monkeypatch.setattr(hfss_session, "start_aedt_reaper", lambda app, **kwargs: {"reaper": kwargs})
+    monkeypatch.setattr(hfss_session, "wait_for_hfss3dlayout_ready", lambda app, **kwargs: {"ready": kwargs})
+
+    lifecycle = OperationLifecycle("unit_session", output=tmp_path / "events.jsonl")
+    config = Hfss3dLayoutSessionConfig(
+        label="unit_session",
+        project=tmp_path / "unit.aedt",
+        design="D1",
+        version="2026.1",
+        ready_setup="Setup1",
+        ready_sweep="Sweep1",
+        remove_lock=False,
+    )
+
+    with open_hfss3dlayout_session(config, lifecycle, app_factory=FakeApp, settings_obj=fake_settings) as session:
+        assert session.startup == {"settings": "snapshot"}
+        assert session.project_lock and session.project_lock["removed"] is True
+        assert session.aedt_ready and session.aedt_ready["ready"]["setup"] == "Setup1"
+
+    init_kwargs = dict(next(payload for name, payload in calls if name == "app_init"))
+    assert init_kwargs["non_graphical"] is True
+    assert init_kwargs["new_desktop"] is True
+    assert init_kwargs["remove_lock"] is True
+    assert ("release_desktop", {"close_projects": True, "close_desktop": True}) in calls
+    assert calls[-1][0] == "lock_exit"
+
+
+def test_open_hfss3dlayout_session_releases_lock_when_desktop_release_fails(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    calls: list[str] = []
+
+    class FakeLock:
+        def __enter__(self):
+            calls.append("lock_enter")
+            return {"label": "unit_session"}
+
+        def __exit__(self, exc_type, exc, tb):
+            calls.append("lock_exit")
+
+    class FakeApp:
+        def __init__(self, **kwargs):
+            calls.append("app_init")
+
+        def release_desktop(self, **kwargs):
+            calls.append("release_desktop")
+            raise RuntimeError("release failed")
+
+    monkeypatch.setattr(hfss_session, "apply_pyaedt_settings", lambda settings: None)
+    monkeypatch.setattr(hfss_session, "startup_snapshot", lambda settings: {})
+    monkeypatch.setattr(hfss_session, "aedt_automation_lock", lambda label: FakeLock())
+    monkeypatch.setattr(hfss_session, "prepare_aedt_project_lock", lambda *args, **kwargs: {"removed": False})
+    monkeypatch.setattr(hfss_session, "start_aedt_reaper", lambda app, **kwargs: {})
+    monkeypatch.setattr(hfss_session, "wait_for_hfss3dlayout_ready", lambda app, **kwargs: {})
+
+    lifecycle = OperationLifecycle("unit_session", output=tmp_path / "events.jsonl")
+    config = Hfss3dLayoutSessionConfig(label="unit_session", project=tmp_path / "unit.aedt")
+
+    with pytest.raises(RuntimeError, match="release failed"):
+        with open_hfss3dlayout_session(config, lifecycle, app_factory=FakeApp, settings_obj=object()):
+            pass
+
+    assert calls == ["lock_enter", "app_init", "release_desktop", "lock_exit"]
 
 
 def test_reaper_dry_run_records_timing_and_create_time_guard(tmp_path: Path) -> None:

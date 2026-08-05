@@ -79,6 +79,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--connector-ground-pad-l-mm", type=float, default=None)
     parser.add_argument("--connector-ground-pad-y-inner-mm", type=float, default=None)
     parser.add_argument("--connector-ground-pad-y-outer-mm", type=float, default=None)
+    parser.add_argument("--connector-ground-foot-via-enabled", action=argparse.BooleanOptionalAction, default=None)
+    parser.add_argument("--connector-ground-foot-via-count", type=int, default=None)
+    parser.add_argument("--connector-ground-foot-via-pitch-mm", type=float, default=None)
+    parser.add_argument("--connector-ground-foot-via-x-offset-mm", type=float, default=None)
+    parser.add_argument("--connector-ground-foot-via-y-mm", type=float, default=None)
+    parser.add_argument("--connector-ground-foot-via-edge-clearance-mm", type=float, default=None)
     parser.add_argument("--launch-ground-via-enabled", action=argparse.BooleanOptionalAction, default=None)
     parser.add_argument("--line-via-pitch-mm", type=float, default=None)
     parser.add_argument("--pin-pad-w-mm", type=float, default=None)
@@ -106,9 +112,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--l3-ground-enabled", action=argparse.BooleanOptionalAction, default=None)
     parser.add_argument("--l3-ground-layer", default=None)
     parser.add_argument("--l3-ground-margin-mm", type=float, default=None)
+    parser.add_argument("--reference-ground-extend-left-mm", type=float, default=None)
+    parser.add_argument("--reference-ground-extend-right-mm", type=float, default=None)
+    parser.add_argument("--l3-ground-extend-left-mm", type=float, default=None)
+    parser.add_argument("--l3-ground-extend-right-mm", type=float, default=None)
     parser.add_argument("--l4-ground-enabled", action=argparse.BooleanOptionalAction, default=None)
     parser.add_argument("--l4-ground-layer", default=None)
     parser.add_argument("--l4-ground-margin-mm", type=float, default=None)
+    parser.add_argument("--l4-ground-extend-left-mm", type=float, default=None)
+    parser.add_argument("--l4-ground-extend-right-mm", type=float, default=None)
     parser.add_argument("--series-hi-z-enabled", action=argparse.BooleanOptionalAction, default=None)
     parser.add_argument("--series-hi-z-w-mm", type=float, default=None)
     parser.add_argument("--series-hi-z-l-mm", type=float, default=None)
@@ -153,6 +165,24 @@ def main() -> None:
             "connector_ground_pad_y_outer_mm": args.connector_ground_pad_y_outer_mm
             if args.connector_ground_pad_y_outer_mm is not None
             else candidate_params.get("connector_ground_pad_y_outer_mm"),
+            "connector_ground_foot_via_enabled": args.connector_ground_foot_via_enabled
+            if args.connector_ground_foot_via_enabled is not None
+            else candidate_params.get("connector_ground_foot_via_enabled"),
+            "connector_ground_foot_via_count": args.connector_ground_foot_via_count
+            if args.connector_ground_foot_via_count is not None
+            else candidate_params.get("connector_ground_foot_via_count"),
+            "connector_ground_foot_via_pitch_mm": args.connector_ground_foot_via_pitch_mm
+            if args.connector_ground_foot_via_pitch_mm is not None
+            else candidate_params.get("connector_ground_foot_via_pitch_mm"),
+            "connector_ground_foot_via_x_offset_mm": args.connector_ground_foot_via_x_offset_mm
+            if args.connector_ground_foot_via_x_offset_mm is not None
+            else candidate_params.get("connector_ground_foot_via_x_offset_mm"),
+            "connector_ground_foot_via_y_mm": args.connector_ground_foot_via_y_mm
+            if args.connector_ground_foot_via_y_mm is not None
+            else candidate_params.get("connector_ground_foot_via_y_mm"),
+            "connector_ground_foot_via_edge_clearance_mm": args.connector_ground_foot_via_edge_clearance_mm
+            if args.connector_ground_foot_via_edge_clearance_mm is not None
+            else candidate_params.get("connector_ground_foot_via_edge_clearance_mm"),
             "launch_ground_via_enabled": args.launch_ground_via_enabled
             if args.launch_ground_via_enabled is not None
             else candidate_params.get("launch_ground_via_enabled"),
@@ -186,9 +216,27 @@ def main() -> None:
             "l3_ground_enabled": args.l3_ground_enabled if args.l3_ground_enabled is not None else candidate_params.get("l3_ground_enabled"),
             "l3_ground_layer": args.l3_ground_layer if args.l3_ground_layer is not None else candidate_params.get("l3_ground_layer"),
             "l3_ground_margin_mm": args.l3_ground_margin_mm if args.l3_ground_margin_mm is not None else candidate_params.get("l3_ground_margin_mm"),
+            "reference_ground_extend_left_mm": args.reference_ground_extend_left_mm
+            if args.reference_ground_extend_left_mm is not None
+            else candidate_params.get("reference_ground_extend_left_mm"),
+            "reference_ground_extend_right_mm": args.reference_ground_extend_right_mm
+            if args.reference_ground_extend_right_mm is not None
+            else candidate_params.get("reference_ground_extend_right_mm"),
+            "l3_ground_extend_left_mm": args.l3_ground_extend_left_mm
+            if args.l3_ground_extend_left_mm is not None
+            else candidate_params.get("l3_ground_extend_left_mm"),
+            "l3_ground_extend_right_mm": args.l3_ground_extend_right_mm
+            if args.l3_ground_extend_right_mm is not None
+            else candidate_params.get("l3_ground_extend_right_mm"),
             "l4_ground_enabled": args.l4_ground_enabled if args.l4_ground_enabled is not None else candidate_params.get("l4_ground_enabled"),
             "l4_ground_layer": args.l4_ground_layer if args.l4_ground_layer is not None else candidate_params.get("l4_ground_layer"),
             "l4_ground_margin_mm": args.l4_ground_margin_mm if args.l4_ground_margin_mm is not None else candidate_params.get("l4_ground_margin_mm"),
+            "l4_ground_extend_left_mm": args.l4_ground_extend_left_mm
+            if args.l4_ground_extend_left_mm is not None
+            else candidate_params.get("l4_ground_extend_left_mm"),
+            "l4_ground_extend_right_mm": args.l4_ground_extend_right_mm
+            if args.l4_ground_extend_right_mm is not None
+            else candidate_params.get("l4_ground_extend_right_mm"),
             "series_hi_z_enabled": args.series_hi_z_enabled if args.series_hi_z_enabled is not None else candidate_params.get("series_hi_z_enabled"),
             "series_hi_z_w_mm": args.series_hi_z_w_mm if args.series_hi_z_w_mm is not None else candidate_params.get("series_hi_z_w_mm"),
             "series_hi_z_l_mm": args.series_hi_z_l_mm if args.series_hi_z_l_mm is not None else candidate_params.get("series_hi_z_l_mm"),

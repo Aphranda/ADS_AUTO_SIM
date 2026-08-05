@@ -57,6 +57,12 @@ class ConnectorLaunchParams:
     connector_ground_pad_l_mm: float = 0.0
     connector_ground_pad_y_inner_mm: float = 0.0
     connector_ground_pad_y_outer_mm: float = 0.0
+    connector_ground_foot_via_enabled: bool = False
+    connector_ground_foot_via_count: int = 2
+    connector_ground_foot_via_pitch_mm: float = 1.20
+    connector_ground_foot_via_x_offset_mm: float = 0.80
+    connector_ground_foot_via_y_mm: float = 0.0
+    connector_ground_foot_via_edge_clearance_mm: float = 0.35
     launch_ground_via_enabled: bool = True
     line_via_pitch_mm: float = 2.00
     line_via_enabled: bool = True
@@ -85,9 +91,15 @@ class ConnectorLaunchParams:
     l3_ground_enabled: bool = True
     l3_ground_layer: str | None = None
     l3_ground_margin_mm: float = 0.0
+    reference_ground_extend_left_mm: float = 0.0
+    reference_ground_extend_right_mm: float = 0.0
+    l3_ground_extend_left_mm: float = 0.0
+    l3_ground_extend_right_mm: float = 0.0
     l4_ground_enabled: bool = False
     l4_ground_layer: str | None = None
     l4_ground_margin_mm: float = 0.0
+    l4_ground_extend_left_mm: float = 0.0
+    l4_ground_extend_right_mm: float = 0.0
     stub_enabled: bool = False
     stub_type: str = "none"
     stub_l_mm: float = 0.0
@@ -159,7 +171,7 @@ def params_from_mapping(data: dict[str, Any]) -> ConnectorLaunchParams:
     for key, value in data.items():
         if key not in fields:
             continue
-        if key in {"via_count"}:
+        if key in {"via_count", "connector_ground_foot_via_count"}:
             kwargs[key] = int(value)
         elif key in {"l2_cutout_shape", "l3_cutout_shape"} and value in {"", None}:
             kwargs[key] = "none"
@@ -610,13 +622,18 @@ def build_l3_ground_planes(params: ConnectorLaunchParams, *, sides: tuple[str, .
         return []
     board_h = board_height(params)
     total_l = single_connector_port_locations(params)[1][0] if single else total_len(params)
+    boundary_x0 = -params.edge_margin_mm
+    boundary_x1 = total_l + params.edge_margin_mm
 
-    def plane(name: str, target_layer: str | None, margin_mm: float) -> Rect | None:
+    def plane(name: str, target_layer: str | None, margin_mm: float, extend_left_mm: float, extend_right_mm: float) -> Rect | None:
         if not target_layer:
             return None
         margin = max(0.0, margin_mm)
-        x = -margin
-        w = total_l + 2.0 * margin
+        left_extend = max(margin, max(0.0, extend_left_mm))
+        right_extend = max(margin, max(0.0, extend_right_mm))
+        x = max(boundary_x0, -left_extend)
+        right = min(boundary_x1, total_l + right_extend)
+        w = right - x
         if w < params.min_fab_feature_mm:
             return None
         return _reference_ground_plane_rect(name, x, -board_h / 2.0, w, board_h, side="ALL", target_layer=target_layer)
@@ -624,7 +641,13 @@ def build_l3_ground_planes(params: ConnectorLaunchParams, *, sides: tuple[str, .
     output: list[Rect] = []
     l3_layer = _l3_target_layer(params)
     if params.l3_ground_enabled:
-        l3_plane = plane("l3_ground_plane", l3_layer, params.l3_ground_margin_mm)
+        l3_plane = plane(
+            "l3_ground_plane",
+            l3_layer,
+            params.l3_ground_margin_mm,
+            params.l3_ground_extend_left_mm,
+            params.l3_ground_extend_right_mm,
+        )
         if l3_plane is not None:
             output.append(l3_plane)
     l4_layer = params.l4_ground_layer or next(
@@ -632,7 +655,13 @@ def build_l3_ground_planes(params: ConnectorLaunchParams, *, sides: tuple[str, .
         None,
     )
     if params.l4_ground_enabled:
-        l4_plane = plane("l4_ground_plane", l4_layer, params.l4_ground_margin_mm)
+        l4_plane = plane(
+            "l4_ground_plane",
+            l4_layer,
+            params.l4_ground_margin_mm,
+            params.l4_ground_extend_left_mm,
+            params.l4_ground_extend_right_mm,
+        )
         if l4_plane is not None:
             output.append(l4_plane)
     return output
@@ -670,6 +699,7 @@ def _via_row(
     count: int,
     pitch: float,
     params: ConnectorLaunchParams,
+    role: str = "connector_ground_via",
 ) -> list[Via]:
     return [
         Via(
@@ -680,37 +710,94 @@ def _via_row(
             diameter=params.via_d_mm,
             pad_diameter=params.via_pad_d_mm,
             pad_layer=params.metal_layer,
-            metadata={"role": "connector_ground_via", "row": prefix, "index": idx},
+            metadata={"role": role, "row": prefix, "index": idx},
         )
         for idx in range(count)
     ]
 
 
+def _connector_ground_foot_via_y_abs(params: ConnectorLaunchParams, *, signal_w: float) -> float | None:
+    if params.connector_ground_foot_via_y_mm > 0.0:
+        return params.connector_ground_foot_via_y_mm
+    half_board = board_height(params) / 2.0
+    if params.launch_cpw_ground_enabled and params.launch_ground_gap_mm > 0.0:
+        inner = signal_w / 2.0 + params.launch_ground_gap_mm
+        outer = half_board
+    elif not params.launch_cpw_ground_enabled and params.connector_ground_pad_enabled:
+        inner = params.connector_ground_pad_y_inner_mm or 1.85
+        outer = params.connector_ground_pad_y_outer_mm or min(3.55, half_board)
+    else:
+        inner = signal_w / 2.0 + params.cpw_ground_gap_mm
+        outer = half_board
+    pad_r = params.via_pad_d_mm / 2.0
+    clearance = max(0.0, params.connector_ground_foot_via_edge_clearance_mm)
+    usable_inner = inner + pad_r + clearance
+    usable_outer = outer - pad_r - clearance
+    if usable_outer < usable_inner:
+        return None
+    return min(max((inner + outer) / 2.0, usable_inner), usable_outer)
+
+
+def _connector_ground_foot_vias_for_side(params: ConnectorLaunchParams, *, side: str, total_l_mm: float, signal_w: float) -> list[Via]:
+    if not params.connector_ground_foot_via_enabled or params.connector_ground_foot_via_count <= 0:
+        return []
+    y_abs = _connector_ground_foot_via_y_abs(params, signal_w=signal_w)
+    if y_abs is None:
+        return []
+    pitch = max(params.connector_ground_foot_via_pitch_mm, params.min_fab_feature_mm)
+    pad_r = params.via_pad_d_mm / 2.0
+    clearance = max(0.0, params.connector_ground_foot_via_edge_clearance_mm)
+    side_margin = pad_r + clearance
+    start_from_edge = max(params.connector_ground_foot_via_x_offset_mm, side_margin)
+    stop_from_left = launch_len(params) - side_margin
+    if start_from_edge > stop_from_left:
+        return []
+    count = min(params.connector_ground_foot_via_count, int((stop_from_left - start_from_edge) // pitch) + 1)
+    if count <= 0:
+        return []
+    if side == "P1":
+        x_start = start_from_edge
+        prefix = "connector_foot_via_p1"
+    elif side == "P2":
+        x_start = total_l_mm - start_from_edge - (count - 1) * pitch
+        prefix = "connector_foot_via_p2"
+    else:
+        raise ValueError(f"unsupported connector ground foot side: {side}")
+    rows: list[Via] = []
+    rows.extend(_via_row(prefix=f"{prefix}_top", x_start=x_start, y=y_abs, count=count, pitch=pitch, params=params, role="connector_ground_foot_via"))
+    rows.extend(_via_row(prefix=f"{prefix}_bottom", x_start=x_start, y=-y_abs, count=count, pitch=pitch, params=params, role="connector_ground_foot_via"))
+    return rows
+
+
 def build_vias(params: ConnectorLaunchParams) -> list[Via]:
-    if params.via_count <= 0:
+    if params.via_count <= 0 and not params.connector_ground_foot_via_enabled:
         return []
     y_abs = params.pin_pad_w_mm / 2.0 + params.gnd_clearance_mm + params.via_pad_d_mm / 2.0
     left_x0 = params.fence_offset_mm
     right_x0 = total_len(params) - params.fence_offset_mm - (params.via_count - 1) * params.via_pitch_mm
     rows: list[Via] = []
-    if params.launch_ground_via_enabled:
+    if params.via_count > 0 and params.launch_ground_via_enabled:
         rows.extend(_via_row(prefix="ground_via_p1_top", x_start=left_x0, y=y_abs, count=params.via_count, pitch=params.via_pitch_mm, params=params))
         rows.extend(_via_row(prefix="ground_via_p1_bottom", x_start=left_x0, y=-y_abs, count=params.via_count, pitch=params.via_pitch_mm, params=params))
         rows.extend(_via_row(prefix="ground_via_p2_top", x_start=right_x0, y=y_abs, count=params.via_count, pitch=params.via_pitch_mm, params=params))
         rows.extend(_via_row(prefix="ground_via_p2_bottom", x_start=right_x0, y=-y_abs, count=params.via_count, pitch=params.via_pitch_mm, params=params))
+    rows.extend(_connector_ground_foot_vias_for_side(params, side="P1", total_l_mm=total_len(params), signal_w=params.pin_pad_w_mm))
+    rows.extend(_connector_ground_foot_vias_for_side(params, side="P2", total_l_mm=total_len(params), signal_w=params.pin_pad_w_mm))
     rows.extend(build_line_via_fence(params, prefix="gcpw_line_via", x0=launch_len(params), x1=launch_len(params) + params.line_l_mm))
     return rows
 
 
 def build_single_connector_vias(params: ConnectorLaunchParams) -> list[Via]:
-    if params.via_count <= 0:
+    if params.via_count <= 0 and not params.connector_ground_foot_via_enabled:
         return []
     y_abs = params.pin_pad_w_mm / 2.0 + params.gnd_clearance_mm + params.via_pad_d_mm / 2.0
     left_x0 = params.fence_offset_mm
     rows: list[Via] = []
-    if params.launch_ground_via_enabled:
+    if params.via_count > 0 and params.launch_ground_via_enabled:
         rows.extend(_via_row(prefix="ground_via_p1_top", x_start=left_x0, y=y_abs, count=params.via_count, pitch=params.via_pitch_mm, params=params))
         rows.extend(_via_row(prefix="ground_via_p1_bottom", x_start=left_x0, y=-y_abs, count=params.via_count, pitch=params.via_pitch_mm, params=params))
+    total_l = single_connector_port_locations(params)[1][0]
+    rows.extend(_connector_ground_foot_vias_for_side(params, side="P1", total_l_mm=total_l, signal_w=params.pin_pad_w_mm))
     rows.extend(build_line_via_fence(params, prefix="gcpw_line_via", x0=launch_len(params), x1=launch_len(params) + params.line_l_mm))
     return rows
 
@@ -742,6 +829,8 @@ def build_layout(params: ConnectorLaunchParams) -> Layout:
         "line_w_mm": params.line_w_mm,
         "line_l_mm": params.line_l_mm,
         "reference_plane_offset_mm": params.reference_plane_offset_mm,
+        "reference_ground_extend_left_mm": params.reference_ground_extend_left_mm,
+        "reference_ground_extend_right_mm": params.reference_ground_extend_right_mm,
         "port_deembed_mm": params.port_deembed_mm,
         "connector_region_bbox_mm": connector_region_bboxes(params),
         "parameters": params.to_dict(),
@@ -817,6 +906,8 @@ def build_single_connector_layout(params: ConnectorLaunchParams) -> Layout:
         "line_l_mm": params.line_l_mm,
         "total_len_mm": total_l,
         "reference_plane_offset_mm": params.reference_plane_offset_mm,
+        "reference_ground_extend_left_mm": params.reference_ground_extend_left_mm,
+        "reference_ground_extend_right_mm": params.reference_ground_extend_right_mm,
         "port_deembed_mm": params.port_deembed_mm,
         "connector_region_bbox_mm": single_connector_region_bboxes(params),
         "parameters": params.to_dict(),
@@ -887,6 +978,8 @@ def build_microstrip_baseline_layout(params: ConnectorLaunchParams) -> Layout:
         "line_w_mm": params.line_w_mm,
         "line_l_mm": total_len(params),
         "reference_plane_offset_mm": params.reference_plane_offset_mm,
+        "reference_ground_extend_left_mm": params.reference_ground_extend_left_mm,
+        "reference_ground_extend_right_mm": params.reference_ground_extend_right_mm,
         "port_deembed_mm": params.port_deembed_mm,
         "parameters": params.to_dict(),
         "layer_map_version": "microstrip-connector-logical-v1",

@@ -160,6 +160,21 @@ def _reference_ground_review_rect(layout: Layout, boundary: Boundary | None, ref
         left = min(float(port.x) for port in ports)
         right = max(float(port.x) for port in ports)
         if right > left:
+            params = layout.metadata.get("parameters", {}) if isinstance(layout.metadata, dict) else {}
+            if not isinstance(params, dict):
+                params = {}
+            extend_left = max(
+                0.0,
+                float(layout.metadata.get("reference_ground_extend_left_mm") or params.get("reference_ground_extend_left_mm") or 0.0),
+            )
+            extend_right = max(
+                0.0,
+                float(layout.metadata.get("reference_ground_extend_right_mm") or params.get("reference_ground_extend_right_mm") or 0.0),
+            )
+            source_left = float(boundary.x)
+            source_right = float(boundary.x + boundary.w)
+            left = max(source_left, left - extend_left)
+            right = min(source_right, right + extend_right)
             return Rect(
                 name=str(layout.metadata.get("ground_plane_name") or "hfss_ground_plane"),
                 layer=reference_layer,

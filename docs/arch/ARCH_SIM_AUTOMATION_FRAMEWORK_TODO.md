@@ -48,6 +48,15 @@ Last updated: 2026-08-02
 
 ## P1 HFSS 模块拆分
 
+- [ ] HFSS 自动化模块化二阶段收敛。
+  - 评审文档：`docs/arch/HFSS_AUTOMATION_MODULAR_REVIEW_20260805.md`。
+  - [x] 将 existing-project solve 后处理从 `tools/hfss/run_existing_hfss3dlayout_verdict.py` 收敛到 `src/simads/hfss/results.py`。
+  - [x] connector 后处理 profile 输出 Smith 图，`solve.py` 按 fixture_type 自动选择 connector/filter profile。
+  - [x] 新增 `hfss.session` 上下文，集中 AEDT lock、project lock、Hfss3dLayout 启动、ready、reaper、release。
+  - [x] 将 `replace_hfss3dlayout_layout_primitives.py` 改用 `hfss.session`，保持默认 non-graphical/new desktop。
+  - [ ] 建立 `PortPlan` / `ConnectorPinPortPlan`，固化 connector pin Create + schematic connect + validate 流程。
+  - [ ] 将稳定端口创建逻辑从 `try_*` probe 脚本抽入库模块，probe 只保留诊断用途。
+
 - [x] 将 `src/simads/hfss/workflow.py` 拆成更细模块。
   - [x] `layout_io.py`: layout JSON 读取、配置化 layout id、摘要。
   - [x] `artifacts.py`: AEDT/S2P/CSV/SVG 默认命名和路径推导。

@@ -18,14 +18,14 @@ class FakeApp:
         return str(self.exported) if self.exported is not None else None
 
 
-def test_solve_and_export_hfss_runs_solver_export_and_post_tools(tmp_path: Path, monkeypatch) -> None:
+def test_solve_and_export_hfss_runs_solver_export_and_filter_post_tools(tmp_path: Path, monkeypatch) -> None:
     out_dir = tmp_path / "results"
     exported_s2p = tmp_path / "external.s2p"
     exported_s2p.write_text("! touchstone\n", encoding="utf-8")
     post_calls = []
 
-    def fake_post_tools(s2p, score_csv, trace_csv, svg_dir, candidate):
-        post_calls.append((s2p, score_csv, trace_csv, svg_dir, candidate))
+    def fake_post_tools(s2p, score_csv, trace_csv, svg_dir, candidate, *, profile):
+        post_calls.append((s2p, score_csv, trace_csv, svg_dir, candidate, profile))
 
     monkeypatch.setattr("simads.hfss.solve.run_post_tools", fake_post_tools)
     app = FakeApp(exported=exported_s2p)
@@ -64,8 +64,37 @@ def test_solve_and_export_hfss_runs_solver_export_and_post_tools(tmp_path: Path,
             out_dir / "case_a_jlc_hfss_trace.csv",
             out_dir / "svg",
             "case_a_jlc_hfss",
+            "filter",
         )
     ]
+
+
+def test_solve_and_export_hfss_uses_connector_postprocess_profile(tmp_path: Path, monkeypatch) -> None:
+    exported_s2p = tmp_path / "external.s2p"
+    exported_s2p.write_text("! touchstone\n", encoding="utf-8")
+    post_profiles = []
+
+    def fake_post_tools(s2p, score_csv, trace_csv, svg_dir, candidate, *, profile):
+        post_profiles.append(profile)
+
+    monkeypatch.setattr("simads.hfss.solve.run_post_tools", fake_post_tools)
+    app = FakeApp(exported=exported_s2p)
+    layout = {"layout_id": "case_connector", "metadata": {"fixture_type": "microstrip_single_connector_50r"}}
+    args = Namespace(
+        setup="Setup",
+        sweep="Sweep",
+        out_dir=tmp_path,
+        s2p=None,
+        score_out=None,
+        project=None,
+        project_name=None,
+        workspace_dir=tmp_path,
+    )
+
+    result = solve_and_export_hfss(app, layout, args).to_dict()
+
+    assert result["post_processed"] is True
+    assert post_profiles == ["connector"]
 
 
 def test_solve_and_export_hfss_skips_post_tools_when_s2p_missing(tmp_path: Path, monkeypatch) -> None:

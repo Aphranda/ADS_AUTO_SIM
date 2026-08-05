@@ -51,12 +51,32 @@ def resolve_gnd_boundary(layout: dict[str, Any], args: argparse.Namespace) -> di
     right = max(float(p1["x"]), float(p2["x"]))
     if left >= right:
         raise ValueError(f"Invalid port-edge GND boundary: left={left:g}, right={right:g}")
+    metadata = layout.get("metadata", {})
+    if not isinstance(metadata, dict):
+        metadata = {}
+    params = metadata.get("parameters", {})
+    if not isinstance(params, dict):
+        params = {}
+    extend_left = max(
+        0.0,
+        float(metadata.get("reference_ground_extend_left_mm") or params.get("reference_ground_extend_left_mm") or 0.0),
+    )
+    extend_right = max(
+        0.0,
+        float(metadata.get("reference_ground_extend_right_mm") or params.get("reference_ground_extend_right_mm") or 0.0),
+    )
+    source_x0 = float(boundary["x"])
+    source_x1 = source_x0 + float(boundary["w"])
+    left = max(source_x0, left - extend_left)
+    right = min(source_x1, right + extend_right)
     boundary["x"] = left
     boundary["w"] = right - left
     boundary.setdefault("metadata", {})
     boundary["metadata"] = dict(boundary["metadata"])
     boundary["metadata"]["gnd_boundary_mode"] = args.gnd_boundary_mode
     boundary["metadata"]["source_boundary"] = "em_boundary"
+    boundary["metadata"]["reference_ground_extend_left_mm"] = extend_left
+    boundary["metadata"]["reference_ground_extend_right_mm"] = extend_right
     return boundary
 
 

@@ -31,7 +31,7 @@
           </KEY>
         </KEYS>
         <VALUES>
-          <VALUE ObjectName="InstallationDirectory" Value="D:\Hardware\ANAYS\ANSYS Inc\v261\AnsysEM" ValueType="2"/>
+          <VALUE ObjectName="InstallationDirectory" Value="D:\Hardware\ANSYS\ANSYS Inc\v261\AnsysEM" ValueType="2"/>
         </VALUES>
       </KEY>
       <KEY ObjectName="HFSS" RegObjectType="0">
@@ -63,7 +63,7 @@
       <KEY ObjectName="Twin Builder" RegObjectType="0">
         <VALUES>
           <VALUE ObjectName="Favorites" Value="1" ValueType="4"/>
-          <VALUE ObjectName="MODELICAPATH" Value="D:\Hardware\ANAYS\ANSYS Inc\v261\AnsysEM\common\Modelica\ThirdParty\MSL\MSL400;D:\Hardware\ANAYS\ANSYS Inc\v261\AnsysEM\syslib\Simplorer Elements\ModelicaLibs;" ValueType="2"/>
+          <VALUE ObjectName="MODELICAPATH" Value="D:\Hardware\ANSYS\ANSYS Inc\v261\AnsysEM\common\Modelica\ThirdParty\MSL\MSL400;D:\Hardware\ANSYS\ANSYS Inc\v261\AnsysEM\syslib\Simplorer Elements\ModelicaLibs;" ValueType="2"/>
         </VALUES>
       </KEY>
     </KEYS>

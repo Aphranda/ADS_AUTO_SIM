@@ -378,6 +378,72 @@ def test_single_ended_connector_layout_has_one_launch_and_one_ideal_port(tmp_pat
     assert params_payload["derived"]["total_len_mm"] == pytest.approx(launch_len(params) + params.line_l_mm)
 
 
+def test_single_connector_can_extend_cropped_reference_planes_right() -> None:
+    params = stackup_params(
+        name="single_connector_cropped_reference_probe",
+        line_l_mm=30.0,
+        l2_cutout_enabled=True,
+        l2_cutout_shape="rect",
+        l2_cutout_w_mm=1.6,
+        l2_cutout_l_mm=3.8,
+        l2_cutout_offset_x_mm=0.15,
+        l3_ground_enabled=True,
+        l4_ground_enabled=True,
+        launch_ground_via_enabled=False,
+        connector_ground_foot_via_enabled=True,
+        connector_ground_foot_via_count=2,
+        connector_ground_foot_via_pitch_mm=1.2,
+        connector_ground_foot_via_x_offset_mm=0.8,
+        reference_ground_extend_right_mm=1.5,
+        l3_ground_extend_right_mm=1.5,
+        l4_ground_extend_right_mm=1.5,
+    )
+    layout = build_single_connector_layout(params)
+    layout_json = to_dict(layout)
+    app = FakeApp()
+
+    create_geometry(
+        app,
+        layout_json,
+        GeometryBuildOptions(
+            gnd_boundary_mode="port-edges",
+            signal_layer="ETCH_TOP",
+            reference_ground_layer="ETCH_INNER1",
+            via_top_layer="ETCH_TOP",
+            via_bottom_layer="ETCH_BOTTOM",
+            ground_plane_name="hfss_ground_plane",
+        ),
+    )
+
+    total_l = launch_len(params) + params.line_l_mm
+    assert layout.metadata["reference_ground_extend_right_mm"] == pytest.approx(1.5)
+    assert any(
+        call[0] == "rect"
+        and call[4] == "hfss_ground_plane"
+        and call[2][0] == pytest.approx(0.0)
+        and call[3][0] == pytest.approx(total_l + 1.5)
+        for call in app.modeler.calls
+    )
+    assert any(
+        shape["name"] == "l3_ground_plane"
+        and shape["x"] == pytest.approx(0.0)
+        and shape["w"] == pytest.approx(total_l + 1.5)
+        for shape in layout_json["shapes"]
+    )
+    assert any(
+        shape["name"] == "l4_ground_plane"
+        and shape["x"] == pytest.approx(0.0)
+        and shape["w"] == pytest.approx(total_l + 1.5)
+        for shape in layout_json["shapes"]
+    )
+    foot_vias = [shape for shape in layout_json["shapes"] if shape["kind"] == "via" and shape.get("metadata", {}).get("role") == "connector_ground_foot_via"]
+    assert len(foot_vias) == 4
+    assert sorted({round(float(shape["x"]), 6) for shape in foot_vias}) == pytest.approx([0.8, 2.0])
+    y_values = sorted({round(abs(float(shape["y"])), 6) for shape in foot_vias})
+    assert len(y_values) == 1
+    assert y_values[0] > params.pin_pad_w_mm / 2.0 + params.launch_ground_gap_mm
+
+
 def test_single_connector_params_json_preserves_single_end_fixture_type(tmp_path: Path) -> None:
     outputs = write_fixture_outputs(stackup_params(name="single_fixture_probe"), tmp_path, fixture_type=SINGLE_CONNECTOR_FIXTURE_TYPE)
 

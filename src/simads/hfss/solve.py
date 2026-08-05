@@ -8,6 +8,8 @@ from pathlib import Path
 from typing import Any
 
 from simads.hfss.artifacts import expected_hfss_outputs
+from simads.hfss.connector import FIXTURE_TYPE as MICROSTRIP_CONNECTOR_FIXTURE_TYPE
+from simads.hfss.connector import SINGLE_CONNECTOR_FIXTURE_TYPE
 from simads.hfss.layout_io import configured_layout_id
 from simads.hfss.results import run_post_tools
 
@@ -48,7 +50,13 @@ def solve_and_export_hfss(app: Any, layout: dict[str, Any], args: argparse.Names
     trace_csv = outputs["trace_csv"]
     post_processed = False
     if exported or s2p_path.exists():
-        run_post_tools(s2p_path, score_csv, trace_csv, args.out_dir / "svg", candidate)
+        fixture_type = layout.get("metadata", {}).get("fixture_type") if isinstance(layout.get("metadata"), dict) else None
+        profile = (
+            "connector"
+            if fixture_type in {MICROSTRIP_CONNECTOR_FIXTURE_TYPE, SINGLE_CONNECTOR_FIXTURE_TYPE}
+            else "filter"
+        )
+        run_post_tools(s2p_path, score_csv, trace_csv, args.out_dir / "svg", candidate, profile=profile)
         post_processed = True
     return HfssSolveExportResult(
         setup=args.setup,
