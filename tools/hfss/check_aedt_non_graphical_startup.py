@@ -22,6 +22,7 @@ from simads.hfss.aedt_startup import (
     aedt_automation_lock,
     apply_grpc_startup_compat,
     apply_pyaedt_settings,
+    start_aedt_reaper,
     startup_snapshot,
 )
 
@@ -82,6 +83,11 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 new_desktop=args.new_desktop,
                 close_on_exit=False,
                 remove_lock=args.remove_lock,
+            )
+            payload["aedt_reaper"] = start_aedt_reaper(
+                app,
+                label="check_aedt_non_graphical_startup",
+                execute=not args.keep_attached,
             )
             try:
                 payload.update(

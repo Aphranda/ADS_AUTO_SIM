@@ -13,6 +13,7 @@ DEFAULT_LAYER_COLORS = {
     "pcvia1": "#f97316",
     "EM_BOUNDARY": "#64748b",
     "reference_ground_cutout": "#ef4444",
+    "reference_ground_plane": "#22c55e",
 }
 
 
@@ -158,7 +159,9 @@ def _write_connector_layer_review_svg(
     panel_h_px = panel_h * scale
     gap_px = 56.0
     title_h_px = 36.0
-    height_px = title_h_px + 2.0 * panel_h_px + gap_px
+    l3_shapes = [shape for shape in layout.shapes if getattr(shape, "kind", "") == "reference_ground_plane"]
+    panel_count = 3 if l3_shapes else 2
+    height_px = title_h_px + panel_count * panel_h_px + (panel_count - 1) * gap_px
     view_min_x = min_x - padding
     view_max_y = max_y + padding
     boundary = next((shape for shape in layout.shapes if isinstance(shape, Boundary)), None)
@@ -229,9 +232,46 @@ def _write_connector_layer_review_svg(
             )
         )
     l2_body = "\n  ".join(l2_parts)
+    l3_y = l2_y + panel_h_px + gap_px
+    l3_parts: list[str] = []
+    for shape in l3_shapes:
+        l3_parts.append(
+            _shape_svg_at(
+                shape,
+                scale=scale,
+                min_x=view_min_x,
+                max_y=view_max_y,
+                y_offset=l3_y,
+                layer_colors=layer_colors,
+                fill_override="#16a34a",
+                opacity=0.26,
+            )
+        )
+    for shape in layout.shapes:
+        if isinstance(shape, Via):
+            l3_parts.append(
+                _shape_svg_at(
+                    shape,
+                    scale=scale,
+                    min_x=view_min_x,
+                    max_y=view_max_y,
+                    y_offset=l3_y,
+                    layer_colors=layer_colors,
+                    fill_override="#f97316",
+                    opacity=0.75,
+                )
+            )
+    l3_body = "\n  ".join(l3_parts)
     heading = escape(title or layout.layout_id)
     signal_layer = escape(str(layout.metadata.get("signal_layer") or "L1"))
     reference_layer = escape(str(layout.metadata.get("reference_ground_layer") or "L2"))
+    l3_layer = escape(str(layout.metadata.get("l3_ground_layer") or "ETCH_INNER2"))
+    l3_panel = (
+        f'  <text x="16" y="{fmt(l3_y + 16)}" font-family="Arial, sans-serif" font-size="14" fill="#111827">L3 {l3_layer}</text>\n'
+        f"  {l3_body}\n"
+        if l3_shapes
+        else ""
+    )
     text = f"""<svg xmlns="http://www.w3.org/2000/svg" width="{width_px}" height="{fmt(height_px)}" viewBox="0 0 {width_px} {fmt(height_px)}">
   <rect x="0" y="0" width="{width_px}" height="{fmt(height_px)}" fill="#ffffff"/>
   <text x="16" y="24" font-family="Arial, sans-serif" font-size="16" fill="#111827">{heading}</text>
@@ -239,6 +279,7 @@ def _write_connector_layer_review_svg(
   {l1_body}
   <text x="16" y="{fmt(l2_y + 16)}" font-family="Arial, sans-serif" font-size="14" fill="#111827">L2 {reference_layer}</text>
   {l2_body}
+{l3_panel.rstrip()}
 </svg>
 """
     path.parent.mkdir(parents=True, exist_ok=True)

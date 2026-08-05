@@ -24,9 +24,11 @@ from simads.hfss.aedt_startup import (
     aedt_automation_lock,
     apply_grpc_startup_compat,
     apply_pyaedt_settings,
+    start_aedt_reaper,
     startup_snapshot,
 )
 from simads.hfss.layout import GeometryBuildOptions, _create_cutout_tool, _shape_net, _subtract_from_ground
+from simads.hfss.layout import _create_reference_ground_plane
 from simads.hfss.ports import (
     apply_aedt_edge_gap_port_template,
     default_port_reference_name,
@@ -86,6 +88,9 @@ def _is_p1_local_launch_shape(shape: dict[str, Any]) -> bool:
     if shape.get("kind") == "reference_ground_cutout":
         metadata = shape.get("metadata", {})
         return isinstance(metadata, dict) and metadata.get("side") == "P1"
+    if shape.get("kind") == "reference_ground_plane":
+        metadata = shape.get("metadata", {})
+        return isinstance(metadata, dict) and metadata.get("side") in {"P1", "ALL"}
     return False
 
 
@@ -293,6 +298,8 @@ def _create_shape(app: Any, shape: dict[str, Any], geometry: GeometryBuildOption
         return [item for item in (pad, via) if item]
     if kind == "reference_ground_cutout":
         return _create_cutout_tool(app, shape, geometry)
+    if kind == "reference_ground_plane":
+        return _create_reference_ground_plane(app, shape, geometry)
     return None
 
 
@@ -349,6 +356,11 @@ def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
             new_desktop=args.new_desktop,
             close_on_exit=False,
             remove_lock=args.remove_lock,
+        )
+        payload["aedt_reaper"] = start_aedt_reaper(
+            app,
+            label="replace_hfss3dlayout_layout_primitives",
+            execute=not args.keep_attached,
         )
         try:
             payload["before_ports"] = _schematic_ports(app)

@@ -24,6 +24,7 @@ from simads.hfss.aedt_startup import (
     aedt_automation_lock,
     apply_grpc_startup_compat,
     apply_pyaedt_settings,
+    start_aedt_reaper,
     startup_snapshot,
 )
 
@@ -334,6 +335,13 @@ def _create_app(args: argparse.Namespace, *, design: str | None = None) -> Any:
 def inspect_project(args: argparse.Namespace) -> dict[str, Any]:
     with aedt_automation_lock("inspect_aedt_project") as lock_info:
         app = _create_app(args, design=args.design[0] if args.app == "hfss" and args.design else None)
+        reapers = [
+            start_aedt_reaper(
+                app,
+                label=f"inspect_aedt_project_{args.app}_primary",
+                execute=not args.keep_attached,
+            )
+        ]
         try:
             all_designs = _design_names_from_app(app)
             selected = [_clean_design_name(name) for name in args.design] if args.design else all_designs
@@ -344,6 +352,7 @@ def inspect_project(args: argparse.Namespace) -> dict[str, Any]:
                 "app": args.app,
                 "aedt_startup": startup_snapshot(),
                 "aedt_lock": lock_info,
+                "aedt_reapers": reapers,
                 "all_designs": all_designs,
                 "selected_designs": selected,
                 "designs": [],
@@ -353,6 +362,14 @@ def inspect_project(args: argparse.Namespace) -> dict[str, Any]:
                     payload["warning"] = "--app hfss works best with explicit --design for HFSS 3D connector designs."
                 for idx, design in enumerate(selected):
                     design_app = app if idx == 0 else _create_app(args, design=design)
+                    if idx != 0:
+                        reapers.append(
+                            start_aedt_reaper(
+                                design_app,
+                                label=f"inspect_aedt_project_{args.app}_{idx}",
+                                execute=not args.keep_attached,
+                            )
+                        )
                     try:
                         payload["designs"].append(
                             _inspect_design(

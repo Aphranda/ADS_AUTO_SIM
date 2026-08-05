@@ -52,6 +52,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--l2-cutout-taper-l-mm", type=float, default=None)
     parser.add_argument("--l2-cutout-corner-r-mm", type=float, default=None)
     parser.add_argument("--l2-cutout-keep-gnd-via-clearance-mm", type=float, default=None)
+    parser.add_argument("--l3-ground-enabled", action=argparse.BooleanOptionalAction, default=None)
+    parser.add_argument("--l3-ground-layer", default=None)
+    parser.add_argument("--l3-ground-margin-mm", type=float, default=None)
     parser.add_argument("--series-hi-z-enabled", action=argparse.BooleanOptionalAction, default=None)
     parser.add_argument("--series-hi-z-w-mm", type=float, default=None)
     parser.add_argument("--series-hi-z-l-mm", type=float, default=None)
@@ -87,6 +90,9 @@ def main() -> None:
             "l2_cutout_taper_l_mm": args.l2_cutout_taper_l_mm,
             "l2_cutout_corner_r_mm": args.l2_cutout_corner_r_mm,
             "l2_cutout_keep_gnd_via_clearance_mm": args.l2_cutout_keep_gnd_via_clearance_mm,
+            "l3_ground_enabled": args.l3_ground_enabled,
+            "l3_ground_layer": args.l3_ground_layer,
+            "l3_ground_margin_mm": args.l3_ground_margin_mm,
             "series_hi_z_enabled": args.series_hi_z_enabled,
             "series_hi_z_w_mm": args.series_hi_z_w_mm,
             "series_hi_z_l_mm": args.series_hi_z_l_mm,

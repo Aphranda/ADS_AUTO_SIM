@@ -1,0 +1,11 @@
+{
+  "mode": "dry_run",
+  "timestamp_epoch": 1785916020.715,
+  "target_pids": [],
+  "no_window_only": true,
+  "allow_windowed": false,
+  "min_age_s": 0.0,
+  "started_after_epoch": null,
+  "candidates": [],
+  "eligible_pids": []
+}

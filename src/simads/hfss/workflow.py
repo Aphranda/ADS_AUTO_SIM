@@ -37,6 +37,7 @@ from simads.hfss.aedt_startup import (
     aedt_automation_lock,
     apply_grpc_startup_compat,
     apply_pyaedt_settings,
+    start_aedt_reaper,
     startup_snapshot,
 )
 from simads.hfss.layout_io import collect_layout_summary, configured_layout_id, load_layout
@@ -484,6 +485,13 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
             close_on_exit=not args.keep_open,
             remove_lock=True,
         )
+        aedt_reapers = [
+            start_aedt_reaper(
+                app,
+                label="simads_hfss_workflow_run_hfss_primary",
+                execute=not args.keep_open,
+            )
+        ]
         desktop_released = False
         try:
             result = build_hfss_layout_project(
@@ -496,6 +504,7 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
             result["layout"] = str(args.layout)
             result["aedt_startup"] = startup_snapshot(settings)
             result["aedt_lock"] = lock_info
+            result["aedt_reapers"] = aedt_reapers
             if args.patch_edb_port_properties and args.port_type in {"edge-gap", "pin-gap"} and not args.skip_ports:
                 if args.keep_open:
                     result["edb_port_patch"] = {"skipped": True, "reason": "keep_open"}
@@ -521,6 +530,13 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
                             new_desktop=True,
                             close_on_exit=True,
                             remove_lock=True,
+                        )
+                        aedt_reapers.append(
+                            start_aedt_reaper(
+                                app,
+                                label="simads_hfss_workflow_run_hfss_reopen",
+                                execute=not args.keep_open,
+                            )
                         )
                         desktop_released = False
                         app.modeler.model_units = "mm"

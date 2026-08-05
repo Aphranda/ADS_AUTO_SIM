@@ -19,6 +19,8 @@ SINGLE_CONNECTOR_FIXTURE_TYPE = "microstrip_single_connector_50r"
 LOGICAL_SIGNAL_LAYER = "cond"
 LOGICAL_VIA_LAYER = "pcvia1"
 BOUNDARY_LAYER = "EM_BOUNDARY"
+REFERENCE_GROUND_CUTOUT_LAYER = "reference_ground_cutout"
+REFERENCE_GROUND_PLANE_LAYER = "reference_ground_plane"
 
 
 @dataclass(frozen=True)
@@ -66,6 +68,9 @@ class ConnectorLaunchParams:
     l2_cutout_taper_l_mm: float = 0.0
     l2_cutout_corner_r_mm: float = 0.0
     l2_cutout_keep_gnd_via_clearance_mm: float = 0.0
+    l3_ground_enabled: bool = True
+    l3_ground_layer: str | None = None
+    l3_ground_margin_mm: float = 0.0
     stub_enabled: bool = False
     stub_type: str = "none"
     stub_l_mm: float = 0.0
@@ -122,6 +127,7 @@ def params_with_stackup_config(
         stackup_config=str(config_path) if config_path is not None else None,
         signal_layer=stackup.geometry.signal_layer,
         reference_ground_layer=stackup.geometry.reference_ground_layer,
+        l3_ground_layer=next((layer for layer in stackup.geometry.ground_layers if layer != stackup.geometry.reference_ground_layer), None),
         via_top_layer=stackup.geometry.via_top_layer,
         via_bottom_layer=stackup.geometry.via_bottom_layer,
         ground_layers=stackup.geometry.ground_layers,
@@ -190,7 +196,7 @@ def _ground_rect(name: str, x: float, y: float, w: float, h: float, *, role: str
 def _reference_ground_cutout_rect(name: str, x: float, y_center: float, w: float, h: float, *, side: str) -> Rect:
     return Rect(
         name=name,
-        layer="reference_ground_cutout",
+        layer=REFERENCE_GROUND_CUTOUT_LAYER,
         x=x,
         y=y_center - h / 2.0,
         w=w,
@@ -203,10 +209,23 @@ def _reference_ground_cutout_rect(name: str, x: float, y_center: float, w: float
 def _reference_ground_cutout_polygon(name: str, points: list[tuple[float, float]], *, side: str) -> Polygon:
     return Polygon(
         name=name,
-        layer="reference_ground_cutout",
+        layer=REFERENCE_GROUND_CUTOUT_LAYER,
         points=points,
         kind="reference_ground_cutout",
         metadata={"role": "reference_ground_cutout", "target_layer": "reference_ground_layer", "side": side},
+    )
+
+
+def _reference_ground_plane_rect(name: str, x: float, y: float, w: float, h: float, *, side: str, target_layer: str) -> Rect:
+    return Rect(
+        name=name,
+        layer=REFERENCE_GROUND_PLANE_LAYER,
+        x=x,
+        y=y,
+        w=w,
+        h=h,
+        kind="reference_ground_plane",
+        metadata={"role": "reference_ground_plane", "target_layer": target_layer, "side": side, "net": "GND"},
     )
 
 
@@ -395,6 +414,22 @@ def build_reference_ground_cutouts(params: ConnectorLaunchParams, *, sides: tupl
     return output
 
 
+def build_l3_ground_planes(params: ConnectorLaunchParams, *, sides: tuple[str, ...], single: bool = False) -> list[Rect]:
+    if not params.l2_cutout_enabled or not params.l3_ground_enabled:
+        return []
+    target_layer = params.l3_ground_layer or next((layer for layer in params.ground_layers if layer != params.reference_ground_layer), None)
+    if not target_layer:
+        return []
+    board_h = board_height(params)
+    margin = max(0.0, params.l3_ground_margin_mm)
+    total_l = single_connector_port_locations(params)[1][0] if single else total_len(params)
+    x = -margin
+    w = total_l + 2.0 * margin
+    if w < params.min_fab_feature_mm:
+        return []
+    return [_reference_ground_plane_rect("l3_ground_plane", x, -board_h / 2.0, w, board_h, side="ALL", target_layer=target_layer)]
+
+
 def dual_connector_gcpw_segments(params: ConnectorLaunchParams) -> list[tuple[str, float, float, float]]:
     left_l = launch_len(params)
     line_x0 = left_l
@@ -506,6 +541,7 @@ def build_layout(params: ConnectorLaunchParams) -> Layout:
         "via_top_layer": params.via_top_layer,
         "via_bottom_layer": params.via_bottom_layer,
         "ground_layers": list(params.ground_layers),
+        "l3_ground_layer": params.l3_ground_layer,
         "ground_plane_name": params.ground_plane_name,
         "stackup_id": params.stackup_id,
         "stackup_token": params.stackup_token,
@@ -518,7 +554,8 @@ def build_layout(params: ConnectorLaunchParams) -> Layout:
             LayerMap(name=params.metal_layer, dxf_layer=params.metal_layer),
             LayerMap(name=params.via_layer, dxf_layer=params.via_layer),
             LayerMap(name=params.boundary_layer, dxf_layer=params.boundary_layer),
-            LayerMap(name="reference_ground_cutout", dxf_layer="reference_ground_cutout"),
+            LayerMap(name=REFERENCE_GROUND_CUTOUT_LAYER, dxf_layer=REFERENCE_GROUND_CUTOUT_LAYER),
+            LayerMap(name=REFERENCE_GROUND_PLANE_LAYER, dxf_layer=REFERENCE_GROUND_PLANE_LAYER),
         ],
         shapes=[
             boundary,
@@ -526,6 +563,7 @@ def build_layout(params: ConnectorLaunchParams) -> Layout:
             *build_signal_shapes(params),
             *build_vias(params),
             *build_reference_ground_cutouts(params, sides=("P1", "P2")),
+            *build_l3_ground_planes(params, sides=("P1", "P2")),
         ],
         ports=ports,
         metadata={key: value for key, value in metadata.items() if value is not None},
@@ -577,6 +615,7 @@ def build_single_connector_layout(params: ConnectorLaunchParams) -> Layout:
         "via_top_layer": params.via_top_layer,
         "via_bottom_layer": params.via_bottom_layer,
         "ground_layers": list(params.ground_layers),
+        "l3_ground_layer": params.l3_ground_layer,
         "ground_plane_name": params.ground_plane_name,
         "stackup_id": params.stackup_id,
         "stackup_token": params.stackup_token,
@@ -589,7 +628,8 @@ def build_single_connector_layout(params: ConnectorLaunchParams) -> Layout:
             LayerMap(name=params.metal_layer, dxf_layer=params.metal_layer),
             LayerMap(name=params.via_layer, dxf_layer=params.via_layer),
             LayerMap(name=params.boundary_layer, dxf_layer=params.boundary_layer),
-            LayerMap(name="reference_ground_cutout", dxf_layer="reference_ground_cutout"),
+            LayerMap(name=REFERENCE_GROUND_CUTOUT_LAYER, dxf_layer=REFERENCE_GROUND_CUTOUT_LAYER),
+            LayerMap(name=REFERENCE_GROUND_PLANE_LAYER, dxf_layer=REFERENCE_GROUND_PLANE_LAYER),
         ],
         shapes=[
             boundary,
@@ -599,6 +639,7 @@ def build_single_connector_layout(params: ConnectorLaunchParams) -> Layout:
             _rect("output_feed", left_l + center_l, 0.0, output_feed_l, params.line_w_mm, role="gcpw_50r"),
             *build_single_connector_vias(params),
             *build_reference_ground_cutouts(params, sides=("P1",)),
+            *build_l3_ground_planes(params, sides=("P1",), single=True),
         ],
         ports=ports,
         metadata={key: value for key, value in metadata.items() if value is not None},
@@ -779,6 +820,8 @@ __all__ = [
     "SINGLE_CONNECTOR_FIXTURE_TYPE",
     "LOGICAL_SIGNAL_LAYER",
     "LOGICAL_VIA_LAYER",
+    "REFERENCE_GROUND_CUTOUT_LAYER",
+    "REFERENCE_GROUND_PLANE_LAYER",
     "ConnectorLaunchParams",
     "ConnectorLayoutCheck",
     "assert_connector_layout_valid",
@@ -788,6 +831,7 @@ __all__ = [
     "build_gcpw_ground_rails",
     "build_line_via_fence",
     "build_reference_ground_cutouts",
+    "build_l3_ground_planes",
     "build_signal_shapes",
     "build_single_connector_vias",
     "build_vias",

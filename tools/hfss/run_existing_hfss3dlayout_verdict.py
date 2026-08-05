@@ -18,7 +18,7 @@ SRC_ROOT = REPO_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from simads.hfss.aedt_startup import apply_grpc_startup_compat, apply_pyaedt_settings, startup_snapshot
+from simads.hfss.aedt_startup import apply_grpc_startup_compat, apply_pyaedt_settings, start_aedt_reaper, startup_snapshot
 
 apply_grpc_startup_compat()
 
@@ -142,11 +142,17 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         close_on_exit=not args.keep_open,
         remove_lock=args.remove_lock,
     )
+    aedt_reaper = start_aedt_reaper(
+        app,
+        label="run_existing_hfss3dlayout_verdict",
+        execute=not args.keep_open,
+    )
     try:
         result: dict[str, Any] = {
             "project": str(args.project),
             "design": args.design,
             "aedt_startup": startup_snapshot(settings),
+            "aedt_reaper": aedt_reaper,
             "ports": object_names(getattr(app, "ports", [])),
             "setup": args.setup,
             "sweep": args.sweep,

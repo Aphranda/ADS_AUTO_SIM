@@ -100,6 +100,35 @@ def _create_cutout_tool(app: Any, shape: dict[str, Any], geometry: GeometryBuild
     )
 
 
+def _target_ground_layer(shape: dict[str, Any], geometry: GeometryBuildOptions) -> str:
+    metadata = shape.get("metadata")
+    if isinstance(metadata, dict):
+        target = metadata.get("target_layer")
+        if target and target != "reference_ground_layer":
+            return str(target)
+    return geometry.reference_ground_layer
+
+
+def _create_reference_ground_plane(app: Any, shape: dict[str, Any], geometry: GeometryBuildOptions) -> Any:
+    layer = _target_ground_layer(shape, geometry)
+    name = shape.get("name")
+    if "points" in shape:
+        return app.modeler.create_polygon(
+            layer,
+            [[float(x), float(y)] for x, y in shape["points"]],
+            units="mm",
+            name=name,
+            net="GND",
+        )
+    return app.modeler.create_rectangle(
+        layer,
+        [shape["x"], shape["y"]],
+        [shape["w"], shape["h"]],
+        name=name,
+        net="GND",
+    )
+
+
 def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOptions | argparse.Namespace) -> list[str]:
     geometry = _geometry_options(options)
     signal_layers = {"cond", geometry.signal_layer}
@@ -128,6 +157,11 @@ def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOpti
             tool = _create_cutout_tool(app, shape, geometry)
             if tool:
                 cutout_tools.append(tool)
+            continue
+        if kind == "reference_ground_plane":
+            obj = _create_reference_ground_plane(app, shape, geometry)
+            if obj:
+                names.append(obj.name)
             continue
         name = shape.get("name")
         if kind == "rect" and layer in signal_layers:
