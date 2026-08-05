@@ -1,0 +1,17 @@
+{
+  "mode": "execute",
+  "timestamp_epoch": 1785926447.337,
+  "target_pids": [
+    29840
+  ],
+  "no_window_only": true,
+  "allow_windowed": false,
+  "min_age_s": 0.0,
+  "started_after_epoch": null,
+  "target_create_time_epoch": 1785925909.9670143,
+  "owner_record": ".simads\\aedt_reaper\\replace_hfss3dlayout_layout_primitives_32004_29840.owner.json",
+  "candidates": [],
+  "eligible_pids": [],
+  "reap_results": [],
+  "duration_s": 0.031
+}

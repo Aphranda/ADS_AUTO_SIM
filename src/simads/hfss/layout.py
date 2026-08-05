@@ -83,16 +83,17 @@ def _subtract_from_ground(app: Any, ground: Any, tools: list[Any]) -> None:
 def _create_cutout_tool(app: Any, shape: dict[str, Any], geometry: GeometryBuildOptions) -> Any:
     kind = shape.get("kind")
     name = shape.get("name")
+    layer = _target_ground_layer(shape, geometry)
     if kind == "reference_ground_cutout" and "points" in shape:
         return app.modeler.create_polygon(
-            geometry.reference_ground_layer,
+            layer,
             [[float(x), float(y)] for x, y in shape["points"]],
             units="mm",
             name=name,
             net="GND",
         )
     return app.modeler.create_rectangle(
-        geometry.reference_ground_layer,
+        layer,
         [shape["x"], shape["y"]],
         [shape["w"], shape["h"]],
         name=name,
@@ -135,6 +136,7 @@ def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOpti
     names: list[str] = []
     boundary = resolve_gnd_boundary(layout, geometry)
     gnd = None
+    ground_by_layer: dict[str, Any] = {}
     if boundary:
         gnd = app.modeler.create_rectangle(
             geometry.reference_ground_layer,
@@ -145,23 +147,24 @@ def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOpti
         )
         if gnd:
             names.append(gnd.name)
-    cutout_tools: list[Any] = []
+            ground_by_layer[geometry.reference_ground_layer] = gnd
+    cutout_tools_by_layer: dict[str, list[Any]] = {}
     for shape in layout.get("shapes", []):
         kind = shape.get("kind")
         layer = shape.get("layer")
         if layer == "EM_BOUNDARY" or kind == "boundary":
             continue
         if kind == "reference_ground_cutout":
-            if gnd is None:
-                raise RuntimeError("reference ground cut-out requested, but no reference ground plane was created")
+            target_layer = _target_ground_layer(shape, geometry)
             tool = _create_cutout_tool(app, shape, geometry)
             if tool:
-                cutout_tools.append(tool)
+                cutout_tools_by_layer.setdefault(target_layer, []).append(tool)
             continue
         if kind == "reference_ground_plane":
             obj = _create_reference_ground_plane(app, shape, geometry)
             if obj:
                 names.append(obj.name)
+                ground_by_layer[_target_ground_layer(shape, geometry)] = obj
             continue
         name = shape.get("name")
         if kind == "rect" and layer in signal_layers:
@@ -208,7 +211,11 @@ def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOpti
                 names.append(pad.name)
             if via:
                 names.append(via.name)
-    _subtract_from_ground(app, gnd, cutout_tools)
+    for target_layer, cutout_tools in cutout_tools_by_layer.items():
+        target_ground = ground_by_layer.get(target_layer)
+        if target_ground is None:
+            raise RuntimeError(f"reference ground cut-out requested for {target_layer}, but no ground plane was created")
+        _subtract_from_ground(app, target_ground, cutout_tools)
     return names
 
 

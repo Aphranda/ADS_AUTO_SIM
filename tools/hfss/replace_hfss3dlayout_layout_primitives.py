@@ -84,6 +84,13 @@ def _full_rebuild_delete_names(layout: dict[str, Any], geometry: GeometryBuildOp
     for name in _delete_names(_selected_shapes(layout, "single-p1-pcb-full")):
         if name not in names:
             names.append(name)
+    # Full rebuilds must remove source primitives that may be absent from a new
+    # candidate, for example when an iteration disables connector launch vias.
+    for prefix in ("ground_via_p1_top", "ground_via_p1_bottom", "ground_via_p2_top", "ground_via_p2_bottom"):
+        for idx in range(1, 17):
+            for name in (f"{prefix}_{idx}_pad", f"{prefix}_{idx}"):
+                if name not in names:
+                    names.append(name)
     return names
 
 
@@ -123,7 +130,7 @@ def _existing_layout_objects(modeler: Any, editor: Any) -> set[str]:
             names.update(str(item) for item in modeler.objects_by_net(net))
         except Exception:
             continue
-    for layer in ("ETCH_TOP", "ETCH_INNER1"):
+    for layer in ("ETCH_TOP", "ETCH_INNER1", "ETCH_INNER2", "ETCH_BOTTOM"):
         try:
             names.update(str(item) for item in modeler.objects_by_layer(layer))
         except Exception:

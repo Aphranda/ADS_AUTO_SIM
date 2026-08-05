@@ -73,6 +73,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--line-l-mm", type=float, default=None)
     parser.add_argument("--total-l-mm", type=float, default=None, help="Set exact P1-to-P2 fixture length; mutually exclusive with --line-l-mm.")
     parser.add_argument("--cpw-ground-gap-mm", type=float, default=None)
+    parser.add_argument("--launch-ground-gap-mm", type=float, default=None)
+    parser.add_argument("--launch-cpw-ground-enabled", action=argparse.BooleanOptionalAction, default=None)
+    parser.add_argument("--connector-ground-pad-enabled", action=argparse.BooleanOptionalAction, default=None)
+    parser.add_argument("--connector-ground-pad-l-mm", type=float, default=None)
+    parser.add_argument("--connector-ground-pad-y-inner-mm", type=float, default=None)
+    parser.add_argument("--connector-ground-pad-y-outer-mm", type=float, default=None)
+    parser.add_argument("--launch-ground-via-enabled", action=argparse.BooleanOptionalAction, default=None)
     parser.add_argument("--line-via-pitch-mm", type=float, default=None)
     parser.add_argument("--pin-pad-w-mm", type=float, default=None)
     parser.add_argument("--pin-pad-l-mm", type=float, default=None)
@@ -90,6 +97,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--l2-cutout-taper-l-mm", type=float, default=None)
     parser.add_argument("--l2-cutout-corner-r-mm", type=float, default=None)
     parser.add_argument("--l2-cutout-keep-gnd-via-clearance-mm", type=float, default=None)
+    parser.add_argument("--l3-cutout-enabled", action=argparse.BooleanOptionalAction, default=None)
+    parser.add_argument("--l3-cutout-shape", default=None)
+    parser.add_argument("--l3-cutout-w-mm", type=float, default=None)
+    parser.add_argument("--l3-cutout-l-mm", type=float, default=None)
+    parser.add_argument("--l3-cutout-offset-x-mm", type=float, default=None)
+    parser.add_argument("--l3-cutout-taper-l-mm", type=float, default=None)
     parser.add_argument("--l3-ground-enabled", action=argparse.BooleanOptionalAction, default=None)
     parser.add_argument("--l3-ground-layer", default=None)
     parser.add_argument("--l3-ground-margin-mm", type=float, default=None)
@@ -126,6 +139,23 @@ def main() -> None:
             "name": args.name if args.name is not None else candidate.get("name"),
             "line_w_mm": args.line_w_mm if args.line_w_mm is not None else candidate_params.get("line_w_mm"),
             "cpw_ground_gap_mm": args.cpw_ground_gap_mm if args.cpw_ground_gap_mm is not None else candidate_params.get("cpw_ground_gap_mm"),
+            "launch_ground_gap_mm": args.launch_ground_gap_mm if args.launch_ground_gap_mm is not None else candidate_params.get("launch_ground_gap_mm"),
+            "launch_cpw_ground_enabled": args.launch_cpw_ground_enabled
+            if args.launch_cpw_ground_enabled is not None
+            else candidate_params.get("launch_cpw_ground_enabled"),
+            "connector_ground_pad_enabled": args.connector_ground_pad_enabled
+            if args.connector_ground_pad_enabled is not None
+            else candidate_params.get("connector_ground_pad_enabled"),
+            "connector_ground_pad_l_mm": args.connector_ground_pad_l_mm if args.connector_ground_pad_l_mm is not None else candidate_params.get("connector_ground_pad_l_mm"),
+            "connector_ground_pad_y_inner_mm": args.connector_ground_pad_y_inner_mm
+            if args.connector_ground_pad_y_inner_mm is not None
+            else candidate_params.get("connector_ground_pad_y_inner_mm"),
+            "connector_ground_pad_y_outer_mm": args.connector_ground_pad_y_outer_mm
+            if args.connector_ground_pad_y_outer_mm is not None
+            else candidate_params.get("connector_ground_pad_y_outer_mm"),
+            "launch_ground_via_enabled": args.launch_ground_via_enabled
+            if args.launch_ground_via_enabled is not None
+            else candidate_params.get("launch_ground_via_enabled"),
             "line_via_pitch_mm": args.line_via_pitch_mm if args.line_via_pitch_mm is not None else candidate_params.get("line_via_pitch_mm"),
             "pin_pad_w_mm": args.pin_pad_w_mm if args.pin_pad_w_mm is not None else candidate_params.get("pin_pad_w_mm"),
             "pin_pad_l_mm": args.pin_pad_l_mm if args.pin_pad_l_mm is not None else candidate_params.get("pin_pad_l_mm"),
@@ -145,6 +175,14 @@ def main() -> None:
             "l2_cutout_keep_gnd_via_clearance_mm": args.l2_cutout_keep_gnd_via_clearance_mm
             if args.l2_cutout_keep_gnd_via_clearance_mm is not None
             else candidate_params.get("l2_cutout_keep_gnd_via_clearance_mm"),
+            "l3_cutout_enabled": args.l3_cutout_enabled if args.l3_cutout_enabled is not None else candidate_params.get("l3_cutout_enabled"),
+            "l3_cutout_shape": args.l3_cutout_shape if args.l3_cutout_shape is not None else candidate_params.get("l3_cutout_shape"),
+            "l3_cutout_w_mm": args.l3_cutout_w_mm if args.l3_cutout_w_mm is not None else candidate_params.get("l3_cutout_w_mm"),
+            "l3_cutout_l_mm": args.l3_cutout_l_mm if args.l3_cutout_l_mm is not None else candidate_params.get("l3_cutout_l_mm"),
+            "l3_cutout_offset_x_mm": args.l3_cutout_offset_x_mm
+            if args.l3_cutout_offset_x_mm is not None
+            else candidate_params.get("l3_cutout_offset_x_mm"),
+            "l3_cutout_taper_l_mm": args.l3_cutout_taper_l_mm if args.l3_cutout_taper_l_mm is not None else candidate_params.get("l3_cutout_taper_l_mm"),
             "l3_ground_enabled": args.l3_ground_enabled if args.l3_ground_enabled is not None else candidate_params.get("l3_ground_enabled"),
             "l3_ground_layer": args.l3_ground_layer if args.l3_ground_layer is not None else candidate_params.get("l3_ground_layer"),
             "l3_ground_margin_mm": args.l3_ground_margin_mm if args.l3_ground_margin_mm is not None else candidate_params.get("l3_ground_margin_mm"),

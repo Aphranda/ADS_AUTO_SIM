@@ -51,6 +51,13 @@ class ConnectorLaunchParams:
     transmission_line_model: str = "grounded_coplanar_waveguide"
     cpw_ground_gap_mm: float = 0.2032
     cpw_ground_enabled: bool = True
+    launch_ground_gap_mm: float = 0.0
+    launch_cpw_ground_enabled: bool = True
+    connector_ground_pad_enabled: bool = True
+    connector_ground_pad_l_mm: float = 0.0
+    connector_ground_pad_y_inner_mm: float = 0.0
+    connector_ground_pad_y_outer_mm: float = 0.0
+    launch_ground_via_enabled: bool = True
     line_via_pitch_mm: float = 2.00
     line_via_enabled: bool = True
     anti_pad_w_mm: float = 1.80
@@ -69,6 +76,12 @@ class ConnectorLaunchParams:
     l2_cutout_taper_l_mm: float = 0.0
     l2_cutout_corner_r_mm: float = 0.0
     l2_cutout_keep_gnd_via_clearance_mm: float = 0.0
+    l3_cutout_enabled: bool = False
+    l3_cutout_shape: str = "none"
+    l3_cutout_w_mm: float = 0.0
+    l3_cutout_l_mm: float = 0.0
+    l3_cutout_offset_x_mm: float = 0.0
+    l3_cutout_taper_l_mm: float = 0.0
     l3_ground_enabled: bool = True
     l3_ground_layer: str | None = None
     l3_ground_margin_mm: float = 0.0
@@ -148,7 +161,7 @@ def params_from_mapping(data: dict[str, Any]) -> ConnectorLaunchParams:
             continue
         if key in {"via_count"}:
             kwargs[key] = int(value)
-        elif key == "l2_cutout_shape" and value in {"", None}:
+        elif key in {"l2_cutout_shape", "l3_cutout_shape"} and value in {"", None}:
             kwargs[key] = "none"
         elif key in {"mirror", "cpw_ground_enabled", "line_via_enabled"} or key.endswith("_enabled"):
             kwargs[key] = bool(value)
@@ -209,7 +222,16 @@ def _ground_rect(name: str, x: float, y: float, w: float, h: float, *, role: str
     return Rect(name=name, layer=LOGICAL_SIGNAL_LAYER, x=x, y=y, w=w, h=h, metadata={"role": role, "net": "GND"})
 
 
-def _reference_ground_cutout_rect(name: str, x: float, y_center: float, w: float, h: float, *, side: str) -> Rect:
+def _reference_ground_cutout_rect(
+    name: str,
+    x: float,
+    y_center: float,
+    w: float,
+    h: float,
+    *,
+    side: str,
+    target_layer: str = "reference_ground_layer",
+) -> Rect:
     return Rect(
         name=name,
         layer=REFERENCE_GROUND_CUTOUT_LAYER,
@@ -218,17 +240,23 @@ def _reference_ground_cutout_rect(name: str, x: float, y_center: float, w: float
         w=w,
         h=h,
         kind="reference_ground_cutout",
-        metadata={"role": "reference_ground_cutout", "target_layer": "reference_ground_layer", "side": side},
+        metadata={"role": "reference_ground_cutout", "target_layer": target_layer, "side": side},
     )
 
 
-def _reference_ground_cutout_polygon(name: str, points: list[tuple[float, float]], *, side: str) -> Polygon:
+def _reference_ground_cutout_polygon(
+    name: str,
+    points: list[tuple[float, float]],
+    *,
+    side: str,
+    target_layer: str = "reference_ground_layer",
+) -> Polygon:
     return Polygon(
         name=name,
         layer=REFERENCE_GROUND_CUTOUT_LAYER,
         points=points,
         kind="reference_ground_cutout",
-        metadata={"role": "reference_ground_cutout", "target_layer": "reference_ground_layer", "side": side},
+        metadata={"role": "reference_ground_cutout", "target_layer": target_layer, "side": side},
     )
 
 
@@ -277,11 +305,107 @@ def board_height(params: ConnectorLaunchParams) -> float:
     return max(params.board_width_mm, params.pin_pad_w_mm + 2.0 * (params.gnd_clearance_mm + params.via_pad_d_mm + params.edge_margin_mm))
 
 
-def _gcpw_ground_rail_pair(params: ConnectorLaunchParams, *, name: str, x0: float, x1: float, signal_w: float) -> list[Rect]:
+def _gcpw_ground_rail_pair(params: ConnectorLaunchParams, *, name: str, x0: float, x1: float, signal_w: float) -> list[Rect | Polygon]:
     if not params.cpw_ground_enabled:
         return []
+    if name.endswith("_launch") and not params.launch_cpw_ground_enabled:
+        if not params.connector_ground_pad_enabled:
+            return []
+        board_h = board_height(params)
+        half_board = board_h / 2.0
+        pad_l = params.connector_ground_pad_l_mm or (params.pad_to_edge_mm + params.pin_pad_l_mm)
+        pad_l = max(0.0, min(pad_l, x1 - x0))
+        if pad_l < params.min_fab_feature_mm:
+            return []
+        pad_inner = params.connector_ground_pad_y_inner_mm or 1.85
+        pad_outer = params.connector_ground_pad_y_outer_mm or min(3.55, half_board)
+        if pad_outer <= pad_inner:
+            raise ValueError("connector_ground_pad_y_outer_mm must be greater than connector_ground_pad_y_inner_mm")
+        cpw_inner = signal_w / 2.0 + params.cpw_ground_gap_mm
+        cpw_outer = half_board
+        if name.startswith("p2_"):
+            pad_x0 = x1 - pad_l
+            pad_x1 = x1
+            transition_x0 = x0
+            transition_x1 = pad_x0
+            top_points = [
+                (transition_x0, cpw_inner),
+                (transition_x1, pad_inner),
+                (pad_x1, pad_inner),
+                (pad_x1, pad_outer),
+                (transition_x1, pad_outer),
+                (transition_x0, cpw_outer),
+            ]
+            bottom_points = [
+                (transition_x0, -cpw_inner),
+                (transition_x0, -cpw_outer),
+                (transition_x1, -pad_outer),
+                (pad_x1, -pad_outer),
+                (pad_x1, -pad_inner),
+                (transition_x1, -pad_inner),
+            ]
+        else:
+            pad_x0 = x0
+            pad_x1 = x0 + pad_l
+            transition_x0 = pad_x1
+            transition_x1 = x1
+            top_points = [
+                (pad_x0, pad_inner),
+                (pad_x1, pad_inner),
+                (transition_x1, cpw_inner),
+                (transition_x1, cpw_outer),
+                (pad_x1, pad_outer),
+                (pad_x0, pad_outer),
+            ]
+            bottom_points = [
+                (pad_x0, -pad_inner),
+                (pad_x0, -pad_outer),
+                (pad_x1, -pad_outer),
+                (transition_x1, -cpw_outer),
+                (transition_x1, -cpw_inner),
+                (pad_x1, -pad_inner),
+            ]
+        return [
+            Polygon(
+                name=f"{name}_top_ground",
+                layer=LOGICAL_SIGNAL_LAYER,
+                points=top_points,
+                metadata={"role": "connector_ground_pad_transition", "net": "GND"},
+            ),
+            Polygon(
+                name=f"{name}_bottom_ground",
+                layer=LOGICAL_SIGNAL_LAYER,
+                points=bottom_points,
+                metadata={"role": "connector_ground_pad_transition", "net": "GND"},
+            ),
+        ]
     board_h = board_height(params)
     half_board = board_h / 2.0
+    if name.endswith("_launch") and params.launch_ground_gap_mm > 0.0:
+        launch_inner = signal_w / 2.0 + params.launch_ground_gap_mm
+        line_inner = params.line_w_mm / 2.0 + params.cpw_ground_gap_mm
+        if name.startswith("p2_"):
+            top_points = [(x0, line_inner), (x1, launch_inner), (x1, half_board), (x0, half_board)]
+            bottom_points = [(x0, -line_inner), (x0, -half_board), (x1, -half_board), (x1, -launch_inner)]
+        else:
+            top_points = [(x0, launch_inner), (x1, line_inner), (x1, half_board), (x0, half_board)]
+            bottom_points = [(x0, -launch_inner), (x0, -half_board), (x1, -half_board), (x1, -line_inner)]
+        if half_board - max(launch_inner, line_inner) < params.min_fab_feature_mm:
+            return []
+        return [
+            Polygon(
+                name=f"{name}_top_ground",
+                layer=LOGICAL_SIGNAL_LAYER,
+                points=top_points,
+                metadata={"role": "gcpw_top_ground_taper", "net": "GND"},
+            ),
+            Polygon(
+                name=f"{name}_bottom_ground",
+                layer=LOGICAL_SIGNAL_LAYER,
+                points=bottom_points,
+                metadata={"role": "gcpw_bottom_ground_taper", "net": "GND"},
+            ),
+        ]
     y_inner = signal_w / 2.0 + params.cpw_ground_gap_mm
     rail_h = half_board - y_inner
     if x1 <= x0 or rail_h < params.min_fab_feature_mm:
@@ -292,8 +416,8 @@ def _gcpw_ground_rail_pair(params: ConnectorLaunchParams, *, name: str, x0: floa
     ]
 
 
-def build_gcpw_ground_rails(params: ConnectorLaunchParams, segments: list[tuple[str, float, float, float]]) -> list[Rect]:
-    rails: list[Rect] = []
+def build_gcpw_ground_rails(params: ConnectorLaunchParams, segments: list[tuple[str, float, float, float]]) -> list[Rect | Polygon]:
+    rails: list[Rect | Polygon] = []
     for name, x0, x1, signal_w in segments:
         rails.extend(_gcpw_ground_rail_pair(params, name=name, x0=x0, x1=x1, signal_w=signal_w))
     return rails
@@ -392,21 +516,34 @@ def build_signal_shapes(params: ConnectorLaunchParams) -> list[Rect | Polygon]:
     ]
 
 
-def _cutout_shape_for_side(params: ConnectorLaunchParams, side: str, total_l: float) -> Rect | Polygon | None:
-    if not params.l2_cutout_enabled or params.l2_cutout_l_mm <= 0.0 or params.l2_cutout_w_mm <= 0.0:
+def _cutout_shape_for_side(
+    params: ConnectorLaunchParams,
+    side: str,
+    total_l: float,
+    *,
+    prefix: str,
+    enabled: bool,
+    shape_name: str,
+    width_mm: float,
+    length_mm: float,
+    offset_x_mm: float,
+    taper_l_mm: float,
+    target_layer: str,
+) -> Rect | Polygon | None:
+    if not enabled or length_mm <= 0.0 or width_mm <= 0.0:
         return None
-    offset = max(0.0, params.l2_cutout_offset_x_mm)
-    length = params.l2_cutout_l_mm
-    width = params.l2_cutout_w_mm
+    offset = max(0.0, offset_x_mm)
+    length = length_mm
+    width = width_mm
     if side == "P1":
         x0 = params.pad_to_edge_mm + offset
         x1 = x0 + length
     else:
         x1 = total_l - params.pad_to_edge_mm - offset
         x0 = x1 - length
-    shape = params.l2_cutout_shape.lower()
+    shape = shape_name.lower()
     if shape == "tapered":
-        taper_l = min(max(params.l2_cutout_taper_l_mm, 0.0), length)
+        taper_l = min(max(taper_l_mm, 0.0), length)
         neck_w = max(params.line_w_mm + 2.0 * params.cpw_ground_gap_mm, params.min_fab_feature_mm)
         if side == "P1":
             flat_x = x1 - taper_l
@@ -414,19 +551,57 @@ def _cutout_shape_for_side(params: ConnectorLaunchParams, side: str, total_l: fl
         else:
             flat_x = x0 + taper_l
             points = [(x0, -neck_w / 2.0), (flat_x, -width / 2.0), (x1, -width / 2.0), (x1, width / 2.0), (flat_x, width / 2.0), (x0, neck_w / 2.0)]
-        return _reference_ground_cutout_polygon(f"{side.lower()}_l2_cutout_tapered", points, side=side)
+        return _reference_ground_cutout_polygon(f"{side.lower()}_{prefix}_cutout_tapered", points, side=side, target_layer=target_layer)
     if shape in {"rect", "rounded_rect", "none"}:
-        return _reference_ground_cutout_rect(f"{side.lower()}_l2_cutout_rect", x0, 0.0, length, width, side=side)
-    raise ValueError(f"unsupported l2_cutout_shape: {params.l2_cutout_shape}")
+        return _reference_ground_cutout_rect(f"{side.lower()}_{prefix}_cutout_rect", x0, 0.0, length, width, side=side, target_layer=target_layer)
+    raise ValueError(f"unsupported {prefix}_cutout_shape: {shape_name}")
+
+
+def _l3_target_layer(params: ConnectorLaunchParams) -> str | None:
+    return params.l3_ground_layer or next((layer for layer in params.ground_layers if layer != params.reference_ground_layer), None)
 
 
 def build_reference_ground_cutouts(params: ConnectorLaunchParams, *, sides: tuple[str, ...]) -> list[Rect | Polygon]:
     total_l = total_len(params)
     output: list[Rect | Polygon] = []
     for side in sides:
-        shape = _cutout_shape_for_side(params, side, total_l)
+        shape = _cutout_shape_for_side(
+            params,
+            side,
+            total_l,
+            prefix="l2",
+            enabled=params.l2_cutout_enabled,
+            shape_name=params.l2_cutout_shape,
+            width_mm=params.l2_cutout_w_mm,
+            length_mm=params.l2_cutout_l_mm,
+            offset_x_mm=params.l2_cutout_offset_x_mm,
+            taper_l_mm=params.l2_cutout_taper_l_mm,
+            target_layer="reference_ground_layer",
+        )
         if shape is not None:
             output.append(shape)
+        l3_target_layer = _l3_target_layer(params)
+        if l3_target_layer:
+            l3_shape_name = params.l3_cutout_shape if params.l3_cutout_shape != "none" else params.l2_cutout_shape
+            l3_width = params.l3_cutout_w_mm or params.l2_cutout_w_mm
+            l3_length = params.l3_cutout_l_mm or params.l2_cutout_l_mm
+            l3_offset = params.l3_cutout_offset_x_mm or params.l2_cutout_offset_x_mm
+            l3_taper = params.l3_cutout_taper_l_mm or params.l2_cutout_taper_l_mm
+            l3_shape = _cutout_shape_for_side(
+                params,
+                side,
+                total_l,
+                prefix="l3",
+                enabled=params.l3_cutout_enabled,
+                shape_name=l3_shape_name,
+                width_mm=l3_width,
+                length_mm=l3_length,
+                offset_x_mm=l3_offset,
+                taper_l_mm=l3_taper,
+                target_layer=l3_target_layer,
+            )
+            if l3_shape is not None:
+                output.append(l3_shape)
     return output
 
 
@@ -447,7 +622,7 @@ def build_l3_ground_planes(params: ConnectorLaunchParams, *, sides: tuple[str, .
         return _reference_ground_plane_rect(name, x, -board_h / 2.0, w, board_h, side="ALL", target_layer=target_layer)
 
     output: list[Rect] = []
-    l3_layer = params.l3_ground_layer or next((layer for layer in params.ground_layers if layer != params.reference_ground_layer), None)
+    l3_layer = _l3_target_layer(params)
     if params.l3_ground_enabled:
         l3_plane = plane("l3_ground_plane", l3_layer, params.l3_ground_margin_mm)
         if l3_plane is not None:
@@ -518,10 +693,11 @@ def build_vias(params: ConnectorLaunchParams) -> list[Via]:
     left_x0 = params.fence_offset_mm
     right_x0 = total_len(params) - params.fence_offset_mm - (params.via_count - 1) * params.via_pitch_mm
     rows: list[Via] = []
-    rows.extend(_via_row(prefix="ground_via_p1_top", x_start=left_x0, y=y_abs, count=params.via_count, pitch=params.via_pitch_mm, params=params))
-    rows.extend(_via_row(prefix="ground_via_p1_bottom", x_start=left_x0, y=-y_abs, count=params.via_count, pitch=params.via_pitch_mm, params=params))
-    rows.extend(_via_row(prefix="ground_via_p2_top", x_start=right_x0, y=y_abs, count=params.via_count, pitch=params.via_pitch_mm, params=params))
-    rows.extend(_via_row(prefix="ground_via_p2_bottom", x_start=right_x0, y=-y_abs, count=params.via_count, pitch=params.via_pitch_mm, params=params))
+    if params.launch_ground_via_enabled:
+        rows.extend(_via_row(prefix="ground_via_p1_top", x_start=left_x0, y=y_abs, count=params.via_count, pitch=params.via_pitch_mm, params=params))
+        rows.extend(_via_row(prefix="ground_via_p1_bottom", x_start=left_x0, y=-y_abs, count=params.via_count, pitch=params.via_pitch_mm, params=params))
+        rows.extend(_via_row(prefix="ground_via_p2_top", x_start=right_x0, y=y_abs, count=params.via_count, pitch=params.via_pitch_mm, params=params))
+        rows.extend(_via_row(prefix="ground_via_p2_bottom", x_start=right_x0, y=-y_abs, count=params.via_count, pitch=params.via_pitch_mm, params=params))
     rows.extend(build_line_via_fence(params, prefix="gcpw_line_via", x0=launch_len(params), x1=launch_len(params) + params.line_l_mm))
     return rows
 
@@ -532,8 +708,9 @@ def build_single_connector_vias(params: ConnectorLaunchParams) -> list[Via]:
     y_abs = params.pin_pad_w_mm / 2.0 + params.gnd_clearance_mm + params.via_pad_d_mm / 2.0
     left_x0 = params.fence_offset_mm
     rows: list[Via] = []
-    rows.extend(_via_row(prefix="ground_via_p1_top", x_start=left_x0, y=y_abs, count=params.via_count, pitch=params.via_pitch_mm, params=params))
-    rows.extend(_via_row(prefix="ground_via_p1_bottom", x_start=left_x0, y=-y_abs, count=params.via_count, pitch=params.via_pitch_mm, params=params))
+    if params.launch_ground_via_enabled:
+        rows.extend(_via_row(prefix="ground_via_p1_top", x_start=left_x0, y=y_abs, count=params.via_count, pitch=params.via_pitch_mm, params=params))
+        rows.extend(_via_row(prefix="ground_via_p1_bottom", x_start=left_x0, y=-y_abs, count=params.via_count, pitch=params.via_pitch_mm, params=params))
     rows.extend(build_line_via_fence(params, prefix="gcpw_line_via", x0=launch_len(params), x1=launch_len(params) + params.line_l_mm))
     return rows
 
