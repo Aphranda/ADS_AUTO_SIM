@@ -33,7 +33,12 @@ from simads.hfss.artifacts import (
 from simads.hfss.build import build_hfss_layout_project
 from simads.hfss.connector import FIXTURE_TYPE as MICROSTRIP_CONNECTOR_FIXTURE_TYPE
 from simads.hfss.connector import SINGLE_CONNECTOR_FIXTURE_TYPE
-from simads.hfss.aedt_startup import apply_grpc_startup_compat, apply_pyaedt_settings, startup_snapshot
+from simads.hfss.aedt_startup import (
+    aedt_automation_lock,
+    apply_grpc_startup_compat,
+    apply_pyaedt_settings,
+    startup_snapshot,
+)
 from simads.hfss.layout_io import collect_layout_summary, configured_layout_id, load_layout
 from simads.hfss.plans import RELIABLE_HFSS_ROUTE, apply_hfss_route_defaults
 from simads.hfss.ports import (
@@ -469,64 +474,66 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
     reuse_project = args.reuse_project or args.project_action == HFSS_PROJECT_ACTION_ADD
     init_project = str(project) if reuse_project and project.exists() else None
 
-    app = Hfss3dLayout(
-        project=init_project,
-        design=args.design,
-        version=args.version,
-        non_graphical=args.non_graphical,
-        new_desktop=True,
-        close_on_exit=not args.keep_open,
-        remove_lock=True,
-    )
-    desktop_released = False
-    try:
-        result = build_hfss_layout_project(
-            app,
-            layout,
-            args,
-            project_path=project,
-            stackup_config=stackup_config,
-        ).to_dict()
-        result["layout"] = str(args.layout)
-        result["aedt_startup"] = startup_snapshot(settings)
-        if args.patch_edb_port_properties and args.port_type in {"edge-gap", "pin-gap"} and not args.skip_ports:
-            if args.keep_open:
-                result["edb_port_patch"] = {"skipped": True, "reason": "keep_open"}
-            else:
-                app.release_desktop(close_projects=True, close_desktop=True)
-                desktop_released = True
-                if args.port_type == "edge-gap":
-                    result["edb_port_patch"] = create_gap_edge_ports_in_edb(project_edb_path(project), layout, args)
-                    result["ports"] = ["Port1", "Port2"]
-                    result["saved_after_edb_patch"] = False
-                    continue_after_patch = not args.build_only
-                    if args.build_only:
-                        result["post_patch_reopen_skipped"] = "preserve_pyedb_edge_ports"
+    with aedt_automation_lock("simads.hfss.workflow.run_hfss") as lock_info:
+        app = Hfss3dLayout(
+            project=init_project,
+            design=args.design,
+            version=args.version,
+            non_graphical=args.non_graphical,
+            new_desktop=True,
+            close_on_exit=not args.keep_open,
+            remove_lock=True,
+        )
+        desktop_released = False
+        try:
+            result = build_hfss_layout_project(
+                app,
+                layout,
+                args,
+                project_path=project,
+                stackup_config=stackup_config,
+            ).to_dict()
+            result["layout"] = str(args.layout)
+            result["aedt_startup"] = startup_snapshot(settings)
+            result["aedt_lock"] = lock_info
+            if args.patch_edb_port_properties and args.port_type in {"edge-gap", "pin-gap"} and not args.skip_ports:
+                if args.keep_open:
+                    result["edb_port_patch"] = {"skipped": True, "reason": "keep_open"}
                 else:
-                    result["edb_port_patch"] = patch_gap_ports_in_edb(project_edb_path(project), args)
-                    continue_after_patch = True
-                if continue_after_patch:
-                    app = Hfss3dLayout(
-                        project=str(project),
-                        design=args.design,
-                        version=args.version,
-                        non_graphical=args.non_graphical,
-                        new_desktop=True,
-                        close_on_exit=True,
-                        remove_lock=True,
-                    )
-                    desktop_released = False
-                    app.modeler.model_units = "mm"
+                    app.release_desktop(close_projects=True, close_desktop=True)
+                    desktop_released = True
                     if args.port_type == "edge-gap":
-                        result["post_patch_reopened_for_solve"] = True
+                        result["edb_port_patch"] = create_gap_edge_ports_in_edb(project_edb_path(project), layout, args)
+                        result["ports"] = ["Port1", "Port2"]
+                        result["saved_after_edb_patch"] = False
+                        continue_after_patch = not args.build_only
+                        if args.build_only:
+                            result["post_patch_reopen_skipped"] = "preserve_pyedb_edge_ports"
                     else:
-                        result["saved_after_edb_patch"] = bool(app.save_project(str(project), overwrite=True))
-        if not args.build_only:
-            result.update(solve_and_export_hfss(app, layout, args).to_dict())
-        return result
-    finally:
-        if not args.keep_open and not desktop_released:
-            app.release_desktop(close_projects=True, close_desktop=True)
+                        result["edb_port_patch"] = patch_gap_ports_in_edb(project_edb_path(project), args)
+                        continue_after_patch = True
+                    if continue_after_patch:
+                        app = Hfss3dLayout(
+                            project=str(project),
+                            design=args.design,
+                            version=args.version,
+                            non_graphical=args.non_graphical,
+                            new_desktop=True,
+                            close_on_exit=True,
+                            remove_lock=True,
+                        )
+                        desktop_released = False
+                        app.modeler.model_units = "mm"
+                        if args.port_type == "edge-gap":
+                            result["post_patch_reopened_for_solve"] = True
+                        else:
+                            result["saved_after_edb_patch"] = bool(app.save_project(str(project), overwrite=True))
+            if not args.build_only:
+                result.update(solve_and_export_hfss(app, layout, args).to_dict())
+            return result
+        finally:
+            if not args.keep_open and not desktop_released:
+                app.release_desktop(close_projects=True, close_desktop=True)
 
 
 def parse_args() -> argparse.Namespace:

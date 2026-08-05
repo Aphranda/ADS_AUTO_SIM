@@ -7,6 +7,7 @@ import argparse
 import json
 import subprocess
 import sys
+import traceback
 from pathlib import Path
 from typing import Any
 
@@ -94,6 +95,38 @@ def object_names(items: Any) -> list[str]:
     return names
 
 
+def _safe_messages(app: Any, *, aedt_messages: bool) -> list[str]:
+    project_name = str(getattr(app, "project_name", "") or "")
+    design_name = str(getattr(app, "design_name", "") or "")
+    if aedt_messages:
+        try:
+            output: list[str] = []
+            desktop = getattr(app, "odesktop", None)
+            if desktop is not None:
+                output.extend(str(message) for message in desktop.GetMessages("", "", 0))
+                if project_name:
+                    output.extend(str(message) for message in desktop.GetMessages(project_name, "", 0))
+                if project_name and design_name:
+                    output.extend(str(message) for message in desktop.GetMessages(project_name, design_name, 0))
+            unique: list[str] = []
+            for message in output:
+                if message not in unique:
+                    unique.append(message)
+            return unique
+        except Exception as exc:
+            return [f"failed to read AEDT messages: {type(exc).__name__}: {exc}"]
+    try:
+        messages = app.logger.get_messages(
+            project_name,
+            design_name,
+            level=0,
+            aedt_messages=False,
+        )
+        return [str(message) for message in messages]
+    except Exception as exc:
+        return [f"failed to read messages: {type(exc).__name__}: {exc}"]
+
+
 def run(args: argparse.Namespace) -> dict[str, Any]:
     from ansys.aedt.core import Hfss3dLayout, settings
 
@@ -118,10 +151,13 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "setup": args.setup,
             "sweep": args.sweep,
             "analyze": not args.export_only,
+            "status": "running",
         }
         if not args.export_only:
-            app.analyze_setup(args.setup)
+            result["stage"] = "analyze_setup"
+            result["analyze_return"] = app.analyze_setup(args.setup)
         s2p = args.s2p or args.out_dir / f"{args.candidate}.s2p"
+        result["stage"] = "export_touchstone"
         exported = app.export_touchstone(
             setup=args.setup,
             sweep=args.sweep,
@@ -132,9 +168,30 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         s2p_path = Path(exported or s2p)
         result["s2p"] = str(s2p_path)
         if s2p_path.exists():
+            result["stage"] = "postprocess"
             score_csv = args.score_out or args.out_dir / f"{args.candidate}_score.csv"
             result["postprocess_profile"] = args.postprocess_profile
             result.update(run_post_tools(s2p_path, score_csv, args.out_dir, args.candidate, args.postprocess_profile))
+        result["status"] = "ok"
+        result["stage"] = "completed"
+        result["messages"] = _safe_messages(app, aedt_messages=False)
+        result["aedt_messages"] = _safe_messages(app, aedt_messages=True)
+        return result
+    except BaseException as exc:
+        result = {
+            "project": str(args.project),
+            "design": args.design,
+            "setup": args.setup,
+            "sweep": args.sweep,
+            "candidate": args.candidate,
+            "status": "failed",
+            "stage": locals().get("result", {}).get("stage", "unknown"),
+            "error_type": type(exc).__name__,
+            "error": str(exc),
+            "traceback": traceback.format_exc(),
+            "messages": _safe_messages(app, aedt_messages=False),
+            "aedt_messages": _safe_messages(app, aedt_messages=True),
+        }
         return result
     finally:
         if not args.keep_open:
@@ -164,11 +221,14 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    text = json.dumps(run(args), ensure_ascii=False, indent=2)
+    payload = run(args)
+    text = json.dumps(payload, ensure_ascii=False, indent=2)
     print(text)
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(text + "\n", encoding="utf-8")
+    if payload.get("status") == "failed":
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

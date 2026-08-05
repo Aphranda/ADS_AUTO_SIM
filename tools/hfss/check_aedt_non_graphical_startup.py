@@ -18,7 +18,12 @@ SRC_ROOT = REPO_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from simads.hfss.aedt_startup import apply_grpc_startup_compat, apply_pyaedt_settings, startup_snapshot
+from simads.hfss.aedt_startup import (
+    aedt_automation_lock,
+    apply_grpc_startup_compat,
+    apply_pyaedt_settings,
+    startup_snapshot,
+)
 
 apply_grpc_startup_compat()
 
@@ -67,29 +72,31 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
 
         apply_pyaedt_settings(settings)
         payload["aedt_startup"] = startup_snapshot(settings)
-        app = Hfss3dLayout(
-            project=str(args.project) if args.project else None,
-            design=args.design,
-            version=args.version,
-            non_graphical=args.non_graphical,
-            new_desktop=args.new_desktop,
-            close_on_exit=False,
-            remove_lock=args.remove_lock,
-        )
-        try:
-            payload.update(
-                {
-                    "status": "ok",
-                    "project_name": getattr(app, "project_name", None),
-                    "design_name": getattr(app, "design_name", None),
-                    "design_type": getattr(app, "design_type", None),
-                    "setup_names": list(getattr(app, "setup_names", []) or []),
-                    "port_list": list(getattr(app, "port_list", []) or []),
-                }
+        with aedt_automation_lock("check_aedt_non_graphical_startup") as lock_info:
+            payload["aedt_lock"] = lock_info
+            app = Hfss3dLayout(
+                project=str(args.project) if args.project else None,
+                design=args.design,
+                version=args.version,
+                non_graphical=args.non_graphical,
+                new_desktop=args.new_desktop,
+                close_on_exit=False,
+                remove_lock=args.remove_lock,
             )
-        finally:
-            if not args.keep_attached:
-                app.release_desktop(close_projects=args.close_projects, close_desktop=args.close_desktop)
+            try:
+                payload.update(
+                    {
+                        "status": "ok",
+                        "project_name": getattr(app, "project_name", None),
+                        "design_name": getattr(app, "design_name", None),
+                        "design_type": getattr(app, "design_type", None),
+                        "setup_names": list(getattr(app, "setup_names", []) or []),
+                        "port_list": list(getattr(app, "port_list", []) or []),
+                    }
+                )
+            finally:
+                if not args.keep_attached:
+                    app.release_desktop(close_projects=args.close_projects, close_desktop=args.close_desktop)
     except BaseException as exc:
         payload.update(
             {

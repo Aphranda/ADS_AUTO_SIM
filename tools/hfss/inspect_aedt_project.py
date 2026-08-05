@@ -20,7 +20,12 @@ _SRC_ROOT = Path(__file__).resolve().parents[2] / "src"
 if str(_SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(_SRC_ROOT))
 
-from simads.hfss.aedt_startup import apply_grpc_startup_compat, apply_pyaedt_settings, startup_snapshot
+from simads.hfss.aedt_startup import (
+    aedt_automation_lock,
+    apply_grpc_startup_compat,
+    apply_pyaedt_settings,
+    startup_snapshot,
+)
 
 apply_grpc_startup_compat()
 
@@ -327,53 +332,55 @@ def _create_app(args: argparse.Namespace, *, design: str | None = None) -> Any:
 
 
 def inspect_project(args: argparse.Namespace) -> dict[str, Any]:
-    app = _create_app(args, design=args.design[0] if args.app == "hfss" and args.design else None)
-    try:
-        all_designs = _design_names_from_app(app)
-        selected = [_clean_design_name(name) for name in args.design] if args.design else all_designs
-        payload: dict[str, Any] = {
-            "project": str(args.project),
-            "project_name": getattr(app, "project_name", None),
-            "active_design": getattr(app, "design_name", None),
-            "app": args.app,
-            "aedt_startup": startup_snapshot(),
-            "all_designs": all_designs,
-            "selected_designs": selected,
-            "designs": [],
-        }
-        if args.app == "hfss":
-            if not args.design:
-                payload["warning"] = "--app hfss works best with explicit --design for HFSS 3D connector designs."
-            for idx, design in enumerate(selected):
-                design_app = app if idx == 0 else _create_app(args, design=design)
-                try:
-                    payload["designs"].append(
-                        _inspect_design(
-                            design_app,
-                            design=design,
-                            include_objects=args.include_objects or args.include_properties,
-                            include_properties=args.include_properties,
-                            max_objects=args.max_objects,
+    with aedt_automation_lock("inspect_aedt_project") as lock_info:
+        app = _create_app(args, design=args.design[0] if args.app == "hfss" and args.design else None)
+        try:
+            all_designs = _design_names_from_app(app)
+            selected = [_clean_design_name(name) for name in args.design] if args.design else all_designs
+            payload: dict[str, Any] = {
+                "project": str(args.project),
+                "project_name": getattr(app, "project_name", None),
+                "active_design": getattr(app, "design_name", None),
+                "app": args.app,
+                "aedt_startup": startup_snapshot(),
+                "aedt_lock": lock_info,
+                "all_designs": all_designs,
+                "selected_designs": selected,
+                "designs": [],
+            }
+            if args.app == "hfss":
+                if not args.design:
+                    payload["warning"] = "--app hfss works best with explicit --design for HFSS 3D connector designs."
+                for idx, design in enumerate(selected):
+                    design_app = app if idx == 0 else _create_app(args, design=design)
+                    try:
+                        payload["designs"].append(
+                            _inspect_design(
+                                design_app,
+                                design=design,
+                                include_objects=args.include_objects or args.include_properties,
+                                include_properties=args.include_properties,
+                                max_objects=args.max_objects,
+                            )
                         )
+                    finally:
+                        if idx != 0 and not args.keep_attached:
+                            design_app.release_desktop(close_projects=False, close_desktop=False)
+            else:
+                payload["designs"] = [
+                    _inspect_design(
+                        app,
+                        design=design,
+                        include_objects=args.include_objects or args.include_properties,
+                        include_properties=args.include_properties,
+                        max_objects=args.max_objects,
                     )
-                finally:
-                    if idx != 0 and not args.keep_attached:
-                        design_app.release_desktop(close_projects=False, close_desktop=False)
-        else:
-            payload["designs"] = [
-                _inspect_design(
-                    app,
-                    design=design,
-                    include_objects=args.include_objects or args.include_properties,
-                    include_properties=args.include_properties,
-                    max_objects=args.max_objects,
-                )
-                for design in selected
-            ]
-        return payload
-    finally:
-        if not args.keep_attached:
-            app.release_desktop(close_projects=args.close_projects, close_desktop=args.close_desktop)
+                    for design in selected
+                ]
+            return payload
+        finally:
+            if not args.keep_attached:
+                app.release_desktop(close_projects=args.close_projects, close_desktop=args.close_desktop)
 
 
 def parse_args() -> argparse.Namespace:

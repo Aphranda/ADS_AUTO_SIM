@@ -20,7 +20,12 @@ _SRC_ROOT = Path(__file__).resolve().parents[2] / "src"
 if str(_SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(_SRC_ROOT))
 
-from simads.hfss.aedt_startup import apply_grpc_startup_compat, apply_pyaedt_settings, startup_snapshot
+from simads.hfss.aedt_startup import (
+    aedt_automation_lock,
+    apply_grpc_startup_compat,
+    apply_pyaedt_settings,
+    startup_snapshot,
+)
 from simads.hfss.layout import GeometryBuildOptions, _create_cutout_tool, _shape_net, _subtract_from_ground
 from simads.hfss.ports import (
     apply_aedt_edge_gap_port_template,
@@ -334,55 +339,57 @@ def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
     apply_pyaedt_settings(settings)
     payload["aedt_startup"] = startup_snapshot(settings)
 
-    app = Hfss3dLayout(
-        project=str(args.project),
-        design=args.design,
-        version=args.version,
-        non_graphical=args.non_graphical,
-        new_desktop=args.new_desktop,
-        close_on_exit=False,
-        remove_lock=args.remove_lock,
-    )
-    try:
-        payload["before_ports"] = _schematic_ports(app)
-        layout_editor = app.odesign.SetActiveEditor("Layout")
-        existing = _existing_layout_objects(app.modeler, layout_editor)
-        payload["existing_candidate_count"] = len(existing)
-        delete_existing = _resolve_existing_delete_names(existing, requested_delete)
-        payload["delete_existing_names"] = delete_existing
-        if delete_existing:
-            payload["delete_result"] = _delete_layout_objects(layout_editor, delete_existing)
-            if not payload["delete_result"]["ok"]:
-                payload["status"] = "delete_failed_no_create_no_save"
-                return payload
-        created: list[str] = []
-        cutout_tools: list[Any] = []
-        for shape in selected_shapes:
-            obj = _create_shape(app, shape, geometry)
-            if shape.get("kind") == "reference_ground_cutout":
-                if obj:
-                    cutout_tools.append(obj)
-                continue
-            if isinstance(obj, list):
-                created.extend(str(getattr(item, "name", item)) for item in obj)
-            elif obj:
-                created.append(str(getattr(obj, "name", obj)))
-        if cutout_tools:
-            _subtract_from_ground(app, geometry.ground_plane_name, cutout_tools)
-            created.extend(str(getattr(item, "name", item)) for item in cutout_tools)
-        payload["created_names"] = created
-        if args.recreate_pcb_output_port:
-            payload["pcb_output_port_delete"] = _delete_schematic_ports_by_name(app, list(args.delete_pcb_port_name))
-            app.odesign.SetActiveEditor("Layout")
-            payload["pcb_output_port_create"] = _create_pcb_output_port(app, layout, args)
-        payload["after_ports"] = _schematic_ports(app)
-        if args.save:
-            payload["saved"] = bool(app.save_project(str(args.project), overwrite=True))
-        payload["status"] = "replaced"
-        return payload
-    finally:
-        if not args.keep_attached:
-            app.release_desktop(close_projects=args.close_projects, close_desktop=args.close_desktop)
+    with aedt_automation_lock("replace_hfss3dlayout_layout_primitives") as lock_info:
+        payload["aedt_lock"] = lock_info
+        app = Hfss3dLayout(
+            project=str(args.project),
+            design=args.design,
+            version=args.version,
+            non_graphical=args.non_graphical,
+            new_desktop=args.new_desktop,
+            close_on_exit=False,
+            remove_lock=args.remove_lock,
+        )
+        try:
+            payload["before_ports"] = _schematic_ports(app)
+            layout_editor = app.odesign.SetActiveEditor("Layout")
+            existing = _existing_layout_objects(app.modeler, layout_editor)
+            payload["existing_candidate_count"] = len(existing)
+            delete_existing = _resolve_existing_delete_names(existing, requested_delete)
+            payload["delete_existing_names"] = delete_existing
+            if delete_existing:
+                payload["delete_result"] = _delete_layout_objects(layout_editor, delete_existing)
+                if not payload["delete_result"]["ok"]:
+                    payload["status"] = "delete_failed_no_create_no_save"
+                    return payload
+            created: list[str] = []
+            cutout_tools: list[Any] = []
+            for shape in selected_shapes:
+                obj = _create_shape(app, shape, geometry)
+                if shape.get("kind") == "reference_ground_cutout":
+                    if obj:
+                        cutout_tools.append(obj)
+                    continue
+                if isinstance(obj, list):
+                    created.extend(str(getattr(item, "name", item)) for item in obj)
+                elif obj:
+                    created.append(str(getattr(obj, "name", obj)))
+            if cutout_tools:
+                _subtract_from_ground(app, geometry.ground_plane_name, cutout_tools)
+                created.extend(str(getattr(item, "name", item)) for item in cutout_tools)
+            payload["created_names"] = created
+            if args.recreate_pcb_output_port:
+                payload["pcb_output_port_delete"] = _delete_schematic_ports_by_name(app, list(args.delete_pcb_port_name))
+                app.odesign.SetActiveEditor("Layout")
+                payload["pcb_output_port_create"] = _create_pcb_output_port(app, layout, args)
+            payload["after_ports"] = _schematic_ports(app)
+            if args.save:
+                payload["saved"] = bool(app.save_project(str(args.project), overwrite=True))
+            payload["status"] = "replaced"
+            return payload
+        finally:
+            if not args.keep_attached:
+                app.release_desktop(close_projects=args.close_projects, close_desktop=args.close_desktop)
 
 
 def parse_args() -> argparse.Namespace:
