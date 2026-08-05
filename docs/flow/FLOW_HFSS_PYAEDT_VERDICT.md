@@ -1,6 +1,6 @@
 # HFSS/pyAEDT Backend 流程
 
-Last updated: 2026-08-04
+Last updated: 2026-08-05
 
 ## 目标
 
@@ -25,6 +25,54 @@ Last updated: 2026-08-04
 - `.aedt` 文本读取只允许用于已保存工程的只读审计、差异分析和报告生成；只读脚本不得写回 `.aedt`、`.aedb` 或 `.aedtresults`。
 - 如果 API 修改失败，应记录失败命令、设计名、对象名和 AEDT 错误，再决定补 API adapter 或人工 GUI 操作；不得自动退回到字符串替换。
 - 真实 API 写入前必须备份 `.aedt`、`.aedb`、`.aedtresults`，同一 AEDT 工程必须串行操作，避免并行 gRPC/pyAEDT 会话。
+
+## Non-Graphical pyAEDT 稳定化和生命周期规则
+
+公司电脑默认不启动 AEDT GUI，HFSS 3D Layout 自动化通过 non-graphical gRPC session 执行。为避免 GUI 影响其它工作，所有连接器优化、版图替换、求解和导出脚本默认使用 `--non-graphical`，只有用户明确要求时才允许图形界面。
+
+当前兼容入口集中在 `src/simads/hfss/aedt_startup.py`：
+
+```text
+PYAEDT_USE_PRE_GRPC_ARGS=True
+grpc_secure_mode=False
+SIMADS_AEDT_WAIT_FOR_LICENSE=True
+SIMADS_AEDT_DESKTOP_TIMEOUT_S=300
+```
+
+`apply_grpc_startup_compat()` 必须在导入 PyAEDT AEDT app 类前调用；`apply_pyaedt_settings(settings)` 必须在创建 `Hfss3dLayout` 前调用。公司环境当前固定 `pyaedt==1.3.0` 和 AEDT `2026.1`，不要让 PyAEDT 版本随依赖安装漂移。
+
+HFSS 3D Layout gRPC 的稳定流程：
+
+- 创建 `Hfss3dLayout` 后立即登记 AEDT 进程生命周期监控，调用 `start_aedt_reaper(app, label=...)`。
+- 需要访问 setup/sweep、modeler、ports 或导出 Touchstone 前，先等待 design/modeler 完成加载；对大工程不要在 app 创建后立刻调用 `ExportNetworkData`。
+- 对 `export_touchstone` / `ExportNetworkData` 失败，优先按设计对象未加载完成、自动打开/上下文丢失、gRPC 返回空消息排查；不要先判断为端口或文件路径错误。
+- 导出 S 参数优先用稳定封装 `stable_export_touchstone()` 或已有 verdict/export 脚本，不在业务脚本里直接裸调用不带重试的导出。
+
+AEDT 进程回收规则：
+
+- 独立脚本为 `tools/hfss/reap_aedt_processes.py`。默认 dry-run，只列出候选；加 `--execute` 才会终止进程。
+- 自动化入口启动后会拉起隐藏 reaper：监控目标 AEDT PID 和父进程 PID，父进程退出并等待 grace 时间后才判断是否回收。
+- 默认只回收没有可见窗口的 `ansysedt.exe` / `ansysedtsv.exe`，防止误杀用户正在使用的 GUI。
+- 显式 `--keep-open` / `--keep-attached` 的调试场景只记录监控结果，不执行回收。
+- reaper 输出写入 `.simads\aedt_reaper\`；手动 dry-run 报告可写到 `projects\hfss_sma_connector\reports\aedt_reaper_dry_run_20260805.json`。
+
+当前已接入生命周期监控的入口：
+
+- `src/simads/hfss/workflow.py`
+- `tools/hfss/replace_hfss3dlayout_layout_primitives.py`
+- `tools/hfss/run_existing_hfss3dlayout_verdict.py`
+- `tools/hfss/check_aedt_non_graphical_startup.py`
+- `tools/hfss/inspect_aedt_project.py`
+
+验证记录：
+
+```text
+D:\Microsoft\Python\ads-automation\Scripts\python.exe -m pytest tests\test_hfss_connector.py
+结果：13 passed。
+
+D:\Microsoft\Python\ads-automation\Scripts\python.exe tools\hfss\reap_aedt_processes.py --output projects\hfss_sma_connector\reports\aedt_reaper_dry_run_20260805.json
+结果：dry_run，candidates=[]，eligible_pids=[]。
+```
 
 ## 建模策略
 

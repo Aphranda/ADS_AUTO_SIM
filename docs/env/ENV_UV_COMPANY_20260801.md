@@ -4,7 +4,7 @@ Status: Active
 Domain: ENV
 Canonical: `docs/env/ENV_UV_COMPANY_20260801.md`
 Related: `docs/arch/ARCH_REFACTOR_TODO.md`, `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`, `config/ads_profiles.json`
-Last updated: 2026-08-01
+Last updated: 2026-08-05
 Owner: ADS Automation
 
 本文档记录公司电脑 ADS 自动化 host Python 环境。家里电脑继续使用既有 `D:\Microsoft\uv-venvs\ads-automation\Scripts\python.exe`，不在本文档中修改。
@@ -67,6 +67,13 @@ SIMADS_AEDT_DESKTOP_TIMEOUT_S=300
 ```
 
 该入口会把 PyAEDT gRPC transport 从 WNUA 切到 INSECURE，避免公司机 non-graphical gRPC server 启动失败。
+
+2026-08-05 连接器 HFSS 自动化补充：
+
+- `src/simads/hfss/aedt_startup.py` 是公司机 non-graphical AEDT 启动唯一兼容入口；新脚本必须先调用 `apply_grpc_startup_compat()`，再导入或创建 PyAEDT AEDT app。
+- 每次创建 `Hfss3dLayout` 后应调用 `start_aedt_reaper(app, label=...)`，拉起隐藏生命周期监控。普通自动化退出后允许回收无可见窗口的目标 AEDT PID；`--keep-open` / `--keep-attached` 调试场景只记录，不执行回收。
+- 当前 reaper dry-run 报告为 `projects\hfss_sma_connector\reports\aedt_reaper_dry_run_20260805.json`，结果 `candidates=[]`、`eligible_pids=[]`。
+- 当前连接器仿真禁止启动 GUI，避免影响公司电脑其它工作；如需人工 GUI 确认，必须先在相关 workflow 文档或 manual intervention log 中记录原因、范围和影响。
 
 ## 验证结果
 

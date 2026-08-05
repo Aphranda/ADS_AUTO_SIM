@@ -4,7 +4,7 @@ Status: Draft
 Domain: PY
 Canonical: `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`
 Related: `docs/arch/ADS版图自动仿真项目框架设计.md`, `docs/env/ENV_ADS_API_CAPABILITY_MATRIX.md`, `projects/bfp_6_8g_i7_fr4/docs/ADS自动仿真流程说明.md`
-Last updated: 2026-08-04
+Last updated: 2026-08-05
 Owner: ADS Automation
 
 本文档用于管理 SIM 项目中的 Python 脚本。目标不是立即重构目录，而是先把脚本分层、可复用模块、运行环境和输入输出契约固定下来。
@@ -54,6 +54,14 @@ CLI 编排流程。
 | `make_next_filter_candidates.py` | host | experimental | 下一轮候选生成 | 与 optimizer 合并。 |
 | `patch_ads_substrate_pcvia.py` | ads | maintenance | substrate/via 修补 | 默认禁用，保留审计日志。 |
 | `tools/hfss/audit_connector_parameters.py` | host/pyaedt | candidate | HFSS 连接器 source/project/instance 参数审计和工程 `$sma_` 变量同步 | 保留为 HFSS connector gate；禁止文本写 `.aedt`，写入只能通过 PyAEDT/API 的 `--sync-project-variables --execute --save`。 |
+| `tools/hfss/replace_hfss3dlayout_layout_primitives.py` | host/pyaedt | stable | 在既有 HFSS 3D Layout 工程中只替换选定 PCB primitive，不触碰 schematic connector instance 和既有 IPort | 当前用于 `SINGLE_END_SMA_CPW_30MM` 连接器 launch 优化；默认 dry-run，真实写入需 `--execute --save`，并必须使用 PyAEDT/API，不允许文本修改 `.aedt`。 |
+| `tools/hfss/run_existing_hfss3dlayout_verdict.py` | host/pyaedt | stable | 对既有 HFSS 3D Layout design 执行 solve/export/postprocess，不重建版图 | 当前连接器仿真使用 `Setup_0p5to10G` / `Sweep_0p5to10G_96pt` 和 `connector_fullband_v1`；失败时输出 AEDT messages 和诊断 JSON。 |
+| `tools/hfss/reap_aedt_processes.py` | host | stable | 监控并回收 non-graphical AEDT 自动化残留进程 | 默认 dry-run；自动化入口通过 `start_aedt_reaper()` 按目标 PID 和父 PID 拉起隐藏监控，只回收无可见窗口进程，`--keep-open/--keep-attached` 场景不执行回收。 |
+| `tools/hfss/check_aedt_non_graphical_startup.py` | host/pyaedt | stable | 检查 AEDT non-graphical gRPC 启动、版本和项目/design 加载 | 使用 `aedt_startup.py` 的 gRPC 兼容入口和 reaper；输出启动参数、进程前后状态和错误栈。 |
+| `tools/hfss/inspect_aedt_project.py` | host/pyaedt | stable | 只读审计 AEDT project/design/port/object 信息 | `--backend file` 只读解析已保存 `.aedt`；`--backend pyaedt` 可非图形读取 live project，不得写回工程。 |
+| `tools/plot_connector_s_curves_svg.py` | host | stable | 绘制连接器全频带 S11/S21/S22 SVG | 使用连接器 0.5-10 GHz 全频带口径，不再标注滤波器 6-8 GHz passband。 |
+| `tools/plot_connector_before_after_svg.py` | host | candidate | 生成未优化/已优化 S 参数叠加 SVG | 未优化曲线使用淡色虚线，优化曲线使用实线；用于连接器报告，不用于滤波器报告。 |
+| `tools/analyze_connector_s2p.py` | host | stable | 连接器 S2P 独立评分和 Smith 指标提取 | 输出 `connector_fullband_v1`、`optimization_cost`、`connector_score`、`smith_z_*` 和 `smith_tuning_hint`，作为后续参数优化器主输入。 |
 
 ## 3. 可复用模块清单
 

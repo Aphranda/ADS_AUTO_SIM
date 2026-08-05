@@ -417,14 +417,27 @@ artifact_manifest
 
 ### Phase 3: 连接处参数优化
 
-- [ ] 建立首批 DoE 参数表：先覆盖 small pad、long taper、L2 cut-out、via relief，不超过 8 个候选。
-- [ ] 在 layout schema/generator 中增加 L2 reference-plane cut-out 字段和几何输出；实现前先在 plan 中登记参数，避免手工修改 AEDT。
-- [ ] 在 layout schema/generator 中增加高阻抗串联补偿段字段：`series_hi_z_enabled`、`series_hi_z_l_mm`、`series_hi_z_w_mm`、`series_hi_z_offset_x_mm`。
+- [x] 建立首批 DoE 参数表：先覆盖 small pad、long taper、L2 cut-out、via relief，不超过 8 个候选。
+- [x] 在 layout schema/generator 中增加 L2 reference-plane cut-out 字段和几何输出；实现前先在 plan 中登记参数，避免手工修改 AEDT。
+- [x] 在 layout schema/generator 中增加高阻抗串联补偿段字段：`series_hi_z_enabled`、`series_hi_z_l_mm`、`series_hi_z_w_mm`、`series_hi_z_offset_x_mm`。
 - [ ] 仅当 0.5-10 GHz 全频带内呈现稳定局部单峰失配时，再增加 stub 补偿字段：`stub_type`、`stub_l_mm`、`stub_w_mm`、`stub_offset_x_mm`；宽带首轮不默认启用 stub。
 - [ ] 先跑 `IDEAL_50R_CPW_30MM` 无连接器 baseline，再跑 `SINGLE_END_SMA_CPW_30MM` 当前连接器对比，生成 delta 指标。
-- [ ] 用 HFSS 批量运行微带线+连接器联合仿真候选。
+- [x] 用 HFSS 批量运行微带线+连接器联合仿真候选。
 - [ ] 基于 score 和 delta 指标生成下一批局部候选。
 - [ ] 判断对称设计和非对称补偿哪一种更优。
+
+2026-08-05 公司电脑优化迭代归档：
+
+- 当前公司工程为 `D:\Work\ADS\HFSS_VERDICT\hfss_sma_connector_cpw.aedt`，design 为 `SINGLE_END_SMA_CPW_30MM`，AEDT version 为 `2026.1`，host Python 为 `D:\Microsoft\Python\ads-automation\Scripts\python.exe`。
+- 本轮真实替换遵守“只替换 P1 PCB launch 版图，不动连接器和既有端口”的边界。保留连接器端口 `S1_1_Pin_T1` 与 PCB 远端端口 `Port1`；版图替换脚本默认不创建 P1 PCB 端口，只有显式 `--recreate-pcb-output-port` 时才重建 `output_feed/P2` 侧 PCB 端口。
+- `small_pad_l2_rect_same_anchor_a` 已完成非图形版图替换、求解和导出。结果路径为 `projects\hfss_sma_connector\simulations\single_end_connector_50r_30mm\results\small_pad_l2_rect_same_anchor_a\single_30mm_small_pad_l2_rect_same_anchor_a_score.csv`。
+- 当前最佳已求解候选为 `small_pad_l2_rect_same_anchor_a`：`optimization_cost=62.636`，`connector_score=37.364`，状态 `TUNE`；全频带最差回波为 `s22=-8.76 dB @ 7.3 GHz`，`s21_min=-3.07 dB`，`s21_avg=-1.09 dB`，`s21_ripple=2.96 dB`。
+- 对比历史候选，`small_pad_l2_rect_same_anchor_a` 明显优于 `small_pad_same_anchor_a` 和 `series_hi_z_same_anchor_a`，后两者 `optimization_cost` 约为 `150+`，不作为下一轮优先方向。
+- Smith 指标显示 `smith_z_r_min/max=0.50/1.76`、`smith_z_x_min/max=-0.80/0.71`，当前 tuning hint 为 `reduce_pad_capacitance_or_add_short_series_inductance`。下一轮仍按减小焊盘电容或极短串联高阻抗补偿推进，不引入 stub。
+- 因 L2 被挖空，已在 generator/schema/HFSS layout builder 中加入 `reference_ground_plane`，用于生成完整 L3 参考层。`small_pad_l2_rect_l3_same_anchor_a` 已生成 layout JSON、params JSON 和 SVG；SVG 展示 `L1 ETCH_TOP` 与 `L2 ETCH_INNER1`，并包含 `L3 ETCH_INNER2` 的 `l3_ground_plane`。
+- `small_pad_l2_rect_l3_same_anchor_a` 目前只完成 dry-run，尚未写入 AEDT 工程、尚未 solve。dry-run 报告为 `projects\hfss_sma_connector\reports\single_30mm_small_pad_l2_rect_l3_same_anchor_a_layout_only_local_dry_run_20260805.json`，选中对象包含 `p1_l2_cutout_rect` 与 `l3_ground_plane`，且未触碰 schematic connector instance 和 IPort。
+- 下次执行真实 L3 替换前必须先备份 `.aedt` 和 `.aedb`；`.aedtresults` 如存在锁定的 `.semaphore` 文件，可跳过该类临时锁文件。执行后跳过 Validate，直接按 `Setup_0p5to10G` / `Sweep_0p5to10G_96pt` 求解导出。
+- 后处理必须继续使用连接器独立评分 `connector_fullband_v1`，频段为 `0.5-10 GHz` 全频带，不再使用任何滤波器或 `6-8 GHz` passband 口径。
 
 ### Phase 4: 连接器高保真复核
 
