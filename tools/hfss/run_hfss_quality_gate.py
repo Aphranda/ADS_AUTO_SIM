@@ -61,6 +61,7 @@ DEFAULT_PYTEST_TARGETS = [
     "tests/test_hfss_script_classes.py",
     "tests/test_hfss_manifest_contracts.py",
     "tests/test_hfss_solve.py",
+    "tests/test_hfss_workflow_session.py",
     "tests/test_report_manifest.py",
     "tests/test_run_existing_hfss3dlayout_verdict.py",
 ]

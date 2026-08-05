@@ -4,10 +4,11 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import dataclass
 import json
 import time
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 from simads.config import StackupConfig, get_hfss_profile, hfss_profile_names
 from simads.runtime import (
@@ -23,12 +24,10 @@ from simads.hfss.artifacts import (
 from simads.hfss.build import build_hfss_layout_project
 from simads.hfss.connector_contract import connector_fixture_metadata
 from simads.hfss.aedt_startup import (
-    aedt_automation_lock,
+    OperationLifecycle,
     apply_grpc_startup_compat,
-    apply_pyaedt_settings,
     prepare_aedt_project_lock,
     start_aedt_reaper,
-    startup_snapshot,
 )
 from simads.hfss.layout_io import collect_layout_summary, configured_layout_id, load_layout
 from simads.hfss.manifest import (
@@ -51,12 +50,26 @@ from simads.hfss.ports import (
     resolve_port_edges,
 )
 from simads.hfss.solve import solve_and_export_hfss
+from simads.hfss.session import Hfss3dLayoutSessionConfig, open_hfss3dlayout_session
 
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 AEDT_VERSION = "2026.1"
 
 apply_grpc_startup_compat()
+
+
+@dataclass(frozen=True)
+class HfssWorkflowRuntime:
+    app_factory: Callable[..., Any]
+    settings: Any
+    session_opener: Callable[..., Any] = open_hfss3dlayout_session
+
+
+def _default_workflow_runtime() -> HfssWorkflowRuntime:
+    from ansys.aedt.core import Hfss3dLayout, settings
+
+    return HfssWorkflowRuntime(app_factory=Hfss3dLayout, settings=settings)
 
 
 def hfss_dry_run_payload(
@@ -130,10 +143,10 @@ def hfss_dry_run_payload(
 
 
 def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
-    from ansys.aedt.core import Hfss3dLayout, settings
+    return _run_hfss_with_runtime(args, _default_workflow_runtime())
 
-    apply_pyaedt_settings(settings)
 
+def _run_hfss_with_runtime(args: argparse.Namespace, runtime: HfssWorkflowRuntime) -> dict[str, Any]:
     apply_hfss_route_defaults(args)
     layout = load_layout(args.layout)
     stackup_config = stackup_config_from_args(args)
@@ -141,30 +154,31 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
     project = project_plan.project_path
     project_plan.ensure_directories(args.out_dir)
 
-    with aedt_automation_lock("simads.hfss.workflow.run_hfss") as lock_info:
-        project_lock = (
-            prepare_aedt_project_lock(project_plan.lock_project)
-            if project_plan.lock_project is not None
-            else {"action": "not_applicable", "reason": "new project"}
-        )
-        app = Hfss3dLayout(
-            project=project_plan.init_project,
-            design=project_plan.design,
-            version=args.version,
-            non_graphical=args.non_graphical,
-            new_desktop=True,
-            close_on_exit=not args.keep_open,
-            remove_lock=bool(project_lock.get("removed")),
-        )
-        aedt_reapers = [
-            start_aedt_reaper(
-                app,
-                label="simads_hfss_workflow_run_hfss_primary",
-                execute=not args.keep_open,
-                script_started=bool(args.non_graphical),
-            )
-        ]
-        desktop_released = False
+    lifecycle = OperationLifecycle("simads.hfss.workflow.run_hfss")
+    session_config = Hfss3dLayoutSessionConfig(
+        label="simads.hfss.workflow.run_hfss",
+        project=project_plan.init_project,
+        design=project_plan.design,
+        version=args.version,
+        non_graphical=args.non_graphical,
+        new_desktop=True,
+        close_on_exit=not args.keep_open,
+        keep_open=args.keep_open,
+        close_projects=True,
+        close_desktop=True,
+        wait_ready=True,
+        ready_setup=args.setup,
+        ready_sweep=args.sweep,
+    )
+    with runtime.session_opener(
+        session_config,
+        lifecycle,
+        app_factory=runtime.app_factory,
+        settings_obj=runtime.settings,
+    ) as session:
+        app = session.app
+        aedt_reapers = [session.aedt_reaper]
+        reopened_app: Any | None = None
         try:
             result = build_hfss_layout_project(
                 app,
@@ -174,16 +188,17 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
                 stackup_config=stackup_config,
             ).to_dict()
             result["layout"] = str(args.layout)
-            result["aedt_startup"] = startup_snapshot(settings)
-            result["aedt_lock"] = lock_info
-            result["project_lock"] = project_lock
+            result["aedt_startup"] = session.startup
+            result["aedt_lock"] = session.aedt_lock
+            result["project_lock"] = session.project_lock
             result["aedt_reapers"] = aedt_reapers
+            result["aedt_ready"] = session.aedt_ready
             if args.patch_edb_port_properties and args.port_type in {"edge-gap", "pin-gap"} and not args.skip_ports:
                 if args.keep_open:
                     result["edb_port_patch"] = {"skipped": True, "reason": "keep_open"}
                 else:
                     app.release_desktop(close_projects=True, close_desktop=True)
-                    desktop_released = True
+                    session.mark_desktop_released()
                     if args.port_type == "edge-gap":
                         result["edb_port_patch"] = create_gap_edge_ports_in_edb(project_edb_path(project), layout, args)
                         result["ports"] = ["Port1", "Port2"]
@@ -196,7 +211,7 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
                         continue_after_patch = True
                     if continue_after_patch:
                         result["post_patch_project_lock"] = prepare_aedt_project_lock(project)
-                        app = Hfss3dLayout(
+                        reopened_app = runtime.app_factory(
                             project=str(project),
                             design=project_plan.design,
                             version=args.version,
@@ -205,6 +220,7 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
                             close_on_exit=True,
                             remove_lock=bool(result["post_patch_project_lock"].get("removed")),
                         )
+                        app = reopened_app
                         aedt_reapers.append(
                             start_aedt_reaper(
                                 app,
@@ -213,7 +229,6 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
                                 script_started=bool(args.non_graphical),
                             )
                         )
-                        desktop_released = False
                         app.modeler.model_units = "mm"
                         if args.port_type == "edge-gap":
                             result["post_patch_reopened_for_solve"] = True
@@ -223,8 +238,8 @@ def run_hfss(args: argparse.Namespace) -> dict[str, Any]:
                 result.update(solve_and_export_hfss(app, layout, args).to_dict())
             return result
         finally:
-            if not args.keep_open and not desktop_released:
-                app.release_desktop(close_projects=True, close_desktop=True)
+            if reopened_app is not None and not args.keep_open:
+                reopened_app.release_desktop(close_projects=True, close_desktop=True)
 
 
 def parse_args() -> argparse.Namespace:

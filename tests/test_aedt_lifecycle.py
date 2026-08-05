@@ -177,6 +177,41 @@ def test_open_hfss3dlayout_session_releases_lock_when_desktop_release_fails(tmp_
     assert calls == ["lock_enter", "app_init", "release_desktop", "lock_exit"]
 
 
+def test_open_hfss3dlayout_session_skips_release_after_manual_release_mark(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    calls: list[str] = []
+
+    class FakeLock:
+        def __enter__(self):
+            calls.append("lock_enter")
+            return {"label": "unit_session"}
+
+        def __exit__(self, exc_type, exc, tb):
+            calls.append("lock_exit")
+
+    class FakeApp:
+        def __init__(self, **kwargs):
+            calls.append("app_init")
+
+        def release_desktop(self, **kwargs):
+            calls.append("release_desktop")
+
+    monkeypatch.setattr(hfss_session, "apply_pyaedt_settings", lambda settings: None)
+    monkeypatch.setattr(hfss_session, "startup_snapshot", lambda settings: {})
+    monkeypatch.setattr(hfss_session, "aedt_automation_lock", lambda label: FakeLock())
+    monkeypatch.setattr(hfss_session, "prepare_aedt_project_lock", lambda *args, **kwargs: {"removed": False})
+    monkeypatch.setattr(hfss_session, "start_aedt_reaper", lambda app, **kwargs: {})
+    monkeypatch.setattr(hfss_session, "wait_for_hfss3dlayout_ready", lambda app, **kwargs: {})
+
+    lifecycle = OperationLifecycle("unit_session", output=tmp_path / "events.jsonl")
+    config = Hfss3dLayoutSessionConfig(label="unit_session", project=tmp_path / "unit.aedt")
+
+    with open_hfss3dlayout_session(config, lifecycle, app_factory=FakeApp, settings_obj=object()) as session:
+        session.app.release_desktop(close_projects=True, close_desktop=True)
+        session.mark_desktop_released()
+
+    assert calls == ["lock_enter", "app_init", "release_desktop", "lock_exit"]
+
+
 def test_reaper_dry_run_records_timing_and_create_time_guard(tmp_path: Path) -> None:
     pytest.importorskip("psutil")
     reaper = _load_reaper_module()

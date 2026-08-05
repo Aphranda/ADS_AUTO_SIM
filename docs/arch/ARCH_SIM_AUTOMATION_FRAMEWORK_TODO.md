@@ -61,6 +61,7 @@ Last updated: 2026-08-06
   - [x] 将 `rebuild_connector_pin_iports.py` 收敛到 `hfss.port_plans`，保留为多端口批量 wrapper。
   - [x] 增加 connector port 验收报告：layout ports、schematic IPorts、wire ids、ConnectionPoints、component-pin-only rejected 列表。
   - [x] 新增 `hfss.project`，集中 project path、project_action、reuse/init_project 和锁对象选择的纯计划逻辑。
+  - [x] 将 `workflow.py` 主 AEDT 生命周期收敛到 `hfss.session`，EDB patch/reopen 分支保留 API 流程并固定 release 语义。
 
 - [x] 将 `src/simads/hfss/workflow.py` 拆成更细模块。
   - [x] `layout_io.py`: layout JSON 读取、配置化 layout id、摘要。

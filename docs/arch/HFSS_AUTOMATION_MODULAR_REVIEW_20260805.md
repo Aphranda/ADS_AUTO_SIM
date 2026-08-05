@@ -447,3 +447,31 @@ python tools\hfss\run_hfss_quality_gate.py --profile home --output .simads\gates
 ```
 
 结果：project/manifest/build/gate 快速测试 10 passed；完整 gate 通过，HFSS 相关 pytest 56 passed，AEDT 2026.1 non-graphical smoke 通过，完整 gate elapsed 20.913 s。
+
+## 当前第十四步修改
+
+本轮完成 `workflow.py` 主 AEDT 生命周期收敛：
+
+- `src/simads/hfss/session.py`
+  - `Hfss3dLayoutSession` 新增 `mark_desktop_released()`，用于 EDB patch 等必须由调用方先释放 desktop 的流程。
+  - session context 在退出时识别该标记，避免重复调用 `release_desktop()`，但仍保证 automation lock 释放。
+- `src/simads/hfss/workflow.py`
+  - `run_hfss()` 改为通过 `HfssWorkflowRuntime` 调用 `_run_hfss_with_runtime()`，默认运行时仍使用 PyAEDT `Hfss3dLayout` 和 `settings`。
+  - 主 AEDT 会话统一走 `open_hfss3dlayout_session()`，集中 lock、project lock、PyAEDT settings、ready、reaper 和 release。
+  - EDB port patch 后的 reopen 分支保留 API 重开工程流程；主 app 已释放时显式标记 session，重开 app 由 workflow finally 释放。
+- `tools/hfss/run_hfss_quality_gate.py`
+  - 新增 `tests/test_hfss_workflow_session.py` 到默认 HFSS pytest gate。
+- `tests/test_aedt_lifecycle.py` / `tests/test_hfss_workflow_session.py`
+  - 覆盖手动 release 标记会跳过 session final release。
+  - 覆盖 workflow 主路径通过 session opener 获取 app 和元数据。
+  - 闭环评审后补充 EDB patch/reopen 分支测试，固定主 app 标记释放、重开 app 保存和最终释放行为。
+
+已验证：
+
+```text
+python -m py_compile src\simads\hfss\session.py src\simads\hfss\workflow.py tools\hfss\run_hfss_quality_gate.py tests\test_aedt_lifecycle.py tests\test_hfss_workflow_session.py
+python -m pytest tests\test_aedt_lifecycle.py tests\test_hfss_workflow_session.py tests\test_hfss_quality_gate.py
+python tools\hfss\run_hfss_quality_gate.py --profile home --output .simads\gates\hfss_quality_gate_latest.json
+```
+
+结果：快速测试 15 passed；完整 gate 通过，HFSS 相关 pytest 59 passed，AEDT 2026.1 non-graphical smoke 通过，完整 gate elapsed 29.917 s。

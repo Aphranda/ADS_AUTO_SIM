@@ -51,6 +51,10 @@ class Hfss3dLayoutSession:
     project_lock: dict[str, Any] | None
     aedt_reaper: dict[str, Any] | None
     aedt_ready: dict[str, Any] | None
+    desktop_released: bool = False
+
+    def mark_desktop_released(self) -> None:
+        self.desktop_released = True
 
     def metadata(self) -> dict[str, Any]:
         return {
@@ -95,6 +99,7 @@ def open_hfss3dlayout_session(
     project_lock: dict[str, Any] | None = None
     aedt_reaper: dict[str, Any] | None = None
     aedt_ready: dict[str, Any] | None = None
+    session: Hfss3dLayoutSession | None = None
     try:
         with lifecycle.timed("acquire_aedt_automation_lock"):
             lock_cm = aedt_automation_lock(config.label)
@@ -136,7 +141,7 @@ def open_hfss3dlayout_session(
                     timeout_s=config.ready_timeout_s,
                     settle_s=config.ready_settle_s,
                 )
-        yield Hfss3dLayoutSession(
+        session = Hfss3dLayoutSession(
             app=app,
             startup=startup,
             aedt_lock=aedt_lock,
@@ -144,9 +149,11 @@ def open_hfss3dlayout_session(
             aedt_reaper=aedt_reaper,
             aedt_ready=aedt_ready,
         )
+        yield session
     finally:
         try:
-            if app is not None and not config.keep_open:
+            desktop_released = bool(session and session.desktop_released)
+            if app is not None and not config.keep_open and not desktop_released:
                 with lifecycle.timed("release_desktop"):
                     app.release_desktop(close_projects=config.close_projects, close_desktop=config.close_desktop)
         finally:
