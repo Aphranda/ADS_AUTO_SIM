@@ -1,0 +1,100 @@
+{
+    "schema_version":  "1.1",
+    "project_id":  "sp8t_real_board_hfss",
+    "baseline_id":  "RF_IN_cutout_100pF_20260806",
+    "created_date":  "2026-08-06",
+    "validity":  {
+                     "status":  "valid",
+                     "ac_coupling_capacitance":  "100pF",
+                     "supersedes":  "RF_IN_cutout_100nF_invalid"
+                 },
+    "source":  {
+                   "hfss_project":  "F:/1.Hardware/HFSS/SP8T/SP8T_HFSS.aedt",
+                   "design":  "RF_IN_cutout",
+                   "setup":  "Setup1",
+                   "sweep":  "Sweep1",
+                   "ports":  [
+                                 "Port1",
+                                 "S1_1_Pin_T1"
+                             ],
+                   "run_record":  ".simads/sp8t/RF_IN_cutout_100pF_run_with_tdr.json",
+                   "run_command":  "D:/Microsoft/uv-venvs/ads-automation/Scripts/python.exe tools/hfss/run_existing_hfss3dlayout_verdict.py --project F:/1.Hardware/HFSS/SP8T/SP8T_HFSS.aedt --design RF_IN_cutout --setup Setup1 --sweep Sweep1 --candidate RF_IN_cutout_100pF --out-dir projects/sp8t_real_board_hfss/results/rf_in_cutout/RF_IN_cutout_100pF --output .simads/sp8t/RF_IN_cutout_100pF_run_with_tdr.json --postprocess-profile connector --scoring-profile-id sma_launch_fullband_0p5_10g_v1"
+               },
+    "metrics":  {
+                    "status":  "TUNE",
+                    "connector_score":  22.21,
+                    "optimization_cost":  77.79,
+                    "s21_min_0p5_10g_db":  -1.38,
+                    "s21_avg_0p5_10g_db":  -0.54,
+                    "s21_ripple_0p5_10g_db":  1.31,
+                    "worst_return_0p5_10g_db":  -13.5,
+                    "worst_return_param":  "s11",
+                    "worst_return_freq_ghz":  3.55,
+                    "worst_s11_0p5_10g_db":  -13.5,
+                    "worst_s22_0p5_10g_db":  -15.11,
+                    "s21_8g_db":  -0.743399,
+                    "s11_8g_db":  -18.767,
+                    "s22_8g_db":  -17.3464,
+                    "smith_z_r_min_0p5_10g":  0.65,
+                    "smith_z_r_max_0p5_10g":  1.38,
+                    "smith_z_x_min_0p5_10g":  -0.36,
+                    "smith_z_x_max_0p5_10g":  0.31,
+                    "smith_tuning_hint":  "mixed_impedance_track_check_local_resonance"
+                },
+    "tdr_summary":  {
+                        "method":  "band-limited inverse FFT of Touchstone S11/S22; 0.5-10GHz input data; z0=50ohm; time_max=5ns; low_frequency_fill=hold",
+                        "s11_z_min_ohm":  41.4704921,
+                        "s11_z_min_time_ns":  0.078125,
+                        "s11_z_max_ohm":  56.3003643,
+                        "s11_z_max_time_ns":  4.99023438,
+                        "s22_z_min_ohm":  41.5289224,
+                        "s22_z_min_time_ns":  0.13671875,
+                        "s22_z_max_ohm":  55.2003618,
+                        "s22_z_max_time_ns":  4.93164063
+                    },
+    "diagnosis":  {
+                      "primary_issue":  "3.55GHz localized RF_IN mismatch/resonance remains after correcting AC coupling to 100pF",
+                      "smith_evidence":  "At 3.55GHz S11 maps to normalized Zin about 0.65+j0.03, roughly 32.6+j1.5ohm, indicating low-resistance launch mismatch rather than a simple 8GHz-only defect.",
+                      "tdr_evidence":  "Band-limited TDR shows early input-side low impedance dip around 0.078ns to about 41.47ohm.",
+                      "next_analysis":  [
+                                            "correlate 3.55GHz S11/S21 event with local launch geometry",
+                                            "compare S11/S22 Smith trajectories for asymmetry",
+                                            "extract RF_IN_cutout layout through AEDT/PyAEDT API for geometry-localized candidate generation"
+                                        ]
+                  },
+    "artifacts":  {
+                      "s2p":  {
+                                  "path":  "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100pF/RF_IN_cutout_100pF.s2p",
+                                  "sha256":  "4E29D79B10F408E95C38CE2D35E46EF8449B9B4BD4CCC1A602B85A1C278C224E"
+                              },
+                      "score_csv":  {
+                                        "path":  "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100pF/RF_IN_cutout_100pF_score.csv",
+                                        "sha256":  "383602F5C5FC0963C0CDD5FBA5DC94B96B6E65A868995DA030D62F8941CC1F46"
+                                    },
+                      "trace_csv":  {
+                                        "path":  "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100pF/RF_IN_cutout_100pF_trace.csv",
+                                        "sha256":  "DAD18770DC3F66661D006688EE2D3D83E426723B9BF4E2DD8AD9FDEBC944F307"
+                                    },
+                      "tdr_csv":  {
+                                      "path":  "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100pF/RF_IN_cutout_100pF_tdr.csv",
+                                      "sha256":  "4C988462C56F2FBB36AF007F96744C95D614929995283078002237BC9E72C6FB"
+                                  },
+                      "s_curves_svg":  {
+                                           "path":  "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100pF/svg/RF_IN_cutout_100pF_s_curves.svg",
+                                           "sha256":  "1D930B5A3026388EF96C15AADA0B31C058124BCF23CFECBAEC892B2D8A939A78"
+                                       },
+                      "smith_svg":  {
+                                        "path":  "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100pF/svg/RF_IN_cutout_100pF_smith.svg",
+                                        "sha256":  "ECB841C9A3FAF6A3A1613CAA9C4BD4C9E7E6DDBE0E45F8DD48A1F2588A24FF3F"
+                                    },
+                      "tdr_svg":  {
+                                      "path":  "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100pF/svg/RF_IN_cutout_100pF_tdr.svg",
+                                      "sha256":  "895053C37F3628E52EE62A1C07971D45CB7BB59BF8782E8F009C1CC97826DC05"
+                                  }
+                  },
+    "freeze_policy":  {
+                          "baseline_artifacts_are_read_only":  true,
+                          "new_candidates_must_write_under":  "projects/sp8t_real_board_hfss/results/rf_in_cutout/\u003ccandidate_id\u003e",
+                          "do_not_overwrite_source_hfss_project_without_explicit_user_request":  true
+                      }
+}

@@ -1,8 +1,13 @@
 {
   "schema_version": "1.0",
   "project_id": "sp8t_real_board_hfss",
-  "baseline_id": "RF_IN_cutout_20260806",
+  "baseline_id": "RF_IN_cutout_100nF_invalid_20260806",
   "created_date": "2026-08-06",
+  "validity": {
+    "status": "invalid",
+    "reason": "AC coupling capacitance was configured as 100nF; corrected active baseline uses 100pF.",
+    "superseded_by": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100pF/baseline_manifest.json"
+  },
   "source": {
     "hfss_project": "F:/1.Hardware/HFSS/SP8T/SP8T_HFSS.aedt",
     "design": "RF_IN_cutout",
@@ -35,23 +40,23 @@
   },
   "artifacts": {
     "s2p": {
-      "path": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout/RF_IN_cutout.s2p",
+      "path": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100nF_invalid/RF_IN_cutout.s2p",
       "sha256": "857EBA0A8E1F7C8DF978FABDBD2BA9ADDAE448815BA2E4448B82D5CDD743BE9D"
     },
     "score_csv": {
-      "path": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout/RF_IN_cutout_score.csv",
+      "path": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100nF_invalid/RF_IN_cutout_score.csv",
       "sha256": "E8B4439B551174419FF2B2E3EA3C67582842CA5C2A0532C9BC6AACCD79827F79"
     },
     "trace_csv": {
-      "path": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout/RF_IN_cutout_trace.csv",
+      "path": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100nF_invalid/RF_IN_cutout_trace.csv",
       "sha256": "93248C53D75A082BC5B9EABC4A91FCC53448C88A2121F5AB23931B52A85FF79F"
     },
     "s_curves_svg": {
-      "path": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout/svg/RF_IN_cutout_s_curves.svg",
+      "path": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100nF_invalid/svg/RF_IN_cutout_s_curves.svg",
       "sha256": "9A756A1F82F56D9906F5B6A1DD3BB2676BA63EA81E38E042EEFB9C491FF32C26"
     },
     "smith_svg": {
-      "path": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout/svg/RF_IN_cutout_smith.svg",
+      "path": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100nF_invalid/svg/RF_IN_cutout_smith.svg",
       "sha256": "50B8F9DF10A2466BFDBFD543B22D8DEE9970799B2678A3DF896F78E0824F7DE2"
     }
   },

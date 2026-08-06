@@ -163,6 +163,27 @@ def run_post_tools(
         ]
         _run_hidden(smith_command, lifecycle=lifecycle, operation="plot_smith_svg", tool=smith_plotter)
         artifacts["smith_svg"] = str(smith_svg)
+        tdr_csv = svg_dir.parent / f"{candidate}_tdr.csv"
+        tdr_svg = svg_dir / f"{candidate}_tdr.svg"
+        tdr_plotter = "plot_connector_tdr_svg.py"
+        tdr_command = [
+            sys.executable,
+            str(REPO_ROOT / "tools" / tdr_plotter),
+            str(s2p),
+            "--csv-out",
+            str(tdr_csv),
+            "--svg-out",
+            str(tdr_svg),
+            "--title",
+            f"{candidate} band-limited TDR",
+            "--z0-ohm",
+            "50",
+            "--time-max-ns",
+            "5",
+        ]
+        _run_hidden(tdr_command, lifecycle=lifecycle, operation="plot_tdr_svg", tool=tdr_plotter)
+        artifacts["tdr_csv"] = str(tdr_csv)
+        artifacts["tdr_svg"] = str(tdr_svg)
     return artifacts
 
 

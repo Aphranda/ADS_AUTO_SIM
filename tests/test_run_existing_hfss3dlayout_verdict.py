@@ -39,11 +39,16 @@ def test_connector_postprocess_writes_smith_artifact(tmp_path: Path, monkeypatch
     )
 
     assert result["smith_svg"] == str(out_dir / "svg" / "case_smith.svg")
-    assert len(commands) == 3
+    assert result["tdr_csv"] == str(out_dir / "case_tdr.csv")
+    assert result["tdr_svg"] == str(out_dir / "svg" / "case_tdr.svg")
+    assert len(commands) == 4
     assert commands[0][1].endswith("analyze_connector_s2p.py")
     assert commands[1][1].endswith("plot_connector_s_curves_svg.py")
     assert commands[2][1].endswith("plot_connector_smith_svg.py")
     assert commands[2][commands[2].index("--out") + 1] == str(out_dir / "svg" / "case_smith.svg")
+    assert commands[3][1].endswith("plot_connector_tdr_svg.py")
+    assert commands[3][commands[3].index("--csv-out") + 1] == str(out_dir / "case_tdr.csv")
+    assert commands[3][commands[3].index("--svg-out") + 1] == str(out_dir / "svg" / "case_tdr.svg")
 
 
 def test_filter_postprocess_does_not_write_smith_artifact(tmp_path: Path, monkeypatch) -> None:

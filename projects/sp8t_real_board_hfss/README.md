@@ -38,31 +38,38 @@ tool.
 
 Baseline artifacts are frozen under:
 
-`projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout/`
+`projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100pF/`
 
 Current baseline summary:
 
 - Status: `TUNE`
-- Connector score: `32.188`
-- S21 min 0.5-10G: `-1.46 dB`
-- S21 avg 0.5-10G: `-0.45 dB`
-- S21 ripple 0.5-10G: `1.41 dB`
-- Worst return: `S11 = -11.46 dB @ 3.55 GHz`
-- 8 GHz: `S11=-21.01 dB`, `S21=-0.53 dB`, `S22=-23.59 dB`
-- Smith hint: `reduce_series_inductance_or_recover_local_capacitance`
+- AC coupling: `100 pF`
+- Connector score: `22.210`
+- S21 min 0.5-10G: `-1.38 dB`
+- S21 avg 0.5-10G: `-0.54 dB`
+- S21 ripple 0.5-10G: `1.31 dB`
+- Worst return: `S11 = -13.50 dB @ 3.55 GHz`
+- 8 GHz: `S11=-18.77 dB`, `S21=-0.74 dB`, `S22=-17.35 dB`
+- Smith hint: `mixed_impedance_track_check_local_resonance`
+- TDR: input-side low impedance dip is about `41.47 ohm @ 0.078 ns`
+
+The earlier `100 nF` run is archived under
+`projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100nF_invalid/`
+and must not be used as the active optimization baseline.
 
 ## Run Command
 
 ```powershell
 D:\Microsoft\uv-venvs\ads-automation\Scripts\python.exe tools\hfss\run_existing_hfss3dlayout_verdict.py `
-  --project "D:\Work\ADS\SP8T\SP8T_HFSS.aedt" `
+  --project "F:\1.Hardware\HFSS\SP8T\SP8T_HFSS.aedt" `
   --design ppa_rf_cutout_RF_IN `
   --setup Setup1 `
   --sweep Sweep1 `
-  --candidate ppa_rf_cutout_RF_IN `
-  --out-dir projects\sp8t_real_board_hfss\results\rf_in_launch\ppa_rf_cutout_RF_IN `
-  --output .simads\sp8t\ppa_rf_cutout_RF_IN_run.json `
-  --postprocess-profile connector
+  --candidate RF_IN_cutout_100pF `
+  --out-dir projects\sp8t_real_board_hfss\results\rf_in_cutout\RF_IN_cutout_100pF `
+  --output .simads\sp8t\RF_IN_cutout_100pF_run_with_tdr.json `
+  --postprocess-profile connector `
+  --scoring-profile-id sma_launch_fullband_0p5_10g_v1
 ```
 
 ## Optimization Direction
@@ -76,3 +83,4 @@ Primary first-pass knobs:
 - L2/L3 RF_IN launch relief shape and length.
 - Local microstrip compensation to pull the launch trajectory toward 50 ohm on the Smith chart.
 - Ground/via continuity near connector feet, while avoiding excessive complete GND plane under the launch pad.
+- Use S-parameters, Smith chart, and band-limited TDR together to localize the remaining 3.55 GHz resonance before changing geometry.

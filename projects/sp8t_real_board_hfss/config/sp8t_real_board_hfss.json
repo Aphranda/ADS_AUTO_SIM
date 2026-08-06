@@ -11,5 +11,8 @@
   },
   "setup": "Setup1",
   "sweep": "Sweep1",
-  "baseline_result": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout/RF_IN_cutout_score.csv"
+  "baseline_result": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100pF/RF_IN_cutout_100pF_score.csv",
+  "baseline_s2p": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100pF/RF_IN_cutout_100pF.s2p",
+  "baseline_tdr": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100pF/RF_IN_cutout_100pF_tdr.csv",
+  "baseline_manifest": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100pF/baseline_manifest.json"
 }
