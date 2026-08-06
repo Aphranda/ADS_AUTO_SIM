@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "scoring_system": "filter",
+  "profile_id": "ro4350_strict",
+  "name": "RO4350 strict 6-8 GHz bandpass target",
+  "score_version": "ro4350_strict_v1",
+  "frequency_ghz": {
+    "stop_low_probe": 5.0,
+    "passband_start": 6.0,
+    "passband_center": 7.0,
+    "passband_stop": 8.0,
+    "stop_high_probe": 9.0
+  },
+  "targets": {
+    "s21_5g_max_db": -45.0,
+    "s21_6g_min_db": -3.0,
+    "s21_8g_min_db": -3.0,
+    "passband_min_s21_db": -3.5,
+    "passband_max_ripple_db": 3.0,
+    "passband_worst_return_loss_db": -10.0
+  }
+}

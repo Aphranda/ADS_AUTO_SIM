@@ -8,6 +8,7 @@ from pathlib import Path
 
 
 CONNECTOR_SCORE_VERSION = "connector_fullband_v1"
+CONNECTOR_BASELINE_SCORE_VERSION = "connector_fullband_v2_baseline_relative"
 S2P_ORDER = ("s11", "s21", "s12", "s22")
 UNIT_SCALE = {"HZ": 1e-9, "KHZ": 1e-6, "MHZ": 1e-3, "GHZ": 1.0}
 
@@ -22,11 +23,20 @@ class ConnectorScoreProfile:
     target_s21_avg_db: float = -0.75
     target_s21_ripple_db: float = 1.0
     target_balance_db: float = 1.5
+    good_return_db: float = -20.0
+    score_return_db: float = -15.0
+    target_max_extra_il_db: float = 0.5
+    target_avg_extra_il_db: float = 0.25
+    target_extra_il_ripple_db: float = 0.5
+    target_weighted_balance_db: float = 1.0
     pass_worst_return_db: float = -15.0
     pass_s21_min_db: float = -1.0
     pass_s21_avg_db: float = -0.5
     pass_s21_ripple_db: float = 0.75
     pass_balance_db: float = 1.0
+    pass_max_extra_il_db: float = 0.35
+    pass_avg_extra_il_db: float = 0.15
+    pass_extra_il_ripple_db: float = 0.35
 
 
 DEFAULT_CONNECTOR_SCORE_PROFILE = ConnectorScoreProfile()
@@ -125,6 +135,28 @@ def _penalty_excess(value: float, target: float, weight: float) -> float:
     return max(0.0, value - target) * weight
 
 
+def _return_weight(worst_return: float, profile: ConnectorScoreProfile) -> float:
+    span = profile.target_worst_return_db - profile.good_return_db
+    if span <= 0.0:
+        return 1.0
+    return min(1.0, max(0.0, (worst_return - profile.good_return_db) / span))
+
+
+def _weighted_return_balance(s11: list[float], s22: list[float], profile: ConnectorScoreProfile) -> float:
+    values = []
+    for left, right in zip(s11, s22):
+        worst_return = max(left, right)
+        values.append(abs(left - right) * _return_weight(worst_return, profile))
+    return max(values) if values else float("nan")
+
+
+def _baseline_s21_at_freqs(
+    baseline_samples: list[dict[str, complex | float]],
+    freqs_ghz: list[float],
+) -> list[float]:
+    return [interp_db(baseline_samples, freq, "s21") for freq in freqs_ghz]
+
+
 def _smith_hint(z_values: list[complex]) -> str:
     if not z_values:
         return "smith_data_missing"
@@ -149,6 +181,8 @@ def score_samples(
     samples: list[dict[str, complex | float]],
     source: str,
     profile: ConnectorScoreProfile = DEFAULT_CONNECTOR_SCORE_PROFILE,
+    baseline_samples: list[dict[str, complex | float]] | None = None,
+    baseline_source: str | None = None,
 ) -> dict[str, str]:
     if not samples:
         raise ValueError(f"no S-parameter samples found in {source}")
@@ -159,6 +193,7 @@ def score_samples(
     s21 = [db(complex(row["s21"])) for row in band]
     s11 = [db(complex(row["s11"])) for row in band]
     s22 = [db(complex(row["s22"])) for row in band]
+    freqs = [float(row["freq_ghz"]) for row in band]
     s21_min = min(s21)
     s21_avg = sum(s21) / len(s21)
     s21_ripple = max(s21) - s21_min
@@ -168,6 +203,7 @@ def score_samples(
     worst_return = max(worst_s11, worst_s22)
     worst_return_freq = float(max(band, key=lambda row: db(complex(row[worst_return_param])))["freq_ghz"])
     balance = max(abs(left - right) for left, right in zip(s11, s22))
+    weighted_balance = _weighted_return_balance(s11, s22, profile)
 
     zin_values = [normalized_z(complex(row["s11"])) for row in band]
     zout_values = [normalized_z(complex(row["s22"])) for row in band]
@@ -175,32 +211,72 @@ def score_samples(
     r_values = [value.real for value in z_values]
     x_values = [value.imag for value in z_values]
 
-    optimization_cost = (
-        _penalty_excess(worst_return, profile.target_worst_return_db, 12.0)
-        + _penalty_shortfall(profile.target_s21_min_db, s21_min, 10.0)
-        + _penalty_shortfall(profile.target_s21_avg_db, s21_avg, 8.0)
-        + _penalty_excess(s21_ripple, profile.target_s21_ripple_db, 7.0)
-        + _penalty_excess(balance, profile.target_balance_db, 4.0)
-    )
+    baseline_s21: list[float] | None = None
+    extra_il: list[float] = []
+    max_extra_il = float("nan")
+    avg_extra_il = float("nan")
+    extra_il_ripple = float("nan")
+    if baseline_samples is not None:
+        baseline_s21 = _baseline_s21_at_freqs(baseline_samples, freqs)
+        extra_il = [base - candidate for base, candidate in zip(baseline_s21, s21)]
+        max_extra_il = max(extra_il)
+        avg_extra_il = sum(extra_il) / len(extra_il)
+        extra_il_ripple = max(extra_il) - min(extra_il)
+
+    if baseline_samples is None:
+        score_version = CONNECTOR_SCORE_VERSION
+        optimization_cost = (
+            _penalty_excess(worst_return, profile.target_worst_return_db, 12.0)
+            + _penalty_shortfall(profile.target_s21_min_db, s21_min, 10.0)
+            + _penalty_shortfall(profile.target_s21_avg_db, s21_avg, 8.0)
+            + _penalty_excess(s21_ripple, profile.target_s21_ripple_db, 7.0)
+            + _penalty_excess(balance, profile.target_balance_db, 4.0)
+        )
+    else:
+        score_version = CONNECTOR_BASELINE_SCORE_VERSION
+        optimization_cost = (
+            _penalty_excess(worst_return, profile.score_return_db, 2.0)
+            + max(0.0, max_extra_il) * 8.0
+            + max(0.0, avg_extra_il) * 12.0
+            + max(0.0, extra_il_ripple) * 4.0
+            + _penalty_excess(weighted_balance, profile.target_weighted_balance_db, 4.0)
+        )
     connector_score = max(0.0, 100.0 - optimization_cost)
 
-    passed = (
-        worst_return <= profile.pass_worst_return_db
-        and s21_min >= profile.pass_s21_min_db
-        and s21_avg >= profile.pass_s21_avg_db
-        and s21_ripple <= profile.pass_s21_ripple_db
-        and balance <= profile.pass_balance_db
-    )
-    tune_ready = (
-        worst_return <= profile.target_worst_return_db
-        and s21_min >= profile.target_s21_min_db
-        and s21_ripple <= profile.target_s21_ripple_db
-    )
+    if baseline_samples is None:
+        passed = (
+            worst_return <= profile.pass_worst_return_db
+            and s21_min >= profile.pass_s21_min_db
+            and s21_avg >= profile.pass_s21_avg_db
+            and s21_ripple <= profile.pass_s21_ripple_db
+            and balance <= profile.pass_balance_db
+        )
+        tune_ready = (
+            worst_return <= profile.target_worst_return_db
+            and s21_min >= profile.target_s21_min_db
+            and s21_ripple <= profile.target_s21_ripple_db
+        )
+    else:
+        passed = (
+            worst_return <= profile.pass_worst_return_db
+            and max_extra_il <= profile.pass_max_extra_il_db
+            and avg_extra_il <= profile.pass_avg_extra_il_db
+            and extra_il_ripple <= profile.pass_extra_il_ripple_db
+            and weighted_balance <= profile.pass_balance_db
+        )
+        tune_ready = (
+            worst_return <= profile.target_worst_return_db
+            and max_extra_il <= profile.target_max_extra_il_db
+            and avg_extra_il <= profile.target_avg_extra_il_db
+            and extra_il_ripple <= profile.target_extra_il_ripple_db
+            and weighted_balance <= profile.target_weighted_balance_db
+        )
     status = "PASS_CANDIDATE" if passed else ("CANDIDATE" if tune_ready else "TUNE")
 
     return {
         "file": source,
-        "score_version": CONNECTOR_SCORE_VERSION,
+        "baseline_file": baseline_source or "",
+        "score_version": score_version,
         "score_profile_id": profile.profile_id,
         "status": status,
         "connector_score": f"{connector_score:.3f}",
@@ -221,23 +297,43 @@ def score_samples(
         "s21_min_0p5_10g_db": fmt(s21_min),
         "s21_avg_0p5_10g_db": fmt(s21_avg),
         "s21_ripple_0p5_10g_db": fmt(s21_ripple),
+        "max_extra_il_0p5_10g_db": fmt(max_extra_il),
+        "avg_extra_il_0p5_10g_db": fmt(avg_extra_il),
+        "extra_il_ripple_0p5_10g_db": fmt(extra_il_ripple),
         "worst_s11_0p5_10g_db": fmt(worst_s11),
         "worst_s22_0p5_10g_db": fmt(worst_s22),
         "worst_return_0p5_10g_db": fmt(worst_return),
         "worst_return_param": worst_return_param,
         "worst_return_freq_ghz": f"{worst_return_freq:.3g}",
         "s11_s22_balance_max_0p5_10g_db": fmt(balance),
+        "s11_s22_weighted_balance_max_0p5_10g_db": fmt(weighted_balance),
         "margin_worst_return_db": fmt(profile.target_worst_return_db - worst_return),
         "margin_s21_min_db": fmt(s21_min - profile.target_s21_min_db),
         "margin_s21_avg_db": fmt(s21_avg - profile.target_s21_avg_db),
         "margin_s21_ripple_db": fmt(profile.target_s21_ripple_db - s21_ripple),
         "margin_balance_db": fmt(profile.target_balance_db - balance),
+        "margin_max_extra_il_db": fmt(profile.target_max_extra_il_db - max_extra_il),
+        "margin_avg_extra_il_db": fmt(profile.target_avg_extra_il_db - avg_extra_il),
+        "margin_extra_il_ripple_db": fmt(profile.target_extra_il_ripple_db - extra_il_ripple),
+        "margin_weighted_balance_db": fmt(profile.target_weighted_balance_db - weighted_balance),
         "smith_z_r_min_0p5_10g": fmt(min(r_values)) if r_values else "nan",
         "smith_z_r_max_0p5_10g": fmt(max(r_values)) if r_values else "nan",
         "smith_z_x_min_0p5_10g": fmt(min(x_values)) if x_values else "nan",
         "smith_z_x_max_0p5_10g": fmt(max(x_values)) if x_values else "nan",
         "smith_tuning_hint": _smith_hint(z_values),
-        "note": make_note(worst_return, s21_min, s21_avg, s21_ripple, balance, profile),
+        "note": make_note(
+            worst_return,
+            s21_min,
+            s21_avg,
+            s21_ripple,
+            balance,
+            profile,
+            max_extra_il=max_extra_il,
+            avg_extra_il=avg_extra_il,
+            extra_il_ripple=extra_il_ripple,
+            weighted_balance=weighted_balance,
+            baseline_relative=baseline_samples is not None,
+        ),
     }
 
 
@@ -248,29 +344,57 @@ def make_note(
     s21_ripple: float,
     balance: float,
     profile: ConnectorScoreProfile,
+    *,
+    max_extra_il: float = float("nan"),
+    avg_extra_il: float = float("nan"),
+    extra_il_ripple: float = float("nan"),
+    weighted_balance: float = float("nan"),
+    baseline_relative: bool = False,
 ) -> str:
     issues = []
     if worst_return > profile.target_worst_return_db:
         issues.append("full-band return loss is weak")
-    if s21_min < profile.target_s21_min_db:
-        issues.append("full-band minimum insertion loss is high")
-    if s21_avg < profile.target_s21_avg_db:
-        issues.append("full-band average insertion loss is high")
-    if s21_ripple > profile.target_s21_ripple_db:
-        issues.append("full-band S21 ripple is high")
-    if balance > profile.target_balance_db:
-        issues.append("S11/S22 balance is weak")
+    if baseline_relative:
+        if max_extra_il > profile.target_max_extra_il_db:
+            issues.append("maximum extra insertion loss versus baseline is high")
+        if avg_extra_il > profile.target_avg_extra_il_db:
+            issues.append("average extra insertion loss versus baseline is high")
+        if extra_il_ripple > profile.target_extra_il_ripple_db:
+            issues.append("extra insertion-loss ripple versus baseline is high")
+        if weighted_balance > profile.target_weighted_balance_db:
+            issues.append("return-loss-weighted S11/S22 balance is weak")
+    else:
+        if s21_min < profile.target_s21_min_db:
+            issues.append("full-band minimum insertion loss is high")
+        if s21_avg < profile.target_s21_avg_db:
+            issues.append("full-band average insertion loss is high")
+        if s21_ripple > profile.target_s21_ripple_db:
+            issues.append("full-band S21 ripple is high")
+        if balance > profile.target_balance_db:
+            issues.append("S11/S22 balance is weak")
     if issues:
         return "; ".join(issues) + "."
     return "Connector launch meets full-band tuning targets; verify ports, mesh, and manufacturing constraints."
 
 
-def score_s2p(path: Path, profile: ConnectorScoreProfile = DEFAULT_CONNECTOR_SCORE_PROFILE) -> dict[str, str]:
-    return score_samples(read_s2p(path), str(path), profile)
+def score_s2p(
+    path: Path,
+    profile: ConnectorScoreProfile = DEFAULT_CONNECTOR_SCORE_PROFILE,
+    baseline_path: Path | None = None,
+) -> dict[str, str]:
+    baseline_samples = read_s2p(baseline_path) if baseline_path is not None else None
+    return score_samples(
+        read_s2p(path),
+        str(path),
+        profile,
+        baseline_samples=baseline_samples,
+        baseline_source=str(baseline_path) if baseline_path is not None else None,
+    )
 
 
 __all__ = [
     "CONNECTOR_SCORE_VERSION",
+    "CONNECTOR_BASELINE_SCORE_VERSION",
     "ConnectorScoreProfile",
     "DEFAULT_CONNECTOR_SCORE_PROFILE",
     "complex_from_pair",

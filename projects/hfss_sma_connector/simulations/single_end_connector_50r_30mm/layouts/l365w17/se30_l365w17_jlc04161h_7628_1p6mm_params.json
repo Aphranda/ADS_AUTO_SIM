@@ -1,0 +1,985 @@
+{
+  "schema_version": "0.1.0",
+  "fixture_type": "microstrip_single_connector_50r",
+  "parameters": {
+    "name": "se30_l365w17_jlc04161h_7628_1p6mm",
+    "connector_type": "edge_launch_surrogate",
+    "connector_model_version": "route_a_surrogate_v1",
+    "connector_route": "route_a_2p5d_launch_surrogate",
+    "stackup_id": "JLC04161H_7628_1P6MM",
+    "stackup_token": "jlc04161h_7628_1p6mm",
+    "stackup_config": "config\\stackups\\JLC04161H_7628_1P6MM.json",
+    "line_w_mm": 0.3175,
+    "line_l_mm": 23.1,
+    "edge_margin_mm": 1.5,
+    "pin_pad_w_mm": 0.95,
+    "pin_pad_l_mm": 2.8,
+    "pad_to_edge_mm": 0.0,
+    "taper_l_mm": 3.6,
+    "taper_w_start_mm": 0.9,
+    "taper_w_end_mm": 0.3175,
+    "launch_feed_l_mm": 0.5,
+    "series_hi_z_enabled": false,
+    "series_hi_z_w_mm": 0.0,
+    "series_hi_z_l_mm": 0.0,
+    "series_hi_z_offset_x_mm": 0.0,
+    "gnd_clearance_mm": 0.35,
+    "transmission_line_model": "grounded_coplanar_waveguide",
+    "cpw_ground_gap_mm": 0.2032,
+    "cpw_ground_enabled": true,
+    "launch_ground_gap_mm": 1.5,
+    "launch_cpw_ground_enabled": true,
+    "connector_ground_pad_enabled": true,
+    "connector_ground_pad_l_mm": 0.0,
+    "connector_ground_pad_y_inner_mm": 0.0,
+    "connector_ground_pad_y_outer_mm": 0.0,
+    "connector_ground_foot_via_enabled": true,
+    "connector_ground_foot_via_count": 2,
+    "connector_ground_foot_via_pitch_mm": 1.2,
+    "connector_ground_foot_via_x_offset_mm": 0.8,
+    "connector_ground_foot_via_y_mm": 0.0,
+    "connector_ground_foot_via_edge_clearance_mm": 0.35,
+    "launch_ground_via_enabled": false,
+    "line_via_pitch_mm": 2.0,
+    "line_via_enabled": true,
+    "anti_pad_w_mm": 1.8,
+    "via_d_mm": 0.3,
+    "via_pad_d_mm": 0.55,
+    "via_pitch_mm": 0.8,
+    "via_count": 4,
+    "fence_offset_mm": 0.75,
+    "fence_pitch_mm": 1.2,
+    "fence_span_mm": 4.2,
+    "l2_cutout_enabled": true,
+    "l2_cutout_shape": "rect",
+    "l2_cutout_w_mm": 1.7,
+    "l2_cutout_l_mm": 3.65,
+    "l2_cutout_offset_x_mm": 0.15,
+    "l2_cutout_taper_l_mm": 0.0,
+    "l2_cutout_corner_r_mm": 0.0,
+    "l2_cutout_keep_gnd_via_clearance_mm": 0.0,
+    "l3_cutout_enabled": false,
+    "l3_cutout_shape": "none",
+    "l3_cutout_w_mm": 0.0,
+    "l3_cutout_l_mm": 0.0,
+    "l3_cutout_offset_x_mm": 0.0,
+    "l3_cutout_taper_l_mm": 0.0,
+    "l3_ground_enabled": true,
+    "l3_ground_layer": "ETCH_INNER2",
+    "l3_ground_margin_mm": 0.0,
+    "reference_ground_extend_left_mm": 0.0,
+    "reference_ground_extend_right_mm": 1.5,
+    "l3_ground_extend_left_mm": 0.0,
+    "l3_ground_extend_right_mm": 1.5,
+    "l4_ground_enabled": true,
+    "l4_ground_layer": "ETCH_BOTTOM",
+    "l4_ground_margin_mm": 0.0,
+    "l4_ground_extend_left_mm": 0.0,
+    "l4_ground_extend_right_mm": 1.5,
+    "stub_enabled": false,
+    "stub_type": "none",
+    "stub_l_mm": 0.0,
+    "stub_w_mm": 0.0,
+    "stub_offset_x_mm": 0.0,
+    "reference_plane_offset_mm": 0.0,
+    "port_deembed_mm": 0.0,
+    "board_width_mm": 8.0,
+    "min_fab_feature_mm": 0.1524,
+    "mirror": true,
+    "signal_layer": "ETCH_TOP",
+    "reference_ground_layer": "ETCH_INNER1",
+    "via_top_layer": "ETCH_TOP",
+    "via_bottom_layer": "ETCH_BOTTOM",
+    "ground_layers": [
+      "ETCH_INNER1",
+      "ETCH_INNER2",
+      "ETCH_BOTTOM"
+    ],
+    "ground_plane_name": "hfss_ground_plane",
+    "metal_layer": "cond",
+    "via_layer": "pcvia1",
+    "boundary_layer": "EM_BOUNDARY"
+  },
+  "ports": {
+    "P1": [
+      0.0,
+      0.0
+    ],
+    "P2": [
+      30.0,
+      0.0
+    ]
+  },
+  "derived": {
+    "launch_len_mm": 6.9,
+    "total_len_mm": 30.0,
+    "connector_region_bbox_mm": {
+      "P1": [
+        0.0,
+        -4.0,
+        6.9,
+        8.0
+      ]
+    }
+  },
+  "layout": {
+    "layout_id": "se30_l365w17_jlc04161h_7628_1p6mm",
+    "units": "mm",
+    "layers": [
+      {
+        "name": "cond",
+        "purpose": "drawing",
+        "ads_layer": null,
+        "dxf_layer": "cond",
+        "gds_layer": null,
+        "gds_datatype": 0
+      },
+      {
+        "name": "pcvia1",
+        "purpose": "drawing",
+        "ads_layer": null,
+        "dxf_layer": "pcvia1",
+        "gds_layer": null,
+        "gds_datatype": 0
+      },
+      {
+        "name": "EM_BOUNDARY",
+        "purpose": "drawing",
+        "ads_layer": null,
+        "dxf_layer": "EM_BOUNDARY",
+        "gds_layer": null,
+        "gds_datatype": 0
+      },
+      {
+        "name": "reference_ground_cutout",
+        "purpose": "drawing",
+        "ads_layer": null,
+        "dxf_layer": "reference_ground_cutout",
+        "gds_layer": null,
+        "gds_datatype": 0
+      },
+      {
+        "name": "reference_ground_plane",
+        "purpose": "drawing",
+        "ads_layer": null,
+        "dxf_layer": "reference_ground_plane",
+        "gds_layer": null,
+        "gds_datatype": 0
+      }
+    ],
+    "shapes": [
+      {
+        "name": "em_boundary",
+        "x": -1.5,
+        "y": -4.0,
+        "w": 33.0,
+        "h": 8.0,
+        "layer": "EM_BOUNDARY",
+        "kind": "boundary",
+        "metadata": {}
+      },
+      {
+        "name": "p1_launch_top_ground",
+        "layer": "cond",
+        "points": [
+          [
+            0.0,
+            1.975
+          ],
+          [
+            6.9,
+            0.36195
+          ],
+          [
+            6.9,
+            4.0
+          ],
+          [
+            0.0,
+            4.0
+          ]
+        ],
+        "kind": "polygon",
+        "metadata": {
+          "role": "gcpw_top_ground_taper",
+          "net": "GND"
+        }
+      },
+      {
+        "name": "p1_launch_bottom_ground",
+        "layer": "cond",
+        "points": [
+          [
+            0.0,
+            -1.975
+          ],
+          [
+            0.0,
+            -4.0
+          ],
+          [
+            6.9,
+            -4.0
+          ],
+          [
+            6.9,
+            -0.36195
+          ]
+        ],
+        "kind": "polygon",
+        "metadata": {
+          "role": "gcpw_bottom_ground_taper",
+          "net": "GND"
+        }
+      },
+      {
+        "name": "center_line_top_ground",
+        "layer": "cond",
+        "x": 6.9,
+        "y": 0.36195,
+        "w": 23.1,
+        "h": 3.63805,
+        "kind": "rect",
+        "metadata": {
+          "role": "gcpw_top_ground",
+          "net": "GND"
+        }
+      },
+      {
+        "name": "center_line_bottom_ground",
+        "layer": "cond",
+        "x": 6.9,
+        "y": -4.0,
+        "w": 23.1,
+        "h": 3.63805,
+        "kind": "rect",
+        "metadata": {
+          "role": "gcpw_bottom_ground",
+          "net": "GND"
+        }
+      },
+      {
+        "name": "input_feed",
+        "layer": "cond",
+        "x": 0.0,
+        "y": -0.475,
+        "w": 2.8,
+        "h": 0.95,
+        "kind": "rect",
+        "metadata": {
+          "role": "connector_launch_pad"
+        }
+      },
+      {
+        "name": "input_neck",
+        "layer": "cond",
+        "x": 2.8,
+        "y": -0.45,
+        "w": 0.5,
+        "h": 0.9,
+        "kind": "rect",
+        "metadata": {
+          "role": "connector_launch_neck"
+        }
+      },
+      {
+        "name": "input_taper",
+        "layer": "cond",
+        "points": [
+          [
+            3.3,
+            -0.45
+          ],
+          [
+            6.9,
+            -0.15875
+          ],
+          [
+            6.9,
+            0.15875
+          ],
+          [
+            3.3,
+            0.45
+          ]
+        ],
+        "kind": "polygon",
+        "metadata": {
+          "role": "connector_launch_taper"
+        }
+      },
+      {
+        "name": "through_line",
+        "layer": "cond",
+        "x": 6.9,
+        "y": -0.15875,
+        "w": 22.6,
+        "h": 0.3175,
+        "kind": "rect",
+        "metadata": {
+          "role": "gcpw_50r"
+        }
+      },
+      {
+        "name": "output_feed",
+        "layer": "cond",
+        "x": 29.5,
+        "y": -0.15875,
+        "w": 0.5,
+        "h": 0.3175,
+        "kind": "rect",
+        "metadata": {
+          "role": "gcpw_50r"
+        }
+      },
+      {
+        "name": "connector_foot_via_p1_top_1",
+        "layer": "pcvia1",
+        "x": 0.8,
+        "y": 2.9875,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_foot_via",
+          "row": "connector_foot_via_p1_top",
+          "index": 0
+        }
+      },
+      {
+        "name": "connector_foot_via_p1_top_2",
+        "layer": "pcvia1",
+        "x": 2.0,
+        "y": 2.9875,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_foot_via",
+          "row": "connector_foot_via_p1_top",
+          "index": 1
+        }
+      },
+      {
+        "name": "connector_foot_via_p1_bottom_1",
+        "layer": "pcvia1",
+        "x": 0.8,
+        "y": -2.9875,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_foot_via",
+          "row": "connector_foot_via_p1_bottom",
+          "index": 0
+        }
+      },
+      {
+        "name": "connector_foot_via_p1_bottom_2",
+        "layer": "pcvia1",
+        "x": 2.0,
+        "y": -2.9875,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_foot_via",
+          "row": "connector_foot_via_p1_bottom",
+          "index": 1
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_1",
+        "layer": "pcvia1",
+        "x": 7.9,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 0
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_2",
+        "layer": "pcvia1",
+        "x": 9.9,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 1
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_3",
+        "layer": "pcvia1",
+        "x": 11.9,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 2
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_4",
+        "layer": "pcvia1",
+        "x": 13.9,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 3
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_5",
+        "layer": "pcvia1",
+        "x": 15.9,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 4
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_6",
+        "layer": "pcvia1",
+        "x": 17.9,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 5
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_7",
+        "layer": "pcvia1",
+        "x": 19.9,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 6
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_8",
+        "layer": "pcvia1",
+        "x": 21.9,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 7
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_9",
+        "layer": "pcvia1",
+        "x": 23.9,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 8
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_10",
+        "layer": "pcvia1",
+        "x": 25.9,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 9
+        }
+      },
+      {
+        "name": "gcpw_line_via_top_11",
+        "layer": "pcvia1",
+        "x": 27.9,
+        "y": 0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_top",
+          "index": 10
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_1",
+        "layer": "pcvia1",
+        "x": 7.9,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 0
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_2",
+        "layer": "pcvia1",
+        "x": 9.9,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 1
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_3",
+        "layer": "pcvia1",
+        "x": 11.9,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 2
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_4",
+        "layer": "pcvia1",
+        "x": 13.9,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 3
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_5",
+        "layer": "pcvia1",
+        "x": 15.9,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 4
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_6",
+        "layer": "pcvia1",
+        "x": 17.9,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 5
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_7",
+        "layer": "pcvia1",
+        "x": 19.9,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 6
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_8",
+        "layer": "pcvia1",
+        "x": 21.9,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 7
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_9",
+        "layer": "pcvia1",
+        "x": 23.9,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 8
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_10",
+        "layer": "pcvia1",
+        "x": 25.9,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 9
+        }
+      },
+      {
+        "name": "gcpw_line_via_bottom_11",
+        "layer": "pcvia1",
+        "x": 27.9,
+        "y": -0.63695,
+        "diameter": 0.3,
+        "pad_diameter": 0.55,
+        "pad_layer": "cond",
+        "kind": "via",
+        "metadata": {
+          "role": "connector_ground_via",
+          "row": "gcpw_line_via_bottom",
+          "index": 10
+        }
+      },
+      {
+        "name": "hfss_ground_plane",
+        "layer": "reference_ground_plane",
+        "x": -0.0,
+        "y": -4.0,
+        "w": 31.5,
+        "h": 3.15,
+        "kind": "reference_ground_plane",
+        "metadata": {
+          "role": "reference_ground_plane",
+          "target_layer": "reference_ground_layer",
+          "side": "ALL",
+          "net": "GND"
+        }
+      },
+      {
+        "name": "hfss_ground_plane_part_1",
+        "layer": "reference_ground_plane",
+        "x": 3.8,
+        "y": -0.85,
+        "w": 27.7,
+        "h": 1.7,
+        "kind": "reference_ground_plane",
+        "metadata": {
+          "role": "reference_ground_plane",
+          "target_layer": "reference_ground_layer",
+          "side": "ALL",
+          "net": "GND"
+        }
+      },
+      {
+        "name": "hfss_ground_plane_part_2",
+        "layer": "reference_ground_plane",
+        "x": -0.0,
+        "y": 0.85,
+        "w": 31.5,
+        "h": 3.15,
+        "kind": "reference_ground_plane",
+        "metadata": {
+          "role": "reference_ground_plane",
+          "target_layer": "reference_ground_layer",
+          "side": "ALL",
+          "net": "GND"
+        }
+      },
+      {
+        "name": "p1_l2_cutout_rect",
+        "layer": "reference_ground_cutout",
+        "x": 0.15,
+        "y": -0.85,
+        "w": 3.65,
+        "h": 1.7,
+        "kind": "reference_ground_cutout",
+        "metadata": {
+          "role": "reference_ground_cutout",
+          "target_layer": "reference_ground_layer",
+          "side": "P1"
+        }
+      },
+      {
+        "name": "l3_ground_plane",
+        "layer": "reference_ground_plane",
+        "x": -0.0,
+        "y": -4.0,
+        "w": 31.5,
+        "h": 8.0,
+        "kind": "reference_ground_plane",
+        "metadata": {
+          "role": "reference_ground_plane",
+          "target_layer": "ETCH_INNER2",
+          "side": "ALL",
+          "net": "GND"
+        }
+      },
+      {
+        "name": "l4_ground_plane",
+        "layer": "reference_ground_plane",
+        "x": -0.0,
+        "y": -4.0,
+        "w": 31.5,
+        "h": 8.0,
+        "kind": "reference_ground_plane",
+        "metadata": {
+          "role": "reference_ground_plane",
+          "target_layer": "ETCH_BOTTOM",
+          "side": "ALL",
+          "net": "GND"
+        }
+      }
+    ],
+    "ports": [
+      {
+        "name": "P1",
+        "number": 1,
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.95,
+        "layer": "cond",
+        "orientation_deg": 180.0,
+        "reference": null,
+        "kind": "port",
+        "metadata": {}
+      },
+      {
+        "name": "P2",
+        "number": 2,
+        "x": 30.0,
+        "y": 0.0,
+        "width": 0.3175,
+        "layer": "cond",
+        "orientation_deg": 0.0,
+        "reference": null,
+        "kind": "port",
+        "metadata": {}
+      }
+    ],
+    "metadata": {
+      "generator": "simads.hfss.connector",
+      "fixture_type": "microstrip_single_connector_50r",
+      "baseline_for_fixture_type": "microstrip_connector_50r",
+      "topology": "microstrip_single_connector_50r",
+      "connector_type": "edge_launch_surrogate",
+      "connector_route": "route_a_2p5d_launch_surrogate",
+      "connector_model_version": "route_a_surrogate_v1",
+      "connector_side": "P1",
+      "transmission_line_model": "grounded_coplanar_waveguide",
+      "cpw_ground_gap_mm": 0.2032,
+      "line_via_pitch_mm": 2.0,
+      "line_w_mm": 0.3175,
+      "line_l_mm": 23.1,
+      "total_len_mm": 30.0,
+      "reference_plane_offset_mm": 0.0,
+      "reference_ground_extend_left_mm": 0.0,
+      "reference_ground_extend_right_mm": 1.5,
+      "port_deembed_mm": 0.0,
+      "connector_region_bbox_mm": {
+        "P1": [
+          0.0,
+          -4.0,
+          6.9,
+          8.0
+        ]
+      },
+      "parameters": {
+        "name": "se30_l365w17_jlc04161h_7628_1p6mm",
+        "connector_type": "edge_launch_surrogate",
+        "connector_model_version": "route_a_surrogate_v1",
+        "connector_route": "route_a_2p5d_launch_surrogate",
+        "stackup_id": "JLC04161H_7628_1P6MM",
+        "stackup_token": "jlc04161h_7628_1p6mm",
+        "stackup_config": "config\\stackups\\JLC04161H_7628_1P6MM.json",
+        "line_w_mm": 0.3175,
+        "line_l_mm": 23.1,
+        "edge_margin_mm": 1.5,
+        "pin_pad_w_mm": 0.95,
+        "pin_pad_l_mm": 2.8,
+        "pad_to_edge_mm": 0.0,
+        "taper_l_mm": 3.6,
+        "taper_w_start_mm": 0.9,
+        "taper_w_end_mm": 0.3175,
+        "launch_feed_l_mm": 0.5,
+        "series_hi_z_enabled": false,
+        "series_hi_z_w_mm": 0.0,
+        "series_hi_z_l_mm": 0.0,
+        "series_hi_z_offset_x_mm": 0.0,
+        "gnd_clearance_mm": 0.35,
+        "transmission_line_model": "grounded_coplanar_waveguide",
+        "cpw_ground_gap_mm": 0.2032,
+        "cpw_ground_enabled": true,
+        "launch_ground_gap_mm": 1.5,
+        "launch_cpw_ground_enabled": true,
+        "connector_ground_pad_enabled": true,
+        "connector_ground_pad_l_mm": 0.0,
+        "connector_ground_pad_y_inner_mm": 0.0,
+        "connector_ground_pad_y_outer_mm": 0.0,
+        "connector_ground_foot_via_enabled": true,
+        "connector_ground_foot_via_count": 2,
+        "connector_ground_foot_via_pitch_mm": 1.2,
+        "connector_ground_foot_via_x_offset_mm": 0.8,
+        "connector_ground_foot_via_y_mm": 0.0,
+        "connector_ground_foot_via_edge_clearance_mm": 0.35,
+        "launch_ground_via_enabled": false,
+        "line_via_pitch_mm": 2.0,
+        "line_via_enabled": true,
+        "anti_pad_w_mm": 1.8,
+        "via_d_mm": 0.3,
+        "via_pad_d_mm": 0.55,
+        "via_pitch_mm": 0.8,
+        "via_count": 4,
+        "fence_offset_mm": 0.75,
+        "fence_pitch_mm": 1.2,
+        "fence_span_mm": 4.2,
+        "l2_cutout_enabled": true,
+        "l2_cutout_shape": "rect",
+        "l2_cutout_w_mm": 1.7,
+        "l2_cutout_l_mm": 3.65,
+        "l2_cutout_offset_x_mm": 0.15,
+        "l2_cutout_taper_l_mm": 0.0,
+        "l2_cutout_corner_r_mm": 0.0,
+        "l2_cutout_keep_gnd_via_clearance_mm": 0.0,
+        "l3_cutout_enabled": false,
+        "l3_cutout_shape": "none",
+        "l3_cutout_w_mm": 0.0,
+        "l3_cutout_l_mm": 0.0,
+        "l3_cutout_offset_x_mm": 0.0,
+        "l3_cutout_taper_l_mm": 0.0,
+        "l3_ground_enabled": true,
+        "l3_ground_layer": "ETCH_INNER2",
+        "l3_ground_margin_mm": 0.0,
+        "reference_ground_extend_left_mm": 0.0,
+        "reference_ground_extend_right_mm": 1.5,
+        "l3_ground_extend_left_mm": 0.0,
+        "l3_ground_extend_right_mm": 1.5,
+        "l4_ground_enabled": true,
+        "l4_ground_layer": "ETCH_BOTTOM",
+        "l4_ground_margin_mm": 0.0,
+        "l4_ground_extend_left_mm": 0.0,
+        "l4_ground_extend_right_mm": 1.5,
+        "stub_enabled": false,
+        "stub_type": "none",
+        "stub_l_mm": 0.0,
+        "stub_w_mm": 0.0,
+        "stub_offset_x_mm": 0.0,
+        "reference_plane_offset_mm": 0.0,
+        "port_deembed_mm": 0.0,
+        "board_width_mm": 8.0,
+        "min_fab_feature_mm": 0.1524,
+        "mirror": true,
+        "signal_layer": "ETCH_TOP",
+        "reference_ground_layer": "ETCH_INNER1",
+        "via_top_layer": "ETCH_TOP",
+        "via_bottom_layer": "ETCH_BOTTOM",
+        "ground_layers": [
+          "ETCH_INNER1",
+          "ETCH_INNER2",
+          "ETCH_BOTTOM"
+        ],
+        "ground_plane_name": "hfss_ground_plane",
+        "metal_layer": "cond",
+        "via_layer": "pcvia1",
+        "boundary_layer": "EM_BOUNDARY"
+      },
+      "layer_map_version": "microstrip-connector-logical-v1",
+      "signal_layer": "ETCH_TOP",
+      "reference_ground_layer": "ETCH_INNER1",
+      "via_top_layer": "ETCH_TOP",
+      "via_bottom_layer": "ETCH_BOTTOM",
+      "ground_layers": [
+        "ETCH_INNER1",
+        "ETCH_INNER2",
+        "ETCH_BOTTOM"
+      ],
+      "l3_ground_layer": "ETCH_INNER2",
+      "l4_ground_layer": "ETCH_BOTTOM",
+      "ground_plane_name": "hfss_ground_plane",
+      "stackup_id": "JLC04161H_7628_1P6MM",
+      "stackup_token": "jlc04161h_7628_1p6mm",
+      "stackup_config": "config\\stackups\\JLC04161H_7628_1P6MM.json"
+    }
+  }
+}

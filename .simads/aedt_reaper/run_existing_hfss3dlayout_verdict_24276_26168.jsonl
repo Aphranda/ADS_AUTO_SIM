@@ -69,3 +69,6 @@
 {"label": "run_existing_hfss3dlayout_verdict", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785996096.293, "duration_s": 0.016, "target_pids": [26168], "candidate_count": 0, "eligible_pids": []}
 {"label": "run_existing_hfss3dlayout_verdict", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785996096.295, "duration_s": 0.016, "mode": "dry_run", "eligible_pids": []}
 {"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785996096.296, "duration_s": 0.016, "parent_alive": false, "elapsed_s": 220.703}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785996106.305, "duration_s": 0.0, "target_pids": [26168], "candidate_count": 0, "eligible_pids": []}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785996106.307, "duration_s": 0.015, "mode": "execute", "eligible_pids": []}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_finish", "status": "ok", "timestamp_epoch": 1785996106.307, "duration_s": 230.718, "reason": "reap_complete", "watch_elapsed_s": 230.718}

@@ -1,0 +1,59 @@
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_start", "status": "running", "timestamp_epoch": 1785999014.425, "parent_pid": 28000, "target_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785999014.484, "duration_s": 0.062, "target_pids": [25548], "candidate_count": 1, "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785999014.485, "duration_s": 0.062, "mode": "dry_run", "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785999014.486, "duration_s": 0.062, "parent_alive": true, "elapsed_s": 0.062}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785999024.498, "duration_s": 0.016, "target_pids": [25548], "candidate_count": 1, "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785999024.499, "duration_s": 0.016, "mode": "dry_run", "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785999024.499, "duration_s": 0.016, "parent_alive": true, "elapsed_s": 10.078}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785999034.512, "duration_s": 0.015, "target_pids": [25548], "candidate_count": 1, "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785999034.513, "duration_s": 0.015, "mode": "dry_run", "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785999034.513, "duration_s": 0.015, "parent_alive": true, "elapsed_s": 20.093}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785999044.527, "duration_s": 0.016, "target_pids": [25548], "candidate_count": 1, "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785999044.529, "duration_s": 0.016, "mode": "dry_run", "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785999044.53, "duration_s": 0.016, "parent_alive": true, "elapsed_s": 30.109}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785999054.542, "duration_s": 0.016, "target_pids": [25548], "candidate_count": 1, "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785999054.544, "duration_s": 0.016, "mode": "dry_run", "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785999054.544, "duration_s": 0.016, "parent_alive": true, "elapsed_s": 40.125}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785999064.556, "duration_s": 0.0, "target_pids": [25548], "candidate_count": 1, "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785999064.558, "duration_s": 0.015, "mode": "dry_run", "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785999064.559, "duration_s": 0.015, "parent_alive": true, "elapsed_s": 50.14}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785999074.569, "duration_s": 0.0, "target_pids": [25548], "candidate_count": 1, "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785999074.571, "duration_s": 0.0, "mode": "dry_run", "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785999074.572, "duration_s": 0.016, "parent_alive": true, "elapsed_s": 60.156}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785999084.583, "duration_s": 0.0, "target_pids": [25548], "candidate_count": 1, "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785999084.584, "duration_s": 0.0, "mode": "dry_run", "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785999084.585, "duration_s": 0.0, "parent_alive": true, "elapsed_s": 70.156}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785999094.598, "duration_s": 0.016, "target_pids": [25548], "candidate_count": 1, "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785999094.599, "duration_s": 0.016, "mode": "dry_run", "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785999094.6, "duration_s": 0.016, "parent_alive": true, "elapsed_s": 80.172}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785999104.611, "duration_s": 0.015, "target_pids": [25548], "candidate_count": 1, "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785999104.613, "duration_s": 0.015, "mode": "dry_run", "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785999104.613, "duration_s": 0.015, "parent_alive": true, "elapsed_s": 90.187}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785999114.629, "duration_s": 0.016, "target_pids": [25548], "candidate_count": 1, "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785999114.631, "duration_s": 0.016, "mode": "dry_run", "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785999114.631, "duration_s": 0.016, "parent_alive": true, "elapsed_s": 100.203}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785999124.645, "duration_s": 0.015, "target_pids": [25548], "candidate_count": 1, "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785999124.646, "duration_s": 0.015, "mode": "dry_run", "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785999124.647, "duration_s": 0.015, "parent_alive": true, "elapsed_s": 110.218}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785999134.658, "duration_s": 0.016, "target_pids": [25548], "candidate_count": 1, "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785999134.659, "duration_s": 0.016, "mode": "dry_run", "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785999134.66, "duration_s": 0.016, "parent_alive": true, "elapsed_s": 120.234}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785999144.677, "duration_s": 0.016, "target_pids": [25548], "candidate_count": 1, "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785999144.678, "duration_s": 0.016, "mode": "dry_run", "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785999144.679, "duration_s": 0.016, "parent_alive": true, "elapsed_s": 130.25}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785999154.69, "duration_s": 0.0, "target_pids": [25548], "candidate_count": 1, "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785999154.692, "duration_s": 0.0, "mode": "dry_run", "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785999154.692, "duration_s": 0.0, "parent_alive": true, "elapsed_s": 140.265}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785999164.709, "duration_s": 0.016, "target_pids": [25548], "candidate_count": 1, "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785999164.712, "duration_s": 0.016, "mode": "dry_run", "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785999164.713, "duration_s": 0.032, "parent_alive": true, "elapsed_s": 150.297}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785999174.726, "duration_s": 0.0, "target_pids": [25548], "candidate_count": 1, "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785999174.727, "duration_s": 0.0, "mode": "dry_run", "eligible_pids": [25548]}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785999174.728, "duration_s": 0.015, "parent_alive": true, "elapsed_s": 160.312}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "parent_exit_detected", "status": "ok", "timestamp_epoch": 1785999184.73, "parent_pid": 28000}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785999184.739, "duration_s": 0.0, "target_pids": [25548], "candidate_count": 0, "eligible_pids": []}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785999184.74, "duration_s": 0.0, "mode": "dry_run", "eligible_pids": []}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_heartbeat", "status": "ok", "timestamp_epoch": 1785999184.741, "duration_s": 0.0, "parent_alive": false, "elapsed_s": 170.312}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "scan_processes", "status": "ok", "timestamp_epoch": 1785999194.748, "duration_s": 0.016, "target_pids": [25548], "candidate_count": 0, "eligible_pids": []}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "run_once", "status": "ok", "timestamp_epoch": 1785999194.749, "duration_s": 0.016, "mode": "execute", "eligible_pids": []}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "watch_finish", "status": "ok", "timestamp_epoch": 1785999194.749, "duration_s": 180.328, "reason": "reap_complete", "watch_elapsed_s": 180.328}

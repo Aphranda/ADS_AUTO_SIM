@@ -77,7 +77,7 @@
     <div class="doc-meta">
       <strong>统一维护版</strong>
       日期：2026-08-05<br>
-      当前推荐：gap1p5_novia_l2l3_l4_refextend_right1p5<br>
+      当前推荐：l40w17<br>
       频段：0.5-10 GHz
     </div>
   </header>
@@ -85,7 +85,7 @@
     <div class="chips">
       <div class="chip"><span class="k">目标频段</span><span class="v">0.5-10 GHz</span></div>
       <div class="chip"><span class="k">当前结构</span><span class="v">SMA + 30 mm 50 Ω CPWG</span></div>
-      <div class="chip"><span class="k">最优评分</span><span class="v">96.237 / cost 3.763</span></div>
+      <div class="chip"><span class="k">最优评分</span><span class="v">96.505 / cost 3.495</span></div>
       <div class="chip"><span class="k">端口口径</span><span class="v">S1_1_Pin_T1 + Port1</span></div>
     </div>
 
@@ -93,16 +93,16 @@
       <div class="section-title">1. 阶段结论</div>
       <div class="summary">
         <div class="note-box">
-          <strong>当前推荐候选为 gap1p5_novia_l2l3_l4_refextend_right1p5。</strong>
-          该候选采用连接器处 1.5 mm 顶层 GND gap、锥形 GND 过渡、去掉中心焊盘近端 GND via、L2/L3 焊盘下方开窗、L2/L3/L4 截取端右延 1.5 mm，并在连接器 feet 接地点增加 4 个 GND via。
+          <strong>当前推荐候选为 l40w17。</strong>
+          该候选采用连接器处 1.5 mm 顶层 GND gap、锥形 GND 过渡、去掉中心焊盘近端 GND via、L2 焊盘下方矩形开窗，L3 保持完整参考地，L4 保持 GND，并在连接器 feet 接地点增加 4 个 GND via；L2 开窗尺寸为 4.0 × 1.7 mm，offset 0.15 mm。
         </div>
         <div class="warn-box">
           <strong>设计尚不建议冻结。</strong>
-          HFSS 仍提示 S1_1_Pin_T1 overlaps radiation boundary。当前结果已经明显优于上一轮，但下一轮需要优先复核端口和辐射边界间距。
+          当前结果已经明显优于上一轮，但下一轮仍建议优先复核端口和辐射边界间距，并继续围绕 L2 开窗做小步扫描。
         </div>
       </div>
       <div class="bar">
-        核心判断：上一轮 HOME 环境 8 GHz 凸点主要来自截取端参考地被人为切断。当前右侧参考地延伸后，S21 纹波和相对基线额外插损同步改善。
+        核心判断：12 组 L2 矩形开窗扫描中，长度 4.0 mm 的候选整体占优；宽度 1.7 mm 在回损、平均插损和综合评分之间取得当前最好平衡。
       </div>
     </div>
 
@@ -113,31 +113,31 @@
           <tr><th>项目</th><th>标准/计算口径</th><th>目标</th><th>当前结果</th><th>判断</th></tr>
         </thead>
         <tbody>
-          <tr><td>最差回损</td><td>max(S11_dB, S22_dB)</td><td>≤ -10 dB</td><td class="ok">-13.50 dB</td><td><span class="tag green">达标</span></td></tr>
-          <tr><td>瓶颈位置</td><td>最差回损发生点</td><td>定位主矛盾</td><td class="warn">S22 @ 7.0 GHz</td><td><span class="tag orange">继续优化</span></td></tr>
-          <tr><td>S21_min</td><td>0.5-10 GHz 最差插损</td><td>越接近基线越好</td><td class="ok">-1.46 dB</td><td><span class="tag green">当前最佳</span></td></tr>
-          <tr><td>最大额外插损</td><td>max(S21_baseline - S21_candidate)</td><td>越接近 0 越好</td><td class="ok">0.335 dB @ 10.0 GHz</td><td><span class="tag green">接近基线</span></td></tr>
-          <tr><td>平均额外插损</td><td>mean(S21_baseline - S21_candidate)</td><td>越接近 0 越好</td><td class="ok">0.184 dB</td><td><span class="tag green">接近基线</span></td></tr>
-          <tr><td>额外插损纹波</td><td>max/min 额外 IL 差</td><td>越接近 0 越好</td><td class="ok">0.327 dB</td><td><span class="tag green">接近基线</span></td></tr>
-          <tr><td>S11/S22 平衡</td><td>max(|S11_dB - S22_dB|)</td><td>≤ 1.5 dB</td><td class="warn">1.72 dB @ 10.0 GHz</td><td><span class="tag orange">接近目标</span></td></tr>
+          <tr><td>最差回损</td><td>max(S11_dB, S22_dB)</td><td>≤ -10 dB</td><td class="ok">-14.53 dB</td><td><span class="tag green">达标</span></td></tr>
+          <tr><td>瓶颈位置</td><td>最差回损发生点</td><td>定位主矛盾</td><td class="warn">S22 @ 7.6 GHz</td><td><span class="tag orange">继续优化</span></td></tr>
+          <tr><td>S21_min</td><td>0.5-10 GHz 最差插损</td><td>越接近基线越好</td><td class="ok">-1.53 dB</td><td><span class="tag green">当前最佳</span></td></tr>
+          <tr><td>最大额外插损</td><td>max(S21_baseline - S21_candidate)</td><td>越接近 0 越好</td><td class="ok">0.409 dB @ 10.0 GHz</td><td><span class="tag green">接近基线</span></td></tr>
+          <tr><td>平均额外插损</td><td>mean(S21_baseline - S21_candidate)</td><td>越接近 0 越好</td><td class="ok">0.156 dB</td><td><span class="tag green">接近基线</span></td></tr>
+          <tr><td>额外插损纹波</td><td>max/min 额外 IL 差</td><td>越接近 0 越好</td><td class="ok">0.406 dB</td><td><span class="tag green">接近基线</span></td></tr>
+          <tr><td>S11/S22 平衡</td><td>max(|S11_dB - S22_dB|)</td><td>≤ 1.5 dB</td><td class="ok">1.49 dB @ 6.1 GHz</td><td><span class="tag green">达标</span></td></tr>
         </tbody>
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 1 / 8</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 1 / 7</span></footer>
 </section>
 
 <section class="page">
   <header class="page-header">
     <div>
       <h1>版图与关键参数</h1>
-      <div class="subtitle">连接器处大 gap + GND 锥形过渡 + L2/L3 开窗 + 截取端参考地延伸</div>
+      <div class="subtitle">连接器处大 gap + GND 锥形过渡 + L2 矩形开窗 + L3 完整参考地</div>
     </div>
     <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
     <div class="doc-meta">
       <strong>当前版图</strong>
       Design：SINGLE_END_SMA_CPW_30MM<br>
-      Layout：gap1p5_novia_l2l3_l4_refextend_right1p5<br>
+      Layout：l40w17<br>
       单位：mm
     </div>
   </header>
@@ -146,8 +146,8 @@
       <div class="section-title">3. 当前推荐版图与仿真模型</div>
       <div class="figure-row">
         <div class="figure compact-layout">
-          <img src="assets/se30_gap1p5_novia_l2l3_l4_refextend_right1p5_jlc04161h_7628_1p6mm.svg" alt="current best layout">
-          <div class="caption">图 1a：当前推荐版图。L2/L3 焊盘区域开窗，L2/L3/L4 右侧参考地延伸 1.5 mm，连接器 feet 接地点增加 GND via。</div>
+          <img src="assets/se30_l40w17_jlc04161h_7628_1p6mm.svg" alt="current best layout">
+          <div class="caption">图 1a：当前推荐版图。L2 焊盘区域 4.0 × 1.7 mm 矩形开窗，L3 保持完整参考地，L4 保持 GND，连接器 feet 接地点增加 GND via。</div>
         </div>
         <div class="figure model">
           <img src="assets/仿真模型.png" alt="HFSS connector simulation model">
@@ -164,37 +164,47 @@
           <tr><td>taper_l</td><td>3.6 mm</td><td>中心焊盘到 50 Ω 线宽过渡。</td><td>可围绕 3.2-4.2 mm 小步扫描。</td></tr>
           <tr><td>launch_ground_gap</td><td>1.5 mm</td><td>降低焊盘到 GND 的局部电容。</td><td>后续可扫 1.3 / 1.5 / 1.7 mm。</td></tr>
           <tr><td>launch_ground_via</td><td>false</td><td>关闭中心焊盘近端强电容 GND via。</td><td>当前保持关闭。</td></tr>
-          <tr><td>L2/L3 cutout</td><td>1.6 × 3.8 mm</td><td>减小焊盘下方参考地电容。</td><td>保留同步开窗，不继续盲目加宽。</td></tr>
-          <tr><td>L2/L3/L4 right extension</td><td>1.5 mm</td><td>恢复截取段右侧参考地连续性。</td><td>可扫 1.0 / 1.5 / 2.0 mm。</td></tr>
+          <tr><td>L2 cutout</td><td>4.0 × 1.7 mm，offset 0.15 mm</td><td>减小焊盘下方参考地电容。</td><td>长度 4.0 mm 当前占优，可围绕宽度 1.6-1.8 mm 小步扫描。</td></tr>
+          <tr><td>L3 / L4 reference</td><td>L3 不挖，L4 GND</td><td>保持焊接区域下方参考地和回流连续性。</td><td>当前保持 L3 solid，不再引入 L3 开窗。</td></tr>
           <tr><td>P1 connector foot vias</td><td>4 个</td><td>加强连接器外壳/feet 回流路径。</td><td>后续可扫位置和数量。</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="bar">几何检查：PCB layout 替换流程不重建连接器 pin IPort，只重建 PCB 远端 Port1。残余风险为端口/辐射边界告警。</div>
+    <div class="bar">几何检查：PCB layout 替换流程不重建连接器 pin IPort，只重建 PCB 远端 Port1。当前候选通过非 GUI 流程完成替换、仿真和后处理。</div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 2 / 8</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 2 / 7</span></footer>
 </section>
 
 <section class="page">
   <header class="page-header">
     <div>
-      <h1>HFSS 曲线图 1</h1>
-      <div class="subtitle">不带连接器参考与当前最优候选的独立 S 参数曲线</div>
+      <h1>HFSS 曲线图 1 / 4</h1>
+      <div class="subtitle">不带连接器参考、当前最优候选 S 参数与 Smith 圆图</div>
     </div>
     <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
-    <div class="doc-meta"><strong>附图</strong>Setup：Setup_0p5to10G<br>Sweep：Sweep_0p5to10G_96pt<br>数据类型：trace CSV</div>
+    <div class="doc-meta"><strong>附图</strong>Setup：Setup_0p5to10G<br>Sweep：Sweep_0p5to10G_96pt<br>数据类型：trace CSV / S2P</div>
   </header>
   <main class="main">
     <div class="section">
-      <div class="section-title">5. 独立曲线</div>
+      <div class="section-title">5. 独立曲线与阻抗轨迹</div>
       <div class="figure-row">
         <div class="figure plot compact">
           <img src="assets/no_connector_30mm_s_curves.svg" alt="no connector S curves">
           <div class="caption">图 2a：不带连接器 30 mm CPWG 参考。该曲线作为相对额外插损基线。</div>
         </div>
         <div class="figure plot compact">
-          <img src="assets/gap1p5_novia_l2l3_l4_refextend_right1p5_s_curves.svg" alt="current best S curves">
-          <div class="caption">图 2b：当前最优连接器候选。8 GHz 附近 S21 已回到平滑趋势，S22 瓶颈在 7.0 GHz。</div>
+          <img src="assets/l40w17_s_curves.svg" alt="current best S curves">
+          <div class="caption">图 2b：当前最优连接器候选。8 GHz 附近 S21 保持平滑趋势，S22 瓶颈在 7.6 GHz。</div>
+        </div>
+      </div>
+      <div class="figure-row">
+        <div class="figure plot compact">
+          <img src="assets/l40w17_smith.svg" alt="current best Smith chart">
+          <div class="caption">图 2c：当前最优候选 Smith 圆图。归一化阻抗约 R=0.70-1.35、X=-0.33-0.32。</div>
+        </div>
+        <div class="note-box">
+          <strong>Smith 圆图读数说明：</strong><br>
+          轨迹较上一轮进一步收敛，但 7-8 GHz 仍是回损瓶颈。下一轮应围绕 L2 开窗边界做小步补偿，并继续复核端口边界。
         </div>
       </div>
     </div>
@@ -203,15 +213,15 @@
       <table class="compact">
         <thead><tr><th>频点/项目</th><th>无连接器参考</th><th>最优候选</th><th>相对基线差值</th><th>阶段判断</th></tr></thead>
         <tbody>
-          <tr><td>S21 @ 8 GHz</td><td class="ok">-0.891 dB</td><td class="ok">-1.181 dB</td><td class="ok">额外 IL 0.289 dB</td><td><span class="tag green">凸点改善</span></td></tr>
-          <tr><td>S21 @ 10 GHz</td><td class="ok">-1.12 dB</td><td class="ok">-1.46 dB</td><td class="ok">额外 IL 0.335 dB</td><td><span class="tag green">接近基线</span></td></tr>
-          <tr><td>S21 平均值</td><td class="ok">-0.62 dB</td><td class="ok">-0.80 dB</td><td class="ok">平均额外 IL 0.184 dB</td><td><span class="tag green">接近基线</span></td></tr>
-          <tr><td>最差回损</td><td class="ok">-20.49 dB</td><td class="ok">-13.50 dB</td><td class="warn">低于基线 6.99 dB</td><td><span class="tag orange">继续优化</span></td></tr>
+          <tr><td>S21 @ 8 GHz</td><td class="ok">-0.891 dB</td><td class="ok">-1.217 dB</td><td class="ok">额外 IL 0.325 dB</td><td><span class="tag green">凸点改善</span></td></tr>
+          <tr><td>S21 @ 10 GHz</td><td class="ok">-1.12 dB</td><td class="ok">-1.53 dB</td><td class="ok">额外 IL 0.409 dB</td><td><span class="tag green">接近基线</span></td></tr>
+          <tr><td>S21 平均值</td><td class="ok">-0.62 dB</td><td class="ok">-0.78 dB</td><td class="ok">平均额外 IL 0.156 dB</td><td><span class="tag green">接近基线</span></td></tr>
+          <tr><td>最差回损</td><td class="ok">-20.49 dB</td><td class="ok">-14.53 dB</td><td class="warn">低于基线 5.96 dB</td><td><span class="tag orange">继续优化</span></td></tr>
         </tbody>
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 3 / 8</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 3 / 7</span></footer>
 </section>
 
 <section class="page">
@@ -221,14 +231,14 @@
       <div class="subtitle">不带连接器基线 vs 当前最优候选 S21 叠加对比</div>
     </div>
     <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
-    <div class="doc-meta"><strong>补回对比页</strong>Baseline：no_connector_30mm<br>Best：gap1p5_novia_l2l3_l4_refextend_right1p5<br>纵轴：0 到 -3 dB</div>
+    <div class="doc-meta"><strong>补回对比页</strong>Baseline：no_connector_30mm<br>Best：l40w17<br>纵轴：0 到 -3 dB</div>
   </header>
   <main class="main">
     <div class="section">
       <div class="section-title">7. 与不带连接器基线对比</div>
       <div class="figure plot">
-        <img src="assets/SP8T_connector_no_connector_vs_refextend_best_s21_overlay_0_to_minus3.svg" alt="baseline vs current best S21 overlay">
-        <div class="caption">图 3：不带连接器 30 mm CPWG 参考与当前最优连接器候选的 S21 叠加。当前最优相对基线最大额外插损 0.335 dB，发生在 10 GHz。</div>
+        <img src="assets/SP8T_connector_no_connector_vs_l40w17_s21_overlay_0_to_minus3.svg" alt="baseline vs current best S21 overlay">
+        <div class="caption">图 3：不带连接器 30 mm CPWG 参考与当前最优连接器候选的 S21 叠加。当前最优相对基线最大额外插损 0.409 dB，发生在 10 GHz；平均额外插损 0.156 dB。</div>
       </div>
     </div>
     <div class="section">
@@ -236,14 +246,14 @@
       <table class="compact">
         <thead><tr><th>项目</th><th>基线</th><th>当前最优</th><th>差值</th><th>判断</th></tr></thead>
         <tbody>
-          <tr><td>S21 @ 8 GHz</td><td>-0.891 dB</td><td>-1.181 dB</td><td class="ok">0.289 dB</td><td><span class="tag green">8 GHz 凸点改善</span></td></tr>
-          <tr><td>S21 @ 10 GHz</td><td>-1.12 dB</td><td>-1.46 dB</td><td class="ok">0.335 dB</td><td><span class="tag green">接近基线</span></td></tr>
-          <tr><td>S21 平均</td><td>-0.62 dB</td><td>-0.80 dB</td><td class="ok">0.184 dB</td><td><span class="tag green">当前最佳</span></td></tr>
+          <tr><td>S21 @ 8 GHz</td><td>-0.891 dB</td><td>-1.217 dB</td><td class="ok">0.325 dB</td><td><span class="tag green">8 GHz 凸点改善</span></td></tr>
+          <tr><td>S21 @ 10 GHz</td><td>-1.12 dB</td><td>-1.53 dB</td><td class="ok">0.409 dB</td><td><span class="tag green">接近基线</span></td></tr>
+          <tr><td>S21 平均</td><td>-0.62 dB</td><td>-0.78 dB</td><td class="ok">0.156 dB</td><td><span class="tag green">当前最佳</span></td></tr>
         </tbody>
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 4 / 8</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 4 / 7</span></footer>
 </section>
 
 <section class="page">
@@ -253,13 +263,13 @@
       <div class="subtitle">未优化、优化不达标与当前最优候选的全频段对比</div>
     </div>
     <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
-    <div class="doc-meta"><strong>补回对比页</strong>未优化：small_pad_same_anchor_a<br>未达标：small_pad_l2_l3_cutout_l4_gnd_same_anchor_a<br>当前最优：refextend_right1p5</div>
+    <div class="doc-meta"><strong>补回对比页</strong>未优化：small_pad_same_anchor_a<br>未达标：small_pad_l2_l3_cutout_l4_gnd_same_anchor_a<br>当前最优：l40w17</div>
   </header>
   <main class="main">
     <div class="section">
       <div class="section-title">9. 三组候选叠加对比</div>
       <div class="figure plot tall">
-        <img src="assets/SP8T_connector_unopt_notqualified_refextend_best_overlay.svg" alt="unoptimized not-qualified and current best overlay">
+        <img src="assets/SP8T_connector_unopt_notqualified_l40w17_overlay.svg" alt="unoptimized not-qualified and current best overlay">
         <div class="caption">图 4：未优化、优化不达标与当前最优候选的 S11/S21/S22 对比。橙色为未优化，紫色为回损未达标候选，绿色为当前最优。</div>
       </div>
     </div>
@@ -270,110 +280,82 @@
         <tbody>
           <tr><td>small_pad_same_anchor_a</td><td class="bad">-3.34 dB</td><td class="bad">3.49 dB</td><td>1.83 dB</td><td>3.43 dB</td><td><span class="tag red">未优化</span></td></tr>
           <tr><td>small_pad_l2_l3_cutout_l4_gnd_same_anchor_a</td><td class="bad">-9.20 dB</td><td>0.63 dB</td><td>0.37 dB</td><td>0.61 dB</td><td><span class="tag orange">回损未达标</span></td></tr>
-          <tr><td class="b">gap1p5_novia_l2l3_l4_refextend_right1p5</td><td class="ok">-13.50 dB</td><td class="ok">0.335 dB</td><td class="ok">0.184 dB</td><td class="ok">0.327 dB</td><td><span class="tag green">当前最优</span></td></tr>
+          <tr><td class="b">l40w17</td><td class="ok">-14.53 dB</td><td class="ok">0.409 dB</td><td class="ok">0.156 dB</td><td class="ok">0.406 dB</td><td><span class="tag green">当前最优</span></td></tr>
         </tbody>
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 5 / 8</span></footer>
-</section>
-
-<section class="page">
-  <header class="page-header">
-    <div>
-      <h1>HFSS 曲线图 4</h1>
-      <div class="subtitle">当前最优候选的 S 参数与 Smith 圆图</div>
-    </div>
-    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
-    <div class="doc-meta"><strong>附图</strong>Setup：Setup_0p5to10G<br>Sweep：Sweep_0p5to10G_96pt<br>数据类型：trace CSV / S2P</div>
-  </header>
-  <main class="main">
-    <div class="section">
-      <div class="section-title">11. 当前最优候选曲线与阻抗轨迹</div>
-      <div class="figure-row">
-        <div class="figure plot compact">
-          <img src="assets/gap1p5_novia_l2l3_l4_refextend_right1p5_s_curves.svg" alt="current best S parameter curves">
-          <div class="caption">图 5a：当前最优候选 S 参数。S21_min=-1.46 dB，S21_avg=-0.80 dB；7.5-8.5 GHz 区间 S21 最差约 -1.20 dB。</div>
-        </div>
-        <div class="figure plot compact">
-          <img src="assets/gap1p5_novia_l2l3_l4_refextend_right1p5_smith.svg" alt="current best Smith chart">
-          <div class="caption">图 5b：当前最优候选 Smith 圆图。归一化阻抗约 R=0.67-1.44、X=-0.44-0.44，调谐提示为降低串联电感或恢复局部电容。</div>
-        </div>
-      </div>
-    </div>
-    <div class="bar">Smith 圆图读数说明：轨迹仍有轻微感性/容性摆动，下一轮应以小幅补偿和端口边界复核为主，不建议直接做大面积内层挖空。</div>
-  </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 6 / 8</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 5 / 7</span></footer>
 </section>
 
 <section class="page">
   <header class="page-header">
     <div>
       <h1>本轮仿真结果</h1>
-      <div class="subtitle">连接器 gap、GND via、内层开窗、截取端参考地延伸组合对比</div>
+      <div class="subtitle">连接器 gap、GND via、L2 矩形开窗尺寸扫描组合对比</div>
     </div>
     <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
     <div class="doc-meta"><strong>数据口径</strong>HFSS 3D Layout<br>目标 profile：sma_launch_fullband_0p5_10g_v1<br>输出：CSV score</div>
   </header>
   <main class="main">
     <div class="section">
-      <div class="section-title">12. 候选对比</div>
+      <div class="section-title">11. 候选对比</div>
       <table class="compact candidate-table">
         <thead><tr><th>候选</th><th>几何变化</th><th>Cost</th><th>Score</th><th>最差回损</th><th>位置</th><th>最大额外IL</th><th>平均额外IL</th><th>额外IL纹波</th><th>状态</th></tr></thead>
         <tbody>
           <tr><td>small_pad_same_anchor_a</td><td>初始小 pad，常规 CPWG，连接器 GND via 保留</td><td class="bad">152.668</td><td>0.000</td><td class="bad">-3.34</td><td>S22 @ 7.4G</td><td class="bad">3.49</td><td>1.83</td><td>3.43</td><td><span class="tag red">TUNE</span></td></tr>
           <tr><td>no_connector_30mm</td><td>不带 SMA 连接器，30 mm 理想 CPWG 参考</td><td>25.513</td><td>74.487</td><td class="ok">-20.49</td><td>S11 @ 1.4G</td><td class="ok">0.00</td><td class="ok">0.00</td><td class="ok">0.00</td><td><span class="tag blue">参考基线</span></td></tr>
           <tr><td>small_pad_l2_l3_cutout_l4_gnd_same_anchor_a</td><td>L2/L3 开窗，L4 加 GND，常规 launch GND</td><td class="warn">18.030</td><td>81.970</td><td class="bad">-9.20</td><td>S22 @ 6.9G</td><td>0.63</td><td>0.37</td><td>0.61</td><td><span class="tag orange">边界</span></td></tr>
-          <tr><td>gap1p5_novia_l2l3_l4</td><td>1.5 mm GND gap，锥形 GND，无连接器 GND via，L2/L3 开窗，L4 GND</td><td class="ok">8.029</td><td class="ok">91.971</td><td class="ok">-13.17</td><td>S22 @ 4.0G</td><td class="ok">0.38</td><td class="ok">0.21</td><td class="ok">0.36</td><td><span class="tag blue">上一轮最佳</span></td></tr>
-          <tr><td class="b">gap1p5_novia_l2l3_l4_refextend_right1p5</td><td>上一轮最佳 + L2/L3/L4 右侧参考地延伸 1.5 mm + 连接器 feet GND via</td><td class="ok">3.763</td><td class="ok">96.237</td><td class="ok">-13.50</td><td>S22 @ 7.0G</td><td class="ok">0.335</td><td class="ok">0.184</td><td class="ok">0.327</td><td><span class="tag green">BEST</span></td></tr>
-          <tr><td>gap1p5_novia_w2p4_l2l3_l4</td><td>L2/L3 开窗宽度扩大至 2.4 mm</td><td class="warn">13.711</td><td>86.289</td><td class="ok">-13.98</td><td>S22 @ 10G</td><td class="warn">0.86</td><td>0.24</td><td>0.84</td><td><span class="tag orange">插损变差</span></td></tr>
-          <tr><td>gap1p5_novia_l2_l4</td><td>不挖 L3，L3 完整 GND，仅 L2 开窗</td><td class="warn">15.456</td><td>84.544</td><td class="ok">-13.38</td><td>S22 @ 3.9G</td><td>0.39</td><td class="ok">0.21</td><td>0.37</td><td><span class="tag orange">平衡变差</span></td></tr>
+          <tr><td>ref1p5_l3solid</td><td>L2 3.8 × 1.6 mm 矩形开窗，L3 solid，L4 GND，connector foot via</td><td class="ok">5.084</td><td class="ok">94.916</td><td class="ok">-12.35</td><td>S22 @ 7.5G</td><td class="ok">0.481</td><td class="ok">0.206</td><td class="ok">0.474</td><td><span class="tag blue">原最佳</span></td></tr>
+          <tr><td>l2l4p0</td><td>L2 4.0 × 1.6 mm 矩形开窗，L3 solid，L4 GND，connector foot via</td><td class="ok">4.052</td><td class="ok">95.948</td><td class="ok">-14.01</td><td>S22 @ 7.4G</td><td class="ok">0.418</td><td class="ok">0.167</td><td class="ok">0.409</td><td><span class="tag blue">长度占优</span></td></tr>
+          <tr><td>l40w15</td><td>L2 4.0 × 1.5 mm 矩形开窗，L3 solid，L4 GND，connector foot via</td><td class="ok">3.522</td><td class="ok">96.478</td><td class="ok">-13.14</td><td>S22 @ 7.3G</td><td class="ok">0.380</td><td class="ok">0.180</td><td class="ok">0.373</td><td><span class="tag blue">插损接近</span></td></tr>
+          <tr><td class="b">l40w17</td><td>L2 4.0 × 1.7 mm 矩形开窗，L3 solid，L4 GND，connector foot via</td><td class="ok">3.495</td><td class="ok">96.505</td><td class="ok">-14.53</td><td>S22 @ 7.6G</td><td class="ok">0.409</td><td class="ok">0.156</td><td class="ok">0.406</td><td><span class="tag green">BEST</span></td></tr>
         </tbody>
       </table>
-      <div class="bar">本轮结论：截取端参考地右延 1.5 mm 与 connector feet 就近接地进一步降低额外插损和 8 GHz 附近波动，是当前最优组合。</div>
+      <div class="bar">本轮结论：L2 矩形开窗长度从 3.8 mm 增至 4.0 mm 后综合评分继续提升；宽度 1.7 mm 的 l40w17 在最差回损、平均额外插损和总评分上为当前最优组合。</div>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 7 / 8</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 6 / 7</span></footer>
 </section>
 
 <section class="page">
   <header class="page-header">
     <div>
       <h1>优化轮次与后续动作</h1>
-      <div class="subtitle">从未优化小 pad 到大 gap、参考地延伸与 connector foot via 的演进</div>
+      <div class="subtitle">从未优化小 pad 到大 gap、L3 solid 与 L2 矩形开窗尺寸扫描的演进</div>
     </div>
     <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
-    <div class="doc-meta"><strong>当前方案</strong>单连接器 30 mm 夹具<br>当前轮次：connector local optimization<br>工程：hfss_sma_connector_cpw.aedt</div>
+    <div class="doc-meta"><strong>当前方案</strong>单连接器 30 mm 夹具<br>当前轮次：L2 rectangular cutout sweep<br>工程：hfss_sma_connector_cpw.aedt</div>
   </header>
   <main class="main">
     <div class="section">
-      <div class="section-title">13. 迭代轮次</div>
+      <div class="section-title">12. 迭代轮次</div>
       <table class="compact">
         <thead><tr><th>轮次</th><th>关键动作</th><th>结果</th><th>判断</th></tr></thead>
         <tbody>
           <tr><td>Baseline</td><td>small_pad_same_anchor_a</td><td>cost 152.668</td><td><span class="tag red">失配严重</span></td></tr>
           <tr><td>L2/L3/L4</td><td>L2/L3 开窗，L4 加 GND</td><td>cost 18.030</td><td><span class="tag orange">有效但不充分</span></td></tr>
-          <tr><td>Gap/NoVia</td><td>1.5 mm launch gap，去中心焊盘近端 GND via</td><td>cost 8.029</td><td><span class="tag blue">上一轮最佳</span></td></tr>
-          <tr><td>RefExtend/FootVia</td><td>L2/L3/L4 右延 1.5 mm，连接器 feet 增加 4 个 GND via</td><td>cost 3.763</td><td><span class="tag green">当前最佳</span></td></tr>
+          <tr><td>Gap/NoVia</td><td>1.5 mm launch gap，去中心焊盘近端 GND via</td><td>cost 8.029</td><td><span class="tag blue">阶段改善</span></td></tr>
+          <tr><td>L2 Rect Sweep</td><td>L3 solid、L4 GND、connector feet GND via，L2 4.0 × 1.7 mm</td><td>cost 3.495</td><td><span class="tag green">当前最佳</span></td></tr>
         </tbody>
       </table>
     </div>
     <div class="section">
-      <div class="section-title">14. 下一步待办</div>
+      <div class="section-title">13. 下一步待办</div>
       <table class="compact">
         <thead><tr><th>优先级</th><th>事项</th><th>原因</th><th>建议验证</th></tr></thead>
         <tbody>
           <tr><td>P0</td><td>复核 S1_1_Pin_T1 与 radiation boundary 间距</td><td>当前唯一明显残余 HFSS warning。</td><td>调整 airbox/radiation factor 或端口边界位置后复跑。</td></tr>
           <tr><td>P0</td><td>固化 connector pin port 自动流程</td><td>手动流程已确认，需要纳入自动化仿真闭环。</td><td>删除旧端口、按 connector pin Create、schematic 连接、Validate。</td></tr>
-          <tr><td>P1</td><td>扫 reference_ground_extend_right_mm</td><td>当前 1.5 mm 最优但未扫边界。</td><td>1.0 / 1.5 / 2.0 mm。</td></tr>
+          <tr><td>P1</td><td>围绕 L2 矩形开窗边界小步扫描</td><td>4.0 mm 长度已经占优，宽度 1.7 mm 当前最好。</td><td>长度 3.9 / 4.0 / 4.1 mm，宽度 1.6 / 1.7 / 1.8 mm。</td></tr>
           <tr><td>P1</td><td>扫 connector foot via 数量和位置</td><td>需要平衡回流改善与额外电容。</td><td>2 / 4 / 6 个，x/y 位置小步扫描。</td></tr>
-          <tr><td>P1</td><td>小步调 launch gap / taper_l</td><td>Smith 图仍提示轻微阻抗摆动。</td><td>gap 1.3-1.7 mm，taper 3.2-4.2 mm。</td></tr>
+          <tr><td>P1</td><td>小步调 launch gap / taper_l</td><td>Smith 图仍提示轻微阻抗摆动。</td><td>gap 1.4-1.6 mm，taper 3.2-4.2 mm。</td></tr>
         </tbody>
       </table>
-      <div class="bar">当前最明确方向是保持 L2/L3 同步开窗、修正截取端参考地、connector foot 就近接地，并优先清理端口/辐射边界告警。</div>
+      <div class="bar">当前最明确方向是保持 L3 solid、L4 GND 和 connector foot 就近接地，以 L2 4.0 × 1.7 mm 为中心继续做小步边界扫描，并优先复核端口/辐射边界。</div>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 8 / 8</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 7 / 7</span></footer>
 </section>
 
 </body>

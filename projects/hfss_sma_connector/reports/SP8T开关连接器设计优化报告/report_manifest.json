@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "report_dir": "D:\\Work\\SIM\\ADS_AUTO_SIM\\projects\\hfss_sma_connector\\reports\\SP8T开关连接器设计优化报告",
+  "report_dir": "D:\\Work\\ADS_AUTO_SIM\\projects\\hfss_sma_connector\\reports\\SP8T开关连接器设计优化报告",
   "html_files": [
     "SP8T开关连接器设计优化报告.html"
   ],
@@ -24,6 +24,18 @@
       "sha256": "dea06a1011bfecfb57a4ebaee127c7ffd686bd7a2fef93bdefccec41b9371e8f"
     },
     {
+      "path": "assets/l40w17_s_curves.svg",
+      "exists": true,
+      "size_bytes": 38899,
+      "sha256": "dc08a3489a9bd5644a15a2b550e8669e0803d98898fcc36e2eea4e146e6fba9d"
+    },
+    {
+      "path": "assets/l40w17_smith.svg",
+      "exists": true,
+      "size_bytes": 63820,
+      "sha256": "770d9157fe254acab3fbf56d6b8f1fc67640e7a3e62e99bcf70c5f9451032c12"
+    },
+    {
       "path": "assets/no_connector_30mm_s_curves.svg",
       "exists": true,
       "size_bytes": 40383,
@@ -40,6 +52,12 @@
       "exists": true,
       "size_bytes": 31857,
       "sha256": "f31acdd0b448c0041d44adc954400f148dd487226e656517326aec96c33034ff"
+    },
+    {
+      "path": "assets/se30_l40w17_jlc04161h_7628_1p6mm.svg",
+      "exists": true,
+      "size_bytes": 31476,
+      "sha256": "c3c96893fcbbfc74ab7ced427d3b8d853e0f6c89215bbf5924a4bea68f69c7af"
     },
     {
       "path": "assets/SP8T_connector_no_connector_unopt_best_overlay.svg",
@@ -66,6 +84,12 @@
       "sha256": "15f7aece7b110b7aaa55a97365d88c4e123f0a7ec5da262def49f6a57e70cca3"
     },
     {
+      "path": "assets/SP8T_connector_no_connector_vs_l40w17_s21_overlay_0_to_minus3.svg",
+      "exists": true,
+      "size_bytes": 41277,
+      "sha256": "d2b574250b53d95c8193c41e74a5746de0548d12cdbc6e0ef4ad7ecf9bdf08c7"
+    },
+    {
       "path": "assets/SP8T_connector_no_connector_vs_refextend_best_s21_overlay_0_to_minus3.svg",
       "exists": true,
       "size_bytes": 46760,
@@ -76,6 +100,12 @@
       "exists": true,
       "size_bytes": 94875,
       "sha256": "714f40ed36b481ac1aecbe3b8941042b29798e10f6057254ff7b99af00e5671b"
+    },
+    {
+      "path": "assets/SP8T_connector_unopt_notqualified_l40w17_overlay.svg",
+      "exists": true,
+      "size_bytes": 85362,
+      "sha256": "e8d8e1ddfcedb08332888d6bd251abaefff40ca20fa5ae0b65f1f66e9839cbcc"
     },
     {
       "path": "assets/SP8T_connector_unopt_notqualified_refextend_best_overlay.svg",
@@ -96,10 +126,16 @@
       "sha256": "c474ff079daff62b72f8d95b24b172ccbe9ae85a4c2865fde2261fb833721995"
     },
     {
+      "path": "report_manifest.json",
+      "exists": true,
+      "size_bytes": 11167,
+      "sha256": "c3f1e286d40f8dc89326c4a6fa2270aeda24593a9ceac1819b06e70d2684974e"
+    },
+    {
       "path": "SP8T开关连接器设计优化报告.html",
       "exists": true,
-      "size_bytes": 25720,
-      "sha256": "d3499e3faf14d4bd7e73a1ddfedde9f5de54fc293d06ffbf12b30b196cc4d976"
+      "size_bytes": 25059,
+      "sha256": "e8ce682effdace58ef4a96a757cf045188aeebb1858550696fa941eaa6d98525"
     },
     {
       "path": "SP8T开关连接器设计优化报告.pdf",
@@ -132,8 +168,8 @@
     {
       "source_html": "SP8T开关连接器设计优化报告.html",
       "attribute": "src",
-      "uri": "assets/se30_gap1p5_novia_l2l3_l4_refextend_right1p5_jlc04161h_7628_1p6mm.svg",
-      "local_path": "assets/se30_gap1p5_novia_l2l3_l4_refextend_right1p5_jlc04161h_7628_1p6mm.svg",
+      "uri": "assets/se30_l40w17_jlc04161h_7628_1p6mm.svg",
+      "local_path": "assets/se30_l40w17_jlc04161h_7628_1p6mm.svg",
       "exists": true,
       "inside_report_dir": true,
       "skipped": false,
@@ -172,8 +208,18 @@
     {
       "source_html": "SP8T开关连接器设计优化报告.html",
       "attribute": "src",
-      "uri": "assets/gap1p5_novia_l2l3_l4_refextend_right1p5_s_curves.svg",
-      "local_path": "assets/gap1p5_novia_l2l3_l4_refextend_right1p5_s_curves.svg",
+      "uri": "assets/l40w17_s_curves.svg",
+      "local_path": "assets/l40w17_s_curves.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/l40w17_smith.svg",
+      "local_path": "assets/l40w17_smith.svg",
       "exists": true,
       "inside_report_dir": true,
       "skipped": false,
@@ -192,8 +238,8 @@
     {
       "source_html": "SP8T开关连接器设计优化报告.html",
       "attribute": "src",
-      "uri": "assets/SP8T_connector_no_connector_vs_refextend_best_s21_overlay_0_to_minus3.svg",
-      "local_path": "assets/SP8T_connector_no_connector_vs_refextend_best_s21_overlay_0_to_minus3.svg",
+      "uri": "assets/SP8T_connector_no_connector_vs_l40w17_s21_overlay_0_to_minus3.svg",
+      "local_path": "assets/SP8T_connector_no_connector_vs_l40w17_s21_overlay_0_to_minus3.svg",
       "exists": true,
       "inside_report_dir": true,
       "skipped": false,
@@ -212,38 +258,8 @@
     {
       "source_html": "SP8T开关连接器设计优化报告.html",
       "attribute": "src",
-      "uri": "assets/SP8T_connector_unopt_notqualified_refextend_best_overlay.svg",
-      "local_path": "assets/SP8T_connector_unopt_notqualified_refextend_best_overlay.svg",
-      "exists": true,
-      "inside_report_dir": true,
-      "skipped": false,
-      "skip_reason": null
-    },
-    {
-      "source_html": "SP8T开关连接器设计优化报告.html",
-      "attribute": "src",
-      "uri": "assets/gts-logo-cropped.svg",
-      "local_path": "assets/gts-logo-cropped.svg",
-      "exists": true,
-      "inside_report_dir": true,
-      "skipped": false,
-      "skip_reason": null
-    },
-    {
-      "source_html": "SP8T开关连接器设计优化报告.html",
-      "attribute": "src",
-      "uri": "assets/gap1p5_novia_l2l3_l4_refextend_right1p5_s_curves.svg",
-      "local_path": "assets/gap1p5_novia_l2l3_l4_refextend_right1p5_s_curves.svg",
-      "exists": true,
-      "inside_report_dir": true,
-      "skipped": false,
-      "skip_reason": null
-    },
-    {
-      "source_html": "SP8T开关连接器设计优化报告.html",
-      "attribute": "src",
-      "uri": "assets/gap1p5_novia_l2l3_l4_refextend_right1p5_smith.svg",
-      "local_path": "assets/gap1p5_novia_l2l3_l4_refextend_right1p5_smith.svg",
+      "uri": "assets/SP8T_connector_unopt_notqualified_l40w17_overlay.svg",
+      "local_path": "assets/SP8T_connector_unopt_notqualified_l40w17_overlay.svg",
       "exists": true,
       "inside_report_dir": true,
       "skipped": false,
@@ -271,18 +287,18 @@
     }
   ],
   "referenced_assets": [
-    "assets/SP8T_connector_no_connector_vs_refextend_best_s21_overlay_0_to_minus3.svg",
-    "assets/SP8T_connector_unopt_notqualified_refextend_best_overlay.svg",
-    "assets/gap1p5_novia_l2l3_l4_refextend_right1p5_s_curves.svg",
-    "assets/gap1p5_novia_l2l3_l4_refextend_right1p5_smith.svg",
+    "assets/SP8T_connector_no_connector_vs_l40w17_s21_overlay_0_to_minus3.svg",
+    "assets/SP8T_connector_unopt_notqualified_l40w17_overlay.svg",
     "assets/gts-logo-cropped.svg",
+    "assets/l40w17_s_curves.svg",
+    "assets/l40w17_smith.svg",
     "assets/no_connector_30mm_s_curves.svg",
-    "assets/se30_gap1p5_novia_l2l3_l4_refextend_right1p5_jlc04161h_7628_1p6mm.svg",
+    "assets/se30_l40w17_jlc04161h_7628_1p6mm.svg",
     "assets/仿真模型.png"
   ],
   "missing_references": [],
   "outside_report_dir_references": [],
   "skipped_references": [],
   "status": "ok",
-  "updated_at": "2026-08-06T00:49:52+08:00"
+  "updated_at": "2026-08-06T15:14:18+08:00"
 }
