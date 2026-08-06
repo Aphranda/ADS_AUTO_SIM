@@ -9,6 +9,7 @@ desktop.ini
 *.bak
 *.tmp
 *.temp
+.simads/
 
 # Local editor state
 .vscode/
