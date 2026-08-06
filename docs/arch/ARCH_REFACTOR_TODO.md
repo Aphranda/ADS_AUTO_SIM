@@ -4,7 +4,7 @@ Status: Active
 Domain: ARCH
 Canonical: `docs/arch/ARCH_REFACTOR_TODO.md`
 Related: `docs/arch/ADS版图自动仿真项目框架设计.md`, `docs/arch/ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md`, `docs/arch/ARCH_REFACTOR_TASK_PROGRESS.md`, `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`
-Last updated: 2026-08-05
+Last updated: 2026-08-07
 Owner: ADS Automation
 
 本文档跟踪 ADS 版图自动仿真项目从现有 `tools/*.py` 脚本集合向框架化平台演进的重构待办。TODO 文档只记录验收标准、推荐执行顺序、P0/P1/P2 待办和当前风险；每次实际任务闭环记录写入 `ARCH_REFACTOR_TASK_PROGRESS.md`。当前已开始首批 `tools/ads/` 和 `tools/layout/` 物理分拆，旧路径保留兼容 wrapper。
@@ -400,6 +400,23 @@ Owner: ADS Automation
 - [x] active sweep 支持 `generator` 和 `optimizer` 配置，并让 surrogate 候选脚本读取 dataset、seed、输出目录和搜索参数默认值。
 - [x] 新增 `config/round_script_migration.json` 和 `tools/check_round_script_migration.py`，迁移或归档 round 专用脚本前先做索引校验。
 - [ ] 将剩余 `make_i7_fr4_round*.py` 等 round 专用脚本迁入 optimizer 配置或归档为 legacy。
+
+### P2-07 Tools/Src 模块化闭环审计
+
+**现状：** 2026-08-07 独立评审 `tools/` 与 `src/simads/` 后，当前架构方向正确，但迁移仍不完整。`src/simads` 已承接 config/runtime/geometry/exporters/ADS/HFSS/scoring/optimizer/reports 等能力；`tools` 中仍保留大量生产 CLI、诊断脚本、探索脚本和历史 round 脚本。重复点集中在 JSON 读写、repo root 解析、CSV helper、ADS `HPEESOF_DIR` 初始化、HFSS 工程 sidecar/backup、schematic component/port 枚举、版图生成 primitive 和 pixel QR 候选变体操作。
+
+**影响：** 如果继续在 `tools` 中追加业务逻辑，自动化流程会回到脚本分叉状态；HFSS 修改也容易绕过 `OperationLifecycle`、non-graphical/new desktop 默认策略、AEDT lock/reaper 和脚本分类 gate。
+
+- [x] 修复 HFSS 脚本分类 gate：所有 `tools/hfss/*.py` 必须在 `tools/hfss/script_classes.json` 登记 runtime/class/production_allowed。
+- [x] 首批公共 JSON helper 下沉到 `src/simads.common.jsonio`，删除本轮涉及 HFSS 工具中的重复 `_json_default`。
+- [ ] 将 HFSS 工程 sidecar/backup helper 下沉到 `src/simads.hfss.project` 或独立 `src/simads.hfss.project_files`，生产/维护脚本只调用模块 API。
+- [ ] 将 HFSS schematic component/port 只读枚举 helper 下沉到 `src/simads.hfss.ports`，替换 `rebuild/recreate/probe/try` 中重复 `_component_instances`、`_parse_component_instance`、`_schematic_ports`、`_port_info`。
+- [ ] 将 API layout extractor 的纯解析/单位转换/几何 distill 逻辑下沉到 `src/simads.hfss.layout_extraction`，`tools/hfss/extract_hfss3dlayout_parameterized_layout.py` 保留薄 CLI 和 AEDT session 编排。
+- [ ] 将 API layout SVG renderer 下沉到 `src/simads.hfss.layout_svg` 或通用 exporter，`tools/hfss/render_hfss3dlayout_api_layout_svg.py` 保留薄 CLI。
+- [ ] 将 ADS 脚本中的 `ensure_hpeesof_dir`、阶段日志和 `_resolve_output_path` 收敛到 `src/simads.ads.runtime`，旧 ADS CLI 保持兼容。
+- [ ] 将 `make_pixel_qr_r*.py` 中重复 mask/rows/mirror/operator helper 收敛到 pixel QR optimizer module，并用配置表达 round 差异。
+- [ ] 将根目录 wrapper 与子目录真实脚本建立统一检查，禁止新增功能逻辑写在 wrapper 中。
+- [ ] 每完成一项迁移，必须运行对应 pytest/py_compile，并执行 HFSS 修改的 AEDT API smoke gate；完成后提交并推送。
 
 ---
 

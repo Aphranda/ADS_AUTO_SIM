@@ -4,7 +4,7 @@ Status: Draft
 Domain: PY
 Canonical: `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`
 Related: `docs/arch/ADS版图自动仿真项目框架设计.md`, `docs/env/ENV_ADS_API_CAPABILITY_MATRIX.md`, `projects/bfp_6_8g_i7_fr4/docs/ADS自动仿真流程说明.md`
-Last updated: 2026-08-06
+Last updated: 2026-08-07
 Owner: ADS Automation
 
 本文档用于管理 SIM 项目中的 Python 脚本。目标不是立即重构目录，而是先把脚本分层、可复用模块、运行环境和输入输出契约固定下来。
@@ -61,6 +61,9 @@ CLI 编排流程。
 | `tools/hfss/check_aedt_non_graphical_startup.py` | host/pyaedt | stable | 检查 AEDT non-graphical gRPC 启动、版本和项目/design 加载 | 使用 `aedt_startup.py` 的 gRPC 兼容入口和 reaper；输出启动参数、进程前后状态和错误栈。 |
 | `tools/hfss/check_hfss_script_classes.py` | host | stable | 检查 HFSS tool 脚本分类登记 | 读取 `tools/hfss/script_classes.json`，要求所有 `tools/hfss/*.py` 登记 runtime/class，禁止 `try_*`、`probe_*`、`scan_*` 进入 production，禁止 text unsafe 脚本作为生产路径。 |
 | `tools/hfss/create_hfss3dlayout_smoke_project.py` | host/pyaedt | stable | HFSS 代码修改后的真实 AEDT API smoke gate | 使用 `hfss.session` 默认 non-graphical/new desktop，在 `.simads/aedt_smoke/` 创建独立最小 HFSS 3D Layout 工程、setup/sweep 并保存；不触碰业务工程，不直接编辑 `.aedt/.aedb` 文本。 |
+| `tools/hfss/delete_hfss3dlayout_layout_primitives.py` | host/pyaedt | maintenance | 只删除 HFSS 3D Layout PCB source primitives，不重建版图 | 已登记为非 production 维护脚本；正常候选重建应使用 `replace_hfss3dlayout_layout_primitives.py`，且必须通过 PyAEDT/API 和生命周期管控。 |
+| `tools/hfss/extract_hfss3dlayout_parameterized_layout.py` | host/pyaedt | diagnostic | 通过 AEDT/PyAEDT API 只读提取 HFSS 3D Layout 几何、component、pin、layer 和 distilled 版图信息 | 不解析或修改 `.aedt/.aedb`；后续纯单位转换、bbox、distill 逻辑应下沉到 `src/simads.hfss.layout_extraction`。 |
+| `tools/hfss/render_hfss3dlayout_api_layout_svg.py` | host | diagnostic | 将 API 提取的 HFSS 3D Layout JSON 离线渲染为 SVG 叠层预览 | 不启动 AEDT，不读取 AEDT 数据库；后续 SVG 逻辑应下沉到 `src/simads.hfss.layout_svg` 或通用 exporter。 |
 | `tools/hfss/run_hfss_quality_gate.py` | host/pyaedt | stable | HFSS 代码修改统一 gate | 按 HFSS profile 选择 host Python，串联 py_compile、HFSS pytest、AEDT API smoke；pytest 临时目录和 gate/smoke 输出固定在 `.simads/`，作为每次 HFSS 修改后的默认实测入口。 |
 | `tools/hfss/rebuild_connector_pin_iports.py` | host/pyaedt | stable | 批量重建 connector pin IPort | 作为 `hfss.port_plans.ConnectorPinPortPlan` 的多端口 wrapper，默认 non-graphical/new desktop；支持从 schematic component instance 推导 component/raw/pin，执行 delete old IPort、CreatePortsOnComponents、schematic connect、validate，统一保存。 |
 | `tools/hfss/inspect_aedt_project.py` | host/pyaedt | stable | 只读审计 AEDT project/design/port/object 信息 | `--backend file` 只读解析已保存 `.aedt`；`--backend pyaedt` 可非图形读取 live project，不得写回工程。 |
@@ -88,6 +91,20 @@ CLI 编排流程。
 | `simads.optimizer` | P2 | `propose_i7_fr4_surrogate_candidates.py`、`make_*` | 参数空间、候选生成、代理模型、EI。 |
 | `simads.optimizer.variants` | P2 | `make_i7_fr4_round*.py` | deterministic variant 配置读取、seed 参数更新和 plan CSV 行生成。 |
 | `simads.reports` | P2 | 报告生成脚本和模板 | HTML/PDF 报告、图片资产、公式表。 |
+| `simads.common.jsonio` | P2 | `tools/hfss/*`、report/plot/scoring CLI | UTF-8 JSON object 读取、JSON 写入和 API 对象默认序列化；CLI 不再复制 `_json_default`。 |
+
+## 3.1 2026-08-07 独立评审结论
+
+本轮评审以 `tools/` 与 `src/simads/` 的实际代码为准，结论如下：
+
+| 类别 | 发现 | 处理策略 |
+|---|---|---|
+| HFSS 脚本治理 | 最近新增的 extractor/renderer/delete 工具未登记到 `script_classes.json`，导致脚本分类 gate 失败。 | 先修复 registry；之后新增 HFSS 脚本必须先登记 class/runtime/production_allowed。 |
+| JSON/CSV/helper 重复 | `tools/hfss` 中 `_json_default` 大量复制，`tools` 中 `read_json/read_csv/repo_root` 也重复。 | 先下沉 JSON helper 到 `simads.common.jsonio`；后续分批收敛 CSV 和 repo root helper。 |
+| HFSS 工程文件 helper 重复 | `_project_sidecars`、`_backup_project` 在多个维护脚本中重复。 | 下沉为 `simads.hfss.project_files`，并统一备份 `.aedt/.aedb/.aedtresults` 规则。 |
+| HFSS port/component API 重复 | component instance、schematic port、port info 枚举在 probe/try/rebuild 脚本中重复。 | 下沉到 `simads.hfss.ports`，生产脚本禁止复制探索脚本片段。 |
+| Layout extractor/renderer 过厚 | 新增 extractor/renderer 是可复用逻辑，但目前仍主要在 `tools/hfss`。 | 下一轮把纯解析、distill、SVG 渲染下沉到 `src`，工具保留薄 CLI。 |
+| 历史 round 脚本扩散 | pixel QR 和 I7 round 脚本仍有大量重复变体 helper。 | 优先配置化迁移，完成后归档或删除 legacy 脚本。 |
 
 ## 4. 运行时规则
 

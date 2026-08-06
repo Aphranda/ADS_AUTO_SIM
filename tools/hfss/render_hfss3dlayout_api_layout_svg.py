@@ -15,6 +15,14 @@ from html import escape
 from pathlib import Path
 from typing import Any
 
+import sys
+
+_SRC_ROOT = Path(__file__).resolve().parents[2] / "src"
+if str(_SRC_ROOT) not in sys.path:
+    sys.path.insert(0, str(_SRC_ROOT))
+
+from simads.common import read_json_object
+
 
 DEFAULT_LAYERS = ("TOP", "L2_GND", "L3_SIG", "BOTTOM")
 LAYER_ALIASES = {
@@ -757,7 +765,7 @@ def render_svg(
 
 
 def render_file(args: argparse.Namespace) -> Path:
-    payload = json.loads(args.input.read_text(encoding="utf-8"))
+    payload = read_json_object(args.input)
     svg = render_svg(
         payload,
         layers=args.layers,

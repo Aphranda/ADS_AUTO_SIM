@@ -44,11 +44,23 @@
       "production_allowed": true,
       "notes": "Real AEDT API smoke gate using an isolated project."
     },
+    "tools/hfss/delete_hfss3dlayout_layout_primitives.py": {
+      "class": "maintenance",
+      "runtime": "host/pyaedt",
+      "production_allowed": false,
+      "notes": "API-only delete-only PCB source layout cleanup helper; normal rebuild flow uses replace_hfss3dlayout_layout_primitives.py."
+    },
     "tools/hfss/delete_schematic_component_instances.py": {
       "class": "maintenance",
       "runtime": "host/pyaedt",
       "production_allowed": false,
       "notes": "Explicit component deletion helper."
+    },
+    "tools/hfss/extract_hfss3dlayout_parameterized_layout.py": {
+      "class": "diagnostic",
+      "runtime": "host/pyaedt",
+      "production_allowed": true,
+      "notes": "Read-only AEDT/PyAEDT API extractor for saved or live HFSS 3D Layout designs."
     },
     "tools/hfss/inspect_aedt_project.py": {
       "class": "diagnostic",
@@ -151,6 +163,12 @@
       "runtime": "host/pyaedt",
       "production_allowed": false,
       "notes": "Explicit port rename helper."
+    },
+    "tools/hfss/render_hfss3dlayout_api_layout_svg.py": {
+      "class": "diagnostic",
+      "runtime": "host",
+      "production_allowed": true,
+      "notes": "Offline SVG renderer for API-extracted HFSS 3D Layout JSON; does not start AEDT or read AEDT databases directly."
     },
     "tools/hfss/replace_hfss3dlayout_layout_primitives.py": {
       "class": "production",

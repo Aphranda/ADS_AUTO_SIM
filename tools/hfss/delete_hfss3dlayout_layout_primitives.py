@@ -7,7 +7,6 @@ import argparse
 import json
 from pathlib import Path
 import sys
-from typing import Any
 
 _SRC_ROOT = Path(__file__).resolve().parents[2] / "src"
 if str(_SRC_ROOT) not in sys.path:
@@ -25,15 +24,12 @@ from simads.hfss.layout_cleanup import (
 from simads.hfss.layout_io import load_layout
 from simads.hfss.ports import delete_schematic_iports_by_name, schematic_iport_names
 from simads.hfss.session import Hfss3dLayoutSessionConfig, open_hfss3dlayout_session
+from simads.common import json_default
 
 apply_grpc_startup_compat()
 
 
-def _json_default(value: Any) -> str:
-    return str(value)
-
-
-def delete_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
+def delete_layout_primitives(args: argparse.Namespace) -> dict[str, object]:
     lifecycle = OperationLifecycle(
         "delete_hfss3dlayout_layout_primitives",
         output=args.output.with_suffix(".events.jsonl") if getattr(args, "output", None) else None,
@@ -54,7 +50,7 @@ def delete_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
     for prefix in getattr(args, "delete_extra_prefix", []):
         if prefix and prefix not in delete_prefixes:
             delete_prefixes.append(prefix)
-    payload: dict[str, Any] = {
+    payload: dict[str, object] = {
         "project": str(args.project),
         "design": args.design,
         "layout": str(args.layout),
@@ -180,7 +176,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     payload = delete_layout_primitives(args)
-    text = json.dumps(payload, ensure_ascii=False, indent=2, default=_json_default)
+    text = json.dumps(payload, ensure_ascii=False, indent=2, default=json_default)
     print(text)
     if args.output is not None:
         args.output.parent.mkdir(parents=True, exist_ok=True)

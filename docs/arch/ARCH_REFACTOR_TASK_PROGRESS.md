@@ -4,7 +4,7 @@ Status: Active
 Domain: ARCH
 Canonical: `docs/arch/ARCH_REFACTOR_TASK_PROGRESS.md`
 Related: `docs/arch/ARCH_REFACTOR_TODO.md`, `docs/arch/ADS版图自动仿真项目框架设计.md`, `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`
-Last updated: 2026-08-04
+Last updated: 2026-08-07
 Owner: ADS Automation
 
 本文档记录 ADS 自动仿真项目重构的正式任务进度。TODO 细分以 `ARCH_REFACTOR_TODO.md` 为准；架构原则以 `ADS版图自动仿真项目框架设计.md` 和 `ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md` 为准。
@@ -53,6 +53,41 @@ Owner: ADS Automation
 当前重构已进入 P2 阶段：外部 ADS workspace 不移动，仓库内 ADS 项目资产以 `projects/<project_id>/` 为有效边界。P0/P1 的数据契约、manifest、score/summary 追溯、baseline freeze、workspace 写入安全 gate、run state machine、结果治理、制造鲁棒性和报告发布 gate 已落地；当前重点是将旧脚本内部逻辑逐步收敛到 `src/simads` 模块，并保证新增器件分支使用独立项目目录。
 
 ## 任务记录
+### ARCH-REFACTOR-TASK-20260807-001 - HFSS Tools JSON Helper 下沉与脚本分类补齐
+
+- 状态：完成
+- 日期：2026-08-07
+- 任务目标：
+  - 独立评审 `tools/` 与 `src/simads/` 当前模块化状态，找出下一批低风险下沉点。
+  - 先修复 HFSS 工具脚本分类 gate 中的漏登记项，避免新增维护/诊断脚本绕过治理。
+  - 将 HFSS 工具中重复的 JSON 读写/默认序列化 helper 下沉到 `src/simads`。
+- 完成内容：
+  - 新增 `src/simads/common/jsonio.py`，提供 `json_default`、`read_json_object`、`write_json`。
+  - `src/simads/common/__init__.py` 导出公共 JSON helper。
+  - `delete_hfss3dlayout_layout_primitives.py`、`extract_hfss3dlayout_parameterized_layout.py` 和 `render_hfss3dlayout_api_layout_svg.py` 改为复用 `simads.common`。
+  - `tools/hfss/script_classes.json` 补齐 delete/extract/render 三个 HFSS 脚本登记。
+  - `ARCH_REFACTOR_TODO.md` 新增 P2-07 模块化闭环审计清单；`PYTHON_SCRIPT_MANAGEMENT.md` 记录本轮评审结论和新增脚本分类。
+- 验证结果：
+  - `D:\Microsoft\uv-venvs\ads-automation\Scripts\python.exe -m pytest tests\test_common_jsonio.py tests\test_hfss_script_classes.py tests\test_hfss_layout_extraction.py tests\test_hfss_layout_svg_renderer.py` 通过，结果为 11 passed。
+  - `D:\Microsoft\uv-venvs\ads-automation\Scripts\python.exe tools\hfss\run_hfss_quality_gate.py --profile home --pytest-target tests\test_common_jsonio.py --pytest-target tests\test_hfss_script_classes.py --pytest-target tests\test_hfss_layout_extraction.py --pytest-target tests\test_hfss_layout_svg_renderer.py` 通过，结果为 `status=ok`。
+  - AEDT API smoke 使用 home profile，non-graphical/new desktop 默认启动，在 `.simads/aedt_smoke/hfss3dlayout_api_smoke.aedt` 创建并保存隔离测试工程；未修改业务 HFSS 工程。
+  - `D:\Microsoft\uv-venvs\ads-automation\Scripts\python.exe tools\hfss\check_hfss_script_classes.py` 通过，41 个 HFSS 脚本全部登记，无 missing/stale/errors。
+- 还需完成：
+  - 下一轮将 HFSS 工程 sidecar/backup helper 下沉到 `src/simads.hfss.project_files` 或 `src/simads.hfss.project`。
+  - 后续继续拆分 schematic component/port 枚举、layout extraction、layout SVG renderer 等厚 CLI。
+- 关联文件：
+  - `src/simads/common/jsonio.py`
+  - `src/simads/common/__init__.py`
+  - `tools/hfss/delete_hfss3dlayout_layout_primitives.py`
+  - `tools/hfss/extract_hfss3dlayout_parameterized_layout.py`
+  - `tools/hfss/render_hfss3dlayout_api_layout_svg.py`
+  - `tools/hfss/script_classes.json`
+  - `tests/test_common_jsonio.py`
+  - `docs/arch/ARCH_REFACTOR_TODO.md`
+  - `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`
+- 下一步：
+  - 按 P2-07 继续执行 HFSS project sidecar/backup helper 下沉；每轮仍执行 pytest、home AEDT API smoke、提交和推送。
+
 ### ARCH-REFACTOR-TASK-20260804-018 - HFSS Connector Design Intersection Check Gate
 
 - 状态：完成

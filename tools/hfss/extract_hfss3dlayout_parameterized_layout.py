@@ -20,6 +20,7 @@ _SRC_ROOT = Path(__file__).resolve().parents[2] / "src"
 if str(_SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(_SRC_ROOT))
 
+from simads.common import json_default
 from simads.hfss.aedt_startup import OperationLifecycle
 from simads.hfss.session import Hfss3dLayoutSessionConfig, open_hfss3dlayout_session
 
@@ -35,10 +36,6 @@ _UNIT_TO_MM = {
 }
 _NUMBER_UNIT_RE = re.compile(r"^\s*([-+]?\d+(?:\.\d+)?(?:[eE][-+]?\d+)?)\s*([A-Za-z]*)\s*$")
 _MISSING = object()
-
-
-def _json_default(value: Any) -> str:
-    return str(value)
 
 
 def _safe(call, default: Any = _MISSING) -> Any:
@@ -632,17 +629,17 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     payload = extract(args)
-    text = json.dumps(payload, ensure_ascii=False, indent=2, default=_json_default)
+    text = json.dumps(payload, ensure_ascii=False, indent=2, default=json_default)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(text + "\n", encoding="utf-8")
     if args.distilled_output is not None:
         args.distilled_output.parent.mkdir(parents=True, exist_ok=True)
-        distilled = json.dumps(payload.get("distilled", {}), ensure_ascii=False, indent=2, default=_json_default)
+        distilled = json.dumps(payload.get("distilled", {}), ensure_ascii=False, indent=2, default=json_default)
         args.distilled_output.write_text(distilled + "\n", encoding="utf-8")
     if args.print_mode == "full":
         print(text)
     elif args.print_mode == "distilled":
-        print(json.dumps(payload.get("distilled", {}), ensure_ascii=False, indent=2, default=_json_default))
+        print(json.dumps(payload.get("distilled", {}), ensure_ascii=False, indent=2, default=json_default))
     return 0
 
 
