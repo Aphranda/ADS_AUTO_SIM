@@ -1,0 +1,1294 @@
+{
+  "project": "F:\\1.Hardware\\HFSS\\SP8T\\SP8T_HFSS.aedt",
+  "design": "RF_IN_cutout",
+  "ports": [
+    "Port1",
+    "S1_1_Pin_T1"
+  ],
+  "signal_nets": [
+    "N00061"
+  ],
+  "signal_object_count": 8,
+  "signal_bbox_mm": [
+    -0.4678172,
+    10.626166200000002,
+    0.4821936000000001,
+    17.8033934
+  ],
+  "signal_bbox_size_mm": {
+    "w_mm": 0.9500108,
+    "h_mm": 7.177227199999999
+  },
+  "void_object_count": 2,
+  "void_bbox_mm": [
+    -0.8428735999999999,
+    13.653338199999999,
+    0.8572500000000001,
+    17.6534318
+  ],
+  "gnd_via_count": 44,
+  "components": {
+    "4": {
+      "id_or_name": "4",
+      "properties": {
+        "BaseElementTab": {
+          "Type": "Component",
+          "Name": "4",
+          "PlacementLayer": "TOP",
+          "Location": "0 ,705 ,82.15",
+          "Rotation Angle": "90deg"
+        },
+        "ComponentTab": {}
+      },
+      "component_info": [
+        "ComponentName=SMA_KE_Unite_Small_Solder1",
+        "PlacementLayer=TOP",
+        "LocationX=0",
+        "LocationY=0",
+        "BBoxLLx=-0.00304800000000203",
+        "BBoxLLy=0",
+        "BBoxURx=0.00508",
+        "BBoxURy=0.00508",
+        "Angle=0",
+        "Flip=false",
+        "Scale=1"
+      ],
+      "pins": [
+        "Pin_T1"
+      ],
+      "pin_info": {
+        "Pin_T1": [
+          "Type=EdgePort",
+          "X=-0.002540",
+          "Y=0.015367",
+          "ConnectionPoints= NONE",
+          "NetName=S1_1_Pin_T1"
+        ]
+      }
+    }
+  },
+  "signal_objects": [
+    {
+      "name": "line__304",
+      "type": "line",
+      "layer": "TOP",
+      "net": "N00061",
+      "bbox_mm": [
+        -0.15875,
+        10.626166200000002,
+        0.15875,
+        15.1584406
+      ],
+      "size_from_bbox_mm": {
+        "w_mm": 0.3175,
+        "h_mm": 4.532274399999999
+      },
+      "center_from_bbox_mm": [
+        0.0,
+        12.892303400000001
+      ],
+      "location_mm": null,
+      "distance_to_signal_bbox_mm": null,
+      "width_mm": 0.3175,
+      "length_mm": 4.5322744,
+      "points_mm": [
+        [
+          0.15875,
+          14.999690600000001
+        ],
+        [
+          -0.15875
+        ],
+        [
+          -0.15875,
+          14.999690600000001
+        ],
+        [
+          -0.15875,
+          10.784916200000001
+        ],
+        [
+          -0.15875
+        ],
+        [
+          0.15875,
+          10.784916200000001
+        ]
+      ],
+      "center_line_points_mm": [
+        [
+          0.0,
+          14.9996906
+        ],
+        [
+          0.0,
+          10.7849162
+        ]
+      ]
+    },
+    {
+      "name": "line__303",
+      "type": "line",
+      "layer": "TOP",
+      "net": "N00061",
+      "bbox_mm": [
+        -0.1590548,
+        14.840940600000001,
+        0.15875000000000003,
+        15.158745400000003
+      ],
+      "size_from_bbox_mm": {
+        "w_mm": 0.3178048,
+        "h_mm": 0.3178048000000011
+      },
+      "center_from_bbox_mm": [
+        -0.0001523999999999831,
+        14.999843000000002
+      ],
+      "location_mm": null,
+      "distance_to_signal_bbox_mm": null,
+      "width_mm": 0.3175,
+      "length_mm": 0.3179310522938119,
+      "points_mm": [
+        [
+          0.11194840151365718,
+          15.112248601513073
+        ],
+        [
+          -0.1587499999999999
+        ],
+        [
+          -0.11255800151365719,
+          14.887742198486931
+        ],
+        [
+          -0.11225320151365718,
+          14.887437398486929
+        ],
+        [
+          -0.15875
+        ],
+        [
+          0.11225320151365718,
+          15.111943801513073
+        ]
+      ],
+      "center_line_points_mm": [
+        [
+          -0.0003048,
+          14.999995400000001
+        ],
+        [
+          0.0,
+          14.9996906
+        ]
+      ]
+    },
+    {
+      "name": "line__307",
+      "type": "line",
+      "layer": "TOP",
+      "net": "N00061",
+      "bbox_mm": [
+        -0.1590548,
+        14.841245400000002,
+        0.1584452,
+        15.6587444
+      ],
+      "size_from_bbox_mm": {
+        "w_mm": 0.3175,
+        "h_mm": 0.817498999999998
+      },
+      "center_from_bbox_mm": [
+        -0.00030479999999999396,
+        15.2499949
+      ],
+      "location_mm": null,
+      "distance_to_signal_bbox_mm": null,
+      "width_mm": 0.3175,
+      "length_mm": 0.8174989999999975,
+      "points_mm": [
+        [
+          0.1584452,
+          15.4999944
+        ],
+        [
+          -0.15875
+        ],
+        [
+          -0.1590548,
+          15.4999944
+        ],
+        [
+          -0.1590548,
+          14.999995400000003
+        ],
+        [
+          -0.15875
+        ],
+        [
+          0.1584452,
+          14.999995400000003
+        ]
+      ],
+      "center_line_points_mm": [
+        [
+          -0.0003048,
+          15.499994399999999
+        ],
+        [
+          -0.0003048,
+          14.999995400000001
+        ]
+      ]
+    },
+    {
+      "name": "poly__302",
+      "type": "poly",
+      "layer": "TOP",
+      "net": "N00061",
+      "bbox_mm": [
+        -0.44282360000000004,
+        10.9033818,
+        0.45719999999999994,
+        14.5034
+      ],
+      "size_from_bbox_mm": {
+        "w_mm": 0.9000235999999999,
+        "h_mm": 3.600018199999999
+      },
+      "center_from_bbox_mm": [
+        0.00718819999999995,
+        12.703390899999999
+      ],
+      "location_mm": null,
+      "distance_to_signal_bbox_mm": null,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": [
+        [
+          -0.15156179999999997,
+          10.9033818
+        ],
+        [
+          0.1659382,
+          10.9033818
+        ],
+        [
+          0.4572,
+          14.5034
+        ],
+        [
+          -0.44282360000000004,
+          14.5034
+        ]
+      ],
+      "center_line_points_mm": null
+    },
+    {
+      "name": "rect__305",
+      "type": "rect",
+      "layer": "TOP",
+      "net": "N00061",
+      "bbox_mm": [
+        -0.44282360000000004,
+        14.5034,
+        0.45719999999999994,
+        15.003399
+      ],
+      "size_from_bbox_mm": {
+        "w_mm": 0.9000235999999999,
+        "h_mm": 0.49999900000000075
+      },
+      "center_from_bbox_mm": [
+        0.00718819999999995,
+        14.7533995
+      ],
+      "location_mm": null,
+      "distance_to_signal_bbox_mm": null,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": [
+        [
+          -0.44282360000000004,
+          14.5034
+        ],
+        [
+          0.45719999999999994,
+          14.5034
+        ],
+        [
+          0.45719999999999994,
+          15.003399
+        ],
+        [
+          -0.44282360000000004,
+          15.003399
+        ]
+      ],
+      "center_line_points_mm": null
+    },
+    {
+      "name": "rect__306",
+      "type": "rect",
+      "layer": "TOP",
+      "net": "N00061",
+      "bbox_mm": [
+        -0.4678172,
+        15.003398999999996,
+        0.4821936000000001,
+        17.8033934
+      ],
+      "size_from_bbox_mm": {
+        "w_mm": 0.9500108,
+        "h_mm": 2.7999944000000045
+      },
+      "center_from_bbox_mm": [
+        0.007188200000000061,
+        16.4033962
+      ],
+      "location_mm": null,
+      "distance_to_signal_bbox_mm": null,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": [
+        [
+          -0.4678172,
+          15.003398999999996
+        ],
+        [
+          0.4821936000000001,
+          15.003398999999996
+        ],
+        [
+          0.4821936000000001,
+          17.8033934
+        ],
+        [
+          -0.4678172,
+          17.8033934
+        ]
+      ],
+      "center_line_points_mm": null
+    },
+    {
+      "name": "RF1-5",
+      "type": "Pin",
+      "layer": "TOP",
+      "net": "N00061",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -0.0003048,
+        15.499994399999999
+      ],
+      "distance_to_signal_bbox_mm": null,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "Port2",
+      "type": "Pin",
+      "layer": "TOP",
+      "net": "N00061",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        0.0,
+        10.7849162
+      ],
+      "distance_to_signal_bbox_mm": null,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    }
+  ],
+  "void_objects": [
+    {
+      "name": "poly__128",
+      "type": "poly",
+      "layer": "L2_GND",
+      "net": null,
+      "bbox_mm": [
+        -0.8428735999999999,
+        13.653338199999999,
+        0.8572500000000001,
+        17.6534318
+      ],
+      "size_from_bbox_mm": {
+        "w_mm": 1.7001236,
+        "h_mm": 4.000093600000001
+      },
+      "center_from_bbox_mm": [
+        0.007188200000000089,
+        15.653385
+      ],
+      "location_mm": null,
+      "distance_to_signal_bbox_mm": null,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": [
+        [
+          -0.8428735999999999,
+          17.6534318
+        ],
+        [
+          0.8572500000000001,
+          17.6534318
+        ],
+        [
+          0.8572500000000001,
+          13.6533382
+        ],
+        [
+          -0.8428735999999999,
+          13.6533382
+        ]
+      ],
+      "center_line_points_mm": null
+    },
+    {
+      "name": "poly__129",
+      "type": "poly",
+      "layer": "L2_GND",
+      "net": null,
+      "bbox_mm": [
+        -0.8428735999999999,
+        13.653338199999999,
+        0.8572500000000001,
+        17.6534318
+      ],
+      "size_from_bbox_mm": {
+        "w_mm": 1.7001236,
+        "h_mm": 4.000093600000001
+      },
+      "center_from_bbox_mm": [
+        0.007188200000000089,
+        15.653385
+      ],
+      "location_mm": null,
+      "distance_to_signal_bbox_mm": null,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": [
+        [
+          -0.8428735999999999,
+          17.6534318
+        ],
+        [
+          0.8572500000000001,
+          17.6534318
+        ],
+        [
+          0.8572500000000001,
+          13.6533382
+        ],
+        [
+          -0.8428735999999999,
+          13.6533382
+        ]
+      ],
+      "center_line_points_mm": null
+    }
+  ],
+  "nearby_gnd_via_candidates": [
+    {
+      "name": "via_570",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -1.0668,
+        10.2616
+      ],
+      "distance_to_signal_bbox_mm": 0.7012053257629192,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_572",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        1.0668,
+        10.210799999999999
+      ],
+      "distance_to_signal_bbox_mm": 0.7171427494044699,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1522",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -1.0005313999999998,
+        8.7881714
+      ],
+      "distance_to_signal_bbox_mm": 1.913637714853229,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_569",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -2.3367999999999998,
+        10.210799999999999
+      ],
+      "distance_to_signal_bbox_mm": 1.914582405329758,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1134",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        1.175004,
+        8.809253400000001
+      ],
+      "distance_to_signal_bbox_mm": 1.9445200881328026,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_571",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        2.3876,
+        10.16
+      ],
+      "distance_to_signal_bbox_mm": 1.961602527318774,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_465",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        2.54,
+        15.062199999999999
+      ],
+      "distance_to_signal_bbox_mm": 2.0578064,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_463",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        2.54,
+        17.399
+      ],
+      "distance_to_signal_bbox_mm": 2.0578064,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_466",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        2.54,
+        16.2306
+      ],
+      "distance_to_signal_bbox_mm": 2.0578064,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_464",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        2.54,
+        13.893799999999999
+      ],
+      "distance_to_signal_bbox_mm": 2.0578064,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_468",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -2.54,
+        13.8684
+      ],
+      "distance_to_signal_bbox_mm": 2.0721828,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_469",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -2.54,
+        15.0368
+      ],
+      "distance_to_signal_bbox_mm": 2.0721828,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_470",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -2.54,
+        16.205199999999998
+      ],
+      "distance_to_signal_bbox_mm": 2.0721828,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_467",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -2.54,
+        17.3736
+      ],
+      "distance_to_signal_bbox_mm": 2.0721828,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1521",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -2.0163028,
+        8.809253400000001
+      ],
+      "distance_to_signal_bbox_mm": 2.387253605340497,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1133",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        2.191004,
+        8.809253400000001
+      ],
+      "distance_to_signal_bbox_mm": 2.4942343726987652,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1560",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -1.25095,
+        8.0472534
+      ],
+      "distance_to_signal_bbox_mm": 2.6951972492638987,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1169",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        1.7520158000000001,
+        8.0472534
+      ],
+      "distance_to_signal_bbox_mm": 2.874585126521162,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_724",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -3.4628073999999995,
+        17.1051982
+      ],
+      "distance_to_signal_bbox_mm": 2.9949901999999997,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1520",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -3.0323028,
+        8.809253400000001
+      ],
+      "distance_to_signal_bbox_mm": 3.1428901532524494,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1559",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -2.26695,
+        8.0472534
+      ],
+      "distance_to_signal_bbox_mm": 3.144466578299042,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1132",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        3.207004,
+        8.809253400000001
+      ],
+      "distance_to_signal_bbox_mm": 3.2750211966874354,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1168",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        2.7680158,
+        8.0472534
+      ],
+      "distance_to_signal_bbox_mm": 3.446124542151181,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_564",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -0.17779999999999999,
+        7.0358
+      ],
+      "distance_to_signal_bbox_mm": 3.590366200000002,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_565",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        0.7111999999999999,
+        7.0358
+      ],
+      "distance_to_signal_bbox_mm": 3.59766221056722,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1558",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -3.28295,
+        8.0472534
+      ],
+      "distance_to_signal_bbox_mm": 3.8178218805543676,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_753",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -4.478807399999999,
+        15.073198199999998
+      ],
+      "distance_to_signal_bbox_mm": 4.010990199999999,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1519",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -4.0483028,
+        8.809253400000001
+      ],
+      "distance_to_signal_bbox_mm": 4.0151026455884296,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1385",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -1.0793476,
+        6.5267078
+      ],
+      "distance_to_signal_bbox_mm": 4.144819489851728,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1131",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        4.2230039999999995,
+        8.809253400000001
+      ],
+      "distance_to_signal_bbox_mm": 4.1587058770189556,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_780",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        4.6651926,
+        13.041198199999998
+      ],
+      "distance_to_signal_bbox_mm": 4.182999,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_723",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        4.6651926,
+        17.1051982
+      ],
+      "distance_to_signal_bbox_mm": 4.182999,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1167",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        3.7840158,
+        8.0472534
+      ],
+      "distance_to_signal_bbox_mm": 4.189608701348694,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1395",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        2.0951444,
+        6.5471294
+      ],
+      "distance_to_signal_bbox_mm": 4.3863597092549185,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1386",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -2.0951444,
+        6.5471547999999995
+      ],
+      "distance_to_signal_bbox_mm": 4.391642951924692,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_563",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -0.17779999999999999,
+        6.1468
+      ],
+      "distance_to_signal_bbox_mm": 4.479366200000002,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_562",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        0.6858,
+        6.1468
+      ],
+      "distance_to_signal_bbox_mm": 4.483991204253575,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1557",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -4.29895,
+        8.0472534
+      ],
+      "distance_to_signal_bbox_mm": 4.618264799818183,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1541",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -3.2996124,
+        6.6121534
+      ],
+      "distance_to_signal_bbox_mm": 4.912368350735406,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1396",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        3.0997906,
+        6.395770799999999
+      ],
+      "distance_to_signal_bbox_mm": 4.97474213349297,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1166",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        4.8000158,
+        8.0472534
+      ],
+      "distance_to_signal_bbox_mm": 5.029351825117893,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1391",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        4.013199999999999,
+        6.6548
+      ],
+      "distance_to_signal_bbox_mm": 5.314109115490894,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1540",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        -4.3156124,
+        6.6121534
+      ],
+      "distance_to_signal_bbox_mm": 5.560380082306145,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    },
+    {
+      "name": "via_1151",
+      "type": "via",
+      "layer": "TOP",
+      "net": "GND",
+      "bbox_mm": null,
+      "size_from_bbox_mm": null,
+      "center_from_bbox_mm": null,
+      "location_mm": [
+        4.804537,
+        6.6121534
+      ],
+      "distance_to_signal_bbox_mm": 5.898724542313143,
+      "width_mm": null,
+      "length_mm": null,
+      "points_mm": null,
+      "center_line_points_mm": null
+    }
+  ],
+  "api_limits": []
+}
