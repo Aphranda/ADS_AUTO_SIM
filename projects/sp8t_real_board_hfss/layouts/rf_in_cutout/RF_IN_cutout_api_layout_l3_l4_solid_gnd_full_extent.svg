@@ -1,0 +1,723 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1188" height="2465.621" viewBox="0 0 1188 2465.621">
+<defs>
+<style>text { font-family: Arial, sans-serif; } .panel text { pointer-events: none; }</style>
+</defs>
+<g class="panel"><text x="0" y="22" font-size="18" font-family="Arial, sans-serif" font-weight="700" fill="#27313d">L1 TOP layer</text>
+<rect x="0" y="32" width="900" height="435.124" fill="#fbfbf8" stroke="#aeb6c1" stroke-width="1"/>
+<line x1="57.508" y1="32" x2="57.508" y2="467.124" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="59.508" y="44" font-size="10" fill="#6b7280">-5</text>
+<line x1="148.538" y1="32" x2="148.538" y2="467.124" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="150.538" y="44" font-size="10" fill="#6b7280">0</text>
+<line x1="239.568" y1="32" x2="239.568" y2="467.124" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="241.568" y="44" font-size="10" fill="#6b7280">5</text>
+<line x1="330.598" y1="32" x2="330.598" y2="467.124" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="332.598" y="44" font-size="10" fill="#6b7280">10</text>
+<line x1="421.628" y1="32" x2="421.628" y2="467.124" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="423.628" y="44" font-size="10" fill="#6b7280">15</text>
+<line x1="512.658" y1="32" x2="512.658" y2="467.124" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="514.658" y="44" font-size="10" fill="#6b7280">20</text>
+<line x1="603.688" y1="32" x2="603.688" y2="467.124" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="605.688" y="44" font-size="10" fill="#6b7280">25</text>
+<line x1="694.718" y1="32" x2="694.718" y2="467.124" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="696.718" y="44" font-size="10" fill="#6b7280">30</text>
+<line x1="785.748" y1="32" x2="785.748" y2="467.124" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="787.748" y="44" font-size="10" fill="#6b7280">35</text>
+<line x1="876.778" y1="32" x2="876.778" y2="467.124" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="878.778" y="44" font-size="10" fill="#6b7280">40</text>
+<line x1="0" y1="412.506" x2="900" y2="412.506" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="409.506" font-size="10" fill="#6b7280">0</text>
+<line x1="0" y1="321.476" x2="900" y2="321.476" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="318.476" font-size="10" fill="#6b7280">5</text>
+<line x1="0" y1="230.446" x2="900" y2="230.446" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="227.446" font-size="10" fill="#6b7280">10</text>
+<line x1="0" y1="139.416" x2="900" y2="139.416" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="136.416" font-size="10" fill="#6b7280">15</text>
+<line x1="0" y1="48.386" x2="900" y2="48.386" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="45.386" font-size="10" fill="#6b7280">20</text>
+<line x1="790.97" y1="449.124" x2="882" y2="449.124" stroke="#111827" stroke-width="2"/>
+<text x="790.97" y="444.124" font-size="11" fill="#111827">5 mm</text>
+<clipPath id="clip-0-TOP"><rect x="0" y="32" width="900" height="435.124"/></clipPath>
+<g clip-path="url(#clip-0-TOP)">
+<rect x="93.046" y="320.02" width="147.978" height="92.487" fill="none" stroke="#111827" stroke-width="1" opacity="0.72"><title>4 type=component layer=TOP bbox_mm=[-3.048,0,5.08,5.08]</title></rect>
+<rect x="91.186" y="86.618" width="114.704" height="87.39" fill="none" stroke="#111827" stroke-width="1" opacity="0.72"><title>RF1 type=component layer=TOP part=BWSMA-KE-P001 bbox_mm=[-3.15,13.1,3.15,17.9]</title></rect>
+<rect x="143.623" y="208.963" width="9.831" height="34.235" fill="none" stroke="#111827" stroke-width="1" opacity="0.72"><title>U0 type=component layer=TOP part=Component_0 bbox_mm=[-0.27,9.3,0.27,11.18]</title></rect>
+<rect x="118.506" y="258.131" width="69.185" height="48.246" fill="none" stroke="#111827" stroke-width="1" opacity="0.72"><title>U1 type=component layer=TOP part=HMC241ALP3ETR bbox_mm=[-1.65,5.829,2.151,8.479]</title></rect>
+<polyline points="102.675,306.952 109.97,306.372 125.792,306.372 125.792,306.378 125.79,306.378" fill="none" stroke="#2563eb" stroke-width="5.78" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"><title>line__137 type=line layer=TOP net=S0_RF3 bbox_mm=[-2.678,5.639,-1.091,5.988]</title></polyline>
+<polyline points="194.402,306.952 187.106,306.372 180.41,306.378 180.408,306.378" fill="none" stroke="#2563eb" stroke-width="5.78" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"><title>line__142 type=line layer=TOP net=S0_RF2 bbox_mm=[1.592,5.639,2.678,5.988]</title></polyline>
+<polyline points="125.79,279.066 125.79,279.065 125.792,279.065 125.792,279.062 57.508,279.062" fill="none" stroke="#2563eb" stroke-width="5.78" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"><title>line__145 type=line layer=TOP net=S0_RF4 bbox_mm=[-5.159,7.171,-1.091,7.488]</title></polyline>
+<polyline points="180.408,279.066 180.408,279.065 180.41,279.065 180.41,279.062 244.931,279.062" fill="none" stroke="#2563eb" stroke-width="5.78" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"><title>line__146 type=line layer=TOP net=S0_RF1 bbox_mm=[1.592,7.171,5.453,7.488]</title></polyline>
+<polyline points="148.533,139.416 148.538,139.422" fill="none" stroke="#f97316" stroke-width="5.78" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"><title>line__303 type=line layer=TOP net=N00061 bbox_mm=[-0.159,14.841,0.159,15.159]</title></polyline>
+<polyline points="148.538,139.422 148.538,216.156" fill="none" stroke="#f97316" stroke-width="5.78" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"><title>line__304 type=line layer=TOP net=N00061 bbox_mm=[-0.159,10.626,0.159,15.158]</title></polyline>
+<polyline points="148.533,130.313 148.533,139.416" fill="none" stroke="#f97316" stroke-width="5.78" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"><title>line__307 type=line layer=TOP net=N00061 bbox_mm=[-0.159,14.841,0.158,15.659]</title></polyline>
+<polyline points="148.538,236.005 148.538,252.917 148.551,252.929 148.551,265.415" fill="none" stroke="#2563eb" stroke-width="5.78" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"><title>line__308 type=line layer=TOP net=S0_RFC bbox_mm=[-0.159,7.921,0.159,9.853]</title></polyline>
+<polygon points="57.508,285.652 57.508,306.952 83.398,306.952 109.97,299.782 115.954,299.782 116.17,299.655 118.506,299.022 133.073,299.022 137.698,303.647 137.698,306.952 168.499,306.952 168.499,303.647 173.124,299.022 187.691,299.022 190.38,299.884 213.679,306.952 244.931,306.952 244.931,285.652 190.258,285.652 190.041,285.78 187.691,286.422 173.124,286.422 168.499,281.797 168.499,276.335 173.124,271.709 187.691,271.709 190.029,272.344 190.246,272.471 244.931,272.471 244.931,87.111 184.923,87.111 157.107,206.098 157.324,206.43 158.079,208.963 158.079,223.349 157.187,226.08 158.079,228.811 158.079,243.198 155.62,247.284 155.129,247.545 155.129,252.523 155.13,252.549 155.141,252.929 155.141,255.571 155.269,255.787 155.907,258.131 155.907,272.698 151.281,277.323 145.82,277.323 141.195,272.698 141.195,258.131 141.833,255.787 141.96,255.571 141.96,253.323 141.959,253.296 141.948,252.917 141.948,247.545 141.456,247.284 138.997,243.198 138.997,228.811 139.89,226.08 138.997,223.349 138.997,208.963 139.916,206.196 140.174,205.851 112.415,87.111 57.508,87.111 57.508,272.471 115.952,272.471 116.168,272.344 118.506,271.709 133.073,271.709 137.698,276.335 137.698,281.797 133.073,286.422 118.506,286.422 116.156,285.78 115.939,285.652" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.62"><title>poly__126 type=poly layer=TOP net=GND bbox_mm=[-5,5.798,5.295,17.873]</title></polygon>
+<polygon points="145.779,213.999 151.559,213.999 156.862,148.457 140.476,148.457" fill="#f97316" stroke="#9a3412" stroke-width="1" opacity="0.9"><title>poly__302 type=poly layer=TOP net=N00061 bbox_mm=[-0.443,10.903,0.457,14.503]</title></polygon>
+<polygon points="140.476,148.457 156.862,148.457 156.862,139.354 140.476,139.354" fill="#f97316" stroke="#9a3412" stroke-width="1" opacity="0.9"><title>rect__305 type=rect layer=TOP net=N00061 bbox_mm=[-0.443,14.503,0.457,15.003]</title></polygon>
+<polygon points="140.021,139.354 157.317,139.354 157.317,88.378 140.021,88.378" fill="#f97316" stroke="#9a3412" stroke-width="1" opacity="0.9"><title>rect__306 type=rect layer=TOP net=N00061 bbox_mm=[-0.468,15.003,0.482,17.803]</title></polygon>
+<circle cx="148.538" cy="412.506" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>4.Pin_T1 type=component_pin layer=TOP bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="194.962" cy="130.313" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>RF1.RF1-1 type=component_pin layer=TOP net=GND part=BWSMA-KE-P001 bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="102.109" cy="130.313" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>RF1.RF1-2 type=component_pin layer=TOP net=GND part=BWSMA-KE-P001 bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="148.533" cy="130.313" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>RF1.RF1-5 type=component_pin layer=TOP net=N00061 part=BWSMA-KE-P001 bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="148.538" cy="216.156" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U0.Port2 type=component_pin layer=TOP net=N00061 part=Component_0 bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="148.538" cy="236.005" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U0.Port3 type=component_pin layer=TOP net=S0_RFC part=Component_0 bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="125.79" cy="279.066" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-1 type=component_pin layer=TOP net=S0_RF4 part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="180.408" cy="297.272" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-10 type=component_pin layer=TOP net=GND part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="180.408" cy="288.172" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-11 type=component_pin layer=TOP net=GND part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="180.408" cy="279.066" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-12 type=component_pin layer=TOP net=S0_RF1 part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="166.757" cy="265.415" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-13 type=component_pin layer=TOP net=GND part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="157.652" cy="265.415" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-14 type=component_pin layer=TOP net=GND part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="148.551" cy="265.415" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-15 type=component_pin layer=TOP net=S0_RFC part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="139.446" cy="265.415" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-16 type=component_pin layer=TOP net=GND part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="153.097" cy="292.722" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-17 type=component_pin layer=TOP net=GND part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="125.79" cy="288.199" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-2 type=component_pin layer=TOP net=GND part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="125.79" cy="297.272" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-3 type=component_pin layer=TOP net=GND part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="225.422" cy="252.125" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1131 type=via layer=TOP net=GND</title></circle>
+<circle cx="206.925" cy="252.125" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1132 type=via layer=TOP net=GND</title></circle>
+<circle cx="188.428" cy="252.125" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1133 type=via layer=TOP net=GND</title></circle>
+<circle cx="169.93" cy="252.125" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1134 type=via layer=TOP net=GND</title></circle>
+<circle cx="236.01" cy="292.125" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1151 type=via layer=TOP net=GND</title></circle>
+<circle cx="235.927" cy="265.998" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1166 type=via layer=TOP net=GND</title></circle>
+<circle cx="217.43" cy="265.998" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1167 type=via layer=TOP net=GND</title></circle>
+<circle cx="198.933" cy="265.998" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1168 type=via layer=TOP net=GND</title></circle>
+<circle cx="180.435" cy="265.998" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1169 type=via layer=TOP net=GND</title></circle>
+<circle cx="128.888" cy="293.681" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1385 type=via layer=TOP net=GND</title></circle>
+<circle cx="110.394" cy="293.309" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1386 type=via layer=TOP net=GND</title></circle>
+<circle cx="221.603" cy="291.349" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1391 type=via layer=TOP net=GND</title></circle>
+<circle cx="186.682" cy="293.309" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1395 type=via layer=TOP net=GND</title></circle>
+<circle cx="204.973" cy="296.065" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1396 type=via layer=TOP net=GND</title></circle>
+<circle cx="74.835" cy="252.125" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1519 type=via layer=TOP net=GND</title></circle>
+<circle cx="93.332" cy="252.125" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1520 type=via layer=TOP net=GND</title></circle>
+<circle cx="111.829" cy="252.125" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1521 type=via layer=TOP net=GND</title></circle>
+<circle cx="130.323" cy="252.509" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1522 type=via layer=TOP net=GND</title></circle>
+<circle cx="69.968" cy="292.125" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1540 type=via layer=TOP net=GND</title></circle>
+<circle cx="88.465" cy="292.125" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1541 type=via layer=TOP net=GND</title></circle>
+<circle cx="70.272" cy="265.998" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1557 type=via layer=TOP net=GND</title></circle>
+<circle cx="88.769" cy="265.998" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1558 type=via layer=TOP net=GND</title></circle>
+<circle cx="107.266" cy="265.998" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1559 type=via layer=TOP net=GND</title></circle>
+<circle cx="125.763" cy="265.998" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1560 type=via layer=TOP net=GND</title></circle>
+<circle cx="194.781" cy="95.74" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_463 type=via layer=TOP net=GND</title></circle>
+<circle cx="194.781" cy="159.556" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_464 type=via layer=TOP net=GND</title></circle>
+<circle cx="194.781" cy="138.284" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_465 type=via layer=TOP net=GND</title></circle>
+<circle cx="194.781" cy="117.012" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_466 type=via layer=TOP net=GND</title></circle>
+<circle cx="102.295" cy="96.202" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_467 type=via layer=TOP net=GND</title></circle>
+<circle cx="102.295" cy="160.018" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_468 type=via layer=TOP net=GND</title></circle>
+<circle cx="102.295" cy="138.746" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_469 type=via layer=TOP net=GND</title></circle>
+<circle cx="102.295" cy="117.474" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_470 type=via layer=TOP net=GND</title></circle>
+<circle cx="161.024" cy="300.598" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_562 type=via layer=TOP net=GND</title></circle>
+<circle cx="145.301" cy="300.598" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_563 type=via layer=TOP net=GND</title></circle>
+<circle cx="145.301" cy="284.412" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_564 type=via layer=TOP net=GND</title></circle>
+<circle cx="161.486" cy="284.412" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_565 type=via layer=TOP net=GND</title></circle>
+<circle cx="105.994" cy="226.608" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_569 type=via layer=TOP net=GND</title></circle>
+<circle cx="129.116" cy="225.684" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_570 type=via layer=TOP net=GND</title></circle>
+<circle cx="192.007" cy="227.533" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_571 type=via layer=TOP net=GND</title></circle>
+<circle cx="167.96" cy="226.608" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_572 type=via layer=TOP net=GND</title></circle>
+<circle cx="233.473" cy="101.089" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_723 type=via layer=TOP net=GND</title></circle>
+<circle cx="85.494" cy="101.089" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_724 type=via layer=TOP net=GND</title></circle>
+<circle cx="66.997" cy="138.084" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_753 type=via layer=TOP net=GND</title></circle>
+<circle cx="233.473" cy="175.078" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_780 type=via layer=TOP net=GND</title></circle>
+<text x="172.036" y="362.263" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">4</text>
+<text x="153.538" y="126.313" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">RF1</text>
+<text x="153.538" y="222.08" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U0</text>
+<text x="158.099" y="278.254" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1</text>
+<text x="153.535" y="135.419" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">line__303</text>
+<text x="153.538" y="173.789" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">line__304</text>
+<text x="153.533" y="130.865" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">line__307</text>
+<text x="153.669" y="177.228" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">poly__302</text>
+<text x="153.669" y="139.906" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">rect__305</text>
+<text x="153.669" y="109.866" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">rect__306</text>
+<text x="153.538" y="408.506" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">4.Pin_T1</text>
+<text x="199.962" y="126.313" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">RF1.RF1-1</text>
+<text x="107.109" y="126.313" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">RF1.RF1-2</text>
+<text x="153.533" y="126.313" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">RF1.RF1-5</text>
+<text x="153.538" y="212.156" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U0.Port2</text>
+<text x="153.538" y="232.005" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U0.Port3</text>
+<text x="130.79" y="275.066" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-1</text>
+<text x="185.408" y="293.272" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-10</text>
+<text x="185.408" y="284.172" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-11</text>
+<text x="185.408" y="275.066" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-12</text>
+<text x="171.757" y="261.415" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-13</text>
+<text x="162.652" y="261.415" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-14</text>
+<text x="153.551" y="261.415" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-15</text>
+<text x="144.446" y="261.415" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-16</text>
+<text x="158.097" y="288.722" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-17</text>
+<text x="130.79" y="284.199" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-2</text>
+<text x="130.79" y="293.272" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-3</text>
+</g>
+</g>
+<g class="panel"><text x="0" y="517.124" font-size="18" font-family="Arial, sans-serif" font-weight="700" fill="#27313d">L2 GND layer</text>
+<rect x="0" y="527.124" width="900" height="435.124" fill="#fbfbf8" stroke="#aeb6c1" stroke-width="1"/>
+<line x1="57.508" y1="527.124" x2="57.508" y2="962.249" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="59.508" y="539.124" font-size="10" fill="#6b7280">-5</text>
+<line x1="148.538" y1="527.124" x2="148.538" y2="962.249" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="150.538" y="539.124" font-size="10" fill="#6b7280">0</text>
+<line x1="239.568" y1="527.124" x2="239.568" y2="962.249" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="241.568" y="539.124" font-size="10" fill="#6b7280">5</text>
+<line x1="330.598" y1="527.124" x2="330.598" y2="962.249" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="332.598" y="539.124" font-size="10" fill="#6b7280">10</text>
+<line x1="421.628" y1="527.124" x2="421.628" y2="962.249" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="423.628" y="539.124" font-size="10" fill="#6b7280">15</text>
+<line x1="512.658" y1="527.124" x2="512.658" y2="962.249" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="514.658" y="539.124" font-size="10" fill="#6b7280">20</text>
+<line x1="603.688" y1="527.124" x2="603.688" y2="962.249" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="605.688" y="539.124" font-size="10" fill="#6b7280">25</text>
+<line x1="694.718" y1="527.124" x2="694.718" y2="962.249" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="696.718" y="539.124" font-size="10" fill="#6b7280">30</text>
+<line x1="785.748" y1="527.124" x2="785.748" y2="962.249" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="787.748" y="539.124" font-size="10" fill="#6b7280">35</text>
+<line x1="876.778" y1="527.124" x2="876.778" y2="962.249" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="878.778" y="539.124" font-size="10" fill="#6b7280">40</text>
+<line x1="0" y1="907.63" x2="900" y2="907.63" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="904.63" font-size="10" fill="#6b7280">0</text>
+<line x1="0" y1="816.6" x2="900" y2="816.6" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="813.6" font-size="10" fill="#6b7280">5</text>
+<line x1="0" y1="725.57" x2="900" y2="725.57" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="722.57" font-size="10" fill="#6b7280">10</text>
+<line x1="0" y1="634.54" x2="900" y2="634.54" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="631.54" font-size="10" fill="#6b7280">15</text>
+<line x1="0" y1="543.51" x2="900" y2="543.51" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="540.51" font-size="10" fill="#6b7280">20</text>
+<line x1="790.97" y1="944.249" x2="882" y2="944.249" stroke="#111827" stroke-width="2"/>
+<text x="790.97" y="939.249" font-size="11" fill="#111827">5 mm</text>
+<clipPath id="clip-1-L2_GND"><rect x="0" y="527.124" width="900" height="435.124"/></clipPath>
+<g clip-path="url(#clip-1-L2_GND)">
+<polygon points="57.508,802.076 244.931,802.076 244.931,582.236 57.508,582.236" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.62"><title>poly__127 type=poly layer=L2_GND net=GND bbox_mm=[-5,5.798,5.295,17.873]</title></polygon>
+<polygon points="133.193,586.232 164.145,586.232 164.145,659.058 133.193,659.058" fill="#ffffff" stroke="#dc2626" stroke-width="1" opacity="0.78"><title>poly__128 type=poly layer=L2_GND void bbox_mm=[-0.843,13.653,0.857,17.653]</title></polygon>
+<polygon points="133.193,586.232 164.145,586.232 164.145,659.058 133.193,659.058" fill="#ffffff" stroke="#dc2626" stroke-width="1" opacity="0.78"><title>poly__129 type=poly layer=L2_GND void bbox_mm=[-0.843,13.653,0.857,17.653]</title></polygon>
+<circle cx="225.422" cy="747.249" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1131 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="206.925" cy="747.249" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1132 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="188.428" cy="747.249" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1133 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="169.93" cy="747.249" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1134 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="236.01" cy="787.25" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1151 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="235.927" cy="761.122" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1166 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="217.43" cy="761.122" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1167 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="198.933" cy="761.122" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1168 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="180.435" cy="761.122" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1169 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="128.888" cy="788.805" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1385 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="110.394" cy="788.433" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1386 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="221.603" cy="786.473" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1391 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="186.682" cy="788.433" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1395 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="204.973" cy="791.189" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1396 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="74.835" cy="747.249" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1519 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="93.332" cy="747.249" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1520 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="111.829" cy="747.249" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1521 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="130.323" cy="747.633" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1522 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="69.968" cy="787.25" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1540 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="88.465" cy="787.25" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1541 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="70.272" cy="761.122" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1557 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="88.769" cy="761.122" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1558 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="107.266" cy="761.122" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1559 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="125.763" cy="761.122" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1560 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="194.781" cy="590.864" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_463 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="194.781" cy="654.68" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_464 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="194.781" cy="633.408" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_465 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="194.781" cy="612.136" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_466 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="102.295" cy="591.327" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_467 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="102.295" cy="655.142" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_468 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="102.295" cy="633.87" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_469 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="102.295" cy="612.599" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_470 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="161.024" cy="795.722" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_562 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="145.301" cy="795.722" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_563 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="145.301" cy="779.537" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_564 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="161.486" cy="779.537" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_565 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="105.994" cy="721.733" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_569 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="129.116" cy="720.808" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_570 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="192.007" cy="722.657" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_571 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="167.96" cy="721.733" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_572 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="233.473" cy="596.213" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_723 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="85.494" cy="596.213" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_724 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="66.997" cy="633.208" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_753 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="233.473" cy="670.202" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_780 type=via layer=L2_GND net=GND</title></circle>
+<text x="153.669" y="618.645" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">poly__128 void</text>
+<text x="153.669" y="618.645" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">poly__129 void</text>
+</g>
+</g>
+<g class="panel"><text x="0" y="1012.249" font-size="18" font-family="Arial, sans-serif" font-weight="700" fill="#27313d">L3 SIG layer</text>
+<rect x="0" y="1022.249" width="900" height="435.124" fill="#fbfbf8" stroke="#aeb6c1" stroke-width="1"/>
+<line x1="57.508" y1="1022.249" x2="57.508" y2="1457.373" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="59.508" y="1034.249" font-size="10" fill="#6b7280">-5</text>
+<line x1="148.538" y1="1022.249" x2="148.538" y2="1457.373" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="150.538" y="1034.249" font-size="10" fill="#6b7280">0</text>
+<line x1="239.568" y1="1022.249" x2="239.568" y2="1457.373" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="241.568" y="1034.249" font-size="10" fill="#6b7280">5</text>
+<line x1="330.598" y1="1022.249" x2="330.598" y2="1457.373" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="332.598" y="1034.249" font-size="10" fill="#6b7280">10</text>
+<line x1="421.628" y1="1022.249" x2="421.628" y2="1457.373" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="423.628" y="1034.249" font-size="10" fill="#6b7280">15</text>
+<line x1="512.658" y1="1022.249" x2="512.658" y2="1457.373" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="514.658" y="1034.249" font-size="10" fill="#6b7280">20</text>
+<line x1="603.688" y1="1022.249" x2="603.688" y2="1457.373" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="605.688" y="1034.249" font-size="10" fill="#6b7280">25</text>
+<line x1="694.718" y1="1022.249" x2="694.718" y2="1457.373" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="696.718" y="1034.249" font-size="10" fill="#6b7280">30</text>
+<line x1="785.748" y1="1022.249" x2="785.748" y2="1457.373" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="787.748" y="1034.249" font-size="10" fill="#6b7280">35</text>
+<line x1="876.778" y1="1022.249" x2="876.778" y2="1457.373" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="878.778" y="1034.249" font-size="10" fill="#6b7280">40</text>
+<line x1="0" y1="1402.755" x2="900" y2="1402.755" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="1399.755" font-size="10" fill="#6b7280">0</text>
+<line x1="0" y1="1311.725" x2="900" y2="1311.725" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="1308.725" font-size="10" fill="#6b7280">5</text>
+<line x1="0" y1="1220.695" x2="900" y2="1220.695" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="1217.695" font-size="10" fill="#6b7280">10</text>
+<line x1="0" y1="1129.665" x2="900" y2="1129.665" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="1126.665" font-size="10" fill="#6b7280">15</text>
+<line x1="0" y1="1038.635" x2="900" y2="1038.635" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="1035.635" font-size="10" fill="#6b7280">20</text>
+<line x1="790.97" y1="1439.373" x2="882" y2="1439.373" stroke="#111827" stroke-width="2"/>
+<text x="790.97" y="1434.373" font-size="11" fill="#111827">5 mm</text>
+<clipPath id="clip-2-L3_SIG"><rect x="0" y="1022.249" width="900" height="435.124"/></clipPath>
+<g clip-path="url(#clip-2-L3_SIG)">
+<rect x="0" y="1022.249" width="900" height="435.124" fill="#8eae98" stroke="#315542" stroke-width="1" opacity="0.32"><title>solid_gnd_L3_SIG type=ground_plane layer=L3_SIG net=GND bbox_mm=[-8.159,-3,41.275,20.9]</title></rect>
+<polygon points="57.508,1235.355 57.508,1297.2 170.239,1297.2 174.28,1293.16 178.531,1291.399 205.971,1291.399 210.223,1293.16 214.263,1297.2 244.931,1297.2 244.931,1235.355" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.62"><title>poly__130 type=poly layer=L3_SIG net=GND bbox_mm=[-5,5.798,5.295,9.195]</title></polygon>
+<polygon points="57.508,1223.33 244.931,1223.33 244.931,1209.328 57.508,1209.328" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.62"><title>rect__131 type=rect layer=L3_SIG net=GND bbox_mm=[-5,9.855,5.295,10.624]</title></polygon>
+<polygon points="57.508,1179.268 244.931,1179.268 244.931,1077.36 57.508,1077.36" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.62"><title>rect__132 type=rect layer=L3_SIG net=GND bbox_mm=[-5,12.275,5.295,17.873]</title></polygon>
+<circle cx="225.422" cy="1242.373" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1131 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="206.925" cy="1242.373" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1132 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="188.428" cy="1242.373" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1133 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="169.93" cy="1242.373" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1134 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="236.01" cy="1282.374" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1151 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="235.927" cy="1256.246" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1166 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="217.43" cy="1256.246" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1167 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="198.933" cy="1256.246" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1168 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="180.435" cy="1256.246" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1169 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="128.888" cy="1283.929" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1385 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="110.394" cy="1283.557" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1386 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="221.603" cy="1281.597" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1391 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="186.682" cy="1283.558" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1395 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="204.973" cy="1286.313" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1396 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="74.835" cy="1242.373" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1519 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="93.332" cy="1242.373" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1520 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="111.829" cy="1242.373" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1521 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="130.323" cy="1242.757" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1522 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="69.968" cy="1282.374" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1540 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="88.465" cy="1282.374" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1541 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="70.272" cy="1256.246" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1557 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="88.769" cy="1256.246" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1558 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="107.266" cy="1256.246" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1559 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="125.763" cy="1256.246" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1560 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="194.781" cy="1085.988" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_463 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="194.781" cy="1149.804" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_464 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="194.781" cy="1128.532" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_465 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="194.781" cy="1107.26" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_466 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="102.295" cy="1086.451" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_467 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="102.295" cy="1150.267" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_468 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="102.295" cy="1128.995" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_469 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="102.295" cy="1107.723" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_470 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="161.024" cy="1290.846" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_562 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="145.301" cy="1290.846" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_563 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="145.301" cy="1274.661" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_564 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="161.486" cy="1274.661" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_565 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="105.994" cy="1216.857" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_569 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="129.116" cy="1215.932" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_570 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="192.007" cy="1217.782" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_571 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="167.96" cy="1216.857" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_572 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="233.473" cy="1091.337" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_723 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="85.494" cy="1091.337" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_724 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="66.997" cy="1128.332" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_753 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="233.473" cy="1165.327" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_780 type=via layer=L3_SIG net=GND</title></circle>
+</g>
+</g>
+<g class="panel"><text x="0" y="1507.373" font-size="18" font-family="Arial, sans-serif" font-weight="700" fill="#27313d">L4 BOTTOM layer</text>
+<rect x="0" y="1517.373" width="900" height="435.124" fill="#fbfbf8" stroke="#aeb6c1" stroke-width="1"/>
+<line x1="57.508" y1="1517.373" x2="57.508" y2="1952.497" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="59.508" y="1529.373" font-size="10" fill="#6b7280">-5</text>
+<line x1="148.538" y1="1517.373" x2="148.538" y2="1952.497" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="150.538" y="1529.373" font-size="10" fill="#6b7280">0</text>
+<line x1="239.568" y1="1517.373" x2="239.568" y2="1952.497" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="241.568" y="1529.373" font-size="10" fill="#6b7280">5</text>
+<line x1="330.598" y1="1517.373" x2="330.598" y2="1952.497" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="332.598" y="1529.373" font-size="10" fill="#6b7280">10</text>
+<line x1="421.628" y1="1517.373" x2="421.628" y2="1952.497" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="423.628" y="1529.373" font-size="10" fill="#6b7280">15</text>
+<line x1="512.658" y1="1517.373" x2="512.658" y2="1952.497" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="514.658" y="1529.373" font-size="10" fill="#6b7280">20</text>
+<line x1="603.688" y1="1517.373" x2="603.688" y2="1952.497" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="605.688" y="1529.373" font-size="10" fill="#6b7280">25</text>
+<line x1="694.718" y1="1517.373" x2="694.718" y2="1952.497" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="696.718" y="1529.373" font-size="10" fill="#6b7280">30</text>
+<line x1="785.748" y1="1517.373" x2="785.748" y2="1952.497" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="787.748" y="1529.373" font-size="10" fill="#6b7280">35</text>
+<line x1="876.778" y1="1517.373" x2="876.778" y2="1952.497" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="878.778" y="1529.373" font-size="10" fill="#6b7280">40</text>
+<line x1="0" y1="1897.879" x2="900" y2="1897.879" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="1894.879" font-size="10" fill="#6b7280">0</text>
+<line x1="0" y1="1806.849" x2="900" y2="1806.849" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="1803.849" font-size="10" fill="#6b7280">5</text>
+<line x1="0" y1="1715.819" x2="900" y2="1715.819" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="1712.819" font-size="10" fill="#6b7280">10</text>
+<line x1="0" y1="1624.789" x2="900" y2="1624.789" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="1621.789" font-size="10" fill="#6b7280">15</text>
+<line x1="0" y1="1533.759" x2="900" y2="1533.759" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="1530.759" font-size="10" fill="#6b7280">20</text>
+<line x1="790.97" y1="1934.497" x2="882" y2="1934.497" stroke="#111827" stroke-width="2"/>
+<text x="790.97" y="1929.497" font-size="11" fill="#111827">5 mm</text>
+<clipPath id="clip-3-BOTTOM"><rect x="0" y="1517.373" width="900" height="435.124"/></clipPath>
+<g clip-path="url(#clip-3-BOTTOM)">
+<rect x="0" y="1517.373" width="900" height="435.124" fill="#8eae98" stroke="#315542" stroke-width="1" opacity="0.32"><title>solid_gnd_BOTTOM type=ground_plane layer=BOTTOM net=GND bbox_mm=[-8.159,-3,41.275,20.9]</title></rect>
+<polygon points="57.508,1705.97 57.508,1792.325 244.931,1792.325 244.931,1716.375 226.227,1716.375 222.139,1714.682 213.428,1705.97" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.62"><title>poly__133 type=poly layer=BOTTOM net=GND bbox_mm=[-5,5.798,5.295,10.541]</title></polygon>
+<polygon points="57.508,1572.484 57.508,1686.546 219.079,1686.546 223.167,1688.24 231.878,1696.951 244.931,1696.951 244.931,1572.484" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.62"><title>poly__134 type=poly layer=BOTTOM net=GND bbox_mm=[-5,11.036,5.295,17.873]</title></polygon>
+<circle cx="102.109" cy="1615.686" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>RF1.RF1-3 type=component_pin layer=BOTTOM net=GND part=BWSMA-KE-P001 bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="194.967" cy="1615.686" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>RF1.RF1-4 type=component_pin layer=BOTTOM net=GND part=BWSMA-KE-P001 bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="225.422" cy="1737.498" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1131 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="206.925" cy="1737.498" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1132 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="188.428" cy="1737.498" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1133 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="169.93" cy="1737.498" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1134 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="236.01" cy="1777.498" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1151 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="235.927" cy="1751.371" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1166 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="217.43" cy="1751.371" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1167 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="198.933" cy="1751.371" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1168 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="180.435" cy="1751.371" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1169 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="128.888" cy="1779.054" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1385 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="110.394" cy="1778.681" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1386 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="221.603" cy="1776.722" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1391 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="186.682" cy="1778.682" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1395 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="204.973" cy="1781.438" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1396 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="74.835" cy="1737.498" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1519 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="93.332" cy="1737.498" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1520 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="111.829" cy="1737.498" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1521 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="130.323" cy="1737.882" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1522 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="69.968" cy="1777.498" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1540 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="88.465" cy="1777.498" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1541 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="70.272" cy="1751.371" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1557 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="88.769" cy="1751.371" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1558 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="107.266" cy="1751.371" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1559 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="125.763" cy="1751.371" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1560 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="194.781" cy="1581.113" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_463 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="194.781" cy="1644.928" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_464 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="194.781" cy="1623.657" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_465 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="194.781" cy="1602.385" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_466 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="102.295" cy="1581.575" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_467 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="102.295" cy="1645.391" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_468 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="102.295" cy="1624.119" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_469 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="102.295" cy="1602.847" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_470 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="161.024" cy="1785.97" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_562 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="145.301" cy="1785.97" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_563 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="145.301" cy="1769.785" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_564 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="161.486" cy="1769.785" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_565 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="105.994" cy="1711.981" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_569 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="129.116" cy="1711.056" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_570 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="192.007" cy="1712.906" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_571 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="167.96" cy="1711.981" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_572 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="233.473" cy="1586.462" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_723 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="85.494" cy="1586.462" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_724 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="66.997" cy="1623.456" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_753 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="233.473" cy="1660.451" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_780 type=via layer=BOTTOM net=GND</title></circle>
+<text x="107.109" y="1611.686" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">RF1.RF1-3</text>
+<text x="199.967" y="1611.686" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">RF1.RF1-4</text>
+</g>
+</g>
+<g class="panel"><text x="0" y="2002.497" font-size="18" font-family="Arial, sans-serif" font-weight="700" fill="#27313d">Overlay - selected HFSS 3D Layout geometry</text>
+<rect x="0" y="2012.497" width="900" height="435.124" fill="#fbfbf8" stroke="#aeb6c1" stroke-width="1"/>
+<line x1="57.508" y1="2012.497" x2="57.508" y2="2447.621" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="59.508" y="2024.497" font-size="10" fill="#6b7280">-5</text>
+<line x1="148.538" y1="2012.497" x2="148.538" y2="2447.621" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="150.538" y="2024.497" font-size="10" fill="#6b7280">0</text>
+<line x1="239.568" y1="2012.497" x2="239.568" y2="2447.621" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="241.568" y="2024.497" font-size="10" fill="#6b7280">5</text>
+<line x1="330.598" y1="2012.497" x2="330.598" y2="2447.621" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="332.598" y="2024.497" font-size="10" fill="#6b7280">10</text>
+<line x1="421.628" y1="2012.497" x2="421.628" y2="2447.621" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="423.628" y="2024.497" font-size="10" fill="#6b7280">15</text>
+<line x1="512.658" y1="2012.497" x2="512.658" y2="2447.621" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="514.658" y="2024.497" font-size="10" fill="#6b7280">20</text>
+<line x1="603.688" y1="2012.497" x2="603.688" y2="2447.621" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="605.688" y="2024.497" font-size="10" fill="#6b7280">25</text>
+<line x1="694.718" y1="2012.497" x2="694.718" y2="2447.621" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="696.718" y="2024.497" font-size="10" fill="#6b7280">30</text>
+<line x1="785.748" y1="2012.497" x2="785.748" y2="2447.621" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="787.748" y="2024.497" font-size="10" fill="#6b7280">35</text>
+<line x1="876.778" y1="2012.497" x2="876.778" y2="2447.621" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="878.778" y="2024.497" font-size="10" fill="#6b7280">40</text>
+<line x1="0" y1="2393.003" x2="900" y2="2393.003" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="2390.003" font-size="10" fill="#6b7280">0</text>
+<line x1="0" y1="2301.973" x2="900" y2="2301.973" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="2298.973" font-size="10" fill="#6b7280">5</text>
+<line x1="0" y1="2210.943" x2="900" y2="2210.943" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="2207.943" font-size="10" fill="#6b7280">10</text>
+<line x1="0" y1="2119.913" x2="900" y2="2119.913" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="2116.913" font-size="10" fill="#6b7280">15</text>
+<line x1="0" y1="2028.883" x2="900" y2="2028.883" stroke="#d7dce2" stroke-width="0.6"/>
+<text x="4" y="2025.883" font-size="10" fill="#6b7280">20</text>
+<line x1="790.97" y1="2429.621" x2="882" y2="2429.621" stroke="#111827" stroke-width="2"/>
+<text x="790.97" y="2424.621" font-size="11" fill="#111827">5 mm</text>
+<clipPath id="clip-overlay"><rect x="0" y="2012.497" width="900" height="435.124"/></clipPath>
+<g clip-path="url(#clip-overlay)">
+<rect x="0" y="2012.497" width="900" height="435.124" fill="#8eae98" stroke="#315542" stroke-width="1" opacity="0.32"><title>solid_gnd_BOTTOM type=ground_plane layer=BOTTOM net=GND bbox_mm=[-8.159,-3,41.275,20.9]</title></rect>
+<rect x="0" y="2012.497" width="900" height="435.124" fill="#8eae98" stroke="#315542" stroke-width="1" opacity="0.32"><title>solid_gnd_L3_SIG type=ground_plane layer=L3_SIG net=GND bbox_mm=[-8.159,-3,41.275,20.9]</title></rect>
+<rect x="93.046" y="2300.517" width="147.978" height="92.487" fill="none" stroke="#111827" stroke-width="1" opacity="0.72"><title>4 type=component layer=TOP bbox_mm=[-3.048,0,5.08,5.08]</title></rect>
+<rect x="91.186" y="2067.115" width="114.704" height="87.39" fill="none" stroke="#111827" stroke-width="1" opacity="0.72"><title>RF1 type=component layer=TOP part=BWSMA-KE-P001 bbox_mm=[-3.15,13.1,3.15,17.9]</title></rect>
+<rect x="143.623" y="2189.46" width="9.831" height="34.235" fill="none" stroke="#111827" stroke-width="1" opacity="0.72"><title>U0 type=component layer=TOP part=Component_0 bbox_mm=[-0.27,9.3,0.27,11.18]</title></rect>
+<rect x="118.506" y="2238.628" width="69.185" height="48.246" fill="none" stroke="#111827" stroke-width="1" opacity="0.72"><title>U1 type=component layer=TOP part=HMC241ALP3ETR bbox_mm=[-1.65,5.829,2.151,8.479]</title></rect>
+<polyline points="102.675,2287.449 109.97,2286.869 125.792,2286.869 125.792,2286.875 125.79,2286.875" fill="none" stroke="#2563eb" stroke-width="5.78" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"><title>line__137 type=line layer=TOP net=S0_RF3 bbox_mm=[-2.678,5.639,-1.091,5.988]</title></polyline>
+<polyline points="194.402,2287.449 187.106,2286.869 180.41,2286.875 180.408,2286.875" fill="none" stroke="#2563eb" stroke-width="5.78" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"><title>line__142 type=line layer=TOP net=S0_RF2 bbox_mm=[1.592,5.639,2.678,5.988]</title></polyline>
+<polyline points="125.79,2259.563 125.79,2259.562 125.792,2259.562 125.792,2259.559 57.508,2259.559" fill="none" stroke="#2563eb" stroke-width="5.78" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"><title>line__145 type=line layer=TOP net=S0_RF4 bbox_mm=[-5.159,7.171,-1.091,7.488]</title></polyline>
+<polyline points="180.408,2259.563 180.408,2259.562 180.41,2259.562 180.41,2259.559 244.931,2259.559" fill="none" stroke="#2563eb" stroke-width="5.78" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"><title>line__146 type=line layer=TOP net=S0_RF1 bbox_mm=[1.592,7.171,5.453,7.488]</title></polyline>
+<polyline points="148.533,2119.913 148.538,2119.919" fill="none" stroke="#f97316" stroke-width="5.78" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"><title>line__303 type=line layer=TOP net=N00061 bbox_mm=[-0.159,14.841,0.159,15.159]</title></polyline>
+<polyline points="148.538,2119.919 148.538,2196.653" fill="none" stroke="#f97316" stroke-width="5.78" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"><title>line__304 type=line layer=TOP net=N00061 bbox_mm=[-0.159,10.626,0.159,15.158]</title></polyline>
+<polyline points="148.533,2110.81 148.533,2119.913" fill="none" stroke="#f97316" stroke-width="5.78" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"><title>line__307 type=line layer=TOP net=N00061 bbox_mm=[-0.159,14.841,0.158,15.659]</title></polyline>
+<polyline points="148.538,2216.502 148.538,2233.414 148.551,2233.426 148.551,2245.912" fill="none" stroke="#2563eb" stroke-width="5.78" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"><title>line__308 type=line layer=TOP net=S0_RFC bbox_mm=[-0.159,7.921,0.159,9.853]</title></polyline>
+<polygon points="57.508,2266.149 57.508,2287.449 83.398,2287.449 109.97,2280.279 115.954,2280.279 116.17,2280.152 118.506,2279.519 133.073,2279.519 137.698,2284.144 137.698,2287.449 168.499,2287.449 168.499,2284.144 173.124,2279.519 187.691,2279.519 190.38,2280.381 213.679,2287.449 244.931,2287.449 244.931,2266.149 190.258,2266.149 190.041,2266.277 187.691,2266.919 173.124,2266.919 168.499,2262.294 168.499,2256.832 173.124,2252.206 187.691,2252.206 190.029,2252.841 190.246,2252.968 244.931,2252.968 244.931,2067.608 184.923,2067.608 157.107,2186.595 157.324,2186.927 158.079,2189.46 158.079,2203.846 157.187,2206.577 158.079,2209.308 158.079,2223.695 155.62,2227.781 155.129,2228.042 155.129,2233.02 155.13,2233.046 155.141,2233.426 155.141,2236.068 155.269,2236.284 155.907,2238.628 155.907,2253.195 151.281,2257.82 145.82,2257.82 141.195,2253.195 141.195,2238.628 141.833,2236.284 141.96,2236.068 141.96,2233.82 141.959,2233.793 141.948,2233.414 141.948,2228.042 141.456,2227.781 138.997,2223.695 138.997,2209.308 139.89,2206.577 138.997,2203.846 138.997,2189.46 139.916,2186.693 140.174,2186.348 112.415,2067.608 57.508,2067.608 57.508,2252.968 115.952,2252.968 116.168,2252.841 118.506,2252.206 133.073,2252.206 137.698,2256.832 137.698,2262.294 133.073,2266.919 118.506,2266.919 116.156,2266.277 115.939,2266.149" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.62"><title>poly__126 type=poly layer=TOP net=GND bbox_mm=[-5,5.798,5.295,17.873]</title></polygon>
+<polygon points="57.508,2287.449 244.931,2287.449 244.931,2067.608 57.508,2067.608" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.62"><title>poly__127 type=poly layer=L2_GND net=GND bbox_mm=[-5,5.798,5.295,17.873]</title></polygon>
+<polygon points="57.508,2225.604 57.508,2287.449 170.239,2287.449 174.28,2283.409 178.531,2281.648 205.971,2281.648 210.223,2283.409 214.263,2287.449 244.931,2287.449 244.931,2225.604" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.62"><title>poly__130 type=poly layer=L3_SIG net=GND bbox_mm=[-5,5.798,5.295,9.195]</title></polygon>
+<polygon points="57.508,2201.095 57.508,2287.449 244.931,2287.449 244.931,2211.499 226.227,2211.499 222.139,2209.806 213.428,2201.095" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.62"><title>poly__133 type=poly layer=BOTTOM net=GND bbox_mm=[-5,5.798,5.295,10.541]</title></polygon>
+<polygon points="57.508,2067.608 57.508,2181.671 219.079,2181.671 223.167,2183.364 231.878,2192.075 244.931,2192.075 244.931,2067.608" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.62"><title>poly__134 type=poly layer=BOTTOM net=GND bbox_mm=[-5,11.036,5.295,17.873]</title></polygon>
+<polygon points="145.779,2194.496 151.559,2194.496 156.862,2128.954 140.476,2128.954" fill="#f97316" stroke="#9a3412" stroke-width="1" opacity="0.9"><title>poly__302 type=poly layer=TOP net=N00061 bbox_mm=[-0.443,10.903,0.457,14.503]</title></polygon>
+<polygon points="57.508,2213.579 244.931,2213.579 244.931,2199.577 57.508,2199.577" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.62"><title>rect__131 type=rect layer=L3_SIG net=GND bbox_mm=[-5,9.855,5.295,10.624]</title></polygon>
+<polygon points="57.508,2169.517 244.931,2169.517 244.931,2067.608 57.508,2067.608" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.62"><title>rect__132 type=rect layer=L3_SIG net=GND bbox_mm=[-5,12.275,5.295,17.873]</title></polygon>
+<polygon points="140.476,2128.954 156.862,2128.954 156.862,2119.851 140.476,2119.851" fill="#f97316" stroke="#9a3412" stroke-width="1" opacity="0.9"><title>rect__305 type=rect layer=TOP net=N00061 bbox_mm=[-0.443,14.503,0.457,15.003]</title></polygon>
+<polygon points="140.021,2119.851 157.317,2119.851 157.317,2068.875 140.021,2068.875" fill="#f97316" stroke="#9a3412" stroke-width="1" opacity="0.9"><title>rect__306 type=rect layer=TOP net=N00061 bbox_mm=[-0.468,15.003,0.482,17.803]</title></polygon>
+<polygon points="133.193,2071.605 164.145,2071.605 164.145,2144.431 133.193,2144.431" fill="#ffffff" stroke="#dc2626" stroke-width="1" opacity="0.78"><title>poly__128 type=poly layer=L2_GND void bbox_mm=[-0.843,13.653,0.857,17.653]</title></polygon>
+<polygon points="133.193,2071.605 164.145,2071.605 164.145,2144.431 133.193,2144.431" fill="#ffffff" stroke="#dc2626" stroke-width="1" opacity="0.78"><title>poly__129 type=poly layer=L2_GND void bbox_mm=[-0.843,13.653,0.857,17.653]</title></polygon>
+<circle cx="148.538" cy="2393.003" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>4.Pin_T1 type=component_pin layer=TOP bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="194.962" cy="2110.81" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>RF1.RF1-1 type=component_pin layer=TOP net=GND part=BWSMA-KE-P001 bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="102.109" cy="2110.81" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>RF1.RF1-2 type=component_pin layer=TOP net=GND part=BWSMA-KE-P001 bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="102.109" cy="2110.81" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>RF1.RF1-3 type=component_pin layer=BOTTOM net=GND part=BWSMA-KE-P001 bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="194.967" cy="2110.81" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>RF1.RF1-4 type=component_pin layer=BOTTOM net=GND part=BWSMA-KE-P001 bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="148.533" cy="2110.81" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>RF1.RF1-5 type=component_pin layer=TOP net=N00061 part=BWSMA-KE-P001 bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="148.538" cy="2196.653" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U0.Port2 type=component_pin layer=TOP net=N00061 part=Component_0 bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="148.538" cy="2216.502" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U0.Port3 type=component_pin layer=TOP net=S0_RFC part=Component_0 bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="125.79" cy="2259.563" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-1 type=component_pin layer=TOP net=S0_RF4 part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="180.408" cy="2277.769" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-10 type=component_pin layer=TOP net=GND part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="180.408" cy="2268.669" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-11 type=component_pin layer=TOP net=GND part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="180.408" cy="2259.563" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-12 type=component_pin layer=TOP net=S0_RF1 part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="166.757" cy="2245.912" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-13 type=component_pin layer=TOP net=GND part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="157.652" cy="2245.912" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-14 type=component_pin layer=TOP net=GND part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="148.551" cy="2245.912" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-15 type=component_pin layer=TOP net=S0_RFC part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="139.446" cy="2245.912" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-16 type=component_pin layer=TOP net=GND part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="153.097" cy="2273.219" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-17 type=component_pin layer=TOP net=GND part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="125.79" cy="2268.696" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-2 type=component_pin layer=TOP net=GND part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="125.79" cy="2277.769" r="3.8" fill="#ffffff" stroke="#111827" stroke-width="1.3" opacity="0.92"><title>U1.U1-3 type=component_pin layer=TOP net=GND part=HMC241ALP3ETR bbox_mm=[0,0,0,0]</title></circle>
+<circle cx="225.422" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1131 type=via layer=TOP net=GND</title></circle>
+<circle cx="225.422" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1131 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="225.422" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1131 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="225.422" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1131 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="206.925" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1132 type=via layer=TOP net=GND</title></circle>
+<circle cx="206.925" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1132 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="206.925" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1132 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="206.925" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1132 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="188.428" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1133 type=via layer=TOP net=GND</title></circle>
+<circle cx="188.428" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1133 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="188.428" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1133 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="188.428" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1133 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="169.93" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1134 type=via layer=TOP net=GND</title></circle>
+<circle cx="169.93" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1134 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="169.93" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1134 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="169.93" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1134 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="236.01" cy="2272.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1151 type=via layer=TOP net=GND</title></circle>
+<circle cx="236.01" cy="2272.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1151 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="236.01" cy="2272.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1151 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="236.01" cy="2272.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1151 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="235.927" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1166 type=via layer=TOP net=GND</title></circle>
+<circle cx="235.927" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1166 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="235.927" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1166 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="235.927" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1166 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="217.43" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1167 type=via layer=TOP net=GND</title></circle>
+<circle cx="217.43" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1167 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="217.43" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1167 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="217.43" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1167 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="198.933" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1168 type=via layer=TOP net=GND</title></circle>
+<circle cx="198.933" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1168 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="198.933" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1168 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="198.933" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1168 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="180.435" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1169 type=via layer=TOP net=GND</title></circle>
+<circle cx="180.435" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1169 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="180.435" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1169 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="180.435" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1169 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="128.888" cy="2274.178" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1385 type=via layer=TOP net=GND</title></circle>
+<circle cx="128.888" cy="2274.178" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1385 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="128.888" cy="2274.178" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1385 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="128.888" cy="2274.178" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1385 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="110.394" cy="2273.806" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1386 type=via layer=TOP net=GND</title></circle>
+<circle cx="110.394" cy="2273.806" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1386 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="110.394" cy="2273.806" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1386 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="110.394" cy="2273.806" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1386 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="221.603" cy="2271.846" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1391 type=via layer=TOP net=GND</title></circle>
+<circle cx="221.603" cy="2271.846" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1391 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="221.603" cy="2271.846" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1391 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="221.603" cy="2271.846" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1391 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="186.682" cy="2273.806" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1395 type=via layer=TOP net=GND</title></circle>
+<circle cx="186.682" cy="2273.806" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1395 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="186.682" cy="2273.806" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1395 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="186.682" cy="2273.806" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1395 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="204.973" cy="2276.562" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1396 type=via layer=TOP net=GND</title></circle>
+<circle cx="204.973" cy="2276.562" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1396 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="204.973" cy="2276.562" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1396 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="204.973" cy="2276.562" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1396 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="74.835" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1519 type=via layer=TOP net=GND</title></circle>
+<circle cx="74.835" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1519 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="74.835" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1519 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="74.835" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1519 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="93.332" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1520 type=via layer=TOP net=GND</title></circle>
+<circle cx="93.332" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1520 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="93.332" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1520 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="93.332" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1520 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="111.829" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1521 type=via layer=TOP net=GND</title></circle>
+<circle cx="111.829" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1521 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="111.829" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1521 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="111.829" cy="2232.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1521 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="130.323" cy="2233.006" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1522 type=via layer=TOP net=GND</title></circle>
+<circle cx="130.323" cy="2233.006" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1522 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="130.323" cy="2233.006" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1522 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="130.323" cy="2233.006" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1522 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="69.968" cy="2272.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1540 type=via layer=TOP net=GND</title></circle>
+<circle cx="69.968" cy="2272.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1540 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="69.968" cy="2272.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1540 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="69.968" cy="2272.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1540 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="88.465" cy="2272.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1541 type=via layer=TOP net=GND</title></circle>
+<circle cx="88.465" cy="2272.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1541 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="88.465" cy="2272.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1541 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="88.465" cy="2272.622" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1541 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="70.272" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1557 type=via layer=TOP net=GND</title></circle>
+<circle cx="70.272" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1557 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="70.272" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1557 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="70.272" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1557 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="88.769" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1558 type=via layer=TOP net=GND</title></circle>
+<circle cx="88.769" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1558 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="88.769" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1558 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="88.769" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1558 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="107.266" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1559 type=via layer=TOP net=GND</title></circle>
+<circle cx="107.266" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1559 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="107.266" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1559 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="107.266" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1559 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="125.763" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1560 type=via layer=TOP net=GND</title></circle>
+<circle cx="125.763" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1560 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="125.763" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1560 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="125.763" cy="2246.495" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_1560 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="194.781" cy="2076.237" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_463 type=via layer=TOP net=GND</title></circle>
+<circle cx="194.781" cy="2076.237" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_463 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="194.781" cy="2076.237" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_463 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="194.781" cy="2076.237" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_463 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="194.781" cy="2140.053" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_464 type=via layer=TOP net=GND</title></circle>
+<circle cx="194.781" cy="2140.053" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_464 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="194.781" cy="2140.053" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_464 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="194.781" cy="2140.053" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_464 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="194.781" cy="2118.781" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_465 type=via layer=TOP net=GND</title></circle>
+<circle cx="194.781" cy="2118.781" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_465 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="194.781" cy="2118.781" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_465 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="194.781" cy="2118.781" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_465 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="194.781" cy="2097.509" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_466 type=via layer=TOP net=GND</title></circle>
+<circle cx="194.781" cy="2097.509" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_466 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="194.781" cy="2097.509" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_466 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="194.781" cy="2097.509" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_466 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="102.295" cy="2076.699" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_467 type=via layer=TOP net=GND</title></circle>
+<circle cx="102.295" cy="2076.699" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_467 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="102.295" cy="2076.699" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_467 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="102.295" cy="2076.699" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_467 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="102.295" cy="2140.515" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_468 type=via layer=TOP net=GND</title></circle>
+<circle cx="102.295" cy="2140.515" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_468 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="102.295" cy="2140.515" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_468 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="102.295" cy="2140.515" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_468 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="102.295" cy="2119.243" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_469 type=via layer=TOP net=GND</title></circle>
+<circle cx="102.295" cy="2119.243" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_469 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="102.295" cy="2119.243" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_469 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="102.295" cy="2119.243" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_469 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="102.295" cy="2097.971" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_470 type=via layer=TOP net=GND</title></circle>
+<circle cx="102.295" cy="2097.971" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_470 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="102.295" cy="2097.971" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_470 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="102.295" cy="2097.971" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_470 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="161.024" cy="2281.095" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_562 type=via layer=TOP net=GND</title></circle>
+<circle cx="161.024" cy="2281.095" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_562 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="161.024" cy="2281.095" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_562 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="161.024" cy="2281.095" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_562 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="145.301" cy="2281.095" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_563 type=via layer=TOP net=GND</title></circle>
+<circle cx="145.301" cy="2281.095" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_563 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="145.301" cy="2281.095" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_563 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="145.301" cy="2281.095" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_563 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="145.301" cy="2264.909" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_564 type=via layer=TOP net=GND</title></circle>
+<circle cx="145.301" cy="2264.909" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_564 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="145.301" cy="2264.909" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_564 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="145.301" cy="2264.909" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_564 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="161.486" cy="2264.909" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_565 type=via layer=TOP net=GND</title></circle>
+<circle cx="161.486" cy="2264.909" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_565 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="161.486" cy="2264.909" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_565 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="161.486" cy="2264.909" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_565 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="105.994" cy="2207.105" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_569 type=via layer=TOP net=GND</title></circle>
+<circle cx="105.994" cy="2207.105" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_569 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="105.994" cy="2207.105" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_569 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="105.994" cy="2207.105" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_569 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="129.116" cy="2206.181" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_570 type=via layer=TOP net=GND</title></circle>
+<circle cx="129.116" cy="2206.181" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_570 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="129.116" cy="2206.181" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_570 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="129.116" cy="2206.181" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_570 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="192.007" cy="2208.03" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_571 type=via layer=TOP net=GND</title></circle>
+<circle cx="192.007" cy="2208.03" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_571 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="192.007" cy="2208.03" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_571 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="192.007" cy="2208.03" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_571 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="167.96" cy="2207.105" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_572 type=via layer=TOP net=GND</title></circle>
+<circle cx="167.96" cy="2207.105" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_572 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="167.96" cy="2207.105" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_572 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="167.96" cy="2207.105" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_572 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="233.473" cy="2081.586" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_723 type=via layer=TOP net=GND</title></circle>
+<circle cx="233.473" cy="2081.586" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_723 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="233.473" cy="2081.586" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_723 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="233.473" cy="2081.586" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_723 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="85.494" cy="2081.586" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_724 type=via layer=TOP net=GND</title></circle>
+<circle cx="85.494" cy="2081.586" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_724 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="85.494" cy="2081.586" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_724 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="85.494" cy="2081.586" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_724 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="66.997" cy="2118.581" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_753 type=via layer=TOP net=GND</title></circle>
+<circle cx="66.997" cy="2118.581" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_753 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="66.997" cy="2118.581" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_753 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="66.997" cy="2118.581" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_753 type=via layer=BOTTOM net=GND</title></circle>
+<circle cx="233.473" cy="2155.575" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_780 type=via layer=TOP net=GND</title></circle>
+<circle cx="233.473" cy="2155.575" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_780 type=via layer=L2_GND net=GND</title></circle>
+<circle cx="233.473" cy="2155.575" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_780 type=via layer=L3_SIG net=GND</title></circle>
+<circle cx="233.473" cy="2155.575" r="2.185" fill="#5f7f69" stroke="#315542" stroke-width="1" opacity="0.85"><title>via_780 type=via layer=BOTTOM net=GND</title></circle>
+<text x="172.036" y="2342.76" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">4</text>
+<text x="153.538" y="2106.81" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">RF1</text>
+<text x="153.538" y="2202.577" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U0</text>
+<text x="158.099" y="2258.751" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1</text>
+<text x="153.535" y="2115.916" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">line__303</text>
+<text x="153.538" y="2154.286" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">line__304</text>
+<text x="153.533" y="2111.362" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">line__307</text>
+<text x="153.669" y="2157.725" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">poly__302</text>
+<text x="153.669" y="2120.403" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">rect__305</text>
+<text x="153.669" y="2090.363" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">rect__306</text>
+<text x="153.669" y="2104.018" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">poly__128 void</text>
+<text x="153.669" y="2104.018" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">poly__129 void</text>
+<text x="153.538" y="2389.003" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">4.Pin_T1</text>
+<text x="199.962" y="2106.81" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">RF1.RF1-1</text>
+<text x="107.109" y="2106.81" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">RF1.RF1-2</text>
+<text x="107.109" y="2106.81" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">RF1.RF1-3</text>
+<text x="199.967" y="2106.81" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">RF1.RF1-4</text>
+<text x="153.533" y="2106.81" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">RF1.RF1-5</text>
+<text x="153.538" y="2192.653" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U0.Port2</text>
+<text x="153.538" y="2212.502" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U0.Port3</text>
+<text x="130.79" y="2255.563" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-1</text>
+<text x="185.408" y="2273.769" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-10</text>
+<text x="185.408" y="2264.669" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-11</text>
+<text x="185.408" y="2255.563" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-12</text>
+<text x="171.757" y="2241.912" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-13</text>
+<text x="162.652" y="2241.912" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-14</text>
+<text x="153.551" y="2241.912" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-15</text>
+<text x="144.446" y="2241.912" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-16</text>
+<text x="158.097" y="2269.219" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-17</text>
+<text x="130.79" y="2264.696" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-2</text>
+<text x="130.79" y="2273.769" font-size="10" fill="#27313d" paint-order="stroke" stroke="#fbfbf8" stroke-width="3" stroke-linejoin="round">U1.U1-3</text>
+</g>
+</g>
+<g class="legend" font-family="Arial, sans-serif" fill="#27313d">
+<rect x="918" y="36" width="260" height="258" fill="#ffffff" stroke="#c7cdd5" stroke-width="1"/>
+<text x="930" y="60" font-size="12" font-weight="700">API layout SVG</text>
+<text x="930" y="77" font-size="12" font-weight="400">Design: RF_IN_cutout</text>
+<text x="930" y="94" font-size="12" font-weight="400">Model units: mil -&gt; mm</text>
+<text x="930" y="111" font-size="12" font-weight="400">Stack: L1 TOP -&gt; L2 GND -&gt; L3 SIG -&gt; L4 BOTTOM</text>
+<text x="930" y="128" font-size="12" font-weight="400">Signal nets: N00061</text>
+<text x="930" y="145" font-size="12" font-weight="400">Crop: [-8.159, -3] to [41.275, 20.9] mm</text>
+<text x="930" y="162" font-size="12" font-weight="400">Signal bbox: 0.95 x 7.177 mm</text>
+<text x="930" y="179" font-size="12" font-weight="400">Void objects: 2</text>
+<text x="930" y="196" font-size="12" font-weight="400">GND vias: 44</text>
+<text x="930" y="213" font-size="12" font-weight="400">Preview solid GND: L3_SIG, BOTTOM</text>
+<rect x="930" y="228" width="12" height="12" fill="#f97316"/>
+<text x="950" y="238" font-size="12">Signal</text>
+<rect x="930" y="246" width="12" height="12" fill="#5f7f69"/>
+<text x="950" y="256" font-size="12">GND</text>
+<rect x="930" y="264" width="12" height="12" fill="#dc2626"/>
+<text x="950" y="274" font-size="12">Void/cutout</text>
+<rect x="930" y="282" width="12" height="12" fill="#2563eb"/>
+<text x="950" y="292" font-size="12">Other signal</text>
+<rect x="930" y="300" width="12" height="12" fill="#111827"/>
+<text x="950" y="310" font-size="12">Component/pin</text>
+</g>
+</svg>

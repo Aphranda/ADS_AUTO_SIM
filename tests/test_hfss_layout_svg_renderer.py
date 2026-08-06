@@ -75,14 +75,16 @@ def _sample_payload() -> dict:
                 "location_mm": [0.0, 10.24],
                 "pins": {
                     "Port2": {
-                        "net": "N00061",
+                    "net": "N00061",
                         "start_layer": "TOP",
                         "location_mm": [0.0, 10.8],
+                        "bbox_mm": [0.0, 0.0, 0.0, 0.0],
                     },
                     "Port3": {
                         "net": "S0_RFC",
                         "start_layer": "TOP",
                         "location_mm": [0.0, 9.7],
+                        "bbox_mm": [0.0, 0.0, 0.0, 0.0],
                     },
                 },
             }
@@ -128,8 +130,20 @@ def test_render_file_creates_parent_directories(tmp_path: Path) -> None:
             "width_px": 360,
             "signal_only": False,
             "max_object_span_mm": 15.0,
+            "solid_gnd_layers": None,
         },
     )()
     assert render_layout_svg.render_file(args) == out
     text = out.read_text(encoding="utf-8")
     assert "RF_IN_cutout" in text
+
+
+def test_solid_ground_override_keeps_other_layers_and_adds_planes() -> None:
+    svg = render_layout_svg.render_svg(
+        _sample_payload(),
+        solid_gnd_layers=["L3_SIG"],
+        width_px=360,
+    )
+    assert "solid_gnd_L3_SIG" in svg
+    assert "Preview solid GND: L3_SIG" in svg
+    assert "line__short_ctrl" not in svg

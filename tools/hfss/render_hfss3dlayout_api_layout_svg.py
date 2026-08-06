@@ -103,15 +103,19 @@ def _location(obj: dict[str, Any]) -> tuple[float, float] | None:
 
 def _object_bbox(obj: dict[str, Any]) -> tuple[float, float, float, float] | None:
     bbox = _clean_bbox(obj.get("bbox_mm"))
-    if bbox is not None:
+    location = _location(obj)
+    if bbox is not None and not (
+        bbox[0] == bbox[1] == bbox[2] == bbox[3] == 0.0
+        and location is not None
+        and location != (0.0, 0.0)
+    ):
         return bbox
     points = _clean_points(obj.get("points_mm"))
     bbox = _bbox_from_points(points)
     if bbox is not None:
         return bbox
-    loc = _location(obj)
-    if loc is not None:
-        x, y = loc
+    if location is not None:
+        x, y = location
         return x, y, x, y
     return None
 
@@ -279,6 +283,8 @@ class View:
 def _style_for_object(obj: dict[str, Any], signal_nets: set[str], layer: str) -> tuple[str, str, float]:
     net = str(obj.get("net") or "")
     typ = str(obj.get("type") or "").lower()
+    if typ == "ground_plane":
+        return "#8eae98", "#315542", 0.32
     if typ == "component":
         return "none", "#111827", 0.72
     if typ == "component_pin":
@@ -394,6 +400,10 @@ def _object_svg(obj: dict[str, Any], view: View, y_offset: float, signal_nets: s
         bbox = _clean_bbox(obj.get("bbox_mm"))
         if bbox is not None and (bbox[2] > bbox[0] or bbox[3] > bbox[1]):
             return _svg_bbox(bbox, view, y_offset, fill="none", stroke=stroke, opacity=opacity, title=title)
+    if typ == "ground_plane":
+        bbox = _clean_bbox(obj.get("bbox_mm"))
+        if bbox is not None:
+            return _svg_bbox(bbox, view, y_offset, fill=fill, stroke=stroke, opacity=opacity, title=title)
 
     if typ == "line":
         center_line = _clean_points(obj.get("center_line_points_mm"))
@@ -507,7 +517,7 @@ def _should_render_object(
 ) -> bool:
     span = _object_span_mm(obj)
     if max_object_span_mm is not None and span is not None and span > max_object_span_mm:
-        if str(obj.get("type") or "").lower() == "component":
+        if str(obj.get("type") or "").lower() in {"component", "ground_plane"}:
             return True
         return False
     if str(obj.get("type") or "").lower() == "pin" and str(obj.get("name") or "") in component_pin_names:
@@ -549,8 +559,10 @@ def _panel_svg(
     ]
     visible.sort(
         key=lambda obj: (
-            0 if str(obj.get("type") or "").lower() not in {"via", "pin", "component_pin"} else 1,
-            0 if not bool(obj.get("is_void")) else 2,
+            -1 if str(obj.get("type") or "").lower() == "ground_plane" else (
+                0 if str(obj.get("type") or "").lower() not in {"via", "pin", "component_pin"} else 1
+            ),
+            2 if bool(obj.get("is_void")) else 0,
             str(obj.get("name") or ""),
         )
     )
@@ -589,6 +601,9 @@ def _legend_svg(payload: dict[str, Any], view: View, *, x: float, y: float, sign
             lines.append(f"Void objects: {distilled.get('void_object_count')}")
         if "gnd_via_count" in distilled:
             lines.append(f"GND vias: {distilled.get('gnd_via_count')}")
+    preview_layers = payload.get("_solid_gnd_layers")
+    if isinstance(preview_layers, list) and preview_layers:
+        lines.append(f"Preview solid GND: {', '.join(str(item) for item in preview_layers)}")
 
     swatches = [
         ("Signal", SIGNAL_COLOR),
@@ -629,6 +644,7 @@ def render_svg(
     width_px: int = 900,
     signal_only: bool = False,
     max_object_span_mm: float | None = 15.0,
+    solid_gnd_layers: list[str] | None = None,
 ) -> str:
     objects = [obj for obj in payload.get("objects", []) if isinstance(obj, dict)]
     objects.extend(_component_records(payload))
@@ -644,6 +660,38 @@ def render_svg(
         focus_signal=focus_signal,
         margin_mm=margin_mm,
     )
+    solid_layers = {str(layer).lower() for layer in (solid_gnd_layers or [])}
+    if solid_layers:
+        filtered_objects: list[dict[str, Any]] = []
+        for obj in objects:
+            layer = str(obj.get("layer") or "").lower()
+            if layer not in solid_layers:
+                filtered_objects.append(obj)
+                continue
+            net = str(obj.get("net") or "").lower()
+            typ = str(obj.get("type") or "").lower()
+            if net == "gnd" or typ in {"via", "component", "component_pin"}:
+                filtered_objects.append(obj)
+        objects = filtered_objects
+        for layer in solid_layers:
+            selected_layer = next(
+                (name for name in selected_layers if name.lower() == layer),
+                layer,
+            )
+            objects.append(
+                {
+                    "name": f"solid_gnd_{selected_layer}",
+                    "type": "ground_plane",
+                    "layer": selected_layer,
+                    "net": "GND",
+                    "bbox_mm": list(crop_bbox),
+                    "role": "preview_solid_ground_override",
+                }
+            )
+        payload["_solid_gnd_layers"] = [
+            next((name for name in selected_layers if name.lower() == layer), layer)
+            for layer in sorted(solid_layers, key=lambda item: (LAYER_ORDER.get(item.upper(), 100), item))
+        ]
     view = View(crop_bbox, width_px=width_px)
     panel_gap = 28.0
     panel_step = view.title_height_px + view.height_px + panel_gap
@@ -720,6 +768,7 @@ def render_file(args: argparse.Namespace) -> Path:
         width_px=args.width_px,
         signal_only=args.signal_only,
         max_object_span_mm=args.max_object_span_mm,
+        solid_gnd_layers=args.solid_gnd_layers,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(svg, encoding="utf-8")
@@ -734,6 +783,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--signal-nets", nargs="+", default=None, help="Signal nets to highlight. Defaults to JSON signal_nets.")
     parser.add_argument("--full-extent", action="store_true", help="Render full extracted extent instead of signal-focused crop.")
     parser.add_argument("--signal-only", action="store_true", help="Draw only highlighted signal nets, GND, and void/cutout objects.")
+    parser.add_argument(
+        "--solid-gnd-layers",
+        nargs="+",
+        default=None,
+        help="Preview a continuous GND plane on these layers, removing their non-GND geometry from the SVG only.",
+    )
     parser.add_argument(
         "--max-object-span-mm",
         type=float,
