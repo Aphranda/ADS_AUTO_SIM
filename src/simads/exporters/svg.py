@@ -213,6 +213,8 @@ def _write_connector_layer_review_svg(
             extra_ground_layers.append(preferred)
     for shape in ground_plane_shapes:
         layer_name = _target_ground_layer_name(shape, reference_layer_name)
+        if layer_name == reference_layer_name:
+            continue
         if layer_name not in extra_ground_layers:
             extra_ground_layers.append(layer_name)
     panel_count = 2 + len(extra_ground_layers)

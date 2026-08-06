@@ -1,0 +1,34 @@
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "lifecycle_start", "status": "running", "timestamp_epoch": 1785992784.107, "elapsed_s": 0.0}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "apply_pyaedt_settings", "status": "running", "timestamp_epoch": 1785992784.635, "elapsed_s": 0.531}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "apply_pyaedt_settings", "status": "ok", "timestamp_epoch": 1785992784.636, "elapsed_s": 0.531, "duration_s": 0.0}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "acquire_aedt_automation_lock", "status": "running", "timestamp_epoch": 1785992784.637, "elapsed_s": 0.531}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "acquire_aedt_automation_lock", "status": "ok", "timestamp_epoch": 1785992784.641, "elapsed_s": 0.531, "duration_s": 0.0}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "prepare_aedt_project_lock", "status": "running", "timestamp_epoch": 1785992784.641, "elapsed_s": 0.531}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "prepare_aedt_project_lock", "status": "ok", "timestamp_epoch": 1785992784.642, "elapsed_s": 0.531, "duration_s": 0.0}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "start_hfss3dlayout", "status": "running", "timestamp_epoch": 1785992784.643, "elapsed_s": 0.531}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "start_hfss3dlayout", "status": "ok", "timestamp_epoch": 1785992798.715, "elapsed_s": 14.61, "duration_s": 14.079}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "wait_for_hfss3dlayout_ready", "status": "running", "timestamp_epoch": 1785992798.747, "elapsed_s": 14.641}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "wait_for_hfss3dlayout_ready", "status": "ok", "timestamp_epoch": 1785992801.803, "elapsed_s": 17.688, "duration_s": 3.047}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "read_ports", "status": "running", "timestamp_epoch": 1785992801.803, "elapsed_s": 17.688}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "read_ports", "status": "ok", "timestamp_epoch": 1785992801.808, "elapsed_s": 17.703, "duration_s": 0.015}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "analyze_setup", "status": "running", "timestamp_epoch": 1785992801.809, "elapsed_s": 17.703, "setup": "Setup_0p5to10G"}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "analyze_setup", "status": "ok", "timestamp_epoch": 1785992955.867, "elapsed_s": 171.75, "duration_s": 154.047}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "export_touchstone", "status": "running", "timestamp_epoch": 1785992955.868, "elapsed_s": 171.75, "attempts": 3}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "export_touchstone", "status": "ok", "timestamp_epoch": 1785992956.454, "elapsed_s": 172.344, "duration_s": 0.594}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "score_s2p", "status": "running", "timestamp_epoch": 1785992956.455, "elapsed_s": 172.344, "tool": "analyze_connector_s2p.py"}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "score_s2p", "status": "ok", "timestamp_epoch": 1785992958.498, "elapsed_s": 174.391, "duration_s": 2.047}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "convert_s2p_to_trace_csv", "status": "running", "timestamp_epoch": 1785992958.499, "elapsed_s": 174.391}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "convert_s2p_to_trace_csv", "status": "ok", "timestamp_epoch": 1785992958.51, "elapsed_s": 174.406, "duration_s": 0.015}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "write_plot_summary", "status": "running", "timestamp_epoch": 1785992958.512, "elapsed_s": 174.406}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "write_plot_summary", "status": "ok", "timestamp_epoch": 1785992958.514, "elapsed_s": 174.406, "duration_s": 0.0}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "plot_sparam_svg", "status": "running", "timestamp_epoch": 1785992958.515, "elapsed_s": 174.406, "tool": "plot_connector_s_curves_svg.py"}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "plot_sparam_svg", "status": "ok", "timestamp_epoch": 1785992961.754, "elapsed_s": 177.641, "duration_s": 3.235}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "plot_smith_svg", "status": "running", "timestamp_epoch": 1785992961.755, "elapsed_s": 177.641, "tool": "plot_connector_smith_svg.py"}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "plot_smith_svg", "status": "ok", "timestamp_epoch": 1785992965.338, "elapsed_s": 181.235, "duration_s": 3.594}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "read_messages", "status": "running", "timestamp_epoch": 1785992965.339, "elapsed_s": 181.235}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "read_messages", "status": "ok", "timestamp_epoch": 1785992965.368, "elapsed_s": 181.25, "duration_s": 0.015}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "release_desktop", "status": "running", "timestamp_epoch": 1785992965.369, "elapsed_s": 181.266}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "release_desktop", "status": "ok", "timestamp_epoch": 1785992969.704, "elapsed_s": 185.594, "duration_s": 4.328}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "release_aedt_automation_lock", "status": "running", "timestamp_epoch": 1785992969.705, "elapsed_s": 185.594}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "release_aedt_automation_lock", "status": "ok", "timestamp_epoch": 1785992969.705, "elapsed_s": 185.594, "duration_s": 0.0}
+{"label": "run_existing_hfss3dlayout_verdict", "operation": "lifecycle_finish", "status": "ok", "timestamp_epoch": 1785992969.706, "elapsed_s": 185.594, "total_elapsed_s": 185.594}

@@ -285,6 +285,16 @@ def _reference_ground_plane_rect(name: str, x: float, y: float, w: float, h: flo
     )
 
 
+def _reference_ground_plane_polygon(name: str, points: list[tuple[float, float]], *, side: str, target_layer: str) -> Polygon:
+    return Polygon(
+        name=name,
+        layer=REFERENCE_GROUND_PLANE_LAYER,
+        points=points,
+        kind="reference_ground_plane",
+        metadata={"role": "reference_ground_plane", "target_layer": target_layer, "side": side, "net": "GND"},
+    )
+
+
 def _reference_shape_target(shape: Rect | Polygon) -> str:
     target = shape.metadata.get("target_layer")
     return str(target or "reference_ground_layer")
@@ -342,6 +352,155 @@ def _clip_bbox_to_base(
     return clipped
 
 
+def _polygon_y_span_at_x(points: list[tuple[float, float]], x: float) -> tuple[float, float] | None:
+    ys: list[float] = []
+    for (xa, ya), (xb, yb) in zip(points, points[1:] + points[:1], strict=False):
+        if abs(xa - xb) < 1e-12:
+            if abs(x - xa) < 1e-9:
+                ys.extend([ya, yb])
+            continue
+        lo = min(xa, xb)
+        hi = max(xa, xb)
+        if lo - 1e-9 <= x <= hi + 1e-9:
+            t = (x - xa) / (xb - xa)
+            if -1e-9 <= t <= 1.0 + 1e-9:
+                ys.append(ya + t * (yb - ya))
+    if not ys:
+        return None
+    return min(ys), max(ys)
+
+
+def _reference_ground_plane_parts_for_rect_cutout(
+    base_name: str,
+    base: tuple[float, float, float, float],
+    bbox: tuple[float, float, float, float],
+    *,
+    side: str,
+    target_layer: str,
+    min_feature_mm: float,
+) -> list[Rect]:
+    bx0, by0, bx1, by1 = base
+    cx0, cy0, cx1, cy1 = bbox
+    parts: list[Rect] = []
+    if cy0 - by0 >= min_feature_mm:
+        parts.append(_reference_ground_plane_rect(f"{base_name}_bottom", cx0, by0, cx1 - cx0, cy0 - by0, side=side, target_layer=target_layer))
+    if by1 - cy1 >= min_feature_mm:
+        parts.append(_reference_ground_plane_rect(f"{base_name}_top", cx0, cy1, cx1 - cx0, by1 - cy1, side=side, target_layer=target_layer))
+    return parts
+
+
+def _reference_ground_plane_parts_for_polygon_cutout(
+    base_name: str,
+    base: tuple[float, float, float, float],
+    shape: Polygon,
+    bbox: tuple[float, float, float, float],
+    *,
+    side: str,
+    target_layer: str,
+    min_feature_mm: float,
+) -> list[Polygon]:
+    _, by0, _, by1 = base
+    cx0, _, cx1, _ = bbox
+    xs = _unique_breaks([cx0, cx1, *(x for x, _ in shape.points if cx0 < x < cx1)])
+    spans = [(x, _polygon_y_span_at_x(shape.points, x)) for x in xs]
+    edge = [(x, span) for x, span in spans if span is not None]
+    if len(edge) < 2:
+        return []
+
+    lower = [(x, span[0]) for x, span in edge]
+    upper = [(x, span[1]) for x, span in edge]
+    parts: list[Polygon] = []
+    if min(y - by0 for _, y in lower) >= min_feature_mm:
+        bottom_points = [(lower[0][0], by0), (lower[-1][0], by0), *reversed(lower)]
+        parts.append(_reference_ground_plane_polygon(f"{base_name}_bottom", bottom_points, side=side, target_layer=target_layer))
+    if min(by1 - y for _, y in upper) >= min_feature_mm:
+        top_points = [*upper, (upper[-1][0], by1), (upper[0][0], by1)]
+        parts.append(_reference_ground_plane_polygon(f"{base_name}_top", top_points, side=side, target_layer=target_layer))
+    return parts
+
+
+def _ground_plane_parts_around_nonoverlapping_cutouts(
+    base_name: str,
+    base: tuple[float, float, float, float],
+    cutouts: list[Rect | Polygon],
+    *,
+    side: str,
+    target_layer: str,
+    min_feature_mm: float,
+) -> list[Rect | Polygon]:
+    bx0, by0, bx1, by1 = base
+    clipped = [
+        (shape, clipped)
+        for shape in cutouts
+        for clipped in [_clip_bbox_to_base(_shape_bbox(shape), base, min_feature_mm=min_feature_mm)]
+        if clipped is not None
+    ]
+    if not clipped:
+        return [_reference_ground_plane_rect(base_name, bx0, by0, bx1 - bx0, by1 - by0, side=side, target_layer=target_layer)]
+
+    parts: list[Rect | Polygon] = []
+    cursor_x = bx0
+    for shape, bbox in sorted(clipped, key=lambda item: (item[1][0], item[1][2])):
+        cx0, _, cx1, _ = bbox
+        if cx0 - cursor_x >= min_feature_mm:
+            parts.append(
+                _reference_ground_plane_rect(
+                    f"{base_name}_span_{len(parts)}",
+                    cursor_x,
+                    by0,
+                    cx0 - cursor_x,
+                    by1 - by0,
+                    side=side,
+                    target_layer=target_layer,
+                )
+            )
+        cutout_base_name = f"{base_name}_cut_{len(parts)}"
+        if isinstance(shape, Polygon):
+            parts.extend(
+                _reference_ground_plane_parts_for_polygon_cutout(
+                    cutout_base_name,
+                    base,
+                    shape,
+                    bbox,
+                    side=side,
+                    target_layer=target_layer,
+                    min_feature_mm=min_feature_mm,
+                )
+            )
+        else:
+            parts.extend(
+                _reference_ground_plane_parts_for_rect_cutout(
+                    cutout_base_name,
+                    base,
+                    bbox,
+                    side=side,
+                    target_layer=target_layer,
+                    min_feature_mm=min_feature_mm,
+                )
+            )
+        cursor_x = max(cursor_x, cx1)
+    if bx1 - cursor_x >= min_feature_mm:
+        parts.append(
+            _reference_ground_plane_rect(
+                f"{base_name}_span_{len(parts)}",
+                cursor_x,
+                by0,
+                bx1 - cursor_x,
+                by1 - by0,
+                side=side,
+                target_layer=target_layer,
+            )
+        )
+
+    if parts:
+        first = parts[0]
+        if isinstance(first, Rect):
+            parts[0] = _reference_ground_plane_rect(base_name, first.x, first.y, first.w, first.h, side=side, target_layer=target_layer)
+        else:
+            parts[0] = _reference_ground_plane_polygon(base_name, first.points, side=side, target_layer=target_layer)
+    return parts
+
+
 def _ground_plane_parts_around_cutouts(
     base_name: str,
     base: tuple[float, float, float, float],
@@ -350,7 +509,17 @@ def _ground_plane_parts_around_cutouts(
     side: str,
     target_layer: str,
     min_feature_mm: float,
-) -> list[Rect]:
+) -> list[Rect | Polygon]:
+    if any(isinstance(shape, Polygon) for shape in cutouts):
+        return _ground_plane_parts_around_nonoverlapping_cutouts(
+            base_name,
+            base,
+            cutouts,
+            side=side,
+            target_layer=target_layer,
+            min_feature_mm=min_feature_mm,
+        )
+
     bx0, by0, bx1, by1 = base
     clipped = [
         clipped
@@ -725,7 +894,7 @@ def build_reference_ground_cutouts(params: ConnectorLaunchParams, *, sides: tupl
     return output
 
 
-def build_l2_ground_planes(params: ConnectorLaunchParams, *, sides: tuple[str, ...], single: bool = False) -> list[Rect]:
+def build_l2_ground_planes(params: ConnectorLaunchParams, *, sides: tuple[str, ...], single: bool = False) -> list[Rect | Polygon]:
     if not params.l2_cutout_enabled:
         return []
     total_l = single_connector_port_locations(params)[1][0] if single else total_len(params)
@@ -749,13 +918,13 @@ def build_l2_ground_planes(params: ConnectorLaunchParams, *, sides: tuple[str, .
     )
 
 
-def build_l3_ground_planes(params: ConnectorLaunchParams, *, sides: tuple[str, ...], single: bool = False) -> list[Rect]:
+def build_l3_ground_planes(params: ConnectorLaunchParams, *, sides: tuple[str, ...], single: bool = False) -> list[Rect | Polygon]:
     if not params.l2_cutout_enabled:
         return []
     total_l = single_connector_port_locations(params)[1][0] if single else total_len(params)
     cutouts = build_reference_ground_cutouts(params, sides=sides)
 
-    def plane(name: str, target_layer: str | None, margin_mm: float, extend_left_mm: float, extend_right_mm: float) -> list[Rect]:
+    def plane(name: str, target_layer: str | None, margin_mm: float, extend_left_mm: float, extend_right_mm: float) -> list[Rect | Polygon]:
         if not target_layer:
             return []
         margin = max(0.0, margin_mm)
@@ -775,7 +944,7 @@ def build_l3_ground_planes(params: ConnectorLaunchParams, *, sides: tuple[str, .
             min_feature_mm=params.min_fab_feature_mm,
         )
 
-    output: list[Rect] = []
+    output: list[Rect | Polygon] = []
     l3_layer = _l3_target_layer(params)
     if params.l3_ground_enabled:
         output.extend(

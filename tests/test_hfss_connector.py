@@ -205,6 +205,43 @@ def test_microstrip_connector_smoke_variants_pass_connector_drc(tmp_path: Path) 
         assert payload["ports"]["P2"] == list(port_locations(params)[1])
 
 
+def test_single_connector_layer_review_svg_does_not_duplicate_l2_ground(tmp_path: Path) -> None:
+    params = stackup_params(
+        name="se30_ref1p5_l3solid",
+        pin_pad_w_mm=0.95,
+        pin_pad_l_mm=2.8,
+        taper_l_mm=3.6,
+        taper_w_start_mm=0.9,
+        launch_ground_gap_mm=1.5,
+        launch_ground_via_enabled=False,
+        connector_ground_foot_via_enabled=True,
+        line_l_mm=23.1,
+        fence_offset_mm=0.75,
+        l2_cutout_enabled=True,
+        l2_cutout_shape="rect",
+        l2_cutout_w_mm=1.6,
+        l2_cutout_l_mm=3.8,
+        l2_cutout_offset_x_mm=0.15,
+        l3_cutout_enabled=False,
+        l3_cutout_shape="none",
+        l3_ground_enabled=True,
+        reference_ground_extend_right_mm=1.5,
+        l3_ground_extend_right_mm=1.5,
+        l4_ground_enabled=True,
+        l4_ground_extend_right_mm=1.5,
+    )
+
+    outputs = write_fixture_outputs(params, tmp_path, fixture_type=SINGLE_CONNECTOR_FIXTURE_TYPE)
+    svg_text = outputs["svg"].read_text(encoding="utf-8")
+
+    assert "L1 ETCH_TOP" in svg_text
+    assert "L2 ETCH_INNER1" in svg_text
+    assert "L3 ETCH_INNER2" in svg_text
+    assert "L4 ETCH_BOTTOM" in svg_text
+    assert "GND" not in svg_text
+    assert svg_text.count("ETCH_INNER1</text>") == 1
+
+
 def test_microstrip_connector_layout_is_compatible_with_hfss_geometry_builder() -> None:
     params = stackup_params(name="connector_hfss_builder_smoke", via_count=2)
     layout = to_dict(build_layout(params))
@@ -347,6 +384,75 @@ def test_connector_svg_renders_l2_as_positive_ground_with_cutout_window(tmp_path
     assert 'fill="#16a34a"' in svg_text
     assert 'fill="#ffffff"' in svg_text
     assert 'fill="none" stroke="#dc2626"' in svg_text
+
+
+def test_single_connector_tapered_l2_cutout_materializes_positive_polygon_ground(tmp_path: Path) -> None:
+    params = stackup_params(
+        name="se30_l2_taper_probe",
+        pin_pad_w_mm=0.95,
+        pin_pad_l_mm=2.8,
+        taper_l_mm=3.6,
+        taper_w_start_mm=0.9,
+        launch_ground_gap_mm=1.5,
+        launch_ground_via_enabled=False,
+        connector_ground_foot_via_enabled=True,
+        line_l_mm=23.1,
+        fence_offset_mm=0.75,
+        l2_cutout_enabled=True,
+        l2_cutout_shape="tapered",
+        l2_cutout_w_mm=1.6,
+        l2_cutout_l_mm=3.8,
+        l2_cutout_offset_x_mm=0.15,
+        l2_cutout_taper_l_mm=3.6,
+        l3_cutout_enabled=False,
+        l3_cutout_shape="none",
+        l3_ground_enabled=True,
+        reference_ground_extend_right_mm=1.5,
+        l3_ground_extend_right_mm=1.5,
+        l4_ground_enabled=True,
+        l4_ground_extend_right_mm=1.5,
+    )
+    layout = build_single_connector_layout(params)
+    layout_json = to_dict(layout)
+    app = FakeApp()
+
+    names = create_geometry(
+        app,
+        layout_json,
+        GeometryBuildOptions(
+            gnd_boundary_mode="port-edges",
+            signal_layer="ETCH_TOP",
+            reference_ground_layer="ETCH_INNER1",
+            via_top_layer="ETCH_TOP",
+            via_bottom_layer="ETCH_BOTTOM",
+            ground_plane_name="hfss_ground_plane",
+        ),
+    )
+    outputs = write_fixture_outputs(params, tmp_path, fixture_type=SINGLE_CONNECTOR_FIXTURE_TYPE)
+    svg_text = outputs["svg"].read_text(encoding="utf-8")
+
+    l2_cutouts = [
+        shape
+        for shape in layout_json["shapes"]
+        if shape["kind"] == "reference_ground_cutout" and shape.get("metadata", {}).get("target_layer") == "reference_ground_layer"
+    ]
+    l2_planes = [
+        shape
+        for shape in layout_json["shapes"]
+        if shape["kind"] == "reference_ground_plane" and shape.get("metadata", {}).get("target_layer") == "reference_ground_layer"
+    ]
+
+    assert any("points" in shape and shape["name"] == "p1_l2_cutout_tapered" for shape in l2_cutouts)
+    assert any("points" in shape for shape in l2_planes)
+    assert "hfss_ground_plane" in names
+    assert any(call[0] == "polygon" and call[1] == "ETCH_INNER1" and call[4] == "hfss_ground_plane" for call in app.modeler.calls)
+    assert not any(call[0] == "subtract" for call in app.modeler.calls)
+    assert "L1 ETCH_TOP" in svg_text
+    assert "L2 ETCH_INNER1" in svg_text
+    assert "L3 ETCH_INNER2" in svg_text
+    assert "L4 ETCH_BOTTOM" in svg_text
+    assert "GND" not in svg_text
+    assert svg_text.count("ETCH_INNER1</text>") == 1
 
 
 def test_microstrip_baseline_can_target_exact_total_length() -> None:
