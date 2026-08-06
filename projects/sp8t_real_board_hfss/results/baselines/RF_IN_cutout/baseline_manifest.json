@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "project_id": "sp8t_real_board_hfss",
+  "baseline_id": "RF_IN_cutout_20260806",
+  "created_date": "2026-08-06",
+  "source": {
+    "hfss_project": "F:/1.Hardware/HFSS/SP8T/SP8T_HFSS.aedt",
+    "design": "RF_IN_cutout",
+    "setup": "Setup1",
+    "sweep": "Sweep1",
+    "ports": [
+      "Port1",
+      "S1_1_Pin_T1"
+    ],
+    "run_command": "D:/Microsoft/uv-venvs/ads-automation/Scripts/python.exe tools/hfss/run_existing_hfss3dlayout_verdict.py --project F:/1.Hardware/HFSS/SP8T/SP8T_HFSS.aedt --design RF_IN_cutout --setup Setup1 --sweep Sweep1 --candidate RF_IN_cutout --out-dir projects/hfss_sma_connector/results/sp8t_real_board/RF_IN_cutout --output .simads/sp8t/RF_IN_cutout_run.json --postprocess-profile connector"
+  },
+  "metrics": {
+    "status": "TUNE",
+    "connector_score": 32.188,
+    "optimization_cost": 67.812,
+    "s21_min_0p5_10g_db": -1.46,
+    "s21_avg_0p5_10g_db": -0.45,
+    "s21_ripple_0p5_10g_db": 1.41,
+    "worst_return_0p5_10g_db": -11.46,
+    "worst_return_param": "s11",
+    "worst_return_freq_ghz": 3.55,
+    "s21_8g_db": -0.53,
+    "s11_8g_db": -21.01,
+    "s22_8g_db": -23.59,
+    "smith_z_r_min_0p5_10g": 0.58,
+    "smith_z_r_max_0p5_10g": 1.47,
+    "smith_z_x_min_0p5_10g": -0.41,
+    "smith_z_x_max_0p5_10g": 0.35,
+    "smith_tuning_hint": "reduce_series_inductance_or_recover_local_capacitance"
+  },
+  "artifacts": {
+    "s2p": {
+      "path": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout/RF_IN_cutout.s2p",
+      "sha256": "857EBA0A8E1F7C8DF978FABDBD2BA9ADDAE448815BA2E4448B82D5CDD743BE9D"
+    },
+    "score_csv": {
+      "path": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout/RF_IN_cutout_score.csv",
+      "sha256": "E8B4439B551174419FF2B2E3EA3C67582842CA5C2A0532C9BC6AACCD79827F79"
+    },
+    "trace_csv": {
+      "path": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout/RF_IN_cutout_trace.csv",
+      "sha256": "93248C53D75A082BC5B9EABC4A91FCC53448C88A2121F5AB23931B52A85FF79F"
+    },
+    "s_curves_svg": {
+      "path": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout/svg/RF_IN_cutout_s_curves.svg",
+      "sha256": "9A756A1F82F56D9906F5B6A1DD3BB2676BA63EA81E38E042EEFB9C491FF32C26"
+    },
+    "smith_svg": {
+      "path": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout/svg/RF_IN_cutout_smith.svg",
+      "sha256": "50B8F9DF10A2466BFDBFD543B22D8DEE9970799B2678A3DF896F78E0824F7DE2"
+    }
+  },
+  "freeze_policy": {
+    "baseline_artifacts_are_read_only": true,
+    "new_candidates_must_write_under": "projects/sp8t_real_board_hfss/results/rf_in_cutout/<candidate_id>",
+    "do_not_overwrite_source_hfss_project_without_explicit_user_request": true
+  }
+}

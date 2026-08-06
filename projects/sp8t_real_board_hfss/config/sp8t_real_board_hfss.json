@@ -1,0 +1,10 @@
+{
+  "config_source": "config/projects/sp8t_real_board_hfss.json",
+  "project_id": "sp8t_real_board_hfss",
+  "project_root": "projects/sp8t_real_board_hfss",
+  "source_hfss_project": "F:/1.Hardware/HFSS/SP8T/SP8T_HFSS.aedt",
+  "active_design": "RF_IN_cutout",
+  "setup": "Setup1",
+  "sweep": "Sweep1",
+  "baseline_result": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout/RF_IN_cutout_score.csv"
+}

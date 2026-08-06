@@ -1,0 +1,4 @@
+candidate_id,source_design,candidate_design,operation_scope,planned_change,status,result_dir,notes
+RF_IN_cutout,RF_IN_cutout,RF_IN_cutout,baseline,none,solved,projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout,Imported real board baseline solved with Setup1/Sweep1
+RF_IN_cutout_opt_l2_l3_relief_a,RF_IN_cutout,RF_IN_cutout_opt_l2_l3_relief_a,layout_variant,L2/L3 RF_IN launch relief tuned from Smith chart,pending,projects/sp8t_real_board_hfss/results/rf_in_cutout/RF_IN_cutout_opt_l2_l3_relief_a,Variant must be generated or reloaded by API; no AEDT/AEDB text edits
+RF_IN_cutout_opt_launch_cap_recovery_a,RF_IN_cutout,RF_IN_cutout_opt_launch_cap_recovery_a,layout_variant,Recover local capacitance around launch while controlling series inductance,pending,projects/sp8t_real_board_hfss/results/rf_in_cutout/RF_IN_cutout_opt_launch_cap_recovery_a,Use microstrip geometry compensation; no lumped capacitor at 10 GHz

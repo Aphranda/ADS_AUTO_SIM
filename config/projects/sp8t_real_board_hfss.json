@@ -1,0 +1,117 @@
+{
+  "schema_version": "0.1.0",
+  "project_id": "sp8t_real_board_hfss",
+  "name": "SP8T real board HFSS layout optimization",
+  "device_family": "sp8t_switch_board",
+  "primary_device_type": "sp8t.real_board.rf_in_launch",
+  "default_profile": "home",
+  "target_profile": null,
+  "pipeline_id": null,
+  "active_sweep": "rf_in_cutout_layout_optimization",
+  "project_root": "projects/sp8t_real_board_hfss",
+  "plans_dir": "projects/sp8t_real_board_hfss/plans",
+  "layouts_dir": "projects/sp8t_real_board_hfss/layouts",
+  "results_dir": "projects/sp8t_real_board_hfss/results",
+  "runs_dir": "projects/sp8t_real_board_hfss/runs",
+  "reports_dir": "projects/sp8t_real_board_hfss/reports",
+  "references_dir": "projects/sp8t_real_board_hfss/references",
+  "frequency": {
+    "start_ghz": 0.5,
+    "stop_ghz": 10.0,
+    "analysis_band": "fullband_0p5_10g",
+    "passband_start_ghz": null,
+    "passband_stop_ghz": null
+  },
+  "scoring": {
+    "score_version": "connector_fullband_v1",
+    "score_profile_id": "sma_launch_fullband_0p5_10g_v1",
+    "band_min_ghz": 0.5,
+    "band_max_ghz": 10.0,
+    "status_gate": "TUNE_or_better"
+  },
+  "hfss": {
+    "profile": "home",
+    "workspace_dir": "F:/1.Hardware/HFSS/SP8T",
+    "aedt_project": "F:/1.Hardware/HFSS/SP8T/SP8T_HFSS.aedt",
+    "project_model": "single_aedt_project_multiple_designs",
+    "project_action": "add",
+    "stackup_config": null,
+    "route": "existing_real_board_hfss3dlayout",
+    "port_type": "existing",
+    "gnd_boundary_mode": "existing",
+    "enable_design_intersection_check": true,
+    "setup": "Setup1",
+    "sweep": "Sweep1",
+    "simulations": {
+      "rf_in_cutout_baseline": {
+        "design": "RF_IN_cutout",
+        "fixture_type": "sp8t_real_board_rf_in_cutout",
+        "ports": [
+          "Port1",
+          "S1_1_Pin_T1"
+        ],
+        "baseline_result": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout/RF_IN_cutout_score.csv",
+        "baseline_s2p": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout/RF_IN_cutout.s2p",
+        "description": "Imported real SP8T board design with RF_IN cutout. Baseline solved on 2026-08-06 using Setup1/Sweep1."
+      }
+    }
+  },
+  "layout_optimization": {
+    "active_design": "RF_IN_cutout",
+    "baseline_candidate": "RF_IN_cutout",
+    "source_project": "F:/1.Hardware/HFSS/SP8T/SP8T_HFSS.aedt",
+    "source_design": "RF_IN_cutout",
+    "solver_script": "tools/hfss/run_existing_hfss3dlayout_verdict.py",
+    "result_root": "projects/sp8t_real_board_hfss/results",
+    "candidate_design_prefix": "RF_IN_cutout_opt",
+    "allowed_operations": [
+      "clone_design_by_api",
+      "reload_complete_layout_by_api",
+      "run_existing_design_by_api",
+      "export_touchstone_by_api"
+    ],
+    "forbidden_operations": [
+      "direct_aedt_text_edit",
+      "direct_aedb_file_edit",
+      "manual_gui_required_flow"
+    ],
+    "baseline_metrics": {
+      "status": "TUNE",
+      "connector_score": 32.188,
+      "optimization_cost": 67.812,
+      "s21_min_0p5_10g_db": -1.46,
+      "s21_avg_0p5_10g_db": -0.45,
+      "s21_ripple_0p5_10g_db": 1.41,
+      "worst_return_0p5_10g_db": -11.46,
+      "worst_return_param": "s11",
+      "worst_return_freq_ghz": 3.55,
+      "s21_8g_db": -0.53,
+      "s11_8g_db": -21.01,
+      "s22_8g_db": -23.59,
+      "smith_tuning_hint": "reduce_series_inductance_or_recover_local_capacitance"
+    }
+  },
+  "sweeps": {
+    "rf_in_cutout_layout_optimization": {
+      "pipeline_id": null,
+      "plan": "projects/sp8t_real_board_hfss/plans/rf_in_cutout_optimization_plan.csv",
+      "layouts_dir": "projects/sp8t_real_board_hfss/layouts/rf_in_cutout",
+      "results_dir": "projects/sp8t_real_board_hfss/results/rf_in_cutout",
+      "summary": "projects/sp8t_real_board_hfss/results/rf_in_cutout/sweep_summary.csv",
+      "profile": "home",
+      "target_profile": null,
+      "device_id": "sp8t.real_board.rf_in_launch",
+      "generator": {
+        "strategy": "real_board_layout_variant",
+        "source_project": "F:/1.Hardware/HFSS/SP8T/SP8T_HFSS.aedt",
+        "source_design": "RF_IN_cutout"
+      },
+      "optimizer": {
+        "strategy": "smith_guided_real_board_cutout_and_launch_compensation",
+        "score_version": "connector_fullband_v1",
+        "score_profile_id": "sma_launch_fullband_0p5_10g_v1",
+        "baseline": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout/baseline_manifest.json"
+      }
+    }
+  }
+}
