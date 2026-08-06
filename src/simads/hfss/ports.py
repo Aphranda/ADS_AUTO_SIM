@@ -186,6 +186,45 @@ def set_excitation_property(app: Any, port_name: str, name: str, value: Any) -> 
             return False
 
 
+def schematic_iport_names(app: Any) -> list[str]:
+    try:
+        editor = app.odesign.SetActiveEditor("SchematicEditor")
+        return [str(item) for item in editor.GetAllPorts()]
+    except Exception:
+        return []
+
+
+def select_schematic_iports_by_name(existing_ports: list[str], port_names: list[str]) -> list[str]:
+    requested = {str(name) for name in port_names}
+    selected: list[str] = []
+    for port in existing_ports:
+        for name in requested:
+            if port == f"IPort@{name}" or port.startswith(f"IPort@{name};"):
+                selected.append(port)
+    return selected
+
+
+def delete_schematic_iports_by_name(app: Any, port_names: list[str]) -> dict[str, Any]:
+    if not port_names:
+        return {"requested": [], "selected": [], "deleted": False}
+    requested = {str(name) for name in port_names}
+    editor = app.odesign.SetActiveEditor("SchematicEditor")
+    before = [str(item) for item in editor.GetAllPorts()]
+    selected = select_schematic_iports_by_name(before, list(requested))
+    if not selected:
+        return {"requested": sorted(requested), "before": before, "selected": [], "deleted": False}
+    result = editor.Delete(["NAME:Selections", "Selections:=", selected])
+    after = [str(item) for item in editor.GetAllPorts()]
+    return {
+        "requested": sorted(requested),
+        "before": before,
+        "selected": selected,
+        "delete_result": str(result),
+        "after": after,
+        "deleted": True,
+    }
+
+
 def hfss_gap_port_template(args: argparse.Namespace) -> dict[str, Any]:
     return {
         "hfss_type": "Gap",
@@ -603,6 +642,7 @@ __all__ = [
     "create_gap_edge_ports_in_edb",
     "create_ports",
     "default_port_reference_name",
+    "delete_schematic_iports_by_name",
     "edge_midpoint_from_side",
     "find_port",
     "find_shape",
@@ -616,8 +656,10 @@ __all__ = [
     "reference_point_on_gnd_boundary",
     "resolve_gnd_boundary",
     "resolve_port_edges",
+    "schematic_iport_names",
     "shape_bounds",
     "signal_layer",
+    "select_schematic_iports_by_name",
     "via_bottom_layer",
     "via_top_layer",
 ]

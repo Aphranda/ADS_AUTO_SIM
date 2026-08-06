@@ -599,6 +599,51 @@
       }
     },
     {
+      "name": "hfss_ground_plane",
+      "layer": "reference_ground_plane",
+      "x": -0.0,
+      "y": -4.0,
+      "w": 31.5,
+      "h": 3.2,
+      "kind": "reference_ground_plane",
+      "metadata": {
+        "role": "reference_ground_plane",
+        "target_layer": "reference_ground_layer",
+        "side": "ALL",
+        "net": "GND"
+      }
+    },
+    {
+      "name": "hfss_ground_plane_part_1",
+      "layer": "reference_ground_plane",
+      "x": 3.9499999999999997,
+      "y": -0.8,
+      "w": 27.55,
+      "h": 1.6,
+      "kind": "reference_ground_plane",
+      "metadata": {
+        "role": "reference_ground_plane",
+        "target_layer": "reference_ground_layer",
+        "side": "ALL",
+        "net": "GND"
+      }
+    },
+    {
+      "name": "hfss_ground_plane_part_2",
+      "layer": "reference_ground_plane",
+      "x": -0.0,
+      "y": 0.8,
+      "w": 31.5,
+      "h": 3.2,
+      "kind": "reference_ground_plane",
+      "metadata": {
+        "role": "reference_ground_plane",
+        "target_layer": "reference_ground_layer",
+        "side": "ALL",
+        "net": "GND"
+      }
+    },
+    {
       "name": "p1_l2_cutout_rect",
       "layer": "reference_ground_cutout",
       "x": 0.15,
@@ -632,7 +677,37 @@
       "x": -0.0,
       "y": -4.0,
       "w": 31.5,
-      "h": 8.0,
+      "h": 3.2,
+      "kind": "reference_ground_plane",
+      "metadata": {
+        "role": "reference_ground_plane",
+        "target_layer": "ETCH_INNER2",
+        "side": "ALL",
+        "net": "GND"
+      }
+    },
+    {
+      "name": "l3_ground_plane_part_1",
+      "layer": "reference_ground_plane",
+      "x": 3.9499999999999997,
+      "y": -0.8,
+      "w": 27.55,
+      "h": 1.6,
+      "kind": "reference_ground_plane",
+      "metadata": {
+        "role": "reference_ground_plane",
+        "target_layer": "ETCH_INNER2",
+        "side": "ALL",
+        "net": "GND"
+      }
+    },
+    {
+      "name": "l3_ground_plane_part_2",
+      "layer": "reference_ground_plane",
+      "x": -0.0,
+      "y": 0.8,
+      "w": 31.5,
+      "h": 3.2,
       "kind": "reference_ground_plane",
       "metadata": {
         "role": "reference_ground_plane",

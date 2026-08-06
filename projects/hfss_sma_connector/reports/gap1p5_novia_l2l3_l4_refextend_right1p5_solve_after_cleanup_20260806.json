@@ -1,0 +1,401 @@
+{
+  "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+  "design": "SINGLE_END_SMA_CPW_30MM",
+  "aedt_startup": {
+    "PYAEDT_USE_PRE_GRPC_ARGS": "True",
+    "grpc_secure_mode_env": "False",
+    "SIMADS_AEDT_WAIT_FOR_LICENSE": "True",
+    "SIMADS_AEDT_DESKTOP_TIMEOUT_S": "300",
+    "SIMADS_AEDT_USER_ROOT": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "HOME": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "USERPROFILE": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "APPDATA": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user\\AppData\\Roaming",
+    "LOCALAPPDATA": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user\\AppData\\Local",
+    "TEMP": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user\\Temp",
+    "settings.grpc_secure_mode": false,
+    "settings.grpc_local": true,
+    "settings.grpc_listen_all": false,
+    "settings.wait_for_license": true,
+    "settings.desktop_launch_timeout": 300,
+    "settings.enable_desktop_logs": false,
+    "settings.use_grpc_api": null,
+    "settings.number_of_grpc_api_retries": 6
+  },
+  "aedt_lock": {
+    "label": "run_existing_hfss3dlayout_verdict",
+    "pid": 31512,
+    "started_epoch": 1785988123.001,
+    "lock_path": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_automation.lock"
+  },
+  "project_lock": {
+    "project": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt",
+    "lock_path": "D:\\Work\\ADS\\HFSS_VERDICT\\hfss_sma_connector_cpw.aedt.lock",
+    "exists": false,
+    "removed": false,
+    "action": "none"
+  },
+  "aedt_reaper": {
+    "started": true,
+    "label": "run_existing_hfss3dlayout_verdict",
+    "aedt_process_id": 29492,
+    "parent_pid": 31512,
+    "reaper_pid": 15232,
+    "execute": true,
+    "execute_requested": true,
+    "terminate_disabled": false,
+    "script_started": true,
+    "execute_block_reason": null,
+    "output": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\run_existing_hfss3dlayout_verdict_31512_29492.json",
+    "event_log": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\run_existing_hfss3dlayout_verdict_31512_29492.jsonl",
+    "owner_record": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\run_existing_hfss3dlayout_verdict_31512_29492.owner.json",
+    "silent": true,
+    "helper_executable": "D:\\Microsoft\\Python\\ads-automation\\Scripts\\pythonw.exe",
+    "target_create_time_epoch": 1785988124.558442
+  },
+  "aedt_ready": {
+    "auto_open": {
+      "api": null,
+      "ok": false,
+      "result": "set_auto_open is unavailable for this AEDT app"
+    },
+    "timeout_s": 120.0,
+    "settle_s": 3.0,
+    "design_name": "SINGLE_END_SMA_CPW_30MM",
+    "project_name": "hfss_sma_connector_cpw",
+    "project_name_error": null,
+    "modeler_loaded": true,
+    "setup_names": [
+      "Setup_0p5to10G"
+    ],
+    "setup_loaded": true,
+    "sweep_names": [
+      "Sweep_0p5to10G_96pt"
+    ],
+    "sweep_loaded": true
+  },
+  "setup": "Setup_0p5to10G",
+  "sweep": "Sweep_0p5to10G_96pt",
+  "analyze": true,
+  "status": "ok",
+  "ports": [
+    "Port1",
+    "S1_1_Pin_T1"
+  ],
+  "stage": "completed",
+  "analyze_return": true,
+  "export_attempts": [
+    {
+      "attempt": 1,
+      "ok": true,
+      "exported": "projects/hfss_sma_connector/simulations/single_end_connector_50r_30mm/results/gap1p5_novia_l2l3_l4_refextend_right1p5/gap1p5_novia_l2l3_l4_refextend_right1p5.s2p",
+      "exists": true
+    }
+  ],
+  "s2p": "projects\\hfss_sma_connector\\simulations\\single_end_connector_50r_30mm\\results\\gap1p5_novia_l2l3_l4_refextend_right1p5\\gap1p5_novia_l2l3_l4_refextend_right1p5.s2p",
+  "postprocess_profile": "connector",
+  "score": "projects\\hfss_sma_connector\\simulations\\single_end_connector_50r_30mm\\results\\gap1p5_novia_l2l3_l4_refextend_right1p5\\gap1p5_novia_l2l3_l4_refextend_right1p5_score.csv",
+  "trace_csv": "projects\\hfss_sma_connector\\simulations\\single_end_connector_50r_30mm\\results\\gap1p5_novia_l2l3_l4_refextend_right1p5\\gap1p5_novia_l2l3_l4_refextend_right1p5_trace.csv",
+  "svg_dir": "projects\\hfss_sma_connector\\simulations\\single_end_connector_50r_30mm\\results\\gap1p5_novia_l2l3_l4_refextend_right1p5\\svg",
+  "smith_svg": "projects\\hfss_sma_connector\\simulations\\single_end_connector_50r_30mm\\results\\gap1p5_novia_l2l3_l4_refextend_right1p5\\svg\\gap1p5_novia_l2l3_l4_refextend_right1p5_smith.svg",
+  "messages": [
+    "failed to read messages: TypeError: 'MessageList' object is not iterable"
+  ],
+  "aedt_messages": [
+    "Project: *Global - Messages, [info]  gRPC server started on port 59075 of local host. Only connections from the local host initiated by the same user are permitted.\n",
+    "Project: hfss_sma_connector_cpw, Design: SMA_KE_Unite_Small_Solder (Terminal Network), [info]  Normal completion of simulation on server: Local Machine. (11:49:10 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  The mesh body associated with geometry: input_feed, on layer: ETCH_TOP, has an ambiguous net assignment.\nThis may result from a short between meshed bodies.\nNets: OUT,SIG,IN (11:49:15 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [info]  Mesh pre-processing took: 0.273sec\n (11:49:15 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [info]  Model assembly took: 2.282sec\n (11:49:15 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Adapting Ports, process hf3d: Lumped port 'S1_1_Pin_T1' overlaps radiation boundary. This may cause the port solver to fail. (11:49:53 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Solving adaptive frequency ..., process hf3d: Lumped port 'S1_1_Pin_T1' overlaps radiation boundary. This may cause the port solver to fail. (11:49:56 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Solving adaptive frequency ..., process hf3d: Lumped port 'S1_1_Pin_T1' overlaps radiation boundary. This may cause the port solver to fail. (11:50:02 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Solving adaptive frequency ..., process hf3d: Lumped port 'S1_1_Pin_T1' overlaps radiation boundary. This may cause the port solver to fail. (11:50:09 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Solving adaptive frequency ..., process hf3d: Lumped port 'S1_1_Pin_T1' overlaps radiation boundary. This may cause the port solver to fail. (11:50:15 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Solving adaptive frequency ..., process hf3d: Lumped port 'S1_1_Pin_T1' overlaps radiation boundary. This may cause the port solver to fail. (11:50:21 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Solving adaptive frequency ..., process hf3d: Lumped port 'S1_1_Pin_T1' overlaps radiation boundary. This may cause the port solver to fail. (11:50:28 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Solving adaptive frequency ..., process hf3d: Lumped port 'S1_1_Pin_T1' overlaps radiation boundary. This may cause the port solver to fail. (11:50:37 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [info]  An interpolating frequency sweep with 96 points has been started using HFSS - Solving Distributed. (11:50:43 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Solving frequencies ... (Nondomain solver), process hf3d: Lumped port 'S1_1_Pin_T1' overlaps radiation boundary. This may cause the port solver to fail. (11:50:56 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Solving frequencies ... (Nondomain solver), process hf3d: Lumped port 'S1_1_Pin_T1' overlaps radiation boundary. This may cause the port solver to fail. (11:50:57 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Solving frequencies ... (Nondomain solver), process hf3d: Lumped port 'S1_1_Pin_T1' overlaps radiation boundary. This may cause the port solver to fail. (11:50:58 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Solving frequencies ... (Nondomain solver), process hf3d: Lumped port 'S1_1_Pin_T1' overlaps radiation boundary. This may cause the port solver to fail. (11:51:15 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Solving frequencies ... (Nondomain solver), process hf3d: Lumped port 'S1_1_Pin_T1' overlaps radiation boundary. This may cause the port solver to fail. (11:51:16 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Solving frequencies ... (Nondomain solver), process hf3d: Lumped port 'S1_1_Pin_T1' overlaps radiation boundary. This may cause the port solver to fail. (11:51:17 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Solving frequencies ... (Nondomain solver), process hf3d: Lumped port 'S1_1_Pin_T1' overlaps radiation boundary. This may cause the port solver to fail. (11:51:36 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Solving frequencies ... (Nondomain solver), process hf3d: Lumped port 'S1_1_Pin_T1' overlaps radiation boundary. This may cause the port solver to fail. (11:51:37 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Solving frequencies ... (Nondomain solver), process hf3d: Lumped port 'S1_1_Pin_T1' overlaps radiation boundary. This may cause the port solver to fail. (11:51:56 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [warning]  Solving frequencies ... (Nondomain solver), process hf3d: Lumped port 'S1_1_Pin_T1' overlaps radiation boundary. This may cause the port solver to fail. (11:51:57 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [info]  Interpolating frequency sweep complete. Converged. (11:52:02 AM  Aug 06, 2026)",
+    "Project: hfss_sma_connector_cpw, Design: SINGLE_END_SMA_CPW_30MM, [info]  Touchstone export: Writing to \"D:/Work/ADS_AUTO_SIM/projects/hfss_sma_connector/simulations/single_end_connector_50r_30mm/results/gap1p5_novia_l2l3_l4_refextend_right1p5/gap1p5_novia_l2l3_l4_refextend_right1p5.s2p\" (11:52:03 AM  Aug 06, 2026)"
+  ],
+  "lifecycle": {
+    "label": "run_existing_hfss3dlayout_verdict",
+    "status": "ok",
+    "started_epoch": 1785988122.468,
+    "elapsed_s": 228.421,
+    "event_count": 34,
+    "events": [
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "lifecycle_start",
+        "status": "running",
+        "timestamp_epoch": 1785988122.468,
+        "elapsed_s": 0.0
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "apply_pyaedt_settings",
+        "status": "running",
+        "timestamp_epoch": 1785988122.998,
+        "elapsed_s": 0.531
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "apply_pyaedt_settings",
+        "status": "ok",
+        "timestamp_epoch": 1785988122.999,
+        "elapsed_s": 0.531,
+        "duration_s": 0.0
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "acquire_aedt_automation_lock",
+        "status": "running",
+        "timestamp_epoch": 1785988123.0,
+        "elapsed_s": 0.531
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "acquire_aedt_automation_lock",
+        "status": "ok",
+        "timestamp_epoch": 1785988123.001,
+        "elapsed_s": 0.531,
+        "duration_s": 0.0
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "prepare_aedt_project_lock",
+        "status": "running",
+        "timestamp_epoch": 1785988123.002,
+        "elapsed_s": 0.531
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "prepare_aedt_project_lock",
+        "status": "ok",
+        "timestamp_epoch": 1785988123.002,
+        "elapsed_s": 0.531,
+        "duration_s": 0.0
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "start_hfss3dlayout",
+        "status": "running",
+        "timestamp_epoch": 1785988123.003,
+        "elapsed_s": 0.531
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "start_hfss3dlayout",
+        "status": "ok",
+        "timestamp_epoch": 1785988137.472,
+        "elapsed_s": 15.0,
+        "duration_s": 14.469
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "wait_for_hfss3dlayout_ready",
+        "status": "running",
+        "timestamp_epoch": 1785988137.515,
+        "elapsed_s": 15.046
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "wait_for_hfss3dlayout_ready",
+        "status": "ok",
+        "timestamp_epoch": 1785988140.617,
+        "elapsed_s": 18.14,
+        "duration_s": 3.094
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "read_ports",
+        "status": "running",
+        "timestamp_epoch": 1785988140.621,
+        "elapsed_s": 18.156
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "read_ports",
+        "status": "ok",
+        "timestamp_epoch": 1785988140.642,
+        "elapsed_s": 18.171,
+        "duration_s": 0.015
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "analyze_setup",
+        "status": "running",
+        "timestamp_epoch": 1785988140.643,
+        "elapsed_s": 18.171,
+        "setup": "Setup_0p5to10G"
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "analyze_setup",
+        "status": "ok",
+        "timestamp_epoch": 1785988323.066,
+        "elapsed_s": 200.593,
+        "duration_s": 182.422
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "export_touchstone",
+        "status": "running",
+        "timestamp_epoch": 1785988323.067,
+        "elapsed_s": 200.593,
+        "attempts": 3
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "export_touchstone",
+        "status": "ok",
+        "timestamp_epoch": 1785988323.997,
+        "elapsed_s": 201.531,
+        "duration_s": 0.938
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "score_s2p",
+        "status": "running",
+        "timestamp_epoch": 1785988323.998,
+        "elapsed_s": 201.531,
+        "tool": "analyze_connector_s2p.py"
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "score_s2p",
+        "status": "ok",
+        "timestamp_epoch": 1785988327.123,
+        "elapsed_s": 204.656,
+        "duration_s": 3.125
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "convert_s2p_to_trace_csv",
+        "status": "running",
+        "timestamp_epoch": 1785988327.124,
+        "elapsed_s": 204.656
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "convert_s2p_to_trace_csv",
+        "status": "ok",
+        "timestamp_epoch": 1785988327.144,
+        "elapsed_s": 204.671,
+        "duration_s": 0.015
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "write_plot_summary",
+        "status": "running",
+        "timestamp_epoch": 1785988327.146,
+        "elapsed_s": 204.671
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "write_plot_summary",
+        "status": "ok",
+        "timestamp_epoch": 1785988327.147,
+        "elapsed_s": 204.671,
+        "duration_s": 0.0
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "plot_sparam_svg",
+        "status": "running",
+        "timestamp_epoch": 1785988327.148,
+        "elapsed_s": 204.671,
+        "tool": "plot_connector_s_curves_svg.py"
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "plot_sparam_svg",
+        "status": "ok",
+        "timestamp_epoch": 1785988334.667,
+        "elapsed_s": 212.203,
+        "duration_s": 7.532
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "plot_smith_svg",
+        "status": "running",
+        "timestamp_epoch": 1785988334.668,
+        "elapsed_s": 212.203,
+        "tool": "plot_connector_smith_svg.py"
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "plot_smith_svg",
+        "status": "ok",
+        "timestamp_epoch": 1785988338.158,
+        "elapsed_s": 215.687,
+        "duration_s": 3.484
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "read_messages",
+        "status": "running",
+        "timestamp_epoch": 1785988338.16,
+        "elapsed_s": 215.687
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "read_messages",
+        "status": "ok",
+        "timestamp_epoch": 1785988338.196,
+        "elapsed_s": 215.718,
+        "duration_s": 0.031
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "release_desktop",
+        "status": "running",
+        "timestamp_epoch": 1785988338.196,
+        "elapsed_s": 215.718
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "release_desktop",
+        "status": "ok",
+        "timestamp_epoch": 1785988350.892,
+        "elapsed_s": 228.421,
+        "duration_s": 12.703
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "release_aedt_automation_lock",
+        "status": "running",
+        "timestamp_epoch": 1785988350.892,
+        "elapsed_s": 228.421
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "release_aedt_automation_lock",
+        "status": "ok",
+        "timestamp_epoch": 1785988350.893,
+        "elapsed_s": 228.421,
+        "duration_s": 0.0
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "lifecycle_finish",
+        "status": "ok",
+        "timestamp_epoch": 1785988350.894,
+        "elapsed_s": 228.421,
+        "total_elapsed_s": 228.421
+      }
+    ],
+    "event_log": "projects\\hfss_sma_connector\\reports\\gap1p5_novia_l2l3_l4_refextend_right1p5_solve_after_cleanup_20260806.events.jsonl"
+  }
+}

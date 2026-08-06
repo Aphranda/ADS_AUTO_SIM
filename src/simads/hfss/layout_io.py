@@ -10,7 +10,7 @@ from simads.config import name_with_stackup_token
 
 
 def load_layout(path: Path) -> dict[str, Any]:
-    data = json.loads(path.read_text(encoding="utf-8"))
+    data = json.loads(path.read_text(encoding="utf-8-sig"))
     if not isinstance(data, dict):
         raise ValueError(f"layout JSON must contain an object: {path}")
     return data

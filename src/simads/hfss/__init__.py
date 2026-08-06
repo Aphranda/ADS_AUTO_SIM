@@ -14,7 +14,7 @@ from simads.hfss.artifacts import (
 from simads.hfss.build import HfssLayoutBuildResult, build_hfss_layout_project
 from simads.hfss.layout import GeometryBuildOptions
 from simads.hfss.layout_io import collect_layout_summary, configured_layout_id, load_layout
-from simads.hfss.ports import resolve_gnd_boundary, resolve_port_edges
+from simads.hfss.ports import delete_schematic_iports_by_name, resolve_gnd_boundary, resolve_port_edges, schematic_iport_names
 from simads.hfss.port_plans import ConnectorPinPortPlan, execute_connector_pin_port_plan
 from simads.hfss.connector_contract import connector_fixture_metadata, connector_port_reference_name, is_connector_fixture
 from simads.hfss.manifest import build_hfss_manifest_payload, write_hfss_manifests
@@ -71,6 +71,7 @@ __all__ = [
     "collect_layout_summary",
     "configured_layout_id",
     "default_project_name",
+    "delete_schematic_iports_by_name",
     "execute_connector_pin_port_plan",
     "expected_hfss_outputs",
     "load_layout",
@@ -79,6 +80,7 @@ __all__ = [
     "resolve_hfss_project_plan",
     "resolve_project_path",
     "resolve_port_edges",
+    "schematic_iport_names",
     "solve_and_export_hfss",
     "validate_connector_layout",
     "write_hfss_manifests",
