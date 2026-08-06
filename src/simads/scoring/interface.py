@@ -27,7 +27,17 @@ def _score_filter_s2p(path: Path, profile: ScoringProfile) -> dict[str, str]:
     targets = profile.data.get("targets")
     if not isinstance(targets, dict):
         raise ValueError(f"filter scoring profile missing targets: {profile.path}")
-    row = score_vectors(freq, traces, str(path), {key: float(value) for key, value in targets.items()}, profile.profile_id)
+    frequency = profile.data.get("frequency_ghz")
+    if frequency is not None and not isinstance(frequency, dict):
+        raise ValueError(f"filter scoring profile frequency_ghz must be an object: {profile.path}")
+    row = score_vectors(
+        freq,
+        traces,
+        str(path),
+        {key: float(value) for key, value in targets.items()},
+        profile.profile_id,
+        {key: float(value) for key, value in frequency.items()} if isinstance(frequency, dict) else None,
+    )
     row["score_version"] = profile.score_version
     row["scoring_system"] = profile.system
     row["scoring_profile_path"] = str(profile.path)

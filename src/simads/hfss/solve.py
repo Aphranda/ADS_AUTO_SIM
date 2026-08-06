@@ -56,7 +56,17 @@ def solve_and_export_hfss(app: Any, layout: dict[str, Any], args: argparse.Names
             if fixture_type in {MICROSTRIP_CONNECTOR_FIXTURE_TYPE, SINGLE_CONNECTOR_FIXTURE_TYPE}
             else "filter"
         )
-        run_post_tools(s2p_path, score_csv, trace_csv, args.out_dir / "svg", candidate, profile=profile)
+        run_post_tools(
+            s2p_path,
+            score_csv,
+            trace_csv,
+            args.out_dir / "svg",
+            candidate,
+            profile=profile,
+            scoring_profile_id=getattr(args, "scoring_profile_id", None),
+            scoring_profile_path=getattr(args, "scoring_profile_path", None),
+            baseline_s2p=getattr(args, "baseline_s2p", None),
+        )
         post_processed = True
     return HfssSolveExportResult(
         setup=args.setup,

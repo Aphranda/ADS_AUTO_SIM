@@ -7,6 +7,15 @@ import argparse
 import csv
 import math
 from pathlib import Path
+import sys
+
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+SRC_ROOT = REPO_ROOT / "src"
+if str(SRC_ROOT) not in sys.path:
+    sys.path.insert(0, str(SRC_ROOT))
+
+from simads.scoring.interface import score_sparameter_files
 
 
 UNIT_SCALE = {
@@ -130,12 +139,22 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Analyze one or more S2P files exported by ADS.")
     parser.add_argument("s2p", nargs="+", type=Path)
     parser.add_argument("--out", type=Path, default=None, help="Optional CSV summary path.")
+    parser.add_argument("--scoring-profile", default=None, help="Config-backed filter scoring profile id.")
+    parser.add_argument("--profile-path", type=Path, default=None, help="Optional explicit scoring profile JSON.")
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    rows = [score(path) for path in args.s2p]
+    if args.scoring_profile or args.profile_path:
+        rows = score_sparameter_files(
+            args.s2p,
+            system="filter",
+            profile_id=args.scoring_profile or "ro4350_strict",
+            profile_path=args.profile_path,
+        )
+    else:
+        rows = [score(path) for path in args.s2p]
     fieldnames = list(rows[0].keys())
     if args.out:
         with args.out.open("w", newline="", encoding="utf-8") as fp:

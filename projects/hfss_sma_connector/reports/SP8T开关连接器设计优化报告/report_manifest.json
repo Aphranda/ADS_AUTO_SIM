@@ -126,22 +126,16 @@
       "sha256": "c474ff079daff62b72f8d95b24b172ccbe9ae85a4c2865fde2261fb833721995"
     },
     {
-      "path": "report_manifest.json",
-      "exists": true,
-      "size_bytes": 11167,
-      "sha256": "c3f1e286d40f8dc89326c4a6fa2270aeda24593a9ceac1819b06e70d2684974e"
-    },
-    {
       "path": "SP8T开关连接器设计优化报告.html",
       "exists": true,
-      "size_bytes": 25059,
-      "sha256": "e8ce682effdace58ef4a96a757cf045188aeebb1858550696fa941eaa6d98525"
+      "size_bytes": 25056,
+      "sha256": "e4f7f4b545cee7e85092ed361484a6637111d852e32d5738741cf404b337ae64"
     },
     {
       "path": "SP8T开关连接器设计优化报告.pdf",
       "exists": true,
-      "size_bytes": 604382,
-      "sha256": "78aaf6f6c61078f26aa13cc3964868176886f7d423989b2ed1289f3fbf858a80"
+      "size_bytes": 613209,
+      "sha256": "743ea1cb7188341368ec1a1820d103aed4931a237152588e28433957fd46dfa2"
     }
   ],
   "asset_references": [
@@ -300,5 +294,5 @@
   "outside_report_dir_references": [],
   "skipped_references": [],
   "status": "ok",
-  "updated_at": "2026-08-06T15:14:18+08:00"
+  "updated_at": "2026-08-06T15:44:42+08:00"
 }

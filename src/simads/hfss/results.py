@@ -73,19 +73,36 @@ def run_post_tools(
     candidate: str,
     *,
     profile: str = "filter",
+    scoring_profile_id: str | None = None,
+    scoring_profile_path: Path | None = None,
+    baseline_s2p: Path | None = None,
     lifecycle: Any | None = None,
 ) -> dict[str, str]:
-    analyzer = _profile_tool(
-        profile,
-        connector_tool="analyze_connector_s2p.py",
-        filter_tool="analyze_filter_s2p.py",
+    use_unified_scoring = scoring_profile_id is not None or scoring_profile_path is not None or baseline_s2p is not None
+    analyzer = (
+        "analyze_sparams.py"
+        if use_unified_scoring
+        else _profile_tool(
+            profile,
+            connector_tool="analyze_connector_s2p.py",
+            filter_tool="analyze_filter_s2p.py",
+        )
     )
     plotter = _profile_tool(
         profile,
         connector_tool="plot_connector_s_curves_svg.py",
         filter_tool="plot_filter_s_curves_svg.py",
     )
-    analyze_command = [sys.executable, str(REPO_ROOT / "tools" / analyzer), str(s2p), "--out", str(score_csv)]
+    analyze_command = [sys.executable, str(REPO_ROOT / "tools" / analyzer), str(s2p)]
+    if use_unified_scoring:
+        analyze_command.extend(["--system", profile])
+        if scoring_profile_id:
+            analyze_command.extend(["--profile-id", scoring_profile_id])
+        if scoring_profile_path:
+            analyze_command.extend(["--profile-path", str(scoring_profile_path)])
+        if baseline_s2p:
+            analyze_command.extend(["--baseline-s2p", str(baseline_s2p)])
+    analyze_command.extend(["--out", str(score_csv)])
     _run_hidden(analyze_command, lifecycle=lifecycle, operation="score_s2p", tool=analyzer)
 
     if lifecycle is None:
@@ -122,6 +139,12 @@ def run_post_tools(
     _run_hidden(plot_command, lifecycle=lifecycle, operation="plot_sparam_svg", tool=plotter)
 
     artifacts = {"score": str(score_csv), "trace_csv": str(trace_csv), "svg_dir": str(svg_dir)}
+    if scoring_profile_id:
+        artifacts["scoring_profile_id"] = scoring_profile_id
+    if scoring_profile_path:
+        artifacts["scoring_profile_path"] = str(scoring_profile_path)
+    if baseline_s2p:
+        artifacts["baseline_s2p"] = str(baseline_s2p)
     if profile == "connector":
         smith_svg = svg_dir / f"{candidate}_smith.svg"
         smith_plotter = "plot_connector_smith_svg.py"

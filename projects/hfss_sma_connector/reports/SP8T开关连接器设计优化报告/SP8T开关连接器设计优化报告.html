@@ -85,7 +85,7 @@
     <div class="chips">
       <div class="chip"><span class="k">目标频段</span><span class="v">0.5-10 GHz</span></div>
       <div class="chip"><span class="k">当前结构</span><span class="v">SMA + 30 mm 50 Ω CPWG</span></div>
-      <div class="chip"><span class="k">最优评分</span><span class="v">96.505 / cost 3.495</span></div>
+      <div class="chip"><span class="k">最优评分</span><span class="v">92.283 / cost 7.717</span></div>
       <div class="chip"><span class="k">端口口径</span><span class="v">S1_1_Pin_T1 + Port1</span></div>
     </div>
 
@@ -119,7 +119,7 @@
           <tr><td>最大额外插损</td><td>max(S21_baseline - S21_candidate)</td><td>越接近 0 越好</td><td class="ok">0.409 dB @ 10.0 GHz</td><td><span class="tag green">接近基线</span></td></tr>
           <tr><td>平均额外插损</td><td>mean(S21_baseline - S21_candidate)</td><td>越接近 0 越好</td><td class="ok">0.156 dB</td><td><span class="tag green">接近基线</span></td></tr>
           <tr><td>额外插损纹波</td><td>max/min 额外 IL 差</td><td>越接近 0 越好</td><td class="ok">0.406 dB</td><td><span class="tag green">接近基线</span></td></tr>
-          <tr><td>S11/S22 平衡</td><td>max(|S11_dB - S22_dB|)</td><td>≤ 1.5 dB</td><td class="ok">1.49 dB @ 6.1 GHz</td><td><span class="tag green">达标</span></td></tr>
+          <tr><td>S11/S22 平衡</td><td>max(|S11_dB - S22_dB| × return_weight)</td><td>≤ 1.0 dB</td><td class="ok">0.38 dB</td><td><span class="tag green">达标</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -295,7 +295,7 @@
       <div class="subtitle">连接器 gap、GND via、L2 矩形开窗尺寸扫描组合对比</div>
     </div>
     <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
-    <div class="doc-meta"><strong>数据口径</strong>HFSS 3D Layout<br>目标 profile：sma_launch_fullband_0p5_10g_v1<br>输出：CSV score</div>
+    <div class="doc-meta"><strong>数据口径</strong>HFSS 3D Layout<br>目标 profile：sma_launch_fullband_0p5_10g_v2<br>输出：统一 score CSV</div>
   </header>
   <main class="main">
     <div class="section">
@@ -303,13 +303,13 @@
       <table class="compact candidate-table">
         <thead><tr><th>候选</th><th>几何变化</th><th>Cost</th><th>Score</th><th>最差回损</th><th>位置</th><th>最大额外IL</th><th>平均额外IL</th><th>额外IL纹波</th><th>状态</th></tr></thead>
         <tbody>
-          <tr><td>small_pad_same_anchor_a</td><td>初始小 pad，常规 CPWG，连接器 GND via 保留</td><td class="bad">152.668</td><td>0.000</td><td class="bad">-3.34</td><td>S22 @ 7.4G</td><td class="bad">3.49</td><td>1.83</td><td>3.43</td><td><span class="tag red">TUNE</span></td></tr>
-          <tr><td>no_connector_30mm</td><td>不带 SMA 连接器，30 mm 理想 CPWG 参考</td><td>25.513</td><td>74.487</td><td class="ok">-20.49</td><td>S11 @ 1.4G</td><td class="ok">0.00</td><td class="ok">0.00</td><td class="ok">0.00</td><td><span class="tag blue">参考基线</span></td></tr>
-          <tr><td>small_pad_l2_l3_cutout_l4_gnd_same_anchor_a</td><td>L2/L3 开窗，L4 加 GND，常规 launch GND</td><td class="warn">18.030</td><td>81.970</td><td class="bad">-9.20</td><td>S22 @ 6.9G</td><td>0.63</td><td>0.37</td><td>0.61</td><td><span class="tag orange">边界</span></td></tr>
-          <tr><td>ref1p5_l3solid</td><td>L2 3.8 × 1.6 mm 矩形开窗，L3 solid，L4 GND，connector foot via</td><td class="ok">5.084</td><td class="ok">94.916</td><td class="ok">-12.35</td><td>S22 @ 7.5G</td><td class="ok">0.481</td><td class="ok">0.206</td><td class="ok">0.474</td><td><span class="tag blue">原最佳</span></td></tr>
-          <tr><td>l2l4p0</td><td>L2 4.0 × 1.6 mm 矩形开窗，L3 solid，L4 GND，connector foot via</td><td class="ok">4.052</td><td class="ok">95.948</td><td class="ok">-14.01</td><td>S22 @ 7.4G</td><td class="ok">0.418</td><td class="ok">0.167</td><td class="ok">0.409</td><td><span class="tag blue">长度占优</span></td></tr>
-          <tr><td>l40w15</td><td>L2 4.0 × 1.5 mm 矩形开窗，L3 solid，L4 GND，connector foot via</td><td class="ok">3.522</td><td class="ok">96.478</td><td class="ok">-13.14</td><td>S22 @ 7.3G</td><td class="ok">0.380</td><td class="ok">0.180</td><td class="ok">0.373</td><td><span class="tag blue">插损接近</span></td></tr>
-          <tr><td class="b">l40w17</td><td>L2 4.0 × 1.7 mm 矩形开窗，L3 solid，L4 GND，connector foot via</td><td class="ok">3.495</td><td class="ok">96.505</td><td class="ok">-14.53</td><td>S22 @ 7.6G</td><td class="ok">0.409</td><td class="ok">0.156</td><td class="ok">0.406</td><td><span class="tag green">BEST</span></td></tr>
+          <tr><td>small_pad_same_anchor_a</td><td>初始小 pad，常规 CPWG，连接器 GND via 保留</td><td class="bad">93.362</td><td>6.638</td><td class="bad">-3.34</td><td>S22 @ 7.4G</td><td class="bad">3.49</td><td>1.83</td><td>3.43</td><td><span class="tag red">TUNE</span></td></tr>
+          <tr><td>no_connector_30mm</td><td>不带 SMA 连接器，30 mm 理想 CPWG 参考</td><td>0.000</td><td>100.000</td><td class="ok">-20.49</td><td>S11 @ 1.4G</td><td class="ok">0.00</td><td class="ok">0.00</td><td class="ok">0.00</td><td><span class="tag blue">参考基线</span></td></tr>
+          <tr><td>small_pad_l2_l3_cutout_l4_gnd_same_anchor_a</td><td>L2/L3 开窗，L4 加 GND，常规 launch GND</td><td class="warn">26.510</td><td>73.490</td><td class="bad">-9.20</td><td>S22 @ 6.9G</td><td>0.63</td><td>0.37</td><td>0.61</td><td><span class="tag orange">边界</span></td></tr>
+          <tr><td>ref1p5_l3solid</td><td>L2 3.8 × 1.6 mm 矩形开窗，L3 solid，L4 GND，connector foot via</td><td class="ok">13.514</td><td class="ok">86.486</td><td class="ok">-12.35</td><td>S22 @ 7.5G</td><td class="ok">0.48</td><td class="ok">0.21</td><td class="ok">0.47</td><td><span class="tag blue">原最佳</span></td></tr>
+          <tr><td>l2l4p0</td><td>L2 4.0 × 1.6 mm 矩形开窗，L3 solid，L4 GND，connector foot via</td><td class="ok">8.959</td><td class="ok">91.041</td><td class="ok">-14.01</td><td>S22 @ 7.4G</td><td class="ok">0.42</td><td class="ok">0.17</td><td class="ok">0.41</td><td><span class="tag blue">长度占优</span></td></tr>
+          <tr><td>l40w15</td><td>L2 4.0 × 1.5 mm 矩形开窗，L3 solid，L4 GND，connector foot via</td><td class="ok">10.401</td><td class="ok">89.599</td><td class="ok">-13.14</td><td>S22 @ 7.3G</td><td class="ok">0.38</td><td class="ok">0.18</td><td class="ok">0.37</td><td><span class="tag blue">插损接近</span></td></tr>
+          <tr><td class="b">l40w17</td><td>L2 4.0 × 1.7 mm 矩形开窗，L3 solid，L4 GND，connector foot via</td><td class="ok">7.717</td><td class="ok">92.283</td><td class="ok">-14.53</td><td>S22 @ 7.6G</td><td class="ok">0.41</td><td class="ok">0.16</td><td class="ok">0.41</td><td><span class="tag green">BEST</span></td></tr>
         </tbody>
       </table>
       <div class="bar">本轮结论：L2 矩形开窗长度从 3.8 mm 增至 4.0 mm 后综合评分继续提升；宽度 1.7 mm 的 l40w17 在最差回损、平均额外插损和总评分上为当前最优组合。</div>
@@ -333,10 +333,10 @@
       <table class="compact">
         <thead><tr><th>轮次</th><th>关键动作</th><th>结果</th><th>判断</th></tr></thead>
         <tbody>
-          <tr><td>Baseline</td><td>small_pad_same_anchor_a</td><td>cost 152.668</td><td><span class="tag red">失配严重</span></td></tr>
-          <tr><td>L2/L3/L4</td><td>L2/L3 开窗，L4 加 GND</td><td>cost 18.030</td><td><span class="tag orange">有效但不充分</span></td></tr>
-          <tr><td>Gap/NoVia</td><td>1.5 mm launch gap，去中心焊盘近端 GND via</td><td>cost 8.029</td><td><span class="tag blue">阶段改善</span></td></tr>
-          <tr><td>L2 Rect Sweep</td><td>L3 solid、L4 GND、connector feet GND via，L2 4.0 × 1.7 mm</td><td>cost 3.495</td><td><span class="tag green">当前最佳</span></td></tr>
+          <tr><td>Baseline</td><td>small_pad_same_anchor_a</td><td>cost 93.362</td><td><span class="tag red">失配严重</span></td></tr>
+          <tr><td>L2/L3/L4</td><td>L2/L3 开窗，L4 加 GND</td><td>cost 26.510</td><td><span class="tag orange">有效但不充分</span></td></tr>
+          <tr><td>Gap/NoVia</td><td>1.5 mm launch gap，去中心焊盘近端 GND via</td><td>cost 10.762</td><td><span class="tag blue">阶段改善</span></td></tr>
+          <tr><td>L2 Rect Sweep</td><td>L3 solid、L4 GND、connector feet GND via，L2 4.0 × 1.7 mm</td><td>cost 7.717</td><td><span class="tag green">当前最佳</span></td></tr>
         </tbody>
       </table>
     </div>

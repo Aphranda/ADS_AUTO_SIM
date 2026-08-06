@@ -44,6 +44,13 @@ TARGET_PROFILES = {
     },
 }
 DEFAULT_TARGET_PROFILE = "ro4350_strict"
+DEFAULT_FILTER_FREQUENCY = {
+    "stop_low_probe": 5.0,
+    "passband_start": 6.0,
+    "passband_center": 7.0,
+    "passband_stop": 8.0,
+    "stop_high_probe": 9.0,
+}
 TARGET_SCORE_VERSIONS = {
     "ro4350_strict": "ro4350_strict_v1",
     "fr4_25db": "fr4_i7_score_v1",
@@ -140,18 +147,27 @@ def score_vectors(
     source: str,
     targets: dict[str, float],
     target_profile: str,
+    frequency_ghz: dict[str, float] | None = None,
 ) -> dict[str, str]:
+    frequency = {**DEFAULT_FILTER_FREQUENCY, **(frequency_ghz or {})}
+    passband_start = float(frequency["passband_start"])
+    passband_center = float(frequency["passband_center"])
+    passband_stop = float(frequency["passband_stop"])
+    stop_low_probe = float(frequency["stop_low_probe"])
+    stop_high_probe = float(frequency["stop_high_probe"])
     s21 = traces["s21"]
-    pass_indices = [idx for idx, freq in enumerate(freq_ghz) if 6.0 <= freq <= 8.0]
+    pass_indices = [
+        idx for idx, freq in enumerate(freq_ghz) if passband_start <= freq <= passband_stop
+    ]
     pass_s21 = [s21[idx] for idx in pass_indices]
     pass_s11 = [traces["s11"][idx] for idx in pass_indices] if "s11" in traces else []
     pass_s22 = [traces["s22"][idx] for idx in pass_indices] if "s22" in traces else []
 
-    s21_5 = interp(freq_ghz, s21, 5.0)
-    s21_6 = interp(freq_ghz, s21, 6.0)
-    s21_7 = interp(freq_ghz, s21, 7.0)
-    s21_8 = interp(freq_ghz, s21, 8.0)
-    s21_9 = interp(freq_ghz, s21, 9.0)
+    s21_5 = interp(freq_ghz, s21, stop_low_probe)
+    s21_6 = interp(freq_ghz, s21, passband_start)
+    s21_7 = interp(freq_ghz, s21, passband_center)
+    s21_8 = interp(freq_ghz, s21, passband_stop)
+    s21_9 = interp(freq_ghz, s21, stop_high_probe)
     pass_min = min(pass_s21) if pass_s21 else float("nan")
     pass_max = max(pass_s21) if pass_s21 else float("nan")
     ripple = pass_max - pass_min if pass_s21 else float("nan")

@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import math
 from pathlib import Path
+from typing import Any
 
 
 CONNECTOR_SCORE_VERSION = "connector_fullband_v1"
@@ -16,6 +17,9 @@ UNIT_SCALE = {"HZ": 1e-9, "KHZ": 1e-6, "MHZ": 1e-3, "GHZ": 1.0}
 @dataclass(frozen=True)
 class ConnectorScoreProfile:
     profile_id: str = "sma_launch_fullband_0p5_10g_v1"
+    score_version: str = CONNECTOR_SCORE_VERSION
+    baseline_relative: bool = False
+    baseline_required: bool = False
     band_min_ghz: float = 0.5
     band_max_ghz: float = 10.0
     target_worst_return_db: float = -10.0
@@ -24,6 +28,7 @@ class ConnectorScoreProfile:
     target_s21_ripple_db: float = 1.0
     target_balance_db: float = 1.5
     good_return_db: float = -20.0
+    return_weight_target_return_db: float = -10.0
     score_return_db: float = -15.0
     target_max_extra_il_db: float = 0.5
     target_avg_extra_il_db: float = 0.25
@@ -37,9 +42,106 @@ class ConnectorScoreProfile:
     pass_max_extra_il_db: float = 0.35
     pass_avg_extra_il_db: float = 0.15
     pass_extra_il_ripple_db: float = 0.35
+    pass_weighted_balance_db: float = 1.0
+    weight_return_excess: float = 12.0
+    weight_s21_min_shortfall: float = 10.0
+    weight_s21_avg_shortfall: float = 8.0
+    weight_s21_ripple_excess: float = 7.0
+    weight_balance_excess: float = 4.0
+    weight_max_extra_il: float = 8.0
+    weight_avg_extra_il: float = 12.0
+    weight_extra_il_ripple: float = 4.0
+    weight_weighted_balance_excess: float = 4.0
+
+    @classmethod
+    def from_config(cls, data: dict[str, Any]) -> "ConnectorScoreProfile":
+        frequency = _section(data, "frequency_ghz")
+        mode = _section(data, "mode")
+        targets = _section(data, "targets")
+        pass_targets = _section(data, "pass_targets")
+        return_weight = _section(data, "return_weight")
+        weights = _section(data, "weights")
+
+        profile = cls()
+        return cls(
+            profile_id=str(data.get("profile_id", profile.profile_id)),
+            score_version=str(data.get("score_version", profile.score_version)),
+            baseline_relative=bool(mode.get("baseline_relative", profile.baseline_relative)),
+            baseline_required=bool(mode.get("baseline_required", profile.baseline_required)),
+            band_min_ghz=_float(frequency, "band_min", profile.band_min_ghz),
+            band_max_ghz=_float(frequency, "band_max", profile.band_max_ghz),
+            target_worst_return_db=_float(targets, "worst_return_db", profile.target_worst_return_db),
+            target_s21_min_db=_float(targets, "s21_min_db", profile.target_s21_min_db),
+            target_s21_avg_db=_float(targets, "s21_avg_db", profile.target_s21_avg_db),
+            target_s21_ripple_db=_float(targets, "s21_ripple_db", profile.target_s21_ripple_db),
+            target_balance_db=_float(targets, "balance_db", profile.target_balance_db),
+            good_return_db=_float(return_weight, "good_return_db", profile.good_return_db),
+            return_weight_target_return_db=_float(
+                return_weight,
+                "target_return_db",
+                profile.return_weight_target_return_db,
+            ),
+            score_return_db=_float(targets, "score_return_db", profile.score_return_db),
+            target_max_extra_il_db=_float(targets, "max_extra_il_db", profile.target_max_extra_il_db),
+            target_avg_extra_il_db=_float(targets, "avg_extra_il_db", profile.target_avg_extra_il_db),
+            target_extra_il_ripple_db=_float(targets, "extra_il_ripple_db", profile.target_extra_il_ripple_db),
+            target_weighted_balance_db=_float(targets, "weighted_balance_db", profile.target_weighted_balance_db),
+            pass_worst_return_db=_float(pass_targets, "worst_return_db", profile.pass_worst_return_db),
+            pass_s21_min_db=_float(pass_targets, "s21_min_db", profile.pass_s21_min_db),
+            pass_s21_avg_db=_float(pass_targets, "s21_avg_db", profile.pass_s21_avg_db),
+            pass_s21_ripple_db=_float(pass_targets, "s21_ripple_db", profile.pass_s21_ripple_db),
+            pass_balance_db=_float(pass_targets, "balance_db", profile.pass_balance_db),
+            pass_max_extra_il_db=_float(pass_targets, "max_extra_il_db", profile.pass_max_extra_il_db),
+            pass_avg_extra_il_db=_float(pass_targets, "avg_extra_il_db", profile.pass_avg_extra_il_db),
+            pass_extra_il_ripple_db=_float(pass_targets, "extra_il_ripple_db", profile.pass_extra_il_ripple_db),
+            pass_weighted_balance_db=_float(
+                pass_targets,
+                "weighted_balance_db",
+                _float(pass_targets, "balance_db", profile.pass_weighted_balance_db),
+            ),
+            weight_return_excess=_float(weights, "return_excess", profile.weight_return_excess),
+            weight_s21_min_shortfall=_float(
+                weights,
+                "s21_min_shortfall",
+                profile.weight_s21_min_shortfall,
+            ),
+            weight_s21_avg_shortfall=_float(
+                weights,
+                "s21_avg_shortfall",
+                profile.weight_s21_avg_shortfall,
+            ),
+            weight_s21_ripple_excess=_float(
+                weights,
+                "s21_ripple_excess",
+                profile.weight_s21_ripple_excess,
+            ),
+            weight_balance_excess=_float(weights, "balance_excess", profile.weight_balance_excess),
+            weight_max_extra_il=_float(weights, "max_extra_il", profile.weight_max_extra_il),
+            weight_avg_extra_il=_float(weights, "avg_extra_il", profile.weight_avg_extra_il),
+            weight_extra_il_ripple=_float(
+                weights,
+                "extra_il_ripple",
+                profile.weight_extra_il_ripple,
+            ),
+            weight_weighted_balance_excess=_float(
+                weights,
+                "weighted_balance_excess",
+                profile.weight_weighted_balance_excess,
+            ),
+        )
 
 
 DEFAULT_CONNECTOR_SCORE_PROFILE = ConnectorScoreProfile()
+
+
+def _section(data: dict[str, Any], name: str) -> dict[str, Any]:
+    value = data.get(name)
+    return value if isinstance(value, dict) else {}
+
+
+def _float(data: dict[str, Any], name: str, default: float) -> float:
+    value = data.get(name, default)
+    return default if value is None else float(value)
 
 
 def complex_from_pair(a: float, b: float, fmt: str) -> complex:
@@ -136,7 +238,7 @@ def _penalty_excess(value: float, target: float, weight: float) -> float:
 
 
 def _return_weight(worst_return: float, profile: ConnectorScoreProfile) -> float:
-    span = profile.target_worst_return_db - profile.good_return_db
+    span = profile.return_weight_target_return_db - profile.good_return_db
     if span <= 0.0:
         return 1.0
     return min(1.0, max(0.0, (worst_return - profile.good_return_db) / span))
@@ -155,6 +257,15 @@ def _baseline_s21_at_freqs(
     freqs_ghz: list[float],
 ) -> list[float]:
     return [interp_db(baseline_samples, freq, "s21") for freq in freqs_ghz]
+
+
+def _same_file(left: str | None, right: str | None) -> bool:
+    if not left or not right:
+        return False
+    try:
+        return Path(left).resolve() == Path(right).resolve()
+    except OSError:
+        return left == right
 
 
 def _smith_hint(z_values: list[complex]) -> str:
@@ -223,27 +334,38 @@ def score_samples(
         avg_extra_il = sum(extra_il) / len(extra_il)
         extra_il_ripple = max(extra_il) - min(extra_il)
 
+    baseline_reference = _same_file(source, baseline_source)
     if baseline_samples is None:
-        score_version = CONNECTOR_SCORE_VERSION
+        score_version = profile.score_version
         optimization_cost = (
-            _penalty_excess(worst_return, profile.target_worst_return_db, 12.0)
-            + _penalty_shortfall(profile.target_s21_min_db, s21_min, 10.0)
-            + _penalty_shortfall(profile.target_s21_avg_db, s21_avg, 8.0)
-            + _penalty_excess(s21_ripple, profile.target_s21_ripple_db, 7.0)
-            + _penalty_excess(balance, profile.target_balance_db, 4.0)
+            _penalty_excess(worst_return, profile.target_worst_return_db, profile.weight_return_excess)
+            + _penalty_shortfall(profile.target_s21_min_db, s21_min, profile.weight_s21_min_shortfall)
+            + _penalty_shortfall(profile.target_s21_avg_db, s21_avg, profile.weight_s21_avg_shortfall)
+            + _penalty_excess(s21_ripple, profile.target_s21_ripple_db, profile.weight_s21_ripple_excess)
+            + _penalty_excess(balance, profile.target_balance_db, profile.weight_balance_excess)
         )
+    elif baseline_reference:
+        score_version = profile.score_version
+        optimization_cost = 0.0
     else:
-        score_version = CONNECTOR_BASELINE_SCORE_VERSION
+        score_version = profile.score_version
         optimization_cost = (
-            _penalty_excess(worst_return, profile.score_return_db, 2.0)
-            + max(0.0, max_extra_il) * 8.0
-            + max(0.0, avg_extra_il) * 12.0
-            + max(0.0, extra_il_ripple) * 4.0
-            + _penalty_excess(weighted_balance, profile.target_weighted_balance_db, 4.0)
+            _penalty_excess(worst_return, profile.score_return_db, profile.weight_return_excess)
+            + max(0.0, max_extra_il) * profile.weight_max_extra_il
+            + max(0.0, avg_extra_il) * profile.weight_avg_extra_il
+            + max(0.0, extra_il_ripple) * profile.weight_extra_il_ripple
+            + _penalty_excess(
+                weighted_balance,
+                profile.target_weighted_balance_db,
+                profile.weight_weighted_balance_excess,
+            )
         )
     connector_score = max(0.0, 100.0 - optimization_cost)
 
-    if baseline_samples is None:
+    if baseline_reference:
+        passed = True
+        tune_ready = True
+    elif baseline_samples is None:
         passed = (
             worst_return <= profile.pass_worst_return_db
             and s21_min >= profile.pass_s21_min_db
@@ -262,7 +384,7 @@ def score_samples(
             and max_extra_il <= profile.pass_max_extra_il_db
             and avg_extra_il <= profile.pass_avg_extra_il_db
             and extra_il_ripple <= profile.pass_extra_il_ripple_db
-            and weighted_balance <= profile.pass_balance_db
+            and weighted_balance <= profile.pass_weighted_balance_db
         )
         tune_ready = (
             worst_return <= profile.target_worst_return_db
@@ -382,6 +504,8 @@ def score_s2p(
     profile: ConnectorScoreProfile = DEFAULT_CONNECTOR_SCORE_PROFILE,
     baseline_path: Path | None = None,
 ) -> dict[str, str]:
+    if profile.baseline_required and baseline_path is None:
+        raise ValueError(f"connector scoring profile requires a baseline S2P: {profile.profile_id}")
     baseline_samples = read_s2p(baseline_path) if baseline_path is not None else None
     return score_samples(
         read_s2p(path),

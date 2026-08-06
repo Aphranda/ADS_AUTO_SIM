@@ -35,6 +35,9 @@ def run_post_tools(
     candidate: str,
     profile: str,
     lifecycle: OperationLifecycle | None = None,
+    scoring_profile_id: str | None = None,
+    scoring_profile_path: Path | None = None,
+    baseline_s2p: Path | None = None,
 ) -> dict[str, str]:
     trace_csv = out_dir / f"{candidate}_trace.csv"
     return run_hfss_post_tools(
@@ -44,6 +47,9 @@ def run_post_tools(
         out_dir / "svg",
         candidate,
         profile=profile,
+        scoring_profile_id=scoring_profile_id,
+        scoring_profile_path=scoring_profile_path,
+        baseline_s2p=baseline_s2p,
         lifecycle=lifecycle,
     )
 
@@ -154,7 +160,19 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 result["stage"] = "postprocess"
                 score_csv = args.score_out or args.out_dir / f"{args.candidate}_score.csv"
                 result["postprocess_profile"] = args.postprocess_profile
-                result.update(run_post_tools(s2p_path, score_csv, args.out_dir, args.candidate, args.postprocess_profile, lifecycle))
+                result.update(
+                    run_post_tools(
+                        s2p_path,
+                        score_csv,
+                        args.out_dir,
+                        args.candidate,
+                        args.postprocess_profile,
+                        lifecycle,
+                        scoring_profile_id=args.scoring_profile_id,
+                        scoring_profile_path=args.scoring_profile_path,
+                        baseline_s2p=args.baseline_s2p,
+                    )
+                )
             result["status"] = "ok"
             result["stage"] = "completed"
             with lifecycle.timed("read_messages"):
@@ -197,6 +215,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--s2p", type=Path, default=None)
     parser.add_argument("--score-out", type=Path, default=None)
     parser.add_argument("--postprocess-profile", choices=["connector", "filter"], default="connector")
+    parser.add_argument("--scoring-profile-id", default=None)
+    parser.add_argument("--scoring-profile-path", type=Path, default=None)
+    parser.add_argument("--baseline-s2p", type=Path, default=None)
     parser.add_argument("--export-only", action="store_true")
     parser.add_argument("--ready-timeout-s", type=float, default=120.0)
     parser.add_argument("--ready-settle-s", type=float, default=3.0)

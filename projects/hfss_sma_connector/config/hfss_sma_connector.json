@@ -21,8 +21,9 @@
     "connector_fullband_only": true
   },
   "scoring": {
-    "score_version": "connector_fullband_v1",
-    "score_profile_id": "sma_launch_fullband_0p5_10g_v1",
+    "score_version": "connector_fullband_v2_baseline_relative",
+    "score_profile_id": "sma_launch_fullband_0p5_10g_v2",
+    "baseline_s2p": "projects/hfss_sma_connector/simulations/ideal_50r_microstrip_30mm/results/no_connector_30mm/no_connector_30mm.s2p",
     "band_min_ghz": 0.5,
     "band_max_ghz": 10.0,
     "filter_passband_fields": "disabled"
@@ -417,8 +418,9 @@
       },
       "optimizer": {
         "strategy": "smith_guided_l2_cutout_local",
-        "score_version": "connector_fullband_v1",
-        "score_profile_id": "sma_launch_fullband_0p5_10g_v1"
+        "score_version": "connector_fullband_v2_baseline_relative",
+        "score_profile_id": "sma_launch_fullband_0p5_10g_v2",
+        "baseline_s2p": "projects/hfss_sma_connector/simulations/ideal_50r_microstrip_30mm/results/no_connector_30mm/no_connector_30mm.s2p"
       }
     },
     "dual_end_connector_50r": {

@@ -69,3 +69,33 @@ def test_filter_postprocess_does_not_write_smith_artifact(tmp_path: Path, monkey
     assert len(commands) == 2
     assert commands[0][1].endswith("analyze_filter_s2p.py")
     assert commands[1][1].endswith("plot_filter_s_curves_svg.py")
+
+
+def test_connector_postprocess_can_use_unified_scoring_profile(tmp_path: Path, monkeypatch) -> None:
+    runner = load_runner()
+    commands = []
+
+    monkeypatch.setattr(hfss_results, "hidden_subprocess_kwargs", lambda: {})
+    monkeypatch.setattr(hfss_results.subprocess, "run", lambda command, check, **kwargs: commands.append(command))
+    monkeypatch.setattr(hfss_results, "convert_s2p_to_csv", lambda s2p, trace_csv, *, profile: trace_csv.write_text("trace\n", encoding="utf-8"))
+    monkeypatch.setattr(hfss_results, "write_plot_summary", lambda trace_csv, candidate, summary_csv: summary_csv.write_text("summary\n", encoding="utf-8"))
+
+    out_dir = tmp_path / "out"
+    out_dir.mkdir()
+    baseline = tmp_path / "baseline.s2p"
+    result = runner.run_post_tools(
+        tmp_path / "case.s2p",
+        out_dir / "case_score.csv",
+        out_dir,
+        "case",
+        "connector",
+        scoring_profile_id="sma_launch_fullband_0p5_10g_v2",
+        baseline_s2p=baseline,
+    )
+
+    assert result["scoring_profile_id"] == "sma_launch_fullband_0p5_10g_v2"
+    assert result["baseline_s2p"] == str(baseline)
+    assert commands[0][1].endswith("analyze_sparams.py")
+    assert commands[0][commands[0].index("--system") + 1] == "connector"
+    assert commands[0][commands[0].index("--profile-id") + 1] == "sma_launch_fullband_0p5_10g_v2"
+    assert commands[0][commands[0].index("--baseline-s2p") + 1] == str(baseline)

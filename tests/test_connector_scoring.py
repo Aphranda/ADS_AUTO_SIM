@@ -2,6 +2,7 @@ from pathlib import Path
 
 import pytest
 
+from simads.scoring.interface import score_sparameter_file
 from simads.scoring.connector import ConnectorScoreProfile, read_s2p_db, score_s2p
 
 
@@ -80,3 +81,62 @@ def test_read_s2p_db_returns_normalized_trace_rows(tmp_path: Path) -> None:
     rows = read_s2p_db(s2p)
 
     assert rows == [pytest.approx((1.0, -10.0, -1.0, -1.0, -11.0))]
+
+
+def test_connector_v2_config_requires_baseline(tmp_path: Path) -> None:
+    s2p = tmp_path / "candidate.s2p"
+    write_db_s2p(s2p, [(1.0, -20.0, -0.2, -0.2, -19.0)])
+
+    with pytest.raises(ValueError, match="requires --baseline-s2p"):
+        score_sparameter_file(
+            s2p,
+            system="connector",
+            profile_id="sma_launch_fullband_0p5_10g_v2",
+        )
+
+
+def test_connector_v2_scores_baseline_reference_as_100(tmp_path: Path) -> None:
+    baseline = tmp_path / "baseline.s2p"
+    write_db_s2p(
+        baseline,
+        [
+            (0.5, -12.0, -0.10, -0.10, -30.0),
+            (5.0, -18.0, -0.15, -0.15, -24.0),
+            (10.0, -11.5, -0.20, -0.20, -28.0),
+        ],
+    )
+
+    row = score_sparameter_file(
+        baseline,
+        system="connector",
+        profile_id="sma_launch_fullband_0p5_10g_v2",
+        baseline_path=baseline,
+    )
+
+    assert row["score_version"] == "connector_fullband_v2_baseline_relative"
+    assert row["status"] == "PASS_CANDIDATE"
+    assert row["connector_score"] == "100.000"
+    assert row["optimization_cost"] == "0.000"
+
+
+def test_connector_v2_uses_weighted_balance_for_deep_return_loss(tmp_path: Path) -> None:
+    baseline = tmp_path / "baseline.s2p"
+    candidate = tmp_path / "candidate.s2p"
+    rows = [
+        (0.5, -35.0, -0.10, -0.10, -24.0),
+        (5.0, -34.0, -0.12, -0.12, -25.0),
+        (10.0, -33.0, -0.15, -0.15, -26.0),
+    ]
+    write_db_s2p(baseline, rows)
+    write_db_s2p(candidate, rows)
+
+    row = score_sparameter_file(
+        candidate,
+        system="connector",
+        profile_id="sma_launch_fullband_0p5_10g_v2",
+        baseline_path=baseline,
+    )
+
+    assert float(row["s11_s22_balance_max_0p5_10g_db"]) >= 7.0
+    assert row["s11_s22_weighted_balance_max_0p5_10g_db"] == "0.00"
+    assert row["optimization_cost"] == "0.000"
