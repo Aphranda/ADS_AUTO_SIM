@@ -93,11 +93,11 @@ def _point_mm(value: Any, *, default_unit: str = "mm", numeric_unit: str | None 
     return [_parse_mm(part, default_unit=default_unit, numeric_unit=numeric_unit) for part in parts]
 
 
-def _bbox_mm(value: Any, *, numeric_unit: str = "m") -> list[float] | None:
+def _bbox_mm(value: Any, *, numeric_unit: str = "m", default_unit: str = "mm") -> list[float] | None:
     items = _as_list(value)
     if len(items) < 4:
         return None
-    values = [_parse_mm(item, numeric_unit=numeric_unit) for item in items[:4]]
+    values = [_parse_mm(item, default_unit=default_unit, numeric_unit=numeric_unit) for item in items[:4]]
     if any(item is None for item in values):
         return None
     return [float(item) for item in values if item is not None]
@@ -304,6 +304,51 @@ def _read_component(editor: Any, comp_id_or_name: str) -> dict[str, Any]:
     if pin_info:
         record["pin_info"] = pin_info
     return record
+
+
+def _read_modeler_components(app: Any) -> dict[str, Any]:
+    model_units = str(_safe(lambda: app.modeler.model_units, default="mm") or "mm")
+    components = _safe(lambda: app.modeler.components, default={})
+    if not isinstance(components, dict):
+        return {}
+    records: dict[str, Any] = {}
+    for name, component in components.items():
+        record: dict[str, Any] = {
+            "name": str(name),
+            "part": _safe(lambda component=component: getattr(component, "part"), default=None),
+            "part_type": _safe(lambda component=component: getattr(component, "part_type"), default=None),
+            "placement_layer": _safe(lambda component=component: getattr(component, "placement_layer"), default=None),
+            "net_name": _safe(lambda component=component: getattr(component, "net_name"), default=None),
+        }
+        location = _safe(lambda component=component: getattr(component, "location"), default=None)
+        record["location"] = location
+        record["location_mm"] = _point_mm(location, default_unit=model_units)
+        bbox = _safe(lambda component=component: getattr(component, "bounding_box"), default=None)
+        record["bounding_box"] = bbox
+        record["bbox_mm"] = _bbox_mm(bbox, numeric_unit=model_units, default_unit=model_units)
+        pins = _safe(lambda component=component: getattr(component, "pins"), default={})
+        pin_records: dict[str, Any] = {}
+        if isinstance(pins, dict):
+            for pin_name, pin in pins.items():
+                pin_record: dict[str, Any] = {
+                    "name": str(pin_name),
+                    "net": _safe(lambda pin=pin: getattr(pin, "net_name"), default=None),
+                    "start_layer": _safe(lambda pin=pin: getattr(pin, "start_layer"), default=None),
+                    "stop_layer": _safe(lambda pin=pin: getattr(pin, "stop_layer"), default=None),
+                    "placement_layer": _safe(lambda pin=pin: getattr(pin, "placement_layer"), default=None),
+                    "hole_diameter": _safe(lambda pin=pin: getattr(pin, "holediam"), default=None),
+                    "component_name": _safe(lambda pin=pin: getattr(pin, "componentname"), default=None),
+                }
+                pin_location = _safe(lambda pin=pin: getattr(pin, "location"), default=None)
+                pin_record["location"] = pin_location
+                pin_record["location_mm"] = _point_mm(pin_location, default_unit=model_units)
+                pin_bbox = _safe(lambda pin=pin: getattr(pin, "bounding_box"), default=None)
+                pin_record["bounding_box"] = pin_bbox
+                pin_record["bbox_mm"] = _bbox_mm(pin_bbox, numeric_unit=model_units, default_unit=model_units)
+                pin_records[str(pin_name)] = pin_record
+        record["pins"] = pin_records
+        records[str(name)] = record
+    return records
 
 
 def _component_names_by_id(editor: Any, *, limit: int = 3000) -> dict[str, list[str]]:
@@ -519,6 +564,7 @@ def extract(args: argparse.Namespace) -> dict[str, Any]:
                             continue
                     objects.append(_read_primitive(app, editor, name, layer))
             payload["objects"] = objects
+            payload["modeler_components"] = _read_modeler_components(app)
             components_by_name = _component_names_by_id(editor)
             payload["components_by_name"] = components_by_name
             selected_component_ids: list[str] = []

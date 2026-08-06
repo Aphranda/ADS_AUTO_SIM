@@ -20,6 +20,8 @@ def test_parse_mil_and_numeric_si_units_to_mm() -> None:
 def test_bbox_and_distance() -> None:
     bbox = extract_layout._bbox_mm([-0.000159, 0.01484, 0.000159, 0.015159], numeric_unit="m")
     assert bbox == pytest.approx([-0.159, 14.84, 0.159, 15.159])
+    mil_bbox = extract_layout._bbox_mm(["0", "366.126", "10.63", "440.158"], numeric_unit="mil", default_unit="mil")
+    assert mil_bbox == pytest.approx([0.0, 9.2996004, 0.270002, 11.1800132])
     assert extract_layout._distance_to_bbox([0.0, 15.0], bbox) == 0.0
     assert extract_layout._distance_to_bbox([1.0, 15.0], bbox) == pytest.approx(0.841)
 

@@ -17,6 +17,13 @@ from typing import Any
 
 
 DEFAULT_LAYERS = ("TOP", "L2_GND", "L3_SIG", "BOTTOM")
+LAYER_ALIASES = {
+    "TOP": "L1 TOP",
+    "L2_GND": "L2 GND",
+    "L3_SIG": "L3 SIG",
+    "BOTTOM": "L4 BOTTOM",
+}
+LAYER_ORDER = {layer: index for index, layer in enumerate(DEFAULT_LAYERS)}
 DEFAULT_LAYER_COLORS = {
     "TOP": "#d94f2b",
     "L2_GND": "#4b8f68",
@@ -144,11 +151,72 @@ def _signal_nets(payload: dict[str, Any], explicit: list[str] | None) -> list[st
 
 def _layers(payload: dict[str, Any], explicit: list[str] | None) -> list[str]:
     if explicit:
-        return explicit
-    requested = payload.get("layers_requested")
-    if isinstance(requested, list) and requested:
-        return [str(item) for item in requested]
-    return list(DEFAULT_LAYERS)
+        requested = explicit
+    else:
+        requested = []
+        raw = payload.get("layers_requested")
+        if isinstance(raw, list) and raw:
+            requested = [str(item) for item in raw]
+        else:
+            requested = list(DEFAULT_LAYERS)
+    return sorted(
+        list(dict.fromkeys(requested)),
+        key=lambda layer: (LAYER_ORDER.get(layer, 100), layer),
+    )
+
+
+def _component_records(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    raw = payload.get("modeler_components")
+    if not isinstance(raw, dict):
+        return []
+    records: list[dict[str, Any]] = []
+    for name, component in raw.items():
+        if not isinstance(component, dict):
+            continue
+        layer = str(component.get("placement_layer") or "TOP")
+        bbox = _clean_bbox(component.get("bbox_mm"))
+        record = {
+            "name": str(name),
+            "type": "component",
+            "layer": layer,
+            "net": component.get("net_name"),
+            "bbox_mm": list(bbox) if bbox else None,
+            "location_mm": component.get("location_mm"),
+            "part": component.get("part"),
+        }
+        records.append(record)
+        pins = component.get("pins")
+        if isinstance(pins, dict):
+            for pin_name, pin in pins.items():
+                if not isinstance(pin, dict):
+                    continue
+                pin_layer = str(pin.get("start_layer") or pin.get("placement_layer") or layer)
+                records.append(
+                    {
+                        "name": f"{name}.{pin_name}",
+                        "type": "component_pin",
+                        "layer": pin_layer,
+                        "net": pin.get("net"),
+                        "location_mm": pin.get("location_mm"),
+                        "bbox_mm": pin.get("bbox_mm"),
+                        "part": component.get("part"),
+                    }
+                )
+    return records
+
+
+def _component_pin_names(payload: dict[str, Any]) -> set[str]:
+    raw = payload.get("modeler_components")
+    if not isinstance(raw, dict):
+        return set()
+    names: set[str] = set()
+    for component in raw.values():
+        if not isinstance(component, dict):
+            continue
+        pins = component.get("pins")
+        if isinstance(pins, dict):
+            names.update(str(name) for name in pins.keys())
+    return names
 
 
 def _crop_bbox(
@@ -210,6 +278,11 @@ class View:
 
 def _style_for_object(obj: dict[str, Any], signal_nets: set[str], layer: str) -> tuple[str, str, float]:
     net = str(obj.get("net") or "")
+    typ = str(obj.get("type") or "").lower()
+    if typ == "component":
+        return "none", "#111827", 0.72
+    if typ == "component_pin":
+        return "#ffffff", "#111827", 0.92
     if bool(obj.get("is_void")):
         return VOID_FILL, VOID_STROKE, 0.78
     if net.lower() in signal_nets:
@@ -230,6 +303,8 @@ def _title(obj: dict[str, Any]) -> str:
             parts.append(f"{key}={value}")
     if obj.get("is_void"):
         parts.append("void")
+    if obj.get("part"):
+        parts.append(f"part={obj.get('part')}")
     bbox = _clean_bbox(obj.get("bbox_mm"))
     if bbox is not None:
         parts.append(
@@ -294,6 +369,13 @@ def _svg_marker(obj: dict[str, Any], view: View, y_offset: float, *, fill: str, 
             f'fill="{fill}" stroke="{stroke}" stroke-width="1" opacity="{_fmt(opacity, 2)}">'
             f"<title>{escape(title)}</title></circle>"
         )
+    if typ == "component_pin":
+        r = 3.8
+        return (
+            f'<circle cx="{_fmt(cx)}" cy="{_fmt(cy)}" r="{_fmt(r)}" '
+            f'fill="{fill}" stroke="{stroke}" stroke-width="1.3" opacity="{_fmt(opacity, 2)}">'
+            f"<title>{escape(title)}</title></circle>"
+        )
     size = 5.0
     return (
         f'<g opacity="{_fmt(opacity, 2)}"><line x1="{_fmt(cx - size)}" y1="{_fmt(cy)}" x2="{_fmt(cx + size)}" '
@@ -308,6 +390,10 @@ def _object_svg(obj: dict[str, Any], view: View, y_offset: float, signal_nets: s
     fill, stroke, opacity = _style_for_object(obj, signal_nets, layer)
     title = _title(obj)
     typ = str(obj.get("type") or "").lower()
+    if typ == "component":
+        bbox = _clean_bbox(obj.get("bbox_mm"))
+        if bbox is not None and (bbox[2] > bbox[0] or bbox[3] > bbox[1]):
+            return _svg_bbox(bbox, view, y_offset, fill="none", stroke=stroke, opacity=opacity, title=title)
 
     if typ == "line":
         center_line = _clean_points(obj.get("center_line_points_mm"))
@@ -380,7 +466,12 @@ def _label_svg(objects: list[dict[str, Any]], view: View, y_offset: float, signa
         name = str(obj.get("name") or "")
         net = str(obj.get("net") or "").lower()
         typ = str(obj.get("type") or "").lower()
-        important = net in signal_nets or bool(obj.get("is_void")) or (typ == "pin" and net in signal_nets)
+        important = (
+            net in signal_nets
+            or bool(obj.get("is_void"))
+            or (typ == "pin" and net in signal_nets)
+            or typ in {"component", "component_pin"}
+        )
         if not important:
             continue
         point = _label_point(obj)
@@ -399,24 +490,66 @@ def _label_svg(objects: list[dict[str, Any]], view: View, y_offset: float, signa
     return "\n".join(labels)
 
 
+def _object_span_mm(obj: dict[str, Any]) -> float | None:
+    bbox = _object_bbox(obj)
+    if bbox is None:
+        return None
+    return max(bbox[2] - bbox[0], bbox[3] - bbox[1])
+
+
+def _should_render_object(
+    obj: dict[str, Any],
+    signal_nets: set[str],
+    *,
+    signal_only: bool,
+    max_object_span_mm: float | None,
+    component_pin_names: set[str],
+) -> bool:
+    span = _object_span_mm(obj)
+    if max_object_span_mm is not None and span is not None and span > max_object_span_mm:
+        if str(obj.get("type") or "").lower() == "component":
+            return True
+        return False
+    if str(obj.get("type") or "").lower() == "pin" and str(obj.get("name") or "") in component_pin_names:
+        return False
+    if not signal_only:
+        return True
+    if bool(obj.get("is_void")):
+        return True
+    net = str(obj.get("net") or "").lower()
+    return net in signal_nets or net == "gnd"
+
+
 def _panel_svg(
     title: str,
     objects: list[dict[str, Any]],
     view: View,
     y_offset: float,
     *,
+    panel_id: str,
     crop: tuple[float, float, float, float],
     signal_nets: set[str],
+    signal_only: bool,
+    max_object_span_mm: float | None,
+    component_pin_names: set[str],
 ) -> str:
     visible = [
         obj
         for obj in objects
         for bbox in [_object_bbox(obj)]
-        if bbox is not None and _bbox_intersects(bbox, crop)
+        if bbox is not None
+        and _bbox_intersects(bbox, crop)
+        and _should_render_object(
+            obj,
+            signal_nets,
+            signal_only=signal_only,
+            max_object_span_mm=max_object_span_mm,
+            component_pin_names=component_pin_names,
+        )
     ]
     visible.sort(
         key=lambda obj: (
-            0 if str(obj.get("type") or "").lower() not in {"via", "pin"} else 1,
+            0 if str(obj.get("type") or "").lower() not in {"via", "pin", "component_pin"} else 1,
             0 if not bool(obj.get("is_void")) else 2,
             str(obj.get("name") or ""),
         )
@@ -425,9 +558,13 @@ def _panel_svg(
         f'<g class="panel"><text x="0" y="{_fmt(y_offset + 22)}" font-size="18" font-family="Arial, sans-serif" '
         f'font-weight="700" fill="{TEXT_COLOR}">{escape(title)}</text>',
         _grid_svg(view, y_offset),
+        f'<clipPath id="{escape(panel_id)}"><rect x="0" y="{_fmt(y_offset + view.title_height_px)}" '
+        f'width="{_fmt(view.width_px)}" height="{_fmt(view.height_px)}"/></clipPath>',
+        f'<g clip-path="url(#{escape(panel_id)})">',
     ]
     parts.extend(_object_svg(obj, view, y_offset, signal_nets) for obj in visible)
     parts.append(_label_svg(visible, view, y_offset, signal_nets))
+    parts.append("</g>")
     parts.append("</g>")
     return "\n".join(part for part in parts if part)
 
@@ -438,6 +575,7 @@ def _legend_svg(payload: dict[str, Any], view: View, *, x: float, y: float, sign
         "API layout SVG",
         f"Design: {payload.get('design', '')}",
         f"Model units: {payload.get('model_units', '')} -> mm",
+        "Stack: L1 TOP -> L2 GND -> L3 SIG -> L4 BOTTOM",
         f"Signal nets: {', '.join(signal_nets) if signal_nets else 'none'}",
         f"Crop: [{_fmt(crop[0])}, {_fmt(crop[1])}] to [{_fmt(crop[2])}, {_fmt(crop[3])}] mm",
     ]
@@ -457,6 +595,7 @@ def _legend_svg(payload: dict[str, Any], view: View, *, x: float, y: float, sign
         ("GND", GND_COLOR),
         ("Void/cutout", VOID_STROKE),
         ("Other signal", OTHER_SIGNAL_COLOR),
+        ("Component/pin", PIN_COLOR),
     ]
     parts = [
         f'<g class="legend" font-family="Arial, sans-serif" fill="{TEXT_COLOR}">',
@@ -488,8 +627,12 @@ def render_svg(
     margin_mm: float = 3.0,
     crop: list[float] | None = None,
     width_px: int = 900,
+    signal_only: bool = False,
+    max_object_span_mm: float | None = 15.0,
 ) -> str:
     objects = [obj for obj in payload.get("objects", []) if isinstance(obj, dict)]
+    objects.extend(_component_records(payload))
+    component_pin_names = _component_pin_names(payload)
     selected_layers = _layers(payload, layers)
     selected_signal_nets = _signal_nets(payload, signal_nets)
     signal_set = {net.lower() for net in selected_signal_nets}
@@ -504,7 +647,7 @@ def render_svg(
     view = View(crop_bbox, width_px=width_px)
     panel_gap = 28.0
     panel_step = view.title_height_px + view.height_px + panel_gap
-    panel_titles = ["Overlay"] + selected_layers
+    panel_titles = selected_layers + ["Overlay"]
     total_height = panel_step * len(panel_titles) - panel_gap + 18
     total_width = width_px + 288
 
@@ -520,26 +663,37 @@ def render_svg(
         "<defs>",
         '<style>text { font-family: Arial, sans-serif; } .panel text { pointer-events: none; }</style>',
         "</defs>",
+    ]
+    for index, layer in enumerate(selected_layers):
+        parts.append(
+            _panel_svg(
+                f"{LAYER_ALIASES.get(layer, layer)} layer",
+                by_layer.get(layer, []),
+                view,
+                panel_step * index,
+                panel_id=f"clip-{index}-{layer}",
+                crop=crop_bbox,
+                signal_nets=signal_set,
+                signal_only=signal_only,
+                max_object_span_mm=max_object_span_mm,
+                component_pin_names=component_pin_names,
+            )
+        )
+    overlay_index = len(selected_layers)
+    parts.append(
         _panel_svg(
             "Overlay - selected HFSS 3D Layout geometry",
             overlay_objects,
             view,
-            0.0,
+            panel_step * overlay_index,
+            panel_id="clip-overlay",
             crop=crop_bbox,
             signal_nets=signal_set,
-        ),
-    ]
-    for index, layer in enumerate(selected_layers, start=1):
-        parts.append(
-            _panel_svg(
-                f"{layer} layer",
-                by_layer.get(layer, []),
-                view,
-                panel_step * index,
-                crop=crop_bbox,
-                signal_nets=signal_set,
-            )
+            signal_only=signal_only,
+            max_object_span_mm=max_object_span_mm,
+            component_pin_names=component_pin_names,
         )
+    )
     parts.append(
         _legend_svg(
             payload,
@@ -564,6 +718,8 @@ def render_file(args: argparse.Namespace) -> Path:
         margin_mm=args.margin_mm,
         crop=args.crop,
         width_px=args.width_px,
+        signal_only=args.signal_only,
+        max_object_span_mm=args.max_object_span_mm,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(svg, encoding="utf-8")
@@ -577,6 +733,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--layers", nargs="+", default=None, help="Layer names to render. Defaults to extracted/requested layers.")
     parser.add_argument("--signal-nets", nargs="+", default=None, help="Signal nets to highlight. Defaults to JSON signal_nets.")
     parser.add_argument("--full-extent", action="store_true", help="Render full extracted extent instead of signal-focused crop.")
+    parser.add_argument("--signal-only", action="store_true", help="Draw only highlighted signal nets, GND, and void/cutout objects.")
+    parser.add_argument(
+        "--max-object-span-mm",
+        type=float,
+        default=15.0,
+        help="Skip objects whose bbox width or height exceeds this value. Use 0 or negative to disable.",
+    )
     parser.add_argument("--margin-mm", type=float, default=3.0, help="Margin around the signal-focused crop.")
     parser.add_argument("--crop", nargs=4, type=float, default=None, metavar=("XMIN", "YMIN", "XMAX", "YMAX"))
     parser.add_argument("--width-px", type=int, default=900)
@@ -584,7 +747,10 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
-    output = render_file(parse_args())
+    args = parse_args()
+    if args.max_object_span_mm is not None and args.max_object_span_mm <= 0:
+        args.max_object_span_mm = None
+    output = render_file(args)
     print(output)
     return 0
 
