@@ -10,6 +10,7 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+import tempfile
 import time
 import traceback
 from typing import Callable, Sequence
@@ -149,10 +150,12 @@ def build_gate_commands(args: argparse.Namespace, *, host_python: Path) -> list[
         )
     if not args.skip_pytest:
         pytest_targets = [str(Path(item)) for item in (args.pytest_target or DEFAULT_PYTEST_TARGETS)]
-        pytest_basetemp = REPO_ROOT / ".simads" / "pytest_tmp" / "hfss_quality_gate"
-        pytest_cache = REPO_ROOT / ".simads" / "pytest_cache"
+        run_token = f"hfss_quality_gate_{os.getpid()}_{time.monotonic_ns()}"
+        pytest_root = Path(tempfile.gettempdir()) / "simads_hfss_quality_gate"
+        pytest_basetemp = pytest_root / "pytest_tmp" / run_token
+        pytest_cache = pytest_root / "pytest_cache" / run_token
         pytest_basetemp.parent.mkdir(parents=True, exist_ok=True)
-        pytest_cache.mkdir(parents=True, exist_ok=True)
+        pytest_cache.parent.mkdir(parents=True, exist_ok=True)
         commands.append(
             GateCommand(
                 name="pytest",

@@ -87,6 +87,26 @@
         "baseline_s4p": "projects/sp8t_real_board_hfss/results/baselines/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_baseline.s4p",
         "latest_result": "projects/sp8t_real_board_hfss/results/rf_ppa_sp10t_cutout/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_score_baseline_relative.csv",
         "description": "Four-port imported real board cutout. Port1 to chip Port2 is input path, Port3 to chip Port4 is output path; scoring includes cross-path isolation."
+      },
+      "rf_ppa_sp10t_rf_out_four_port": {
+        "design": "RF-PPA-SP10T-4F4H-ENIG-V1.0_RF_OUT",
+        "fixture_type": "sp8t_real_board_four_port_rf_out",
+        "ports": [
+          "Port1",
+          "Port2",
+          "Port3",
+          "Port4"
+        ],
+        "port_mapping": {
+          "output_a": "Port1",
+          "chip_a": "Port2",
+          "output_b": "Port3",
+          "chip_b": "Port4"
+        },
+        "baseline_s4p": "projects/sp8t_real_board_hfss/results/baselines/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_baseline.s4p",
+        "latest_result": "projects/sp8t_real_board_hfss/results/rf_ppa_sp10t_rf_out/RF_PPA_SP10T_4F4H_ENIG_V1_0_RF_OUT_20260808/RF_PPA_SP10T_4F4H_ENIG_V1_0_RF_OUT_20260808_score.csv",
+        "latest_s4p": "projects/sp8t_real_board_hfss/results/rf_ppa_sp10t_rf_out/RF_PPA_SP10T_4F4H_ENIG_V1_0_RF_OUT_20260808/RF_PPA_SP10T_4F4H_ENIG_V1_0_RF_OUT_20260808.s4p",
+        "description": "Four-port imported real board RF_OUT design. Port1 and Port3 are output ports; Port2 and Port4 are chip ports. Scored against the frozen RF-PPA cutout four-port baseline."
       }
     }
   },

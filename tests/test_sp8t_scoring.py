@@ -87,6 +87,9 @@ def test_sp8t_score_includes_isolation_metrics(tmp_path: Path) -> None:
     assert row["status"] == "PASS_CANDIDATE"
     assert row["worst_isolation_param"] == "s24"
     assert row["worst_isolation_0p5_10g_db"] == "-31.00"
+    assert row["near_end_isolation_param"] == "s31"
+    assert row["far_end_isolation_param"] == "s24"
+    assert row["diagonal_isolation_param"] == "s41"
     assert row["through_min_0p5_10g_db"] == "-0.75"
     assert float(row["sp8t_score"]) > 95.0
 
@@ -124,6 +127,9 @@ def test_sp8t_v2_scores_against_baseline(tmp_path: Path) -> None:
     assert row["baseline_file"] == str(baseline)
     assert row["max_extra_il_0p5_10g_db"] == "0.40"
     assert row["max_isolation_degradation_0p5_10g_db"] == "3.00"
+    assert row["near_end_isolation_degradation_0p5_10g_db"] == "3.00"
+    assert row["far_end_isolation_degradation_0p5_10g_db"] == "0.00"
+    assert row["diagonal_isolation_degradation_0p5_10g_db"] == "0.00"
     assert float(row["sp8t_score"]) < 100.0
 
 
@@ -148,4 +154,7 @@ def test_sp8t_trace_csv_contains_worst_isolation(tmp_path: Path) -> None:
 
     text = trace.read_text(encoding="utf-8")
     assert "worst_isolation_db" in text
+    assert "near_end_isolation_db" in text
+    assert "far_end_isolation_db" in text
+    assert "diagonal_isolation_db" in text
     assert "s43_db" in text

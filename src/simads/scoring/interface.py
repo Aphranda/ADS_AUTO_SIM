@@ -8,6 +8,19 @@ from . import score_vectors
 from .connector import ConnectorScoreProfile, read_s2p, read_s2p_db, score_s2p
 from .profiles import ScoringProfile, load_scoring_profile
 from .sp8t import Sp8tFourPortScoreProfile, score_touchstone as score_sp8t_touchstone
+from .systems import SCORING_SYSTEM_NPORTS, get_scoring_system_spec
+from .touchstone import read_sparameter_network
+
+
+def _require_system_nports(path: Path, system: str) -> None:
+    spec = get_scoring_system_spec(system)
+    read_sparameter_network(path).require_nports(spec.nports, system=system)
+
+
+def _require_baseline_supported(system: str, baseline_path: Path | None) -> None:
+    spec = get_scoring_system_spec(system)
+    if baseline_path is not None and not spec.supports_baseline:
+        raise ValueError(f"{system} scoring does not accept a baseline_path")
 
 
 def _connector_profile(profile: ScoringProfile) -> ConnectorScoreProfile:
@@ -58,9 +71,11 @@ def score_sparameter_file(
     baseline_path: Path | None = None,
 ) -> dict[str, str]:
     profile = load_scoring_profile(system, profile_id, path=profile_path)
+    _require_baseline_supported(system, baseline_path)
+    _require_system_nports(path, system)
+    if baseline_path is not None:
+        _require_system_nports(baseline_path, system)
     if system == "filter":
-        if baseline_path is not None:
-            raise ValueError("filter scoring does not accept a baseline_path")
         return _score_filter_s2p(path, profile)
     if system == "connector":
         mode = profile.data.get("mode") if isinstance(profile.data.get("mode"), dict) else {}

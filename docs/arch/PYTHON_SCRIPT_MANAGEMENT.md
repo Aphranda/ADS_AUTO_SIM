@@ -82,7 +82,7 @@ CLI 编排流程。
 | `simads.config` | P0 | `ads_profiles.py` | profile、路径、workspace、library、template、substrate。 |
 | `simads.config.pipelines` | P1 | `check_pipeline_contract.py`、`run_ads_filter_candidate.py`、`run_ads_filter_sweep.py` | pipeline contract、脚本绑定、单位、层、端口、频段和评分配置。 |
 | `simads.logging` | P0 | `run_ads_filter_candidate.py`、`run_ads_filter_sweep.py`、`ads_run_rfpro_fem.py` | 阶段日志、耗时、错误分类。 |
-| `simads.scoring` | P0 | `analyze_filter_s2p.py`、`analyze_sparams.py` | S 参数指标、目标函数、评分权重；当前包含 filter、connector、SP8T 四端口隔离评分和通用 Touchstone n-port 读取。 |
+| `simads.scoring` | P0 | `analyze_filter_s2p.py`、`analyze_sparams.py` | S 参数指标、目标函数、评分权重；`touchstone.SParameterNetwork` 统一抽象 S2P/S3P/S4P/S5P/S6P 解析，`systems.ScoringSystemSpec` 固化不同评分系统的 Touchstone 端口数、profile 目录、baseline 能力和核心指标族，例如 filter/connector=S2P、SP8T=S4P。 |
 | `simads.data` | P0 | `analyze_ads_dataset.py`、`export_ads_fem_dataset.py` | CSV、dataset、Touchstone、summary。 |
 | `simads.geometry` | P1 | `generate_*_layout.py`、`check_layout_contract.py` | Point、BBox、Rect、Path、Polygon、Via、Port、Transform、通用 layout contract 和拓扑专项 layout gate。 |
 | `simads.exporters` | P1 | `generate_*_layout.py` | DXF、SVG、params.json、DRC、dimension check。 |

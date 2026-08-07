@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 import math
 from pathlib import Path
 import re
@@ -34,6 +35,68 @@ def infer_nports(path: Path) -> int:
     if not match:
         raise ValueError(f"cannot infer Touchstone port count from suffix: {path}")
     return int(match.group(1))
+
+
+def normalize_sparam_name(name: str) -> str:
+    value = name.strip().lower()
+    if value.startswith("s"):
+        value = value[1:]
+    if not value.isdigit() or len(value) != 2:
+        raise ValueError(f"invalid S-parameter name: {name}")
+    return f"s{value}"
+
+
+@dataclass(frozen=True)
+class SParameterNetwork:
+    path: Path
+    nports: int
+    samples: list[dict[str, Any]]
+
+    @property
+    def frequency_ghz(self) -> list[float]:
+        return [float(row["freq_ghz"]) for row in self.samples]
+
+    def require_nports(self, expected: int, *, system: str | None = None) -> "SParameterNetwork":
+        if self.nports != expected:
+            label = f" for {system}" if system else ""
+            raise ValueError(f"expected S{expected}P{label}, got S{self.nports}P: {self.path}")
+        return self
+
+    def band(self, band_min_ghz: float, band_max_ghz: float) -> "SParameterNetwork":
+        selected = [row for row in self.samples if band_min_ghz <= float(row["freq_ghz"]) <= band_max_ghz]
+        return SParameterNetwork(self.path, self.nports, selected)
+
+    def s(self, name: str) -> list[complex]:
+        key = normalize_sparam_name(name)
+        self._require_param(key)
+        return [complex(row[key]) for row in self.samples]
+
+    def db(self, name: str) -> list[float]:
+        return [db(value) for value in self.s(name)]
+
+    def interp_db(self, freq_ghz: float, name: str) -> float:
+        key = normalize_sparam_name(name)
+        self._require_param(key)
+        ordered = sorted(self.samples, key=lambda row: float(row["freq_ghz"]))
+        if not ordered:
+            raise ValueError(f"no samples in network: {self.path}")
+        if freq_ghz <= float(ordered[0]["freq_ghz"]):
+            return db(complex(ordered[0][key]))
+        if freq_ghz >= float(ordered[-1]["freq_ghz"]):
+            return db(complex(ordered[-1][key]))
+        for left, right in zip(ordered, ordered[1:]):
+            left_f = float(left["freq_ghz"])
+            right_f = float(right["freq_ghz"])
+            if left_f <= freq_ghz <= right_f:
+                ratio = (freq_ghz - left_f) / (right_f - left_f)
+                return db(complex(left[key])) + ratio * (db(complex(right[key])) - db(complex(left[key])))
+        return db(complex(ordered[-1][key]))
+
+    def _require_param(self, key: str) -> None:
+        if not self.samples:
+            raise ValueError(f"no samples in network: {self.path}")
+        if key not in self.samples[0]:
+            raise ValueError(f"network S{self.nports}P missing {key.upper()}: {self.path}")
 
 
 def read_touchstone(path: Path, *, nports: int | None = None) -> list[dict[str, Any]]:
@@ -95,4 +158,52 @@ def read_touchstone(path: Path, *, nports: int | None = None) -> list[dict[str, 
     return samples
 
 
-__all__ = ["UNIT_SCALE_TO_GHZ", "complex_from_pair", "db", "infer_nports", "read_touchstone"]
+def read_sparameter_network(path: Path, *, nports: int | None = None) -> SParameterNetwork:
+    inferred_ports = infer_nports(path)
+    ports = nports or inferred_ports
+    if nports is not None and inferred_ports != nports:
+        raise ValueError(f"Touchstone suffix/reader mismatch: expected S{nports}P, got S{inferred_ports}P: {path}")
+    if ports < 2 or ports > 6:
+        raise ValueError(f"only S2P-S6P networks are supported by the scoring abstraction, got S{ports}P: {path}")
+    return SParameterNetwork(path=path, nports=ports, samples=read_touchstone(path, nports=ports))
+
+
+def _read_fixed_network(path: Path, nports: int) -> SParameterNetwork:
+    return read_sparameter_network(path, nports=nports).require_nports(nports)
+
+
+def read_s2p_network(path: Path) -> SParameterNetwork:
+    return _read_fixed_network(path, 2)
+
+
+def read_s3p_network(path: Path) -> SParameterNetwork:
+    return _read_fixed_network(path, 3)
+
+
+def read_s4p_network(path: Path) -> SParameterNetwork:
+    return _read_fixed_network(path, 4)
+
+
+def read_s5p_network(path: Path) -> SParameterNetwork:
+    return _read_fixed_network(path, 5)
+
+
+def read_s6p_network(path: Path) -> SParameterNetwork:
+    return _read_fixed_network(path, 6)
+
+
+__all__ = [
+    "SParameterNetwork",
+    "UNIT_SCALE_TO_GHZ",
+    "complex_from_pair",
+    "db",
+    "infer_nports",
+    "normalize_sparam_name",
+    "read_s2p_network",
+    "read_s3p_network",
+    "read_s4p_network",
+    "read_s5p_network",
+    "read_s6p_network",
+    "read_sparameter_network",
+    "read_touchstone",
+]

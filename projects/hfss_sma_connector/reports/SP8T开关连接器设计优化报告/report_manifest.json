@@ -44,8 +44,14 @@
     {
       "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_sp8t_sparams.svg",
       "exists": true,
-      "size_bytes": 50345,
-      "sha256": "0e07fbec89129640862e19bcacc6fbd25c2215ba93829c863e60f7e001c6816e"
+      "size_bytes": 63067,
+      "sha256": "2cf36ee3841dec1947a022af05046053ddbe04cee7a53dbe77443a57ac4b8718"
+    },
+    {
+      "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_RF_OUT_20260808_sp8t_sparams.svg",
+      "exists": true,
+      "size_bytes": 61194,
+      "sha256": "ce358eccda5a97f635935e916363fff60893267f08bfbe78b184c7f7834f8a4f"
     },
     {
       "path": "assets/se30_gap1p5_novia_l2l3_l4_jlc04161h_7628_1p6mm.svg",
@@ -134,8 +140,8 @@
     {
       "path": "SP8T开关连接器设计优化报告.html",
       "exists": true,
-      "size_bytes": 28702,
-      "sha256": "e0bd415e3079ae0c3c510d463c7e85f36a555f36919967dfb449dfb902907e0a"
+      "size_bytes": 33523,
+      "sha256": "bd9011fa1b3084bf3480cb6e083b31904e59d027ac4737fd66134e31e83b1c5a"
     },
     {
       "path": "SP8T开关连接器设计优化报告.pdf",
@@ -304,9 +310,30 @@
       "inside_report_dir": true,
       "skipped": false,
       "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/gts-logo-cropped.svg",
+      "local_path": "assets/gts-logo-cropped.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_RF_OUT_20260808_sp8t_sparams.svg",
+      "local_path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_RF_OUT_20260808_sp8t_sparams.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
     }
   ],
   "referenced_assets": [
+    "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_RF_OUT_20260808_sp8t_sparams.svg",
     "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_sp8t_sparams.svg",
     "assets/SP8T_connector_no_connector_vs_l40w17_s21_overlay_0_to_minus3.svg",
     "assets/SP8T_connector_unopt_notqualified_l40w17_overlay.svg",
@@ -321,5 +348,5 @@
   "outside_report_dir_references": [],
   "skipped_references": [],
   "status": "ok",
-  "updated_at": "2026-08-07T23:11:00+08:00"
+  "updated_at": "2026-08-08T00:19:38+08:00"
 }

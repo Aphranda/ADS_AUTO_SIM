@@ -78,7 +78,9 @@ def plot_individual(
         "S21 Port1->Port2": ("s21_db", "#1f77b4", 1.45),
         "S43 Port3->Port4": ("s43_db", "#c44e52", 1.45),
         "Worst return": ("worst_return_db", "#8172b2", 1.1),
-        "Worst isolation": ("worst_isolation_db", "#2ca02c", 1.1),
+        "Near-end isolation P1/P3": ("near_end_isolation_db", "#2ca02c", 1.05),
+        "Far-end isolation P2/P4": ("far_end_isolation_db", "#d97706", 1.05),
+        "Diagonal isolation": ("diagonal_isolation_db", "#6a1b9a", 1.0),
     }
     for label, (column, color, width) in traces.items():
         if column in rows[0]:

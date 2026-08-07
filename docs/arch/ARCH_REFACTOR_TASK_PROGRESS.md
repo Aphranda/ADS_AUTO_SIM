@@ -62,8 +62,10 @@ Owner: ADS Automation
   - 对 Port1->Port2 输入路径、Port3->Port4 输出路径进行评分，并新增输入/输出隔离指标。
   - 更新 `projects/hfss_sma_connector/reports/SP8T开关连接器设计优化报告/SP8T开关连接器设计优化报告.html`。
 - 完成内容：
-  - 新增通用 Touchstone n-port 读取器 `src/simads/scoring/touchstone.py`。
-  - 新增 `src/simads/scoring/sp8t.py`，评分字段覆盖 S21/S43 through、四端口最差回损、两路 through 平衡、两组端口间 worst isolation，以及 baseline-relative 额外插损/回损退化/隔离退化。
+  - 新增通用 Touchstone n-port 读取器和 `SParameterNetwork` 抽象 `src/simads/scoring/touchstone.py`，统一支持 S2P/S3P/S4P/S5P/S6P。
+  - 新增评分系统规格注册表 `src/simads/scoring/systems.py`，按 S 参数类型声明不同评分系统：filter=S2P bandpass，connector=S2P launch，SP8T=S4P switch path；规格中固化端口数、profile 目录、baseline 能力和核心指标族。
+  - 统一评分入口按 scoring system 规格校验 candidate/baseline 的 Touchstone 端口数和 baseline 支持能力；类型不匹配直接拒绝。
+  - 新增 `src/simads/scoring/sp8t.py`，评分字段覆盖 S21/S43 through、四端口最差回损、两路 through 平衡、near-end/far-end/diagonal isolation，以及 baseline-relative 额外插损/回损退化/隔离退化。
   - `analyze_sparams.py`、`scoring.interface`、`scoring.profiles`、`hfss.results` 和 `run_existing_hfss3dlayout_verdict.py` 接入 `sp8t` postprocess/scoring profile。
   - 新增 `tools/plot_sp8t_sparams_svg.py`，输出 S21/S43、worst return 和 worst isolation 曲线。
   - 更新 `config/projects/sp8t_real_board_hfss.json` 到当前 home 路径，并登记四端口 design/port mapping/latest result。
@@ -75,8 +77,8 @@ Owner: ADS Automation
   - 真实 HFSS 重跑通过：profile home，工程 `D:\Work\ADS\SIMADS_EM_PAR\SP8T\RF-PPA-SP10T-4F4H-ENIG-V1.0.aedt`，design `RF-PPA-SP10T-4F4H-ENIG-V1.0_cutout`，setup/sweep `Setup1/Sweep1`，端口 `Port1/Port2/Port3/Port4`，导出 `.s4p`。
   - 按用户要求将图表横轴固定为 `0.5-10 GHz`，并将评分切换为与基线对比的 `sp8t_four_port_connector_isolation_v2_baseline_relative`。
   - 冻结 baseline S4P：`projects/sp8t_real_board_hfss/results/baselines/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_baseline.s4p`。
-  - 本次 baseline-relative 评分：`sp8t_score=100.000`，`status=PASS_CANDIDATE`，`max_extra_il=0.00 dB`，`avg_extra_il=0.00 dB`，`extra_il_ripple=0.00 dB`，`max_return_degradation=0.00 dB`，`max_isolation_degradation=0.00 dB`。
-  - 本次绝对读数保留为基线状态：`worst_isolation=-44.56 dB` at `S13 @ 4.6 GHz`，`worst_return=-14.30 dB` at `S33 @ 7.15 GHz`，`through_min=-1.64 dB`，`through_ripple=1.58 dB`。
+  - 本次 baseline-relative 评分：`sp8t_score=100.000`，`status=PASS_CANDIDATE`，`max_extra_il=0.00 dB`，`avg_extra_il=0.00 dB`，`extra_il_ripple=0.00 dB`，`max_return_degradation=0.00 dB`，near/far/diagonal isolation degradation 均为 `0.00 dB`。
+  - 本次绝对读数保留为基线状态：near-end isolation `S13=-44.56 dB @ 4.6 GHz`，far-end isolation `S24=-49.29 dB @ 4.5 GHz`，diagonal isolation `S14=-44.81 dB @ 2.9 GHz`，`worst_return=-14.30 dB` at `S33 @ 7.15 GHz`，`through_min=-1.64 dB`，`through_ripple=1.58 dB`。
   - 报告 manifest 通过，新增 asset `assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_sp8t_sparams.svg` 已记录，无 missing references。
 - 还需完成：
   - 隔离不是当前瓶颈；下一步重点分析 Port3->Port4 的高频插损下探和 S21/S43 合并 through ripple。
@@ -94,6 +96,7 @@ Owner: ADS Automation
   - `config/scoring/sp8t/sp8t_four_port_connector_isolation_0p5_10g_v2.json`
   - `config/projects/sp8t_real_board_hfss.json`
   - `tests/test_sp8t_scoring.py`
+  - `tests/test_sparameter_network.py`
   - `projects/sp8t_real_board_hfss/results/baselines/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807/`
   - `projects/sp8t_real_board_hfss/results/rf_ppa_sp10t_cutout/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807/`
   - `projects/hfss_sma_connector/reports/SP8T开关连接器设计优化报告/`

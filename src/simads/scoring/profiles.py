@@ -7,12 +7,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-
-SCORING_SYSTEM_DIRS = {
-    "filter": "filters",
-    "connector": "connectors",
-    "sp8t": "sp8t",
-}
+from .systems import SCORING_SYSTEM_DIRS, get_scoring_system_spec
 
 
 @dataclass(frozen=True)
@@ -29,11 +24,8 @@ def repo_root() -> Path:
 
 
 def default_scoring_profile_path(system: str, profile_id: str, *, root: Path | None = None) -> Path:
-    try:
-        system_dir = SCORING_SYSTEM_DIRS[system]
-    except KeyError as exc:
-        raise ValueError(f"unknown scoring system: {system}") from exc
-    return (root or repo_root()) / "config" / "scoring" / system_dir / f"{profile_id}.json"
+    spec = get_scoring_system_spec(system)
+    return (root or repo_root()) / "config" / "scoring" / spec.profile_dir / f"{profile_id}.json"
 
 
 def load_scoring_profile(

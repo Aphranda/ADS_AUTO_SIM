@@ -48,6 +48,10 @@ def test_build_gate_commands_runs_compile_pytest_then_smoke() -> None:
     assert commands[0].command[1:3] == ["-m", "py_compile"]
     assert Path(commands[1].command[0]) == Path("D:/Python/python.exe")
     assert commands[1].command[1:3] == ["-m", "pytest"]
+    basetemp = commands[1].command[commands[1].command.index("--basetemp") + 1]
+    cache_arg = next(item for item in commands[1].command if item.startswith("cache_dir="))
+    assert Path(basetemp).name.startswith("hfss_quality_gate_")
+    assert Path(cache_arg.removeprefix("cache_dir=")).name.startswith("hfss_quality_gate_")
     assert Path(commands[2].command[0]) == Path("D:/Python/python.exe")
     assert commands[2].command[1] == "tools/hfss/create_hfss3dlayout_smoke_project.py"
     assert "--graphical" not in commands[2].command

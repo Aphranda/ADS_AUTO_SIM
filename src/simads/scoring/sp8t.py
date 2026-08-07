@@ -8,7 +8,7 @@ import math
 from pathlib import Path
 from typing import Any
 
-from simads.scoring.touchstone import db, read_touchstone
+from simads.scoring.touchstone import SParameterNetwork, db, read_s4p_network, read_touchstone
 
 
 SP8T_SCORE_VERSION = "sp8t_four_port_connector_isolation_v1"
@@ -16,6 +16,14 @@ SP8T_BASELINE_SCORE_VERSION = "sp8t_four_port_connector_isolation_v2_baseline_re
 THROUGH_PAIRS = ("s21", "s43")
 RETURN_PARAMS = ("s11", "s22", "s33", "s44")
 ISOLATION_PARAMS = ("s31", "s41", "s32", "s42", "s13", "s14", "s23", "s24")
+NEAR_END_ISOLATION_PARAMS = ("s31", "s13")
+FAR_END_ISOLATION_PARAMS = ("s42", "s24")
+DIAGONAL_ISOLATION_PARAMS = ("s41", "s14", "s32", "s23")
+ISOLATION_GROUPS = {
+    "near_end": NEAR_END_ISOLATION_PARAMS,
+    "far_end": FAR_END_ISOLATION_PARAMS,
+    "diagonal": DIAGONAL_ISOLATION_PARAMS,
+}
 
 
 @dataclass(frozen=True)
@@ -216,14 +224,32 @@ def _max_item(samples: list[dict[str, Any]], names: tuple[str, ...]) -> tuple[st
     return best_name, best_freq, best_value
 
 
-def score_samples(
+def _max_degradation(
     samples: list[dict[str, Any]],
+    baseline_values: dict[str, list[float]],
+    names: tuple[str, ...],
+) -> float:
+    return max(
+        db(complex(row[name])) - baseline_values[name][row_index]
+        for row_index, row in enumerate(samples)
+        for name in names
+    )
+
+
+def _network_samples(network_or_samples: SParameterNetwork | list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return network_or_samples.samples if isinstance(network_or_samples, SParameterNetwork) else network_or_samples
+
+
+def score_samples(
+    samples: SParameterNetwork | list[dict[str, Any]],
     source: str,
     profile: Sp8tFourPortScoreProfile = DEFAULT_SP8T_FOUR_PORT_SCORE_PROFILE,
     *,
-    baseline_samples: list[dict[str, Any]] | None = None,
+    baseline_samples: SParameterNetwork | list[dict[str, Any]] | None = None,
     baseline_source: str | None = None,
 ) -> dict[str, str]:
+    samples = _network_samples(samples)
+    baseline_samples = _network_samples(baseline_samples) if baseline_samples is not None else None
     if not samples:
         raise ValueError(f"no Touchstone samples found in {source}")
     required = set(THROUGH_PAIRS) | set(RETURN_PARAMS) | set(ISOLATION_PARAMS)
@@ -244,12 +270,18 @@ def score_samples(
     through_balance = max(abs(left - right) for left, right in zip(s21, s43))
     worst_return_param, worst_return_freq, worst_return = _max_item(band, RETURN_PARAMS)
     worst_iso_param, worst_iso_freq, worst_isolation = _max_item(band, ISOLATION_PARAMS)
+    near_iso_param, near_iso_freq, near_isolation = _max_item(band, NEAR_END_ISOLATION_PARAMS)
+    far_iso_param, far_iso_freq, far_isolation = _max_item(band, FAR_END_ISOLATION_PARAMS)
+    diagonal_iso_param, diagonal_iso_freq, diagonal_isolation = _max_item(band, DIAGONAL_ISOLATION_PARAMS)
 
     max_extra_il = float("nan")
     avg_extra_il = float("nan")
     extra_il_ripple = float("nan")
     max_return_degradation = float("nan")
     max_isolation_degradation = float("nan")
+    near_end_isolation_degradation = float("nan")
+    far_end_isolation_degradation = float("nan")
+    diagonal_isolation_degradation = float("nan")
     if baseline_samples is not None:
         baseline_through = _baseline_values(baseline_samples, freqs, THROUGH_PAIRS)
         extra_il_values = []
@@ -269,11 +301,10 @@ def score_samples(
             for name in RETURN_PARAMS
         )
         baseline_isolation = _baseline_values(baseline_samples, freqs, ISOLATION_PARAMS)
-        max_isolation_degradation = max(
-            db(complex(row[name])) - baseline_isolation[name][row_index]
-            for row_index, row in enumerate(band)
-            for name in ISOLATION_PARAMS
-        )
+        max_isolation_degradation = _max_degradation(band, baseline_isolation, ISOLATION_PARAMS)
+        near_end_isolation_degradation = _max_degradation(band, baseline_isolation, NEAR_END_ISOLATION_PARAMS)
+        far_end_isolation_degradation = _max_degradation(band, baseline_isolation, FAR_END_ISOLATION_PARAMS)
+        diagonal_isolation_degradation = _max_degradation(band, baseline_isolation, DIAGONAL_ISOLATION_PARAMS)
 
     if baseline_samples is None:
         optimization_cost = (
@@ -351,6 +382,9 @@ def score_samples(
         "extra_il_ripple_0p5_10g_db": fmt(extra_il_ripple),
         "max_return_degradation_0p5_10g_db": fmt(max_return_degradation),
         "max_isolation_degradation_0p5_10g_db": fmt(max_isolation_degradation),
+        "near_end_isolation_degradation_0p5_10g_db": fmt(near_end_isolation_degradation),
+        "far_end_isolation_degradation_0p5_10g_db": fmt(far_end_isolation_degradation),
+        "diagonal_isolation_degradation_0p5_10g_db": fmt(diagonal_isolation_degradation),
         "s21_3p5g_db": fmt(interp_db(samples, 3.5, "s21")),
         "s43_3p5g_db": fmt(interp_db(samples, 3.5, "s43")),
         "s21_8g_db": fmt(interp_db(samples, 8.0, "s21")),
@@ -361,6 +395,15 @@ def score_samples(
         "worst_isolation_0p5_10g_db": fmt(worst_isolation),
         "worst_isolation_param": worst_iso_param,
         "worst_isolation_freq_ghz": f"{worst_iso_freq:.3g}",
+        "near_end_isolation_0p5_10g_db": fmt(near_isolation),
+        "near_end_isolation_param": near_iso_param,
+        "near_end_isolation_freq_ghz": f"{near_iso_freq:.3g}",
+        "far_end_isolation_0p5_10g_db": fmt(far_isolation),
+        "far_end_isolation_param": far_iso_param,
+        "far_end_isolation_freq_ghz": f"{far_iso_freq:.3g}",
+        "diagonal_isolation_0p5_10g_db": fmt(diagonal_isolation),
+        "diagonal_isolation_param": diagonal_iso_param,
+        "diagonal_isolation_freq_ghz": f"{diagonal_iso_freq:.3g}",
         "margin_worst_return_db": fmt(profile.target_worst_return_db - worst_return),
         "margin_through_min_db": fmt(through_min - profile.target_through_min_db),
         "margin_through_avg_db": fmt(through_avg - profile.target_through_avg_db),
@@ -442,9 +485,9 @@ def score_touchstone(
 ) -> dict[str, str]:
     if profile.baseline_required and baseline_path is None:
         raise ValueError(f"SP8T scoring profile requires a baseline S4P: {profile.profile_id}")
-    baseline_samples = read_touchstone(baseline_path, nports=4) if baseline_path is not None else None
+    baseline_samples = read_s4p_network(baseline_path) if baseline_path is not None else None
     return score_samples(
-        read_touchstone(path, nports=4),
+        read_s4p_network(path),
         str(path),
         profile,
         baseline_samples=baseline_samples,
@@ -463,6 +506,9 @@ def write_trace_csv(samples: list[dict[str, Any]], out_csv: Path) -> Path:
         "s44_db",
         "worst_return_db",
         "worst_isolation_db",
+        "near_end_isolation_db",
+        "far_end_isolation_db",
+        "diagonal_isolation_db",
         *[f"{name}_db" for name in ISOLATION_PARAMS],
     ]
     out_csv.parent.mkdir(parents=True, exist_ok=True)
@@ -475,6 +521,15 @@ def write_trace_csv(samples: list[dict[str, Any]], out_csv: Path) -> Path:
                 output[f"{name}_db"] = f"{db(complex(row[name])):.6g}"
             output["worst_return_db"] = f"{max(db(complex(row[name])) for name in RETURN_PARAMS):.6g}"
             output["worst_isolation_db"] = f"{max(db(complex(row[name])) for name in ISOLATION_PARAMS):.6g}"
+            output["near_end_isolation_db"] = (
+                f"{max(db(complex(row[name])) for name in NEAR_END_ISOLATION_PARAMS):.6g}"
+            )
+            output["far_end_isolation_db"] = (
+                f"{max(db(complex(row[name])) for name in FAR_END_ISOLATION_PARAMS):.6g}"
+            )
+            output["diagonal_isolation_db"] = (
+                f"{max(db(complex(row[name])) for name in DIAGONAL_ISOLATION_PARAMS):.6g}"
+            )
             for name in ISOLATION_PARAMS:
                 output[f"{name}_db"] = f"{db(complex(row[name])):.6g}"
             writer.writerow(output)
@@ -487,7 +542,11 @@ def read_touchstone4(path: Path) -> list[dict[str, Any]]:
 
 __all__ = [
     "DEFAULT_SP8T_FOUR_PORT_SCORE_PROFILE",
+    "DIAGONAL_ISOLATION_PARAMS",
+    "FAR_END_ISOLATION_PARAMS",
     "ISOLATION_PARAMS",
+    "ISOLATION_GROUPS",
+    "NEAR_END_ISOLATION_PARAMS",
     "RETURN_PARAMS",
     "SP8T_SCORE_VERSION",
     "SP8T_BASELINE_SCORE_VERSION",

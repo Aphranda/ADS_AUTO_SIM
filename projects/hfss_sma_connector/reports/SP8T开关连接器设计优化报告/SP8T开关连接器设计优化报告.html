@@ -76,8 +76,8 @@
     <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
     <div class="doc-meta">
       <strong>统一维护版</strong>
-      日期：2026-08-07<br>
-      当前推荐：l40w17 + 实板四端口复测<br>
+      日期：2026-08-08<br>
+      当前推荐：l40w17 + 实板四端口 RF_OUT 复测<br>
       频段：0.5-10 GHz
     </div>
   </header>
@@ -124,7 +124,7 @@
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 1 / 8</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 1 / 9</span></footer>
 </section>
 
 <section class="page">
@@ -172,7 +172,7 @@
     </div>
     <div class="bar">几何检查：PCB layout 替换流程不重建连接器 pin IPort，只重建 PCB 远端 Port1。当前候选通过非 GUI 流程完成替换、仿真和后处理。</div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 2 / 8</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 2 / 9</span></footer>
 </section>
 
 <section class="page">
@@ -221,7 +221,7 @@
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 3 / 8</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 3 / 9</span></footer>
 </section>
 
 <section class="page">
@@ -253,7 +253,7 @@
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 4 / 8</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 4 / 9</span></footer>
 </section>
 
 <section class="page">
@@ -285,7 +285,7 @@
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 5 / 8</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 5 / 9</span></footer>
 </section>
 
 <section class="page">
@@ -315,7 +315,7 @@
       <div class="bar">本轮结论：L2 矩形开窗长度从 3.8 mm 增至 4.0 mm 后综合评分继续提升；宽度 1.7 mm 的 l40w17 在最差回损、平均额外插损和总评分上为当前最优组合。</div>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 6 / 8</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 6 / 9</span></footer>
 </section>
 
 <section class="page">
@@ -355,7 +355,7 @@
       <div class="bar">当前最明确方向是保持 L3 solid、L4 GND 和 connector foot 就近接地，以 L2 4.0 × 1.7 mm 为中心继续做小步边界扫描，并优先复核端口/辐射边界。</div>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 7 / 8</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 7 / 9</span></footer>
 </section>
 
 <section class="page">
@@ -385,8 +385,11 @@
           <tr><td>平均额外插损</td><td>mean(S21/S43 baseline - candidate)</td><td>≤ 0.25 dB</td><td class="ok">0.00 dB</td><td><span class="tag green">无退化</span></td></tr>
           <tr><td>额外插损纹波</td><td>relative extra IL ripple</td><td>≤ 0.5 dB</td><td class="ok">0.00 dB</td><td><span class="tag green">无退化</span></td></tr>
           <tr><td>回损退化</td><td>max return degradation vs baseline</td><td>≤ 3.0 dB</td><td class="ok">0.00 dB</td><td><span class="tag green">无退化</span></td></tr>
-          <tr><td>隔离退化</td><td>max isolation degradation vs baseline</td><td>≤ 3.0 dB</td><td class="ok">0.00 dB</td><td><span class="tag green">无退化</span></td></tr>
-          <tr><td>绝对读数</td><td>S21/S43/return/isolation</td><td>记录基线状态</td><td>S43_min -1.64 dB；worst return -14.30 dB；worst isolation -44.56 dB</td><td><span class="tag blue">后续候选对比基准</span></td></tr>
+          <tr><td>隔离退化</td><td>near / far / diagonal isolation degradation vs baseline</td><td>≤ 3.0 dB</td><td class="ok">近端 0.00 dB；远端 0.00 dB；对角 0.00 dB</td><td><span class="tag green">无退化</span></td></tr>
+          <tr><td>绝对近端隔离</td><td>连接器侧 Port1/Port3，max(S31,S13)</td><td>记录基线状态</td><td class="ok">-44.56 dB，S13 @ 4.6 GHz</td><td><span class="tag green">裕量充足</span></td></tr>
+          <tr><td>绝对远端隔离</td><td>芯片侧 Port2/Port4，max(S42,S24)</td><td>记录基线状态</td><td class="ok">-49.29 dB，S24 @ 4.5 GHz</td><td><span class="tag green">裕量充足</span></td></tr>
+          <tr><td>绝对对角隔离</td><td>Port1/Port4 与 Port2/Port3 cross path</td><td>记录基线状态</td><td class="ok">-44.81 dB，S14 @ 2.9 GHz</td><td><span class="tag green">裕量充足</span></td></tr>
+          <tr><td>其他绝对读数</td><td>S21/S43/return</td><td>记录基线状态</td><td>S43_min -1.64 dB；worst return -14.30 dB</td><td><span class="tag blue">后续候选对比基准</span></td></tr>
         </tbody>
       </table>
       <div class="bar">本次复测结论：评分已切换为与基线对比。当前导出的已确认结果作为 baseline，因此相对额外插损、回损退化和隔离退化均为 0；后续候选以该 S4P 为统一比较基准。绝对曲线仍显示 Port3->Port4 高频插损和 through ripple 是后续观察点。</div>
@@ -396,11 +399,58 @@
       <div class="section-title">15. 四端口曲线</div>
       <div class="figure plot">
         <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_sp8t_sparams.svg" alt="SP8T four-port S-parameters with isolation">
-        <div class="caption">图 5：实板四端口复测曲线，横轴固定为 0.5-10 GHz。蓝色 S21 为 Port1->Port2，红色 S43 为 Port3->Port4，紫色为四端口最差回损，绿色为输入/输出最差隔离。</div>
+        <div class="caption">图 5：实板四端口复测曲线，横轴固定为 0.5-10 GHz。蓝色 S21 为 Port1->Port2，红色 S43 为 Port3->Port4，紫色为四端口最差回损；隔离拆分为近端 Port1/Port3、远端 Port2/Port4 和对角 cross path。</div>
       </div>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 8 / 8</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 8 / 9</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1>RF_OUT 四端口复测</h1>
+      <div class="subtitle">RF-PPA-SP10T-4F4H-ENIG-V1.0_RF_OUT · Port1/Port3 输出，Port2/Port4 芯片</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta"><strong>新增复测</strong>工程：RF-PPA-SP10T-4F4H-ENIG-V1.0.aedt<br>Setup/Sweep：Setup1 / Sweep1<br>评分：sp8t isolation v2 vs cutout baseline</div>
+  </header>
+  <main class="main">
+    <div class="chips">
+      <div class="chip"><span class="k">SP8T Score</span><span class="v">0.000</span></div>
+      <div class="chip"><span class="k">最差隔离</span><span class="v">-44.26 dB</span></div>
+      <div class="chip"><span class="k">最差回损</span><span class="v">-14.37 dB</span></div>
+      <div class="chip"><span class="k">状态</span><span class="v">TUNE</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">16. RF_OUT 评分结果</div>
+      <table class="compact">
+        <thead><tr><th>项目</th><th>计算口径</th><th>目标</th><th>本次结果</th><th>判断</th></tr></thead>
+        <tbody>
+          <tr><td>端口映射</td><td>输出与芯片两组通路</td><td>记录仿真口径</td><td>Port1 输出、Port2 芯片；Port3 输出、Port4 芯片</td><td><span class="tag blue">已记录</span></td></tr>
+          <tr><td>评分口径</td><td>candidate - RF-PPA cutout baseline relative</td><td>相对基线退化最小</td><td class="bad">cost 116.794 / score 0.000</td><td><span class="tag red">退化明显</span></td></tr>
+          <tr><td>最大额外插损</td><td>max(S21/S43 baseline - candidate)</td><td>≤ 0.5 dB</td><td class="bad">1.26 dB</td><td><span class="tag red">超限</span></td></tr>
+          <tr><td>平均额外插损</td><td>mean(S21/S43 baseline - candidate)</td><td>≤ 0.25 dB</td><td class="ok">0.18 dB</td><td><span class="tag green">达标</span></td></tr>
+          <tr><td>额外插损纹波</td><td>relative extra IL ripple</td><td>≤ 0.5 dB</td><td class="bad">1.86 dB</td><td><span class="tag red">超限</span></td></tr>
+          <tr><td>回损退化</td><td>max return degradation vs baseline</td><td>≤ 3.0 dB</td><td class="bad">14.93 dB</td><td><span class="tag red">超限</span></td></tr>
+          <tr><td>隔离退化</td><td>near / far / diagonal isolation degradation vs baseline</td><td>≤ 3.0 dB</td><td class="bad">近端 24.11 dB；远端 19.98 dB；对角 22.99 dB</td><td><span class="tag red">超限</span></td></tr>
+          <tr><td>绝对通路</td><td>S21 / S43 0.5-10 GHz</td><td>记录绝对状态</td><td>S21_min -1.95 dB；S43_min -1.04 dB；balance max 0.90 dB</td><td><span class="tag orange">S21 偏弱</span></td></tr>
+          <tr><td>绝对隔离</td><td>near / far / diagonal worst</td><td>记录绝对状态</td><td>近端 -44.26 dB S13 @ 2.7G；远端 -47.29 dB S24 @ 10G；对角 -48.47 dB S41 @ 7.75G</td><td><span class="tag green">绝对值可接受</span></td></tr>
+        </tbody>
+      </table>
+      <div class="bar">本次复测结论：RF_OUT 的绝对隔离仍在 -44 dB 以下，但相对 RF-PPA cutout 基线出现明显隔离退化和回损退化；通路上 S21 在 8-10 GHz 明显弱于 S43，后续应重点检查 Port1 输出通路的 launch/参考地连续性和与基线版图差异。</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">17. RF_OUT 四端口曲线</div>
+      <div class="figure plot">
+        <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_RF_OUT_20260808_sp8t_sparams.svg" alt="RF_OUT SP8T four-port S-parameters with isolation">
+        <div class="caption">图 6：RF_OUT 四端口复测曲线，横轴固定为 0.5-10 GHz。蓝色 S21 为 Port1 输出到 Port2 芯片，红色 S43 为 Port3 输出到 Port4 芯片；隔离拆分为近端 Port1/Port3、远端 Port2/Port4 和对角 cross path。</div>
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 9 / 9</span></footer>
 </section>
 
 </body>
