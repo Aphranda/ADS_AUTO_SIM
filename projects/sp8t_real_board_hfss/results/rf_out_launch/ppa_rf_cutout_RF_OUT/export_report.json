@@ -1,0 +1,55 @@
+{
+  "status": "ok",
+  "project": "D:\\Work\\ADS\\SP8T\\SP8T_HFSS.aedt",
+  "design": "ppa_rf_cutout_RF_OUT",
+  "report": "S Parameter Plot1",
+  "available_reports": [
+    "S Parameter Plot1"
+  ],
+  "csv": "projects\\sp8t_real_board_hfss\\results\\rf_out_launch\\ppa_rf_cutout_RF_OUT\\ppa_rf_cutout_RF_OUT_S_Parameter_Plot1.csv",
+  "summary": {
+    "rows": 191,
+    "columns": [
+      "Freq [GHz]",
+      "dB(S(Port1,Port1)) []",
+      "dB(S(Port2,Port1)) []",
+      "dB(S(Port1,Port2)) []",
+      "dB(S(Port2,Port2)) []"
+    ],
+    "freq_col": "Freq [GHz]",
+    "traces": {
+      "dB(S(Port1,Port1)) []": {
+        "min_db": -0.240999017161749,
+        "min_freq_ghz": 5.4,
+        "max_db": -0.00761251097625207,
+        "max_freq_ghz": 0.5,
+        "value_3p55g_db": -0.02121099142336,
+        "value_8g_db": -0.0368176064978773
+      },
+      "dB(S(Port2,Port1)) []": {
+        "min_db": -136.075842029163,
+        "min_freq_ghz": 1.95,
+        "max_db": -68.7033500849128,
+        "max_freq_ghz": 10.0,
+        "value_3p55g_db": -106.110245251737,
+        "value_8g_db": -77.6555322876401
+      },
+      "dB(S(Port1,Port2)) []": {
+        "min_db": -136.075842029163,
+        "min_freq_ghz": 1.95,
+        "max_db": -68.7033500849127,
+        "max_freq_ghz": 10.0,
+        "value_3p55g_db": -106.110245251737,
+        "value_8g_db": -77.6555322876401
+      },
+      "dB(S(Port2,Port2)) []": {
+        "min_db": -0.0559908337063467,
+        "min_freq_ghz": 10.0,
+        "max_db": -0.00307558492749133,
+        "max_freq_ghz": 0.5,
+        "value_3p55g_db": -0.0097816721129728,
+        "value_8g_db": -0.0307962269757896
+      }
+    }
+  }
+}

@@ -4,6 +4,10 @@ from pathlib import Path
 from types import SimpleNamespace
 
 from simads.hfss.layout_io import load_layout
+from simads.hfss.layout_cleanup import (
+    generated_optional_delete_names,
+    resolve_existing_delete_names_and_prefixes,
+)
 from simads.hfss.ports import delete_schematic_iports_by_name
 
 def _load_replace_module(monkeypatch):
@@ -55,6 +59,8 @@ def test_replace_layout_dry_run_declares_full_rebuild_policy(tmp_path: Path, mon
         ground_plane_name="hfss_ground_plane",
         recreate_pcb_output_port=True,
         delete_pcb_port_name=["Port1"],
+        delete_extra_name=[],
+        delete_extra_prefix=[],
         execute=False,
         save=False,
     )
@@ -72,6 +78,7 @@ def test_replace_layout_dry_run_declares_full_rebuild_policy(tmp_path: Path, mon
     }
     assert "hfss_ground_plane" in payload["requested_delete_names"]
     assert "p1_l2_cutout_rect" in payload["requested_delete_names"]
+    assert "clip_frame" in payload["requested_delete_names"]
     assert any("full delete/rebuild" in note for note in payload["notes"])
 
 
@@ -92,6 +99,45 @@ def test_replace_layout_parser_closes_aedt_by_default(monkeypatch) -> None:
     assert args.close_desktop is True
 
 
+def test_replace_layout_parser_accepts_extra_clip_frame_cleanup(monkeypatch) -> None:
+    module = _load_replace_module(monkeypatch)
+    args = module.parse_args(
+        [
+            "--project",
+            "fixture.aedt",
+            "--design",
+            "SINGLE_END_SMA_CPW_30MM",
+            "--layout",
+            "layout.json",
+            "--delete-extra-name",
+            "my_cut_frame",
+            "--delete-extra-prefix",
+            "manual_clip_",
+        ]
+    )
+
+    assert args.delete_extra_name == ["my_cut_frame"]
+    assert args.delete_extra_prefix == ["manual_clip_"]
+
+
+def test_clip_frame_names_are_lifecycle_delete_targets() -> None:
+    names = generated_optional_delete_names()
+
+    assert "clip_frame" in names
+    assert "board_cut_box" in names
+
+
+def test_clip_frame_prefix_matches_aedt_renamed_objects() -> None:
+    existing = {"clip_frame1", "manual_clip_17", "input_feed", "SMA_KE_Unite_Small_Solder4"}
+    resolved = resolve_existing_delete_names_and_prefixes(
+        existing,
+        ["input_feed"],
+        ["clip_frame", "manual_clip_"],
+    )
+
+    assert resolved == ["input_feed", "clip_frame1", "manual_clip_17"]
+
+
 def test_delete_layout_parser_closes_aedt_by_default(monkeypatch) -> None:
     module = _load_delete_module(monkeypatch)
     args = module.parse_args(
@@ -107,6 +153,27 @@ def test_delete_layout_parser_closes_aedt_by_default(monkeypatch) -> None:
 
     assert args.close_projects is True
     assert args.close_desktop is True
+
+
+def test_delete_layout_parser_accepts_extra_clip_frame_cleanup(monkeypatch) -> None:
+    module = _load_delete_module(monkeypatch)
+    args = module.parse_args(
+        [
+            "--project",
+            "fixture.aedt",
+            "--design",
+            "SINGLE_END_SMA_CPW_30MM",
+            "--layout",
+            "layout.json",
+            "--delete-extra-name",
+            "my_cut_frame",
+            "--delete-extra-prefix",
+            "manual_clip_",
+        ]
+    )
+
+    assert args.delete_extra_name == ["my_cut_frame"]
+    assert args.delete_extra_prefix == ["manual_clip_"]
 
 
 def test_load_layout_accepts_utf8_bom(tmp_path: Path) -> None:

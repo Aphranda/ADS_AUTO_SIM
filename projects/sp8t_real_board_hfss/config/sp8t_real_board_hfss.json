@@ -2,8 +2,13 @@
   "config_source": "config/projects/sp8t_real_board_hfss.json",
   "project_id": "sp8t_real_board_hfss",
   "project_root": "projects/sp8t_real_board_hfss",
-  "source_hfss_project": "F:/1.Hardware/HFSS/SP8T/SP8T_HFSS.aedt",
-  "active_design": "RF_IN_cutout",
+  "source_hfss_project": "D:/Work/ADS/SP8T/SP8T_HFSS.aedt",
+  "active_design": "ppa_rf_cutout_RF_IN",
+  "designs": {
+    "rf_in_launch": "ppa_rf_cutout_RF_IN",
+    "rf_out_launch_example": "ppa_rf_cutout_RF_OUT",
+    "legacy_rf_in_cutout_baseline": "RF_IN_cutout"
+  },
   "setup": "Setup1",
   "sweep": "Sweep1",
   "baseline_result": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout/RF_IN_cutout_score.csv"

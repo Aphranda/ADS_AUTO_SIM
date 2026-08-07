@@ -29,11 +29,11 @@ from simads.hfss.layout_cleanup import (
     delete_layout_objects,
     full_rebuild_delete_names,
     existing_layout_objects,
-    resolve_existing_delete_names,
+    resolve_existing_delete_names_and_prefixes,
     selected_shapes as select_layout_shapes,
     shape_name,
     sibling_layout_root,
-    source_like_names,
+    TEMPORARY_CLIP_FRAME_PREFIXES,
 )
 from simads.hfss.layout_io import load_layout
 from simads.hfss.ports import (
@@ -104,6 +104,13 @@ def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
         scope=args.scope,
         stale_layout_roots=stale_layout_roots,
     )
+    for name in getattr(args, "delete_extra_name", []):
+        if name and name not in requested_delete:
+            requested_delete.append(name)
+    delete_prefixes = list(TEMPORARY_CLIP_FRAME_PREFIXES)
+    for prefix in getattr(args, "delete_extra_prefix", []):
+        if prefix and prefix not in delete_prefixes:
+            delete_prefixes.append(prefix)
     payload: dict[str, Any] = {
         "project": str(args.project),
         "design": args.design,
@@ -119,6 +126,7 @@ def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
         },
         "selected_shape_names": [shape_name(shape) for shape in layout_shapes],
         "requested_delete_names": requested_delete,
+        "delete_name_prefixes": delete_prefixes,
         "stale_layout_roots": [str(path) for path in stale_layout_roots],
         "notes": [
             "Schematic connector instances and connector pin IPorts are never selected by this tool.",
@@ -127,6 +135,7 @@ def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
             "Do not patch individual boolean cutouts, direct voids, or partial deltas between candidates.",
             "Reference-ground cutout records are allowed only as stale-object delete names or review metadata; new HFSS geometry must express voids as real generated ground-plane shapes.",
             "Sibling candidate layout JSON files are included in the delete-name registry so old candidates cannot overlap the next rebuild.",
+            "Temporary board clip/cut frames are part of source-layout lifecycle cleanup when their names match the configured names or prefixes.",
         ],
         "pcb_output_port": {"recreate": bool(args.recreate_pcb_output_port), "delete_port_names": list(args.delete_pcb_port_name), "primitive": "output_feed", "logical_port": "P2"},
         "execute": args.execute,
@@ -167,7 +176,7 @@ def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
                 existing = existing_layout_objects(app.modeler, layout_editor)
             payload["existing_candidate_count"] = len(existing)
             payload["existing_before_names"] = sorted(existing)
-            delete_existing = resolve_existing_delete_names(existing, requested_delete)
+            delete_existing = resolve_existing_delete_names_and_prefixes(existing, requested_delete, delete_prefixes)
             payload["delete_existing_names"] = delete_existing
             if delete_existing:
                 with lifecycle.timed("delete_source_layout_objects", object_count=len(delete_existing)):
@@ -179,7 +188,11 @@ def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
             with lifecycle.timed("inspect_layout_objects_after_delete"):
                 existing_after_delete = existing_layout_objects(app.modeler, layout_editor)
             payload["existing_after_delete_names"] = sorted(existing_after_delete)
-            payload["source_like_names_after_delete"] = source_like_names(existing_after_delete, requested_delete)
+            payload["source_like_names_after_delete"] = resolve_existing_delete_names_and_prefixes(
+                existing_after_delete,
+                requested_delete,
+                delete_prefixes,
+            )
             if stop_after_delete:
                 if args.save:
                     with lifecycle.timed("save_aedt_project_after_delete_only"):
@@ -239,6 +252,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--stop-after-delete", action="store_true", help="Delete existing source layout and stop before drawing the new layout.")
     parser.add_argument("--save", action="store_true")
     parser.add_argument("--include-sibling-layouts", action=argparse.BooleanOptionalAction, default=True, help="Also delete source names found in sibling candidate layout JSON files.")
+    parser.add_argument("--delete-extra-name", action="append", default=[], help="Additional exact/base layout object name to delete during rebuild, for example a leftover clip frame.")
+    parser.add_argument("--delete-extra-prefix", action="append", default=[], help="Additional layout object name prefix to delete during rebuild, for example clip_frame_.")
     parser.add_argument("--version", default="2026.1")
     parser.add_argument("--non-graphical", action="store_true", default=True)
     parser.add_argument("--graphical", action="store_false", dest="non_graphical")

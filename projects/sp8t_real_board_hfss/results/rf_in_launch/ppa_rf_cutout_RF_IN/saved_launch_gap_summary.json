@@ -1,0 +1,600 @@
+{
+  "connector_hints": "projects\\sp8t_real_board_hfss\\results\\aedb_all_launch_port_coordinates_hints.json",
+  "object_hints": "projects\\sp8t_real_board_hfss\\results\\aedb_input_object_geometry_hints.json",
+  "object_tokens": [
+    "rect_1881",
+    "line__291",
+    "line__294",
+    "rect__164",
+    "poly__161",
+    "rect__163",
+    "line__159",
+    "line__160"
+  ],
+  "port1_candidates": [
+    {
+      "token": "Port1",
+      "offset": 832277,
+      "x_mm": 1.01538809858919e-15,
+      "y_mm": 27.4,
+      "raw": {
+        "x": "1.01538809858919e-15mm",
+        "y": "27.4mm",
+        "x_mm": 1.01538809858919e-15,
+        "y_mm": 27.4
+      }
+    },
+    {
+      "token": "Port1",
+      "offset": 832435,
+      "x_mm": 1.01538809858919e-15,
+      "y_mm": 27.4,
+      "raw": {
+        "x": "1.01538809858919e-15mm",
+        "y": "27.4mm",
+        "x_mm": 1.01538809858919e-15,
+        "y_mm": 27.4
+      }
+    }
+  ],
+  "port2_candidates": [
+    {
+      "token": "Port2",
+      "offset": 833448,
+      "x_mm": 0.0006858,
+      "y_mm": 7.679232799999999,
+      "raw": {
+        "x": "0.027mil",
+        "y": "302.332mil",
+        "x_mm": 0.0006858,
+        "y_mm": 7.679232799999999
+      }
+    },
+    {
+      "token": "Port2",
+      "offset": 833607,
+      "x_mm": 0.0006858,
+      "y_mm": 7.679232799999999,
+      "raw": {
+        "x": "0.027mil",
+        "y": "302.332mil",
+        "x_mm": 0.0006858,
+        "y_mm": 7.679232799999999
+      }
+    }
+  ],
+  "object_points_considered": [
+    {
+      "token": "rect__164",
+      "offset": 334027,
+      "x_mm": 36.1188,
+      "y_mm": 8.89,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__164",
+      "offset": 334027,
+      "x_mm": 36.1188,
+      "y_mm": 8.0107028,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__164",
+      "offset": 334027,
+      "x_mm": 35.983951399999995,
+      "y_mm": 7.875854199999999,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__164",
+      "offset": 334027,
+      "x_mm": 35.983951399999995,
+      "y_mm": 7.6121768,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__164",
+      "offset": 334027,
+      "x_mm": 34.2899746,
+      "y_mm": 5.918200000000001,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__164",
+      "offset": 334027,
+      "x_mm": 34.0263988,
+      "y_mm": 5.918200000000001,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__164",
+      "offset": 334027,
+      "x_mm": 36.1188,
+      "y_mm": 8.89,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__164",
+      "offset": 334027,
+      "x_mm": 36.9980972,
+      "y_mm": 8.89,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__164",
+      "offset": 334027,
+      "x_mm": 37.4949974,
+      "y_mm": 9.3869002,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__164",
+      "offset": 334027,
+      "x_mm": 40.5178006,
+      "y_mm": 9.3869002,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__164",
+      "offset": 812771,
+      "x_mm": -0.15156179999999997,
+      "y_mm": 10.9033818,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__164",
+      "offset": 812771,
+      "x_mm": 10.9033818,
+      "y_mm": 0.1659382,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__164",
+      "offset": 812771,
+      "x_mm": 0.1659382,
+      "y_mm": 10.9033818,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__164",
+      "offset": 812771,
+      "x_mm": 10.9033818,
+      "y_mm": 0.4572,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__164",
+      "offset": 812771,
+      "x_mm": 0.4572,
+      "y_mm": 14.5034,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__164",
+      "offset": 812771,
+      "x_mm": -0.44282360000000004,
+      "y_mm": 14.5034,
+      "gap_bytes": 8
+    },
+    {
+      "token": "poly__161",
+      "offset": 333365,
+      "x_mm": -0.15156179999999997,
+      "y_mm": 10.9033818,
+      "gap_bytes": 8
+    },
+    {
+      "token": "poly__161",
+      "offset": 333365,
+      "x_mm": 10.9033818,
+      "y_mm": 0.1659382,
+      "gap_bytes": 8
+    },
+    {
+      "token": "poly__161",
+      "offset": 333365,
+      "x_mm": 0.1659382,
+      "y_mm": 10.9033818,
+      "gap_bytes": 8
+    },
+    {
+      "token": "poly__161",
+      "offset": 333365,
+      "x_mm": 10.9033818,
+      "y_mm": 0.4572,
+      "gap_bytes": 8
+    },
+    {
+      "token": "poly__161",
+      "offset": 333365,
+      "x_mm": 0.4572,
+      "y_mm": 14.5034,
+      "gap_bytes": 8
+    },
+    {
+      "token": "poly__161",
+      "offset": 333365,
+      "x_mm": -0.44282360000000004,
+      "y_mm": 14.5034,
+      "gap_bytes": 8
+    },
+    {
+      "token": "poly__161",
+      "offset": 812981,
+      "x_mm": -0.15156179999999997,
+      "y_mm": 10.9033818,
+      "gap_bytes": 8
+    },
+    {
+      "token": "poly__161",
+      "offset": 812981,
+      "x_mm": 10.9033818,
+      "y_mm": 0.1659382,
+      "gap_bytes": 8
+    },
+    {
+      "token": "poly__161",
+      "offset": 812981,
+      "x_mm": 0.1659382,
+      "y_mm": 10.9033818,
+      "gap_bytes": 8
+    },
+    {
+      "token": "poly__161",
+      "offset": 812981,
+      "x_mm": 10.9033818,
+      "y_mm": 0.4572,
+      "gap_bytes": 8
+    },
+    {
+      "token": "poly__161",
+      "offset": 812981,
+      "x_mm": 0.4572,
+      "y_mm": 14.5034,
+      "gap_bytes": 8
+    },
+    {
+      "token": "poly__161",
+      "offset": 812981,
+      "x_mm": -0.44282360000000004,
+      "y_mm": 14.5034,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__163",
+      "offset": 333817,
+      "x_mm": 36.1188,
+      "y_mm": 8.89,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__163",
+      "offset": 333817,
+      "x_mm": 36.1188,
+      "y_mm": 8.0107028,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__163",
+      "offset": 333817,
+      "x_mm": 35.983951399999995,
+      "y_mm": 7.875854199999999,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__163",
+      "offset": 333817,
+      "x_mm": 35.983951399999995,
+      "y_mm": 7.6121768,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__163",
+      "offset": 333817,
+      "x_mm": 34.2899746,
+      "y_mm": 5.918200000000001,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__163",
+      "offset": 333817,
+      "x_mm": 34.0263988,
+      "y_mm": 5.918200000000001,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__163",
+      "offset": 813196,
+      "x_mm": -0.15156179999999997,
+      "y_mm": 10.9033818,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__163",
+      "offset": 813196,
+      "x_mm": 10.9033818,
+      "y_mm": 0.1659382,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__163",
+      "offset": 813196,
+      "x_mm": 0.1659382,
+      "y_mm": 10.9033818,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__163",
+      "offset": 813196,
+      "x_mm": 10.9033818,
+      "y_mm": 0.4572,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__163",
+      "offset": 813196,
+      "x_mm": 0.4572,
+      "y_mm": 14.5034,
+      "gap_bytes": 8
+    },
+    {
+      "token": "rect__163",
+      "offset": 813196,
+      "x_mm": -0.44282360000000004,
+      "y_mm": 14.5034,
+      "gap_bytes": 8
+    },
+    {
+      "token": "line__159",
+      "offset": 332859,
+      "x_mm": 47.8960434,
+      "y_mm": 8.9771982,
+      "gap_bytes": 8
+    },
+    {
+      "token": "line__159",
+      "offset": 332859,
+      "x_mm": 8.9771982,
+      "y_mm": 0.5588508000000034,
+      "gap_bytes": 8
+    },
+    {
+      "token": "line__159",
+      "offset": 332859,
+      "x_mm": 46.7783418,
+      "y_mm": 8.9771982,
+      "gap_bytes": 8
+    },
+    {
+      "token": "line__159",
+      "offset": 332859,
+      "x_mm": 8.9771982,
+      "y_mm": 0.5588508000000034,
+      "gap_bytes": 8
+    },
+    {
+      "token": "line__159",
+      "offset": 332859,
+      "x_mm": -0.15156179999999997,
+      "y_mm": 10.9033818,
+      "gap_bytes": 8
+    },
+    {
+      "token": "line__159",
+      "offset": 332859,
+      "x_mm": 10.9033818,
+      "y_mm": 0.1659382,
+      "gap_bytes": 8
+    },
+    {
+      "token": "line__159",
+      "offset": 332859,
+      "x_mm": 0.1659382,
+      "y_mm": 10.9033818,
+      "gap_bytes": 8
+    },
+    {
+      "token": "line__159",
+      "offset": 332859,
+      "x_mm": 10.9033818,
+      "y_mm": 0.4572,
+      "gap_bytes": 8
+    },
+    {
+      "token": "line__159",
+      "offset": 332859,
+      "x_mm": 0.4572,
+      "y_mm": 14.5034,
+      "gap_bytes": 8
+    },
+    {
+      "token": "line__159",
+      "offset": 332859,
+      "x_mm": -0.44282360000000004,
+      "y_mm": 14.5034,
+      "gap_bytes": 8
+    },
+    {
+      "token": "line__159",
+      "offset": 813406,
+      "x_mm": -0.44282360000000004,
+      "y_mm": 14.5034,
+      "gap_bytes": 8
+    },
+    {
+      "token": "line__160",
+      "offset": 333128,
+      "x_mm": -0.15156179999999997,
+      "y_mm": 10.9033818,
+      "gap_bytes": 8
+    },
+    {
+      "token": "line__160",
+      "offset": 333128,
+      "x_mm": 10.9033818,
+      "y_mm": 0.1659382,
+      "gap_bytes": 8
+    },
+    {
+      "token": "line__160",
+      "offset": 333128,
+      "x_mm": 0.1659382,
+      "y_mm": 10.9033818,
+      "gap_bytes": 8
+    },
+    {
+      "token": "line__160",
+      "offset": 333128,
+      "x_mm": 10.9033818,
+      "y_mm": 0.4572,
+      "gap_bytes": 8
+    },
+    {
+      "token": "line__160",
+      "offset": 333128,
+      "x_mm": 0.4572,
+      "y_mm": 14.5034,
+      "gap_bytes": 8
+    },
+    {
+      "token": "line__160",
+      "offset": 333128,
+      "x_mm": -0.44282360000000004,
+      "y_mm": 14.5034,
+      "gap_bytes": 8
+    },
+    {
+      "token": "line__160",
+      "offset": 813675,
+      "x_mm": 4.0131999999999985,
+      "y_mm": 11.1516668,
+      "gap_bytes": 8
+    },
+    {
+      "token": "line__160",
+      "offset": 813675,
+      "x_mm": 11.1516668,
+      "y_mm": 3.8745668,
+      "gap_bytes": 8
+    },
+    {
+      "token": "line__160",
+      "offset": 813675,
+      "x_mm": 3.8745668,
+      "y_mm": 11.2903,
+      "gap_bytes": 8
+    },
+    {
+      "token": "line__160",
+      "offset": 813675,
+      "x_mm": 6.654799999999999,
+      "y_mm": 4.013199999999999,
+      "gap_bytes": 8
+    }
+  ],
+  "object_points_total": 61,
+  "nearest_object_from_port1": [
+    {
+      "distance_mm": 12.904200258083295,
+      "dx_mm": -0.44282360000000104,
+      "dy_mm": -12.8966,
+      "candidate": {
+        "token": "rect__164",
+        "offset": 812771,
+        "x_mm": -0.44282360000000004,
+        "y_mm": 14.5034,
+        "gap_bytes": 8
+      },
+      "source": {
+        "token": "Port1",
+        "offset": 832277,
+        "x_mm": 1.01538809858919e-15,
+        "y_mm": 27.4,
+        "raw": {
+          "x": "1.01538809858919e-15mm",
+          "y": "27.4mm",
+          "x_mm": 1.01538809858919e-15,
+          "y_mm": 27.4
+        }
+      }
+    },
+    {
+      "distance_mm": 12.904200258083295,
+      "dx_mm": -0.44282360000000104,
+      "dy_mm": -12.8966,
+      "candidate": {
+        "token": "rect__164",
+        "offset": 812771,
+        "x_mm": -0.44282360000000004,
+        "y_mm": 14.5034,
+        "gap_bytes": 8
+      },
+      "source": {
+        "token": "Port1",
+        "offset": 832435,
+        "x_mm": 1.01538809858919e-15,
+        "y_mm": 27.4,
+        "raw": {
+          "x": "1.01538809858919e-15mm",
+          "y": "27.4mm",
+          "x_mm": 1.01538809858919e-15,
+          "y_mm": 27.4
+        }
+      }
+    }
+  ],
+  "nearest_object_from_port2": [
+    {
+      "distance_mm": 3.227741641753064,
+      "dx_mm": -0.15224759999999996,
+      "dy_mm": 3.2241490000000006,
+      "candidate": {
+        "token": "rect__164",
+        "offset": 812771,
+        "x_mm": -0.15156179999999997,
+        "y_mm": 10.9033818,
+        "gap_bytes": 8
+      },
+      "source": {
+        "token": "Port2",
+        "offset": 833448,
+        "x_mm": 0.0006858,
+        "y_mm": 7.679232799999999,
+        "raw": {
+          "x": "0.027mil",
+          "y": "302.332mil",
+          "x_mm": 0.0006858,
+          "y_mm": 7.679232799999999
+        }
+      }
+    },
+    {
+      "distance_mm": 3.227741641753064,
+      "dx_mm": -0.15224759999999996,
+      "dy_mm": 3.2241490000000006,
+      "candidate": {
+        "token": "rect__164",
+        "offset": 812771,
+        "x_mm": -0.15156179999999997,
+        "y_mm": 10.9033818,
+        "gap_bytes": 8
+      },
+      "source": {
+        "token": "Port2",
+        "offset": 833607,
+        "x_mm": 0.0006858,
+        "y_mm": 7.679232799999999,
+        "raw": {
+          "x": "0.027mil",
+          "y": "302.332mil",
+          "x_mm": 0.0006858,
+          "y_mm": 7.679232799999999
+        }
+      }
+    }
+  ],
+  "diagnosis": [
+    "distance-to-extracted-RF-object is a geometry hint only; connector face excitation can be physically separated from PCB copper by the connector pin/solder launch.",
+    "healthy baseline mode: do not classify connector-face distance as a fault."
+  ]
+}

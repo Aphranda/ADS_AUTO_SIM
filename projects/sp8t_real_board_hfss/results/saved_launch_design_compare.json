@@ -1,0 +1,1107 @@
+{
+  "project": "D:\\Work\\ADS\\SP8T\\SP8T_HFSS.aedt",
+  "comparisons": [
+    {
+      "left": "ppa_rf_cutout_RF_IN",
+      "right": "ppa_rf_cutout_RF_OUT",
+      "left_found": true,
+      "right_found": true,
+      "left_components": [
+        {
+          "id": "8",
+          "component": "SMA_KE_Unite_Small_Solder2",
+          "instance_name": "S8",
+          "schematic": {
+            "component": "SMA_KE_Unite_Small_Solder2",
+            "page": "A",
+            "symbol_id": "93",
+            "orientation_code": 1,
+            "mode": "normal",
+            "x_m": 0.00508,
+            "y_m": -0.03556,
+            "angle_deg": 0.0
+          }
+        }
+      ],
+      "right_components": [
+        {
+          "id": "13",
+          "component": "SMA_KE_Unite_Small_Solder4",
+          "instance_name": "S13",
+          "schematic": {
+            "component": "SMA_KE_Unite_Small_Solder4",
+            "page": "A",
+            "symbol_id": "117",
+            "orientation_code": 1,
+            "mode": "normal",
+            "x_m": -0.00508,
+            "y_m": -0.00508,
+            "angle_deg": 0.0
+          }
+        }
+      ],
+      "left_ports": [
+        {
+          "name": "Port1",
+          "type": "**Invalid** Gap Source",
+          "hfss_type": "Invalid",
+          "layout_object": "",
+          "pin": "Port1",
+          "reference": "",
+          "reference_net": "GND",
+          "arms": "0",
+          "use_ref_from_hierarchy": "-1"
+        },
+        {
+          "name": "Port2",
+          "type": "Single Strip Gap Source",
+          "hfss_type": "GapV",
+          "layout_object": "Port2",
+          "pin": "",
+          "reference": "L2_GND:GND:poly__136",
+          "reference_net": "GND",
+          "arms": "1",
+          "use_ref_from_hierarchy": "2"
+        }
+      ],
+      "right_ports": [
+        {
+          "name": "Port1",
+          "type": "**Invalid** Gap Source",
+          "hfss_type": "Invalid",
+          "layout_object": "",
+          "pin": "Port1",
+          "reference": "",
+          "reference_net": "GND",
+          "arms": "0",
+          "use_ref_from_hierarchy": "-1"
+        },
+        {
+          "name": "Port2",
+          "type": "Single Strip Gap Source",
+          "hfss_type": "GapV",
+          "layout_object": "Port2",
+          "pin": "",
+          "reference": "L2_GND:GND:poly__147",
+          "reference_net": "GND",
+          "arms": "1",
+          "use_ref_from_hierarchy": "2"
+        }
+      ],
+      "port_names": {
+        "left": [
+          "Port1",
+          "Port2"
+        ],
+        "right": [
+          "Port1",
+          "Port2"
+        ]
+      },
+      "port_differences": {
+        "Port2": {
+          "left": {
+            "name": "Port2",
+            "type": "Single Strip Gap Source",
+            "hfss_type": "GapV",
+            "layout_object": "Port2",
+            "pin": "",
+            "reference": "L2_GND:GND:poly__136",
+            "reference_net": "GND",
+            "arms": "1",
+            "use_ref_from_hierarchy": "2"
+          },
+          "right": {
+            "name": "Port2",
+            "type": "Single Strip Gap Source",
+            "hfss_type": "GapV",
+            "layout_object": "Port2",
+            "pin": "",
+            "reference": "L2_GND:GND:poly__147",
+            "reference_net": "GND",
+            "arms": "1",
+            "use_ref_from_hierarchy": "2"
+          }
+        }
+      },
+      "net_differences": {
+        "+5V": {
+          "left": null,
+          "right": {
+            "interface_ports": [],
+            "net_pins": []
+          }
+        },
+        "3.3V": {
+          "left": null,
+          "right": {
+            "interface_ports": [],
+            "net_pins": []
+          }
+        },
+        "485_A": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "485_B": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "CTRL1": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "CTRL2": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "CTRL3": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "CTRL4": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "N11901353": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "N11903882": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "OUT3": {
+          "left": null,
+          "right": {
+            "interface_ports": [],
+            "net_pins": []
+          }
+        },
+        "Port1": {
+          "left": {
+            "interface_ports": [
+              "Port1"
+            ],
+            "net_pins": [
+              {
+                "component_id": "8",
+                "pin_index": 0
+              }
+            ]
+          },
+          "right": {
+            "interface_ports": [
+              "Port1"
+            ],
+            "net_pins": [
+              {
+                "component_id": "13",
+                "pin_index": 0
+              }
+            ]
+          }
+        },
+        "S0_RF1": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "S0_RF4": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "S1_RF3": {
+          "left": null,
+          "right": {
+            "interface_ports": [],
+            "net_pins": []
+          }
+        },
+        "VCC3V3_RF1": {
+          "left": null,
+          "right": {
+            "interface_ports": [],
+            "net_pins": []
+          }
+        }
+      },
+      "page_net_differences": {
+        "Port1": {
+          "left": {
+            "interface": {
+              "port": "Port1",
+              "wire_id": 4
+            },
+            "wire_segments": 2,
+            "component_pins": [
+              {
+                "symbol_id": "93",
+                "pin": "Pin_T1"
+              }
+            ]
+          },
+          "right": {
+            "interface": {
+              "port": "Port1",
+              "wire_id": 4
+            },
+            "wire_segments": 2,
+            "component_pins": [
+              {
+                "symbol_id": "117",
+                "pin": "Pin_T1"
+              }
+            ]
+          }
+        },
+        "Port2": {
+          "left": {
+            "interface": {
+              "port": "Port2",
+              "wire_id": 13
+            },
+            "wire_segments": 0,
+            "component_pins": []
+          },
+          "right": {
+            "interface": {
+              "port": "Port2",
+              "wire_id": 11
+            },
+            "wire_segments": 0,
+            "component_pins": []
+          }
+        }
+      },
+      "quantity_idmaps": {
+        "left": [
+          "0, 'S(Port1,Port1)', 1, 'S(Port2,Port1"
+        ],
+        "right": [
+          "0, 'S(Port1,Port1)', 1, 'S(Port2,Port1"
+        ]
+      },
+      "report_exprs": {
+        "left": [
+          "Freq",
+          "dB(S(Port1,Port1))",
+          "dB(S(Port2,Port1))",
+          "dB(S(Port1,Port2))",
+          "dB(S(Port2,Port2))"
+        ],
+        "right": [
+          "Freq",
+          "dB(S(Port1,Port1))",
+          "dB(S(Port2,Port1))",
+          "dB(S(Port1,Port2))",
+          "dB(S(Port2,Port2))"
+        ]
+      },
+      "component_definitions": {
+        "SMA_KE_Unite_Small_Solder2": {
+          "found": true,
+          "pin_defs": [
+            [
+              "Pin_T1",
+              "-0.00254",
+              "0.00254"
+            ]
+          ],
+          "variables": {},
+          "cosim_dynlink": []
+        },
+        "SMA_KE_Unite_Small_Solder4": {
+          "found": true,
+          "pin_defs": [
+            [
+              "Pin_T1",
+              "-0.00254",
+              "0.00254"
+            ]
+          ],
+          "variables": {},
+          "cosim_dynlink": []
+        }
+      },
+      "findings": [
+        "ppa_rf_cutout_RF_IN has saved invalid HFSS ports: ['Port1']",
+        "ppa_rf_cutout_RF_OUT has saved invalid HFSS ports: ['Port1']"
+      ]
+    },
+    {
+      "left": "ppa_rf_cutout_RF_OUT",
+      "right": "ppa_rf_cutout_RF",
+      "left_found": true,
+      "right_found": true,
+      "left_components": [
+        {
+          "id": "13",
+          "component": "SMA_KE_Unite_Small_Solder4",
+          "instance_name": "S13",
+          "schematic": {
+            "component": "SMA_KE_Unite_Small_Solder4",
+            "page": "A",
+            "symbol_id": "117",
+            "orientation_code": 1,
+            "mode": "normal",
+            "x_m": -0.00508,
+            "y_m": -0.00508,
+            "angle_deg": 0.0
+          }
+        }
+      ],
+      "right_components": [
+        {
+          "id": "10",
+          "component": "SMA_KE_Unite_Small_Solder3",
+          "instance_name": "S10",
+          "schematic": {
+            "component": "SMA_KE_Unite_Small_Solder3",
+            "page": "A",
+            "symbol_id": "100",
+            "orientation_code": 1,
+            "mode": "normal",
+            "x_m": -0.00508,
+            "y_m": -0.00508,
+            "angle_deg": 0.0
+          }
+        }
+      ],
+      "left_ports": [
+        {
+          "name": "Port1",
+          "type": "**Invalid** Gap Source",
+          "hfss_type": "Invalid",
+          "layout_object": "",
+          "pin": "Port1",
+          "reference": "",
+          "reference_net": "GND",
+          "arms": "0",
+          "use_ref_from_hierarchy": "-1"
+        },
+        {
+          "name": "Port2",
+          "type": "Single Strip Gap Source",
+          "hfss_type": "GapV",
+          "layout_object": "Port2",
+          "pin": "",
+          "reference": "L2_GND:GND:poly__147",
+          "reference_net": "GND",
+          "arms": "1",
+          "use_ref_from_hierarchy": "2"
+        }
+      ],
+      "right_ports": [
+        {
+          "name": "Port1",
+          "type": "Single Strip Gap Source",
+          "hfss_type": "GapV",
+          "layout_object": "Port1",
+          "pin": "",
+          "reference": "L2_GND:GND:poly__120",
+          "reference_net": "GND",
+          "arms": "1",
+          "use_ref_from_hierarchy": "2"
+        },
+        {
+          "name": "S1_1_Pin_T1",
+          "type": "Single Strip Gap Source",
+          "hfss_type": "GapV",
+          "layout_object": "",
+          "pin": "S1_1_Pin_T1",
+          "reference": "",
+          "reference_net": "GND",
+          "arms": "0",
+          "use_ref_from_hierarchy": "-1"
+        }
+      ],
+      "port_names": {
+        "left": [
+          "Port1",
+          "Port2"
+        ],
+        "right": [
+          "Port1",
+          "S1_1_Pin_T1"
+        ]
+      },
+      "port_differences": {
+        "Port1": {
+          "left": {
+            "name": "Port1",
+            "type": "**Invalid** Gap Source",
+            "hfss_type": "Invalid",
+            "layout_object": "",
+            "pin": "Port1",
+            "reference": "",
+            "reference_net": "GND",
+            "arms": "0",
+            "use_ref_from_hierarchy": "-1"
+          },
+          "right": {
+            "name": "Port1",
+            "type": "Single Strip Gap Source",
+            "hfss_type": "GapV",
+            "layout_object": "Port1",
+            "pin": "",
+            "reference": "L2_GND:GND:poly__120",
+            "reference_net": "GND",
+            "arms": "1",
+            "use_ref_from_hierarchy": "2"
+          }
+        },
+        "Port2": {
+          "left": {
+            "name": "Port2",
+            "type": "Single Strip Gap Source",
+            "hfss_type": "GapV",
+            "layout_object": "Port2",
+            "pin": "",
+            "reference": "L2_GND:GND:poly__147",
+            "reference_net": "GND",
+            "arms": "1",
+            "use_ref_from_hierarchy": "2"
+          },
+          "right": null
+        },
+        "S1_1_Pin_T1": {
+          "left": null,
+          "right": {
+            "name": "S1_1_Pin_T1",
+            "type": "Single Strip Gap Source",
+            "hfss_type": "GapV",
+            "layout_object": "",
+            "pin": "S1_1_Pin_T1",
+            "reference": "",
+            "reference_net": "GND",
+            "arms": "0",
+            "use_ref_from_hierarchy": "-1"
+          }
+        }
+      },
+      "net_differences": {
+        "+5V": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "3.3V": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "OUT3": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "OUT4": {
+          "left": null,
+          "right": {
+            "interface_ports": [],
+            "net_pins": []
+          }
+        },
+        "Port1": {
+          "left": {
+            "interface_ports": [
+              "Port1"
+            ],
+            "net_pins": [
+              {
+                "component_id": "13",
+                "pin_index": 0
+              }
+            ]
+          },
+          "right": {
+            "interface_ports": [
+              "Port1"
+            ],
+            "net_pins": []
+          }
+        },
+        "Port2": {
+          "left": {
+            "interface_ports": [
+              "Port2"
+            ],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "S1_1_Pin_T1": {
+          "left": null,
+          "right": {
+            "interface_ports": [
+              "S1_1_Pin_T1"
+            ],
+            "net_pins": [
+              {
+                "component_id": "10",
+                "pin_index": 0
+              }
+            ]
+          }
+        },
+        "S1_RF3": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "S1_RF4": {
+          "left": null,
+          "right": {
+            "interface_ports": [],
+            "net_pins": []
+          }
+        },
+        "VCC3V3_RF1": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        }
+      },
+      "page_net_differences": {
+        "Port1": {
+          "left": {
+            "interface": {
+              "port": "Port1",
+              "wire_id": 4
+            },
+            "wire_segments": 2,
+            "component_pins": [
+              {
+                "symbol_id": "117",
+                "pin": "Pin_T1"
+              }
+            ]
+          },
+          "right": {
+            "interface": {
+              "port": "Port1",
+              "wire_id": 24
+            },
+            "wire_segments": 0,
+            "component_pins": []
+          }
+        },
+        "Port2": {
+          "left": {
+            "interface": {
+              "port": "Port2",
+              "wire_id": 11
+            },
+            "wire_segments": 0,
+            "component_pins": []
+          },
+          "right": null
+        },
+        "S1_1_Pin_T1": {
+          "left": null,
+          "right": {
+            "interface": {
+              "port": "S1_1_Pin_T1",
+              "wire_id": 19
+            },
+            "wire_segments": 2,
+            "component_pins": [
+              {
+                "symbol_id": "100",
+                "pin": "Pin_T1"
+              }
+            ]
+          }
+        }
+      },
+      "quantity_idmaps": {
+        "left": [
+          "0, 'S(Port1,Port1)', 1, 'S(Port2,Port1"
+        ],
+        "right": [
+          "0, 'S(Port1,Port1)', 1, 'S(Port2,Port1"
+        ]
+      },
+      "report_exprs": {
+        "left": [
+          "Freq",
+          "dB(S(Port1,Port1))",
+          "dB(S(Port2,Port1))",
+          "dB(S(Port1,Port2))",
+          "dB(S(Port2,Port2))"
+        ],
+        "right": [
+          "Freq",
+          "dB(S(S1_1_Pin_T1,S1_1_Pin_T1))",
+          "dB(S(Port1,S1_1_Pin_T1))",
+          "dB(S(S1_1_Pin_T1,Port1))",
+          "dB(S(Port1,Port1))"
+        ]
+      },
+      "component_definitions": {
+        "SMA_KE_Unite_Small_Solder4": {
+          "found": true,
+          "pin_defs": [
+            [
+              "Pin_T1",
+              "-0.00254",
+              "0.00254"
+            ]
+          ],
+          "variables": {},
+          "cosim_dynlink": []
+        },
+        "SMA_KE_Unite_Small_Solder3": {
+          "found": true,
+          "pin_defs": [
+            [
+              "Pin_T1",
+              "-0.00254",
+              "0.00254"
+            ]
+          ],
+          "variables": {},
+          "cosim_dynlink": []
+        }
+      },
+      "findings": [
+        "port set differs: ppa_rf_cutout_RF_OUT=['Port1', 'Port2'], ppa_rf_cutout_RF=['Port1', 'S1_1_Pin_T1']",
+        "port Port1 type differs",
+        "ppa_rf_cutout_RF reports include S1_1_Pin_T1 but ppa_rf_cutout_RF_OUT reports do not",
+        "ppa_rf_cutout_RF_OUT has saved invalid HFSS ports: ['Port1']"
+      ]
+    },
+    {
+      "left": "ppa_rf_cutout_RF_IN",
+      "right": "ppa_rf_cutout_RF",
+      "left_found": true,
+      "right_found": true,
+      "left_components": [
+        {
+          "id": "8",
+          "component": "SMA_KE_Unite_Small_Solder2",
+          "instance_name": "S8",
+          "schematic": {
+            "component": "SMA_KE_Unite_Small_Solder2",
+            "page": "A",
+            "symbol_id": "93",
+            "orientation_code": 1,
+            "mode": "normal",
+            "x_m": 0.00508,
+            "y_m": -0.03556,
+            "angle_deg": 0.0
+          }
+        }
+      ],
+      "right_components": [
+        {
+          "id": "10",
+          "component": "SMA_KE_Unite_Small_Solder3",
+          "instance_name": "S10",
+          "schematic": {
+            "component": "SMA_KE_Unite_Small_Solder3",
+            "page": "A",
+            "symbol_id": "100",
+            "orientation_code": 1,
+            "mode": "normal",
+            "x_m": -0.00508,
+            "y_m": -0.00508,
+            "angle_deg": 0.0
+          }
+        }
+      ],
+      "left_ports": [
+        {
+          "name": "Port1",
+          "type": "**Invalid** Gap Source",
+          "hfss_type": "Invalid",
+          "layout_object": "",
+          "pin": "Port1",
+          "reference": "",
+          "reference_net": "GND",
+          "arms": "0",
+          "use_ref_from_hierarchy": "-1"
+        },
+        {
+          "name": "Port2",
+          "type": "Single Strip Gap Source",
+          "hfss_type": "GapV",
+          "layout_object": "Port2",
+          "pin": "",
+          "reference": "L2_GND:GND:poly__136",
+          "reference_net": "GND",
+          "arms": "1",
+          "use_ref_from_hierarchy": "2"
+        }
+      ],
+      "right_ports": [
+        {
+          "name": "Port1",
+          "type": "Single Strip Gap Source",
+          "hfss_type": "GapV",
+          "layout_object": "Port1",
+          "pin": "",
+          "reference": "L2_GND:GND:poly__120",
+          "reference_net": "GND",
+          "arms": "1",
+          "use_ref_from_hierarchy": "2"
+        },
+        {
+          "name": "S1_1_Pin_T1",
+          "type": "Single Strip Gap Source",
+          "hfss_type": "GapV",
+          "layout_object": "",
+          "pin": "S1_1_Pin_T1",
+          "reference": "",
+          "reference_net": "GND",
+          "arms": "0",
+          "use_ref_from_hierarchy": "-1"
+        }
+      ],
+      "port_names": {
+        "left": [
+          "Port1",
+          "Port2"
+        ],
+        "right": [
+          "Port1",
+          "S1_1_Pin_T1"
+        ]
+      },
+      "port_differences": {
+        "Port1": {
+          "left": {
+            "name": "Port1",
+            "type": "**Invalid** Gap Source",
+            "hfss_type": "Invalid",
+            "layout_object": "",
+            "pin": "Port1",
+            "reference": "",
+            "reference_net": "GND",
+            "arms": "0",
+            "use_ref_from_hierarchy": "-1"
+          },
+          "right": {
+            "name": "Port1",
+            "type": "Single Strip Gap Source",
+            "hfss_type": "GapV",
+            "layout_object": "Port1",
+            "pin": "",
+            "reference": "L2_GND:GND:poly__120",
+            "reference_net": "GND",
+            "arms": "1",
+            "use_ref_from_hierarchy": "2"
+          }
+        },
+        "Port2": {
+          "left": {
+            "name": "Port2",
+            "type": "Single Strip Gap Source",
+            "hfss_type": "GapV",
+            "layout_object": "Port2",
+            "pin": "",
+            "reference": "L2_GND:GND:poly__136",
+            "reference_net": "GND",
+            "arms": "1",
+            "use_ref_from_hierarchy": "2"
+          },
+          "right": null
+        },
+        "S1_1_Pin_T1": {
+          "left": null,
+          "right": {
+            "name": "S1_1_Pin_T1",
+            "type": "Single Strip Gap Source",
+            "hfss_type": "GapV",
+            "layout_object": "",
+            "pin": "S1_1_Pin_T1",
+            "reference": "",
+            "reference_net": "GND",
+            "arms": "0",
+            "use_ref_from_hierarchy": "-1"
+          }
+        }
+      },
+      "net_differences": {
+        "485_A": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "485_B": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "CTRL1": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "CTRL2": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "CTRL3": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "CTRL4": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "N11901353": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "N11903882": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "OUT4": {
+          "left": null,
+          "right": {
+            "interface_ports": [],
+            "net_pins": []
+          }
+        },
+        "Port1": {
+          "left": {
+            "interface_ports": [
+              "Port1"
+            ],
+            "net_pins": [
+              {
+                "component_id": "8",
+                "pin_index": 0
+              }
+            ]
+          },
+          "right": {
+            "interface_ports": [
+              "Port1"
+            ],
+            "net_pins": []
+          }
+        },
+        "Port2": {
+          "left": {
+            "interface_ports": [
+              "Port2"
+            ],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "S0_RF1": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "S0_RF4": {
+          "left": {
+            "interface_ports": [],
+            "net_pins": []
+          },
+          "right": null
+        },
+        "S1_1_Pin_T1": {
+          "left": null,
+          "right": {
+            "interface_ports": [
+              "S1_1_Pin_T1"
+            ],
+            "net_pins": [
+              {
+                "component_id": "10",
+                "pin_index": 0
+              }
+            ]
+          }
+        },
+        "S1_RF4": {
+          "left": null,
+          "right": {
+            "interface_ports": [],
+            "net_pins": []
+          }
+        }
+      },
+      "page_net_differences": {
+        "Port1": {
+          "left": {
+            "interface": {
+              "port": "Port1",
+              "wire_id": 4
+            },
+            "wire_segments": 2,
+            "component_pins": [
+              {
+                "symbol_id": "93",
+                "pin": "Pin_T1"
+              }
+            ]
+          },
+          "right": {
+            "interface": {
+              "port": "Port1",
+              "wire_id": 24
+            },
+            "wire_segments": 0,
+            "component_pins": []
+          }
+        },
+        "Port2": {
+          "left": {
+            "interface": {
+              "port": "Port2",
+              "wire_id": 13
+            },
+            "wire_segments": 0,
+            "component_pins": []
+          },
+          "right": null
+        },
+        "S1_1_Pin_T1": {
+          "left": null,
+          "right": {
+            "interface": {
+              "port": "S1_1_Pin_T1",
+              "wire_id": 19
+            },
+            "wire_segments": 2,
+            "component_pins": [
+              {
+                "symbol_id": "100",
+                "pin": "Pin_T1"
+              }
+            ]
+          }
+        }
+      },
+      "quantity_idmaps": {
+        "left": [
+          "0, 'S(Port1,Port1)', 1, 'S(Port2,Port1"
+        ],
+        "right": [
+          "0, 'S(Port1,Port1)', 1, 'S(Port2,Port1"
+        ]
+      },
+      "report_exprs": {
+        "left": [
+          "Freq",
+          "dB(S(Port1,Port1))",
+          "dB(S(Port2,Port1))",
+          "dB(S(Port1,Port2))",
+          "dB(S(Port2,Port2))"
+        ],
+        "right": [
+          "Freq",
+          "dB(S(S1_1_Pin_T1,S1_1_Pin_T1))",
+          "dB(S(Port1,S1_1_Pin_T1))",
+          "dB(S(S1_1_Pin_T1,Port1))",
+          "dB(S(Port1,Port1))"
+        ]
+      },
+      "component_definitions": {
+        "SMA_KE_Unite_Small_Solder2": {
+          "found": true,
+          "pin_defs": [
+            [
+              "Pin_T1",
+              "-0.00254",
+              "0.00254"
+            ]
+          ],
+          "variables": {},
+          "cosim_dynlink": []
+        },
+        "SMA_KE_Unite_Small_Solder3": {
+          "found": true,
+          "pin_defs": [
+            [
+              "Pin_T1",
+              "-0.00254",
+              "0.00254"
+            ]
+          ],
+          "variables": {},
+          "cosim_dynlink": []
+        }
+      },
+      "findings": [
+        "port set differs: ppa_rf_cutout_RF_IN=['Port1', 'Port2'], ppa_rf_cutout_RF=['Port1', 'S1_1_Pin_T1']",
+        "port Port1 type differs",
+        "ppa_rf_cutout_RF reports include S1_1_Pin_T1 but ppa_rf_cutout_RF_IN reports do not",
+        "ppa_rf_cutout_RF_IN has saved invalid HFSS ports: ['Port1']"
+      ]
+    }
+  ],
+  "notes": [
+    "Static comparison reads saved AEDT only and does not launch AEDT.",
+    "Numeric IDs, symbols, and placement coordinates are expected to differ across copied designs."
+  ]
+}

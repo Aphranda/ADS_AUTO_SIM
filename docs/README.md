@@ -38,6 +38,7 @@ projects/bfp_6_8g_i7_fr4/
 | FLOW | `flow/FLOW_JOB_SCHEDULING_POLICY.md` | ADS 自动仿真任务调度策略，定义 license、并发、workspace 锁、超时、失败熔断、候选优先级和 resume。 |
 | FLOW | `flow/FLOW_MANUAL_INTERVENTION_LOG.md` | ADS GUI 人工介入记录模板，覆盖手动导入、端口、via、emSetup、simulate、导出和残留清理。 |
 | FLOW | `flow/FLOW_HFSS_CONNECTOR_LAYOUT_OPTIMIZATION.md` | HFSS 微带线+连接器联合仿真优化方案，定义连接器 launch、端口参考面、去嵌、评分 delta 和迭代路线。 |
+| FLOW | `flow/FLOW_HFSS_CONNECTOR_NOTES.md` | HFSS 连接器仿真注意事项清单，汇总设计设置、版图生命周期、端口和评分门禁。 |
 | FLOW | `../projects/bfp_6_8g_i7_fr4/docs/ADS自动仿真流程说明.md` | 当前可执行 ADS 自动仿真闭环流程，包含 home/company profile、命令和脚本清单。 |
 | LAYOUT | `layout/LAYOUT_RECONSTRUCTION_CHECKLIST.md` | 从论文、公式、截图或原理图重构参数化版图时的拓扑、层叠、单位、端口、via、DRC 和 ADS 导入审查清单。 |
 | RESULT | `result/RESULT_I7_FR4_ROUND_INDEX.md` | FR4 7 阶交指滤波器 round2-round7 的 plan、结果、baseline 和候选结论索引。 |

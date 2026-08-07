@@ -1,0 +1,3571 @@
+{
+  "edb_def": "D:\\Work\\ADS\\SP8T\\SP8T_HFSS.aedb\\edb.def",
+  "size_bytes": 928000,
+  "tokens": {
+    "Port1": [
+      {
+        "token": "Port1",
+        "offset": 45352,
+        "window_start": 44932,
+        "window_end": 46857,
+        "text": "4, 0.00508, 0.00508, 0, 0, 0)\\ \\ \\ Rect(0, 1, 0, 0, 0.000423333, 0.00254, 0.000423333, 0.000423333, 0, 0, 0)\\ \\ $end \\'Graphics\\'\\ $end \\'ppa_rf\\'\\ ' '15'='' '27'='1' $end 'EDBProd0' $end 'ppa_rf' $begin 'ppa_rf_cutout_RF' UID=32 Footprint='_symbolFootprint_dc11dbd8_dc0df1c0' RefdesBase='U' CellName='ppa_rf_cutout_RF' EDBName='' CompType=0 $begin 'Pins' $begin 'Pin' name='Port1' number=1 id=1 $end 'Pin' $begin 'Pin' name='S1_1_Pin_T1' number=0 id=0 $end 'Pin' $end 'Pins' $begin 'PropList' VariableProp(n='BendModel', v='0', vt=1, oi=0, ds='') $end 'PropList' $begin 'Cosim' Netlist(id=0, n='DefaultNetlist', itm(sn='', nld(nl='', gr=''))) $end 'Cosim' $begin 'EDBProd0' '14'='$begin \\'ppa_rf_cutout_RF\\'\\ \\ ModTime=1786070417\\ \\ CE=0\\ \\ Library=\\'\\'\\ \\ ModSinceLib=false\\ \\ LibLocation=\\'Project\\'\\ \\ HighestLevel=1\\ \\ Normalize=true\\ \\ InitialLevels(0, 1)\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'S1_1_Pin_T1\\', -0.00508, 0, 0, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'S1_1_Pin_T1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(-0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'S1_1_Pin_T1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.0075438, 0",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 46345,
+        "window_start": 45925,
+        "window_end": 47850,
+        "text": "'\\ \\ \\ Pin(\\'S1_1_Pin_T1\\', -0.00508, 0, 0, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'S1_1_Pin_T1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(-0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'S1_1_Pin_T1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.0075438, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port1\\', 0.00508, 0, 3.14159, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'Port1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port1\\', false, false, ExtentRect(0, 0, 0, 0, 0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'Graphics\\'\\ \\ \\ Rect(0, 0, 0, 0, 0, 0, 0.00508, 0.00508, 0, 0, 0)\\ \\ \\ Rect(0, 1, 0, 0, -0.00211667, 0, 0.000423333, 0.000423333, 0, 0, 0)\\ \\ $end \\'Graphics\\'\\ $end \\'ppa_rf_cutout_RF\\'\\ ' '15'='' '27'='1' $end 'EDBProd0' $end 'ppa_rf_cutout_RF' $begin 'ppa_rf_cutout_RF_IN' UID=24 Footprint='_symbolFootprint_dc11f1b8_dc0de920' RefdesBase='U' CellName='ppa_rf_cutout_RF_IN' EDBName='' CompType=0 $begin 'P",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 46431,
+        "window_start": 46011,
+        "window_end": 47936,
+        "text": "rue, false, \\'S1_1_Pin_T1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(-0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'S1_1_Pin_T1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.0075438, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port1\\', 0.00508, 0, 3.14159, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'Port1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port1\\', false, false, ExtentRect(0, 0, 0, 0, 0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'Graphics\\'\\ \\ \\ Rect(0, 0, 0, 0, 0, 0, 0.00508, 0.00508, 0, 0, 0)\\ \\ \\ Rect(0, 1, 0, 0, -0.00211667, 0, 0.000423333, 0.000423333, 0, 0, 0)\\ \\ $end \\'Graphics\\'\\ $end \\'ppa_rf_cutout_RF\\'\\ ' '15'='' '27'='1' $end 'EDBProd0' $end 'ppa_rf_cutout_RF' $begin 'ppa_rf_cutout_RF_IN' UID=24 Footprint='_symbolFootprint_dc11f1b8_dc0de920' RefdesBase='U' CellName='ppa_rf_cutout_RF_IN' EDBName='' CompType=0 $begin 'Pins' $begin 'Pin' name='Port1' number=0 id=0 $end 'Pin' $begin 'Pin' name='Port2' numb",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 46557,
+        "window_start": 46137,
+        "window_end": 48062,
+        "text": "lse, \\'Arial\\', 0, \\'S1_1_Pin_T1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.0075438, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port1\\', 0.00508, 0, 3.14159, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'Port1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port1\\', false, false, ExtentRect(0, 0, 0, 0, 0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'Graphics\\'\\ \\ \\ Rect(0, 0, 0, 0, 0, 0, 0.00508, 0.00508, 0, 0, 0)\\ \\ \\ Rect(0, 1, 0, 0, -0.00211667, 0, 0.000423333, 0.000423333, 0, 0, 0)\\ \\ $end \\'Graphics\\'\\ $end \\'ppa_rf_cutout_RF\\'\\ ' '15'='' '27'='1' $end 'EDBProd0' $end 'ppa_rf_cutout_RF' $begin 'ppa_rf_cutout_RF_IN' UID=24 Footprint='_symbolFootprint_dc11f1b8_dc0de920' RefdesBase='U' CellName='ppa_rf_cutout_RF_IN' EDBName='' CompType=0 $begin 'Pins' $begin 'Pin' name='Port1' number=0 id=0 $end 'Pin' $begin 'Pin' name='Port2' number=1 id=1 $end 'Pin' $end 'Pins' $begin 'PropList' VariableProp(n='BendModel', v='0', vt=1, oi=0, ds='') $end 'PropList' $begi",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 47194,
+        "window_start": 46774,
+        "window_end": 48699,
+        "text": "0, 0, 0)\\ \\ \\ Rect(0, 1, 0, 0, -0.00211667, 0, 0.000423333, 0.000423333, 0, 0, 0)\\ \\ $end \\'Graphics\\'\\ $end \\'ppa_rf_cutout_RF\\'\\ ' '15'='' '27'='1' $end 'EDBProd0' $end 'ppa_rf_cutout_RF' $begin 'ppa_rf_cutout_RF_IN' UID=24 Footprint='_symbolFootprint_dc11f1b8_dc0de920' RefdesBase='U' CellName='ppa_rf_cutout_RF_IN' EDBName='' CompType=0 $begin 'Pins' $begin 'Pin' name='Port1' number=0 id=0 $end 'Pin' $begin 'Pin' name='Port2' number=1 id=1 $end 'Pin' $end 'Pins' $begin 'PropList' VariableProp(n='BendModel', v='0', vt=1, oi=0, ds='') $end 'PropList' $begin 'Cosim' Netlist(id=0, n='DefaultNetlist', itm(sn='', nld(nl='', gr=''))) $end 'Cosim' $begin 'EDBProd0' '14'='$begin \\'ppa_rf_cutout_RF_IN\\'\\ \\ ModTime=1786068001\\ \\ CE=0\\ \\ Library=\\'\\'\\ \\ ModSinceLib=false\\ \\ LibLocation=\\'Project\\'\\ \\ HighestLevel=1\\ \\ Normalize=false\\ \\ InitialLevels(0, 1)\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port1\\', -0.00508, 0, 0, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'S1_1_Pin_T1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(-0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 47778,
+        "window_start": 47358,
+        "window_end": 49283,
+        "text": "ableProp(n='BendModel', v='0', vt=1, oi=0, ds='') $end 'PropList' $begin 'Cosim' Netlist(id=0, n='DefaultNetlist', itm(sn='', nld(nl='', gr=''))) $end 'Cosim' $begin 'EDBProd0' '14'='$begin \\'ppa_rf_cutout_RF_IN\\'\\ \\ ModTime=1786068001\\ \\ CE=0\\ \\ Library=\\'\\'\\ \\ ModSinceLib=false\\ \\ LibLocation=\\'Project\\'\\ \\ HighestLevel=1\\ \\ Normalize=false\\ \\ InitialLevels(0, 1)\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port1\\', -0.00508, 0, 0, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'S1_1_Pin_T1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(-0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port2\\', 0.00508, 0, 3.14159, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'Port2\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port2\\', false, false, ExtentRect(0, 0, 0, 0, 0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'Graphics\\'\\ \\ \\ Rect(0, 0, 0, 0",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 47992,
+        "window_start": 47572,
+        "window_end": 49497,
+        "text": "a_rf_cutout_RF_IN\\'\\ \\ ModTime=1786068001\\ \\ CE=0\\ \\ Library=\\'\\'\\ \\ ModSinceLib=false\\ \\ LibLocation=\\'Project\\'\\ \\ HighestLevel=1\\ \\ Normalize=false\\ \\ InitialLevels(0, 1)\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port1\\', -0.00508, 0, 0, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'S1_1_Pin_T1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(-0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port2\\', 0.00508, 0, 3.14159, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'Port2\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port2\\', false, false, ExtentRect(0, 0, 0, 0, 0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'Graphics\\'\\ \\ \\ Rect(0, 0, 0, 0, 0, 0, 0.00508, 0.00508, 0, 0, 0)\\ \\ \\ Rect(0, 1, 0, 0, -0.00211667, 0, 0.000423333, 0.000423333, 0, 0, 0)\\ \\ $end \\'Graphics\\'\\ $end \\'ppa_rf_cutout_RF_IN\\'\\ ' '15'='' '27'='1' $end 'EDBProd0'",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 49031,
+        "window_start": 48611,
+        "window_end": 50536,
+        "text": ")\\ \\ \\ Rect(0, 1, 0, 0, -0.00211667, 0, 0.000423333, 0.000423333, 0, 0, 0)\\ \\ $end \\'Graphics\\'\\ $end \\'ppa_rf_cutout_RF_IN\\'\\ ' '15'='' '27'='1' $end 'EDBProd0' $end 'ppa_rf_cutout_RF_IN' $begin 'ppa_rf_cutout_RF_OUT' UID=26 Footprint='_symbolFootprint_dc11cc88_dc8d5ac0' RefdesBase='U' CellName='ppa_rf_cutout_RF_OUT' EDBName='' CompType=0 $begin 'Pins' $begin 'Pin' name='Port1' number=0 id=2 $end 'Pin' $begin 'Pin' name='Port2' number=1 id=3 $end 'Pin' $end 'Pins' $begin 'PropList' VariableProp(n='BendModel', v='0', vt=1, oi=1, ds='') $end 'PropList' $begin 'Cosim' Netlist(id=0, n='DefaultNetlist', itm(sn='', nld(nl='', gr=''))) $end 'Cosim' $begin 'EDBProd0' '14'='$begin \\'ppa_rf_cutout_RF_OUT\\'\\ \\ ModTime=1786077292\\ \\ CE=0\\ \\ Library=\\'\\'\\ \\ ModSinceLib=false\\ \\ LibLocation=\\'Project\\'\\ \\ HighestLevel=1\\ \\ Normalize=false\\ \\ InitialLevels(0, 1)\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port1\\', -0.00508, 0, 0, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'S1_1_Pin_T1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(-0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.00301752, 0.0016764, 0,",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 49616,
+        "window_start": 49196,
+        "window_end": 51121,
+        "text": "bleProp(n='BendModel', v='0', vt=1, oi=1, ds='') $end 'PropList' $begin 'Cosim' Netlist(id=0, n='DefaultNetlist', itm(sn='', nld(nl='', gr=''))) $end 'Cosim' $begin 'EDBProd0' '14'='$begin \\'ppa_rf_cutout_RF_OUT\\'\\ \\ ModTime=1786077292\\ \\ CE=0\\ \\ Library=\\'\\'\\ \\ ModSinceLib=false\\ \\ LibLocation=\\'Project\\'\\ \\ HighestLevel=1\\ \\ Normalize=false\\ \\ InitialLevels(0, 1)\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port1\\', -0.00508, 0, 0, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'S1_1_Pin_T1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(-0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port2\\', 0.00508, 0, 3.14159, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'Port2\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port2\\', false, false, ExtentRect(0, 0, 0, 0, 0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'Graphics\\'\\ \\ \\ Rect(0, 0, 0, 0",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 49830,
+        "window_start": 49410,
+        "window_end": 51335,
+        "text": "_rf_cutout_RF_OUT\\'\\ \\ ModTime=1786077292\\ \\ CE=0\\ \\ Library=\\'\\'\\ \\ ModSinceLib=false\\ \\ LibLocation=\\'Project\\'\\ \\ HighestLevel=1\\ \\ Normalize=false\\ \\ InitialLevels(0, 1)\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port1\\', -0.00508, 0, 0, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'S1_1_Pin_T1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(-0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port2\\', 0.00508, 0, 3.14159, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'Port2\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port2\\', false, false, ExtentRect(0, 0, 0, 0, 0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'Graphics\\'\\ \\ \\ Rect(0, 0, 0, 0, 0, 0, 0.00508, 0.00508, 0, 0, 0)\\ \\ \\ Rect(0, 1, 0, 0, -0.00211667, 0, 0.000423333, 0.000423333, 0, 0, 0)\\ \\ $end \\'Graphics\\'\\ $end \\'ppa_rf_cutout_RF_OUT\\'\\ ' '15'='' '27'='1' $end 'EDBProd0",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 51519,
+        "window_start": 51099,
+        "window_end": 53024,
+        "text": "'5' number=4 id=4 $end 'Pin' $end 'Pins' $begin 'PropList' $end 'PropList' $begin 'Cosim' $end 'Cosim' $begin 'EDBProd0' '27'='3' $end 'EDBProd0' $end 'R_SMA-SMD_BWSMA-KE-P001' $begin 'RF_IN_cutout' UID=15 Footprint='_symbolFootprint_dc11e8f8_dc0dd390' RefdesBase='U' CellName='RF_IN_cutout' EDBName='' CompType=0 $begin 'Pins' $begin 'Pin' name='Port1' number=1 id=1 $end 'Pin' $begin 'Pin' name='S1_1_Pin_T1' number=0 id=0 $end 'Pin' $end 'Pins' $begin 'PropList' VariableProp(n='BendModel', v='0', vt=1, oi=0, ds='') $end 'PropList' $begin 'Cosim' Netlist(id=0, n='DefaultNetlist', itm(sn='', nld(nl='', gr=''))) $end 'Cosim' $begin 'EDBProd0' '14'='$begin \\'RF_IN_cutout\\'\\ \\ ModTime=1786022971\\ \\ CE=0\\ \\ Library=\\'\\'\\ \\ ModSinceLib=false\\ \\ LibLocation=\\'Project\\'\\ \\ HighestLevel=1\\ \\ Normalize=true\\ \\ InitialLevels(0, 1)\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'S1_1_Pin_T1\\', -0.00508, 0, 0, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'S1_1_Pin_T1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(-0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'S1_1_Pin_T1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.0075438, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 52508,
+        "window_start": 52088,
+        "window_end": 54013,
+        "text": "'\\ \\ \\ Pin(\\'S1_1_Pin_T1\\', -0.00508, 0, 0, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'S1_1_Pin_T1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(-0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'S1_1_Pin_T1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.0075438, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port1\\', 0.00508, 0, 3.14159, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'Port1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port1\\', false, false, ExtentRect(0, 0, 0, 0, 0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'Graphics\\'\\ \\ \\ Rect(0, 0, 0, 0, 0, -0.00127, 0.00508, 0.00762, 0, 0, 0)\\ \\ \\ Rect(0, 1, 0, 0, -0.00211667, 0, 0.000423333, 0.000423333, 0, 0, 0)\\ \\ \\ Rect(0, 1, 0, 0, -0.00211667, -4.33681e-19, 0.000423333, 0.000423333, 0, 0, 0)\\ \\ $end \\'Graphics\\'\\ $end \\'RF_IN_cutout\\'\\ ' '15'='' '27'='1' $end 'EDBProd0' $end 'RF_IN_cutout' $begin 'SMA_KE_Unite_Small_Solder' UID=17 Footprint='_symbolFootprint_dc11fa7",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 52594,
+        "window_start": 52174,
+        "window_end": 54099,
+        "text": "rue, false, \\'S1_1_Pin_T1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(-0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'S1_1_Pin_T1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.0075438, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port1\\', 0.00508, 0, 3.14159, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'Port1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port1\\', false, false, ExtentRect(0, 0, 0, 0, 0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'Graphics\\'\\ \\ \\ Rect(0, 0, 0, 0, 0, -0.00127, 0.00508, 0.00762, 0, 0, 0)\\ \\ \\ Rect(0, 1, 0, 0, -0.00211667, 0, 0.000423333, 0.000423333, 0, 0, 0)\\ \\ \\ Rect(0, 1, 0, 0, -0.00211667, -4.33681e-19, 0.000423333, 0.000423333, 0, 0, 0)\\ \\ $end \\'Graphics\\'\\ $end \\'RF_IN_cutout\\'\\ ' '15'='' '27'='1' $end 'EDBProd0' $end 'RF_IN_cutout' $begin 'SMA_KE_Unite_Small_Solder' UID=17 Footprint='_symbolFootprint_dc11fa78_dc0de080' RefdesBase='U' CellName='' EDBName='' CompType=0 $begin 'Pins' $end 'Pins'",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 52720,
+        "window_start": 52300,
+        "window_end": 54225,
+        "text": "lse, \\'Arial\\', 0, \\'S1_1_Pin_T1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.0075438, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port1\\', 0.00508, 0, 3.14159, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'Port1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port1\\', false, false, ExtentRect(0, 0, 0, 0, 0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'Graphics\\'\\ \\ \\ Rect(0, 0, 0, 0, 0, -0.00127, 0.00508, 0.00762, 0, 0, 0)\\ \\ \\ Rect(0, 1, 0, 0, -0.00211667, 0, 0.000423333, 0.000423333, 0, 0, 0)\\ \\ \\ Rect(0, 1, 0, 0, -0.00211667, -4.33681e-19, 0.000423333, 0.000423333, 0, 0, 0)\\ \\ $end \\'Graphics\\'\\ $end \\'RF_IN_cutout\\'\\ ' '15'='' '27'='1' $end 'EDBProd0' $end 'RF_IN_cutout' $begin 'SMA_KE_Unite_Small_Solder' UID=17 Footprint='_symbolFootprint_dc11fa78_dc0de080' RefdesBase='U' CellName='' EDBName='' CompType=0 $begin 'Pins' $end 'Pins' $begin 'PropList' $end 'PropList' $begin 'Cosim' Netlist(id=0, n='DefaultNetlist', itm(sn='', nld(nl='', gr=''))) $end 'Cosim",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 130380,
+        "window_start": 129960,
+        "window_end": 131885,
+        "text": "e $end 'Locker' LengthUnits='' $begin 'cmp' $end 'cmp' $end '' $begin '' def=26 fl=-100 tl=-100 flp=false sbl=-100 tdl='\"\"' bdl='\"\"' tdo='0' bdo='0' tdd='0' bdd='0' $begin 'lm' unique='forward' forward() backward() $end 'lm' pum='' $end '' Port1 t Port2 t? Port1 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) Port2 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) footprint12 M $begin '' id=12 dn='_symbolFootprint_dc120108_dc8d5670' bb=false sp=true apo=0 sfp=true scr='' lu=36 au=51 ipc=false pnu=false itv=false ippp=true ian=false DesignMode=0 $begin 'PropList' $end 'PropList' $begin 'SimSetups' $end 'SimSetups' $begin 'gt' gt(1.0000000000000000e-10, 0.0000000000000000e+00, 0.0000000000000000e+00) $end 'gt' $begin 'Hfss",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [
+          {
+            "offset": 130409,
+            "rel": 449,
+            "value_m": -0.00508,
+            "value_mm": -5.08
+          },
+          {
+            "offset": 130600,
+            "rel": 640,
+            "value_m": 0.00508,
+            "value_mm": 5.08
+          }
+        ],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 130802,
+        "window_start": 130382,
+        "window_end": 132307,
+        "text": "rt1 t Port2 t? Port1 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) Port2 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) footprint12 M $begin '' id=12 dn='_symbolFootprint_dc120108_dc8d5670' bb=false sp=true apo=0 sfp=true scr='' lu=36 au=51 ipc=false pnu=false itv=false ippp=true ian=false DesignMode=0 $begin 'PropList' $end 'PropList' $begin 'SimSetups' $end 'SimSetups' $begin 'gt' gt(1.0000000000000000e-10, 0.0000000000000000e+00, 0.0000000000000000e+00) $end 'gt' $begin 'HfssExtent' Version=2 ExtentType='BboxExtent' BasePolygon='' BasePolygonEDBUId=-1 DielExtentType='BboxExtent' DielBasePolygon='' DielBasePolygonEDBUId=-1 DielExt(Ext='0.005', Dim=false) HonorUserDiel=true Include3D=false TruncAtGnd=false AirHorExt(Ext='0.15', Dim=false) AirPosZExt(Ext='2', Dim=false) AirNegZExt(Ext='2', Dim=false) SyncZExt=true OpenRegionType='Radiation' UseRadBound=true",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [
+          {
+            "offset": 130409,
+            "rel": 27,
+            "value_m": -0.00508,
+            "value_mm": -5.08
+          },
+          {
+            "offset": 130600,
+            "rel": 218,
+            "value_m": 0.00508,
+            "value_mm": 5.08
+          }
+        ],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 136517,
+        "window_start": 136097,
+        "window_end": 138022,
+        "text": "0' $begin 'lm' unique='forward' forward() backward() $end 'lm' pum='' $end '' S1_1_Pin_T1 t Port1 t? S1_1_Pin_T1 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) Port1 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) footprint3 L $begin '' id=3 dn='_symbolFootprint_dc11fa78_dc0de080' bb=false sp=true apo=0 sfp=true scr='' lu=41 au=51 ipc=false pnu=false itv=false ippp=true ian=false DesignMode=0 $begin 'PropList' $end 'PropList' $begin 'SimSetups' $end 'SimSetups' $begin 'gt' gt(1.0000000000000000e-10, 0.0000000000000000e+00, 0.0000000000000000e+00) $end 'gt' $begin 'HfssExtent' Version=2 ExtentType='BboxExtent' BasePolygon='' BasePolygonEDBUId=-1 DielExtentType='BboxExtent' DielBasePolygon='' DielBasePolygonEDBUId=-1 DielExt(Ext='0.005',",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [
+          {
+            "offset": 136355,
+            "rel": 258,
+            "value_m": -0.00508,
+            "value_mm": -5.08
+          },
+          {
+            "offset": 136546,
+            "rel": 449,
+            "value_m": 0.00508,
+            "value_mm": 5.08
+          }
+        ],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 137117,
+        "window_start": 136697,
+        "window_end": 138622,
+        "text": "S1_1_Pin_T1 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) Port1 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) footprint3 L $begin '' id=3 dn='_symbolFootprint_dc11fa78_dc0de080' bb=false sp=true apo=0 sfp=true scr='' lu=41 au=51 ipc=false pnu=false itv=false ippp=true ian=false DesignMode=0 $begin 'PropList' $end 'PropList' $begin 'SimSetups' $end 'SimSetups' $begin 'gt' gt(1.0000000000000000e-10, 0.0000000000000000e+00, 0.0000000000000000e+00) $end 'gt' $begin 'HfssExtent' Version=2 ExtentType='BboxExtent' BasePolygon='' BasePolygonEDBUId=-1 DielExtentType='BboxExtent' DielBasePolygon='' DielBasePolygonEDBUId=-1 DielExt(Ext='0.005', Dim=false) HonorUserDiel=true Include3D=false TruncAtGnd=false AirHorExt(Ext='0.15', Dim=false) AirPosZExt(Ext='2', Dim=false) AirNegZExt(Ext='2', Dim=false) SyncZExt=true OpenRegionType='Radiation' UseRadBound=true PMLVisible=false OperFreq='5GHz' RadLvl=0.0000000000000000e+00 U",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 146126,
+        "window_start": 145706,
+        "window_end": 147631,
+        "text": "e $end 'Locker' LengthUnits='' $begin 'cmp' $end 'cmp' $end '' $begin '' def=26 fl=-100 tl=-100 flp=false sbl=-100 tdl='\"\"' bdl='\"\"' tdo='0' bdo='0' tdd='0' bdd='0' $begin 'lm' unique='forward' forward() backward() $end 'lm' pum='' $end '' Port1 t Port2 t? Port1 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) Port2 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) footprint7 L $begin '' id=7 dn='_symbolFootprint_dc11f3e8_dc0ded70' bb=false sp=true apo=0 sfp=true scr='' lu=36 au=51 ipc=false pnu=false itv=false ippp=true ian=false DesignMode=0 $begin 'PropList' $end 'PropList' $begin 'SimSetups' $end 'SimSetups' $begin 'gt' gt(1.0000000000000000e-10, 0.0000000000000000e+00, 0.0000000000000000e+00) $end 'gt' $begin 'HfssEx",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [
+          {
+            "offset": 146155,
+            "rel": 449,
+            "value_m": -0.00508,
+            "value_mm": -5.08
+          },
+          {
+            "offset": 146346,
+            "rel": 640,
+            "value_m": 0.00508,
+            "value_mm": 5.08
+          }
+        ],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 146548,
+        "window_start": 146128,
+        "window_end": 148053,
+        "text": "rt1 t Port2 t? Port1 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) Port2 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) footprint7 L $begin '' id=7 dn='_symbolFootprint_dc11f3e8_dc0ded70' bb=false sp=true apo=0 sfp=true scr='' lu=36 au=51 ipc=false pnu=false itv=false ippp=true ian=false DesignMode=0 $begin 'PropList' $end 'PropList' $begin 'SimSetups' $end 'SimSetups' $begin 'gt' gt(1.0000000000000000e-10, 0.0000000000000000e+00, 0.0000000000000000e+00) $end 'gt' $begin 'HfssExtent' Version=2 ExtentType='BboxExtent' BasePolygon='' BasePolygonEDBUId=-1 DielExtentType='BboxExtent' DielBasePolygon='' DielBasePolygonEDBUId=-1 DielExt(Ext='0.005', Dim=false) HonorUserDiel=true Include3D=false TruncAtGnd=false AirHorExt(Ext='0.15', Dim=false) AirPosZExt(Ext='2', Dim=false) AirNegZExt(Ext='2', Dim=false) SyncZExt=true OpenRegionType='Radiation' UseRadBound=true P",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [
+          {
+            "offset": 146155,
+            "rel": 27,
+            "value_m": -0.00508,
+            "value_mm": -5.08
+          },
+          {
+            "offset": 146346,
+            "rel": 218,
+            "value_m": 0.00508,
+            "value_mm": 5.08
+          }
+        ],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 152261,
+        "window_start": 151841,
+        "window_end": 153766,
+        "text": "0' $begin 'lm' unique='forward' forward() backward() $end 'lm' pum='' $end '' S1_1_Pin_T1 t Port1 t? S1_1_Pin_T1 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) Port1 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) footprint9 L $begin '' id=9 dn='_symbolFootprint_dc11fed8_dc8d2fa0' bb=false sp=true apo=0 sfp=true scr='' lu=36 au=51 ipc=false pnu=false itv=false ippp=true ian=false DesignMode=0 $begin 'PropList' $end 'PropList' $begin 'SimSetups' $end 'SimSetups' $begin 'gt' gt(1.0000000000000000e-10, 0.0000000000000000e+00, 0.0000000000000000e+00) $end 'gt' $begin 'HfssExtent' Version=2 ExtentType='BboxExtent' BasePolygon='' BasePolygonEDBUId=-1 DielExtentType='BboxExtent' DielBasePolygon='' DielBasePolygonEDBUId=-1 DielExt(Ext='0.005',",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [
+          {
+            "offset": 152099,
+            "rel": 258,
+            "value_m": -0.00508,
+            "value_mm": -5.08
+          },
+          {
+            "offset": 152290,
+            "rel": 449,
+            "value_m": 0.00508,
+            "value_mm": 5.08
+          }
+        ],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 152861,
+        "window_start": 152441,
+        "window_end": 154366,
+        "text": "S1_1_Pin_T1 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) Port1 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) footprint9 L $begin '' id=9 dn='_symbolFootprint_dc11fed8_dc8d2fa0' bb=false sp=true apo=0 sfp=true scr='' lu=36 au=51 ipc=false pnu=false itv=false ippp=true ian=false DesignMode=0 $begin 'PropList' $end 'PropList' $begin 'SimSetups' $end 'SimSetups' $begin 'gt' gt(1.0000000000000000e-10, 0.0000000000000000e+00, 0.0000000000000000e+00) $end 'gt' $begin 'HfssExtent' Version=2 ExtentType='BboxExtent' BasePolygon='' BasePolygonEDBUId=-1 DielExtentType='BboxExtent' DielBasePolygon='' DielBasePolygonEDBUId=-1 DielExt(Ext='0.005', Dim=false) HonorUserDiel=true Include3D=false TruncAtGnd=false AirHorExt(Ext='0.15', Dim=false) AirPosZExt(Ext='2', Dim=false) AirNegZExt(Ext='2', Dim=false) SyncZExt=true OpenRegionType='Radiation' UseRadBound=true PMLVisible=false OperFreq='5GHz' RadLvl=0.0000000000000000e+00 U",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 174272,
+        "window_start": 173852,
+        "window_end": 175777,
+        "text": "S0_RF3\\C S0_RF2 c S0_RF4.C S0_RFC ; S0_RF1 s : S1_1_Pin_T1 wz ; Port1 <Power/Ground> Non Power/Ground DP_RS485 j rect__305 @ X = Jre ? 8 =? pME ? l poly__302 $ @s # s ! T ? H %? s ! T ? 8 =? Jre ? @ X = Jre ? m rect__306 $ > nME ? ?? ; ? x line__303 4? 333333 ? $ lt wMQ ? ^ d( ?$ y line__304 4? 333333 ? $ ^ d( ? f ?$ z line__308 4? 333333 ? $",
+        "explicit_coordinates": [],
+        "object_tokens": [
+          "rect__305",
+          "poly__302",
+          "rect__306",
+          "line__303",
+          "line__304",
+          "line__308"
+        ],
+        "doubles": [
+          {
+            "offset": 174617,
+            "rel": 765,
+            "value_m": -0.00044282360000000005,
+            "value_mm": -0.44282360000000004
+          },
+          {
+            "offset": 174629,
+            "rel": 777,
+            "value_m": 0.0145034,
+            "value_mm": 14.5034
+          },
+          {
+            "offset": 174641,
+            "rel": 789,
+            "value_m": 0.00045719999999999995,
+            "value_mm": 0.45719999999999994
+          },
+          {
+            "offset": 174653,
+            "rel": 801,
+            "value_m": 0.015003399,
+            "value_mm": 15.003399
+          },
+          {
+            "offset": 174840,
+            "rel": 988,
+            "value_m": -0.00015156179999999998,
+            "value_mm": -0.15156179999999997
+          },
+          {
+            "offset": 174848,
+            "rel": 996,
+            "value_m": 0.0109033818,
+            "value_mm": 10.9033818
+          },
+          {
+            "offset": 174856,
+            "rel": 1004,
+            "value_m": 0.0001659382,
+            "value_mm": 0.1659382
+          },
+          {
+            "offset": 174864,
+            "rel": 1012,
+            "value_m": 0.0109033818,
+            "value_mm": 10.9033818
+          },
+          {
+            "offset": 174872,
+            "rel": 1020,
+            "value_m": 0.0004572,
+            "value_mm": 0.4572
+          },
+          {
+            "offset": 174880,
+            "rel": 1028,
+            "value_m": 0.0145034,
+            "value_mm": 14.5034
+          },
+          {
+            "offset": 174888,
+            "rel": 1036,
+            "value_m": -0.00044282360000000005,
+            "value_mm": -0.44282360000000004
+          },
+          {
+            "offset": 174896,
+            "rel": 1044,
+            "value_m": 0.0145034,
+            "value_mm": 14.5034
+          },
+          {
+            "offset": 175042,
+            "rel": 1190,
+            "value_m": -0.0004678172,
+            "value_mm": -0.4678172
+          },
+          {
+            "offset": 175054,
+            "rel": 1202,
+            "value_m": 0.015003398999999997,
+            "value_mm": 15.003398999999996
+          },
+          {
+            "offset": 175065,
+            "rel": 1213,
+            "value_m": 0.025259942400001734,
+            "value_mm": 25.259942400001734
+          },
+          {
+            "offset": 175066,
+            "rel": 1214,
+            "value_m": 0.0004821936000000001,
+            "value_mm": 0.4821936000000001
+          },
+          {
+            "offset": 175078,
+            "rel": 1226,
+            "value_m": 0.017803393400000003,
+            "value_mm": 17.8033934
+          },
+          {
+            "offset": 175260,
+            "rel": 1408,
+            "value_m": 0.0003175,
+            "value_mm": 0.3175
+          },
+          {
+            "offset": 175309,
+            "rel": 1457,
+            "value_m": 0.014999995400000002,
+            "value_mm": 14.999995400000003
+          },
+          {
+            "offset": 175325,
+            "rel": 1473,
+            "value_m": 0.0149996906,
+            "value_mm": 14.999690600000001
+          },
+          {
+            "offset": 175497,
+            "rel": 1645,
+            "value_m": 0.0003175,
+            "value_mm": 0.3175
+          },
+          {
+            "offset": 175546,
+            "rel": 1694,
+            "value_m": 0.0149996906,
+            "value_mm": 14.999690600000001
+          },
+          {
+            "offset": 175562,
+            "rel": 1710,
+            "value_m": 0.010784916200000001,
+            "value_mm": 10.784916200000001
+          },
+          {
+            "offset": 175734,
+            "rel": 1882,
+            "value_m": 0.0003175,
+            "value_mm": 0.3175
+          }
+        ],
+        "coordinate_pairs": [
+          {
+            "x_offset": 174840,
+            "y_offset": 174848,
+            "gap_bytes": 8,
+            "x_m": -0.00015156179999999998,
+            "y_m": 0.0109033818,
+            "x_mm": -0.15156179999999997,
+            "y_mm": 10.9033818
+          },
+          {
+            "x_offset": 174848,
+            "y_offset": 174856,
+            "gap_bytes": 8,
+            "x_m": 0.0109033818,
+            "y_m": 0.0001659382,
+            "x_mm": 10.9033818,
+            "y_mm": 0.1659382
+          },
+          {
+            "x_offset": 174856,
+            "y_offset": 174864,
+            "gap_bytes": 8,
+            "x_m": 0.0001659382,
+            "y_m": 0.0109033818,
+            "x_mm": 0.1659382,
+            "y_mm": 10.9033818
+          },
+          {
+            "x_offset": 174864,
+            "y_offset": 174872,
+            "gap_bytes": 8,
+            "x_m": 0.0109033818,
+            "y_m": 0.0004572,
+            "x_mm": 10.9033818,
+            "y_mm": 0.4572
+          },
+          {
+            "x_offset": 174872,
+            "y_offset": 174880,
+            "gap_bytes": 8,
+            "x_m": 0.0004572,
+            "y_m": 0.0145034,
+            "x_mm": 0.4572,
+            "y_mm": 14.5034
+          },
+          {
+            "x_offset": 174880,
+            "y_offset": 174888,
+            "gap_bytes": 8,
+            "x_m": 0.0145034,
+            "y_m": -0.00044282360000000005,
+            "x_mm": 14.5034,
+            "y_mm": -0.44282360000000004
+          },
+          {
+            "x_offset": 174888,
+            "y_offset": 174896,
+            "gap_bytes": 8,
+            "x_m": -0.00044282360000000005,
+            "y_m": 0.0145034,
+            "x_mm": -0.44282360000000004,
+            "y_mm": 14.5034
+          },
+          {
+            "x_offset": 175065,
+            "y_offset": 175066,
+            "gap_bytes": 1,
+            "x_m": 0.025259942400001734,
+            "y_m": 0.0004821936000000001,
+            "x_mm": 25.259942400001734,
+            "y_mm": 0.4821936000000001
+          }
+        ],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 200002,
+        "window_start": 199582,
+        "window_end": 201507,
+        "text": "izionZ0='50ohm + 0i ohm', DoDeembedGapL=false) \" $begin 'PropDisplays' $begin 'label' Id=-1 Clearance=0 textGeometry(PN='InterfacePort', DispTyp='v', Style='<DefaultAnnotation>', Lyr=13, N='text_1874', x='0.027mil', y='302.332mil', F='Arial', Siz='472440.94488189mil', Wght=3, Just=4, Txt='Port1') $end 'label' $end 'PropDisplays' M $begin '' Type='EdgePort' Arms=1 HFSSLastType=0 IsGapSource=true $end '' ; Port1 HFSS HFSS('HFSS Type'='Gap', Orientation='Vertical', 'Layer Alignment'='Upper', 'Horizontal Extent Factor'='5', 'Vertical Extent Factor'='3', 'Radial Extent Factor'='0', 'PEC Launch Width'='1.18mil', ReferenceName='L2_GND:GND:poly__127') PlanarEMS PlanarEM(Type='Single Strip Gap Source', PortSolver=true, 'Ignore Reference'=false) SIwave SIwave('Reference Net'='GND') 50ohm PortExcitationProps(ExcitationVoltageMag='1V', ExcitationVoltagePhase='0deg', DoDeembed=true, DoDeembedLength='0mil', DoRenormalize=true, RenormalizionZ0='50ohm + 0i ohm', DoDeembedGapL=false) layout3 $begin '' id=3 dn='ppa_rf' bb=false sp=true apo=2 sfp=false scr='' lu=41 au=51 ipc=false pnu=false itv=false ippp=true ian=false DesignMode=0 $begin 'PropList' VariableProp(n='BendModel', v='0', vt=1, oi=0, ds=",
+        "explicit_coordinates": [
+          {
+            "x": "0.027mil",
+            "y": "302.332mil",
+            "x_mm": 0.0006858,
+            "y_mm": 7.679232799999999
+          }
+        ],
+        "object_tokens": [
+          "text_1874",
+          "poly__127"
+        ],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 200161,
+        "window_start": 199741,
+        "window_end": 201666,
+        "text": "\" $begin 'PropDisplays' $begin 'label' Id=-1 Clearance=0 textGeometry(PN='InterfacePort', DispTyp='v', Style='<DefaultAnnotation>', Lyr=13, N='text_1874', x='0.027mil', y='302.332mil', F='Arial', Siz='472440.94488189mil', Wght=3, Just=4, Txt='Port1') $end 'label' $end 'PropDisplays' M $begin '' Type='EdgePort' Arms=1 HFSSLastType=0 IsGapSource=true $end '' ; Port1 HFSS HFSS('HFSS Type'='Gap', Orientation='Vertical', 'Layer Alignment'='Upper', 'Horizontal Extent Factor'='5', 'Vertical Extent Factor'='3', 'Radial Extent Factor'='0', 'PEC Launch Width'='1.18mil', ReferenceName='L2_GND:GND:poly__127') PlanarEMS PlanarEM(Type='Single Strip Gap Source', PortSolver=true, 'Ignore Reference'=false) SIwave SIwave('Reference Net'='GND') 50ohm PortExcitationProps(ExcitationVoltageMag='1V', ExcitationVoltagePhase='0deg', DoDeembed=true, DoDeembedLength='0mil', DoRenormalize=true, RenormalizionZ0='50ohm + 0i ohm', DoDeembedGapL=false) layout3 $begin '' id=3 dn='ppa_rf' bb=false sp=true apo=2 sfp=false scr='' lu=41 au=51 ipc=false pnu=false itv=false ippp=true ian=false DesignMode=0 $begin 'PropList' VariableProp(n='BendModel', v='0', vt=1, oi=0, ds='') $end 'PropList' $begin 'SimSetups' $end 'Si",
+        "explicit_coordinates": [
+          {
+            "x": "0.027mil",
+            "y": "302.332mil",
+            "x_mm": 0.0006858,
+            "y_mm": 7.679232799999999
+          }
+        ],
+        "object_tokens": [
+          "text_1874",
+          "poly__127"
+        ],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 812415,
+        "window_start": 811995,
+        "window_end": 813920,
+        "text": "485_B s CTRL2 Q{ N11903882 ] GND\\C S0_RF1 t S0_RF459 : Port1 ; Port2 wz <Power/Ground> Non Power/Ground DP_RS485 rect__164 $ > nME ? ?? ; ? poly__161 $ @s # s ! T ? H %? s ! T ? 8 =? Jre ? @ X = Jre ? rect__163 @ X = Jre ? 8 =? pME ? line__159 4? 333333 ? $ JT ? ? l & > ' m ? l & >n 5 ?$ line__160 4? 333333 ? $ }3 ? ^ d( ?$ line__16",
+        "explicit_coordinates": [],
+        "object_tokens": [
+          "rect__164",
+          "poly__161",
+          "rect__163",
+          "line__159",
+          "line__160",
+          "line__16"
+        ],
+        "doubles": [
+          {
+            "offset": 812817,
+            "rel": 822,
+            "value_m": -0.0004678172,
+            "value_mm": -0.4678172
+          },
+          {
+            "offset": 812829,
+            "rel": 834,
+            "value_m": 0.015003398999999997,
+            "value_mm": 15.003398999999996
+          },
+          {
+            "offset": 812840,
+            "rel": 845,
+            "value_m": 0.025259942400001734,
+            "value_mm": 25.259942400001734
+          },
+          {
+            "offset": 812841,
+            "rel": 846,
+            "value_m": 0.0004821936000000001,
+            "value_mm": 0.4821936000000001
+          },
+          {
+            "offset": 812853,
+            "rel": 858,
+            "value_m": 0.017803393400000003,
+            "value_mm": 17.8033934
+          },
+          {
+            "offset": 813040,
+            "rel": 1045,
+            "value_m": -0.00015156179999999998,
+            "value_mm": -0.15156179999999997
+          },
+          {
+            "offset": 813048,
+            "rel": 1053,
+            "value_m": 0.0109033818,
+            "value_mm": 10.9033818
+          },
+          {
+            "offset": 813056,
+            "rel": 1061,
+            "value_m": 0.0001659382,
+            "value_mm": 0.1659382
+          },
+          {
+            "offset": 813064,
+            "rel": 1069,
+            "value_m": 0.0109033818,
+            "value_mm": 10.9033818
+          },
+          {
+            "offset": 813072,
+            "rel": 1077,
+            "value_m": 0.0004572,
+            "value_mm": 0.4572
+          },
+          {
+            "offset": 813080,
+            "rel": 1085,
+            "value_m": 0.0145034,
+            "value_mm": 14.5034
+          },
+          {
+            "offset": 813088,
+            "rel": 1093,
+            "value_m": -0.00044282360000000005,
+            "value_mm": -0.44282360000000004
+          },
+          {
+            "offset": 813096,
+            "rel": 1101,
+            "value_m": 0.0145034,
+            "value_mm": 14.5034
+          },
+          {
+            "offset": 813242,
+            "rel": 1247,
+            "value_m": -0.00044282360000000005,
+            "value_mm": -0.44282360000000004
+          },
+          {
+            "offset": 813254,
+            "rel": 1259,
+            "value_m": 0.0145034,
+            "value_mm": 14.5034
+          },
+          {
+            "offset": 813266,
+            "rel": 1271,
+            "value_m": 0.00045719999999999995,
+            "value_mm": 0.45719999999999994
+          },
+          {
+            "offset": 813278,
+            "rel": 1283,
+            "value_m": 0.015003399,
+            "value_mm": 15.003399
+          },
+          {
+            "offset": 813460,
+            "rel": 1465,
+            "value_m": 0.0003175,
+            "value_mm": 0.3175
+          },
+          {
+            "offset": 813509,
+            "rel": 1514,
+            "value_m": 0.0098044,
+            "value_mm": 9.8044
+          },
+          {
+            "offset": 813525,
+            "rel": 1530,
+            "value_m": 0.0087657686,
+            "value_mm": 8.7657686
+          },
+          {
+            "offset": 813541,
+            "rel": 1546,
+            "value_m": 0.0087650828,
+            "value_mm": 8.7650828
+          },
+          {
+            "offset": 813557,
+            "rel": 1562,
+            "value_m": 0.0080792828,
+            "value_mm": 8.0792828
+          },
+          {
+            "offset": 813729,
+            "rel": 1734,
+            "value_m": 0.0003175,
+            "value_mm": 0.3175
+          },
+          {
+            "offset": 813778,
+            "rel": 1783,
+            "value_m": 0.0105664,
+            "value_mm": 10.5664
+          },
+          {
+            "offset": 813794,
+            "rel": 1799,
+            "value_m": 0.0149996906,
+            "value_mm": 14.999690600000001
+          }
+        ],
+        "coordinate_pairs": [
+          {
+            "x_offset": 812840,
+            "y_offset": 812841,
+            "gap_bytes": 1,
+            "x_m": 0.025259942400001734,
+            "y_m": 0.0004821936000000001,
+            "x_mm": 25.259942400001734,
+            "y_mm": 0.4821936000000001
+          },
+          {
+            "x_offset": 813040,
+            "y_offset": 813048,
+            "gap_bytes": 8,
+            "x_m": -0.00015156179999999998,
+            "y_m": 0.0109033818,
+            "x_mm": -0.15156179999999997,
+            "y_mm": 10.9033818
+          },
+          {
+            "x_offset": 813048,
+            "y_offset": 813056,
+            "gap_bytes": 8,
+            "x_m": 0.0109033818,
+            "y_m": 0.0001659382,
+            "x_mm": 10.9033818,
+            "y_mm": 0.1659382
+          },
+          {
+            "x_offset": 813056,
+            "y_offset": 813064,
+            "gap_bytes": 8,
+            "x_m": 0.0001659382,
+            "y_m": 0.0109033818,
+            "x_mm": 0.1659382,
+            "y_mm": 10.9033818
+          },
+          {
+            "x_offset": 813064,
+            "y_offset": 813072,
+            "gap_bytes": 8,
+            "x_m": 0.0109033818,
+            "y_m": 0.0004572,
+            "x_mm": 10.9033818,
+            "y_mm": 0.4572
+          },
+          {
+            "x_offset": 813072,
+            "y_offset": 813080,
+            "gap_bytes": 8,
+            "x_m": 0.0004572,
+            "y_m": 0.0145034,
+            "x_mm": 0.4572,
+            "y_mm": 14.5034
+          },
+          {
+            "x_offset": 813080,
+            "y_offset": 813088,
+            "gap_bytes": 8,
+            "x_m": 0.0145034,
+            "y_m": -0.00044282360000000005,
+            "x_mm": 14.5034,
+            "y_mm": -0.44282360000000004
+          },
+          {
+            "x_offset": 813088,
+            "y_offset": 813096,
+            "gap_bytes": 8,
+            "x_m": -0.00044282360000000005,
+            "y_m": 0.0145034,
+            "x_mm": -0.44282360000000004,
+            "y_mm": 14.5034
+          }
+        ],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 832277,
+        "window_start": 831857,
+        "window_end": 833782,
+        "text": ": Pin_T1 \" ! $begin 'PropDisplays' $begin 'label' Id=-1 Clearance=0 textGeometry(PN='InterfacePort', DispTyp='v', Style='<DefaultAnnotation>', Lyr=13, N='text_1881', x='1.01538809858919e-15mm', y='27.4mm', F='Arial', Siz='12000mm', Wght=3, Just=4, Txt='Port1') $end 'label' $end 'PropDisplays' L $begin '' Type='Invalid' Arms=0 HFSSLastType=4 IsGapSource=true $end '' : Port1 HFSS HFSS('HFSS Type'='**Invalid**', Orientation='**Invalid**', 'Layer Alignment'='Upper', 'Horizontal Extent Factor'='5', 'Vertical Extent Factor'='3', 'Radial Extent Factor'='0', 'PEC Launch Width'='0mil', ReferenceName='') PlanarEMR PlanarEM(Type='**Invalid** Gap Source', PortSolver=true, 'Ignore Reference'=false) SIwave SIwave('Reference Net'='GND') 50ohm PortExcitationProps(ExcitationVoltageMag='1V', ExcitationVoltagePhase='0deg', DoDeembed=true, DoDeembedLength='0mil', DoRenormalize=true, RenormalizionZ0='50ohm + 0i ohm', DoDeembedGapL=false) \" $begin 'PropDisplays' $begin 'label' Id=-1 Clearance=0 textGeometry(PN='InterfacePort', DispTyp='v', Style='<DefaultAnnotation>', Lyr=13, N='text_1882', x='0.027mil', y='302.332mil', F='Arial', Siz='472440.94488189mil', Wght=3, Just=4, Txt='Port2') $end 'label' $end ",
+        "explicit_coordinates": [
+          {
+            "x": "1.01538809858919e-15mm",
+            "y": "27.4mm",
+            "x_mm": 1.01538809858919e-15,
+            "y_mm": 27.4
+          },
+          {
+            "x": "0.027mil",
+            "y": "302.332mil",
+            "x_mm": 0.0006858,
+            "y_mm": 7.679232799999999
+          }
+        ],
+        "object_tokens": [
+          "text_1881",
+          "text_1882"
+        ],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 832435,
+        "window_start": 832015,
+        "window_end": 833940,
+        "text": "! $begin 'PropDisplays' $begin 'label' Id=-1 Clearance=0 textGeometry(PN='InterfacePort', DispTyp='v', Style='<DefaultAnnotation>', Lyr=13, N='text_1881', x='1.01538809858919e-15mm', y='27.4mm', F='Arial', Siz='12000mm', Wght=3, Just=4, Txt='Port1') $end 'label' $end 'PropDisplays' L $begin '' Type='Invalid' Arms=0 HFSSLastType=4 IsGapSource=true $end '' : Port1 HFSS HFSS('HFSS Type'='**Invalid**', Orientation='**Invalid**', 'Layer Alignment'='Upper', 'Horizontal Extent Factor'='5', 'Vertical Extent Factor'='3', 'Radial Extent Factor'='0', 'PEC Launch Width'='0mil', ReferenceName='') PlanarEMR PlanarEM(Type='**Invalid** Gap Source', PortSolver=true, 'Ignore Reference'=false) SIwave SIwave('Reference Net'='GND') 50ohm PortExcitationProps(ExcitationVoltageMag='1V', ExcitationVoltagePhase='0deg', DoDeembed=true, DoDeembedLength='0mil', DoRenormalize=true, RenormalizionZ0='50ohm + 0i ohm', DoDeembedGapL=false) \" $begin 'PropDisplays' $begin 'label' Id=-1 Clearance=0 textGeometry(PN='InterfacePort', DispTyp='v', Style='<DefaultAnnotation>', Lyr=13, N='text_1882', x='0.027mil', y='302.332mil', F='Arial', Siz='472440.94488189mil', Wght=3, Just=4, Txt='Port2') $end 'label' $end 'PropDispla",
+        "explicit_coordinates": [
+          {
+            "x": "1.01538809858919e-15mm",
+            "y": "27.4mm",
+            "x_mm": 1.01538809858919e-15,
+            "y_mm": 27.4
+          },
+          {
+            "x": "0.027mil",
+            "y": "302.332mil",
+            "x_mm": 0.0006858,
+            "y_mm": 7.679232799999999
+          }
+        ],
+        "object_tokens": [
+          "text_1881",
+          "text_1882"
+        ],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 851755,
+        "window_start": 851335,
+        "window_end": 853260,
+        "text": "d='0' $begin 'lm' unique='forward' forward(-1, -1, -1, -1, -1, -1, -1, 1) backward(-1, 7) $end 'lm' pum='7:1:' $end '' S1_RF4 OUT4 s GND\\C < S1_1_Pin_T1 = Port1 wz <Power/Ground> Non Power/Ground # rect_1880 Q MbP ~j t ~j t % line__300 4? 333333 ? $ N o o \\ N o (}^G l : $ & line__302 4? 333333 ? $ l W >P6z N o 1] l $ ' line__303 4? 333333 ? $ N o 1] l N o o \\ $ ( line__306 4? 333333 ? $ l W c J v l W >P6z $ q poly__305 $ o b z - & b",
+        "explicit_coordinates": [],
+        "object_tokens": [
+          "rect_1880",
+          "line__300",
+          "line__302",
+          "line__303",
+          "line__306",
+          "poly__305"
+        ],
+        "doubles": [
+          {
+            "offset": 852044,
+            "rel": 709,
+            "value_m": -0.06,
+            "value_mm": -60.0
+          },
+          {
+            "offset": 852056,
+            "rel": 721,
+            "value_m": -0.0009999999999999992,
+            "value_mm": -0.9999999999999991
+          },
+          {
+            "offset": 852068,
+            "rel": 733,
+            "value_m": -0.048,
+            "value_mm": -48.0
+          },
+          {
+            "offset": 852080,
+            "rel": 745,
+            "value_m": -0.018999999999999996,
+            "value_mm": -18.999999999999996
+          },
+          {
+            "offset": 852262,
+            "rel": 927,
+            "value_m": 0.0003175,
+            "value_mm": 0.3175
+          },
+          {
+            "offset": 852303,
+            "rel": 968,
+            "value_m": -0.055999888,
+            "value_mm": -55.999888
+          },
+          {
+            "offset": 852311,
+            "rel": 976,
+            "value_m": -0.0110452154,
+            "value_mm": -11.0452154
+          },
+          {
+            "offset": 852319,
+            "rel": 984,
+            "value_m": -0.055999888,
+            "value_mm": -55.999888
+          },
+          {
+            "offset": 852327,
+            "rel": 992,
+            "value_m": -0.010675112,
+            "value_mm": -10.675112
+          },
+          {
+            "offset": 852335,
+            "rel": 1000,
+            "value_m": -0.056007,
+            "value_mm": -56.007
+          },
+          {
+            "offset": 852343,
+            "rel": 1008,
+            "value_m": -0.010668,
+            "value_mm": -10.668000000000001
+          },
+          {
+            "offset": 852515,
+            "rel": 1180,
+            "value_m": 0.0003175,
+            "value_mm": 0.3175
+          },
+          {
+            "offset": 852556,
+            "rel": 1221,
+            "value_m": -0.0559997864,
+            "value_mm": -55.9997864
+          },
+          {
+            "offset": 852558,
+            "rel": 1223,
+            "value_m": 3.188696922535449e-06,
+            "value_mm": 0.003188696922535449
+          },
+          {
+            "offset": 852564,
+            "rel": 1229,
+            "value_m": -0.0150003002,
+            "value_mm": -15.0003002
+          },
+          {
+            "offset": 852572,
+            "rel": 1237,
+            "value_m": -0.055999888,
+            "value_mm": -55.999888
+          },
+          {
+            "offset": 852580,
+            "rel": 1245,
+            "value_m": -0.0150001986,
+            "value_mm": -15.000198600000001
+          },
+          {
+            "offset": 852752,
+            "rel": 1417,
+            "value_m": 0.0003175,
+            "value_mm": 0.3175
+          },
+          {
+            "offset": 852793,
+            "rel": 1458,
+            "value_m": -0.055999888,
+            "value_mm": -55.999888
+          },
+          {
+            "offset": 852801,
+            "rel": 1466,
+            "value_m": -0.0150001986,
+            "value_mm": -15.000198600000001
+          },
+          {
+            "offset": 852809,
+            "rel": 1474,
+            "value_m": -0.055999888,
+            "value_mm": -55.999888
+          },
+          {
+            "offset": 852817,
+            "rel": 1482,
+            "value_m": -0.0110452154,
+            "value_mm": -11.0452154
+          },
+          {
+            "offset": 852989,
+            "rel": 1654,
+            "value_m": 0.0003175,
+            "value_mm": 0.3175
+          },
+          {
+            "offset": 853030,
+            "rel": 1695,
+            "value_m": -0.0559997864,
+            "value_mm": -55.9997864
+          },
+          {
+            "offset": 853038,
+            "rel": 1703,
+            "value_m": -0.0154999944,
+            "value_mm": -15.4999944
+          },
+          {
+            "offset": 853046,
+            "rel": 1711,
+            "value_m": -0.0559997864,
+            "value_mm": -55.9997864
+          },
+          {
+            "offset": 853048,
+            "rel": 1713,
+            "value_m": 3.188696922535449e-06,
+            "value_mm": 0.003188696922535449
+          },
+          {
+            "offset": 853054,
+            "rel": 1719,
+            "value_m": -0.0150003002,
+            "value_mm": -15.0003002
+          },
+          {
+            "offset": 853231,
+            "rel": 1896,
+            "value_m": -0.055539182799999996,
+            "value_mm": -55.5391828
+          },
+          {
+            "offset": 853239,
+            "rel": 1904,
+            "value_m": -0.015054198999999999,
+            "value_mm": -15.054198999999999
+          },
+          {
+            "offset": 853247,
+            "rel": 1912,
+            "value_m": -0.0564891936,
+            "value_mm": -56.4891936
+          }
+        ],
+        "coordinate_pairs": [
+          {
+            "x_offset": 852303,
+            "y_offset": 852311,
+            "gap_bytes": 8,
+            "x_m": -0.055999888,
+            "y_m": -0.0110452154,
+            "x_mm": -55.999888,
+            "y_mm": -11.0452154
+          },
+          {
+            "x_offset": 852311,
+            "y_offset": 852319,
+            "gap_bytes": 8,
+            "x_m": -0.0110452154,
+            "y_m": -0.055999888,
+            "x_mm": -11.0452154,
+            "y_mm": -55.999888
+          },
+          {
+            "x_offset": 852319,
+            "y_offset": 852327,
+            "gap_bytes": 8,
+            "x_m": -0.055999888,
+            "y_m": -0.010675112,
+            "x_mm": -55.999888,
+            "y_mm": -10.675112
+          },
+          {
+            "x_offset": 852327,
+            "y_offset": 852335,
+            "gap_bytes": 8,
+            "x_m": -0.010675112,
+            "y_m": -0.056007,
+            "x_mm": -10.675112,
+            "y_mm": -56.007
+          },
+          {
+            "x_offset": 852335,
+            "y_offset": 852343,
+            "gap_bytes": 8,
+            "x_m": -0.056007,
+            "y_m": -0.010668,
+            "x_mm": -56.007,
+            "y_mm": -10.668000000000001
+          },
+          {
+            "x_offset": 852556,
+            "y_offset": 852558,
+            "gap_bytes": 2,
+            "x_m": -0.0559997864,
+            "y_m": 3.188696922535449e-06,
+            "x_mm": -55.9997864,
+            "y_mm": 0.003188696922535449
+          },
+          {
+            "x_offset": 852556,
+            "y_offset": 852564,
+            "gap_bytes": 8,
+            "x_m": -0.0559997864,
+            "y_m": -0.0150003002,
+            "x_mm": -55.9997864,
+            "y_mm": -15.0003002
+          },
+          {
+            "x_offset": 852558,
+            "y_offset": 852564,
+            "gap_bytes": 6,
+            "x_m": 3.188696922535449e-06,
+            "y_m": -0.0150003002,
+            "x_mm": 0.003188696922535449,
+            "y_mm": -15.0003002
+          },
+          {
+            "x_offset": 852564,
+            "y_offset": 852572,
+            "gap_bytes": 8,
+            "x_m": -0.0150003002,
+            "y_m": -0.055999888,
+            "x_mm": -15.0003002,
+            "y_mm": -55.999888
+          },
+          {
+            "x_offset": 852572,
+            "y_offset": 852580,
+            "gap_bytes": 8,
+            "x_m": -0.055999888,
+            "y_m": -0.0150001986,
+            "x_mm": -55.999888,
+            "y_mm": -15.000198600000001
+          },
+          {
+            "x_offset": 852793,
+            "y_offset": 852801,
+            "gap_bytes": 8,
+            "x_m": -0.055999888,
+            "y_m": -0.0150001986,
+            "x_mm": -55.999888,
+            "y_mm": -15.000198600000001
+          },
+          {
+            "x_offset": 852801,
+            "y_offset": 852809,
+            "gap_bytes": 8,
+            "x_m": -0.0150001986,
+            "y_m": -0.055999888,
+            "x_mm": -15.000198600000001,
+            "y_mm": -55.999888
+          },
+          {
+            "x_offset": 852809,
+            "y_offset": 852817,
+            "gap_bytes": 8,
+            "x_m": -0.055999888,
+            "y_m": -0.0110452154,
+            "x_mm": -55.999888,
+            "y_mm": -11.0452154
+          },
+          {
+            "x_offset": 853030,
+            "y_offset": 853038,
+            "gap_bytes": 8,
+            "x_m": -0.0559997864,
+            "y_m": -0.0154999944,
+            "x_mm": -55.9997864,
+            "y_mm": -15.4999944
+          },
+          {
+            "x_offset": 853038,
+            "y_offset": 853046,
+            "gap_bytes": 8,
+            "x_m": -0.0154999944,
+            "y_m": -0.0559997864,
+            "x_mm": -15.4999944,
+            "y_mm": -55.9997864
+          },
+          {
+            "x_offset": 853046,
+            "y_offset": 853048,
+            "gap_bytes": 2,
+            "x_m": -0.0559997864,
+            "y_m": 3.188696922535449e-06,
+            "x_mm": -55.9997864,
+            "y_mm": 0.003188696922535449
+          },
+          {
+            "x_offset": 853046,
+            "y_offset": 853054,
+            "gap_bytes": 8,
+            "x_m": -0.0559997864,
+            "y_m": -0.0150003002,
+            "x_mm": -55.9997864,
+            "y_mm": -15.0003002
+          },
+          {
+            "x_offset": 853048,
+            "y_offset": 853054,
+            "gap_bytes": 6,
+            "x_m": 3.188696922535449e-06,
+            "y_m": -0.0150003002,
+            "x_mm": 0.003188696922535449,
+            "y_mm": -15.0003002
+          },
+          {
+            "x_offset": 853231,
+            "y_offset": 853239,
+            "gap_bytes": 8,
+            "x_m": -0.055539182799999996,
+            "y_m": -0.015054198999999999,
+            "x_mm": -55.5391828,
+            "y_mm": -15.054198999999999
+          },
+          {
+            "x_offset": 853239,
+            "y_offset": 853247,
+            "gap_bytes": 8,
+            "x_m": -0.015054198999999999,
+            "y_m": -0.0564891936,
+            "x_mm": -15.054198999999999,
+            "y_mm": -56.4891936
+          }
+        ],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 877488,
+        "window_start": 877068,
+        "window_end": 878993,
+        "text": "hm + 0i ohm', DoDeembedGapL=false) . $begin 'PropDisplays' $begin 'label' Id=-1 Clearance=0 textGeometry(PN='InterfacePort', DispTyp='v', Style='<DefaultAnnotation>', Lyr=13, N='text_1887', x='-1889.76377952756mil', y='-94.848mil', F='Arial', Siz='472440.94488189mil', Wght=3, Just=4, Txt='Port1') $end 'label' $end 'PropDisplays' M $begin '' Type='EdgePort' Arms=1 HFSSLastType=0 IsGapSource=true $end '' = Port1 HFSS HFSS('HFSS Type'='Gap', Orientation='Vertical', 'Layer Alignment'='Upper', 'Horizontal Extent Factor'='5', 'Vertical Extent Factor'='3', 'Radial Extent Factor'='0', 'PEC Launch Width'='1.25mil', ReferenceName='L2_GND:GND:poly__120') PlanarEMS PlanarEM(Type='Single Strip Gap Source', PortSolver=true, 'Ignore Reference'=false) SIwave SIwave('Reference Net'='GND') 50ohm PortExcitationProps(ExcitationVoltageMag='1V', ExcitationVoltagePhase='0deg', DoDeembed=true, DoDeembedLength='0mil', DoRenormalize=true, RenormalizionZ0='50ohm + 0i ohm', DoDeembedGapL=false) } layout7 * $begin '' id=7 dn='ppa_rf_cutout_RF_OUT' bb=false sp=true apo=2 sfp=false scr='' lu=41 au=51 ipc=false pnu=false itv=false ippp=true ian=false DesignMode=0 $begin 'PropList' VariableProp(n='BendModel', v='0",
+        "explicit_coordinates": [
+          {
+            "x": "-1889.76377952756mil",
+            "y": "-94.848mil",
+            "x_mm": -48.00000000000002,
+            "y_mm": -2.4091392
+          }
+        ],
+        "object_tokens": [
+          "text_1887",
+          "poly__120"
+        ],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 877647,
+        "window_start": 877227,
+        "window_end": 879152,
+        "text": "$begin 'PropDisplays' $begin 'label' Id=-1 Clearance=0 textGeometry(PN='InterfacePort', DispTyp='v', Style='<DefaultAnnotation>', Lyr=13, N='text_1887', x='-1889.76377952756mil', y='-94.848mil', F='Arial', Siz='472440.94488189mil', Wght=3, Just=4, Txt='Port1') $end 'label' $end 'PropDisplays' M $begin '' Type='EdgePort' Arms=1 HFSSLastType=0 IsGapSource=true $end '' = Port1 HFSS HFSS('HFSS Type'='Gap', Orientation='Vertical', 'Layer Alignment'='Upper', 'Horizontal Extent Factor'='5', 'Vertical Extent Factor'='3', 'Radial Extent Factor'='0', 'PEC Launch Width'='1.25mil', ReferenceName='L2_GND:GND:poly__120') PlanarEMS PlanarEM(Type='Single Strip Gap Source', PortSolver=true, 'Ignore Reference'=false) SIwave SIwave('Reference Net'='GND') 50ohm PortExcitationProps(ExcitationVoltageMag='1V', ExcitationVoltagePhase='0deg', DoDeembed=true, DoDeembedLength='0mil', DoRenormalize=true, RenormalizionZ0='50ohm + 0i ohm', DoDeembedGapL=false) } layout7 * $begin '' id=7 dn='ppa_rf_cutout_RF_OUT' bb=false sp=true apo=2 sfp=false scr='' lu=41 au=51 ipc=false pnu=false itv=false ippp=true ian=false DesignMode=0 $begin 'PropList' VariableProp(n='BendModel', v='0', vt=1, oi=0, ds='') $end 'PropList'",
+        "explicit_coordinates": [
+          {
+            "x": "-1889.76377952756mil",
+            "y": "-94.848mil",
+            "x_mm": -48.00000000000002,
+            "y_mm": -2.4091392
+          }
+        ],
+        "object_tokens": [
+          "text_1887",
+          "poly__120"
+        ],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 897116,
+        "window_start": 896696,
+        "window_end": 898621,
+        "text": "nd '' OUT3 4Q VCC3V3_RF1U7U S1_RF3^o GND\\C +5V 3.3V wz : Port1 ; Port2 wz <Power/Ground> Non Power/Ground V rect_1881 N 3 ? 98Ph j5. D ~j t line__294 4? 333333 ? $ z 1] l d M z 1] l $ line__291 4? 333333 ? $ d M z G] Ic d M z a f k ? Gm ] b < E Ld hr ` D\" W)? m ( vZ 0 = W n ' & 0 = W n ' & w Z n $ line__295 4? 333333 ? $ d M z 1] l d M z o \\ $ line__292 4? 333333 ? $ d M z o \\ d M z h % [Z { c3vx $",
+        "explicit_coordinates": [],
+        "object_tokens": [
+          "rect_1881",
+          "line__294",
+          "line__291",
+          "line__295",
+          "line__292"
+        ],
+        "doubles": [
+          {
+            "offset": 897460,
+            "rel": 764,
+            "value_m": 0.06883546880089852,
+            "value_mm": 68.83546880089852
+          },
+          {
+            "offset": 897462,
+            "rel": 766,
+            "value_m": -0.04345469540000001,
+            "value_mm": -43.454695400000006
+          },
+          {
+            "offset": 897474,
+            "rel": 778,
+            "value_m": -0.0029679391999999985,
+            "value_mm": -2.9679391999999987
+          },
+          {
+            "offset": 897486,
+            "rel": 790,
+            "value_m": -0.03244223180000001,
+            "value_mm": -32.442231800000016
+          },
+          {
+            "offset": 897498,
+            "rel": 802,
+            "value_m": -0.018999999999999996,
+            "value_mm": -18.999999999999996
+          },
+          {
+            "offset": 897680,
+            "rel": 984,
+            "value_m": 0.0003175,
+            "value_mm": 0.3175
+          },
+          {
+            "offset": 897721,
+            "rel": 1025,
+            "value_m": -0.0399995898,
+            "value_mm": -39.999589799999995
+          },
+          {
+            "offset": 897729,
+            "rel": 1033,
+            "value_m": -0.0150001986,
+            "value_mm": -15.000198600000001
+          },
+          {
+            "offset": 897737,
+            "rel": 1041,
+            "value_m": -0.0399998946,
+            "value_mm": -39.999894600000005
+          },
+          {
+            "offset": 897745,
+            "rel": 1049,
+            "value_m": -0.0150001986,
+            "value_mm": -15.000198600000001
+          },
+          {
+            "offset": 897917,
+            "rel": 1221,
+            "value_m": 0.0003175,
+            "value_mm": 0.3175
+          },
+          {
+            "offset": 897958,
+            "rel": 1262,
+            "value_m": -0.0399998946,
+            "value_mm": -39.999894600000005
+          },
+          {
+            "offset": 897966,
+            "rel": 1270,
+            "value_m": -0.0099549966,
+            "value_mm": -9.9549966
+          },
+          {
+            "offset": 897974,
+            "rel": 1278,
+            "value_m": -0.0399998946,
+            "value_mm": -39.999894600000005
+          },
+          {
+            "offset": 897982,
+            "rel": 1286,
+            "value_m": -0.0091209114,
+            "value_mm": -9.1209114
+          },
+          {
+            "offset": 897990,
+            "rel": 1294,
+            "value_m": 5.802423838745783e-05,
+            "value_mm": 0.05802423838745783
+          },
+          {
+            "offset": 898006,
+            "rel": 1310,
+            "value_m": -0.0397767048,
+            "value_mm": -39.7767048
+          },
+          {
+            "offset": 898014,
+            "rel": 1318,
+            "value_m": -0.008581898000000001,
+            "value_mm": -8.581898
+          },
+          {
+            "offset": 898022,
+            "rel": 1326,
+            "value_m": -0.0356893114,
+            "value_mm": -35.6893114
+          },
+          {
+            "offset": 898030,
+            "rel": 1334,
+            "value_m": -0.0044945046,
+            "value_mm": -4.4945046
+          },
+          {
+            "offset": 898038,
+            "rel": 1342,
+            "value_m": 0.0001933484028400238,
+            "value_mm": 0.1933484028400238
+          },
+          {
+            "offset": 898054,
+            "rel": 1358,
+            "value_m": -0.033893302800000004,
+            "value_mm": -33.8933028
+          },
+          {
+            "offset": 898062,
+            "rel": 1366,
+            "value_m": -0.0037504878000000005,
+            "value_mm": -3.7504878000000006
+          },
+          {
+            "offset": 898070,
+            "rel": 1374,
+            "value_m": -0.033500288600000004,
+            "value_mm": -33.500288600000005
+          },
+          {
+            "offset": 898078,
+            "rel": 1382,
+            "value_m": -0.0037504878000000005,
+            "value_mm": -3.7504878000000006
+          },
+          {
+            "offset": 898086,
+            "rel": 1390,
+            "value_m": -0.033500288600000004,
+            "value_mm": -33.500288600000005
+          },
+          {
+            "offset": 898094,
+            "rel": 1398,
+            "value_m": -0.0037505894,
+            "value_mm": -3.7505894
+          },
+          {
+            "offset": 898266,
+            "rel": 1570,
+            "value_m": 0.0003175,
+            "value_mm": 0.3175
+          },
+          {
+            "offset": 898307,
+            "rel": 1611,
+            "value_m": -0.0399998946,
+            "value_mm": -39.999894600000005
+          },
+          {
+            "offset": 898315,
+            "rel": 1619,
+            "value_m": -0.0150001986,
+            "value_mm": -15.000198600000001
+          },
+          {
+            "offset": 898323,
+            "rel": 1627,
+            "value_m": -0.0399998946,
+            "value_mm": -39.999894600000005
+          },
+          {
+            "offset": 898331,
+            "rel": 1635,
+            "value_m": -0.0110452154,
+            "value_mm": -11.0452154
+          },
+          {
+            "offset": 898503,
+            "rel": 1807,
+            "value_m": 0.0003175,
+            "value_mm": 0.3175
+          },
+          {
+            "offset": 898544,
+            "rel": 1848,
+            "value_m": -0.0399998946,
+            "value_mm": -39.999894600000005
+          },
+          {
+            "offset": 898552,
+            "rel": 1856,
+            "value_m": -0.0110452154,
+            "value_mm": -11.0452154
+          },
+          {
+            "offset": 898560,
+            "rel": 1864,
+            "value_m": -0.0399998946,
+            "value_mm": -39.999894600000005
+          },
+          {
+            "offset": 898568,
+            "rel": 1872,
+            "value_m": -0.0106223054,
+            "value_mm": -10.6223054
+          },
+          {
+            "offset": 898576,
+            "rel": 1880,
+            "value_m": -0.040005,
+            "value_mm": -40.004999999999995
+          },
+          {
+            "offset": 898584,
+            "rel": 1888,
+            "value_m": -0.0106172,
+            "value_mm": -10.6172
+          }
+        ],
+        "coordinate_pairs": [
+          {
+            "x_offset": 897460,
+            "y_offset": 897462,
+            "gap_bytes": 2,
+            "x_m": 0.06883546880089852,
+            "y_m": -0.04345469540000001,
+            "x_mm": 68.83546880089852,
+            "y_mm": -43.454695400000006
+          },
+          {
+            "x_offset": 897721,
+            "y_offset": 897729,
+            "gap_bytes": 8,
+            "x_m": -0.0399995898,
+            "y_m": -0.0150001986,
+            "x_mm": -39.999589799999995,
+            "y_mm": -15.000198600000001
+          },
+          {
+            "x_offset": 897729,
+            "y_offset": 897737,
+            "gap_bytes": 8,
+            "x_m": -0.0150001986,
+            "y_m": -0.0399998946,
+            "x_mm": -15.000198600000001,
+            "y_mm": -39.999894600000005
+          },
+          {
+            "x_offset": 897737,
+            "y_offset": 897745,
+            "gap_bytes": 8,
+            "x_m": -0.0399998946,
+            "y_m": -0.0150001986,
+            "x_mm": -39.999894600000005,
+            "y_mm": -15.000198600000001
+          },
+          {
+            "x_offset": 897958,
+            "y_offset": 897966,
+            "gap_bytes": 8,
+            "x_m": -0.0399998946,
+            "y_m": -0.0099549966,
+            "x_mm": -39.999894600000005,
+            "y_mm": -9.9549966
+          },
+          {
+            "x_offset": 897966,
+            "y_offset": 897974,
+            "gap_bytes": 8,
+            "x_m": -0.0099549966,
+            "y_m": -0.0399998946,
+            "x_mm": -9.9549966,
+            "y_mm": -39.999894600000005
+          },
+          {
+            "x_offset": 897974,
+            "y_offset": 897982,
+            "gap_bytes": 8,
+            "x_m": -0.0399998946,
+            "y_m": -0.0091209114,
+            "x_mm": -39.999894600000005,
+            "y_mm": -9.1209114
+          },
+          {
+            "x_offset": 897982,
+            "y_offset": 897990,
+            "gap_bytes": 8,
+            "x_m": -0.0091209114,
+            "y_m": 5.802423838745783e-05,
+            "x_mm": -9.1209114,
+            "y_mm": 0.05802423838745783
+          },
+          {
+            "x_offset": 898006,
+            "y_offset": 898014,
+            "gap_bytes": 8,
+            "x_m": -0.0397767048,
+            "y_m": -0.008581898000000001,
+            "x_mm": -39.7767048,
+            "y_mm": -8.581898
+          },
+          {
+            "x_offset": 898014,
+            "y_offset": 898022,
+            "gap_bytes": 8,
+            "x_m": -0.008581898000000001,
+            "y_m": -0.0356893114,
+            "x_mm": -8.581898,
+            "y_mm": -35.6893114
+          },
+          {
+            "x_offset": 898022,
+            "y_offset": 898030,
+            "gap_bytes": 8,
+            "x_m": -0.0356893114,
+            "y_m": -0.0044945046,
+            "x_mm": -35.6893114,
+            "y_mm": -4.4945046
+          },
+          {
+            "x_offset": 898030,
+            "y_offset": 898038,
+            "gap_bytes": 8,
+            "x_m": -0.0044945046,
+            "y_m": 0.0001933484028400238,
+            "x_mm": -4.4945046,
+            "y_mm": 0.1933484028400238
+          },
+          {
+            "x_offset": 898054,
+            "y_offset": 898062,
+            "gap_bytes": 8,
+            "x_m": -0.033893302800000004,
+            "y_m": -0.0037504878000000005,
+            "x_mm": -33.8933028,
+            "y_mm": -3.7504878000000006
+          },
+          {
+            "x_offset": 898062,
+            "y_offset": 898070,
+            "gap_bytes": 8,
+            "x_m": -0.0037504878000000005,
+            "y_m": -0.033500288600000004,
+            "x_mm": -3.7504878000000006,
+            "y_mm": -33.500288600000005
+          },
+          {
+            "x_offset": 898070,
+            "y_offset": 898078,
+            "gap_bytes": 8,
+            "x_m": -0.033500288600000004,
+            "y_m": -0.0037504878000000005,
+            "x_mm": -33.500288600000005,
+            "y_mm": -3.7504878000000006
+          },
+          {
+            "x_offset": 898078,
+            "y_offset": 898086,
+            "gap_bytes": 8,
+            "x_m": -0.0037504878000000005,
+            "y_m": -0.033500288600000004,
+            "x_mm": -3.7504878000000006,
+            "y_mm": -33.500288600000005
+          },
+          {
+            "x_offset": 898086,
+            "y_offset": 898094,
+            "gap_bytes": 8,
+            "x_m": -0.033500288600000004,
+            "y_m": -0.0037505894,
+            "x_mm": -33.500288600000005,
+            "y_mm": -3.7505894
+          },
+          {
+            "x_offset": 898307,
+            "y_offset": 898315,
+            "gap_bytes": 8,
+            "x_m": -0.0399998946,
+            "y_m": -0.0150001986,
+            "x_mm": -39.999894600000005,
+            "y_mm": -15.000198600000001
+          },
+          {
+            "x_offset": 898315,
+            "y_offset": 898323,
+            "gap_bytes": 8,
+            "x_m": -0.0150001986,
+            "y_m": -0.0399998946,
+            "x_mm": -15.000198600000001,
+            "y_mm": -39.999894600000005
+          },
+          {
+            "x_offset": 898323,
+            "y_offset": 898331,
+            "gap_bytes": 8,
+            "x_m": -0.0399998946,
+            "y_m": -0.0110452154,
+            "x_mm": -39.999894600000005,
+            "y_mm": -11.0452154
+          },
+          {
+            "x_offset": 898544,
+            "y_offset": 898552,
+            "gap_bytes": 8,
+            "x_m": -0.0399998946,
+            "y_m": -0.0110452154,
+            "x_mm": -39.999894600000005,
+            "y_mm": -11.0452154
+          },
+          {
+            "x_offset": 898552,
+            "y_offset": 898560,
+            "gap_bytes": 8,
+            "x_m": -0.0110452154,
+            "y_m": -0.0399998946,
+            "x_mm": -11.0452154,
+            "y_mm": -39.999894600000005
+          },
+          {
+            "x_offset": 898560,
+            "y_offset": 898568,
+            "gap_bytes": 8,
+            "x_m": -0.0399998946,
+            "y_m": -0.0106223054,
+            "x_mm": -39.999894600000005,
+            "y_mm": -10.6223054
+          },
+          {
+            "x_offset": 898568,
+            "y_offset": 898576,
+            "gap_bytes": 8,
+            "x_m": -0.0106223054,
+            "y_m": -0.040005,
+            "x_mm": -10.6223054,
+            "y_mm": -40.004999999999995
+          },
+          {
+            "x_offset": 898576,
+            "y_offset": 898584,
+            "gap_bytes": 8,
+            "x_m": -0.040005,
+            "y_m": -0.0106172,
+            "x_mm": -40.004999999999995,
+            "y_mm": -10.6172
+          }
+        ],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 925937,
+        "window_start": 925517,
+        "window_end": 927442,
+        "text": ": Pin_T1 \" $begin 'PropDisplays' $begin 'label' Id=-1 Clearance=0 textGeometry(PN='InterfacePort', DispTyp='v', Style='<DefaultAnnotation>', Lyr=13, N='text_1885', x='-40mm', y='-27.4999999999999mm', F='Arial', Siz='12000mm', Wght=3, Just=4, Txt='Port1') $end 'label' $end 'PropDisplays' L $begin '' Type='Invalid' Arms=0 HFSSLastType=4 IsGapSource=true $end '' : Port1 HFSS HFSS('HFSS Type'='**Invalid**', Orientation='**Invalid**', 'Layer Alignment'='Upper', 'Horizontal Extent Factor'='5', 'Vertical Extent Factor'='3', 'Radial Extent Factor'='0', 'PEC Launch Width'='0mil', ReferenceName='') PlanarEMR PlanarEM(Type='**Invalid** Gap Source', PortSolver=true, 'Ignore Reference'=false) SIwave SIwave('Reference Net'='GND') 50ohm PortExcitationProps(ExcitationVoltageMag='1V', ExcitationVoltagePhase='0deg', DoDeembed=true, DoDeembedLength='0mil', DoRenormalize=true, RenormalizionZ0='50ohm + 0i ohm', DoDeembedGapL=false) ( $begin 'PropDisplays' $begin 'label' Id=-1 Clearance=0 textGeometry(PN='InterfacePort', DispTyp='v', Style='<DefaultAnnotation>', Lyr=13, N='text_1886', x='-1303.159mil', y='-153.5665mil', F='Arial', Siz='472440.94488189mil', Wght=3, Just=4, Txt='Port2') $end 'label' $end ",
+        "explicit_coordinates": [
+          {
+            "x": "-40mm",
+            "y": "-27.4999999999999mm",
+            "x_mm": -40.0,
+            "y_mm": -27.4999999999999
+          },
+          {
+            "x": "-1303.159mil",
+            "y": "-153.5665mil",
+            "x_mm": -33.100238600000004,
+            "y_mm": -3.9005890999999995
+          }
+        ],
+        "object_tokens": [
+          "text_1885",
+          "text_1886"
+        ],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port1",
+        "offset": 926095,
+        "window_start": 925675,
+        "window_end": 927600,
+        "text": "$begin 'PropDisplays' $begin 'label' Id=-1 Clearance=0 textGeometry(PN='InterfacePort', DispTyp='v', Style='<DefaultAnnotation>', Lyr=13, N='text_1885', x='-40mm', y='-27.4999999999999mm', F='Arial', Siz='12000mm', Wght=3, Just=4, Txt='Port1') $end 'label' $end 'PropDisplays' L $begin '' Type='Invalid' Arms=0 HFSSLastType=4 IsGapSource=true $end '' : Port1 HFSS HFSS('HFSS Type'='**Invalid**', Orientation='**Invalid**', 'Layer Alignment'='Upper', 'Horizontal Extent Factor'='5', 'Vertical Extent Factor'='3', 'Radial Extent Factor'='0', 'PEC Launch Width'='0mil', ReferenceName='') PlanarEMR PlanarEM(Type='**Invalid** Gap Source', PortSolver=true, 'Ignore Reference'=false) SIwave SIwave('Reference Net'='GND') 50ohm PortExcitationProps(ExcitationVoltageMag='1V', ExcitationVoltagePhase='0deg', DoDeembed=true, DoDeembedLength='0mil', DoRenormalize=true, RenormalizionZ0='50ohm + 0i ohm', DoDeembedGapL=false) ( $begin 'PropDisplays' $begin 'label' Id=-1 Clearance=0 textGeometry(PN='InterfacePort', DispTyp='v', Style='<DefaultAnnotation>', Lyr=13, N='text_1886', x='-1303.159mil', y='-153.5665mil', F='Arial', Siz='472440.94488189mil', Wght=3, Just=4, Txt='Port2') $end 'label' $end 'PropDispla",
+        "explicit_coordinates": [
+          {
+            "x": "-40mm",
+            "y": "-27.4999999999999mm",
+            "x_mm": -40.0,
+            "y_mm": -27.4999999999999
+          },
+          {
+            "x": "-1303.159mil",
+            "y": "-153.5665mil",
+            "x_mm": -33.100238600000004,
+            "y_mm": -3.9005890999999995
+          }
+        ],
+        "object_tokens": [
+          "text_1885",
+          "text_1886"
+        ],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      }
+    ],
+    "Port2": [
+      {
+        "token": "Port2",
+        "offset": 36821,
+        "window_start": 36401,
+        "window_end": 38326,
+        "text": "er=3 id=3 $end 'Pin' $begin 'Pin' name='5' number=4 id=4 $end 'Pin' $end 'Pins' $begin 'PropList' $end 'PropList' $begin 'Cosim' $end 'Cosim' $begin 'EDBProd0' '27'='3' $end 'EDBProd0' $end 'BWSMA-KE-P001' $begin 'Component_0' UID=19 Footprint='' RefdesBase='U' CellName='' EDBName='' CompType=0 $begin 'Pins' $begin 'Pin' name='Port2' number=0 id=0 $end 'Pin' $begin 'Pin' name='Port3' number=1 id=1 $end 'Pin' $end 'Pins' $begin 'PropList' $end 'PropList' $begin 'Cosim' $end 'Cosim' $begin 'EDBProd0' '15'='' '27'='2' $end 'EDBProd0' $end 'Component_0' $begin 'Component_1' UID=23 Footprint='' RefdesBase='U' CellName='' EDBName='' CompType=0 $begin 'Pins' $begin 'Pin' name='C59-1' number=0 id=0 $end 'Pin' $begin 'Pin' name='C59-2' number=1 id=1 $end 'Pin' $end 'Pins' $begin 'PropList' $end 'PropList' $begin 'Cosim' $end 'Cosim' $begin 'EDBProd0' '15'='' '27'='2' $end 'EDBProd0' $end 'Component_1' $begin 'Component_2' UID=25 Footprint='' RefdesBase='U' CellName='' EDBName='' CompType=0 $begin 'Pins' $begin 'Pin' name='C62-1' number=1 id=1 $end 'Pin' $begin 'Pin' name='C62-2' number=0 id=0 $end 'Pin' $end 'Pins' $begin 'PropList' $end 'PropList' $begin 'Cosim' $end 'Cosim' $begin 'EDBPro",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port2",
+        "offset": 47268,
+        "window_start": 46848,
+        "window_end": 48773,
+        "text": "0, 0, 0)\\ \\ $end \\'Graphics\\'\\ $end \\'ppa_rf_cutout_RF\\'\\ ' '15'='' '27'='1' $end 'EDBProd0' $end 'ppa_rf_cutout_RF' $begin 'ppa_rf_cutout_RF_IN' UID=24 Footprint='_symbolFootprint_dc11f1b8_dc0de920' RefdesBase='U' CellName='ppa_rf_cutout_RF_IN' EDBName='' CompType=0 $begin 'Pins' $begin 'Pin' name='Port1' number=0 id=0 $end 'Pin' $begin 'Pin' name='Port2' number=1 id=1 $end 'Pin' $end 'Pins' $begin 'PropList' VariableProp(n='BendModel', v='0', vt=1, oi=0, ds='') $end 'PropList' $begin 'Cosim' Netlist(id=0, n='DefaultNetlist', itm(sn='', nld(nl='', gr=''))) $end 'Cosim' $begin 'EDBProd0' '14'='$begin \\'ppa_rf_cutout_RF_IN\\'\\ \\ ModTime=1786068001\\ \\ CE=0\\ \\ Library=\\'\\'\\ \\ ModSinceLib=false\\ \\ LibLocation=\\'Project\\'\\ \\ HighestLevel=1\\ \\ Normalize=false\\ \\ InitialLevels(0, 1)\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port1\\', -0.00508, 0, 0, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'S1_1_Pin_T1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(-0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'PinDef",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port2",
+        "offset": 48174,
+        "window_start": 47754,
+        "window_end": 49679,
+        "text": "n \\'PinDef\\'\\ \\ \\ Pin(\\'Port1\\', -0.00508, 0, 0, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'S1_1_Pin_T1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(-0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port2\\', 0.00508, 0, 3.14159, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'Port2\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port2\\', false, false, ExtentRect(0, 0, 0, 0, 0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'Graphics\\'\\ \\ \\ Rect(0, 0, 0, 0, 0, 0, 0.00508, 0.00508, 0, 0, 0)\\ \\ \\ Rect(0, 1, 0, 0, -0.00211667, 0, 0.000423333, 0.000423333, 0, 0, 0)\\ \\ $end \\'Graphics\\'\\ $end \\'ppa_rf_cutout_RF_IN\\'\\ ' '15'='' '27'='1' $end 'EDBProd0' $end 'ppa_rf_cutout_RF_IN' $begin 'ppa_rf_cutout_RF_OUT' UID=26 Footprint='_symbolFootprint_dc11cc88_dc8d5ac0' RefdesBase='U' CellName='ppa_rf_cutout_RF_OUT' EDBName='' CompType=0 $",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port2",
+        "offset": 48260,
+        "window_start": 47840,
+        "window_end": 49765,
+        "text": "\\', true, false, \\'S1_1_Pin_T1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(-0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port2\\', 0.00508, 0, 3.14159, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'Port2\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port2\\', false, false, ExtentRect(0, 0, 0, 0, 0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'Graphics\\'\\ \\ \\ Rect(0, 0, 0, 0, 0, 0, 0.00508, 0.00508, 0, 0, 0)\\ \\ \\ Rect(0, 1, 0, 0, -0.00211667, 0, 0.000423333, 0.000423333, 0, 0, 0)\\ \\ $end \\'Graphics\\'\\ $end \\'ppa_rf_cutout_RF_IN\\'\\ ' '15'='' '27'='1' $end 'EDBProd0' $end 'ppa_rf_cutout_RF_IN' $begin 'ppa_rf_cutout_RF_OUT' UID=26 Footprint='_symbolFootprint_dc11cc88_dc8d5ac0' RefdesBase='U' CellName='ppa_rf_cutout_RF_OUT' EDBName='' CompType=0 $begin 'Pins' $begin 'Pin' name='Port1' number=0 id=2 $end 'Pin' $begin 'Pin' name='Por",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port2",
+        "offset": 48386,
+        "window_start": 47966,
+        "window_end": 49891,
+        "text": "5, false, \\'Arial\\', 0, \\'Port1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port2\\', 0.00508, 0, 3.14159, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'Port2\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port2\\', false, false, ExtentRect(0, 0, 0, 0, 0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'Graphics\\'\\ \\ \\ Rect(0, 0, 0, 0, 0, 0, 0.00508, 0.00508, 0, 0, 0)\\ \\ \\ Rect(0, 1, 0, 0, -0.00211667, 0, 0.000423333, 0.000423333, 0, 0, 0)\\ \\ $end \\'Graphics\\'\\ $end \\'ppa_rf_cutout_RF_IN\\'\\ ' '15'='' '27'='1' $end 'EDBProd0' $end 'ppa_rf_cutout_RF_IN' $begin 'ppa_rf_cutout_RF_OUT' UID=26 Footprint='_symbolFootprint_dc11cc88_dc8d5ac0' RefdesBase='U' CellName='ppa_rf_cutout_RF_OUT' EDBName='' CompType=0 $begin 'Pins' $begin 'Pin' name='Port1' number=0 id=2 $end 'Pin' $begin 'Pin' name='Port2' number=1 id=3 $end 'Pin' $end 'Pins' $begin 'PropList' VariableProp(n='BendModel', v='0', vt=1, oi=1, ds='') $end 'PropLis",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port2",
+        "offset": 49105,
+        "window_start": 48685,
+        "window_end": 50610,
+        "text": "\\ \\ $end \\'Graphics\\'\\ $end \\'ppa_rf_cutout_RF_IN\\'\\ ' '15'='' '27'='1' $end 'EDBProd0' $end 'ppa_rf_cutout_RF_IN' $begin 'ppa_rf_cutout_RF_OUT' UID=26 Footprint='_symbolFootprint_dc11cc88_dc8d5ac0' RefdesBase='U' CellName='ppa_rf_cutout_RF_OUT' EDBName='' CompType=0 $begin 'Pins' $begin 'Pin' name='Port1' number=0 id=2 $end 'Pin' $begin 'Pin' name='Port2' number=1 id=3 $end 'Pin' $end 'Pins' $begin 'PropList' VariableProp(n='BendModel', v='0', vt=1, oi=1, ds='') $end 'PropList' $begin 'Cosim' Netlist(id=0, n='DefaultNetlist', itm(sn='', nld(nl='', gr=''))) $end 'Cosim' $begin 'EDBProd0' '14'='$begin \\'ppa_rf_cutout_RF_OUT\\'\\ \\ ModTime=1786077292\\ \\ CE=0\\ \\ Library=\\'\\'\\ \\ ModSinceLib=false\\ \\ LibLocation=\\'Project\\'\\ \\ HighestLevel=1\\ \\ Normalize=false\\ \\ InitialLevels(0, 1)\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port1\\', -0.00508, 0, 0, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'S1_1_Pin_T1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(-0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'PinDe",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port2",
+        "offset": 50012,
+        "window_start": 49592,
+        "window_end": 51517,
+        "text": "n \\'PinDef\\'\\ \\ \\ Pin(\\'Port1\\', -0.00508, 0, 0, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'S1_1_Pin_T1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(-0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port2\\', 0.00508, 0, 3.14159, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'Port2\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port2\\', false, false, ExtentRect(0, 0, 0, 0, 0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'Graphics\\'\\ \\ \\ Rect(0, 0, 0, 0, 0, 0, 0.00508, 0.00508, 0, 0, 0)\\ \\ \\ Rect(0, 1, 0, 0, -0.00211667, 0, 0.000423333, 0.000423333, 0, 0, 0)\\ \\ $end \\'Graphics\\'\\ $end \\'ppa_rf_cutout_RF_OUT\\'\\ ' '15'='' '27'='1' $end 'EDBProd0' $end 'ppa_rf_cutout_RF_OUT' $begin 'R_SMA-SMD_BWSMA-KE-P001' UID=16 Footprint='' RefdesBase='R' CellName='' EDBName='' CompType=0 $begin 'Pins' $begin 'Pin' name='1' number=0 id=0 ",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port2",
+        "offset": 50098,
+        "window_start": 49678,
+        "window_end": 51603,
+        "text": "\\', true, false, \\'S1_1_Pin_T1\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(-0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port2\\', 0.00508, 0, 3.14159, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'Port2\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port2\\', false, false, ExtentRect(0, 0, 0, 0, 0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'Graphics\\'\\ \\ \\ Rect(0, 0, 0, 0, 0, 0, 0.00508, 0.00508, 0, 0, 0)\\ \\ \\ Rect(0, 1, 0, 0, -0.00211667, 0, 0.000423333, 0.000423333, 0, 0, 0)\\ \\ $end \\'Graphics\\'\\ $end \\'ppa_rf_cutout_RF_OUT\\'\\ ' '15'='' '27'='1' $end 'EDBProd0' $end 'ppa_rf_cutout_RF_OUT' $begin 'R_SMA-SMD_BWSMA-KE-P001' UID=16 Footprint='' RefdesBase='R' CellName='' EDBName='' CompType=0 $begin 'Pins' $begin 'Pin' name='1' number=0 id=0 $end 'Pin' $begin 'Pin' name='2' number=1 id=1 $end 'Pin' $begin 'Pin' name='3' number",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port2",
+        "offset": 50224,
+        "window_start": 49804,
+        "window_end": 51729,
+        "text": "5, false, \\'Arial\\', 0, \\'Port1\\', false, false, ExtentRect(0, 0, 0, 0, -0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'PinDef\\'\\ \\ \\ Pin(\\'Port2\\', 0.00508, 0, 3.14159, \\'N\\', 0, 0.00254, false, 0, true, \\'\\', true, false, \\'Port2\\', true)\\ \\ \\ $begin \\'PropDisplayMap\\'\\ \\ \\ \\ PinName(2, 5, 1, Text(0.00508, 0.000635, 0, 4, 5, false, \\'Arial\\', 0, \\'Port2\\', false, false, ExtentRect(0, 0, 0, 0, 0.00508, 0.00113792, 0.00301752, 0.0016764, 0, 0, 0)))\\ \\ \\ $end \\'PropDisplayMap\\'\\ \\ $end \\'PinDef\\'\\ \\ $begin \\'Graphics\\'\\ \\ \\ Rect(0, 0, 0, 0, 0, 0, 0.00508, 0.00508, 0, 0, 0)\\ \\ \\ Rect(0, 1, 0, 0, -0.00211667, 0, 0.000423333, 0.000423333, 0, 0, 0)\\ \\ $end \\'Graphics\\'\\ $end \\'ppa_rf_cutout_RF_OUT\\'\\ ' '15'='' '27'='1' $end 'EDBProd0' $end 'ppa_rf_cutout_RF_OUT' $begin 'R_SMA-SMD_BWSMA-KE-P001' UID=16 Footprint='' RefdesBase='R' CellName='' EDBName='' CompType=0 $begin 'Pins' $begin 'Pin' name='1' number=0 id=0 $end 'Pin' $begin 'Pin' name='2' number=1 id=1 $end 'Pin' $begin 'Pin' name='3' number=2 id=2 $end 'Pin' $begin 'Pin' name='4' number=3 id=3 $end 'Pin' $begin 'Pin' name='5' number=4 id=4 $end 'Pin' $end 'Pins' $",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port2",
+        "offset": 130571,
+        "window_start": 130151,
+        "window_end": 132076,
+        "text": "bdd='0' $begin 'lm' unique='forward' forward() backward() $end 'lm' pum='' $end '' Port1 t Port2 t? Port1 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) Port2 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) footprint12 M $begin '' id=12 dn='_symbolFootprint_dc120108_dc8d5670' bb=false sp=true apo=0 sfp=true scr='' lu=36 au=51 ipc=false pnu=false itv=false ippp=true ian=false DesignMode=0 $begin 'PropList' $end 'PropList' $begin 'SimSetups' $end 'SimSetups' $begin 'gt' gt(1.0000000000000000e-10, 0.0000000000000000e+00, 0.0000000000000000e+00) $end 'gt' $begin 'HfssExtent' Version=2 ExtentType='BboxExtent' BasePolygon='' BasePolygonEDBUId=-1 DielExtentType='BboxExtent' DielBasePolygon='' DielBasePolygonEDBUId=-1 DielExt(Ext='0.005', Dim=",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [
+          {
+            "offset": 130409,
+            "rel": 258,
+            "value_m": -0.00508,
+            "value_mm": -5.08
+          },
+          {
+            "offset": 130600,
+            "rel": 449,
+            "value_m": 0.00508,
+            "value_mm": 5.08
+          }
+        ],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port2",
+        "offset": 131165,
+        "window_start": 130745,
+        "window_end": 132670,
+        "text": "Port1 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) Port2 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) footprint12 M $begin '' id=12 dn='_symbolFootprint_dc120108_dc8d5670' bb=false sp=true apo=0 sfp=true scr='' lu=36 au=51 ipc=false pnu=false itv=false ippp=true ian=false DesignMode=0 $begin 'PropList' $end 'PropList' $begin 'SimSetups' $end 'SimSetups' $begin 'gt' gt(1.0000000000000000e-10, 0.0000000000000000e+00, 0.0000000000000000e+00) $end 'gt' $begin 'HfssExtent' Version=2 ExtentType='BboxExtent' BasePolygon='' BasePolygonEDBUId=-1 DielExtentType='BboxExtent' DielBasePolygon='' DielBasePolygonEDBUId=-1 DielExt(Ext='0.005', Dim=false) HonorUserDiel=true Include3D=false TruncAtGnd=false AirHorExt(Ext='0.15', Dim=false) AirPosZExt(Ext='2', Dim=false) AirNegZExt(Ext='2', Dim=false) SyncZExt=true OpenRegionType='Radiation' UseRadBound=true PMLVisible=false OperFreq='5GHz' RadLvl=0.0000000000000000e+00 UseSt",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port2",
+        "offset": 146317,
+        "window_start": 145897,
+        "window_end": 147822,
+        "text": "bdd='0' $begin 'lm' unique='forward' forward() backward() $end 'lm' pum='' $end '' Port1 t Port2 t? Port1 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) Port2 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) footprint7 L $begin '' id=7 dn='_symbolFootprint_dc11f3e8_dc0ded70' bb=false sp=true apo=0 sfp=true scr='' lu=36 au=51 ipc=false pnu=false itv=false ippp=true ian=false DesignMode=0 $begin 'PropList' $end 'PropList' $begin 'SimSetups' $end 'SimSetups' $begin 'gt' gt(1.0000000000000000e-10, 0.0000000000000000e+00, 0.0000000000000000e+00) $end 'gt' $begin 'HfssExtent' Version=2 ExtentType='BboxExtent' BasePolygon='' BasePolygonEDBUId=-1 DielExtentType='BboxExtent' DielBasePolygon='' DielBasePolygonEDBUId=-1 DielExt(Ext='0.005', Dim=fa",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [
+          {
+            "offset": 146155,
+            "rel": 258,
+            "value_m": -0.00508,
+            "value_mm": -5.08
+          },
+          {
+            "offset": 146346,
+            "rel": 449,
+            "value_m": 0.00508,
+            "value_mm": 5.08
+          }
+        ],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port2",
+        "offset": 146911,
+        "window_start": 146491,
+        "window_end": 148416,
+        "text": "Port1 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) Port2 PortExcitationProps(ExcitationVoltageMag='0V', ExcitationVoltagePhase='0deg', DoDeembed=false, DoDeembedLength='0mm', DoRenormalize=false, RenormalizionZ0='50ohm', DoDeembedGapL=false) footprint7 L $begin '' id=7 dn='_symbolFootprint_dc11f3e8_dc0ded70' bb=false sp=true apo=0 sfp=true scr='' lu=36 au=51 ipc=false pnu=false itv=false ippp=true ian=false DesignMode=0 $begin 'PropList' $end 'PropList' $begin 'SimSetups' $end 'SimSetups' $begin 'gt' gt(1.0000000000000000e-10, 0.0000000000000000e+00, 0.0000000000000000e+00) $end 'gt' $begin 'HfssExtent' Version=2 ExtentType='BboxExtent' BasePolygon='' BasePolygonEDBUId=-1 DielExtentType='BboxExtent' DielBasePolygon='' DielBasePolygonEDBUId=-1 DielExt(Ext='0.005', Dim=false) HonorUserDiel=true Include3D=false TruncAtGnd=false AirHorExt(Ext='0.15', Dim=false) AirPosZExt(Ext='2', Dim=false) AirNegZExt(Ext='2', Dim=false) SyncZExt=true OpenRegionType='Radiation' UseRadBound=true PMLVisible=false OperFreq='5GHz' RadLvl=0.0000000000000000e+00 UseStac",
+        "explicit_coordinates": [],
+        "object_tokens": [],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port2",
+        "offset": 185214,
+        "window_start": 184794,
+        "window_end": 186719,
+        "text": "RF1-3 * n(| - d c J v ? -DT ! ? 3 RF1-4 * n(| - d? c J v ? -DT ! ? 4 Port2 ` f ? !3 | @ Port2 ! Port3 ` 8B ? !3 | @ Port3 \" via_723 ;X s? @qk ? # via_724 ! ^l @qk ? $ via_753 8 ^Xr ` j ? via_569 .y $c U) `f ? via_570 b {zQ < ? via_563 -O ^ M' c-y?",
+        "explicit_coordinates": [],
+        "object_tokens": [
+          "via_723",
+          "via_724",
+          "via_753",
+          "via_569",
+          "via_570",
+          "via_563"
+        ],
+        "doubles": [
+          {
+            "offset": 184859,
+            "rel": 65,
+            "value_m": -0.0025502108,
+            "value_mm": -2.5502108
+          },
+          {
+            "offset": 184871,
+            "rel": 77,
+            "value_m": 0.0154999944,
+            "value_mm": 15.4999944
+          },
+          {
+            "offset": 185051,
+            "rel": 257,
+            "value_m": 0.0025502108,
+            "value_mm": 2.5502108
+          },
+          {
+            "offset": 185063,
+            "rel": 269,
+            "value_m": 0.0154999944,
+            "value_mm": 15.4999944
+          },
+          {
+            "offset": 185255,
+            "rel": 461,
+            "value_m": 0.010784916200000001,
+            "value_mm": 10.784916200000001
+          },
+          {
+            "offset": 185451,
+            "rel": 657,
+            "value_m": 0.0096946974,
+            "value_mm": 9.6946974
+          },
+          {
+            "offset": 185637,
+            "rel": 843,
+            "value_m": 0.0046651926000000005,
+            "value_mm": 4.6651926
+          },
+          {
+            "offset": 185649,
+            "rel": 855,
+            "value_m": 0.0171051982,
+            "value_mm": 17.1051982
+          },
+          {
+            "offset": 185830,
+            "rel": 1036,
+            "value_m": -0.0034628073999999997,
+            "value_mm": -3.4628073999999995
+          },
+          {
+            "offset": 185842,
+            "rel": 1048,
+            "value_m": 0.0171051982,
+            "value_mm": 17.1051982
+          },
+          {
+            "offset": 186023,
+            "rel": 1229,
+            "value_m": -0.0044788074,
+            "value_mm": -4.4788074
+          },
+          {
+            "offset": 186035,
+            "rel": 1241,
+            "value_m": 0.0150731982,
+            "value_mm": 15.0731982
+          },
+          {
+            "offset": 186216,
+            "rel": 1422,
+            "value_m": -0.0023368,
+            "value_mm": -2.3368
+          },
+          {
+            "offset": 186228,
+            "rel": 1434,
+            "value_m": 0.0102108,
+            "value_mm": 10.2108
+          },
+          {
+            "offset": 186409,
+            "rel": 1615,
+            "value_m": -0.0010668000000000001,
+            "value_mm": -1.0668000000000002
+          },
+          {
+            "offset": 186421,
+            "rel": 1627,
+            "value_m": 0.010261600000000001,
+            "value_mm": 10.261600000000001
+          },
+          {
+            "offset": 186602,
+            "rel": 1808,
+            "value_m": -0.0001778,
+            "value_mm": -0.1778
+          },
+          {
+            "offset": 186614,
+            "rel": 1820,
+            "value_m": 0.0061468,
+            "value_mm": 6.1468
+          }
+        ],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port2",
+        "offset": 185295,
+        "window_start": 184875,
+        "window_end": 186800,
+        "text": "v ? -DT ! ? 3 RF1-4 * n(| - d? c J v ? -DT ! ? 4 Port2 ` f ? !3 | @ Port2 ! Port3 ` 8B ? !3 | @ Port3 \" via_723 ;X s? @qk ? # via_724 ! ^l @qk ? $ via_753 8 ^Xr ` j ? via_569 .y $c U) `f ? via_570 b {zQ < ? via_563 -O ^ M' c-y? via_562 } *I",
+        "explicit_coordinates": [],
+        "object_tokens": [
+          "via_723",
+          "via_724",
+          "via_753",
+          "via_569",
+          "via_570",
+          "via_563",
+          "via_562"
+        ],
+        "doubles": [
+          {
+            "offset": 185051,
+            "rel": 176,
+            "value_m": 0.0025502108,
+            "value_mm": 2.5502108
+          },
+          {
+            "offset": 185063,
+            "rel": 188,
+            "value_m": 0.0154999944,
+            "value_mm": 15.4999944
+          },
+          {
+            "offset": 185255,
+            "rel": 380,
+            "value_m": 0.010784916200000001,
+            "value_mm": 10.784916200000001
+          },
+          {
+            "offset": 185451,
+            "rel": 576,
+            "value_m": 0.0096946974,
+            "value_mm": 9.6946974
+          },
+          {
+            "offset": 185637,
+            "rel": 762,
+            "value_m": 0.0046651926000000005,
+            "value_mm": 4.6651926
+          },
+          {
+            "offset": 185649,
+            "rel": 774,
+            "value_m": 0.0171051982,
+            "value_mm": 17.1051982
+          },
+          {
+            "offset": 185830,
+            "rel": 955,
+            "value_m": -0.0034628073999999997,
+            "value_mm": -3.4628073999999995
+          },
+          {
+            "offset": 185842,
+            "rel": 967,
+            "value_m": 0.0171051982,
+            "value_mm": 17.1051982
+          },
+          {
+            "offset": 186023,
+            "rel": 1148,
+            "value_m": -0.0044788074,
+            "value_mm": -4.4788074
+          },
+          {
+            "offset": 186035,
+            "rel": 1160,
+            "value_m": 0.0150731982,
+            "value_mm": 15.0731982
+          },
+          {
+            "offset": 186216,
+            "rel": 1341,
+            "value_m": -0.0023368,
+            "value_mm": -2.3368
+          },
+          {
+            "offset": 186228,
+            "rel": 1353,
+            "value_m": 0.0102108,
+            "value_mm": 10.2108
+          },
+          {
+            "offset": 186409,
+            "rel": 1534,
+            "value_m": -0.0010668000000000001,
+            "value_mm": -1.0668000000000002
+          },
+          {
+            "offset": 186421,
+            "rel": 1546,
+            "value_m": 0.010261600000000001,
+            "value_mm": 10.261600000000001
+          },
+          {
+            "offset": 186602,
+            "rel": 1727,
+            "value_m": -0.0001778,
+            "value_mm": -0.1778
+          },
+          {
+            "offset": 186614,
+            "rel": 1739,
+            "value_m": 0.0061468,
+            "value_mm": 6.1468
+          }
+        ],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port2",
+        "offset": 812472,
+        "window_start": 812052,
+        "window_end": 813977,
+        "text": "CTRL2 Q{ N11903882 ] GND\\C S0_RF1 t S0_RF459 : Port1 ; Port2 wz <Power/Ground> Non Power/Ground DP_RS485 rect__164 $ > nME ? ?? ; ? poly__161 $ @s # s ! T ? H %? s ! T ? 8 =? Jre ? @ X = Jre ? rect__163 @ X = Jre ? 8 =? pME ? line__159 4? 333333 ? $ JT ? ? l & > ' m ? l & >n 5 ?$ line__160 4? 333333 ? $ }3 ? ^ d( ?$ line__162 4?",
+        "explicit_coordinates": [],
+        "object_tokens": [
+          "rect__164",
+          "poly__161",
+          "rect__163",
+          "line__159",
+          "line__160",
+          "line__162"
+        ],
+        "doubles": [
+          {
+            "offset": 812817,
+            "rel": 765,
+            "value_m": -0.0004678172,
+            "value_mm": -0.4678172
+          },
+          {
+            "offset": 812829,
+            "rel": 777,
+            "value_m": 0.015003398999999997,
+            "value_mm": 15.003398999999996
+          },
+          {
+            "offset": 812840,
+            "rel": 788,
+            "value_m": 0.025259942400001734,
+            "value_mm": 25.259942400001734
+          },
+          {
+            "offset": 812841,
+            "rel": 789,
+            "value_m": 0.0004821936000000001,
+            "value_mm": 0.4821936000000001
+          },
+          {
+            "offset": 812853,
+            "rel": 801,
+            "value_m": 0.017803393400000003,
+            "value_mm": 17.8033934
+          },
+          {
+            "offset": 813040,
+            "rel": 988,
+            "value_m": -0.00015156179999999998,
+            "value_mm": -0.15156179999999997
+          },
+          {
+            "offset": 813048,
+            "rel": 996,
+            "value_m": 0.0109033818,
+            "value_mm": 10.9033818
+          },
+          {
+            "offset": 813056,
+            "rel": 1004,
+            "value_m": 0.0001659382,
+            "value_mm": 0.1659382
+          },
+          {
+            "offset": 813064,
+            "rel": 1012,
+            "value_m": 0.0109033818,
+            "value_mm": 10.9033818
+          },
+          {
+            "offset": 813072,
+            "rel": 1020,
+            "value_m": 0.0004572,
+            "value_mm": 0.4572
+          },
+          {
+            "offset": 813080,
+            "rel": 1028,
+            "value_m": 0.0145034,
+            "value_mm": 14.5034
+          },
+          {
+            "offset": 813088,
+            "rel": 1036,
+            "value_m": -0.00044282360000000005,
+            "value_mm": -0.44282360000000004
+          },
+          {
+            "offset": 813096,
+            "rel": 1044,
+            "value_m": 0.0145034,
+            "value_mm": 14.5034
+          },
+          {
+            "offset": 813242,
+            "rel": 1190,
+            "value_m": -0.00044282360000000005,
+            "value_mm": -0.44282360000000004
+          },
+          {
+            "offset": 813254,
+            "rel": 1202,
+            "value_m": 0.0145034,
+            "value_mm": 14.5034
+          },
+          {
+            "offset": 813266,
+            "rel": 1214,
+            "value_m": 0.00045719999999999995,
+            "value_mm": 0.45719999999999994
+          },
+          {
+            "offset": 813278,
+            "rel": 1226,
+            "value_m": 0.015003399,
+            "value_mm": 15.003399
+          },
+          {
+            "offset": 813460,
+            "rel": 1408,
+            "value_m": 0.0003175,
+            "value_mm": 0.3175
+          },
+          {
+            "offset": 813509,
+            "rel": 1457,
+            "value_m": 0.0098044,
+            "value_mm": 9.8044
+          },
+          {
+            "offset": 813525,
+            "rel": 1473,
+            "value_m": 0.0087657686,
+            "value_mm": 8.7657686
+          },
+          {
+            "offset": 813541,
+            "rel": 1489,
+            "value_m": 0.0087650828,
+            "value_mm": 8.7650828
+          },
+          {
+            "offset": 813557,
+            "rel": 1505,
+            "value_m": 0.0080792828,
+            "value_mm": 8.0792828
+          },
+          {
+            "offset": 813729,
+            "rel": 1677,
+            "value_m": 0.0003175,
+            "value_mm": 0.3175
+          },
+          {
+            "offset": 813778,
+            "rel": 1726,
+            "value_m": 0.0105664,
+            "value_mm": 10.5664
+          },
+          {
+            "offset": 813794,
+            "rel": 1742,
+            "value_m": 0.0149996906,
+            "value_mm": 14.999690600000001
+          },
+          {
+            "offset": 813966,
+            "rel": 1914,
+            "value_m": 0.0003175,
+            "value_mm": 0.3175
+          }
+        ],
+        "coordinate_pairs": [
+          {
+            "x_offset": 812840,
+            "y_offset": 812841,
+            "gap_bytes": 1,
+            "x_m": 0.025259942400001734,
+            "y_m": 0.0004821936000000001,
+            "x_mm": 25.259942400001734,
+            "y_mm": 0.4821936000000001
+          },
+          {
+            "x_offset": 813040,
+            "y_offset": 813048,
+            "gap_bytes": 8,
+            "x_m": -0.00015156179999999998,
+            "y_m": 0.0109033818,
+            "x_mm": -0.15156179999999997,
+            "y_mm": 10.9033818
+          },
+          {
+            "x_offset": 813048,
+            "y_offset": 813056,
+            "gap_bytes": 8,
+            "x_m": 0.0109033818,
+            "y_m": 0.0001659382,
+            "x_mm": 10.9033818,
+            "y_mm": 0.1659382
+          },
+          {
+            "x_offset": 813056,
+            "y_offset": 813064,
+            "gap_bytes": 8,
+            "x_m": 0.0001659382,
+            "y_m": 0.0109033818,
+            "x_mm": 0.1659382,
+            "y_mm": 10.9033818
+          },
+          {
+            "x_offset": 813064,
+            "y_offset": 813072,
+            "gap_bytes": 8,
+            "x_m": 0.0109033818,
+            "y_m": 0.0004572,
+            "x_mm": 10.9033818,
+            "y_mm": 0.4572
+          },
+          {
+            "x_offset": 813072,
+            "y_offset": 813080,
+            "gap_bytes": 8,
+            "x_m": 0.0004572,
+            "y_m": 0.0145034,
+            "x_mm": 0.4572,
+            "y_mm": 14.5034
+          },
+          {
+            "x_offset": 813080,
+            "y_offset": 813088,
+            "gap_bytes": 8,
+            "x_m": 0.0145034,
+            "y_m": -0.00044282360000000005,
+            "x_mm": 14.5034,
+            "y_mm": -0.44282360000000004
+          },
+          {
+            "x_offset": 813088,
+            "y_offset": 813096,
+            "gap_bytes": 8,
+            "x_m": -0.00044282360000000005,
+            "y_m": 0.0145034,
+            "x_mm": -0.44282360000000004,
+            "y_mm": 14.5034
+          }
+        ],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port2",
+        "offset": 833448,
+        "window_start": 833028,
+        "window_end": 834953,
+        "text": "izionZ0='50ohm + 0i ohm', DoDeembedGapL=false) \" $begin 'PropDisplays' $begin 'label' Id=-1 Clearance=0 textGeometry(PN='InterfacePort', DispTyp='v', Style='<DefaultAnnotation>', Lyr=13, N='text_1882', x='0.027mil', y='302.332mil', F='Arial', Siz='472440.94488189mil', Wght=3, Just=4, Txt='Port2') $end 'label' $end 'PropDisplays' M $begin '' Type='EdgePort' Arms=1 HFSSLastType=0 IsGapSource=true $end '' ; Port2 HFSS HFSS('HFSS Type'='Gap', Orientation='Vertical', 'Layer Alignment'='Upper', 'Horizontal Extent Factor'='5', 'Vertical Extent Factor'='3', 'Radial Extent Factor'='0', 'PEC Launch Width'='1.18mil', ReferenceName='L2_GND:GND:poly__136') PlanarEMS PlanarEM(Type='Single Strip Gap Source', PortSolver=true, 'Ignore Reference'=false) SIwave SIwave('Reference Net'='GND') 50ohm PortExcitationProps(ExcitationVoltageMag='1V', ExcitationVoltagePhase='0deg', DoDeembed=true, DoDeembedLength='0mil', DoRenormalize=true, RenormalizionZ0='50ohm + 0i ohm', DoDeembedGapL=false) layout5 * $begin '' id=5 dn='ppa_rf_cutout_RF' bb=false sp=true apo=2 sfp=false scr='' lu=41 au=51 ipc=false pnu=false itv=false ippp=true ian=false DesignMode=0 $begin 'PropList' VariableProp(n='BendModel', v='0', vt=",
+        "explicit_coordinates": [
+          {
+            "x": "0.027mil",
+            "y": "302.332mil",
+            "x_mm": 0.0006858,
+            "y_mm": 7.679232799999999
+          }
+        ],
+        "object_tokens": [
+          "text_1882",
+          "poly__136"
+        ],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port2",
+        "offset": 833607,
+        "window_start": 833187,
+        "window_end": 835112,
+        "text": "\" $begin 'PropDisplays' $begin 'label' Id=-1 Clearance=0 textGeometry(PN='InterfacePort', DispTyp='v', Style='<DefaultAnnotation>', Lyr=13, N='text_1882', x='0.027mil', y='302.332mil', F='Arial', Siz='472440.94488189mil', Wght=3, Just=4, Txt='Port2') $end 'label' $end 'PropDisplays' M $begin '' Type='EdgePort' Arms=1 HFSSLastType=0 IsGapSource=true $end '' ; Port2 HFSS HFSS('HFSS Type'='Gap', Orientation='Vertical', 'Layer Alignment'='Upper', 'Horizontal Extent Factor'='5', 'Vertical Extent Factor'='3', 'Radial Extent Factor'='0', 'PEC Launch Width'='1.18mil', ReferenceName='L2_GND:GND:poly__136') PlanarEMS PlanarEM(Type='Single Strip Gap Source', PortSolver=true, 'Ignore Reference'=false) SIwave SIwave('Reference Net'='GND') 50ohm PortExcitationProps(ExcitationVoltageMag='1V', ExcitationVoltagePhase='0deg', DoDeembed=true, DoDeembedLength='0mil', DoRenormalize=true, RenormalizionZ0='50ohm + 0i ohm', DoDeembedGapL=false) layout5 * $begin '' id=5 dn='ppa_rf_cutout_RF' bb=false sp=true apo=2 sfp=false scr='' lu=41 au=51 ipc=false pnu=false itv=false ippp=true ian=false DesignMode=0 $begin 'PropList' VariableProp(n='BendModel', v='0', vt=1, oi=0, ds='') $end 'PropList' $begin 'SimSetu",
+        "explicit_coordinates": [
+          {
+            "x": "0.027mil",
+            "y": "302.332mil",
+            "x_mm": 0.0006858,
+            "y_mm": 7.679232799999999
+          }
+        ],
+        "object_tokens": [
+          "text_1882",
+          "poly__136"
+        ],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port2",
+        "offset": 897173,
+        "window_start": 896753,
+        "window_end": 898678,
+        "text": "3 4Q VCC3V3_RF1U7U S1_RF3^o GND\\C +5V 3.3V wz : Port1 ; Port2 wz <Power/Ground> Non Power/Ground V rect_1881 N 3 ? 98Ph j5. D ~j t line__294 4? 333333 ? $ z 1] l d M z 1] l $ line__291 4? 333333 ? $ d M z G] Ic d M z a f k ? Gm ] b < E Ld hr ` D\" W)? m ( vZ 0 = W n ' & 0 = W n ' & w Z n $ line__295 4? 333333 ? $ d M z 1] l d M z o \\ $ line__292 4? 333333 ? $ d M z o \\ d M z h % [Z { c3vx $",
+        "explicit_coordinates": [],
+        "object_tokens": [
+          "rect_1881",
+          "line__294",
+          "line__291",
+          "line__295",
+          "line__292"
+        ],
+        "doubles": [
+          {
+            "offset": 897460,
+            "rel": 707,
+            "value_m": 0.06883546880089852,
+            "value_mm": 68.83546880089852
+          },
+          {
+            "offset": 897462,
+            "rel": 709,
+            "value_m": -0.04345469540000001,
+            "value_mm": -43.454695400000006
+          },
+          {
+            "offset": 897474,
+            "rel": 721,
+            "value_m": -0.0029679391999999985,
+            "value_mm": -2.9679391999999987
+          },
+          {
+            "offset": 897486,
+            "rel": 733,
+            "value_m": -0.03244223180000001,
+            "value_mm": -32.442231800000016
+          },
+          {
+            "offset": 897498,
+            "rel": 745,
+            "value_m": -0.018999999999999996,
+            "value_mm": -18.999999999999996
+          },
+          {
+            "offset": 897680,
+            "rel": 927,
+            "value_m": 0.0003175,
+            "value_mm": 0.3175
+          },
+          {
+            "offset": 897721,
+            "rel": 968,
+            "value_m": -0.0399995898,
+            "value_mm": -39.999589799999995
+          },
+          {
+            "offset": 897729,
+            "rel": 976,
+            "value_m": -0.0150001986,
+            "value_mm": -15.000198600000001
+          },
+          {
+            "offset": 897737,
+            "rel": 984,
+            "value_m": -0.0399998946,
+            "value_mm": -39.999894600000005
+          },
+          {
+            "offset": 897745,
+            "rel": 992,
+            "value_m": -0.0150001986,
+            "value_mm": -15.000198600000001
+          },
+          {
+            "offset": 897917,
+            "rel": 1164,
+            "value_m": 0.0003175,
+            "value_mm": 0.3175
+          },
+          {
+            "offset": 897958,
+            "rel": 1205,
+            "value_m": -0.0399998946,
+            "value_mm": -39.999894600000005
+          },
+          {
+            "offset": 897966,
+            "rel": 1213,
+            "value_m": -0.0099549966,
+            "value_mm": -9.9549966
+          },
+          {
+            "offset": 897974,
+            "rel": 1221,
+            "value_m": -0.0399998946,
+            "value_mm": -39.999894600000005
+          },
+          {
+            "offset": 897982,
+            "rel": 1229,
+            "value_m": -0.0091209114,
+            "value_mm": -9.1209114
+          },
+          {
+            "offset": 897990,
+            "rel": 1237,
+            "value_m": 5.802423838745783e-05,
+            "value_mm": 0.05802423838745783
+          },
+          {
+            "offset": 898006,
+            "rel": 1253,
+            "value_m": -0.0397767048,
+            "value_mm": -39.7767048
+          },
+          {
+            "offset": 898014,
+            "rel": 1261,
+            "value_m": -0.008581898000000001,
+            "value_mm": -8.581898
+          },
+          {
+            "offset": 898022,
+            "rel": 1269,
+            "value_m": -0.0356893114,
+            "value_mm": -35.6893114
+          },
+          {
+            "offset": 898030,
+            "rel": 1277,
+            "value_m": -0.0044945046,
+            "value_mm": -4.4945046
+          },
+          {
+            "offset": 898038,
+            "rel": 1285,
+            "value_m": 0.0001933484028400238,
+            "value_mm": 0.1933484028400238
+          },
+          {
+            "offset": 898054,
+            "rel": 1301,
+            "value_m": -0.033893302800000004,
+            "value_mm": -33.8933028
+          },
+          {
+            "offset": 898062,
+            "rel": 1309,
+            "value_m": -0.0037504878000000005,
+            "value_mm": -3.7504878000000006
+          },
+          {
+            "offset": 898070,
+            "rel": 1317,
+            "value_m": -0.033500288600000004,
+            "value_mm": -33.500288600000005
+          },
+          {
+            "offset": 898078,
+            "rel": 1325,
+            "value_m": -0.0037504878000000005,
+            "value_mm": -3.7504878000000006
+          },
+          {
+            "offset": 898086,
+            "rel": 1333,
+            "value_m": -0.033500288600000004,
+            "value_mm": -33.500288600000005
+          },
+          {
+            "offset": 898094,
+            "rel": 1341,
+            "value_m": -0.0037505894,
+            "value_mm": -3.7505894
+          },
+          {
+            "offset": 898266,
+            "rel": 1513,
+            "value_m": 0.0003175,
+            "value_mm": 0.3175
+          },
+          {
+            "offset": 898307,
+            "rel": 1554,
+            "value_m": -0.0399998946,
+            "value_mm": -39.999894600000005
+          },
+          {
+            "offset": 898315,
+            "rel": 1562,
+            "value_m": -0.0150001986,
+            "value_mm": -15.000198600000001
+          },
+          {
+            "offset": 898323,
+            "rel": 1570,
+            "value_m": -0.0399998946,
+            "value_mm": -39.999894600000005
+          },
+          {
+            "offset": 898331,
+            "rel": 1578,
+            "value_m": -0.0110452154,
+            "value_mm": -11.0452154
+          },
+          {
+            "offset": 898503,
+            "rel": 1750,
+            "value_m": 0.0003175,
+            "value_mm": 0.3175
+          },
+          {
+            "offset": 898544,
+            "rel": 1791,
+            "value_m": -0.0399998946,
+            "value_mm": -39.999894600000005
+          },
+          {
+            "offset": 898552,
+            "rel": 1799,
+            "value_m": -0.0110452154,
+            "value_mm": -11.0452154
+          },
+          {
+            "offset": 898560,
+            "rel": 1807,
+            "value_m": -0.0399998946,
+            "value_mm": -39.999894600000005
+          },
+          {
+            "offset": 898568,
+            "rel": 1815,
+            "value_m": -0.0106223054,
+            "value_mm": -10.6223054
+          },
+          {
+            "offset": 898576,
+            "rel": 1823,
+            "value_m": -0.040005,
+            "value_mm": -40.004999999999995
+          },
+          {
+            "offset": 898584,
+            "rel": 1831,
+            "value_m": -0.0106172,
+            "value_mm": -10.6172
+          }
+        ],
+        "coordinate_pairs": [
+          {
+            "x_offset": 897460,
+            "y_offset": 897462,
+            "gap_bytes": 2,
+            "x_m": 0.06883546880089852,
+            "y_m": -0.04345469540000001,
+            "x_mm": 68.83546880089852,
+            "y_mm": -43.454695400000006
+          },
+          {
+            "x_offset": 897721,
+            "y_offset": 897729,
+            "gap_bytes": 8,
+            "x_m": -0.0399995898,
+            "y_m": -0.0150001986,
+            "x_mm": -39.999589799999995,
+            "y_mm": -15.000198600000001
+          },
+          {
+            "x_offset": 897729,
+            "y_offset": 897737,
+            "gap_bytes": 8,
+            "x_m": -0.0150001986,
+            "y_m": -0.0399998946,
+            "x_mm": -15.000198600000001,
+            "y_mm": -39.999894600000005
+          },
+          {
+            "x_offset": 897737,
+            "y_offset": 897745,
+            "gap_bytes": 8,
+            "x_m": -0.0399998946,
+            "y_m": -0.0150001986,
+            "x_mm": -39.999894600000005,
+            "y_mm": -15.000198600000001
+          },
+          {
+            "x_offset": 897958,
+            "y_offset": 897966,
+            "gap_bytes": 8,
+            "x_m": -0.0399998946,
+            "y_m": -0.0099549966,
+            "x_mm": -39.999894600000005,
+            "y_mm": -9.9549966
+          },
+          {
+            "x_offset": 897966,
+            "y_offset": 897974,
+            "gap_bytes": 8,
+            "x_m": -0.0099549966,
+            "y_m": -0.0399998946,
+            "x_mm": -9.9549966,
+            "y_mm": -39.999894600000005
+          },
+          {
+            "x_offset": 897974,
+            "y_offset": 897982,
+            "gap_bytes": 8,
+            "x_m": -0.0399998946,
+            "y_m": -0.0091209114,
+            "x_mm": -39.999894600000005,
+            "y_mm": -9.1209114
+          },
+          {
+            "x_offset": 897982,
+            "y_offset": 897990,
+            "gap_bytes": 8,
+            "x_m": -0.0091209114,
+            "y_m": 5.802423838745783e-05,
+            "x_mm": -9.1209114,
+            "y_mm": 0.05802423838745783
+          },
+          {
+            "x_offset": 898006,
+            "y_offset": 898014,
+            "gap_bytes": 8,
+            "x_m": -0.0397767048,
+            "y_m": -0.008581898000000001,
+            "x_mm": -39.7767048,
+            "y_mm": -8.581898
+          },
+          {
+            "x_offset": 898014,
+            "y_offset": 898022,
+            "gap_bytes": 8,
+            "x_m": -0.008581898000000001,
+            "y_m": -0.0356893114,
+            "x_mm": -8.581898,
+            "y_mm": -35.6893114
+          },
+          {
+            "x_offset": 898022,
+            "y_offset": 898030,
+            "gap_bytes": 8,
+            "x_m": -0.0356893114,
+            "y_m": -0.0044945046,
+            "x_mm": -35.6893114,
+            "y_mm": -4.4945046
+          },
+          {
+            "x_offset": 898030,
+            "y_offset": 898038,
+            "gap_bytes": 8,
+            "x_m": -0.0044945046,
+            "y_m": 0.0001933484028400238,
+            "x_mm": -4.4945046,
+            "y_mm": 0.1933484028400238
+          },
+          {
+            "x_offset": 898054,
+            "y_offset": 898062,
+            "gap_bytes": 8,
+            "x_m": -0.033893302800000004,
+            "y_m": -0.0037504878000000005,
+            "x_mm": -33.8933028,
+            "y_mm": -3.7504878000000006
+          },
+          {
+            "x_offset": 898062,
+            "y_offset": 898070,
+            "gap_bytes": 8,
+            "x_m": -0.0037504878000000005,
+            "y_m": -0.033500288600000004,
+            "x_mm": -3.7504878000000006,
+            "y_mm": -33.500288600000005
+          },
+          {
+            "x_offset": 898070,
+            "y_offset": 898078,
+            "gap_bytes": 8,
+            "x_m": -0.033500288600000004,
+            "y_m": -0.0037504878000000005,
+            "x_mm": -33.500288600000005,
+            "y_mm": -3.7504878000000006
+          },
+          {
+            "x_offset": 898078,
+            "y_offset": 898086,
+            "gap_bytes": 8,
+            "x_m": -0.0037504878000000005,
+            "y_m": -0.033500288600000004,
+            "x_mm": -3.7504878000000006,
+            "y_mm": -33.500288600000005
+          },
+          {
+            "x_offset": 898086,
+            "y_offset": 898094,
+            "gap_bytes": 8,
+            "x_m": -0.033500288600000004,
+            "y_m": -0.0037505894,
+            "x_mm": -33.500288600000005,
+            "y_mm": -3.7505894
+          },
+          {
+            "x_offset": 898307,
+            "y_offset": 898315,
+            "gap_bytes": 8,
+            "x_m": -0.0399998946,
+            "y_m": -0.0150001986,
+            "x_mm": -39.999894600000005,
+            "y_mm": -15.000198600000001
+          },
+          {
+            "x_offset": 898315,
+            "y_offset": 898323,
+            "gap_bytes": 8,
+            "x_m": -0.0150001986,
+            "y_m": -0.0399998946,
+            "x_mm": -15.000198600000001,
+            "y_mm": -39.999894600000005
+          },
+          {
+            "x_offset": 898323,
+            "y_offset": 898331,
+            "gap_bytes": 8,
+            "x_m": -0.0399998946,
+            "y_m": -0.0110452154,
+            "x_mm": -39.999894600000005,
+            "y_mm": -11.0452154
+          },
+          {
+            "x_offset": 898544,
+            "y_offset": 898552,
+            "gap_bytes": 8,
+            "x_m": -0.0399998946,
+            "y_m": -0.0110452154,
+            "x_mm": -39.999894600000005,
+            "y_mm": -11.0452154
+          },
+          {
+            "x_offset": 898552,
+            "y_offset": 898560,
+            "gap_bytes": 8,
+            "x_m": -0.0110452154,
+            "y_m": -0.0399998946,
+            "x_mm": -11.0452154,
+            "y_mm": -39.999894600000005
+          },
+          {
+            "x_offset": 898560,
+            "y_offset": 898568,
+            "gap_bytes": 8,
+            "x_m": -0.0399998946,
+            "y_m": -0.0106223054,
+            "x_mm": -39.999894600000005,
+            "y_mm": -10.6223054
+          },
+          {
+            "x_offset": 898568,
+            "y_offset": 898576,
+            "gap_bytes": 8,
+            "x_m": -0.0106223054,
+            "y_m": -0.040005,
+            "x_mm": -10.6223054,
+            "y_mm": -40.004999999999995
+          },
+          {
+            "x_offset": 898576,
+            "y_offset": 898584,
+            "gap_bytes": 8,
+            "x_m": -0.040005,
+            "y_m": -0.0106172,
+            "x_mm": -40.004999999999995,
+            "y_mm": -10.6172
+          }
+        ],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port2",
+        "offset": 927114,
+        "window_start": 926694,
+        "window_end": 928000,
+        "text": "0='50ohm + 0i ohm', DoDeembedGapL=false) ( $begin 'PropDisplays' $begin 'label' Id=-1 Clearance=0 textGeometry(PN='InterfacePort', DispTyp='v', Style='<DefaultAnnotation>', Lyr=13, N='text_1886', x='-1303.159mil', y='-153.5665mil', F='Arial', Siz='472440.94488189mil', Wght=3, Just=4, Txt='Port2') $end 'label' $end 'PropDisplays' M $begin '' Type='EdgePort' Arms=1 HFSSLastType=0 IsGapSource=true $end '' ; I Port2 HFSS HFSS('HFSS Type'='Gap', Orientation='Vertical', 'Layer Alignment'='Upper', 'Horizontal Extent Factor'='5', 'Vertical Extent Factor'='3', 'Radial Extent Factor'='0', 'PEC Launch Width'='1.18mil', ReferenceName='L2_GND:GND:poly__147') PlanarEMS PlanarEM(Type='Single Strip Gap Source', PortSolver=true, 'Ignore Reference'=false) SIwave SIwave('Reference Net'='GND') 50ohm PortExcitationProps(ExcitationVoltageMag='1V', ExcitationVoltagePhase='0deg', DoDeembed=true, DoDeembedLength='0mil', DoRenormalize=true, RenormalizionZ0='50ohm + 0i ohm', DoDeembedGapL=false)",
+        "explicit_coordinates": [
+          {
+            "x": "-1303.159mil",
+            "y": "-153.5665mil",
+            "x_mm": -33.100238600000004,
+            "y_mm": -3.9005890999999995
+          }
+        ],
+        "object_tokens": [
+          "text_1886",
+          "poly__147"
+        ],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      },
+      {
+        "token": "Port2",
+        "offset": 927273,
+        "window_start": 926853,
+        "window_end": 928000,
+        "text": "( $begin 'PropDisplays' $begin 'label' Id=-1 Clearance=0 textGeometry(PN='InterfacePort', DispTyp='v', Style='<DefaultAnnotation>', Lyr=13, N='text_1886', x='-1303.159mil', y='-153.5665mil', F='Arial', Siz='472440.94488189mil', Wght=3, Just=4, Txt='Port2') $end 'label' $end 'PropDisplays' M $begin '' Type='EdgePort' Arms=1 HFSSLastType=0 IsGapSource=true $end '' ; I Port2 HFSS HFSS('HFSS Type'='Gap', Orientation='Vertical', 'Layer Alignment'='Upper', 'Horizontal Extent Factor'='5', 'Vertical Extent Factor'='3', 'Radial Extent Factor'='0', 'PEC Launch Width'='1.18mil', ReferenceName='L2_GND:GND:poly__147') PlanarEMS PlanarEM(Type='Single Strip Gap Source', PortSolver=true, 'Ignore Reference'=false) SIwave SIwave('Reference Net'='GND') 50ohm PortExcitationProps(ExcitationVoltageMag='1V', ExcitationVoltagePhase='0deg', DoDeembed=true, DoDeembedLength='0mil', DoRenormalize=true, RenormalizionZ0='50ohm + 0i ohm', DoDeembedGapL=false)",
+        "explicit_coordinates": [
+          {
+            "x": "-1303.159mil",
+            "y": "-153.5665mil",
+            "x_mm": -33.100238600000004,
+            "y_mm": -3.9005890999999995
+          }
+        ],
+        "object_tokens": [
+          "text_1886",
+          "poly__147"
+        ],
+        "doubles": [],
+        "coordinate_pairs": [],
+        "doubles_truncated": false
+      }
+    ]
+  },
+  "summary": {
+    "Port1": {
+      "occurrences": 34,
+      "candidate_points_mm": [
+        {
+          "offset": 174272,
+          "x_mm": -0.15156179999999997,
+          "y_mm": 10.9033818,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 174272,
+          "x_mm": 10.9033818,
+          "y_mm": 0.1659382,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 174272,
+          "x_mm": 0.1659382,
+          "y_mm": 10.9033818,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 174272,
+          "x_mm": 10.9033818,
+          "y_mm": 0.4572,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 174272,
+          "x_mm": 0.4572,
+          "y_mm": 14.5034,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 174272,
+          "x_mm": 14.5034,
+          "y_mm": -0.44282360000000004,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 174272,
+          "x_mm": -0.44282360000000004,
+          "y_mm": 14.5034,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 174272,
+          "x_mm": 25.259942400001734,
+          "y_mm": 0.4821936000000001,
+          "gap_bytes": 1
+        },
+        {
+          "offset": 812415,
+          "x_mm": 25.259942400001734,
+          "y_mm": 0.4821936000000001,
+          "gap_bytes": 1
+        },
+        {
+          "offset": 812415,
+          "x_mm": -0.15156179999999997,
+          "y_mm": 10.9033818,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 812415,
+          "x_mm": 10.9033818,
+          "y_mm": 0.1659382,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 812415,
+          "x_mm": 0.1659382,
+          "y_mm": 10.9033818,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 812415,
+          "x_mm": 10.9033818,
+          "y_mm": 0.4572,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 812415,
+          "x_mm": 0.4572,
+          "y_mm": 14.5034,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 812415,
+          "x_mm": 14.5034,
+          "y_mm": -0.44282360000000004,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 812415,
+          "x_mm": -0.44282360000000004,
+          "y_mm": 14.5034,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 851755,
+          "x_mm": -55.999888,
+          "y_mm": -11.0452154,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 851755,
+          "x_mm": -11.0452154,
+          "y_mm": -55.999888,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 851755,
+          "x_mm": -55.999888,
+          "y_mm": -10.675112,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 851755,
+          "x_mm": -10.675112,
+          "y_mm": -56.007,
+          "gap_bytes": 8
+        }
+      ],
+      "candidate_points_truncated": true,
+      "explicit_coordinates_mm": [
+        {
+          "offset": 200002,
+          "x": "0.027mil",
+          "y": "302.332mil",
+          "x_mm": 0.0006858,
+          "y_mm": 7.679232799999999
+        },
+        {
+          "offset": 200161,
+          "x": "0.027mil",
+          "y": "302.332mil",
+          "x_mm": 0.0006858,
+          "y_mm": 7.679232799999999
+        },
+        {
+          "offset": 832277,
+          "x": "1.01538809858919e-15mm",
+          "y": "27.4mm",
+          "x_mm": 1.01538809858919e-15,
+          "y_mm": 27.4
+        },
+        {
+          "offset": 832277,
+          "x": "0.027mil",
+          "y": "302.332mil",
+          "x_mm": 0.0006858,
+          "y_mm": 7.679232799999999
+        },
+        {
+          "offset": 832435,
+          "x": "1.01538809858919e-15mm",
+          "y": "27.4mm",
+          "x_mm": 1.01538809858919e-15,
+          "y_mm": 27.4
+        },
+        {
+          "offset": 832435,
+          "x": "0.027mil",
+          "y": "302.332mil",
+          "x_mm": 0.0006858,
+          "y_mm": 7.679232799999999
+        },
+        {
+          "offset": 877488,
+          "x": "-1889.76377952756mil",
+          "y": "-94.848mil",
+          "x_mm": -48.00000000000002,
+          "y_mm": -2.4091392
+        },
+        {
+          "offset": 877647,
+          "x": "-1889.76377952756mil",
+          "y": "-94.848mil",
+          "x_mm": -48.00000000000002,
+          "y_mm": -2.4091392
+        },
+        {
+          "offset": 925937,
+          "x": "-40mm",
+          "y": "-27.4999999999999mm",
+          "x_mm": -40.0,
+          "y_mm": -27.4999999999999
+        },
+        {
+          "offset": 925937,
+          "x": "-1303.159mil",
+          "y": "-153.5665mil",
+          "x_mm": -33.100238600000004,
+          "y_mm": -3.9005890999999995
+        },
+        {
+          "offset": 926095,
+          "x": "-40mm",
+          "y": "-27.4999999999999mm",
+          "x_mm": -40.0,
+          "y_mm": -27.4999999999999
+        },
+        {
+          "offset": 926095,
+          "x": "-1303.159mil",
+          "y": "-153.5665mil",
+          "x_mm": -33.100238600000004,
+          "y_mm": -3.9005890999999995
+        }
+      ],
+      "object_tokens": [
+        "rect__305",
+        "poly__302",
+        "rect__306",
+        "line__303",
+        "line__304",
+        "line__308",
+        "text_1874",
+        "poly__127",
+        "rect__164",
+        "poly__161",
+        "rect__163",
+        "line__159",
+        "line__160",
+        "line__16",
+        "text_1881",
+        "text_1882",
+        "rect_1880",
+        "line__300",
+        "line__302",
+        "line__306",
+        "poly__305",
+        "text_1887",
+        "poly__120",
+        "rect_1881",
+        "line__294",
+        "line__291",
+        "line__295",
+        "line__292",
+        "text_1885",
+        "text_1886"
+      ]
+    },
+    "Port2": {
+      "occurrences": 21,
+      "candidate_points_mm": [
+        {
+          "offset": 812472,
+          "x_mm": 25.259942400001734,
+          "y_mm": 0.4821936000000001,
+          "gap_bytes": 1
+        },
+        {
+          "offset": 812472,
+          "x_mm": -0.15156179999999997,
+          "y_mm": 10.9033818,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 812472,
+          "x_mm": 10.9033818,
+          "y_mm": 0.1659382,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 812472,
+          "x_mm": 0.1659382,
+          "y_mm": 10.9033818,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 812472,
+          "x_mm": 10.9033818,
+          "y_mm": 0.4572,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 812472,
+          "x_mm": 0.4572,
+          "y_mm": 14.5034,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 812472,
+          "x_mm": 14.5034,
+          "y_mm": -0.44282360000000004,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 812472,
+          "x_mm": -0.44282360000000004,
+          "y_mm": 14.5034,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 897173,
+          "x_mm": 68.83546880089852,
+          "y_mm": -43.454695400000006,
+          "gap_bytes": 2
+        },
+        {
+          "offset": 897173,
+          "x_mm": -39.999589799999995,
+          "y_mm": -15.000198600000001,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 897173,
+          "x_mm": -15.000198600000001,
+          "y_mm": -39.999894600000005,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 897173,
+          "x_mm": -39.999894600000005,
+          "y_mm": -15.000198600000001,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 897173,
+          "x_mm": -39.999894600000005,
+          "y_mm": -9.9549966,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 897173,
+          "x_mm": -9.9549966,
+          "y_mm": -39.999894600000005,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 897173,
+          "x_mm": -39.999894600000005,
+          "y_mm": -9.1209114,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 897173,
+          "x_mm": -9.1209114,
+          "y_mm": 0.05802423838745783,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 897173,
+          "x_mm": -39.7767048,
+          "y_mm": -8.581898,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 897173,
+          "x_mm": -8.581898,
+          "y_mm": -35.6893114,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 897173,
+          "x_mm": -35.6893114,
+          "y_mm": -4.4945046,
+          "gap_bytes": 8
+        },
+        {
+          "offset": 897173,
+          "x_mm": -4.4945046,
+          "y_mm": 0.1933484028400238,
+          "gap_bytes": 8
+        }
+      ],
+      "candidate_points_truncated": true,
+      "explicit_coordinates_mm": [
+        {
+          "offset": 833448,
+          "x": "0.027mil",
+          "y": "302.332mil",
+          "x_mm": 0.0006858,
+          "y_mm": 7.679232799999999
+        },
+        {
+          "offset": 833607,
+          "x": "0.027mil",
+          "y": "302.332mil",
+          "x_mm": 0.0006858,
+          "y_mm": 7.679232799999999
+        },
+        {
+          "offset": 927114,
+          "x": "-1303.159mil",
+          "y": "-153.5665mil",
+          "x_mm": -33.100238600000004,
+          "y_mm": -3.9005890999999995
+        },
+        {
+          "offset": 927273,
+          "x": "-1303.159mil",
+          "y": "-153.5665mil",
+          "x_mm": -33.100238600000004,
+          "y_mm": -3.9005890999999995
+        }
+      ],
+      "object_tokens": [
+        "via_723",
+        "via_724",
+        "via_753",
+        "via_569",
+        "via_570",
+        "via_563",
+        "via_562",
+        "rect__164",
+        "poly__161",
+        "rect__163",
+        "line__159",
+        "line__160",
+        "line__162",
+        "text_1882",
+        "poly__136",
+        "rect_1881",
+        "line__294",
+        "line__291",
+        "line__295",
+        "line__292",
+        "text_1886",
+        "poly__147"
+      ]
+    }
+  },
+  "notes": [
+    "Coordinates are heuristic little-endian double extractions near text tokens.",
+    "Use candidate points as saved-state hints only; confirm final geometry in AEDT when live APIs are available."
+  ]
+}

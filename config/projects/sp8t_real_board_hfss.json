@@ -3,8 +3,8 @@
   "project_id": "sp8t_real_board_hfss",
   "name": "SP8T real board HFSS layout optimization",
   "device_family": "sp8t_switch_board",
-  "primary_device_type": "sp8t.real_board.rf_in_launch",
-  "default_profile": "home",
+  "primary_device_type": "sp8t.real_board.rf_launch",
+  "default_profile": "company",
   "target_profile": null,
   "pipeline_id": null,
   "active_sweep": "rf_in_cutout_layout_optimization",
@@ -30,9 +30,9 @@
     "status_gate": "TUNE_or_better"
   },
   "hfss": {
-    "profile": "home",
-    "workspace_dir": "F:/1.Hardware/HFSS/SP8T",
-    "aedt_project": "F:/1.Hardware/HFSS/SP8T/SP8T_HFSS.aedt",
+    "profile": "company",
+    "workspace_dir": "D:/Work/ADS/SP8T",
+    "aedt_project": "D:/Work/ADS/SP8T/SP8T_HFSS.aedt",
     "project_model": "single_aedt_project_multiple_designs",
     "project_action": "add",
     "stackup_config": null,
@@ -43,6 +43,20 @@
     "setup": "Setup1",
     "sweep": "Sweep1",
     "simulations": {
+      "rf_in_launch": {
+        "design": "ppa_rf_cutout_RF_IN",
+        "fixture_type": "sp8t_real_board_rf_in_launch",
+        "ports": "existing_design_ports",
+        "result_dir": "projects/sp8t_real_board_hfss/results/rf_in_launch/ppa_rf_cutout_RF_IN",
+        "description": "Company-path real SP8T board input connector launch simulation."
+      },
+      "rf_out_launch_example": {
+        "design": "ppa_rf_cutout_RF_OUT",
+        "fixture_type": "sp8t_real_board_rf_out_launch",
+        "ports": "existing_design_ports",
+        "result_dir": "projects/sp8t_real_board_hfss/results/rf_out_launch/ppa_rf_cutout_RF_OUT",
+        "description": "Company-path real SP8T board output connector launch simulation for one output port."
+      },
       "rf_in_cutout_baseline": {
         "design": "RF_IN_cutout",
         "fixture_type": "sp8t_real_board_rf_in_cutout",
@@ -57,13 +71,13 @@
     }
   },
   "layout_optimization": {
-    "active_design": "RF_IN_cutout",
+    "active_design": "ppa_rf_cutout_RF_IN",
     "baseline_candidate": "RF_IN_cutout",
-    "source_project": "F:/1.Hardware/HFSS/SP8T/SP8T_HFSS.aedt",
-    "source_design": "RF_IN_cutout",
+    "source_project": "D:/Work/ADS/SP8T/SP8T_HFSS.aedt",
+    "source_design": "ppa_rf_cutout_RF_IN",
     "solver_script": "tools/hfss/run_existing_hfss3dlayout_verdict.py",
     "result_root": "projects/sp8t_real_board_hfss/results",
-    "candidate_design_prefix": "RF_IN_cutout_opt",
+    "candidate_design_prefix": "ppa_rf_cutout_RF_IN_opt",
     "allowed_operations": [
       "clone_design_by_api",
       "reload_complete_layout_by_api",
@@ -98,13 +112,13 @@
       "layouts_dir": "projects/sp8t_real_board_hfss/layouts/rf_in_cutout",
       "results_dir": "projects/sp8t_real_board_hfss/results/rf_in_cutout",
       "summary": "projects/sp8t_real_board_hfss/results/rf_in_cutout/sweep_summary.csv",
-      "profile": "home",
+      "profile": "company",
       "target_profile": null,
       "device_id": "sp8t.real_board.rf_in_launch",
       "generator": {
         "strategy": "real_board_layout_variant",
-        "source_project": "F:/1.Hardware/HFSS/SP8T/SP8T_HFSS.aedt",
-        "source_design": "RF_IN_cutout"
+        "source_project": "D:/Work/ADS/SP8T/SP8T_HFSS.aedt",
+        "source_design": "ppa_rf_cutout_RF_IN"
       },
       "optimizer": {
         "strategy": "smith_guided_real_board_cutout_and_launch_compensation",

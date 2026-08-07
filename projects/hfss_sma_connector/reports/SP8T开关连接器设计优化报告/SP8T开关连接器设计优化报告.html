@@ -124,7 +124,7 @@
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 1 / 7</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 1 / 8</span></footer>
 </section>
 
 <section class="page">
@@ -172,7 +172,7 @@
     </div>
     <div class="bar">几何检查：PCB layout 替换流程不重建连接器 pin IPort，只重建 PCB 远端 Port1。当前候选通过非 GUI 流程完成替换、仿真和后处理。</div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 2 / 7</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 2 / 8</span></footer>
 </section>
 
 <section class="page">
@@ -221,7 +221,7 @@
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 3 / 7</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 3 / 8</span></footer>
 </section>
 
 <section class="page">
@@ -253,7 +253,7 @@
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 4 / 7</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 4 / 8</span></footer>
 </section>
 
 <section class="page">
@@ -285,7 +285,7 @@
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 5 / 7</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 5 / 8</span></footer>
 </section>
 
 <section class="page">
@@ -315,7 +315,7 @@
       <div class="bar">本轮结论：L2 矩形开窗长度从 3.8 mm 增至 4.0 mm 后综合评分继续提升；宽度 1.7 mm 的 l40w17 在最差回损、平均额外插损和总评分上为当前最优组合。</div>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 6 / 7</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 6 / 8</span></footer>
 </section>
 
 <section class="page">
@@ -355,7 +355,44 @@
       <div class="bar">当前最明确方向是保持 L3 solid、L4 GND 和 connector foot 就近接地，以 L2 4.0 × 1.7 mm 为中心继续做小步边界扫描，并优先复核端口/辐射边界。</div>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 7 / 7</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 7 / 8</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1>真实板输入/输出端口打分</h1>
+      <div class="subtitle">RF_IN 与 RF_OUT 端口结果已按同一连接器评分口径复核</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta"><strong>复核口径</strong>score profile：sma_launch_fullband_0p5_10g_v2<br>baseline：no_connector_30mm<br>数据源：HFSS 3D Layout</div>
+  </header>
+  <main class="main">
+    <div class="section">
+      <div class="section-title">14. 输入/输出端口结果</div>
+      <table class="compact candidate-table">
+        <thead>
+          <tr><th>设计</th><th>Score</th><th>Cost</th><th>最差回损</th><th>S21_avg</th><th>S21_ripple</th><th>平衡</th><th>状态</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>ppa_rf_cutout_RF_IN</td><td class="ok">83.310</td><td class="warn">16.690</td><td class="bad">-9.79 dB</td><td>-0.56 dB</td><td>0.66 dB</td><td>2.33 dB</td><td><span class="tag orange">TUNE</span></td></tr>
+          <tr><td>ppa_rf_cutout_RF_OUT</td><td class="ok">96.905</td><td class="ok">3.095</td><td class="ok">-14.43 dB</td><td>-0.63 dB</td><td>1.02 dB</td><td>9.58 dB</td><td><span class="tag green">CANDIDATE</span></td></tr>
+        </tbody>
+      </table>
+      <div class="bar">结论：输入端仍偏弱，输出端在重新求解后已恢复到正常可用状态；两端结果已统一纳入 v2 baseline-relative 评分，后续报告可直接引用这组 score CSV。</div>
+    </div>
+    <div class="section">
+      <div class="section-title">15. 结果来源</div>
+      <table class="compact">
+        <thead><tr><th>设计</th><th>Touchstone</th><th>Score CSV</th><th>Trace CSV</th></tr></thead>
+        <tbody>
+          <tr><td>ppa_rf_cutout_RF_IN</td><td>projects/sp8t_real_board_hfss/results/rf_in_launch/ppa_rf_cutout_RF_IN/ppa_rf_cutout_RF_IN.s2p</td><td>projects/sp8t_real_board_hfss/results/rf_in_launch/ppa_rf_cutout_RF_IN/ppa_rf_cutout_RF_IN_score.csv</td><td>projects/sp8t_real_board_hfss/results/rf_in_launch/ppa_rf_cutout_RF_IN/ppa_rf_cutout_RF_IN_trace.csv</td></tr>
+          <tr><td>ppa_rf_cutout_RF_OUT</td><td>projects/sp8t_real_board_hfss/results/rf_out_launch/ppa_rf_cutout_RF_OUT/ppa_rf_cutout_RF_OUT.s2p</td><td>projects/sp8t_real_board_hfss/results/rf_out_launch/ppa_rf_cutout_RF_OUT/ppa_rf_cutout_RF_OUT_score.csv</td><td>projects/sp8t_real_board_hfss/results/rf_out_launch/ppa_rf_cutout_RF_OUT/ppa_rf_cutout_RF_OUT_trace.csv</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 8 / 8</span></footer>
 </section>
 
 </body>

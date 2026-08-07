@@ -15,6 +15,24 @@ OPTIONAL_SOURCE_LAYOUT_NAMES: tuple[str, ...] = (
     "p2_l2_cutout_rect_extend_left",
     "p1_l3_cutout_rect_extend_right",
     "p2_l3_cutout_rect_extend_left",
+    "clip_frame",
+    "clip_box",
+    "crop_frame",
+    "crop_box",
+    "cut_frame",
+    "cut_box",
+    "cutout_frame",
+    "cutout_box",
+    "board_clip_frame",
+    "board_clip_box",
+    "board_cut_frame",
+    "board_cut_box",
+    "pcb_clip_frame",
+    "pcb_clip_box",
+    "pcb_cut_frame",
+    "pcb_cut_box",
+    "simulation_clip_frame",
+    "simulation_cut_frame",
 )
 
 SOURCE_LAYOUT_PREFIXES: tuple[str, ...] = (
@@ -26,6 +44,23 @@ SOURCE_LAYOUT_PREFIXES: tuple[str, ...] = (
     "gcpw_line_via_bottom_",
     "hfss_ground_plane_part_",
     "l3_ground_plane_part_",
+)
+
+TEMPORARY_CLIP_FRAME_PREFIXES: tuple[str, ...] = (
+    "clip_frame",
+    "clip_box",
+    "crop_frame",
+    "crop_box",
+    "cut_frame",
+    "cut_box",
+    "cutout_frame",
+    "cutout_box",
+    "board_clip",
+    "board_cut",
+    "pcb_clip",
+    "pcb_cut",
+    "simulation_clip",
+    "simulation_cut",
 )
 
 
@@ -135,8 +170,22 @@ def resolve_existing_delete_names(existing: set[str], requested: list[str]) -> l
     return output
 
 
+def resolve_existing_delete_names_and_prefixes(
+    existing: set[str],
+    requested: list[str],
+    prefixes: Iterable[str] = (),
+) -> list[str]:
+    output = resolve_existing_delete_names(existing, requested)
+    normalized_prefixes = tuple(prefix for prefix in prefixes if prefix)
+    for actual in sorted(existing):
+        if any(actual == prefix or actual.startswith(prefix) for prefix in normalized_prefixes):
+            if actual not in output:
+                output.append(actual)
+    return output
+
+
 def source_like_names(existing: set[str], requested: list[str]) -> list[str]:
-    return resolve_existing_delete_names(existing, requested)
+    return resolve_existing_delete_names_and_prefixes(existing, requested, TEMPORARY_CLIP_FRAME_PREFIXES)
 
 
 def existing_layout_objects(modeler: Any, editor: Any) -> set[str]:

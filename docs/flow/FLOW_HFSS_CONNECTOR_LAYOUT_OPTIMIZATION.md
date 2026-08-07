@@ -149,6 +149,7 @@ HFSS project contract 已固化为两个维度：
 - Smith 圆图调谐：每次仿真必须保留复数 S 参数，并用 `z=(1+Gamma)/(1-Gamma)` 转为 50 ohm 归一化输入阻抗。若目标频段内 `r<1` 且 `x<0`，优先减小焊盘电容或加入短高阻抗串联段；若 `r<1` 且 `x>0`，优先减小串联电感或增加局部电容；若轨迹绕圈或跨越实轴，说明结构已进入谐振补偿，优先回退到更宽带的 pad/taper/cut-out 方案。
 - 保持回流连续：连接器地脚、顶层共面地和 via fence 不得被 cut-out 切断；via 与中心焊盘距离作为独立变量扫参。
 - 第二层以下挖空作为第二轮变量：只有当 L2 cut-out 仍无法改善 S11，或 TDR/场分布显示 launch 仍明显电容性时，才增加 `l3_cutout_enabled` 或更深层 cut-out。
+- HFSS Design Settings 中的 `Enable material override` 应保持勾选，用于让金属与介质交叠时按 mesh 规则自动处理覆盖关系；这和 `Enable Design-level intersection checks` 不是同一个选项，前者通常应开启，后者在当前 connector fixture 里通常应关闭。
 
 首轮真实 HFSS solve 控制在 6-8 个候选；计划表允许登记带 gate 的备用候选，只有前序 Smith/score 条件满足时才进入求解队列：
 
@@ -392,6 +393,7 @@ artifact_manifest
 - [x] 2026-08-04 已在现有工程追加 30 mm 快速仿真 design：`IDEAL_50R_CPW_30MM`、`SINGLE_END_SMA_CPW_30MM`、`DUAL_END_SMA_CPW_30MM`；频段为 `0.5-10 GHz`，setup/sweep 为 `Setup_0p5to10G` / `Sweep_0p5to10G_96pt`，当前仅 build-only，未启动求解。
 - [x] 30 mm design 已放置连接器和端口：single 使用 component ID `78`，connector port 为 `Pin_T1`；dual 使用 component ID `79/80`，connector ports 为 `Pin_T1/Pin_T2`；端口不改名，后续通过 logical port mapping 使用。
 - [x] 2026-08-04 网格报错口径更新：connector fixture design 必须取消勾选 Design Settings > HFSS Meshing Method > `Enable Design-level intersection checks`。自动 workflow 使用 `--no-enable-design-intersection-check` 写入 `EnableDesignIntersectionCheck=false`，避免 3D connector 与 PCB launch 接触处触发设计级交叉检查导致端口/网格报错。
+- [x] 2026-08-07 3D Layout Design Settings 补充：`Enable material override` 需要勾选，避免 metal/dielectric overlap 在 mesh 处理时被误判；该选项与 intersection checks 分属不同设置。
 - [x] 当前家里环境连接器工程：HFSS profile `home`，workspace `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT`，project `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\hfss_sma_connector_cpw.aedt`；公司镜像仍使用 `company_connector` 和 `D:\Work\ADS\HFSS_VERDICT`。
 - [x] 2026-08-04 已对家里当前工程执行 DesignOptions 写入并保存：`IDEAL_50R_CPW_100MM`、`SINGLE_END_SMA_CPW_100MM`、`DUAL_END_SMA_CPW_100MM`、`IDEAL_50R_CPW_30MM`、`SINGLE_END_SMA_CPW_30MM`、`DUAL_END_SMA_CPW_30MM` 均设置 `EnableDesignIntersectionCheck=false`；报告为 `projects/hfss_sma_connector/reports/home_set_design_intersection_check_false_20260804.json`。
 
@@ -438,6 +440,8 @@ artifact_manifest
 - `small_pad_l2_rect_l3_same_anchor_a` 已完成非图形写入、求解、导出和连接器全频带评分。结果为 `optimization_cost=78.987`、`connector_score=21.013`、状态 `TUNE`；全频带最差回波为 `s22=-8.24 dB @ 7.4 GHz`，相对 L2-only 最佳候选退化，作为 L3 架构基线而不是当前最佳。
 - 当前配置化 active candidate 为 `small_pad_l2_rect_l3_cutout_w1p6_l4p6_a`：从 `config\projects\hfss_sma_connector.json` 的 `layout_optimization` 读取参数，`fixture_type` 固定为 `microstrip_single_connector_50r`，compare gate 禁止 `p2_l2_cutout_rect`，并要求 `p1_l2_cutout_rect` 与 `l3_ground_plane` 存在。
 - 后续版图迭代统一采用 `delete source layout -> draw new layout -> recreate PCB output port` 口径：删除旧 PCB 源版图对象，按新版 `layout.json` 完整绘制 L1/L2/L3/via/through/output_feed，再只删除并重建远端 PCB 端口 `Port1`；连接器实例和连接器 pin 端口 `S1_1_Pin_T1` 不进入删除列表。这个统一操作完全覆盖候选版图更新，不再在 workflow 层增加更细化的布尔/增量入口。
+- 裁切/裁剪板子后生成的裁切框属于临时源版图对象，必须纳入删除生命周期；否则残留对象可能与新版 L1/L2/L3 版图叠加，并参与 HFSS/EDB 求解，表现为端口、连通性、局部谐振或 S 参数异常。遇到类似异常时应优先排查 `clip/cut/crop frame` 残留，而不是直接判断为连接器端面激励与 PCB 铜皮物理距离导致开路；连接器芯线和焊锡 launch 可以把端面参考面与 PCB pad 连通。
+- 标准替换/删除脚本默认清理常见 `clip/cut/crop frame` 名称和前缀；如果 HFSS 中手动创建的裁切框名称不在默认表内，必须通过 `--delete-extra-name` 或 `--delete-extra-prefix` 显式加入本次生命周期清理。
 - 禁止为单个候选引入增量 cutout、direct void、局部布尔补丁或其它候选专用版图操作；这些旁路会破坏迭代收敛和结果可比性。L2 cut-out、L3 reference plane 等差异只能作为 `layout.json` 的几何语义进入 `create_geometry()` 的一次性重绘过程，不允许直接对已存在 AEDT 版图做局部修补。真实替换前必须先确认 regenerated layout 为单端并备份 `.aedt` 和 `.aedb`。执行后跳过 Validate，直接按 `Setup_0p5to10G` / `Sweep_0p5to10G_96pt` 求解导出。
 - 后处理必须继续使用连接器独立评分 `connector_fullband_v1`，频段为 `0.5-10 GHz` 全频带，不再使用任何滤波器或 `6-8 GHz` passband 口径。
 

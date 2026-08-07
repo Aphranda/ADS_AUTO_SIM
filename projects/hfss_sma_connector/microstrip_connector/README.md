@@ -23,6 +23,7 @@ Last updated: 2026-08-04
 - Home combined AEDT project: `D:\Work\ADS\SIMADS_EM_PAR\HFSS_VERDICT\hfss_sma_connector_cpw.aedt`
 - Company mirror AEDT project: `D:\Work\ADS\HFSS_VERDICT\hfss_sma_connector_cpw.aedt`
 - Reference SMA model: `D:\Work\ADS\HFSS_SMA_Connector\SMA_KE.aedt`
+- HFSS Design Settings: `Enable material override` should be enabled for 3D Layout designs.
 - HFSS meshing: Design Settings > HFSS Meshing Method > `Enable Design-level intersection checks` must be unchecked for connector fixture designs.
 
 ## AEDT Project
