@@ -44,8 +44,8 @@
     {
       "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_sp8t_sparams.svg",
       "exists": true,
-      "size_bytes": 51020,
-      "sha256": "6d225c273181d20602ac7fad581980883b652398163e5d3dd575f8f121ef6c8b"
+      "size_bytes": 50345,
+      "sha256": "0e07fbec89129640862e19bcacc6fbd25c2215ba93829c863e60f7e001c6816e"
     },
     {
       "path": "assets/se30_gap1p5_novia_l2l3_l4_jlc04161h_7628_1p6mm.svg",
@@ -134,8 +134,8 @@
     {
       "path": "SP8T开关连接器设计优化报告.html",
       "exists": true,
-      "size_bytes": 28472,
-      "sha256": "c9c6226317e6b763c1d20bb3167ff0704d0b7b53f927ab8957e1270340ab690d"
+      "size_bytes": 28702,
+      "sha256": "e0bd415e3079ae0c3c510d463c7e85f36a555f36919967dfb449dfb902907e0a"
     },
     {
       "path": "SP8T开关连接器设计优化报告.pdf",
@@ -321,5 +321,5 @@
   "outside_report_dir_references": [],
   "skipped_references": [],
   "status": "ok",
-  "updated_at": "2026-08-07T22:46:52+08:00"
+  "updated_at": "2026-08-07T23:11:00+08:00"
 }

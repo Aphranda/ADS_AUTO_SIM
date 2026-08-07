@@ -21,7 +21,7 @@ from simads.scoring.interface import score_sparameter_files
 DEFAULT_PROFILE_IDS = {
     "filter": "fr4_25db_rl6",
     "connector": "sma_launch_fullband_0p5_10g_v2",
-    "sp8t": "sp8t_four_port_connector_isolation_0p5_10g_v1",
+    "sp8t": "sp8t_four_port_connector_isolation_0p5_10g_v2",
 }
 
 

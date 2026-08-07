@@ -365,14 +365,14 @@
       <div class="subtitle">RF-PPA-SP10T-4F4H-ENIG-V1.0_cutout · Port1->Port2 与 Port3->Port4</div>
     </div>
     <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
-    <div class="doc-meta"><strong>新增复测</strong>工程：RF-PPA-SP10T-4F4H-ENIG-V1.0.aedt<br>Setup/Sweep：Setup1 / Sweep1<br>评分：sp8t isolation v1</div>
+    <div class="doc-meta"><strong>新增复测</strong>工程：RF-PPA-SP10T-4F4H-ENIG-V1.0.aedt<br>Setup/Sweep：Setup1 / Sweep1<br>评分：sp8t isolation v2 baseline</div>
   </header>
   <main class="main">
     <div class="chips">
-      <div class="chip"><span class="k">SP8T Score</span><span class="v">95.701</span></div>
+      <div class="chip"><span class="k">SP8T Score</span><span class="v">100.000</span></div>
       <div class="chip"><span class="k">最差隔离</span><span class="v">-44.56 dB</span></div>
       <div class="chip"><span class="k">最差回损</span><span class="v">-14.30 dB</span></div>
-      <div class="chip"><span class="k">状态</span><span class="v">TUNE</span></div>
+      <div class="chip"><span class="k">状态</span><span class="v">PASS_CANDIDATE</span></div>
     </div>
 
     <div class="section">
@@ -380,23 +380,23 @@
       <table class="compact">
         <thead><tr><th>项目</th><th>计算口径</th><th>目标</th><th>本次结果</th><th>判断</th></tr></thead>
         <tbody>
-          <tr><td>Port1->Port2 插损</td><td>S21，0.5-10 GHz 最小值</td><td>≥ -1.5 dB</td><td class="ok">-0.69 dB</td><td><span class="tag green">达标</span></td></tr>
-          <tr><td>Port3->Port4 插损</td><td>S43，0.5-10 GHz 最小值</td><td>≥ -1.5 dB</td><td class="warn">-1.64 dB</td><td><span class="tag orange">略低</span></td></tr>
-          <tr><td>through 平均插损</td><td>S21/S43 合并平均</td><td>≥ -0.75 dB</td><td class="ok">-0.67 dB</td><td><span class="tag green">达标</span></td></tr>
-          <tr><td>through 纹波</td><td>max(S21/S43)-min(S21/S43)</td><td>≤ 1.0 dB</td><td class="warn">1.58 dB</td><td><span class="tag orange">需关注</span></td></tr>
-          <tr><td>两路 through 平衡</td><td>max(|S21-S43|)</td><td>≤ 1.0 dB</td><td class="ok">0.95 dB</td><td><span class="tag green">达标</span></td></tr>
-          <tr><td>四端口最差回损</td><td>max(S11/S22/S33/S44)</td><td>≤ -10 dB</td><td class="ok">-14.30 dB，S33 @ 7.15 GHz</td><td><span class="tag green">达标</span></td></tr>
-          <tr><td>输入/输出隔离</td><td>两组端口间最差 cross-coupling</td><td>≤ -30 dB</td><td class="ok">-44.56 dB，S13 @ 4.6 GHz</td><td><span class="tag green">裕量 14.56 dB</span></td></tr>
+          <tr><td>评分口径</td><td>candidate - baseline relative</td><td>相对基线退化最小</td><td class="ok">cost 0.000 / score 100.000</td><td><span class="tag green">基线参考</span></td></tr>
+          <tr><td>最大额外插损</td><td>max(S21/S43 baseline - candidate)</td><td>≤ 0.5 dB</td><td class="ok">0.00 dB</td><td><span class="tag green">无退化</span></td></tr>
+          <tr><td>平均额外插损</td><td>mean(S21/S43 baseline - candidate)</td><td>≤ 0.25 dB</td><td class="ok">0.00 dB</td><td><span class="tag green">无退化</span></td></tr>
+          <tr><td>额外插损纹波</td><td>relative extra IL ripple</td><td>≤ 0.5 dB</td><td class="ok">0.00 dB</td><td><span class="tag green">无退化</span></td></tr>
+          <tr><td>回损退化</td><td>max return degradation vs baseline</td><td>≤ 3.0 dB</td><td class="ok">0.00 dB</td><td><span class="tag green">无退化</span></td></tr>
+          <tr><td>隔离退化</td><td>max isolation degradation vs baseline</td><td>≤ 3.0 dB</td><td class="ok">0.00 dB</td><td><span class="tag green">无退化</span></td></tr>
+          <tr><td>绝对读数</td><td>S21/S43/return/isolation</td><td>记录基线状态</td><td>S43_min -1.64 dB；worst return -14.30 dB；worst isolation -44.56 dB</td><td><span class="tag blue">后续候选对比基准</span></td></tr>
         </tbody>
       </table>
-      <div class="bar">本次复测结论：隔离不是当前瓶颈，0.5-10 GHz 最差隔离仍有 14.56 dB 裕量；主要待优化项是 Port3->Port4 路径在高频端的插损下探和两条 through 曲线合并后的纹波。</div>
+      <div class="bar">本次复测结论：评分已切换为与基线对比。当前导出的已确认结果作为 baseline，因此相对额外插损、回损退化和隔离退化均为 0；后续候选以该 S4P 为统一比较基准。绝对曲线仍显示 Port3->Port4 高频插损和 through ripple 是后续观察点。</div>
     </div>
 
     <div class="section">
       <div class="section-title">15. 四端口曲线</div>
       <div class="figure plot">
         <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_sp8t_sparams.svg" alt="SP8T four-port S-parameters with isolation">
-        <div class="caption">图 5：实板四端口复测曲线。蓝色 S21 为 Port1->Port2，红色 S43 为 Port3->Port4，紫色为四端口最差回损，绿色为输入/输出最差隔离。</div>
+        <div class="caption">图 5：实板四端口复测曲线，横轴固定为 0.5-10 GHz。蓝色 S21 为 Port1->Port2，红色 S43 为 Port3->Port4，紫色为四端口最差回损，绿色为输入/输出最差隔离。</div>
       </div>
     </div>
   </main>

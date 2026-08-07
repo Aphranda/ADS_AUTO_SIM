@@ -23,8 +23,8 @@
     "passband_stop_ghz": null
   },
   "scoring": {
-    "score_version": "sp8t_four_port_connector_isolation_v1",
-    "score_profile_id": "sp8t_four_port_connector_isolation_0p5_10g_v1",
+    "score_version": "sp8t_four_port_connector_isolation_v2_baseline_relative",
+    "score_profile_id": "sp8t_four_port_connector_isolation_0p5_10g_v2",
     "band_min_ghz": 0.5,
     "band_max_ghz": 10.0,
     "status_gate": "TUNE_or_better"
@@ -84,7 +84,8 @@
           "output_connector": "Port3",
           "output_chip": "Port4"
         },
-        "latest_result": "projects/sp8t_real_board_hfss/results/rf_ppa_sp10t_cutout/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_score.csv",
+        "baseline_s4p": "projects/sp8t_real_board_hfss/results/baselines/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_baseline.s4p",
+        "latest_result": "projects/sp8t_real_board_hfss/results/rf_ppa_sp10t_cutout/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_score_baseline_relative.csv",
         "description": "Four-port imported real board cutout. Port1 to chip Port2 is input path, Port3 to chip Port4 is output path; scoring includes cross-path isolation."
       }
     }

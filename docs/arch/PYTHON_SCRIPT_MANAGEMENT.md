@@ -72,8 +72,8 @@ CLI 编排流程。
 | `tools/plot_connector_smith_svg.py` | host | stable | 绘制连接器 S11/S22 Smith 圆图 SVG | 使用 Touchstone 复数 S 参数生成 50 ohm 归一化阻抗轨迹，用于判断 L2 cutout 长度/宽度、pad 电容和串联补偿方向。 |
 | `tools/plot_connector_before_after_svg.py` | host | candidate | 生成未优化/已优化 S 参数叠加 SVG | 未优化曲线使用淡色虚线，优化曲线使用实线；用于连接器报告，不用于滤波器报告。 |
 | `tools/analyze_connector_s2p.py` | host | stable | 连接器 S2P 独立评分和 Smith 指标提取 | 输出 `connector_fullband_v1`、`optimization_cost`、`connector_score`、`smith_z_*` 和 `smith_tuning_hint`，作为后续参数优化器主输入。 |
-| `tools/analyze_sparams.py` | host | stable | 统一 S 参数评分 CLI | 当前支持 filter、connector 和 sp8t profile；SP8T 四端口使用 `.s4p` 和 `sp8t_four_port_connector_isolation_0p5_10g_v1`。 |
-| `tools/plot_sp8t_sparams_svg.py` | host | stable | 绘制 SP8T 四端口 through/return/isolation SVG | 输入 `sp8t` trace CSV，显示 S21、S43、四端口最差回损和输入/输出最差隔离，用于实板四端口报告页。 |
+| `tools/analyze_sparams.py` | host | stable | 统一 S 参数评分 CLI | 当前支持 filter、connector 和 sp8t profile；SP8T 四端口使用 `.s4p` 和 `sp8t_four_port_connector_isolation_0p5_10g_v2` baseline-relative 评分。 |
+| `tools/plot_sp8t_sparams_svg.py` | host | stable | 绘制 SP8T 四端口 through/return/isolation SVG | 输入 `sp8t` trace CSV，显示 S21、S43、四端口最差回损和输入/输出最差隔离，横轴固定 0.5-10 GHz，用于实板四端口报告页。 |
 
 ## 3. 可复用模块清单
 

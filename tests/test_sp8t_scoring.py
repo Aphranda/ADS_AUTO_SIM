@@ -107,6 +107,38 @@ def test_sp8t_unified_scoring_profile_loads_default_config(tmp_path: Path) -> No
     assert float(row["optimization_cost"]) > 0.0
 
 
+def test_sp8t_v2_scores_against_baseline(tmp_path: Path) -> None:
+    baseline = tmp_path / "baseline.s4p"
+    candidate = tmp_path / "candidate.s4p"
+    write_db_s4p(baseline, [(1.0, clean_values(s21=-0.2, s43=-0.4, s31=-45.0))])
+    write_db_s4p(candidate, [(1.0, clean_values(s21=-0.4, s43=-0.8, s31=-42.0))])
+
+    row = score_sparameter_file(
+        candidate,
+        system="sp8t",
+        profile_id="sp8t_four_port_connector_isolation_0p5_10g_v2",
+        baseline_path=baseline,
+    )
+
+    assert row["score_version"] == "sp8t_four_port_connector_isolation_v2_baseline_relative"
+    assert row["baseline_file"] == str(baseline)
+    assert row["max_extra_il_0p5_10g_db"] == "0.40"
+    assert row["max_isolation_degradation_0p5_10g_db"] == "3.00"
+    assert float(row["sp8t_score"]) < 100.0
+
+
+def test_sp8t_v2_requires_baseline(tmp_path: Path) -> None:
+    s4p = tmp_path / "candidate.s4p"
+    write_db_s4p(s4p, [(1.0, clean_values())])
+
+    with pytest.raises(ValueError, match="requires a baseline S4P"):
+        score_sparameter_file(
+            s4p,
+            system="sp8t",
+            profile_id="sp8t_four_port_connector_isolation_0p5_10g_v2",
+        )
+
+
 def test_sp8t_trace_csv_contains_worst_isolation(tmp_path: Path) -> None:
     s4p = tmp_path / "trace.s4p"
     trace = tmp_path / "trace.csv"

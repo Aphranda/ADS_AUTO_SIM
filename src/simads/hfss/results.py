@@ -132,6 +132,10 @@ def run_post_tools(
             str(summary_csv),
             "--out-dir",
             str(svg_dir),
+            "--x-min",
+            "0.5",
+            "--x-max",
+            "10.0",
             "--no-overlay",
         ]
         _run_hidden(plot_command, lifecycle=lifecycle, operation="plot_sp8t_sparam_svg", tool=plotter)

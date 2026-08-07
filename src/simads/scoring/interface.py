@@ -72,9 +72,7 @@ def score_sparameter_file(
         row["scoring_profile_path"] = str(profile.path)
         return row
     if system == "sp8t":
-        if baseline_path is not None:
-            raise ValueError("sp8t scoring does not accept a baseline_path")
-        row = score_sp8t_touchstone(path, _sp8t_profile(profile))
+        row = score_sp8t_touchstone(path, _sp8t_profile(profile), baseline_path=baseline_path)
         row["score_version"] = profile.score_version
         row["scoring_system"] = profile.system
         row["scoring_profile_path"] = str(profile.path)

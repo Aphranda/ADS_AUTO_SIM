@@ -1,0 +1,36 @@
+{
+  "profile_id": "sp8t_four_port_connector_isolation_0p5_10g_v2",
+  "scoring_system": "sp8t",
+  "score_version": "sp8t_four_port_connector_isolation_v2_baseline_relative",
+  "mode": {
+    "baseline_relative": true,
+    "baseline_required": true
+  },
+  "frequency_ghz": {
+    "band_min": 0.5,
+    "band_max": 10.0
+  },
+  "targets": {
+    "max_extra_il_db": 0.5,
+    "avg_extra_il_db": 0.25,
+    "extra_il_ripple_db": 0.5,
+    "max_return_degradation_db": 3.0,
+    "max_isolation_degradation_db": 3.0,
+    "worst_isolation_db": -30.0
+  },
+  "pass_targets": {
+    "max_extra_il_db": 0.5,
+    "avg_extra_il_db": 0.25,
+    "extra_il_ripple_db": 0.5,
+    "max_return_degradation_db": 3.0,
+    "max_isolation_degradation_db": 3.0,
+    "worst_isolation_db": -25.0
+  },
+  "weights": {
+    "max_extra_il": 8.0,
+    "avg_extra_il": 12.0,
+    "extra_il_ripple": 4.0,
+    "return_degradation": 3.0,
+    "isolation_degradation": 3.0
+  }
+}

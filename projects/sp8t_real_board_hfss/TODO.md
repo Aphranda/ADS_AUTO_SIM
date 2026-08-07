@@ -5,7 +5,7 @@
 - [x] Freeze corrected `100pF` `RF_IN_cutout` baseline with S-parameter, Smith, and TDR artifacts.
 - [x] Add Touchstone-derived TDR output to connector HFSS post-processing.
 - [x] Extract `RF_IN_cutout` layout geometry through AEDT/PyAEDT APIs and render focused/full-extent SVG layout reviews.
-- [x] Add SP8T four-port Touchstone scoring with input/output isolation metrics.
+- [x] Add SP8T four-port Touchstone scoring with baseline-relative input/output isolation metrics.
 - [x] Re-run `RF-PPA-SP10T-4F4H-ENIG-V1.0_cutout` in home AEDT and update the connector report with the isolation score page.
 - [ ] Analyze the remaining 3.55 GHz resonance using S-parameters, Smith chart, and TDR together.
 - [ ] Analyze the four-port `S43` high-frequency insertion-loss dip and through ripple; isolation is not the current bottleneck.
