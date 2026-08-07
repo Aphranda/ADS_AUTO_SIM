@@ -72,6 +72,8 @@ CLI 编排流程。
 | `tools/plot_connector_smith_svg.py` | host | stable | 绘制连接器 S11/S22 Smith 圆图 SVG | 使用 Touchstone 复数 S 参数生成 50 ohm 归一化阻抗轨迹，用于判断 L2 cutout 长度/宽度、pad 电容和串联补偿方向。 |
 | `tools/plot_connector_before_after_svg.py` | host | candidate | 生成未优化/已优化 S 参数叠加 SVG | 未优化曲线使用淡色虚线，优化曲线使用实线；用于连接器报告，不用于滤波器报告。 |
 | `tools/analyze_connector_s2p.py` | host | stable | 连接器 S2P 独立评分和 Smith 指标提取 | 输出 `connector_fullband_v1`、`optimization_cost`、`connector_score`、`smith_z_*` 和 `smith_tuning_hint`，作为后续参数优化器主输入。 |
+| `tools/analyze_sparams.py` | host | stable | 统一 S 参数评分 CLI | 当前支持 filter、connector 和 sp8t profile；SP8T 四端口使用 `.s4p` 和 `sp8t_four_port_connector_isolation_0p5_10g_v1`。 |
+| `tools/plot_sp8t_sparams_svg.py` | host | stable | 绘制 SP8T 四端口 through/return/isolation SVG | 输入 `sp8t` trace CSV，显示 S21、S43、四端口最差回损和输入/输出最差隔离，用于实板四端口报告页。 |
 
 ## 3. 可复用模块清单
 
@@ -80,7 +82,7 @@ CLI 编排流程。
 | `simads.config` | P0 | `ads_profiles.py` | profile、路径、workspace、library、template、substrate。 |
 | `simads.config.pipelines` | P1 | `check_pipeline_contract.py`、`run_ads_filter_candidate.py`、`run_ads_filter_sweep.py` | pipeline contract、脚本绑定、单位、层、端口、频段和评分配置。 |
 | `simads.logging` | P0 | `run_ads_filter_candidate.py`、`run_ads_filter_sweep.py`、`ads_run_rfpro_fem.py` | 阶段日志、耗时、错误分类。 |
-| `simads.scoring` | P0 | `analyze_filter_s2p.py` | S 参数指标、目标函数、评分权重。 |
+| `simads.scoring` | P0 | `analyze_filter_s2p.py`、`analyze_sparams.py` | S 参数指标、目标函数、评分权重；当前包含 filter、connector、SP8T 四端口隔离评分和通用 Touchstone n-port 读取。 |
 | `simads.data` | P0 | `analyze_ads_dataset.py`、`export_ads_fem_dataset.py` | CSV、dataset、Touchstone、summary。 |
 | `simads.geometry` | P1 | `generate_*_layout.py`、`check_layout_contract.py` | Point、BBox、Rect、Path、Polygon、Via、Port、Transform、通用 layout contract 和拓扑专项 layout gate。 |
 | `simads.exporters` | P1 | `generate_*_layout.py` | DXF、SVG、params.json、DRC、dimension check。 |

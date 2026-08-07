@@ -11,12 +11,14 @@ from typing import Any
 from simads.hfss.aedt_startup import hidden_subprocess_kwargs
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
-POSTPROCESS_PROFILES = {"filter", "connector"}
+POSTPROCESS_PROFILES = {"filter", "connector", "sp8t"}
 
 
 def _profile_tool(profile: str, *, connector_tool: str, filter_tool: str) -> str:
     if profile not in POSTPROCESS_PROFILES:
         raise ValueError(f"unsupported HFSS postprocess profile: {profile}")
+    if profile == "sp8t":
+        raise ValueError("sp8t uses dedicated four-port postprocess tools")
     return connector_tool if profile == "connector" else filter_tool
 
 
@@ -30,6 +32,11 @@ def convert_s2p_to_csv(s2p: Path, out_csv: Path, *, profile: str = "filter") -> 
         from analyze_filter_s2p import read_s2p
 
         samples = read_s2p(s2p)
+    elif profile == "sp8t":
+        from simads.scoring.sp8t import read_touchstone4, write_trace_csv
+
+        write_trace_csv(read_touchstone4(s2p), out_csv)
+        return
     else:
         raise ValueError(f"unsupported HFSS postprocess profile: {profile}")
 
@@ -78,7 +85,9 @@ def run_post_tools(
     baseline_s2p: Path | None = None,
     lifecycle: Any | None = None,
 ) -> dict[str, str]:
-    use_unified_scoring = scoring_profile_id is not None or scoring_profile_path is not None or baseline_s2p is not None
+    use_unified_scoring = (
+        profile == "sp8t" or scoring_profile_id is not None or scoring_profile_path is not None or baseline_s2p is not None
+    )
     analyzer = (
         "analyze_sparams.py"
         if use_unified_scoring
@@ -87,11 +96,6 @@ def run_post_tools(
             connector_tool="analyze_connector_s2p.py",
             filter_tool="analyze_filter_s2p.py",
         )
-    )
-    plotter = _profile_tool(
-        profile,
-        connector_tool="plot_connector_s_curves_svg.py",
-        filter_tool="plot_filter_s_curves_svg.py",
     )
     analyze_command = [sys.executable, str(REPO_ROOT / "tools" / analyzer), str(s2p)]
     if use_unified_scoring:
@@ -119,24 +123,42 @@ def run_post_tools(
         with lifecycle.timed("write_plot_summary"):
             write_plot_summary(trace_csv, candidate, summary_csv)
 
-    plot_command = [
-        sys.executable,
-        str(REPO_ROOT / "tools" / plotter),
-        "--summary",
-        str(summary_csv),
-    ]
-    if profile == "filter":
-        plot_command.extend(["--results-dir", str(svg_dir.parent)])
-    plot_command.extend(
-        [
+    if profile == "sp8t":
+        plotter = "plot_sp8t_sparams_svg.py"
+        plot_command = [
+            sys.executable,
+            str(REPO_ROOT / "tools" / plotter),
+            "--summary",
+            str(summary_csv),
             "--out-dir",
             str(svg_dir),
-            "--sparams",
-            "s11,s21,s22",
             "--no-overlay",
         ]
-    )
-    _run_hidden(plot_command, lifecycle=lifecycle, operation="plot_sparam_svg", tool=plotter)
+        _run_hidden(plot_command, lifecycle=lifecycle, operation="plot_sp8t_sparam_svg", tool=plotter)
+    else:
+        plotter = _profile_tool(
+            profile,
+            connector_tool="plot_connector_s_curves_svg.py",
+            filter_tool="plot_filter_s_curves_svg.py",
+        )
+        plot_command = [
+            sys.executable,
+            str(REPO_ROOT / "tools" / plotter),
+            "--summary",
+            str(summary_csv),
+        ]
+        if profile == "filter":
+            plot_command.extend(["--results-dir", str(svg_dir.parent)])
+        plot_command.extend(
+            [
+                "--out-dir",
+                str(svg_dir),
+                "--sparams",
+                "s11,s21,s22",
+                "--no-overlay",
+            ]
+        )
+        _run_hidden(plot_command, lifecycle=lifecycle, operation="plot_sparam_svg", tool=plotter)
 
     artifacts = {"score": str(score_csv), "trace_csv": str(trace_csv), "svg_dir": str(svg_dir)}
     if scoring_profile_id:
@@ -184,6 +206,8 @@ def run_post_tools(
         _run_hidden(tdr_command, lifecycle=lifecycle, operation="plot_tdr_svg", tool=tdr_plotter)
         artifacts["tdr_csv"] = str(tdr_csv)
         artifacts["tdr_svg"] = str(tdr_svg)
+    if profile == "sp8t":
+        artifacts["sparam_svg"] = str(svg_dir / f"{candidate}_sp8t_sparams.svg")
     return artifacts
 
 

@@ -76,8 +76,8 @@
     <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
     <div class="doc-meta">
       <strong>统一维护版</strong>
-      日期：2026-08-05<br>
-      当前推荐：l40w17<br>
+      日期：2026-08-07<br>
+      当前推荐：l40w17 + 实板四端口复测<br>
       频段：0.5-10 GHz
     </div>
   </header>
@@ -361,35 +361,43 @@
 <section class="page">
   <header class="page-header">
     <div>
-      <h1>真实板输入/输出端口打分</h1>
-      <div class="subtitle">RF_IN 与 RF_OUT 端口结果已按同一连接器评分口径复核</div>
+      <h1>实板四端口复测</h1>
+      <div class="subtitle">RF-PPA-SP10T-4F4H-ENIG-V1.0_cutout · Port1->Port2 与 Port3->Port4</div>
     </div>
     <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
-    <div class="doc-meta"><strong>复核口径</strong>score profile：sma_launch_fullband_0p5_10g_v2<br>baseline：no_connector_30mm<br>数据源：HFSS 3D Layout</div>
+    <div class="doc-meta"><strong>新增复测</strong>工程：RF-PPA-SP10T-4F4H-ENIG-V1.0.aedt<br>Setup/Sweep：Setup1 / Sweep1<br>评分：sp8t isolation v1</div>
   </header>
   <main class="main">
-    <div class="section">
-      <div class="section-title">14. 输入/输出端口结果</div>
-      <table class="compact candidate-table">
-        <thead>
-          <tr><th>设计</th><th>Score</th><th>Cost</th><th>最差回损</th><th>S21_avg</th><th>S21_ripple</th><th>平衡</th><th>状态</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>ppa_rf_cutout_RF_IN</td><td class="ok">83.310</td><td class="warn">16.690</td><td class="bad">-9.79 dB</td><td>-0.56 dB</td><td>0.66 dB</td><td>2.33 dB</td><td><span class="tag orange">TUNE</span></td></tr>
-          <tr><td>ppa_rf_cutout_RF_OUT</td><td class="ok">96.905</td><td class="ok">3.095</td><td class="ok">-14.43 dB</td><td>-0.63 dB</td><td>1.02 dB</td><td>9.58 dB</td><td><span class="tag green">CANDIDATE</span></td></tr>
-        </tbody>
-      </table>
-      <div class="bar">结论：输入端仍偏弱，输出端在重新求解后已恢复到正常可用状态；两端结果已统一纳入 v2 baseline-relative 评分，后续报告可直接引用这组 score CSV。</div>
+    <div class="chips">
+      <div class="chip"><span class="k">SP8T Score</span><span class="v">95.701</span></div>
+      <div class="chip"><span class="k">最差隔离</span><span class="v">-44.56 dB</span></div>
+      <div class="chip"><span class="k">最差回损</span><span class="v">-14.30 dB</span></div>
+      <div class="chip"><span class="k">状态</span><span class="v">TUNE</span></div>
     </div>
+
     <div class="section">
-      <div class="section-title">15. 结果来源</div>
+      <div class="section-title">14. 四端口评分结果</div>
       <table class="compact">
-        <thead><tr><th>设计</th><th>Touchstone</th><th>Score CSV</th><th>Trace CSV</th></tr></thead>
+        <thead><tr><th>项目</th><th>计算口径</th><th>目标</th><th>本次结果</th><th>判断</th></tr></thead>
         <tbody>
-          <tr><td>ppa_rf_cutout_RF_IN</td><td>projects/sp8t_real_board_hfss/results/rf_in_launch/ppa_rf_cutout_RF_IN/ppa_rf_cutout_RF_IN.s2p</td><td>projects/sp8t_real_board_hfss/results/rf_in_launch/ppa_rf_cutout_RF_IN/ppa_rf_cutout_RF_IN_score.csv</td><td>projects/sp8t_real_board_hfss/results/rf_in_launch/ppa_rf_cutout_RF_IN/ppa_rf_cutout_RF_IN_trace.csv</td></tr>
-          <tr><td>ppa_rf_cutout_RF_OUT</td><td>projects/sp8t_real_board_hfss/results/rf_out_launch/ppa_rf_cutout_RF_OUT/ppa_rf_cutout_RF_OUT.s2p</td><td>projects/sp8t_real_board_hfss/results/rf_out_launch/ppa_rf_cutout_RF_OUT/ppa_rf_cutout_RF_OUT_score.csv</td><td>projects/sp8t_real_board_hfss/results/rf_out_launch/ppa_rf_cutout_RF_OUT/ppa_rf_cutout_RF_OUT_trace.csv</td></tr>
+          <tr><td>Port1->Port2 插损</td><td>S21，0.5-10 GHz 最小值</td><td>≥ -1.5 dB</td><td class="ok">-0.69 dB</td><td><span class="tag green">达标</span></td></tr>
+          <tr><td>Port3->Port4 插损</td><td>S43，0.5-10 GHz 最小值</td><td>≥ -1.5 dB</td><td class="warn">-1.64 dB</td><td><span class="tag orange">略低</span></td></tr>
+          <tr><td>through 平均插损</td><td>S21/S43 合并平均</td><td>≥ -0.75 dB</td><td class="ok">-0.67 dB</td><td><span class="tag green">达标</span></td></tr>
+          <tr><td>through 纹波</td><td>max(S21/S43)-min(S21/S43)</td><td>≤ 1.0 dB</td><td class="warn">1.58 dB</td><td><span class="tag orange">需关注</span></td></tr>
+          <tr><td>两路 through 平衡</td><td>max(|S21-S43|)</td><td>≤ 1.0 dB</td><td class="ok">0.95 dB</td><td><span class="tag green">达标</span></td></tr>
+          <tr><td>四端口最差回损</td><td>max(S11/S22/S33/S44)</td><td>≤ -10 dB</td><td class="ok">-14.30 dB，S33 @ 7.15 GHz</td><td><span class="tag green">达标</span></td></tr>
+          <tr><td>输入/输出隔离</td><td>两组端口间最差 cross-coupling</td><td>≤ -30 dB</td><td class="ok">-44.56 dB，S13 @ 4.6 GHz</td><td><span class="tag green">裕量 14.56 dB</span></td></tr>
         </tbody>
       </table>
+      <div class="bar">本次复测结论：隔离不是当前瓶颈，0.5-10 GHz 最差隔离仍有 14.56 dB 裕量；主要待优化项是 Port3->Port4 路径在高频端的插损下探和两条 through 曲线合并后的纹波。</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">15. 四端口曲线</div>
+      <div class="figure plot">
+        <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_sp8t_sparams.svg" alt="SP8T four-port S-parameters with isolation">
+        <div class="caption">图 5：实板四端口复测曲线。蓝色 S21 为 Port1->Port2，红色 S43 为 Port3->Port4，紫色为四端口最差回损，绿色为输入/输出最差隔离。</div>
+      </div>
     </div>
   </main>
   <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 8 / 8</span></footer>

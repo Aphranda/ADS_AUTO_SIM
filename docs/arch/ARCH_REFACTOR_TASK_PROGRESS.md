@@ -53,6 +53,48 @@ Owner: ADS Automation
 当前重构已进入 P2 阶段：外部 ADS workspace 不移动，仓库内 ADS 项目资产以 `projects/<project_id>/` 为有效边界。P0/P1 的数据契约、manifest、score/summary 追溯、baseline freeze、workspace 写入安全 gate、run state machine、结果治理、制造鲁棒性和报告发布 gate 已落地；当前重点是将旧脚本内部逻辑逐步收敛到 `src/simads` 模块，并保证新增器件分支使用独立项目目录。
 
 ## 任务记录
+### ARCH-REFACTOR-TASK-20260807-002 - SP8T 实板四端口隔离评分与报告更新
+
+- 状态：完成
+- 日期：2026-08-07
+- 任务目标：
+  - 使用 home 环境重跑 `D:\Work\ADS\SIMADS_EM_PAR\SP8T\RF-PPA-SP10T-4F4H-ENIG-V1.0.aedt` 中的 `RF-PPA-SP10T-4F4H-ENIG-V1.0_cutout` 四端口仿真。
+  - 对 Port1->Port2 输入路径、Port3->Port4 输出路径进行评分，并新增输入/输出隔离指标。
+  - 更新 `projects/hfss_sma_connector/reports/SP8T开关连接器设计优化报告/SP8T开关连接器设计优化报告.html`。
+- 完成内容：
+  - 新增通用 Touchstone n-port 读取器 `src/simads/scoring/touchstone.py`。
+  - 新增 `src/simads/scoring/sp8t.py`，评分字段覆盖 S21/S43 through、四端口最差回损、两路 through 平衡和两组端口间 worst isolation。
+  - `analyze_sparams.py`、`scoring.interface`、`scoring.profiles`、`hfss.results` 和 `run_existing_hfss3dlayout_verdict.py` 接入 `sp8t` postprocess/scoring profile。
+  - 新增 `tools/plot_sp8t_sparams_svg.py`，输出 S21/S43、worst return 和 worst isolation 曲线。
+  - 更新 `config/projects/sp8t_real_board_hfss.json` 到当前 home 路径，并登记四端口 design/port mapping/latest result。
+  - 报告新增第 8 页“实板四端口复测”，并刷新 `report_manifest.json`。
+- 验证结果：
+  - `py_compile` 通过：SP8T scoring、Touchstone parser、HFSS postprocess、runner 和 plotter。
+  - `pytest tests/test_sp8t_scoring.py tests/test_connector_scoring.py tests/test_common_jsonio.py` 通过，14 passed。
+  - `tools/hfss/run_hfss_quality_gate.py --profile home --pytest-target tests/test_sp8t_scoring.py --pytest-target tests/test_connector_scoring.py --pytest-target tests/test_common_jsonio.py` 通过，`status=ok`，AEDT API smoke 使用 non-graphical/new desktop。
+  - 真实 HFSS 重跑通过：profile home，工程 `D:\Work\ADS\SIMADS_EM_PAR\SP8T\RF-PPA-SP10T-4F4H-ENIG-V1.0.aedt`，design `RF-PPA-SP10T-4F4H-ENIG-V1.0_cutout`，setup/sweep `Setup1/Sweep1`，端口 `Port1/Port2/Port3/Port4`，导出 `.s4p`。
+  - 本次评分：`sp8t_score=95.701`，`status=TUNE`，`worst_isolation=-44.56 dB` at `S13 @ 4.6 GHz`，`worst_return=-14.30 dB` at `S33 @ 7.15 GHz`，`through_min=-1.64 dB`，`through_ripple=1.58 dB`。
+  - 报告 manifest 通过，新增 asset `assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_sp8t_sparams.svg` 已记录，无 missing references。
+- 还需完成：
+  - 隔离不是当前瓶颈；下一步重点分析 Port3->Port4 的高频插损下探和 S21/S43 合并 through ripple。
+  - 如需 PDF 发布，需要重新导出 `SP8T开关连接器设计优化报告.pdf`，当前任务只更新用户指定 HTML。
+- 关联文件：
+  - `src/simads/scoring/touchstone.py`
+  - `src/simads/scoring/sp8t.py`
+  - `src/simads/scoring/interface.py`
+  - `src/simads/scoring/profiles.py`
+  - `src/simads/hfss/results.py`
+  - `tools/analyze_sparams.py`
+  - `tools/plot_sp8t_sparams_svg.py`
+  - `tools/hfss/run_existing_hfss3dlayout_verdict.py`
+  - `config/scoring/sp8t/sp8t_four_port_connector_isolation_0p5_10g_v1.json`
+  - `config/projects/sp8t_real_board_hfss.json`
+  - `tests/test_sp8t_scoring.py`
+  - `projects/sp8t_real_board_hfss/results/rf_ppa_sp10t_cutout/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807/`
+  - `projects/hfss_sma_connector/reports/SP8T开关连接器设计优化报告/`
+- 下一步：
+  - 从 S 参数曲线定位 S43 高频插损和 through ripple 的几何来源，再决定是否抽取该 design 的局部版图参数或生成候选。
+
 ### ARCH-REFACTOR-TASK-20260807-001 - HFSS Tools JSON Helper 下沉与脚本分类补齐
 
 - 状态：完成

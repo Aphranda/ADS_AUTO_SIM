@@ -11,6 +11,7 @@ from typing import Any
 SCORING_SYSTEM_DIRS = {
     "filter": "filters",
     "connector": "connectors",
+    "sp8t": "sp8t",
 }
 
 

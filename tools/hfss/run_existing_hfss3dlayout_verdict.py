@@ -214,7 +214,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--out-dir", type=Path, required=True)
     parser.add_argument("--s2p", type=Path, default=None)
     parser.add_argument("--score-out", type=Path, default=None)
-    parser.add_argument("--postprocess-profile", choices=["connector", "filter"], default="connector")
+    parser.add_argument("--postprocess-profile", choices=["connector", "filter", "sp8t"], default="connector")
     parser.add_argument("--scoring-profile-id", default=None)
     parser.add_argument("--scoring-profile-path", type=Path, default=None)
     parser.add_argument("--baseline-s2p", type=Path, default=None)

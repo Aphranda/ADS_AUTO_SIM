@@ -23,16 +23,16 @@
     "passband_stop_ghz": null
   },
   "scoring": {
-    "score_version": "connector_fullband_v1",
-    "score_profile_id": "sma_launch_fullband_0p5_10g_v1",
+    "score_version": "sp8t_four_port_connector_isolation_v1",
+    "score_profile_id": "sp8t_four_port_connector_isolation_0p5_10g_v1",
     "band_min_ghz": 0.5,
     "band_max_ghz": 10.0,
     "status_gate": "TUNE_or_better"
   },
   "hfss": {
-    "profile": "company",
-    "workspace_dir": "D:/Work/ADS/SP8T",
-    "aedt_project": "D:/Work/ADS/SP8T/SP8T_HFSS.aedt",
+    "profile": "home",
+    "workspace_dir": "D:/Work/ADS/SIMADS_EM_PAR/SP8T",
+    "aedt_project": "D:/Work/ADS/SIMADS_EM_PAR/SP8T/RF-PPA-SP10T-4F4H-ENIG-V1.0.aedt",
     "project_model": "single_aedt_project_multiple_designs",
     "project_action": "add",
     "stackup_config": null,
@@ -68,14 +68,32 @@
         "baseline_s2p": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100pF/RF_IN_cutout_100pF.s2p",
         "baseline_tdr": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100pF/RF_IN_cutout_100pF_tdr.csv",
         "description": "Imported real SP8T board design with RF_IN cutout and 100pF AC coupling. Baseline solved on 2026-08-06 using Setup1/Sweep1."
+      },
+      "rf_ppa_sp10t_cutout_four_port": {
+        "design": "RF-PPA-SP10T-4F4H-ENIG-V1.0_cutout",
+        "fixture_type": "sp8t_real_board_four_port_cutout",
+        "ports": [
+          "Port1",
+          "Port2",
+          "Port3",
+          "Port4"
+        ],
+        "port_mapping": {
+          "input_connector": "Port1",
+          "input_chip": "Port2",
+          "output_connector": "Port3",
+          "output_chip": "Port4"
+        },
+        "latest_result": "projects/sp8t_real_board_hfss/results/rf_ppa_sp10t_cutout/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_score.csv",
+        "description": "Four-port imported real board cutout. Port1 to chip Port2 is input path, Port3 to chip Port4 is output path; scoring includes cross-path isolation."
       }
     }
   },
   "layout_optimization": {
     "active_design": "RF_IN_cutout",
     "baseline_candidate": "RF_IN_cutout_100pF",
-    "source_project": "F:/1.Hardware/HFSS/SP8T/SP8T_HFSS.aedt",
-    "source_design": "RF_IN_cutout",
+    "source_project": "D:/Work/ADS/SIMADS_EM_PAR/SP8T/RF-PPA-SP10T-4F4H-ENIG-V1.0.aedt",
+    "source_design": "RF-PPA-SP10T-4F4H-ENIG-V1.0_cutout",
     "solver_script": "tools/hfss/run_existing_hfss3dlayout_verdict.py",
     "result_root": "projects/sp8t_real_board_hfss/results",
     "candidate_design_prefix": "ppa_rf_cutout_RF_IN_opt",
@@ -122,8 +140,8 @@
       "device_id": "sp8t.real_board.rf_in_launch",
       "generator": {
         "strategy": "real_board_layout_variant",
-        "source_project": "D:/Work/ADS/SP8T/SP8T_HFSS.aedt",
-        "source_design": "ppa_rf_cutout_RF_IN"
+        "source_project": "D:/Work/ADS/SIMADS_EM_PAR/SP8T/RF-PPA-SP10T-4F4H-ENIG-V1.0.aedt",
+        "source_design": "RF-PPA-SP10T-4F4H-ENIG-V1.0_cutout"
       },
       "optimizer": {
         "strategy": "smith_guided_real_board_cutout_and_launch_compensation",

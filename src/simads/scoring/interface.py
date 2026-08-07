@@ -7,10 +7,15 @@ from pathlib import Path
 from . import score_vectors
 from .connector import ConnectorScoreProfile, read_s2p, read_s2p_db, score_s2p
 from .profiles import ScoringProfile, load_scoring_profile
+from .sp8t import Sp8tFourPortScoreProfile, score_touchstone as score_sp8t_touchstone
 
 
 def _connector_profile(profile: ScoringProfile) -> ConnectorScoreProfile:
     return ConnectorScoreProfile.from_config(profile.data)
+
+
+def _sp8t_profile(profile: ScoringProfile) -> Sp8tFourPortScoreProfile:
+    return Sp8tFourPortScoreProfile.from_config(profile.data)
 
 
 def _score_filter_s2p(path: Path, profile: ScoringProfile) -> dict[str, str]:
@@ -62,6 +67,14 @@ def score_sparameter_file(
         if mode.get("baseline_required") and baseline_path is None:
             raise ValueError(f"connector scoring profile requires --baseline-s2p: {profile.profile_id}")
         row = score_s2p(path, _connector_profile(profile), baseline_path=baseline_path)
+        row["score_version"] = profile.score_version
+        row["scoring_system"] = profile.system
+        row["scoring_profile_path"] = str(profile.path)
+        return row
+    if system == "sp8t":
+        if baseline_path is not None:
+            raise ValueError("sp8t scoring does not accept a baseline_path")
+        row = score_sp8t_touchstone(path, _sp8t_profile(profile))
         row["score_version"] = profile.score_version
         row["scoring_system"] = profile.system
         row["scoring_profile_path"] = str(profile.path)
