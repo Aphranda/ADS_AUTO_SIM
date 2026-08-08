@@ -42,6 +42,24 @@
       "sha256": "6f50de2df19fe135d10a8d589f24b227f8e9bb422e0a0941c34bb375c601d7b0"
     },
     {
+      "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_s_curves.svg",
+      "exists": true,
+      "size_bytes": 46611,
+      "sha256": "6782b3ee16918d25dc18c4bb1e0589ec53c5e0341ae529afac90cb46bf42f0b4"
+    },
+    {
+      "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_smith.svg",
+      "exists": true,
+      "size_bytes": 69061,
+      "sha256": "c88948ac84f8e150e9ad71da21389372a929a37b93068dda866dc7b4e632f4bc"
+    },
+    {
+      "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_tdr.svg",
+      "exists": true,
+      "size_bytes": 53072,
+      "sha256": "38d3e1a4fe76e82842caa6d3ffc22c5b391caaaf5072682eff72f308b2909c64"
+    },
+    {
       "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_sp8t_sparams.svg",
       "exists": true,
       "size_bytes": 63067,
@@ -140,8 +158,8 @@
     {
       "path": "SP8T开关连接器设计优化报告.html",
       "exists": true,
-      "size_bytes": 33523,
-      "sha256": "bd9011fa1b3084bf3480cb6e083b31904e59d027ac4737fd66134e31e83b1c5a"
+      "size_bytes": 38218,
+      "sha256": "ef1ba9e3373f63ded14ec1a1e1d7b1e3a3b5af5a8b09d09ec1090df69f298ca9"
     },
     {
       "path": "SP8T开关连接器设计优化报告.pdf",
@@ -330,9 +348,52 @@
       "inside_report_dir": true,
       "skipped": false,
       "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/gts-logo-cropped.svg",
+      "local_path": "assets/gts-logo-cropped.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_s_curves.svg",
+      "local_path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_s_curves.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_smith.svg",
+      "local_path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_smith.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_tdr.svg",
+      "local_path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_tdr.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
     }
   ],
   "referenced_assets": [
+    "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_s_curves.svg",
+    "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_smith.svg",
+    "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_tdr.svg",
     "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_RF_OUT_20260808_sp8t_sparams.svg",
     "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_sp8t_sparams.svg",
     "assets/SP8T_connector_no_connector_vs_l40w17_s21_overlay_0_to_minus3.svg",
@@ -348,5 +409,5 @@
   "outside_report_dir_references": [],
   "skipped_references": [],
   "status": "ok",
-  "updated_at": "2026-08-08T00:19:38+08:00"
+  "updated_at": "2026-08-08T13:09:18+08:00"
 }

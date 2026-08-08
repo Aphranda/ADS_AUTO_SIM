@@ -8,6 +8,7 @@
 - [x] Add SP8T four-port Touchstone scoring with baseline-relative input/output isolation metrics.
 - [x] Re-run `RF-PPA-SP10T-4F4H-ENIG-V1.0_cutout` in home AEDT and update the connector report with the isolation score page.
 - [x] Re-run `RF-PPA-SP10T-4F4H-ENIG-V1.0_RF_OUT` in home AEDT and update the connector report with RF_OUT four-port baseline-relative scoring.
+- [x] Re-run `rf-ppa-sp10t-4f4h-enig-v1.01_cutout` as the 0201 0R two-port cutout case and add S-curve, Smith, TDR, and score summary to the connector report.
 - [ ] Analyze the remaining 3.55 GHz resonance using S-parameters, Smith chart, and TDR together.
 - [ ] Analyze the four-port `S43` high-frequency insertion-loss dip and through ripple; isolation is not the current bottleneck.
 - [ ] Analyze RF_OUT Port1->Port2 high-frequency loss imbalance versus Port3->Port4 and identify the layout delta against the frozen RF-PPA cutout baseline.

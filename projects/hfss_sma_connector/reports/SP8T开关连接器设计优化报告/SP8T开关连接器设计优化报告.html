@@ -77,7 +77,7 @@
     <div class="doc-meta">
       <strong>统一维护版</strong>
       日期：2026-08-08<br>
-      当前推荐：l40w17 + 实板四端口 RF_OUT 复测<br>
+      当前推荐：l40w17 + 实板 RF_OUT / 0201 cutout 复测<br>
       频段：0.5-10 GHz
     </div>
   </header>
@@ -124,7 +124,7 @@
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 1 / 9</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 1 / 10</span></footer>
 </section>
 
 <section class="page">
@@ -172,7 +172,7 @@
     </div>
     <div class="bar">几何检查：PCB layout 替换流程不重建连接器 pin IPort，只重建 PCB 远端 Port1。当前候选通过非 GUI 流程完成替换、仿真和后处理。</div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 2 / 9</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 2 / 10</span></footer>
 </section>
 
 <section class="page">
@@ -221,7 +221,7 @@
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 3 / 9</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 3 / 10</span></footer>
 </section>
 
 <section class="page">
@@ -253,7 +253,7 @@
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 4 / 9</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 4 / 10</span></footer>
 </section>
 
 <section class="page">
@@ -285,7 +285,7 @@
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 5 / 9</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 5 / 10</span></footer>
 </section>
 
 <section class="page">
@@ -315,7 +315,7 @@
       <div class="bar">本轮结论：L2 矩形开窗长度从 3.8 mm 增至 4.0 mm 后综合评分继续提升；宽度 1.7 mm 的 l40w17 在最差回损、平均额外插损和总评分上为当前最优组合。</div>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 6 / 9</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 6 / 10</span></footer>
 </section>
 
 <section class="page">
@@ -355,7 +355,7 @@
       <div class="bar">当前最明确方向是保持 L3 solid、L4 GND 和 connector foot 就近接地，以 L2 4.0 × 1.7 mm 为中心继续做小步边界扫描，并优先复核端口/辐射边界。</div>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 7 / 9</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 7 / 10</span></footer>
 </section>
 
 <section class="page">
@@ -403,7 +403,7 @@
       </div>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 8 / 9</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 8 / 10</span></footer>
 </section>
 
 <section class="page">
@@ -450,7 +450,64 @@
       </div>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 9 / 9</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 9 / 10</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1>0201 Cutout 两端口复测</h1>
+      <div class="subtitle">rf-ppa-sp10t-4f4h-enig-v1.01_cutout · 0201 0R 版本 · Port1->Port2</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta"><strong>新增复测</strong>工程：RF-PPA-SP10T-4F4H-ENIG-V1.0.aedt<br>Setup/Sweep：Setup1 / Sweep1<br>评分：connector S2P v2 vs RF_IN 100pF baseline</div>
+  </header>
+  <main class="main">
+    <div class="chips">
+      <div class="chip"><span class="k">Connector Score</span><span class="v">79.611</span></div>
+      <div class="chip"><span class="k">最差回损</span><span class="v">-24.01 dB</span></div>
+      <div class="chip"><span class="k">S21 @ 8 / 10 GHz</span><span class="v">-1.53 / -1.87 dB</span></div>
+      <div class="chip"><span class="k">状态</span><span class="v">TUNE</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">18. 0201 两端口评分结果</div>
+      <table class="compact">
+        <thead><tr><th>项目</th><th>计算口径</th><th>目标/参考</th><th>本次结果</th><th>判断</th></tr></thead>
+        <tbody>
+          <tr><td>端口映射</td><td>S2P existing ports</td><td>Port1 -> Port2</td><td>Port1 / Port2</td><td><span class="tag blue">已确认</span></td></tr>
+          <tr><td>评分口径</td><td>candidate - RF_IN_cutout_100pF baseline relative</td><td>相对基线额外损耗尽量小</td><td class="warn">cost 20.389 / score 79.611</td><td><span class="tag orange">需继续对比</span></td></tr>
+          <tr><td>最大额外插损</td><td>max(S21_baseline - S21_candidate)</td><td>≤ 0.5 dB</td><td class="bad">1.00 dB</td><td><span class="tag red">超限</span></td></tr>
+          <tr><td>平均额外插损</td><td>mean(S21_baseline - S21_candidate)</td><td>≤ 0.25 dB</td><td class="warn">0.49 dB</td><td><span class="tag orange">偏高</span></td></tr>
+          <tr><td>额外插损纹波</td><td>relative extra IL ripple</td><td>≤ 0.5 dB</td><td class="bad">1.64 dB</td><td><span class="tag red">超限</span></td></tr>
+          <tr><td>最差回损</td><td>max(S11_dB, S22_dB)</td><td>≤ -10 dB</td><td class="ok">-24.01 dB，S22 @ 1.15 GHz</td><td><span class="tag green">很好</span></td></tr>
+          <tr><td>S21 读数</td><td>0.5-10 GHz</td><td>越接近 0 越好</td><td>S21_min -1.87 dB；S21_avg -1.03 dB；ripple 1.72 dB</td><td><span class="tag orange">高频损耗偏大</span></td></tr>
+          <tr><td>Smith 范围</td><td>50 Ω 归一化阻抗</td><td>R 接近 1，X 接近 0</td><td class="ok">R=0.88-1.02，X=-0.06-0.08</td><td><span class="tag green">匹配很好</span></td></tr>
+          <tr><td>TDR</td><td>band-limited S11/S22</td><td>接近 50 Ω</td><td class="ok">S11/S22 约 46.56-50.91 Ω</td><td><span class="tag green">阻抗连续</span></td></tr>
+        </tbody>
+      </table>
+      <div class="bar">本次复测结论：0201 0R 版本的端口匹配、Smith 轨迹和 TDR 阻抗连续性明显健康；主要问题不是回损，而是相对 RF_IN 100pF baseline 的高频插损和纹波偏大。后续需要与 0402 Core run 做同口径 A/B，避免把不同截取范围或不同参考结构的差异误判为电阻封装差异。</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">19. 0201 曲线、Smith 与 TDR</div>
+      <div class="figure-row">
+        <div class="figure plot compact">
+          <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_s_curves.svg" alt="0201 cutout S curves">
+          <div class="caption">图 7a：0201 cutout S 参数曲线。回损全频段较好，但 S21 在 8-10 GHz 下降到约 -1.53 / -1.87 dB。</div>
+        </div>
+        <div class="figure plot compact">
+          <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_smith.svg" alt="0201 cutout Smith chart">
+          <div class="caption">图 7b：0201 cutout Smith 圆图。归一化阻抗集中在 50 Ω 附近，说明主要矛盾不再是端口匹配。</div>
+        </div>
+      </div>
+      <div class="figure plot compact">
+        <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_tdr.svg" alt="0201 cutout TDR">
+        <div class="caption">图 7c：0201 cutout band-limited TDR。S11/S22 阻抗范围约 46.56-50.91 Ω，未看到严重局部低阻抗凹陷。</div>
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 10 / 10</span></footer>
 </section>
 
 </body>

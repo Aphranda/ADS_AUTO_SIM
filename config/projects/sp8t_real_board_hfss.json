@@ -107,6 +107,24 @@
         "latest_result": "projects/sp8t_real_board_hfss/results/rf_ppa_sp10t_rf_out/RF_PPA_SP10T_4F4H_ENIG_V1_0_RF_OUT_20260808/RF_PPA_SP10T_4F4H_ENIG_V1_0_RF_OUT_20260808_score.csv",
         "latest_s4p": "projects/sp8t_real_board_hfss/results/rf_ppa_sp10t_rf_out/RF_PPA_SP10T_4F4H_ENIG_V1_0_RF_OUT_20260808/RF_PPA_SP10T_4F4H_ENIG_V1_0_RF_OUT_20260808.s4p",
         "description": "Four-port imported real board RF_OUT design. Port1 and Port3 are output ports; Port2 and Port4 are chip ports. Scored against the frozen RF-PPA cutout four-port baseline."
+      },
+      "rf_ppa_sp10t_v101_cutout_0201_two_port": {
+        "design": "rf-ppa-sp10t-4f4h-enig-v1.01_cutout",
+        "fixture_type": "sp8t_real_board_two_port_0201_cutout",
+        "ports": [
+          "Port1",
+          "Port2"
+        ],
+        "port_mapping": {
+          "port1": "Port1",
+          "port2": "Port2"
+        },
+        "component_note": "0201 0R resistor version.",
+        "baseline_s2p": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100pF/RF_IN_cutout_100pF.s2p",
+        "latest_result": "projects/sp8t_real_board_hfss/results/rf_ppa_sp10t_v101_cutout/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_score.csv",
+        "latest_s2p": "projects/sp8t_real_board_hfss/results/rf_ppa_sp10t_v101_cutout/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808.s2p",
+        "latest_tdr": "projects/sp8t_real_board_hfss/results/rf_ppa_sp10t_v101_cutout/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_tdr.csv",
+        "description": "Two-port imported real board 0201 cutout design. Scored with connector S2P baseline-relative profile against frozen RF_IN 100pF baseline."
       }
     }
   },
