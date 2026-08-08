@@ -6,7 +6,8 @@ Canonical: `archive/sp8t/20260808/README.md`
 Last updated: 2026-08-08
 
 This snapshot freezes the SP8T connector/report and invalid-baseline history
-captured on 2026-08-08.
+captured on 2026-08-08. The active SP8T RF_IN baseline remains `100pF` in
+`projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100pF/`.
 
 ## Contents
 
