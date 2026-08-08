@@ -3,7 +3,7 @@
 Status: Active
 Domain: PROJECT_INDEX
 Canonical: `projects/SP8T_INDEX.md`
-Related: `projects/hfss_sma_connector/microstrip_connector/README.md`, `projects/sp8t_real_board_hfss/README.md`, `../archive/README.md`, `projects/hfss_sma_connector/reports/SP8T开关连接器设计优化报告/`, `projects/hfss_sma_connector/reports/SP8T开关连接器设计优化报告_架构重构_20260808/`
+Related: `projects/hfss_sma_connector/microstrip_connector/README.md`, `projects/sp8t_real_board_hfss/README.md`, `../archive/README.md`, `archive/sp8t/README.md`, `archive/sp8t/20260808/README.md`, `projects/hfss_sma_connector/reports/SP8T开关连接器设计优化报告/`, `archive/sp8t/20260808/reports/SP8T开关连接器设计优化报告_架构重构_20260808/`
 Last updated: 2026-08-08
 
 本文档把仓库里所有 SP8T 相关 HFSS 资产放到同一入口下，避免把连接器分支和实板分支当成两个无关项目。
@@ -20,7 +20,7 @@ Last updated: 2026-08-08
 ### 连接器分支
 
 - 主报告：`projects/hfss_sma_connector/reports/SP8T开关连接器设计优化报告/`
-- 架构重构报告：`projects/hfss_sma_connector/reports/SP8T开关连接器设计优化报告_架构重构_20260808/`
+- 架构重构报告：`archive/sp8t/20260808/reports/SP8T开关连接器设计优化报告_架构重构_20260808/`
 - 备份和过程文件：`projects/hfss_sma_connector/backups/`
 - 结果和检查文件：`projects/hfss_sma_connector/results/`
 - 运行目录：`projects/hfss_sma_connector/simulations/`
@@ -30,6 +30,7 @@ Last updated: 2026-08-08
 - 设计读入和基线：`projects/sp8t_real_board_hfss/README.md`
 - 报告和检查：`projects/sp8t_real_board_hfss/reports/`
 - 基线结果：`projects/sp8t_real_board_hfss/results/baselines/`
+- 归档快照：`archive/sp8t/20260808/`
 - 评分和批量结果：`projects/sp8t_real_board_hfss/results/`
 - 候选计划：`projects/sp8t_real_board_hfss/plans/`
 - 任务清单：`projects/sp8t_real_board_hfss/TODO.md`

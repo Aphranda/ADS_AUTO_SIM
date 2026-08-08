@@ -1,0 +1,19 @@
+# SP8T Archive
+
+Status: Active
+Domain: PROJECT_ARCHIVE_FAMILY
+Canonical: `archive/sp8t/README.md`
+Last updated: 2026-08-08
+
+This family archive stores frozen SP8T snapshots only.
+
+## Layout
+
+- `archive/sp8t/<freeze-date>/reports/`
+- `archive/sp8t/<freeze-date>/baselines/`
+
+## Policy
+
+- Active iterated work remains in `projects/`.
+- Frozen snapshots copy the report or baseline bundle as-is.
+- Source HFSS projects are not copied into the archive tree.

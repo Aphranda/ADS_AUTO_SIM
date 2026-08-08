@@ -19,14 +19,14 @@ This root-level directory stores frozen or retired project families.
 - One freeze tag or date directory under each family.
 - No live iterative outputs here.
 
-## SP8T Example
+## SP8T Family
 
-Planned archive target for frozen SP8T snapshots:
+Frozen SP8T snapshots live under:
 
-`archive/sp8t_real_board_hfss/`
+`archive/sp8t/`
 
-If the SP8T board-side or connector-side work is frozen later, place the frozen
-copy here and leave the active roots only for live work.
+Active SP8T work stays in `projects/`. Only frozen report, baseline, and
+reference snapshots move into the archive tree.
 
 ## Rule
 

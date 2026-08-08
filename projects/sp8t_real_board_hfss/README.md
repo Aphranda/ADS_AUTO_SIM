@@ -58,7 +58,7 @@ Current baseline summary:
 - TDR: input-side low impedance dip is about `41.47 ohm @ 0.078 ns`
 
 The earlier `100 nF` run is archived under
-`projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100nF_invalid/`
+`archive/sp8t/20260808/baselines/RF_IN_cutout_100nF_invalid/`
 and must not be used as the active optimization baseline.
 
 ## Run Command
