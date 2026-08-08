@@ -1,7 +1,11 @@
 # HFSS SMA Connector CPWG Fixture
 
 Status: Active
-Last updated: 2026-08-04
+Last updated: 2026-08-08
+
+This branch belongs to the SP8T program family. The umbrella index is
+`projects/SP8T_INDEX.md`, and the board-side branch is
+`projects/sp8t_real_board_hfss/README.md`.
 
 本项目是独立 HFSS 连接器仿真夹具，不并入 `bfp_6_8g_i7_fr4` 滤波器 pipeline。当前约定是一个 AEDT 工程内放多个 HFSS 3D Layout design，不为每个 fixture 新建独立 `.aedt`。
 

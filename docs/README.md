@@ -4,7 +4,7 @@ Status: Active
 Domain: DOCS
 Canonical: `docs/README.md`
 Related: `docs/arch/ADS版图自动仿真项目框架设计.md`, `docs/arch/ARCH_FRAMEWORK_REVIEW_GAP_ANALYSIS.md`, `docs/arch/ARCH_REFACTOR_TODO.md`, `docs/arch/ARCH_REFACTOR_TASK_PROGRESS.md`, `docs/arch/ARCH_ADS_ASSET_MIGRATION_20260801.md`
-Last updated: 2026-08-03
+Last updated: 2026-08-08
 Owner: ADS Automation
 
 本文档是 `E:\OneDrive\4.Code\SIM\docs` 的总入口。当前项目已经从旧 `ADS/` 混合目录迁移到新项目边界：
@@ -66,6 +66,14 @@ projects/bfp_6_8g_i7_fr4/
 | 标准 run 目录 | `../projects/bfp_6_8g_i7_fr4/runs/` |
 | 项目报告 | `../projects/bfp_6_8g_i7_fr4/reports/` |
 | 参考文章和图片 | `../projects/bfp_6_8g_i7_fr4/references/` |
+
+## SP8T 项目族
+
+| 类型 | 新路径 |
+|---|---|
+| 统一入口 | `../projects/SP8T_INDEX.md` |
+| 连接器分支 | `../projects/hfss_sma_connector/microstrip_connector/README.md` |
+| 实板分支 | `../projects/sp8t_real_board_hfss/README.md` |
 
 ## Docs 目标分层
 

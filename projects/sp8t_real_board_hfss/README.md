@@ -2,6 +2,10 @@
 
 This project tracks optimization of the imported real SP8T board HFSS layout.
 
+This is the board-side branch of the SP8T program family. The umbrella index is
+`projects/SP8T_INDEX.md`, and the connector-side branch is
+`projects/hfss_sma_connector/microstrip_connector/README.md`.
+
 ## Source
 
 - HFSS project: `D:/Work/ADS/SP8T/SP8T_HFSS.aedt`
