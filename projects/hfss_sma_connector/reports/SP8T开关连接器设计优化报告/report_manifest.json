@@ -60,22 +60,22 @@
       "sha256": "38d3e1a4fe76e82842caa6d3ffc22c5b391caaaf5072682eff72f308b2909c64"
     },
     {
-      "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808_s_curves.svg",
+      "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_s_curves.svg",
       "exists": true,
-      "size_bytes": 39364,
-      "sha256": "138b34f2e916ff7ff8560c922dc7647eca0d827e15bf5ffc080f74e12c7891eb"
+      "size_bytes": 44333,
+      "sha256": "d61a24023060e7a8ec2199406a2d5ce7ffa80b45543ff5b33763128226837bb3"
     },
     {
-      "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808_smith.svg",
+      "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_smith.svg",
       "exists": true,
-      "size_bytes": 73939,
-      "sha256": "a12166d280f4296e19f98a579c06aed969cf9158d51894ce88f1ed4b0df8225b"
+      "size_bytes": 73205,
+      "sha256": "3257b2bd3251492b4bdb944c8d9a1e0d2fa571d1993cd221b40d837e52289758"
     },
     {
-      "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808_tdr.svg",
+      "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_tdr.svg",
       "exists": true,
-      "size_bytes": 48293,
-      "sha256": "d2990a490599bae7517efba322e6f9f40070c549c2e1c8632e36cd29b536a4bd"
+      "size_bytes": 58850,
+      "sha256": "90f8c613521a3eac9db9e41640ae58bdc18ae691fbef13879cec76d09e81b253"
     },
     {
       "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_sp8t_sparams.svg",
@@ -176,8 +176,8 @@
     {
       "path": "SP8T开关连接器设计优化报告.html",
       "exists": true,
-      "size_bytes": 41685,
-      "sha256": "e6484dd1ffa49530ed79e7bcaf5ca38d767acb2655571ae354454a596641228f"
+      "size_bytes": 42478,
+      "sha256": "66e4c7d08797a7a1434bbdc1ea09b15a67ace1954a84a8721e6ab792add3daac"
     },
     {
       "path": "SP8T开关连接器设计优化报告.pdf",
@@ -420,8 +420,8 @@
     {
       "source_html": "SP8T开关连接器设计优化报告.html",
       "attribute": "src",
-      "uri": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808_s_curves.svg",
-      "local_path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808_s_curves.svg",
+      "uri": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_s_curves.svg",
+      "local_path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_s_curves.svg",
       "exists": true,
       "inside_report_dir": true,
       "skipped": false,
@@ -430,8 +430,8 @@
     {
       "source_html": "SP8T开关连接器设计优化报告.html",
       "attribute": "src",
-      "uri": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808_smith.svg",
-      "local_path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808_smith.svg",
+      "uri": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_smith.svg",
+      "local_path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_smith.svg",
       "exists": true,
       "inside_report_dir": true,
       "skipped": false,
@@ -440,8 +440,8 @@
     {
       "source_html": "SP8T开关连接器设计优化报告.html",
       "attribute": "src",
-      "uri": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808_tdr.svg",
-      "local_path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808_tdr.svg",
+      "uri": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_tdr.svg",
+      "local_path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_tdr.svg",
       "exists": true,
       "inside_report_dir": true,
       "skipped": false,
@@ -452,9 +452,9 @@
     "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_s_curves.svg",
     "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_smith.svg",
     "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_tdr.svg",
-    "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808_s_curves.svg",
-    "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808_smith.svg",
-    "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808_tdr.svg",
+    "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_s_curves.svg",
+    "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_smith.svg",
+    "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_tdr.svg",
     "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_RF_OUT_20260808_sp8t_sparams.svg",
     "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_sp8t_sparams.svg",
     "assets/SP8T_connector_no_connector_vs_l40w17_s21_overlay_0_to_minus3.svg",
@@ -470,5 +470,5 @@
   "outside_report_dir_references": [],
   "skipped_references": [],
   "status": "ok",
-  "updated_at": "2026-08-08T13:26:30+08:00"
+  "updated_at": "2026-08-08T14:43:36+08:00"
 }

@@ -58,6 +58,17 @@
   .figure.plot.compact img { max-height:68mm; }
   .figure.plot.tall img { max-height:156mm; }
   .caption { color:#687381; font-size:9.5px; margin-top:4px; text-align:left; }
+  .page-compact-figures .chips { gap:6px; margin-bottom:7px; }
+  .page-compact-figures .chip { min-height:38px; padding:5px 7px; }
+  .page-compact-figures .section { margin-top:6px; }
+  .page-compact-figures .section-title { font-size:13px; margin-bottom:5px; }
+  .page-compact-figures table { font-size:9.2px; }
+  .page-compact-figures th, .page-compact-figures td { padding:4px 6px; }
+  .page-compact-figures .bar { margin-top:6px; padding:6px 8px; font-size:9.8px; }
+  .page-compact-figures .figure { padding:5px; }
+  .page-compact-figures .figure.plot img { max-height:47mm; }
+  .page-compact-figures .figure.plot.compact img { max-height:47mm; }
+  .page-compact-figures .caption { font-size:8.6px; margin-top:3px; }
   @media print {
     html, body { width:210mm; min-width:210mm; max-width:210mm; background:#fff; padding:0; overflow:visible; }
     .page { width:210mm !important; height:297mm !important; margin:0; box-shadow:none; break-after:page; page-break-after:always; }
@@ -453,7 +464,7 @@
   <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 9 / 11</span></footer>
 </section>
 
-<section class="page">
+<section class="page page-compact-figures">
   <header class="page-header">
     <div>
       <h1>0201 Cutout 两端口复测</h1>
@@ -486,7 +497,7 @@
           <tr><td>TDR</td><td>band-limited S11/S22</td><td>接近 50 Ω</td><td class="ok">S11/S22 约 46.56-50.91 Ω</td><td><span class="tag green">阻抗连续</span></td></tr>
         </tbody>
       </table>
-      <div class="bar">本次复测结论：0201 0R 版本的端口匹配、Smith 轨迹和 TDR 阻抗连续性明显健康；主要问题不是回损，而是相对 RF_IN 100pF baseline 的高频插损和纹波偏大。下一页已补入 0402 Core 对位项，便于直接 A/B。</div>
+      <div class="bar">本次复测结论：0201 0R 版本的端口匹配、Smith 轨迹和 TDR 阻抗连续性明显健康；主要问题不是回损，而是相对 RF_IN 100pF baseline 的高频插损和纹波偏大。下一页已补入 0402 Core1 对位项，便于直接 A/B。</div>
     </div>
 
     <div class="section">
@@ -513,50 +524,50 @@
 <section class="page">
   <header class="page-header">
     <div>
-      <h1>0402 Core 对位对比</h1>
-      <div class="subtitle">RF-PPA-SP10T-4F4H-ENIG-V1.0_Core · 0402 0R 版本 · Port1->Port2</div>
+      <h1>0402 Core1 对位对比</h1>
+      <div class="subtitle">RF-PPA-SP10T-4F4H-ENIG-V1.0_Core1 · 0402 0R 版本 · Port1->Port2</div>
     </div>
     <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
     <div class="doc-meta"><strong>新增对位</strong>工程：RF-PPA-SP10T-4F4H-ENIG-V1.0.aedt<br>Setup/Sweep：Setup1 / Sweep1<br>评分：connector S2P v2 vs RF_IN 100pF baseline</div>
   </header>
   <main class="main">
     <div class="chips">
-      <div class="chip"><span class="k">Connector Score</span><span class="v">0.000</span></div>
-      <div class="chip"><span class="k">最差回损</span><span class="v">-0.06 dB</span></div>
-      <div class="chip"><span class="k">S21 @ 8 / 10 GHz</span><span class="v">-9.87 / -8.56 dB</span></div>
+      <div class="chip"><span class="k">Connector Score</span><span class="v">79.155</span></div>
+      <div class="chip"><span class="k">最差回损</span><span class="v">-19.90 dB</span></div>
+      <div class="chip"><span class="k">S21 @ 8 / 10 GHz</span><span class="v">-1.54 / -1.89 dB</span></div>
       <div class="chip"><span class="k">状态</span><span class="v">TUNE</span></div>
     </div>
 
     <div class="section">
-      <div class="section-title">20. 0201 vs 0402 对位比较</div>
+      <div class="section-title">20. 0201 vs 0402 Core1 对位比较</div>
       <table class="compact">
         <thead><tr><th>指标</th><th>0201 0R</th><th>0402 0R</th><th>结论</th></tr></thead>
         <tbody>
-          <tr><td>Connector score</td><td class="ok">79.611</td><td class="bad">0.000</td><td><span class="tag green">0201 明显优于 0402</span></td></tr>
-          <tr><td>最差回损</td><td class="ok">-24.01 dB</td><td class="bad">-0.06 dB</td><td><span class="tag red">0402 严重失配</span></td></tr>
-          <tr><td>S21 @ 8 / 10 GHz</td><td class="ok">-1.53 / -1.87 dB</td><td class="bad">-9.87 / -8.56 dB</td><td><span class="tag red">0402 高频损耗过大</span></td></tr>
-          <tr><td>Smith 范围</td><td class="ok">R=0.88-1.02，X=-0.06-0.08</td><td class="bad">R=0.03-15.91，X=-7.75-8.16</td><td><span class="tag red">0402 偏离 50Ω</span></td></tr>
-          <tr><td>TDR 阻抗</td><td class="ok">46.56-50.91 Ω</td><td class="bad">33.90-19950.00 Ω</td><td><span class="tag red">0402 不连续</span></td></tr>
+          <tr><td>Connector score</td><td class="ok">79.611</td><td class="warn">79.155</td><td><span class="tag orange">0201 略优</span></td></tr>
+          <tr><td>最差回损</td><td class="ok">-24.01 dB</td><td class="ok">-19.90 dB</td><td><span class="tag green">两者均健康</span></td></tr>
+          <tr><td>S21 @ 8 / 10 GHz</td><td class="ok">-1.53 / -1.87 dB</td><td class="warn">-1.54 / -1.89 dB</td><td><span class="tag orange">0402 略差</span></td></tr>
+          <tr><td>Smith 范围</td><td class="ok">R=0.88-1.02，X=-0.06-0.08</td><td class="warn">R=0.84-1.18，X=-0.09-0.19</td><td><span class="tag orange">0402 轨迹更散</span></td></tr>
+          <tr><td>TDR 阻抗</td><td class="ok">46.56-50.91 Ω</td><td class="warn">43.71-50.62 Ω</td><td><span class="tag orange">0402 低阻更明显</span></td></tr>
         </tbody>
       </table>
-      <div class="bar">对位结论：0402 Core 版本在回损、Smith 轨迹和 TDR 上都明显劣于 0201 0R，当前不适合作为下一轮优化参考。后续若继续收敛，应优先围绕 0201 结构继续做局部 launch 和参考地修正。</div>
+      <div class="bar">对位结论：Core1 0402 版本与 0201 结果接近，均不是严重端口失配；0201 在 score、回损、Smith 收敛和 TDR 低阻控制上略优。后续若继续收敛，仍应优先围绕 0201 结构做局部 launch 和参考地修正，同时保留 Core1 0402 作为同口径 A/B 参考。</div>
     </div>
 
     <div class="section">
-      <div class="section-title">21. 0402 曲线、Smith 与 TDR</div>
+      <div class="section-title">21. 0402 Core1 曲线、Smith 与 TDR</div>
       <div class="figure-row">
         <div class="figure plot compact">
-          <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808_s_curves.svg" alt="0402 Core S curves">
-          <div class="caption">图 8a：0402 Core S 参数曲线。回损接近 0 dB，8-10 GHz 的插损远差于 0201。</div>
+          <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_s_curves.svg" alt="0402 Core1 S curves">
+          <div class="caption">图 8a：0402 Core1 S 参数曲线。8-10 GHz 插损与 0201 接近但略低，最差回损为 -19.90 dB。</div>
         </div>
         <div class="figure plot compact">
-          <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808_smith.svg" alt="0402 Core Smith chart">
-          <div class="caption">图 8b：0402 Core Smith 圆图。轨迹大幅偏离 50 Ω，和 0201 的收敛轨迹不是一个量级。</div>
+          <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_smith.svg" alt="0402 Core1 Smith chart">
+          <div class="caption">图 8b：0402 Core1 Smith 圆图。轨迹仍围绕 50 Ω，但 R/X 分布比 0201 更宽。</div>
         </div>
       </div>
       <div class="figure plot compact">
-        <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808_tdr.svg" alt="0402 Core TDR">
-        <div class="caption">图 8c：0402 Core band-limited TDR。输入/输出阻抗偏移明显，局部反射强，和 0201 的 46-51 Ω 连续带差异很大。</div>
+        <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_tdr.svg" alt="0402 Core1 TDR">
+        <div class="caption">图 8c：0402 Core1 band-limited TDR。阻抗范围约 43.71-50.62 Ω，低阻凹陷比 0201 更明显。</div>
       </div>
     </div>
   </main>
