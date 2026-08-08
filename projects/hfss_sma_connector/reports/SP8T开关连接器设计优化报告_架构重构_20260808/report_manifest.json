@@ -176,8 +176,8 @@
     {
       "path": "SP8T开关连接器设计优化报告.html",
       "exists": true,
-      "size_bytes": 41070,
-      "sha256": "f92408ac7e4192a25ecfddc8ef6ebdd8705e16bb552ba17e1ffd2eebeff85b3c"
+      "size_bytes": 37997,
+      "sha256": "17f48a981b50937f27433eee93d39c06ee38357037e3fd414c42973d926dd2fc"
     }
   ],
   "asset_references": [
@@ -296,16 +296,6 @@
       "attribute": "src",
       "uri": "assets/SP8T_connector_unopt_notqualified_l40w17_overlay.svg",
       "local_path": "assets/SP8T_connector_unopt_notqualified_l40w17_overlay.svg",
-      "exists": true,
-      "inside_report_dir": true,
-      "skipped": false,
-      "skip_reason": null
-    },
-    {
-      "source_html": "SP8T开关连接器设计优化报告.html",
-      "attribute": "src",
-      "uri": "assets/gts-logo-cropped.svg",
-      "local_path": "assets/gts-logo-cropped.svg",
       "exists": true,
       "inside_report_dir": true,
       "skipped": false,
@@ -464,5 +454,5 @@
   "outside_report_dir_references": [],
   "skipped_references": [],
   "status": "ok",
-  "updated_at": "2026-08-08T15:01:32+08:00"
+  "updated_at": "2026-08-08T15:10:48+08:00"
 }

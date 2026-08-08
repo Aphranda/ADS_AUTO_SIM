@@ -133,7 +133,7 @@
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 1 / 11</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 1 / 10</span></footer>
 </section>
 
 <section class="page">
@@ -181,7 +181,7 @@
     </div>
     <div class="bar">几何检查：PCB layout 替换流程不重建连接器 pin IPort，只重建 PCB 远端 Port1。当前候选通过非 GUI 流程完成替换、仿真和后处理。</div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 2 / 11</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 2 / 10</span></footer>
 </section>
 
 <section class="page">
@@ -230,7 +230,7 @@
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 3 / 11</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 3 / 10</span></footer>
 </section>
 
 <section class="page">
@@ -262,7 +262,7 @@
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 4 / 11</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 4 / 10</span></footer>
 </section>
 
 <section class="page">
@@ -294,7 +294,7 @@
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 5 / 11</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 5 / 10</span></footer>
 </section>
 
 <section class="page">
@@ -324,47 +324,7 @@
       <div class="bar">本轮结论：L2 矩形开窗长度从 3.8 mm 增至 4.0 mm 后综合评分继续提升；宽度 1.7 mm 的 l40w17 在最差回损、平均额外插损和总评分上为当前最优组合。</div>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 6 / 11</span></footer>
-</section>
-
-<section class="page">
-  <header class="page-header">
-    <div>
-      <h1>优化轮次与后续动作</h1>
-      <div class="subtitle">从未优化小 pad 到大 gap、L3 solid 与 L2 矩形开窗尺寸扫描的演进</div>
-    </div>
-    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
-    <div class="doc-meta"><strong>当前方案</strong>单连接器 30 mm 夹具<br>当前轮次：L2 rectangular cutout sweep<br>工程：hfss_sma_connector_cpw.aedt</div>
-  </header>
-  <main class="main">
-    <div class="section">
-      <div class="section-title">12. 迭代轮次</div>
-      <table class="compact">
-        <thead><tr><th>轮次</th><th>关键动作</th><th>结果</th><th>判断</th></tr></thead>
-        <tbody>
-          <tr><td>Baseline</td><td>small_pad_same_anchor_a</td><td>cost 93.362</td><td><span class="tag red">失配严重</span></td></tr>
-          <tr><td>L2/L3/L4</td><td>L2/L3 开窗，L4 加 GND</td><td>cost 26.510</td><td><span class="tag orange">有效但不充分</span></td></tr>
-          <tr><td>Gap/NoVia</td><td>1.5 mm launch gap，去中心焊盘近端 GND via</td><td>cost 10.762</td><td><span class="tag blue">阶段改善</span></td></tr>
-          <tr><td>L2 Rect Sweep</td><td>L3 solid、L4 GND、connector feet GND via，L2 4.0 × 1.7 mm</td><td>cost 7.717</td><td><span class="tag green">当前最佳</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="section">
-      <div class="section-title">13. 下一步待办</div>
-      <table class="compact">
-        <thead><tr><th>优先级</th><th>事项</th><th>原因</th><th>建议验证</th></tr></thead>
-        <tbody>
-          <tr><td>P0</td><td>复核 S1_1_Pin_T1 与 radiation boundary 间距</td><td>当前唯一明显残余 HFSS warning。</td><td>调整 airbox/radiation factor 或端口边界位置后复跑。</td></tr>
-          <tr><td>P0</td><td>固化 connector pin port 自动流程</td><td>手动流程已确认，需要纳入自动化仿真闭环。</td><td>删除旧端口、按 connector pin Create、schematic 连接、Validate。</td></tr>
-          <tr><td>P1</td><td>围绕 L2 矩形开窗边界小步扫描</td><td>4.0 mm 长度已经占优，宽度 1.7 mm 当前最好。</td><td>长度 3.9 / 4.0 / 4.1 mm，宽度 1.6 / 1.7 / 1.8 mm。</td></tr>
-          <tr><td>P1</td><td>扫 connector foot via 数量和位置</td><td>需要平衡回流改善与额外电容。</td><td>2 / 4 / 6 个，x/y 位置小步扫描。</td></tr>
-          <tr><td>P1</td><td>小步调 launch gap / taper_l</td><td>Smith 图仍提示轻微阻抗摆动。</td><td>gap 1.4-1.6 mm，taper 3.2-4.2 mm。</td></tr>
-        </tbody>
-      </table>
-      <div class="bar">当前最明确方向是保持 L3 solid、L4 GND 和 connector foot 就近接地，以 L2 4.0 × 1.7 mm 为中心继续做小步边界扫描，并优先复核端口/辐射边界。</div>
-    </div>
-  </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 7 / 11</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 6 / 10</span></footer>
 </section>
 
 <section class="page">
@@ -385,7 +345,7 @@
     </div>
 
     <div class="section">
-      <div class="section-title">14. RF_IN 四端口独立评价</div>
+      <div class="section-title">12. RF_IN 四端口独立评价</div>
       <table class="compact">
         <thead><tr><th>项目</th><th>计算口径</th><th>目标</th><th>本次结果</th><th>判断</th></tr></thead>
         <tbody>
@@ -401,14 +361,14 @@
     </div>
 
     <div class="section">
-      <div class="section-title">15. RF_IN 四端口曲线</div>
+      <div class="section-title">13. RF_IN 四端口曲线</div>
       <div class="figure plot">
         <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_sp8t_sparams.svg" alt="SP8T four-port S-parameters with isolation">
         <div class="caption">图 5：RF_IN 四端口板端仿真曲线，横轴固定为 0.5-10 GHz。蓝色 S21 为 Port1->Port2，红色 S43 为 Port3->Port4，紫色为四端口最差回损；隔离拆分为近端 Port1/Port3、远端 Port2/Port4 和对角 cross path。</div>
       </div>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 8 / 11</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 7 / 10</span></footer>
 </section>
 
 <section class="page">
@@ -429,7 +389,7 @@
     </div>
 
     <div class="section">
-      <div class="section-title">16. RF_OUT 四端口独立评价</div>
+      <div class="section-title">14. RF_OUT 四端口独立评价</div>
       <table class="compact">
         <thead><tr><th>项目</th><th>计算口径</th><th>目标</th><th>本次结果</th><th>判断</th></tr></thead>
         <tbody>
@@ -444,14 +404,14 @@
     </div>
 
     <div class="section">
-      <div class="section-title">17. RF_OUT 四端口曲线</div>
+      <div class="section-title">15. RF_OUT 四端口曲线</div>
       <div class="figure plot">
         <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_RF_OUT_20260808_sp8t_sparams.svg" alt="RF_OUT SP8T four-port S-parameters with isolation">
         <div class="caption">图 6：RF_OUT 四端口板端仿真曲线，横轴固定为 0.5-10 GHz。蓝色 S21 为 Port1 输出到 Port2 芯片，红色 S43 为 Port3 输出到 Port4 芯片；隔离拆分为近端 Port1/Port3、远端 Port2/Port4 和对角 cross path。</div>
       </div>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 9 / 11</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 8 / 10</span></footer>
 </section>
 
 <section class="page page-compact-figures">
@@ -472,7 +432,7 @@
     </div>
 
     <div class="section">
-      <div class="section-title">18. 0201 芯片连接单项读数</div>
+      <div class="section-title">16. 0201 芯片连接单项读数</div>
       <table class="compact">
         <thead><tr><th>项目</th><th>计算口径</th><th>目标/参考</th><th>本次结果</th><th>判断</th></tr></thead>
         <tbody>
@@ -489,7 +449,7 @@
     </div>
 
     <div class="section">
-      <div class="section-title">19. 0201 芯片连接曲线、Smith 与 TDR</div>
+      <div class="section-title">17. 0201 芯片连接曲线、Smith 与 TDR</div>
       <div class="figure-row">
         <div class="figure plot compact">
           <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_s_curves.svg" alt="0201 cutout S curves">
@@ -506,7 +466,7 @@
       </div>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 10 / 11</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 9 / 10</span></footer>
 </section>
 
 <section class="page">
@@ -527,7 +487,7 @@
     </div>
 
     <div class="section">
-      <div class="section-title">20. 0201 vs 0402 芯片连接对位比较</div>
+      <div class="section-title">18. 0201 vs 0402 芯片连接对位比较</div>
       <table class="compact">
         <thead><tr><th>指标</th><th>0201 0R</th><th>0402 0R</th><th>结论</th></tr></thead>
         <tbody>
@@ -542,7 +502,7 @@
     </div>
 
     <div class="section">
-      <div class="section-title">21. 0402 芯片连接曲线、Smith 与 TDR</div>
+      <div class="section-title">19. 0402 芯片连接曲线、Smith 与 TDR</div>
       <div class="figure-row">
         <div class="figure plot compact">
           <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_s_curves.svg" alt="0402 Core1 S curves">
@@ -559,7 +519,7 @@
       </div>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 11 / 11</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 10 / 10</span></footer>
 </section>
 
 </body>
