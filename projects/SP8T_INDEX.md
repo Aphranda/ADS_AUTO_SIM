@@ -3,7 +3,7 @@
 Status: Active
 Domain: PROJECT_INDEX
 Canonical: `projects/SP8T_INDEX.md`
-Related: `projects/hfss_sma_connector/microstrip_connector/README.md`, `projects/sp8t_real_board_hfss/README.md`, `projects/hfss_sma_connector/reports/SP8T开关连接器设计优化报告/`, `projects/hfss_sma_connector/reports/SP8T开关连接器设计优化报告_架构重构_20260808/`
+Related: `projects/hfss_sma_connector/microstrip_connector/README.md`, `projects/sp8t_real_board_hfss/README.md`, `../archive/README.md`, `projects/hfss_sma_connector/reports/SP8T开关连接器设计优化报告/`, `projects/hfss_sma_connector/reports/SP8T开关连接器设计优化报告_架构重构_20260808/`
 Last updated: 2026-08-08
 
 本文档把仓库里所有 SP8T 相关 HFSS 资产放到同一入口下，避免把连接器分支和实板分支当成两个无关项目。
@@ -41,6 +41,7 @@ Last updated: 2026-08-08
 - `plans/` 放待跑候选和后续动作。
 - `results/baselines/` 放冻结基线和无效归档。
 - `runs/` 放构建与执行清单。
+- `archive/` 放冻结后的整项目快照，不放活跃迭代目录。
 
 ## 读取顺序
 

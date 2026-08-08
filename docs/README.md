@@ -74,6 +74,7 @@ projects/bfp_6_8g_i7_fr4/
 | 统一入口 | `../projects/SP8T_INDEX.md` |
 | 连接器分支 | `../projects/hfss_sma_connector/microstrip_connector/README.md` |
 | 实板分支 | `../projects/sp8t_real_board_hfss/README.md` |
+| 归档入口 | `../archive/README.md` |
 
 ## Docs 目标分层
 
