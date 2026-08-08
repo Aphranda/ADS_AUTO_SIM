@@ -2,7 +2,7 @@
 
 Status: Active
 Domain: ARCH/HFSS
-Last updated: 2026-08-06
+Last updated: 2026-08-09
 
 ## 评审目标
 
@@ -475,3 +475,22 @@ python tools\hfss\run_hfss_quality_gate.py --profile home --output .simads\gates
 ```
 
 结果：快速测试 15 passed；完整 gate 通过，HFSS 相关 pytest 59 passed，AEDT 2026.1 non-graphical smoke 通过，完整 gate elapsed 29.917 s。
+
+## 当前第十五步待办
+
+2026-08-09 独立审查 HFSS 工程创建模块后，发现 project 创建/追加合同仍存在风险，需要进入下一轮闭环修改：
+
+- `project_action=add` 只能表示“打开已有 AEDT 工程并追加/重建设计”。如果目标 `.aedt` 不存在，`resolve_hfss_project_plan()` 必须失败，不能把 `init_project=None` 交给 workflow 让 AEDT 新建空工程。
+- `project_action=new` 需要明确覆盖策略。默认应避免覆盖已有 `.aedt/.aedb/.aedtresults`；如果确实要重建同名工程，必须通过显式 `overwrite` 或 `replace` 开关表达，并写入 manifest/dry-run。
+- `--project-name` 和由 standard runner 的 `candidate` 派生出的 project name 必须做安全化和路径边界检查，禁止路径穿越、绝对路径、分隔符和 workspace 外写入。
+- `build_hfss_layout_project()` 当前固定 `save_project(str(project_path), overwrite=True)`，需要改为消费 project plan/save policy，避免 build 层绕过 project 合同。
+- 测试需补齐负例：`add` 目标不存在、`new` 目标已存在、project name 路径越界，以及 `tools/run_sim_filter_candidate.py` 的 candidate 到 HFSS project name 派生安全性。
+
+验收要求：
+
+```text
+python -m pytest tests\test_hfss_project.py tests\test_hfss_workflow_session.py tests\test_run_sim_filter_candidate.py tests\test_hfss_quality_gate.py
+python tools\hfss\run_hfss_quality_gate.py --profile home --output .simads\gates\hfss_quality_gate_latest.json
+```
+
+真实 AEDT smoke 仍必须使用 non-graphical/new desktop，不附着 GUI，不触碰业务 `.aedt`。

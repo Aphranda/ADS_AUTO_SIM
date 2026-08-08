@@ -3,7 +3,7 @@
 Status: Active
 Domain: ARCH
 Related: `docs/arch/ARCH_SIM_AUTOMATION_FRAMEWORK.md`, `docs/data/DATA_RUN_MANIFEST_SCHEMA.md`
-Last updated: 2026-08-06
+Last updated: 2026-08-09
 
 本文档把 ADS、HFSS、NN 联合演进拆成可编码任务。执行顺序以稳定数据闭环为优先：先把每次仿真的输入、输出、日志和运行状态记录清楚，再继续拆 ADS/HFSS 后端和神经网络数据集。
 
@@ -62,6 +62,11 @@ Last updated: 2026-08-06
   - [x] 增加 connector port 验收报告：layout ports、schematic IPorts、wire ids、ConnectionPoints、component-pin-only rejected 列表。
   - [x] 新增 `hfss.project`，集中 project path、project_action、reuse/init_project 和锁对象选择的纯计划逻辑。
   - [x] 将 `workflow.py` 主 AEDT 生命周期收敛到 `hfss.session`，EDB patch/reopen 分支保留 API 流程并固定 release 语义。
+  - [ ] 修复 HFSS project 创建合同：`project_action=add` 必须打开已存在 AEDT 工程，目标 `.aedt` 不存在时失败，不得静默退化为新建工程。
+  - [ ] 修复 HFSS project 新建覆盖策略：`project_action=new` 遇到既有 `.aedt/.aedb/.aedtresults` 时必须失败或要求显式 overwrite/replace 开关，禁止默认 `save_project(..., overwrite=True)` 覆盖历史工程。
+  - [ ] 对 `--project-name`、candidate 派生的 HFSS project name 做 `safe_id`/basename/path-boundary 校验，禁止 `..`、路径分隔符、绝对路径或 workspace 外写入。
+  - [ ] 增加 `tests/test_hfss_project.py` 负例：`add` 目标不存在、`new` 目标已存在、project name 路径越界；标准 runner 的 candidate -> project-name 派生也必须覆盖。
+  - [ ] 更新 HFSS dry-run/project_contract 输出，显式记录 `create_mode`、`overwrite_policy`、`path_safety` 和 `target_exists`，让 AI/自动流程能在启动 AEDT 前判断风险。
 
 - [x] 将 `src/simads/hfss/workflow.py` 拆成更细模块。
   - [x] `layout_io.py`: layout JSON 读取、配置化 layout id、摘要。
