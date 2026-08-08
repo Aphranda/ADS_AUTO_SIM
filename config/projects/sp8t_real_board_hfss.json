@@ -125,6 +125,24 @@
         "latest_s2p": "projects/sp8t_real_board_hfss/results/rf_ppa_sp10t_v101_cutout/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808.s2p",
         "latest_tdr": "projects/sp8t_real_board_hfss/results/rf_ppa_sp10t_v101_cutout/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_tdr.csv",
         "description": "Two-port imported real board 0201 cutout design. Scored with connector S2P baseline-relative profile against frozen RF_IN 100pF baseline."
+      },
+      "rf_ppa_sp10t_core_0402_two_port": {
+        "design": "RF-PPA-SP10T-4F4H-ENIG-V1.0_Core",
+        "fixture_type": "sp8t_real_board_two_port_0402_core",
+        "ports": [
+          "Port1",
+          "Port2"
+        ],
+        "port_mapping": {
+          "port1": "Port1",
+          "port2": "Port2"
+        },
+        "component_note": "0402 0R resistor chip-to-chip Core version.",
+        "baseline_s2p": "projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100pF/RF_IN_cutout_100pF.s2p",
+        "latest_result": "projects/sp8t_real_board_hfss/results/rf_ppa_sp10t_core/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808_score.csv",
+        "latest_s2p": "projects/sp8t_real_board_hfss/results/rf_ppa_sp10t_core/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808.s2p",
+        "latest_tdr": "projects/sp8t_real_board_hfss/results/rf_ppa_sp10t_core/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808_tdr.csv",
+        "description": "Two-port imported real board 0402 Core chip-to-chip design. Scored with connector S2P baseline-relative profile and added as the aligned comparison item for the 0201 cutout case."
       }
     }
   },

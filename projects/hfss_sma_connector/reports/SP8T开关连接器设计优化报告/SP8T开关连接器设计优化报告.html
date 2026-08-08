@@ -124,7 +124,7 @@
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 1 / 10</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 1 / 11</span></footer>
 </section>
 
 <section class="page">
@@ -172,7 +172,7 @@
     </div>
     <div class="bar">几何检查：PCB layout 替换流程不重建连接器 pin IPort，只重建 PCB 远端 Port1。当前候选通过非 GUI 流程完成替换、仿真和后处理。</div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 2 / 10</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 2 / 11</span></footer>
 </section>
 
 <section class="page">
@@ -221,7 +221,7 @@
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 3 / 10</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 3 / 11</span></footer>
 </section>
 
 <section class="page">
@@ -253,7 +253,7 @@
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 4 / 10</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 4 / 11</span></footer>
 </section>
 
 <section class="page">
@@ -285,7 +285,7 @@
       </table>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 5 / 10</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 5 / 11</span></footer>
 </section>
 
 <section class="page">
@@ -315,7 +315,7 @@
       <div class="bar">本轮结论：L2 矩形开窗长度从 3.8 mm 增至 4.0 mm 后综合评分继续提升；宽度 1.7 mm 的 l40w17 在最差回损、平均额外插损和总评分上为当前最优组合。</div>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 6 / 10</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 6 / 11</span></footer>
 </section>
 
 <section class="page">
@@ -355,7 +355,7 @@
       <div class="bar">当前最明确方向是保持 L3 solid、L4 GND 和 connector foot 就近接地，以 L2 4.0 × 1.7 mm 为中心继续做小步边界扫描，并优先复核端口/辐射边界。</div>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 7 / 10</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 7 / 11</span></footer>
 </section>
 
 <section class="page">
@@ -403,7 +403,7 @@
       </div>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 8 / 10</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 8 / 11</span></footer>
 </section>
 
 <section class="page">
@@ -450,7 +450,7 @@
       </div>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 9 / 10</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 9 / 11</span></footer>
 </section>
 
 <section class="page">
@@ -486,7 +486,7 @@
           <tr><td>TDR</td><td>band-limited S11/S22</td><td>接近 50 Ω</td><td class="ok">S11/S22 约 46.56-50.91 Ω</td><td><span class="tag green">阻抗连续</span></td></tr>
         </tbody>
       </table>
-      <div class="bar">本次复测结论：0201 0R 版本的端口匹配、Smith 轨迹和 TDR 阻抗连续性明显健康；主要问题不是回损，而是相对 RF_IN 100pF baseline 的高频插损和纹波偏大。后续需要与 0402 Core run 做同口径 A/B，避免把不同截取范围或不同参考结构的差异误判为电阻封装差异。</div>
+      <div class="bar">本次复测结论：0201 0R 版本的端口匹配、Smith 轨迹和 TDR 阻抗连续性明显健康；主要问题不是回损，而是相对 RF_IN 100pF baseline 的高频插损和纹波偏大。下一页已补入 0402 Core 对位项，便于直接 A/B。</div>
     </div>
 
     <div class="section">
@@ -507,7 +507,60 @@
       </div>
     </div>
   </main>
-  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 10 / 10</span></footer>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 10 / 11</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1>0402 Core 对位对比</h1>
+      <div class="subtitle">RF-PPA-SP10T-4F4H-ENIG-V1.0_Core · 0402 0R 版本 · Port1->Port2</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta"><strong>新增对位</strong>工程：RF-PPA-SP10T-4F4H-ENIG-V1.0.aedt<br>Setup/Sweep：Setup1 / Sweep1<br>评分：connector S2P v2 vs RF_IN 100pF baseline</div>
+  </header>
+  <main class="main">
+    <div class="chips">
+      <div class="chip"><span class="k">Connector Score</span><span class="v">0.000</span></div>
+      <div class="chip"><span class="k">最差回损</span><span class="v">-0.06 dB</span></div>
+      <div class="chip"><span class="k">S21 @ 8 / 10 GHz</span><span class="v">-9.87 / -8.56 dB</span></div>
+      <div class="chip"><span class="k">状态</span><span class="v">TUNE</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">20. 0201 vs 0402 对位比较</div>
+      <table class="compact">
+        <thead><tr><th>指标</th><th>0201 0R</th><th>0402 0R</th><th>结论</th></tr></thead>
+        <tbody>
+          <tr><td>Connector score</td><td class="ok">79.611</td><td class="bad">0.000</td><td><span class="tag green">0201 明显优于 0402</span></td></tr>
+          <tr><td>最差回损</td><td class="ok">-24.01 dB</td><td class="bad">-0.06 dB</td><td><span class="tag red">0402 严重失配</span></td></tr>
+          <tr><td>S21 @ 8 / 10 GHz</td><td class="ok">-1.53 / -1.87 dB</td><td class="bad">-9.87 / -8.56 dB</td><td><span class="tag red">0402 高频损耗过大</span></td></tr>
+          <tr><td>Smith 范围</td><td class="ok">R=0.88-1.02，X=-0.06-0.08</td><td class="bad">R=0.03-15.91，X=-7.75-8.16</td><td><span class="tag red">0402 偏离 50Ω</span></td></tr>
+          <tr><td>TDR 阻抗</td><td class="ok">46.56-50.91 Ω</td><td class="bad">33.90-19950.00 Ω</td><td><span class="tag red">0402 不连续</span></td></tr>
+        </tbody>
+      </table>
+      <div class="bar">对位结论：0402 Core 版本在回损、Smith 轨迹和 TDR 上都明显劣于 0201 0R，当前不适合作为下一轮优化参考。后续若继续收敛，应优先围绕 0201 结构继续做局部 launch 和参考地修正。</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">21. 0402 曲线、Smith 与 TDR</div>
+      <div class="figure-row">
+        <div class="figure plot compact">
+          <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808_s_curves.svg" alt="0402 Core S curves">
+          <div class="caption">图 8a：0402 Core S 参数曲线。回损接近 0 dB，8-10 GHz 的插损远差于 0201。</div>
+        </div>
+        <div class="figure plot compact">
+          <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808_smith.svg" alt="0402 Core Smith chart">
+          <div class="caption">图 8b：0402 Core Smith 圆图。轨迹大幅偏离 50 Ω，和 0201 的收敛轨迹不是一个量级。</div>
+        </div>
+      </div>
+      <div class="figure plot compact">
+        <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core_0402_20260808_tdr.svg" alt="0402 Core TDR">
+        <div class="caption">图 8c：0402 Core band-limited TDR。输入/输出阻抗偏移明显，局部反射强，和 0201 的 46-51 Ω 连续带差异很大。</div>
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 11 / 11</span></footer>
 </section>
 
 </body>

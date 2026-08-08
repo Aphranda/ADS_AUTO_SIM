@@ -12,7 +12,8 @@
 - [ ] Analyze the remaining 3.55 GHz resonance using S-parameters, Smith chart, and TDR together.
 - [ ] Analyze the four-port `S43` high-frequency insertion-loss dip and through ripple; isolation is not the current bottleneck.
 - [ ] Analyze RF_OUT Port1->Port2 high-frequency loss imbalance versus Port3->Port4 and identify the layout delta against the frozen RF-PPA cutout baseline.
-- [ ] Run `RF-PPA-SP10T-4F4H-ENIG-V1.0_Core` as the chip-to-chip S2P case with the current 0402 0R resistor, then score it against the frozen baseline.
+- [x] Run `RF-PPA-SP10T-4F4H-ENIG-V1.0_Core` as the chip-to-chip S2P case with the current 0402 0R resistor, then score it against the frozen baseline.
+- [x] Add `RF-PPA-SP10T-4F4H-ENIG-V1.0_Core` 0402 0R result to the report as an aligned comparison item next to the 0201 case.
 - [ ] Re-run `RF-PPA-SP10T-4F4H-ENIG-V1.0_Core` tomorrow after swapping to the 0201 0R resistor, then compare the new score against the 0402 run.
 - [ ] Derive editable launch/cutout parameters from the extracted JSON/SVG before generating the first candidate layout.
 - [ ] Add API command to clone `RF_IN_cutout` into candidate designs.
