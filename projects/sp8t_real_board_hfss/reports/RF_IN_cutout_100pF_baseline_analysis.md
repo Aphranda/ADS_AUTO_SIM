@@ -5,7 +5,8 @@ Date: 2026-08-06
 ## Scope
 
 This note records the corrected `100pF` AC coupling baseline for the imported
-real SP8T RF_IN cutout HFSS design.
+real SP8T RF_IN cutout HFSS design. This is the canonical active baseline for
+the SP8T RF_IN launch branch.
 
 Primary artifacts:
 

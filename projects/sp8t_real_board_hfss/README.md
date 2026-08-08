@@ -38,7 +38,10 @@ If a manually created frame uses another name, pass it explicitly through
 `--delete-extra-name` or `--delete-extra-prefix` in the layout delete/replace
 tool.
 
-## Baseline
+## Canonical Baseline
+
+There is one active SP8T RF_IN baseline in this branch: `100 pF`.
+The earlier `100 nF` run is archived only and must not be used for comparison.
 
 Baseline artifacts are frozen under:
 

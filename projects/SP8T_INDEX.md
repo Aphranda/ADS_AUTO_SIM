@@ -28,6 +28,7 @@ Last updated: 2026-08-08
 ### 实板分支
 
 - 设计读入和基线：`projects/sp8t_real_board_hfss/README.md`
+- 活跃基线：`projects/sp8t_real_board_hfss/results/baselines/RF_IN_cutout_100pF/`
 - 报告和检查：`projects/sp8t_real_board_hfss/reports/`
 - 基线结果：`projects/sp8t_real_board_hfss/results/baselines/`
 - 归档快照：`archive/sp8t/20260808/`
