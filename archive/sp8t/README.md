@@ -11,9 +11,10 @@ This family archive stores frozen SP8T snapshots only.
 
 - `archive/sp8t/<freeze-date>/reports/`
 - `archive/sp8t/<freeze-date>/baselines/`
+- `archive/sp8t/<freeze-date>/results/`
 
 ## Policy
 
 - Active iterated work remains in `projects/`.
-- Frozen snapshots copy the report or baseline bundle as-is.
+- Frozen snapshots copy the report, baseline, or result bundle as-is.
 - Source HFSS projects are not copied into the archive tree.

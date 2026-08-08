@@ -6,7 +6,7 @@
     "validity":  {
                      "status":  "valid",
                      "ac_coupling_capacitance":  "100pF",
-                     "supersedes":  "RF_IN_cutout_100nF_invalid"
+                     "supersedes":  "RF_IN_cutout_100nF_legacy"
                  },
     "source":  {
                    "hfss_project":  "F:/1.Hardware/HFSS/SP8T/SP8T_HFSS.aedt",
