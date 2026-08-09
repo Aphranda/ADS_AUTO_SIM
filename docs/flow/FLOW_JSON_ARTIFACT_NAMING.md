@@ -131,3 +131,25 @@ summary = json_artifact_path(out_dir, "rf_in_cutout_0201_100pf", "summary")
 ```text
 python tools/audit_json_artifacts.py --format markdown
 ```
+
+## 9. 2026-08-09 全范围复查记录
+
+本轮将审查范围从“已跟踪文件”扩展到 Git 工作区中的 tracked、untracked、ignored JSON/JSONL：
+
+- `tools/audit_json_artifacts.py --scope all` 会统计 Git 状态，默认仍只列出需要处理的 tracked/untracked 问题项。
+- `tools/hfss/script_classes.json`、`*_baseline_freeze_YYYYMMDD.json`、`measurement_compare/*_vs_*.json`、`saved_launch_design_compare.json` 和 `layouts/**/*_api_layout*_full.json` 作为旧命名但有归档价值的 JSON 保持跟踪。
+- 历史 HFSS/ADS API 检查、端口探测、validate、solve/export 和 layout_exec JSON 被归类为 `local_runtime_json`。
+- 已从 Git 索引取消跟踪 172 个历史运行/诊断 JSON；工作区文件保留，由 `.gitignore` 继续忽略。
+- `projects/*/reports` 下的正式摘要例外仍可跟踪：`*_summary.json`、`*_metrics.json`、`*_manifest.json`、`*_comparison.json`、`*_score_summary.json`，以及对应的旧式 `*_metrics_YYYYMMDD.json` 等日期后缀文件。
+
+复查目标：
+
+```text
+python tools/audit_json_artifacts.py --format markdown
+```
+
+应满足：
+
+- 无 `local_runtime_json` 被 tracked。
+- 无 `local_runtime_event_stream` 被 tracked。
+- 无 `legacy_or_unclear_json`。

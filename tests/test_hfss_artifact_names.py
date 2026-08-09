@@ -41,6 +41,7 @@ def test_json_name_classification_splits_trackable_and_runtime_outputs() -> None
     assert is_local_runtime_json_name("inspect_ports.json")
     assert is_local_runtime_json_name("bfp_api_layout_api_extract_raw.json")
     assert is_local_runtime_json_name("extract_layout.json")
+    assert is_local_runtime_json_name("extract_layout_distilled.json")
     assert not is_local_runtime_json_name("bfp_core_y_offset_p0p10_summary.json")
 
 
@@ -48,8 +49,23 @@ def test_path_classification_uses_directory_context() -> None:
     assert json_artifact_class("config/optimizer/i7_fr4_deterministic_variant_probe.json") == "trackable_config_json"
     assert not is_runtime_artifact_path("config/optimizer/i7_fr4_deterministic_variant_probe.json")
 
+    assert json_artifact_class("tools/hfss/script_classes.json") == "trackable_config_json"
+    assert (
+        json_artifact_class("projects/demo/results/baselines/demo_baseline_freeze_20260809.json")
+        == "trackable_json"
+    )
+    assert json_artifact_class("projects/demo/reports/demo_fullband_metrics_20260809.json") == "trackable_json"
+    assert json_artifact_class("projects/demo/results/measurement_compare/demo_vs_measured_batch.json") == "trackable_json"
+    assert json_artifact_class("projects/demo/results/saved_launch_design_compare.json") == "trackable_json"
+    assert json_artifact_class("projects/demo/layouts/extracted/demo_api_layout_full.json") == "trackable_json"
+    assert json_artifact_class("projects/demo/layouts/rf_in_cutout/demo_api_layout_full.json") == "trackable_json"
+
     assert json_artifact_class("projects/demo/results/run_candidate.json") == "local_runtime_json"
     assert json_artifact_class("projects/demo/reports/inspect_ports.json") == "local_runtime_json"
+    assert json_artifact_class("projects/demo/reports/single_candidate_solve_20260809.json") == "local_runtime_json"
+    assert json_artifact_class("projects/demo/results/export_report.json") == "local_runtime_json"
+    assert json_artifact_class("projects/demo/results/extract_layout.json") == "local_runtime_json"
+    assert json_artifact_class("projects/demo/runs/run_001/run_manifest.json") == "trackable_json"
     assert json_artifact_class("projects/demo/results/aedb_saved_geometry_hints.json") == "local_runtime_json"
     assert json_artifact_class("projects/demo/results/candidate_metrics.json") == "trackable_json"
     assert json_artifact_class("projects/demo/results/candidate_summary.json") == "trackable_json"

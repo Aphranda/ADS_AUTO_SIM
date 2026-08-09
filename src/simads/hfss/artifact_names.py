@@ -58,6 +58,7 @@ FIXED_TRACKED_JSON_NAMES = frozenset(
         "baseline_index.json",
         "baseline_manifest.json",
         "run_manifest.json",
+        "script_classes.json",
         "simulation_manifest.json",
         "state.json",
     }
@@ -120,7 +121,7 @@ def is_local_runtime_json_name(name: str | Path) -> bool:
         return False
     if filename.startswith("inspect_"):
         return True
-    if filename == "extract_layout.json":
+    if filename in {"extract_layout.json", "extract_layout_distilled.json"}:
         return True
     return filename.endswith(LOCAL_RUNTIME_JSON_SUFFIXES) or "dry_run" in filename or "execute" in filename
 
@@ -130,6 +131,10 @@ def is_trackable_json_name(name: str | Path) -> bool:
 
     filename = Path(name).name.lower()
     if filename in FIXED_TRACKED_JSON_NAMES:
+        return True
+    if re.fullmatch(r".*_baseline_freeze_\d{8}\.json", filename):
+        return True
+    if re.fullmatch(r".*_(?:summary|metrics|manifest|comparison|score_summary)_\d{8}\.json", filename):
         return True
     return filename.endswith(TRACKED_JSON_SUFFIXES)
 
@@ -169,6 +174,8 @@ def is_runtime_artifact_path(path: str | Path) -> bool:
         return is_local_runtime_json_name(filename)
     if is_local_runtime_json_name(filename):
         return True
+    if filename in {"export_report.json", "validate_connectivity.json"}:
+        return True
     if stem in {"run", "export_only"}:
         return True
     if stem.startswith(("run_", "replace_", "inspect_", "export_only_")):
@@ -176,6 +183,40 @@ def is_runtime_artifact_path(path: str | Path) -> bool:
     if any(token in stem for token in ("_dry_run", "_execute", "_nosave", "_probe", "_diag")):
         return True
     if stem.endswith(("_hints", "_inspect", "_probe", "_diagnosis")):
+        return True
+    if "reports" in parts and any(token in stem for token in ("inspection", "inspect")):
+        return True
+    if "reports" in parts and stem.startswith(
+        (
+            "add_",
+            "aedt_project_",
+            "ads_layout_",
+            "ads_objects_",
+            "ads_ports_",
+            "ads_secondary_",
+            "ads_set_port_",
+            "cleanup_",
+            "close_",
+            "company_",
+            "connector_parameter_",
+            "delete_",
+            "dual_",
+            "gap",
+            "home_",
+            "ideal_vs_",
+            "modeler_",
+            "no_connector_",
+            "non_graphical_",
+            "place_",
+            "rebuild_",
+            "rename_",
+            "restore_",
+            "rf_ppa_",
+            "single_",
+            "sma_",
+            "small_solder_",
+        )
+    ):
         return True
     return False
 
@@ -190,12 +231,22 @@ def json_artifact_class(path: str | Path) -> str:
         return "local_runtime_event_stream"
     if suffix != ".json":
         return "other"
-    if is_runtime_artifact_path(path):
-        return "local_runtime_json"
     if "config" in parts:
         return "trackable_config_json"
+    if len(parts) >= 3 and parts[0] == "tools" and parts[1] == "hfss" and filename == "script_classes.json":
+        return "trackable_config_json"
+    if is_local_runtime_json_name(filename):
+        return "local_runtime_json"
     if is_trackable_json_name(filename):
         return "trackable_json"
+    if "measurement_compare" in parts and "_vs_" in filename:
+        return "trackable_json"
+    if filename == "saved_launch_design_compare.json":
+        return "trackable_json"
+    if "layouts" in parts and re.fullmatch(r".*_api_layout(?:_all_layers)?_full\.json", filename):
+        return "trackable_json"
+    if is_runtime_artifact_path(path):
+        return "local_runtime_json"
     return "legacy_or_unclear_json"
 
 
