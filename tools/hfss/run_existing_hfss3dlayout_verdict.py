@@ -29,6 +29,10 @@ from simads.hfss.session import Hfss3dLayoutSessionConfig, open_hfss3dlayout_ses
 
 apply_grpc_startup_compat()
 
+DEFAULT_ALLOWED_VALIDATE_WARNING_PATTERNS: tuple[str, ...] = (
+    r"Referenced material '.+' matches local definition '.+'",
+)
+
 
 def _jsonable(value: Any) -> Any:
     if isinstance(value, (str, int, float, bool)) or value is None:
@@ -220,6 +224,69 @@ def _validate_design(app: Any, output_dir: Path) -> dict[str, Any]:
         return {"ok": False, "method": None, "attempts": attempts}
 
 
+def _validation_attempt_messages(validate_result: dict[str, Any]) -> list[str]:
+    output: list[str] = []
+    for attempt in validate_result.get("attempts", []):
+        if not isinstance(attempt, dict):
+            continue
+        messages = attempt.get("messages")
+        if isinstance(messages, list):
+            output.extend(str(item) for item in messages)
+        error = attempt.get("error")
+        if error:
+            output.append(str(error))
+    return output
+
+
+def _matches_any_pattern(text: str, patterns: list[str] | tuple[str, ...]) -> bool:
+    for pattern in patterns:
+        try:
+            if re.search(pattern, text, flags=re.IGNORECASE):
+                return True
+        except re.error:
+            if pattern.lower() in text.lower():
+                return True
+    return False
+
+
+def _validation_alerts(
+    validate_result: dict[str, Any],
+    messages: list[str],
+    aedt_messages: list[str],
+    *,
+    allowed_warning_patterns: list[str] | tuple[str, ...] = (),
+) -> dict[str, list[str]]:
+    alerts: dict[str, list[str]] = {"errors": [], "warnings": []}
+    for message in list(aedt_messages) + list(messages):
+        text = str(message)
+        lower = text.lower()
+        if re.search(r"\[\s*error\s*\]", lower) or "script macro error:" in lower:
+            alerts["errors"].append(text)
+        if re.search(r"\[\s*warning\s*\]", lower):
+            alerts["warnings"].append(text)
+    for message in _validation_attempt_messages(validate_result):
+        text = str(message)
+        lower = text.lower()
+        if "**** errors present" in lower or "port number error" in lower:
+            alerts["errors"].append(text)
+        elif "warning" in lower:
+            alerts["warnings"].append(text)
+    warnings = list(dict.fromkeys(alerts["warnings"]))
+    allowed_warnings = [
+        warning
+        for warning in warnings
+        if _matches_any_pattern(warning, allowed_warning_patterns)
+    ]
+    blocking_warnings = [warning for warning in warnings if warning not in allowed_warnings]
+    return {
+        "errors": list(dict.fromkeys(alerts["errors"])),
+        "warnings": warnings,
+        "allowed_warnings": allowed_warnings,
+        "blocking_warnings": blocking_warnings,
+        "allowed_warning_patterns": list(allowed_warning_patterns),
+    }
+
+
 def _parse_update_design_spec(spec: str) -> tuple[str, str | None]:
     text = str(spec).strip()
     if not text:
@@ -355,18 +422,27 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 result["stage"] = "validate_design"
                 with lifecycle.timed("validate_design"):
                     result["validate_design"] = _validate_design(app, args.out_dir)
-                if not result["validate_design"].get("ok"):
-                    result["status"] = "validation_failed"
+                with lifecycle.timed("read_validate_messages"):
                     result["messages"] = _safe_messages(app, aedt_messages=False)
                     result["aedt_messages"] = _safe_messages(app, aedt_messages=True)
+                    result["validation_alerts"] = _validation_alerts(
+                        result["validate_design"],
+                        result["messages"],
+                        result["aedt_messages"],
+                        allowed_warning_patterns=args.allow_validate_warning,
+                    )
+                if not result["validate_design"].get("ok"):
+                    result["status"] = "validation_failed"
                     final_lifecycle_status = "failed"
+                    return result
+                if result["validation_alerts"]["errors"] or result["validation_alerts"]["blocking_warnings"]:
+                    result["status"] = "validation_needs_review"
+                    result["stage"] = "completed"
+                    final_lifecycle_status = "blocked"
                     return result
                 if args.validate_only:
                     result["status"] = "validated"
                     result["stage"] = "completed"
-                    with lifecycle.timed("read_messages"):
-                        result["messages"] = _safe_messages(app, aedt_messages=False)
-                        result["aedt_messages"] = _safe_messages(app, aedt_messages=True)
                     final_lifecycle_status = "ok"
                     return result
             if not args.export_only:
@@ -457,6 +533,19 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--validate-before-analyze", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--skip-validate", action="store_false", dest="validate_before_analyze")
     parser.add_argument("--auto-validate-update-designs", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument(
+        "--allow-validate-warning",
+        action="append",
+        default=list(DEFAULT_ALLOWED_VALIDATE_WARNING_PATTERNS),
+        help="Regex warning pattern allowed after validate. Other warnings stop before solve. Repeat to allow multiple warning classes.",
+    )
+    parser.add_argument(
+        "--no-default-validate-warning-allowlist",
+        action="store_const",
+        const=[],
+        dest="allow_validate_warning",
+        help="Disable the built-in validate warning allowlist.",
+    )
     parser.add_argument(
         "--validate-update-design",
         action="append",

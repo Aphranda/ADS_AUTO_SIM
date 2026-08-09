@@ -294,3 +294,90 @@ def test_validate_only_stops_before_export(tmp_path: Path, monkeypatch) -> None:
 
     assert result["status"] == "validated"
     assert calls == ["validate"]
+
+
+def test_validate_warning_stops_before_analyze(tmp_path: Path, monkeypatch) -> None:
+    runner = load_runner()
+    calls: list[str] = []
+
+    class FakeApp:
+        design_list = ["BFP"]
+        ports = []
+        project_name = "unit"
+        design_name = "BFP"
+
+        def validate_full_design(self, output_dir=None):
+            calls.append("validate")
+            return ["ok"], True
+
+        def analyze_setup(self, setup):
+            calls.append("analyze")
+            return True
+
+    class FakeSession:
+        app = FakeApp()
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return None
+
+        def metadata(self):
+            return {}
+
+    def fake_messages(app, *, aedt_messages):
+        if aedt_messages:
+            return ["Project: unit, Design: BFP, [warning] cached data is out of date"]
+        return []
+
+    monkeypatch.setattr(runner, "open_hfss3dlayout_session", lambda config, lifecycle: FakeSession())
+    monkeypatch.setattr(runner, "_safe_messages", fake_messages)
+    args = runner.parse_args(
+        [
+            "--project",
+            str(tmp_path / "unit.aedt"),
+            "--design",
+            "BFP",
+            "--out-dir",
+            str(tmp_path / "out"),
+            "--no-auto-validate-update-designs",
+        ]
+    )
+
+    result = runner.run(args)
+
+    assert result["status"] == "validation_needs_review"
+    assert result["validation_alerts"]["warnings"] == ["Project: unit, Design: BFP, [warning] cached data is out of date"]
+    assert calls == ["validate"]
+
+
+def test_validation_alerts_ignores_plain_info() -> None:
+    runner = load_runner()
+
+    alerts = runner._validation_alerts(
+        {"attempts": [{"messages": ["Ports Defined: 2"]}]},
+        [],
+        ["Project: unit, [info] Normal completion of simulation"],
+    )
+
+    assert alerts["errors"] == []
+    assert alerts["warnings"] == []
+    assert alerts["allowed_warnings"] == []
+    assert alerts["blocking_warnings"] == []
+
+
+def test_validation_alerts_allows_configured_warning() -> None:
+    runner = load_runner()
+
+    warning = "Project: unit, [warning] Referenced material 'COPPER' matches local definition 'copper'."
+    alerts = runner._validation_alerts(
+        {"attempts": []},
+        [],
+        [warning],
+        allowed_warning_patterns=[r"Referenced material '.+' matches local definition '.+'"],
+    )
+
+    assert alerts["warnings"] == [warning]
+    assert alerts["allowed_warnings"] == [warning]
+    assert alerts["blocking_warnings"] == []
