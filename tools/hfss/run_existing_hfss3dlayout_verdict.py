@@ -181,6 +181,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         final_lifecycle_status = "ok"
         return result
     except BaseException as exc:
+        current_result = result or {}
         result = {
             "project": str(args.project),
             "design": args.design,
@@ -188,7 +189,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "sweep": args.sweep,
             "candidate": args.candidate,
             "status": "failed",
-            "stage": locals().get("result", {}).get("stage", "unknown"),
+            "stage": current_result.get("stage", "unknown"),
             "error_type": type(exc).__name__,
             "error": str(exc),
             "traceback": traceback.format_exc(),

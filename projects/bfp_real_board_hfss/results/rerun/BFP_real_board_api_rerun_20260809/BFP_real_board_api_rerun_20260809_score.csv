@@ -1,0 +1,2 @@
+file,status,s21_5g_db,s21_6g_db,s21_7g_db,s21_8g_db,s21_9g_db,passband_min_s21_db,passband_ripple_db,worst_s11_6_8_db,worst_s22_6_8_db,note
+projects\bfp_real_board_hfss\results\rerun\BFP_real_board_api_rerun_20260809\BFP_real_board_api_rerun_20260809.s2p,TUNE,-28.22,-6.45,-7.00,-8.05,-26.78,-8.05,2.13,-5.48,-5.06,5 GHz rejection is weak; narrow bandwidth or add extra LO notch/highpass.

@@ -1,0 +1,81 @@
+{
+  "markers": {
+    "5G": {
+      "freq_ghz": 5.0,
+      "s11_db": -1.37165,
+      "s21_db": -28.2179,
+      "s12_db": -28.2179,
+      "s22_db": -1.41931
+    },
+    "6G": {
+      "freq_ghz": 6.0,
+      "s11_db": -8.0898,
+      "s21_db": -6.4519,
+      "s12_db": -6.4519,
+      "s22_db": -7.78796
+    },
+    "6.301G": {
+      "freq_ghz": 6.3,
+      "s11_db": -6.5941,
+      "s21_db": -6.72653,
+      "s12_db": -6.72653,
+      "s22_db": -6.29863
+    },
+    "7G": {
+      "freq_ghz": 7.0,
+      "s11_db": -7.31243,
+      "s21_db": -6.99968,
+      "s12_db": -6.99968,
+      "s22_db": -6.49071
+    },
+    "8G": {
+      "freq_ghz": 8.0,
+      "s11_db": -9.10317,
+      "s21_db": -8.05458,
+      "s12_db": -8.05458,
+      "s22_db": -8.16696
+    },
+    "9G": {
+      "freq_ghz": 9.0,
+      "s11_db": -7.6518,
+      "s21_db": -26.7824,
+      "s12_db": -26.7824,
+      "s22_db": -5.77599
+    },
+    "10G": {
+      "freq_ghz": 10.0,
+      "s11_db": -2.53141,
+      "s21_db": -53.4159,
+      "s12_db": -53.4159,
+      "s22_db": -2.26196
+    }
+  },
+  "s21_peak_db": -5.91971,
+  "s21_peak_freq_ghz": 6.1,
+  "minus3db_threshold_db": -8.91971,
+  "minus3db_band_ghz": [
+    5.6,
+    8.3
+  ],
+  "passband_6_8_min_s21_db": -8.05458,
+  "passband_6_8_max_s21_db": -5.91971,
+  "passband_6_8_ripple_db": 2.1348699999999994,
+  "worst_s11_6_8_db": -5.47936,
+  "worst_s11_6_8_freq_ghz": 6.45,
+  "worst_s22_6_8_db": -5.0551,
+  "worst_s22_6_8_freq_ghz": 7.2,
+  "s21_5g_rejection_db": -28.2179,
+  "s21_9g_rejection_db": -26.7824,
+  "s11_tdr_min_z_ohm": 0.125313283,
+  "s11_tdr_min_z_time_ns": 0.263671875,
+  "s11_tdr_max_z_ohm": 54.3712351,
+  "s11_tdr_max_z_time_ns": 0.126953125,
+  "s11_tdr_early_min_z_ohm": 21.2406627,
+  "s11_tdr_early_min_z_time_ns": 0.1953125,
+  "s22_tdr_min_z_ohm": 0.125313283,
+  "s22_tdr_min_z_time_ns": 0.263671875,
+  "s22_tdr_max_z_ohm": 55.4762686,
+  "s22_tdr_max_z_time_ns": 0.01953125,
+  "s22_tdr_early_min_z_ohm": 20.4384426,
+  "s22_tdr_early_min_z_time_ns": 0.1953125
+}

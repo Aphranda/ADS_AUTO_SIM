@@ -1,0 +1,361 @@
+{
+  "project": "D:\\Work\\ADS\\BFP_parallel\\BFP_HFSS.aedt",
+  "design": "BFP",
+  "aedt_startup": {
+    "PYAEDT_USE_PRE_GRPC_ARGS": "True",
+    "grpc_secure_mode_env": "False",
+    "SIMADS_AEDT_WAIT_FOR_LICENSE": "True",
+    "SIMADS_AEDT_DESKTOP_TIMEOUT_S": "300",
+    "SIMADS_AEDT_USER_ROOT": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "HOME": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "USERPROFILE": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "APPDATA": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user\\AppData\\Roaming",
+    "LOCALAPPDATA": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user\\AppData\\Local",
+    "TEMP": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user\\Temp",
+    "settings.grpc_secure_mode": false,
+    "settings.grpc_local": true,
+    "settings.grpc_listen_all": false,
+    "settings.wait_for_license": true,
+    "settings.desktop_launch_timeout": 300,
+    "settings.enable_desktop_logs": false,
+    "settings.use_grpc_api": null,
+    "settings.number_of_grpc_api_retries": 6
+  },
+  "aedt_lock": {
+    "label": "run_existing_hfss3dlayout_verdict",
+    "pid": 13096,
+    "started_epoch": 1786259000.995,
+    "lock_path": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_automation.lock"
+  },
+  "project_lock": {
+    "project": "D:\\Work\\ADS\\BFP_parallel\\BFP_HFSS.aedt",
+    "lock_path": "D:\\Work\\ADS\\BFP_parallel\\BFP_HFSS.aedt.lock",
+    "exists": false,
+    "removed": false,
+    "action": "none"
+  },
+  "aedt_reaper": {
+    "started": true,
+    "label": "run_existing_hfss3dlayout_verdict",
+    "aedt_process_id": 31584,
+    "parent_pid": 13096,
+    "reaper_pid": 23272,
+    "execute": true,
+    "execute_requested": true,
+    "terminate_disabled": false,
+    "script_started": true,
+    "execute_block_reason": null,
+    "output": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\run_existing_hfss3dlayout_verdict_13096_31584.json",
+    "event_log": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\run_existing_hfss3dlayout_verdict_13096_31584.jsonl",
+    "owner_record": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\run_existing_hfss3dlayout_verdict_13096_31584.owner.json",
+    "silent": true,
+    "helper_executable": "D:\\Microsoft\\uv-venvs\\ads-automation\\Scripts\\pythonw.exe",
+    "target_create_time_epoch": 1786259001.9976108
+  },
+  "aedt_ready": {
+    "auto_open": {
+      "api": null,
+      "ok": false,
+      "result": "set_auto_open is unavailable for this AEDT app"
+    },
+    "timeout_s": 120.0,
+    "settle_s": 3.0,
+    "design_name": "BFP",
+    "project_name": "BFP_HFSS",
+    "project_name_error": null,
+    "modeler_loaded": true,
+    "setup_names": [
+      "Setup1"
+    ],
+    "setup_loaded": true,
+    "sweep_names": [
+      "Sweep1"
+    ],
+    "sweep_loaded": true
+  },
+  "setup": "Setup1",
+  "sweep": "Sweep1",
+  "analyze": true,
+  "status": "ok",
+  "ports": [
+    "Port1",
+    "Port2"
+  ],
+  "stage": "completed",
+  "analyze_return": true,
+  "export_attempts": [
+    {
+      "attempt": 1,
+      "ok": true,
+      "exported": "projects/bfp_real_board_hfss/results/rerun/BFP_real_board_api_rerun_20260809/BFP_real_board_api_rerun_20260809.s2p",
+      "exists": true
+    }
+  ],
+  "s2p": "projects\\bfp_real_board_hfss\\results\\rerun\\BFP_real_board_api_rerun_20260809\\BFP_real_board_api_rerun_20260809.s2p",
+  "postprocess_profile": "filter",
+  "score": "projects\\bfp_real_board_hfss\\results\\rerun\\BFP_real_board_api_rerun_20260809\\BFP_real_board_api_rerun_20260809_score.csv",
+  "trace_csv": "projects\\bfp_real_board_hfss\\results\\rerun\\BFP_real_board_api_rerun_20260809\\BFP_real_board_api_rerun_20260809_trace.csv",
+  "svg_dir": "projects\\bfp_real_board_hfss\\results\\rerun\\BFP_real_board_api_rerun_20260809\\svg",
+  "messages": [
+    "failed to read messages: TypeError: 'MessageList' object is not iterable"
+  ],
+  "aedt_messages": [
+    "Project: *Global - Messages, [info]  gRPC server started on port 12858 of local host. Only connections from the local host initiated by the same user are permitted.\n",
+    "Project: BFP_HFSS, Design: BFP, [warning]  Referenced material 'COPPER' matches local definition 'copper'.  The local definition will be used. (03:03:35 PM  Aug 09, 2026)",
+    "Project: BFP_HFSS, Design: BFP, [info]  Touchstone export: Writing to \"D:/Work/SIM/ADS_AUTO_SIM/projects/bfp_real_board_hfss/results/rerun/BFP_real_board_api_rerun_20260809/BFP_real_board_api_rerun_20260809.s2p\" (03:03:48 PM  Aug 09, 2026)"
+  ],
+  "lifecycle": {
+    "label": "run_existing_hfss3dlayout_verdict",
+    "status": "ok",
+    "started_epoch": 1786259000.678,
+    "elapsed_s": 33.781,
+    "event_count": 32,
+    "events": [
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "lifecycle_start",
+        "status": "running",
+        "timestamp_epoch": 1786259000.678,
+        "elapsed_s": 0.0
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "apply_pyaedt_settings",
+        "status": "running",
+        "timestamp_epoch": 1786259000.991,
+        "elapsed_s": 0.313
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "apply_pyaedt_settings",
+        "status": "ok",
+        "timestamp_epoch": 1786259000.992,
+        "elapsed_s": 0.314,
+        "duration_s": 0.001
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "acquire_aedt_automation_lock",
+        "status": "running",
+        "timestamp_epoch": 1786259000.994,
+        "elapsed_s": 0.315
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "acquire_aedt_automation_lock",
+        "status": "ok",
+        "timestamp_epoch": 1786259000.995,
+        "elapsed_s": 0.317,
+        "duration_s": 0.001
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "prepare_aedt_project_lock",
+        "status": "running",
+        "timestamp_epoch": 1786259000.995,
+        "elapsed_s": 0.317
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "prepare_aedt_project_lock",
+        "status": "ok",
+        "timestamp_epoch": 1786259000.996,
+        "elapsed_s": 0.318,
+        "duration_s": 0.001
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "start_hfss3dlayout",
+        "status": "running",
+        "timestamp_epoch": 1786259000.996,
+        "elapsed_s": 0.318
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "start_hfss3dlayout",
+        "status": "ok",
+        "timestamp_epoch": 1786259009.975,
+        "elapsed_s": 9.297,
+        "duration_s": 8.979
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "wait_for_hfss3dlayout_ready",
+        "status": "running",
+        "timestamp_epoch": 1786259009.996,
+        "elapsed_s": 9.317
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "wait_for_hfss3dlayout_ready",
+        "status": "ok",
+        "timestamp_epoch": 1786259013.023,
+        "elapsed_s": 12.344,
+        "duration_s": 3.027
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "read_ports",
+        "status": "running",
+        "timestamp_epoch": 1786259013.023,
+        "elapsed_s": 12.345
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "read_ports",
+        "status": "ok",
+        "timestamp_epoch": 1786259013.026,
+        "elapsed_s": 12.347,
+        "duration_s": 0.002
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "analyze_setup",
+        "status": "running",
+        "timestamp_epoch": 1786259013.026,
+        "elapsed_s": 12.348,
+        "setup": "Setup1"
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "analyze_setup",
+        "status": "ok",
+        "timestamp_epoch": 1786259028.09,
+        "elapsed_s": 27.412,
+        "duration_s": 15.064
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "export_touchstone",
+        "status": "running",
+        "timestamp_epoch": 1786259028.091,
+        "elapsed_s": 27.412,
+        "attempts": 3
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "export_touchstone",
+        "status": "ok",
+        "timestamp_epoch": 1786259028.294,
+        "elapsed_s": 27.616,
+        "duration_s": 0.204
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "score_s2p",
+        "status": "running",
+        "timestamp_epoch": 1786259028.295,
+        "elapsed_s": 27.617,
+        "tool": "analyze_filter_s2p.py"
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "score_s2p",
+        "status": "ok",
+        "timestamp_epoch": 1786259029.043,
+        "elapsed_s": 28.365,
+        "duration_s": 0.748
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "convert_s2p_to_trace_csv",
+        "status": "running",
+        "timestamp_epoch": 1786259029.045,
+        "elapsed_s": 28.367
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "convert_s2p_to_trace_csv",
+        "status": "ok",
+        "timestamp_epoch": 1786259029.081,
+        "elapsed_s": 28.403,
+        "duration_s": 0.036
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "write_plot_summary",
+        "status": "running",
+        "timestamp_epoch": 1786259029.083,
+        "elapsed_s": 28.405
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "write_plot_summary",
+        "status": "ok",
+        "timestamp_epoch": 1786259029.085,
+        "elapsed_s": 28.407,
+        "duration_s": 0.002
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "plot_sparam_svg",
+        "status": "running",
+        "timestamp_epoch": 1786259029.086,
+        "elapsed_s": 28.408,
+        "tool": "plot_filter_s_curves_svg.py"
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "plot_sparam_svg",
+        "status": "ok",
+        "timestamp_epoch": 1786259030.782,
+        "elapsed_s": 30.104,
+        "duration_s": 1.696
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "read_messages",
+        "status": "running",
+        "timestamp_epoch": 1786259030.782,
+        "elapsed_s": 30.104
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "read_messages",
+        "status": "ok",
+        "timestamp_epoch": 1786259030.791,
+        "elapsed_s": 30.113,
+        "duration_s": 0.008
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "release_desktop",
+        "status": "running",
+        "timestamp_epoch": 1786259030.792,
+        "elapsed_s": 30.113
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "release_desktop",
+        "status": "ok",
+        "timestamp_epoch": 1786259034.457,
+        "elapsed_s": 33.779,
+        "duration_s": 3.665
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "release_aedt_automation_lock",
+        "status": "running",
+        "timestamp_epoch": 1786259034.458,
+        "elapsed_s": 33.779
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "release_aedt_automation_lock",
+        "status": "ok",
+        "timestamp_epoch": 1786259034.458,
+        "elapsed_s": 33.78,
+        "duration_s": 0.001
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "lifecycle_finish",
+        "status": "ok",
+        "timestamp_epoch": 1786259034.459,
+        "elapsed_s": 33.78,
+        "total_elapsed_s": 33.78
+      }
+    ],
+    "event_log": "projects\\bfp_real_board_hfss\\results\\rerun\\BFP_real_board_api_rerun_20260809\\run_BFP_real_board_api_rerun_20260809.events.jsonl"
+  }
+}

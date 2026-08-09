@@ -1,0 +1,90 @@
+{
+  "schema_version": "0.1.0",
+  "project_id": "bfp_real_board_hfss",
+  "run_id": "BFP_real_board_baseline_20260809",
+  "source": {
+    "aedt_project": "D:/Work/ADS/BFP_parallel/BFP_HFSS.aedt",
+    "design": "BFP",
+    "setup": "Setup1",
+    "sweep": "Sweep1",
+    "ports": [
+      "Port1",
+      "Port2"
+    ]
+  },
+  "status": "completed",
+  "postprocess": {
+    "connector_profile": "sma_launch_fullband_0p5_10g_v1",
+    "filter_score_file": "BFP_real_board_baseline_20260809_filter_score.csv",
+    "optimization_metrics_file": "BFP_real_board_baseline_20260809_optimization_metrics.json"
+  },
+  "key_metrics": {
+    "s21_peak_db": -5.92,
+    "s21_peak_freq_ghz": 6.10,
+    "s21_6g_db": -6.45,
+    "s21_6p3g_db": -6.73,
+    "s21_7g_db": -7.00,
+    "s21_8g_db": -8.05,
+    "worst_s11_6_8_db": -5.48,
+    "worst_s22_6_8_db": -5.06,
+    "tdr_early_low_z_ohm": 20.44,
+    "tdr_early_low_z_time_ns": 0.195
+  },
+  "artifacts": [
+    {
+      "type": "s2p",
+      "path": "projects/bfp_real_board_hfss/results/baseline/BFP_real_board_baseline_20260809/BFP_real_board_baseline_20260809.s2p",
+      "sha256": "9DB5D369EECEBAC51E65C2DE7B812038200894B27DF8FE10C5A7CD54C1367FD3"
+    },
+    {
+      "type": "connector_score",
+      "path": "projects/bfp_real_board_hfss/results/baseline/BFP_real_board_baseline_20260809/BFP_real_board_baseline_20260809_score.csv",
+      "sha256": "AD636B10F5665A56C7E5FB27DF8C6E8C30CC750213F8134193AA60536ECD0C82"
+    },
+    {
+      "type": "filter_score",
+      "path": "projects/bfp_real_board_hfss/results/baseline/BFP_real_board_baseline_20260809/BFP_real_board_baseline_20260809_filter_score.csv",
+      "sha256": "A5879327B8FE75CF292A5CFAC0FEA3B5662F182913D30F6FBB9A198F1275DF54"
+    },
+    {
+      "type": "trace_csv",
+      "path": "projects/bfp_real_board_hfss/results/baseline/BFP_real_board_baseline_20260809/BFP_real_board_baseline_20260809_trace.csv",
+      "sha256": "9831DF11731D1278B61E2E286EE83DEBF3382158F873357F80818E1D2EFD5008"
+    },
+    {
+      "type": "tdr_csv",
+      "path": "projects/bfp_real_board_hfss/results/baseline/BFP_real_board_baseline_20260809/BFP_real_board_baseline_20260809_tdr.csv",
+      "sha256": "ECC6E40023E0A8FC703F37A834B8B2863AF401E2D101E1FE4BAB47389836018A"
+    },
+    {
+      "type": "optimization_metrics",
+      "path": "projects/bfp_real_board_hfss/results/baseline/BFP_real_board_baseline_20260809/BFP_real_board_baseline_20260809_optimization_metrics.json",
+      "sha256": "D1EDB01A30F013A824863951C3ACB06BDC5D1C09A3FA1429740F2FF0E8FF4CE4"
+    },
+    {
+      "type": "run_log",
+      "path": "projects/bfp_real_board_hfss/results/baseline/BFP_real_board_baseline_20260809/run_BFP_real_board_baseline_20260809.json",
+      "sha256": "D10F6D300C1C8C2A5053B8518C9A67720214BF59D1DE803BD99C5BF538E58FD8"
+    },
+    {
+      "type": "s_curves_svg",
+      "path": "projects/bfp_real_board_hfss/results/baseline/BFP_real_board_baseline_20260809/svg/BFP_real_board_baseline_20260809_s_curves.svg",
+      "sha256": "D3D79C430819E38EF8A599704FA8A15C9263E79DB642679DB6D6959607AA7786"
+    },
+    {
+      "type": "smith_svg",
+      "path": "projects/bfp_real_board_hfss/results/baseline/BFP_real_board_baseline_20260809/svg/BFP_real_board_baseline_20260809_smith.svg",
+      "sha256": "0D4B3C9055934B1CEDAD99EC8BAD8E95F2D5C56DE4BA4A6634E8037965475451"
+    },
+    {
+      "type": "tdr_svg",
+      "path": "projects/bfp_real_board_hfss/results/baseline/BFP_real_board_baseline_20260809/svg/BFP_real_board_baseline_20260809_tdr.svg",
+      "sha256": "B77090ECEEB3F098F2C33EDAEF437D67A4E9FA4FBC0DB0658A8F88EDCBE82178"
+    }
+  ],
+  "notes": [
+    "This run used the existing BFP layout with connector models included.",
+    "Use this as the initial actual-board simulation baseline before editable-layout write-back validation."
+  ]
+}
+
