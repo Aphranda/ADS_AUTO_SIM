@@ -64,6 +64,7 @@ de_sim.cfg
 *.lck
 *.lock
 *.log
+*.events.jsonl
 *.jou
 *.ses
 *.bak_*
@@ -134,6 +135,11 @@ projects/*/layouts/**/*_layout.json
 projects/*/layouts/**/*_params.json
 projects/*/layouts/**/*_tuning_table.csv
 
+# Curated BFP HFSS element-level candidates are design inputs for API write-back.
+!projects/bfp_real_board_hfss/layouts/candidates/
+!projects/bfp_real_board_hfss/layouts/candidates/core_y_offset_*/
+!projects/bfp_real_board_hfss/layouts/candidates/core_y_offset_*/*_layout.json
+
 # Raw simulator exports and per-candidate post-processing outputs.
 # Keep compact sweep_summary.csv and baseline summaries tracked.
 projects/*/results/**/*_rfpro.csv
@@ -166,3 +172,15 @@ projects/*/results/**/*_ranking*.csv
 projects/*/results/**/*.predictions.csv
 projects/*/baselines/**/*.lock
 projects/*/reports/**/filter_report_tmp.pdf
+
+# Final runtime-log guardrails. These override broad report/baseline unignore
+# rules above; curated evidence should be saved as summaries, metrics, reports,
+# manifests, or explicitly reviewed candidate layout JSON.
+*.events.jsonl
+*.log
+projects/*/reports/**/*.events.jsonl
+projects/*/reports/**/*.log
+projects/*/results/**/*.events.jsonl
+archive/**/results/**/*.events.jsonl
+projects/*/results/**/*dry_run*.json
+projects/*/results/**/*execute*.json
