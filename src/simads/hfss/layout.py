@@ -60,6 +60,10 @@ def _target_ground_layer(shape: dict[str, Any], geometry: GeometryBuildOptions) 
     return geometry.reference_ground_layer
 
 
+def _mm(value: Any) -> str:
+    return f"{float(value):.12g}mm"
+
+
 def _create_reference_ground_plane(app: Any, shape: dict[str, Any], geometry: GeometryBuildOptions) -> Any:
     layer = _target_ground_layer(shape, geometry)
     name = shape.get("name")
@@ -73,8 +77,8 @@ def _create_reference_ground_plane(app: Any, shape: dict[str, Any], geometry: Ge
         )
     return app.modeler.create_rectangle(
         layer,
-        [shape["x"], shape["y"]],
-        [shape["w"], shape["h"]],
+        [_mm(shape["x"]), _mm(shape["y"])],
+        [_mm(shape["w"]), _mm(shape["h"])],
         name=name,
         net="GND",
     )
@@ -101,8 +105,8 @@ def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOpti
     if boundary and not _has_explicit_reference_ground_plane(layout, geometry):
         gnd = app.modeler.create_rectangle(
             geometry.reference_ground_layer,
-            [boundary["x"], boundary["y"]],
-            [boundary["w"], boundary["h"]],
+            [_mm(boundary["x"]), _mm(boundary["y"])],
+            [_mm(boundary["w"]), _mm(boundary["h"])],
             name=geometry.ground_plane_name,
             net="GND",
         )
@@ -129,8 +133,8 @@ def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOpti
         if kind == "rect" and layer in signal_layers:
             obj = app.modeler.create_rectangle(
                 geometry.signal_layer,
-                [shape["x"], shape["y"]],
-                [shape["w"], shape["h"]],
+                [_mm(shape["x"]), _mm(shape["y"])],
+                [_mm(shape["w"]), _mm(shape["h"])],
                 name=name,
                 net=_shape_net(shape, name),
             )
@@ -151,16 +155,16 @@ def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOpti
             via_d = float(shape.get("diameter") or pad_d)
             pad = app.modeler.create_circle(
                 geometry.signal_layer,
-                float(shape["x"]),
-                float(shape["y"]),
-                pad_d / 2.0,
+                _mm(shape["x"]),
+                _mm(shape["y"]),
+                _mm(pad_d / 2.0),
                 name=f"{name}_pad",
                 net="GND",
             )
             via = app.modeler.create_via(
-                x=float(shape["x"]),
-                y=float(shape["y"]),
-                hole_diam=via_d,
+                x=_mm(shape["x"]),
+                y=_mm(shape["y"]),
+                hole_diam=_mm(via_d),
                 top_layer=geometry.via_top_layer,
                 bot_layer=geometry.via_bottom_layer,
                 name=name,

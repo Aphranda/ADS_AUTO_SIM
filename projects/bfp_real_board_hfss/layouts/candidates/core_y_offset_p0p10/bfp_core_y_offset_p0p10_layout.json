@@ -2798,7 +2798,7 @@
     {
       "name": "via_113",
       "x": 94.01809999999999,
-      "y": 87.47599999999998,
+      "y": 87.37599999999999,
       "diameter": 0.254,
       "pad_diameter": 0.55,
       "layer": "pcvia1",
@@ -2813,7 +2813,7 @@
     {
       "name": "via_114",
       "x": 95.04172,
-      "y": 87.47599999999998,
+      "y": 87.37599999999999,
       "diameter": 0.254,
       "pad_diameter": 0.55,
       "layer": "pcvia1",
@@ -2828,7 +2828,7 @@
     {
       "name": "via_115",
       "x": 92.91066,
-      "y": 87.47599999999998,
+      "y": 87.37599999999999,
       "diameter": 0.254,
       "pad_diameter": 0.55,
       "layer": "pcvia1",
@@ -2903,7 +2903,7 @@
     {
       "name": "via_120",
       "x": 91.87687999999999,
-      "y": 87.47599999999998,
+      "y": 87.37599999999999,
       "diameter": 0.254,
       "pad_diameter": 0.55,
       "layer": "pcvia1",
@@ -4178,7 +4178,7 @@
     {
       "name": "via_63",
       "x": 94.55912000000001,
-      "y": 93.2545,
+      "y": 93.1545,
       "diameter": 0.254,
       "pad_diameter": 0.55,
       "layer": "pcvia1",
@@ -4193,7 +4193,7 @@
     {
       "name": "via_64",
       "x": 93.46437999999999,
-      "y": 93.2545,
+      "y": 93.1545,
       "diameter": 0.254,
       "pad_diameter": 0.55,
       "layer": "pcvia1",
@@ -4508,7 +4508,7 @@
     {
       "name": "via_85",
       "x": 92.36456,
-      "y": 93.2545,
+      "y": 93.1545,
       "diameter": 0.254,
       "pad_diameter": 0.55,
       "layer": "pcvia1",
@@ -4790,13 +4790,11 @@
         "prefixes": [],
         "kinds": [
           "polygon",
-          "rect",
-          "via"
+          "rect"
         ],
         "layers": [
           "cond",
-          "ETCH_TOP",
-          "pcvia1"
+          "ETCH_TOP"
         ],
         "regions": [
           "filter_core_bbox_mm"
@@ -4807,6 +4805,7 @@
         "roles": [
           "signal_feed",
           "ground_copper",
+          "ground_via",
           "solid_reference_ground"
         ],
         "names": [],
@@ -4821,7 +4820,8 @@
         "project": "bfp_real_board_hfss",
         "target": "7th_order_interdigital_filter_core",
         "notes": [
-          "Use this policy to delete/redraw only the middle interdigital filter body and its local filter vias.",
+          "Use this policy to delete/redraw only the middle interdigital filter body TOP copper.",
+          "Filter ground vias/holes are fixed board structures and must not be translated with the copper core.",
           "Connector launch, 2.4 mm connector geometry, feed traces, board via fence, ports, and reference ground planes are outside this policy."
         ]
       }
@@ -4844,14 +4844,7 @@
         "poly__12",
         "poly__11",
         "poly__14",
-        "poly__16",
-        "via_113",
-        "via_114",
-        "via_115",
-        "via_120",
-        "via_63",
-        "via_64",
-        "via_85"
+        "poly__16"
       ],
       "shifted_regions": [
         "filter_core_bbox_mm"

@@ -5,19 +5,18 @@
     ],
     "kinds": [
       "polygon",
-      "rect",
-      "via"
+      "rect"
     ],
     "layers": [
       "cond",
-      "ETCH_TOP",
-      "pcvia1"
+      "ETCH_TOP"
     ]
   },
   "exclude": {
     "roles": [
       "signal_feed",
       "ground_copper",
+      "ground_via",
       "solid_reference_ground"
     ]
   },
@@ -28,7 +27,8 @@
     "project": "bfp_real_board_hfss",
     "target": "7th_order_interdigital_filter_core",
     "notes": [
-      "Use this policy to delete/redraw only the middle interdigital filter body and its local filter vias.",
+      "Use this policy to delete/redraw only the middle interdigital filter body TOP copper.",
+      "Filter ground vias/holes are fixed board structures and must not be translated with the copper core.",
       "Connector launch, 2.4 mm connector geometry, feed traces, board via fence, ports, and reference ground planes are outside this policy."
     ]
   }

@@ -69,6 +69,12 @@ class FakeApp:
         self.modeler = FakeModeler()
 
 
+def mm_value(value):
+    if isinstance(value, str) and value.endswith("mm"):
+        return float(value[:-2])
+    return float(value)
+
+
 def stackup_params(**kwargs) -> ConnectorLaunchParams:
     stackup_path = Path("config/stackups/JLC04161H_7628_1P6MM.json")
     return params_with_stackup_config(
@@ -269,10 +275,10 @@ def test_microstrip_connector_layout_is_compatible_with_hfss_geometry_builder() 
         and call[1] == "ETCH_TOP"
         and call[4] == "input_feed"
         and call[5] == "IN"
-        and call[2][0] == pytest.approx(0.0)
-        and call[2][1] == pytest.approx(-params.pin_pad_w_mm / 2.0)
-        and call[3][0] == pytest.approx(params.pin_pad_l_mm)
-        and call[3][1] == pytest.approx(params.pin_pad_w_mm)
+        and mm_value(call[2][0]) == pytest.approx(0.0)
+        and mm_value(call[2][1]) == pytest.approx(-params.pin_pad_w_mm / 2.0)
+        and mm_value(call[3][0]) == pytest.approx(params.pin_pad_l_mm)
+        and mm_value(call[3][1]) == pytest.approx(params.pin_pad_w_mm)
         for call in app.modeler.calls
     )
     assert any(call[0] == "rect" and call[4] == "center_line_top_ground" and call[5] == "GND" for call in app.modeler.calls)

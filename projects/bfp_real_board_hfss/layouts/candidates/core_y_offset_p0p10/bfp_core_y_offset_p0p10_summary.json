@@ -23,14 +23,7 @@
     "poly__12",
     "poly__11",
     "poly__14",
-    "poly__16",
-    "via_113",
-    "via_114",
-    "via_115",
-    "via_120",
-    "via_63",
-    "via_64",
-    "via_85"
+    "poly__16"
   ],
   "selected_after": [
     "poly__13",
@@ -46,17 +39,10 @@
     "poly__12",
     "poly__11",
     "poly__14",
-    "poly__16",
-    "via_113",
-    "via_114",
-    "via_115",
-    "via_120",
-    "via_63",
-    "via_64",
-    "via_85"
+    "poly__16"
   ],
-  "selected_count_before": 21,
-  "selected_count_after": 21,
+  "selected_count_before": 14,
+  "selected_count_after": 14,
   "element_policy": {
     "include": {
       "roles": [],
@@ -64,13 +50,11 @@
       "prefixes": [],
       "kinds": [
         "polygon",
-        "rect",
-        "via"
+        "rect"
       ],
       "layers": [
         "cond",
-        "ETCH_TOP",
-        "pcvia1"
+        "ETCH_TOP"
       ],
       "regions": [
         "filter_core_bbox_mm"
@@ -81,6 +65,7 @@
       "roles": [
         "signal_feed",
         "ground_copper",
+        "ground_via",
         "solid_reference_ground"
       ],
       "names": [],
@@ -95,7 +80,8 @@
       "project": "bfp_real_board_hfss",
       "target": "7th_order_interdigital_filter_core",
       "notes": [
-        "Use this policy to delete/redraw only the middle interdigital filter body and its local filter vias.",
+        "Use this policy to delete/redraw only the middle interdigital filter body TOP copper.",
+        "Filter ground vias/holes are fixed board structures and must not be translated with the copper core.",
         "Connector launch, 2.4 mm connector geometry, feed traces, board via fence, ports, and reference ground planes are outside this policy."
       ]
     }

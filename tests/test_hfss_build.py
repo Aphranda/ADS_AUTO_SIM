@@ -4,6 +4,10 @@ from pathlib import Path
 from simads.hfss.build import build_hfss_layout_project
 
 
+def mm(value: float) -> str:
+    return f"{value:g}mm"
+
+
 class FakeMaterial:
     def __init__(self) -> None:
         self.permittivity = None
@@ -126,8 +130,8 @@ def test_build_hfss_layout_project_is_independent_from_workflow() -> None:
 
     assert app.modeler.model_units == "mm"
     assert app.modeler.layers.added[1][2] == "0.2104mm"
-    assert app.modeler.calls[0] == ("rect", "GND", [-2.0, -1.0], [4.0, 2.0], "hfss_ground_plane", "GND")
-    assert app.modeler.calls[1] == ("rect", "TOP", [-1.0, 0.0], [2.0, 0.2], "input_feed", "IN")
+    assert app.modeler.calls[0] == ("rect", "GND", [mm(-2), mm(-1)], [mm(4), mm(2)], "hfss_ground_plane", "GND")
+    assert app.modeler.calls[1] == ("rect", "TOP", [mm(-1), mm(0)], [mm(2), mm(0.2)], "input_feed", "IN")
     assert app.saved_project == ("case.aedt", True)
     assert result["geometry_count"] == 2
     assert result["ports"] == []

@@ -3,6 +3,10 @@ from argparse import Namespace
 from simads.hfss.layout import GeometryBuildOptions, create_geometry
 
 
+def mm(value: float) -> str:
+    return f"{value:g}mm"
+
+
 class Obj:
     def __init__(self, name: str) -> None:
         self.name = name
@@ -58,9 +62,11 @@ def test_create_geometry_builds_gnd_signal_and_via() -> None:
     names = create_geometry(app, layout, Namespace(gnd_boundary_mode="port-edges"))
 
     assert names == ["hfss_ground_plane", "input_feed", "resonator_1", "ground_via_1_pad", "ground_via_1"]
-    assert app.modeler.calls[0] == ("rect", "GND", [-1.0, -1.0], [3.0, 3.0], "hfss_ground_plane", "GND")
+    assert app.modeler.calls[0] == ("rect", "GND", [mm(-1), mm(-1)], [mm(3), mm(3)], "hfss_ground_plane", "GND")
     assert app.modeler.calls[1][-1] == "IN"
     assert app.modeler.calls[2][-1] == "GND"
+    assert app.modeler.calls[3] == ("circle", "TOP", mm(0.5), mm(0.5), mm(0.2), "ground_via_1_pad", "GND")
+    assert app.modeler.calls[4] == ("via", mm(0.5), mm(0.5), mm(0.2), "TOP", "GND", "ground_via_1", "GND")
 
 
 def test_create_geometry_uses_configured_stackup_layers() -> None:
@@ -87,9 +93,16 @@ def test_create_geometry_uses_configured_stackup_layers() -> None:
 
     create_geometry(app, layout, args)
 
-    assert app.modeler.calls[0] == ("rect", "ETCH_INNER1", [-2.0, -1.0], [5.0, 3.0], "hfss_ground_plane", "GND")
+    assert app.modeler.calls[0] == (
+        "rect",
+        "ETCH_INNER1",
+        [mm(-2), mm(-1)],
+        [mm(5), mm(3)],
+        "hfss_ground_plane",
+        "GND",
+    )
     assert app.modeler.calls[1][1] == "ETCH_TOP"
-    assert app.modeler.calls[3] == ("via", 0.5, 0.5, 0.2, "ETCH_TOP", "ETCH_BOTTOM", "ground_via_1", "GND")
+    assert app.modeler.calls[3] == ("via", mm(0.5), mm(0.5), mm(0.2), "ETCH_TOP", "ETCH_BOTTOM", "ground_via_1", "GND")
 
 
 def test_create_geometry_accepts_layout_shapes_on_configured_signal_layer() -> None:
@@ -112,7 +125,7 @@ def test_create_geometry_accepts_layout_shapes_on_configured_signal_layer() -> N
     )
 
     assert names == ["hfss_ground_plane", "input_feed"]
-    assert app.modeler.calls[1] == ("rect", "ETCH_TOP", [-1.0, 0.0], [0.5, 0.2], "input_feed", "IN")
+    assert app.modeler.calls[1] == ("rect", "ETCH_TOP", [mm(-1), mm(0)], [mm(0.5), mm(0.2)], "input_feed", "IN")
 
 
 def test_create_geometry_honors_explicit_shape_net_metadata() -> None:
@@ -139,7 +152,14 @@ def test_create_geometry_honors_explicit_shape_net_metadata() -> None:
 
     create_geometry(app, layout, Namespace(gnd_boundary_mode="port-edges"))
 
-    assert app.modeler.calls[1] == ("rect", "TOP", [0.0, 0.3], [1.0, 0.7], "center_line_top_ground", "GND")
+    assert app.modeler.calls[1] == (
+        "rect",
+        "TOP",
+        [mm(0), mm(0.3)],
+        [mm(1), mm(0.7)],
+        "center_line_top_ground",
+        "GND",
+    )
 
 
 def test_create_geometry_accepts_explicit_options_without_cli_namespace() -> None:
@@ -164,8 +184,8 @@ def test_create_geometry_accepts_explicit_options_without_cli_namespace() -> Non
     names = create_geometry(app, layout, options)
 
     assert names == ["configured_gnd", "input_feed"]
-    assert app.modeler.calls[0] == ("rect", "L2_GND", [-1.0, -1.0], [3.0, 3.0], "configured_gnd", "GND")
-    assert app.modeler.calls[1] == ("rect", "L1_TOP", [-1.0, 0.0], [0.5, 0.2], "input_feed", "IN")
+    assert app.modeler.calls[0] == ("rect", "L2_GND", [mm(-1), mm(-1)], [mm(3), mm(3)], "configured_gnd", "GND")
+    assert app.modeler.calls[1] == ("rect", "L1_TOP", [mm(-1), mm(0)], [mm(0.5), mm(0.2)], "input_feed", "IN")
 
 
 def test_create_geometry_uses_explicit_reference_ground_plane_without_default() -> None:
@@ -203,7 +223,7 @@ def test_create_geometry_uses_explicit_reference_ground_plane_without_default() 
     )
 
     assert names == ["l2_ground_part", "input_feed"]
-    assert app.modeler.calls[0] == ("rect", "L2_GND", [-1.0, -1.0], [3.0, 1.0], "l2_ground_part", "GND")
+    assert app.modeler.calls[0] == ("rect", "L2_GND", [mm(-1), mm(-1)], [mm(3), mm(1)], "l2_ground_part", "GND")
     assert all(call[4] != "configured_gnd" for call in app.modeler.calls)
 
 

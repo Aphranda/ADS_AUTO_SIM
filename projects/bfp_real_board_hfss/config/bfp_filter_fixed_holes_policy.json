@@ -1,0 +1,31 @@
+{
+  "include": {
+    "names": [
+      "via_113",
+      "via_114",
+      "via_115",
+      "via_120",
+      "via_63",
+      "via_64",
+      "via_85"
+    ],
+    "kinds": [
+      "via"
+    ],
+    "layers": [
+      "pcvia1"
+    ]
+  },
+  "exclude": {},
+  "draw": {
+    "suppress_default_reference_ground_plane": true
+  },
+  "metadata": {
+    "project": "bfp_real_board_hfss",
+    "target": "7th_order_interdigital_filter_fixed_holes",
+    "notes": [
+      "Use this policy only to restore the fixed filter holes/vias to their extracted board locations.",
+      "These fixed holes must not be transformed together with the filter TOP copper candidate."
+    ]
+  }
+}
