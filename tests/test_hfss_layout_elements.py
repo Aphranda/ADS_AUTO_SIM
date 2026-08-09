@@ -66,6 +66,18 @@ def test_layout_element_policy_selects_by_editable_region_with_excludes() -> Non
     assert [shape["name"] for shape in selected] == ["filter_core_finger_1"]
 
 
+def test_layout_element_policy_selects_via_by_editable_region() -> None:
+    policy = LayoutElementPolicy(
+        include_regions=("filter_core_bbox_mm",),
+        include_kinds=("via",),
+        include_layers=("pcvia1",),
+    )
+
+    selected = select_layout_elements(_layout(), policy)
+
+    assert [shape["name"] for shape in selected] == ["ground_via_1"]
+
+
 def test_filter_core_calls_generic_element_selector() -> None:
     selected = filter_core_shapes(_layout())
 

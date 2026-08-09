@@ -1,31 +1,24 @@
 {
   "include": {
-    "roles": [
-      "signal_filter_core",
-      "filter_core"
-    ],
-    "prefixes": [
-      "filter_core_"
+    "regions": [
+      "filter_core_bbox_mm"
     ],
     "kinds": [
       "polygon",
-      "rect"
+      "rect",
+      "via"
     ],
     "layers": [
       "cond",
-      "ETCH_TOP"
+      "ETCH_TOP",
+      "pcvia1"
     ]
   },
   "exclude": {
     "roles": [
       "signal_feed",
       "ground_copper",
-      "solid_reference_ground",
-      "ground_via"
-    ],
-    "prefixes": [
-      "ground_via_",
-      "via_"
+      "solid_reference_ground"
     ]
   },
   "draw": {
@@ -35,8 +28,8 @@
     "project": "bfp_real_board_hfss",
     "target": "7th_order_interdigital_filter_core",
     "notes": [
-      "Use this policy to delete/redraw only the middle interdigital filter body.",
-      "Connector launch, 2.4 mm connector geometry, feed traces, vias, ports, and reference ground planes are outside this policy."
+      "Use this policy to delete/redraw only the middle interdigital filter body and its local filter vias.",
+      "Connector launch, 2.4 mm connector geometry, feed traces, board via fence, ports, and reference ground planes are outside this policy."
     ]
   }
 }

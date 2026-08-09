@@ -115,6 +115,12 @@ def _shape_bbox(shape: dict[str, Any]) -> tuple[float, float, float, float] | No
         x0 = float(shape["x"])
         y0 = float(shape["y"])
         return x0, y0, x0 + float(shape["w"]), y0 + float(shape["h"])
+    if "x" in shape and "y" in shape and ("diameter" in shape or "pad_diameter" in shape):
+        x = float(shape["x"])
+        y = float(shape["y"])
+        diameter = float(shape.get("pad_diameter") or shape.get("diameter") or 0.0)
+        radius = diameter / 2.0
+        return x - radius, y - radius, x + radius, y + radius
     return None
 
 
