@@ -11,6 +11,8 @@ import subprocess
 import sys
 from typing import Any
 
+from simads.hfss.artifact_names import event_log_path_for_json, json_artifact_name
+
 
 AEDT_PROCESS_NAMES = {"ansysedt.exe", "ansysedtsv.exe", "ansysedt", "ansysedtsv"}
 
@@ -487,9 +489,10 @@ def start_aedt_reaper(
     run_dir = _repo_root() / ".simads" / "aedt_reaper"
     run_dir.mkdir(parents=True, exist_ok=True)
     parent = parent_pid if parent_pid is not None else os.getpid()
-    output = run_dir / f"{label}_{parent}_{pid}.json"
-    event_log = run_dir / f"{label}_{parent}_{pid}.jsonl"
-    owner_record = run_dir / f"{label}_{parent}_{pid}.owner.json"
+    stem = f"{label}_{parent}_{pid}"
+    output = run_dir / json_artifact_name(stem, "run_log")
+    event_log = event_log_path_for_json(output)
+    owner_record = run_dir / json_artifact_name(stem, "owner")
     target_create_time = _process_create_time(pid)
     owner_payload = {
         "label": label,

@@ -22,6 +22,7 @@ from simads.hfss.aedt_startup import (
     apply_grpc_startup_compat,
     stable_export_touchstone,
 )
+from simads.hfss.artifact_names import event_log_path_for_json
 from simads.hfss.results import run_post_tools as run_hfss_post_tools
 from simads.hfss.session import Hfss3dLayoutSessionConfig, open_hfss3dlayout_session
 
@@ -96,7 +97,7 @@ def _safe_messages(app: Any, *, aedt_messages: bool) -> list[str]:
 def run(args: argparse.Namespace) -> dict[str, Any]:
     lifecycle = OperationLifecycle(
         "run_existing_hfss3dlayout_verdict",
-        output=args.output.with_suffix(".events.jsonl") if getattr(args, "output", None) else None,
+        output=event_log_path_for_json(args.output) if getattr(args, "output", None) else None,
     )
     args.out_dir.mkdir(parents=True, exist_ok=True)
     app = None

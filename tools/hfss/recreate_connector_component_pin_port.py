@@ -16,6 +16,7 @@ if str(_SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(_SRC_ROOT))
 
 from simads.hfss.aedt_startup import OperationLifecycle, apply_grpc_startup_compat
+from simads.hfss.artifact_names import event_log_path_for_json
 from simads.hfss.port_plans import ConnectorPinPortPlan, execute_connector_pin_port_plan
 from simads.hfss.session import Hfss3dLayoutSessionConfig, open_hfss3dlayout_session
 
@@ -80,7 +81,7 @@ def build_port_plan(args: argparse.Namespace) -> ConnectorPinPortPlan:
 def recreate_connector_component_pin_port(args: argparse.Namespace) -> dict[str, Any]:
     lifecycle = OperationLifecycle(
         "recreate_connector_component_pin_port",
-        output=args.output.with_suffix(".events.jsonl") if getattr(args, "output", None) else None,
+        output=event_log_path_for_json(args.output) if getattr(args, "output", None) else None,
     )
     plan = build_port_plan(args)
     payload: dict[str, Any] = {

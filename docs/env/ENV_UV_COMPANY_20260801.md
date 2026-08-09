@@ -72,7 +72,7 @@ SIMADS_AEDT_DESKTOP_TIMEOUT_S=300
 
 - `src/simads/hfss/aedt_startup.py` 是公司机 non-graphical AEDT 启动唯一兼容入口；新脚本必须先调用 `apply_grpc_startup_compat()`，再导入或创建 PyAEDT AEDT app。
 - 每次创建 `Hfss3dLayout` 后应调用 `start_aedt_reaper(app, label=...)`，拉起隐藏生命周期监控。Windows 上优先用 `pythonw.exe` 和 no-window startup flags，避免弹出 cmd/console 窗口。脚本启动 non-graphical AEDT 时写入 owner record；脚本结束后只允许回收 owner record 里登记且 create time 匹配的无窗口 AEDT。未登记的 AEDT、用户手动 GUI、attach-existing 会话一律不处理。`--keep-open` / `--keep-attached` 调试场景只记录，不执行回收。
-- 自动化操作需用 `OperationLifecycle` 记录阶段耗时；当 CLI 传入 `--output xxx.json` 时，同目录会生成 `xxx.events.jsonl`，用于排查 AEDT 启动、ready、版图重绘、端口、solve、export、postprocess 和 release 的耗时。
+- 自动化操作需用 `OperationLifecycle` 记录阶段耗时；当 CLI 传入 `--output xxx_run_log.json` 时，同目录会生成 `xxx_events.jsonl`，用于排查 AEDT 启动、ready、版图重绘、端口、solve、export、postprocess 和 release 的耗时。历史 `xxx.events.jsonl` 仅作为兼容忽略规则保留。
 - 当前 reaper dry-run 报告为 `projects\hfss_sma_connector\reports\aedt_reaper_dry_run_20260805.json`，结果 `candidates=[]`、`eligible_pids=[]`。
 - 当前连接器仿真禁止启动 GUI，避免影响公司电脑其它工作；如需人工 GUI 确认，必须先在相关 workflow 文档或 manual intervention log 中记录原因、范围和影响。
 

@@ -13,6 +13,7 @@ if str(_SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(_SRC_ROOT))
 
 from simads.hfss.aedt_startup import OperationLifecycle, apply_grpc_startup_compat
+from simads.hfss.artifact_names import event_log_path_for_json
 from simads.hfss.layout_cleanup import (
     delete_layout_objects,
     existing_layout_objects,
@@ -33,7 +34,7 @@ apply_grpc_startup_compat()
 def delete_layout_primitives(args: argparse.Namespace) -> dict[str, object]:
     lifecycle = OperationLifecycle(
         "delete_hfss3dlayout_layout_primitives",
-        output=args.output.with_suffix(".events.jsonl") if getattr(args, "output", None) else None,
+        output=event_log_path_for_json(args.output) if getattr(args, "output", None) else None,
     )
     layout = load_layout(args.layout)
     element_policy_path = getattr(args, "element_policy", None)

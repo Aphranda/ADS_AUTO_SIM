@@ -618,7 +618,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ready-timeout-s", type=float, default=180.0)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--distilled-output", type=Path, default=None)
-    parser.add_argument("--events", type=Path, default=Path(".simads/sp8t/extract_hfss3dlayout_parameterized_layout.events.jsonl"))
+    parser.add_argument("--events", type=Path, default=Path(".simads/sp8t/extract_hfss3dlayout_parameterized_layout_events.jsonl"))
     parser.add_argument("--print-mode", choices=("full", "distilled", "none"), default="distilled")
     args = parser.parse_args()
     if not args.signal_net:

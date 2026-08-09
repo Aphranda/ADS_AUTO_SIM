@@ -24,6 +24,7 @@ from simads.hfss.aedt_startup import (
     OperationLifecycle,
     apply_grpc_startup_compat,
 )
+from simads.hfss.artifact_names import event_log_path_for_json
 from simads.hfss.filter_core import FILTER_CORE_SCOPE, filter_core_policy
 from simads.hfss.layout import GeometryBuildOptions, create_geometry
 from simads.hfss.layout_cleanup import (
@@ -84,7 +85,7 @@ def _create_pcb_output_port(app: Any, layout: dict[str, Any], args: argparse.Nam
 def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
     lifecycle = OperationLifecycle(
         "replace_hfss3dlayout_layout_primitives",
-        output=args.output.with_suffix(".events.jsonl") if getattr(args, "output", None) else None,
+        output=event_log_path_for_json(args.output) if getattr(args, "output", None) else None,
     )
     layout = load_layout(args.layout)
     element_policy_path = getattr(args, "element_policy", None)

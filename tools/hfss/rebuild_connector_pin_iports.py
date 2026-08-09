@@ -16,6 +16,7 @@ if str(_SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(_SRC_ROOT))
 
 from simads.hfss.aedt_startup import OperationLifecycle, apply_grpc_startup_compat
+from simads.hfss.artifact_names import event_log_path_for_json
 from simads.hfss.port_plans import (
     ConnectorPinPortPlan,
     connector_port_acceptance_report,
@@ -210,7 +211,7 @@ def build_port_plans(args: argparse.Namespace, app: Any) -> tuple[list[Connector
 def rebuild_iports(args: argparse.Namespace) -> dict[str, Any]:
     lifecycle = OperationLifecycle(
         "rebuild_connector_pin_iports",
-        output=args.output.with_suffix(".events.jsonl") if getattr(args, "output", None) else None,
+        output=event_log_path_for_json(args.output) if getattr(args, "output", None) else None,
     )
     payload: dict[str, Any] = {
         "project": str(args.project),

@@ -19,6 +19,7 @@ if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
 from simads.hfss.aedt_startup import OperationLifecycle, apply_grpc_startup_compat, prepare_aedt_project_lock
+from simads.hfss.artifact_names import event_log_path_for_json
 from simads.hfss.build import build_hfss_layout_project
 from simads.hfss.session import Hfss3dLayoutSessionConfig, open_hfss3dlayout_session
 
@@ -145,7 +146,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     started = time.monotonic()
     project = args.project.resolve()
     output = args.output.resolve()
-    event_log = output.with_suffix(".events.jsonl")
+    event_log = event_log_path_for_json(output)
     lifecycle = OperationLifecycle("create_hfss3dlayout_smoke_project", output=event_log)
     project.parent.mkdir(parents=True, exist_ok=True)
     output.parent.mkdir(parents=True, exist_ok=True)

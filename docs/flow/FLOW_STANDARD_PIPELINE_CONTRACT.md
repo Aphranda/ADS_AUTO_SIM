@@ -3,7 +3,7 @@
 Status: Active
 Domain: FLOW
 Canonical: `docs/flow/FLOW_STANDARD_PIPELINE_CONTRACT.md`
-Related: `docs/flow/FLOW_RUN_STATE_MACHINE.md`, `docs/flow/FLOW_ADS_WORKSPACE_WRITE_POLICY.md`, `docs/arch/ARCH_REFACTOR_TODO.md`, `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`
+Related: `docs/flow/FLOW_RUN_STATE_MACHINE.md`, `docs/flow/FLOW_ADS_WORKSPACE_WRITE_POLICY.md`, `docs/flow/FLOW_JSON_ARTIFACT_NAMING.md`, `docs/arch/ARCH_REFACTOR_TODO.md`, `docs/arch/PYTHON_SCRIPT_MANAGEMENT.md`
 Last updated: 2026-08-03
 Owner: ADS Automation
 
