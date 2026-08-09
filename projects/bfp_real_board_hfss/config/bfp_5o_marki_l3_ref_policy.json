@@ -1,0 +1,32 @@
+{
+  "include": {
+    "prefixes": [
+      "marki_5o_"
+    ],
+    "kinds": [
+      "polygon",
+      "rect",
+      "via",
+      "reference_ground_plane"
+    ],
+    "layers": [
+      "cond",
+      "pcvia1",
+      "reference_ground_plane"
+    ]
+  },
+  "exclude": {},
+  "draw": {
+    "suppress_default_reference_ground_plane": true
+  },
+  "metadata": {
+    "project": "bfp_real_board_hfss",
+    "target": "BFP_5O Marki-style 5th-order candidate",
+    "reference_strategy": "TOP signal, INNER1 copper window, INNER2 continuous L3 reference",
+    "notes": [
+      "Use this policy to draw only the generated Marki 5th-order filter elements and the materialized INNER1 ground pieces.",
+      "Existing BFP_5O feed/core/TOP ground and via-fence objects are supplied as explicit delete names to the replacement tool.",
+      "The INNER1 cutout is represented by generated ground-plane pieces, not by a candidate-level boolean operation."
+    ]
+  }
+}

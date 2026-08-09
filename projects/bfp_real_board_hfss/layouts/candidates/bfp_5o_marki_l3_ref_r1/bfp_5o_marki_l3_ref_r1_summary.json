@@ -1,0 +1,75 @@
+{
+  "candidate_id": "bfp_5o_marki_l3_ref_r1",
+  "source_design": "BFP_5O",
+  "optimization_goal": "test Marki 5th-order 6-8 GHz interdigital dimensions with L2 cutout and L3 reference",
+  "suppress_default_reference_ground_plane": true,
+  "board_bbox_mm": [
+    78.72857,
+    80.42656,
+    108.21543,
+    99.91344
+  ],
+  "reference_strategy": {
+    "signal_layer": "TOP",
+    "cutout_layer": "INNER1",
+    "reference_layer": "INNER2",
+    "l2_cutout_mode": "window",
+    "l2_cutout_margin_y_mm": 0.45,
+    "core_copper_assumption": "Only INNER1 copper is opened under the wide 5th-order body; dielectric/core remains present and INNER2 stays a continuous ground reference."
+  },
+  "delete_extra_names": [
+    "poly__0",
+    "poly__17",
+    "poly__22",
+    "poly__23",
+    "poly__13",
+    "poly__14",
+    "poly__20",
+    "poly__21",
+    "poly__11",
+    "poly__12",
+    "poly__15",
+    "poly__16",
+    "poly__9",
+    "poly__10",
+    "poly__18",
+    "poly__19",
+    "poly__1",
+    "poly__2",
+    "poly__3",
+    "poly__4",
+    "poly__24"
+  ],
+  "delete_via_bbox_mm": [
+    84.85744599099161,
+    86.59990723450186,
+    102.0936459909916,
+    93.66940723450185
+  ],
+  "marki_dimensions_mm": {
+    "order": 5,
+    "w0": 2.384,
+    "resonator_w": 2.384,
+    "resonator_l": 5.376,
+    "tap_from_bottom": 1.969,
+    "end_gap": 0.4935,
+    "gaps": [
+      0.7501,
+      1.108,
+      1.108,
+      0.7501
+    ],
+    "field_w": 15.6362,
+    "field_x0": 85.6574459909916,
+    "field_y0": 87.19990723450185,
+    "field_y1": 93.06940723450185,
+    "left_taper_len": 6.90659502110482,
+    "right_taper_len": 6.906595021104806,
+    "l2_cutout": [
+      78.72857,
+      86.74990723450185,
+      108.21543,
+      93.51940723450186
+    ]
+  }
+}

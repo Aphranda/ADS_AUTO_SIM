@@ -1,0 +1,52 @@
+{
+  "candidate": "bfp_5o_marki_l3_ref_r1_netfix",
+  "project": "D:\\Work\\ADS\\BFP_parallel\\BFP_HFSS.aedt",
+  "design": "BFP_5O_marki_l3_ref_r1",
+  "setup": "Setup1",
+  "sweep": "Sweep1",
+  "status": "simulated",
+  "simulation_time_s": 2016.149,
+  "result_dir": "projects\\bfp_real_board_hfss\\results\\bfp_5o_marki_l3_ref\\sim_r2_netfix",
+  "artifacts": {
+    "s2p": "projects\\bfp_real_board_hfss\\results\\bfp_5o_marki_l3_ref\\sim_r2_netfix\\bfp_5o_marki_l3_ref_r1_netfix.s2p",
+    "score_csv": "projects\\bfp_real_board_hfss\\results\\bfp_5o_marki_l3_ref\\sim_r2_netfix\\bfp_5o_marki_l3_ref_r1_netfix_score.csv",
+    "trace_csv": "projects\\bfp_real_board_hfss\\results\\bfp_5o_marki_l3_ref\\sim_r2_netfix\\bfp_5o_marki_l3_ref_r1_netfix_trace.csv",
+    "s_curves_svg": "projects\\bfp_real_board_hfss\\results\\bfp_5o_marki_l3_ref\\sim_r2_netfix\\svg\\bfp_5o_marki_l3_ref_r1_netfix_s_curves.svg"
+  },
+  "key_points_db": {
+    "s21_5g": -11.76,
+    "s21_5p5g": -11.13,
+    "s21_6g": -18.55,
+    "s21_7g": -51.40,
+    "s21_8g": -61.59,
+    "s21_9g": -31.38,
+    "s11_6g": -6.07,
+    "s11_7g": -0.83,
+    "s11_8g": -0.83,
+    "s22_6g": -0.94,
+    "s22_7g": -0.20,
+    "s22_8g": -0.25
+  },
+  "score": {
+    "status": "TUNE",
+    "passband_min_s21_db": -73.90,
+    "passband_ripple_db": 55.34,
+    "worst_s11_6_8_db": -0.76,
+    "worst_s22_6_8_db": -0.20
+  },
+  "best_observed_s21": {
+    "freq_ghz": 5.45,
+    "s21_db": -11.09,
+    "s11_db": -13.81,
+    "s22_db": -1.39
+  },
+  "aedt_message_summary": {
+    "ambiguous_net_assignment": false,
+    "mesh_repair_warning": true,
+    "notes": [
+      "After manual net-name correction, the previous RF/GND ambiguous net assignment warnings did not reappear.",
+      "The result is not a usable 6-8 GHz passband. The strongest observed transmission is near 5.45 GHz and is still about -11 dB."
+    ]
+  },
+  "engineering_reading": "The candidate behaves as an over-grounded or poorly coupled structure rather than a 6-8 GHz band-pass filter. The next revision should revisit which TOP conductors are grounded versus signal-coupled, and should avoid treating feed/taper copper as GND if it is intended to transfer energy between ports."
+}
