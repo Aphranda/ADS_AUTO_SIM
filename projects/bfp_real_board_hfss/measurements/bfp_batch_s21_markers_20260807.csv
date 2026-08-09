@@ -1,0 +1,21 @@
+board_id,freq_ghz,s21_db,trace,source,note
+board_1,5.000,-40.29,S21,projects/bfp_6_8g_i7_fr4/docs/实测值1.jpg,manual read from VNA screenshot
+board_1,6.000,-17.86,S21,projects/bfp_6_8g_i7_fr4/docs/实测值1.jpg,manual read from VNA screenshot
+board_1,6.300,-8.54,S21,projects/bfp_6_8g_i7_fr4/docs/实测值1.jpg,VNA marker shown as 6.301 GHz
+board_1,8.000,-7.77,S21,projects/bfp_6_8g_i7_fr4/docs/实测值1.jpg,manual read from VNA screenshot
+board_1,9.000,-45.71,S21,projects/bfp_6_8g_i7_fr4/docs/实测值1.jpg,manual read from VNA screenshot
+board_2,5.000,-40.42,S21,projects/bfp_6_8g_i7_fr4/docs/实测值2.jpg,manual read from VNA screenshot
+board_2,6.000,-17.38,S21,projects/bfp_6_8g_i7_fr4/docs/实测值2.jpg,manual read from VNA screenshot
+board_2,6.300,-8.79,S21,projects/bfp_6_8g_i7_fr4/docs/实测值2.jpg,VNA marker shown as 6.301 GHz
+board_2,8.000,-8.29,S21,projects/bfp_6_8g_i7_fr4/docs/实测值2.jpg,manual read from VNA screenshot
+board_2,9.000,-46.06,S21,projects/bfp_6_8g_i7_fr4/docs/实测值2.jpg,manual read from VNA screenshot
+board_3,5.000,-40.88,S21,projects/bfp_6_8g_i7_fr4/docs/实测值3.jpg,manual read from VNA screenshot
+board_3,6.000,-18.56,S21,projects/bfp_6_8g_i7_fr4/docs/实测值3.jpg,manual read from VNA screenshot
+board_3,6.300,-8.82,S21,projects/bfp_6_8g_i7_fr4/docs/实测值3.jpg,VNA marker shown as 6.301 GHz
+board_3,8.000,-8.66,S21,projects/bfp_6_8g_i7_fr4/docs/实测值3.jpg,manual read from VNA screenshot
+board_3,9.000,-46.12,S21,projects/bfp_6_8g_i7_fr4/docs/实测值3.jpg,manual read from VNA screenshot
+board_4,5.000,-40.32,S21,projects/bfp_6_8g_i7_fr4/docs/实测值4.jpg,manual read from VNA screenshot
+board_4,6.000,-17.86,S21,projects/bfp_6_8g_i7_fr4/docs/实测值4.jpg,manual read from VNA screenshot
+board_4,6.300,-8.82,S21,projects/bfp_6_8g_i7_fr4/docs/实测值4.jpg,VNA marker shown as 6.301 GHz
+board_4,8.000,-8.19,S21,projects/bfp_6_8g_i7_fr4/docs/实测值4.jpg,manual read from VNA screenshot
+board_4,9.000,-46.14,S21,projects/bfp_6_8g_i7_fr4/docs/实测值4.jpg,manual read from VNA screenshot

@@ -99,6 +99,68 @@ def test_replace_layout_parser_closes_aedt_by_default(monkeypatch) -> None:
     assert args.close_desktop is True
 
 
+def test_replace_layout_parser_accepts_bfp_real_board_scope(monkeypatch) -> None:
+    module = _load_replace_module(monkeypatch)
+    args = module.parse_args(
+        [
+            "--project",
+            "fixture.aedt",
+            "--design",
+            "BFP",
+            "--layout",
+            "layout.json",
+            "--scope",
+            "bfp-real-board-full",
+        ]
+    )
+
+    assert args.scope == "bfp-real-board-full"
+    assert args.recreate_pcb_output_port is False
+
+
+def test_bfp_real_board_scope_selects_full_source_layout(tmp_path: Path, monkeypatch) -> None:
+    module = _load_replace_module(monkeypatch)
+    layout_path = tmp_path / "layout.json"
+    layout_path.write_text(
+        """
+{
+  "ports": [{"number": 1, "x": 0.0, "y": 0.0}, {"number": 2, "x": 10.0, "y": 0.0}],
+  "shapes": [
+    {"kind": "boundary", "layer": "EM_BOUNDARY", "name": "boundary", "x": 0.0, "y": -1.0, "w": 10.0, "h": 2.0},
+    {"kind": "polygon", "layer": "cond", "name": "input_feed", "points": [[0.0, 0.0], [1.0, 0.0], [1.0, 0.2]]},
+    {"kind": "via", "layer": "pcvia1", "name": "via_1", "x": 0.5, "y": 0.5, "diameter": 0.2}
+  ]
+}
+""".strip(),
+        encoding="utf-8",
+    )
+    args = Namespace(
+        project=tmp_path / "fixture.aedt",
+        design="BFP",
+        layout=layout_path,
+        scope="bfp-real-board-full",
+        gnd_boundary_mode="em-boundary",
+        signal_layer="ETCH_TOP",
+        reference_ground_layer="ETCH_INNER1",
+        via_top_layer="ETCH_TOP",
+        via_bottom_layer="ETCH_BOTTOM",
+        ground_plane_name="hfss_ground_plane",
+        recreate_pcb_output_port=False,
+        delete_pcb_port_name=[],
+        delete_extra_name=[],
+        delete_extra_prefix=[],
+        execute=False,
+        save=False,
+    )
+
+    payload = module.replace_layout_primitives(args)
+
+    assert payload["status"] == "dry_run"
+    assert payload["scope"] == "bfp-real-board-full"
+    assert payload["selected_shape_names"] == ["boundary", "input_feed", "via_1"]
+    assert payload["pcb_output_port"]["recreate"] is False
+
+
 def test_replace_layout_parser_accepts_extra_clip_frame_cleanup(monkeypatch) -> None:
     module = _load_replace_module(monkeypatch)
     args = module.parse_args(

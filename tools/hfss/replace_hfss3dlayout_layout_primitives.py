@@ -227,7 +227,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--layout", type=Path, required=True)
     parser.add_argument(
         "--scope",
-        choices=["single-p1-pcb-full"],
+        choices=["single-p1-pcb-full", "bfp-real-board-full"],
         default="single-p1-pcb-full",
     )
     parser.add_argument("--signal-layer", default="ETCH_TOP")

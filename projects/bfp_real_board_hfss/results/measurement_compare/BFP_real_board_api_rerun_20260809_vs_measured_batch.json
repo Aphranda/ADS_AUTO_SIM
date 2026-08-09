@@ -1,0 +1,67 @@
+{
+  "measured_csv": "projects\\bfp_real_board_hfss\\measurements\\bfp_batch_s21_markers_20260807.csv",
+  "simulation_metrics_json": "projects\\bfp_real_board_hfss\\results\\rerun\\BFP_real_board_api_rerun_20260809\\BFP_real_board_api_rerun_20260809_optimization_metrics.json",
+  "comparison": [
+    {
+      "freq_ghz": 5.0,
+      "board_count": 4,
+      "measured_s21_mean_db": -40.4775,
+      "measured_s21_std_db": 0.27402858731648305,
+      "measured_s21_min_db": -40.88,
+      "measured_s21_max_db": -40.29,
+      "sim_s21_db": -28.21792003641942,
+      "sim_minus_measured_mean_db": 12.259579963580578
+    },
+    {
+      "freq_ghz": 6.0,
+      "board_count": 4,
+      "measured_s21_mean_db": -17.915,
+      "measured_s21_std_db": 0.48590122453025353,
+      "measured_s21_min_db": -18.56,
+      "measured_s21_max_db": -17.38,
+      "sim_s21_db": -6.451899115491285,
+      "sim_minus_measured_mean_db": 11.463100884508714
+    },
+    {
+      "freq_ghz": 6.3,
+      "board_count": 4,
+      "measured_s21_mean_db": -8.7425,
+      "measured_s21_std_db": 0.1357387196049827,
+      "measured_s21_min_db": -8.82,
+      "measured_s21_max_db": -8.54,
+      "sim_s21_db": -6.726525638681889,
+      "sim_minus_measured_mean_db": 2.0159743613181105
+    },
+    {
+      "freq_ghz": 8.0,
+      "board_count": 4,
+      "measured_s21_mean_db": -8.2275,
+      "measured_s21_std_db": 0.3659121023779711,
+      "measured_s21_min_db": -8.66,
+      "measured_s21_max_db": -7.77,
+      "sim_s21_db": -8.054584892539205,
+      "sim_minus_measured_mean_db": 0.17291510746079375
+    },
+    {
+      "freq_ghz": 9.0,
+      "board_count": 4,
+      "measured_s21_mean_db": -46.0075,
+      "measured_s21_std_db": 0.2012254125767082,
+      "measured_s21_min_db": -46.14,
+      "measured_s21_max_db": -45.71,
+      "sim_s21_db": -26.78235290810628,
+      "sim_minus_measured_mean_db": 19.22514709189372
+    }
+  ],
+  "summary": {
+    "delta_6g_db": 11.463100884508714,
+    "delta_6p3g_db": 2.0159743613181105,
+    "delta_8g_db": 0.17291510746079375,
+    "delta_5g_db": 12.259579963580578,
+    "delta_9g_db": 19.22514709189372,
+    "batch_spread_max_std_db": 0.48590122453025353,
+    "primary_gap": "measured_low_edge_is_higher_than_simulation",
+    "passband_alignment": "good_above_6p3g",
+    "stopband_alignment": "simulation_underestimates_stopband_rejection"
+  }
+}

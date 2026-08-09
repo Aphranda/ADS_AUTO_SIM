@@ -79,12 +79,17 @@ Rerun analysis note:
 
 `projects/bfp_real_board_hfss/reports/BFP_real_board_api_rerun_20260809_analysis.md`
 
+Measured-vs-HFSS R1 comparison:
+
+`projects/bfp_real_board_hfss/reports/BFP_measured_vs_hfss_iteration_001.md`
+
 Key result:
 
 - S21 peak: `-5.92 dB @ 6.10 GHz`
 - S21 at `6/7/8 GHz`: `-6.45 / -7.00 / -8.05 dB`
 - Worst return in `6-8 GHz`: about `-5.06 dB`
 - Early TDR low impedance: about `20-21 ohm @ 0.195 ns`
+- Measured boards are close to HFSS at `6.3/8 GHz`, but about `11.46 dB` worse than HFSS at `6 GHz`; R1 should prioritize core low-edge calibration before launch-only matching.
 
 ## Next Work
 

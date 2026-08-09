@@ -70,7 +70,7 @@ def shape_name(shape: dict[str, Any]) -> str:
 
 def selected_shapes(layout: dict[str, Any], scope: str) -> list[dict[str, Any]]:
     shapes = [shape for shape in layout.get("shapes", []) if isinstance(shape, dict)]
-    if scope == "single-p1-pcb-full":
+    if scope in {"single-p1-pcb-full", "bfp-real-board-full"}:
         return shapes
     raise ValueError(f"unsupported replacement scope: {scope}")
 
