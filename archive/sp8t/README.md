@@ -3,7 +3,7 @@
 Status: Active
 Domain: PROJECT_ARCHIVE_FAMILY
 Canonical: `archive/sp8t/README.md`
-Last updated: 2026-08-08
+Last updated: 2026-08-09
 
 This family archive stores frozen SP8T snapshots only.
 
@@ -12,6 +12,7 @@ This family archive stores frozen SP8T snapshots only.
 - `archive/sp8t/<freeze-date>/reports/`
 - `archive/sp8t/<freeze-date>/baselines/`
 - `archive/sp8t/<freeze-date>/results/`
+- `archive/sp8t/<freeze-date>/results/<connector-best-layout>/`
 
 ## Policy
 
