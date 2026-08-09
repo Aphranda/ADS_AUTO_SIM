@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from pathlib import PurePosixPath
 import re
 
 
@@ -133,6 +134,71 @@ def is_trackable_json_name(name: str | Path) -> bool:
     return filename.endswith(TRACKED_JSON_SUFFIXES)
 
 
+def _artifact_parts(path: str | Path) -> tuple[str, ...]:
+    return PurePosixPath(str(path).replace("\\", "/")).parts
+
+
+def _has_part(path: str | Path, name: str) -> bool:
+    return name in _artifact_parts(path)
+
+
+def is_runtime_artifact_path(path: str | Path) -> bool:
+    """Return true for local runtime JSON/JSONL paths, using directory context."""
+
+    parts = _artifact_parts(path)
+    filename = parts[-1].lower() if parts else str(path).lower()
+    suffix = PurePosixPath(filename).suffix.lower()
+    if suffix == ".jsonl":
+        return True
+    if ".simads" in parts:
+        return True
+    if not filename.endswith(".json"):
+        return False
+    if "config" in parts:
+        return False
+    if is_trackable_json_name(filename):
+        return False
+
+    stem = filename.removesuffix(".json")
+    in_runtime_tree = (
+        ("projects" in parts and any(part in {"reports", "results", "runs"} for part in parts))
+        or ("projects" in parts and "simulations" in parts)
+        or ("archive" in parts and "results" in parts)
+    )
+    if not in_runtime_tree:
+        return is_local_runtime_json_name(filename)
+    if is_local_runtime_json_name(filename):
+        return True
+    if stem in {"run", "export_only"}:
+        return True
+    if stem.startswith(("run_", "replace_", "inspect_", "export_only_")):
+        return True
+    if any(token in stem for token in ("_dry_run", "_execute", "_nosave", "_probe", "_diag")):
+        return True
+    if stem.endswith(("_hints", "_inspect", "_probe", "_diagnosis")):
+        return True
+    return False
+
+
+def json_artifact_class(path: str | Path) -> str:
+    """Classify an artifact path for Git tracking decisions."""
+
+    parts = _artifact_parts(path)
+    filename = parts[-1].lower() if parts else str(path).lower()
+    suffix = PurePosixPath(filename).suffix.lower()
+    if suffix == ".jsonl":
+        return "local_runtime_event_stream"
+    if suffix != ".json":
+        return "other"
+    if is_runtime_artifact_path(path):
+        return "local_runtime_json"
+    if "config" in parts:
+        return "trackable_config_json"
+    if is_trackable_json_name(filename):
+        return "trackable_json"
+    return "legacy_or_unclear_json"
+
+
 __all__ = [
     "FIXED_TRACKED_JSON_NAMES",
     "JSON_KIND_SUFFIXES",
@@ -142,7 +208,9 @@ __all__ = [
     "TRACKED_JSON_SUFFIXES",
     "event_log_path_for_json",
     "is_local_runtime_json_name",
+    "is_runtime_artifact_path",
     "is_trackable_json_name",
+    "json_artifact_class",
     "json_artifact_name",
     "json_artifact_path",
     "normalize_artifact_stem",

@@ -5,7 +5,9 @@ import pytest
 from simads.hfss.artifact_names import (
     event_log_path_for_json,
     is_local_runtime_json_name,
+    is_runtime_artifact_path,
     is_trackable_json_name,
+    json_artifact_class,
     json_artifact_name,
     json_artifact_path,
     normalize_artifact_stem,
@@ -40,3 +42,14 @@ def test_json_name_classification_splits_trackable_and_runtime_outputs() -> None
     assert is_local_runtime_json_name("bfp_api_layout_api_extract_raw.json")
     assert is_local_runtime_json_name("extract_layout.json")
     assert not is_local_runtime_json_name("bfp_core_y_offset_p0p10_summary.json")
+
+
+def test_path_classification_uses_directory_context() -> None:
+    assert json_artifact_class("config/optimizer/i7_fr4_deterministic_variant_probe.json") == "trackable_config_json"
+    assert not is_runtime_artifact_path("config/optimizer/i7_fr4_deterministic_variant_probe.json")
+
+    assert json_artifact_class("projects/demo/results/run_candidate.json") == "local_runtime_json"
+    assert json_artifact_class("projects/demo/reports/inspect_ports.json") == "local_runtime_json"
+    assert json_artifact_class("projects/demo/results/aedb_saved_geometry_hints.json") == "local_runtime_json"
+    assert json_artifact_class("projects/demo/results/candidate_metrics.json") == "trackable_json"
+    assert json_artifact_class("projects/demo/results/candidate_summary.json") == "trackable_json"

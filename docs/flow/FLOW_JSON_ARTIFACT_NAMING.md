@@ -113,3 +113,21 @@ summary = json_artifact_path(out_dir, "rf_in_cutout_0201_100pf", "summary")
 - 将 ADS 侧 `--json-out` 也逐步接入同一命名 helper。
 - 为 results 目录增加轻量检查脚本，扫描误命名的运行日志 JSON。
 - 后续模块化下沉时，所有 HFSS 工具统一从 `simads.hfss.artifact_names` 获取 JSON/JSONL 文件名。
+
+## 8. 2026-08-09 审查处理记录
+
+本轮新增 `tools/audit_json_artifacts.py`，用于重复审查已跟踪 JSON/JSONL 是否符合命名和跟踪策略。
+
+处理结果：
+
+- 已跟踪 JSON 均可按 UTF-8/UTF-8-SIG 正常解析。
+- 从 Git 索引取消跟踪 204 个明确的本地运行/诊断 JSON，工作区文件保留不删除。
+- 取消跟踪范围包括 `run*.json`、`replace*.json`、`dry_run/execute/nosave` payload、`probe/inspect/diag` 诊断、AEDB `*_hints.json` 启发式 dump。
+- `config/` 下 JSON 不按文件名中的 `probe` 等词误判为运行日志，继续作为配置跟踪。
+- 剩余 `legacy_or_unclear_json` 暂不批量改名，避免破坏现有报告引用；后续若需要归档，应逐个迁移到 `_summary.json`、`_metrics.json`、`_manifest.json` 或 `_comparison.json`。
+
+复查命令：
+
+```text
+python tools/audit_json_artifacts.py --format markdown
+```
