@@ -93,7 +93,9 @@ def create_geometry(app: Any, layout: dict[str, Any], options: GeometryBuildOpti
     geometry = _geometry_options(options)
     signal_layers = {"cond", geometry.signal_layer}
     names: list[str] = []
-    boundary = resolve_gnd_boundary(layout, geometry)
+    metadata = layout.get("metadata", {})
+    suppress_default_ground = bool(isinstance(metadata, dict) and metadata.get("suppress_default_reference_ground_plane"))
+    boundary = None if suppress_default_ground else resolve_gnd_boundary(layout, geometry)
     gnd = None
     ground_by_layer: dict[str, Any] = {}
     if boundary and not _has_explicit_reference_ground_plane(layout, geometry):

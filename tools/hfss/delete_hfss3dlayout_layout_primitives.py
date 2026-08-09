@@ -21,6 +21,7 @@ from simads.hfss.layout_cleanup import (
     sibling_layout_root,
     TEMPORARY_CLIP_FRAME_PREFIXES,
 )
+from simads.hfss.layout_elements import load_layout_element_policy
 from simads.hfss.layout_io import load_layout
 from simads.hfss.ports import delete_schematic_iports_by_name, schematic_iport_names
 from simads.hfss.session import Hfss3dLayoutSessionConfig, open_hfss3dlayout_session
@@ -35,6 +36,8 @@ def delete_layout_primitives(args: argparse.Namespace) -> dict[str, object]:
         output=args.output.with_suffix(".events.jsonl") if getattr(args, "output", None) else None,
     )
     layout = load_layout(args.layout)
+    element_policy_path = getattr(args, "element_policy", None)
+    element_policy = load_layout_element_policy(element_policy_path) if element_policy_path else None
     sibling_root = sibling_layout_root(args.layout) if args.include_sibling_layouts else None
     stale_layout_roots = [sibling_root] if sibling_root is not None else []
     requested_delete = full_rebuild_delete_names(
@@ -42,6 +45,7 @@ def delete_layout_primitives(args: argparse.Namespace) -> dict[str, object]:
         ground_plane_name=args.ground_plane_name,
         scope=args.scope,
         stale_layout_roots=stale_layout_roots,
+        element_policy=element_policy,
     )
     for name in getattr(args, "delete_extra_name", []):
         if name and name not in requested_delete:
@@ -50,20 +54,24 @@ def delete_layout_primitives(args: argparse.Namespace) -> dict[str, object]:
     for prefix in getattr(args, "delete_extra_prefix", []):
         if prefix and prefix not in delete_prefixes:
             delete_prefixes.append(prefix)
+    is_element_policy_update = element_policy is not None
     payload: dict[str, object] = {
         "project": str(args.project),
         "design": args.design,
         "layout": str(args.layout),
         "scope": args.scope,
-        "workflow": "delete_source_layout_stop_before_rebuild",
+        "workflow": "delete_selected_layout_elements_stop_before_rebuild"
+        if is_element_policy_update
+        else "delete_source_layout_stop_before_rebuild",
         "layout_update_policy": {
-            "mode": "delete_only",
+            "mode": "element_policy_delete_only" if is_element_policy_update else "delete_only",
             "candidate_level_boolean_ops": False,
             "candidate_level_incremental_ops": False,
             "next_step": "manual_inspection_or_run_replace_to_rebuild",
         },
         "requested_delete_names": requested_delete,
         "delete_name_prefixes": delete_prefixes,
+        "element_policy": element_policy.to_mapping() if element_policy is not None else None,
         "stale_layout_roots": [str(path) for path in stale_layout_roots],
         "pcb_output_port": {"delete_port_names": list(args.delete_pcb_port_name)},
         "execute": args.execute,
@@ -145,7 +153,12 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--project", type=Path, required=True)
     parser.add_argument("--design", required=True)
     parser.add_argument("--layout", type=Path, required=True)
-    parser.add_argument("--scope", choices=["single-p1-pcb-full"], default="single-p1-pcb-full")
+    parser.add_argument(
+        "--scope",
+        choices=["single-p1-pcb-full", "bfp-real-board-full", "bfp-filter-core", "layout-elements"],
+        default="single-p1-pcb-full",
+    )
+    parser.add_argument("--element-policy", type=Path, default=None, help="JSON policy selecting layout elements to delete.")
     parser.add_argument("--ground-plane-name", default="hfss_ground_plane")
     parser.add_argument(
         "--delete-pcb-port-name",

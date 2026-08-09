@@ -24,6 +24,7 @@ from simads.hfss.aedt_startup import (
     OperationLifecycle,
     apply_grpc_startup_compat,
 )
+from simads.hfss.filter_core import FILTER_CORE_SCOPE, filter_core_policy
 from simads.hfss.layout import GeometryBuildOptions, create_geometry
 from simads.hfss.layout_cleanup import (
     delete_layout_objects,
@@ -35,6 +36,7 @@ from simads.hfss.layout_cleanup import (
     sibling_layout_root,
     TEMPORARY_CLIP_FRAME_PREFIXES,
 )
+from simads.hfss.layout_elements import candidate_layout_for_policy, load_layout_element_policy
 from simads.hfss.layout_io import load_layout
 from simads.hfss.ports import (
     apply_aedt_edge_gap_port_template,
@@ -85,6 +87,12 @@ def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
         output=args.output.with_suffix(".events.jsonl") if getattr(args, "output", None) else None,
     )
     layout = load_layout(args.layout)
+    element_policy_path = getattr(args, "element_policy", None)
+    element_policy = load_layout_element_policy(element_policy_path) if element_policy_path else None
+    if element_policy is None and args.scope == FILTER_CORE_SCOPE:
+        element_policy = filter_core_policy()
+    if element_policy is not None:
+        layout = candidate_layout_for_policy(layout, element_policy, layout_scope=args.scope)
     geometry = GeometryBuildOptions(
         gnd_boundary_mode=args.gnd_boundary_mode,
         signal_layer=args.signal_layer,
@@ -93,7 +101,7 @@ def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
         via_bottom_layer=args.via_bottom_layer,
         ground_plane_name=args.ground_plane_name,
     )
-    layout_shapes = select_layout_shapes(layout, args.scope)
+    layout_shapes = select_layout_shapes(layout, args.scope, element_policy)
     include_sibling_layouts = getattr(args, "include_sibling_layouts", True)
     stop_after_delete = getattr(args, "stop_after_delete", False)
     sibling_root = sibling_layout_root(args.layout) if include_sibling_layouts else None
@@ -103,6 +111,7 @@ def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
         ground_plane_name=geometry.ground_plane_name,
         scope=args.scope,
         stale_layout_roots=stale_layout_roots,
+        element_policy=element_policy,
     )
     for name in getattr(args, "delete_extra_name", []):
         if name and name not in requested_delete:
@@ -111,14 +120,17 @@ def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
     for prefix in getattr(args, "delete_extra_prefix", []):
         if prefix and prefix not in delete_prefixes:
             delete_prefixes.append(prefix)
+    is_element_policy_update = element_policy is not None
     payload: dict[str, Any] = {
         "project": str(args.project),
         "design": args.design,
         "layout": str(args.layout),
         "scope": args.scope,
-        "workflow": "delete_source_layout_draw_new_layout_recreate_pcb_output_port",
+        "workflow": "delete_selected_layout_elements_draw_policy_layout"
+        if is_element_policy_update
+        else "delete_source_layout_draw_new_layout_recreate_pcb_output_port",
         "layout_update_policy": {
-            "mode": "full_source_layout_rebuild",
+            "mode": "element_policy_delete_redraw" if is_element_policy_update else "full_source_layout_rebuild",
             "candidate_level_boolean_ops": False,
             "candidate_level_incremental_ops": False,
             "allowed_geometry_boolean_scope": "none",
@@ -127,11 +139,12 @@ def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
         "selected_shape_names": [shape_name(shape) for shape in layout_shapes],
         "requested_delete_names": requested_delete,
         "delete_name_prefixes": delete_prefixes,
+        "element_policy": element_policy.to_mapping() if element_policy is not None else None,
         "stale_layout_roots": [str(path) for path in stale_layout_roots],
         "notes": [
             "Schematic connector instances and connector pin IPorts are never selected by this tool.",
             "If --recreate-pcb-output-port is used, only the output_feed/P2 PCB edge port is created; no P1 PCB port is created.",
-            "Layout iteration uses full delete/rebuild; this single operation covers candidate updates.",
+            "Element-policy updates delete/redraw only the selected layout primitives; full-board scopes still use full delete/rebuild.",
             "Do not patch individual boolean cutouts, direct voids, or partial deltas between candidates.",
             "Reference-ground cutout records are allowed only as stale-object delete names or review metadata; new HFSS geometry must express voids as real generated ground-plane shapes.",
             "Sibling candidate layout JSON files are included in the delete-name registry so old candidates cannot overlap the next rebuild.",
@@ -227,9 +240,10 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--layout", type=Path, required=True)
     parser.add_argument(
         "--scope",
-        choices=["single-p1-pcb-full", "bfp-real-board-full"],
+        choices=["single-p1-pcb-full", "bfp-real-board-full", "bfp-filter-core", "layout-elements"],
         default="single-p1-pcb-full",
     )
+    parser.add_argument("--element-policy", type=Path, default=None, help="JSON policy selecting layout elements to delete and redraw.")
     parser.add_argument("--signal-layer", default="ETCH_TOP")
     parser.add_argument("--reference-ground-layer", default="ETCH_INNER1")
     parser.add_argument("--via-top-layer", default="ETCH_TOP")

@@ -264,3 +264,20 @@ def test_create_geometry_skips_explicit_reference_ground_cutout_without_boolean_
     assert app.modeler.calls[1][1] == "L3_GND"
     assert len(app.modeler.calls) == 2
     assert app.modeler.subtract_calls == []
+
+
+def test_create_geometry_suppresses_default_reference_ground_plane_for_partial_candidates() -> None:
+    layout = {
+        "metadata": {"suppress_default_reference_ground_plane": True},
+        "ports": [],
+        "shapes": [
+            {"kind": "boundary", "layer": "EM_BOUNDARY", "name": "boundary", "x": -2.0, "y": -1.0, "w": 4.0, "h": 2.0},
+            {"kind": "polygon", "layer": "cond", "name": "filter_core_finger_1", "points": [[0, 0], [1, 0], [1, 1]]},
+        ],
+    }
+    app = FakeApp()
+
+    names = create_geometry(app, layout, GeometryBuildOptions(reference_ground_layer="GND"))
+
+    assert names == ["filter_core_finger_1"]
+    assert app.modeler.calls == [("polygon", "TOP", [[0.0, 0.0], [1.0, 0.0], [1.0, 1.0]], "mm", "filter_core_finger_1", "SIG")]

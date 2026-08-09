@@ -5,6 +5,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Iterable
 
+from simads.hfss.filter_core import FILTER_CORE_SCOPE, filter_core_policy
+from simads.hfss.layout_elements import LayoutElementPolicy, select_layout_elements
 from simads.hfss.layout_io import load_layout
 
 
@@ -68,7 +70,22 @@ def shape_name(shape: dict[str, Any]) -> str:
     return str(shape.get("name", ""))
 
 
-def selected_shapes(layout: dict[str, Any], scope: str) -> list[dict[str, Any]]:
+def element_policy_for_scope(scope: str, element_policy: LayoutElementPolicy | None = None) -> LayoutElementPolicy | None:
+    if element_policy is not None:
+        return element_policy
+    if scope == FILTER_CORE_SCOPE:
+        return filter_core_policy()
+    return None
+
+
+def selected_shapes(
+    layout: dict[str, Any],
+    scope: str,
+    element_policy: LayoutElementPolicy | None = None,
+) -> list[dict[str, Any]]:
+    policy = element_policy_for_scope(scope, element_policy)
+    if policy is not None:
+        return select_layout_elements(layout, policy)
     shapes = [shape for shape in layout.get("shapes", []) if isinstance(shape, dict)]
     if scope in {"single-p1-pcb-full", "bfp-real-board-full"}:
         return shapes
@@ -104,7 +121,12 @@ def sibling_layout_root(layout_path: Path) -> Path | None:
     return None
 
 
-def delete_names_for_layout_files(roots: Iterable[Path]) -> list[str]:
+def delete_names_for_layout_files(
+    roots: Iterable[Path],
+    *,
+    scope: str = "single-p1-pcb-full",
+    element_policy: LayoutElementPolicy | None = None,
+) -> list[str]:
     output: list[str] = []
     seen_files: set[Path] = set()
     for root in roots:
@@ -120,7 +142,7 @@ def delete_names_for_layout_files(roots: Iterable[Path]) -> list[str]:
                 layout = load_layout(path)
             except Exception:
                 continue
-            append_unique(output, delete_names_for_shapes(selected_shapes(layout, "single-p1-pcb-full")))
+            append_unique(output, delete_names_for_shapes(selected_shapes(layout, scope, element_policy)))
     return output
 
 
@@ -142,7 +164,14 @@ def full_rebuild_delete_names(
     ground_plane_name: str,
     scope: str = "single-p1-pcb-full",
     stale_layout_roots: Iterable[Path] = (),
+    element_policy: LayoutElementPolicy | None = None,
 ) -> list[str]:
+    policy = element_policy_for_scope(scope, element_policy)
+    if policy is not None:
+        names: list[str] = []
+        append_unique(names, delete_names_for_shapes(selected_shapes(layout, scope, policy)))
+        append_unique(names, delete_names_for_layout_files(stale_layout_roots, scope=scope, element_policy=policy))
+        return names
     names = [ground_plane_name]
     append_unique(names, delete_names_for_shapes(selected_shapes(layout, scope)))
     append_unique(names, generated_optional_delete_names())
