@@ -15,6 +15,7 @@ from simads.runtime import (
     SimulationRunContext,
 )
 from simads.hfss.artifacts import (
+    HFSS_PROJECT_ACTION_ADD,
     HFSS_PROJECT_ACTION_NEW,
     HFSS_PROJECT_ACTIONS,
     HFSS_PROJECT_MODEL_PER_DESIGN,
@@ -155,6 +156,7 @@ def _run_hfss_with_runtime(args: argparse.Namespace, runtime: HfssWorkflowRuntim
     project_plan.ensure_directories(args.out_dir)
 
     lifecycle = OperationLifecycle("simads.hfss.workflow.run_hfss")
+    wait_ready = bool(project_plan.init_project and project_plan.project_action != HFSS_PROJECT_ACTION_ADD)
     session_config = Hfss3dLayoutSessionConfig(
         label="simads.hfss.workflow.run_hfss",
         project=project_plan.init_project,
@@ -166,7 +168,9 @@ def _run_hfss_with_runtime(args: argparse.Namespace, runtime: HfssWorkflowRuntim
         keep_open=args.keep_open,
         close_projects=True,
         close_desktop=True,
-        wait_ready=True,
+        # Fresh projects do not have a setup/sweep until build_hfss_layout_project()
+        # creates them, so defer ready checks unless we are reusing an existing AEDT file.
+        wait_ready=wait_ready,
         ready_setup=args.setup,
         ready_sweep=args.sweep,
     )

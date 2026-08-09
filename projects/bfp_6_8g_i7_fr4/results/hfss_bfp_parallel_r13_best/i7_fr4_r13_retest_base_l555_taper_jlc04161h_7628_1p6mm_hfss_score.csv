@@ -1,0 +1,2 @@
+file,status,s21_5g_db,s21_6g_db,s21_7g_db,s21_8g_db,s21_9g_db,passband_min_s21_db,passband_ripple_db,worst_s11_6_8_db,worst_s22_6_8_db,note
+projects\bfp_6_8g_i7_fr4\results\hfss_bfp_parallel_r13_best\i7_fr4_r13_retest_base_l555_taper_jlc04161h_7628_1p6mm_hfss.s2p,TUNE,-21.67,-3.24,-4.04,-5.52,-33.34,-5.52,2.27,-6.92,-6.88,5 GHz rejection is weak; narrow bandwidth or add extra LO notch/highpass.
