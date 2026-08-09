@@ -243,6 +243,78 @@ def candidate_layout_for_policy(layout: dict[str, Any], policy: LayoutElementPol
     return candidate
 
 
+def _translate_shape(shape: dict[str, Any], *, dx_mm: float, dy_mm: float) -> dict[str, Any]:
+    translated = deepcopy(shape)
+    if "points" in translated and isinstance(translated.get("points"), list):
+        translated["points"] = [
+            [float(point[0]) + dx_mm, float(point[1]) + dy_mm]
+            for point in translated["points"]
+            if isinstance(point, list) and len(point) >= 2
+        ]
+    if "x" in translated:
+        translated["x"] = float(translated["x"]) + dx_mm
+    if "y" in translated:
+        translated["y"] = float(translated["y"]) + dy_mm
+    return translated
+
+
+def _translate_bbox_values(values: Any, *, dx_mm: float, dy_mm: float) -> Any:
+    if isinstance(values, list) and len(values) >= 4:
+        return [float(values[0]) + dx_mm, float(values[1]) + dy_mm, float(values[2]) + dx_mm, float(values[3]) + dy_mm]
+    return values
+
+
+def translate_layout_elements(
+    layout: dict[str, Any],
+    policy: LayoutElementPolicy,
+    *,
+    dx_mm: float = 0.0,
+    dy_mm: float = 0.0,
+    layout_scope: str = "layout-elements",
+    layout_id: str | None = None,
+    shift_regions: Iterable[str] = (),
+) -> dict[str, Any]:
+    candidate = deepcopy(layout)
+    metadata = dict(candidate.get("metadata") if isinstance(candidate.get("metadata"), dict) else {})
+    editable_regions = metadata.get("editable_regions") if isinstance(metadata.get("editable_regions"), dict) else {}
+    shifted_regions = tuple(str(name) for name in shift_regions if name)
+    if shifted_regions and editable_regions:
+        metadata["editable_regions"] = dict(editable_regions)
+        for name in shifted_regions:
+            if name in metadata["editable_regions"]:
+                metadata["editable_regions"][name] = _translate_bbox_values(
+                    metadata["editable_regions"][name],
+                    dx_mm=dx_mm,
+                    dy_mm=dy_mm,
+                )
+    selected_names: list[str] = []
+    translated_shapes: list[dict[str, Any]] = []
+    for shape in candidate.get("shapes", []):
+        if not isinstance(shape, dict):
+            continue
+        if shape_matches_policy(shape, policy, editable_regions=editable_regions):
+            selected_names.append(str(shape.get("name") or ""))
+            translated_shapes.append(_translate_shape(shape, dx_mm=dx_mm, dy_mm=dy_mm))
+            continue
+        translated_shapes.append(shape)
+    candidate["shapes"] = translated_shapes
+    if layout_id is not None:
+        candidate["layout_id"] = layout_id
+    metadata["layout_scope"] = layout_scope
+    metadata["layout_element_policy"] = policy.to_mapping()
+    metadata["layout_element_transform"] = {
+        "operation": "translate",
+        "dx_mm": dx_mm,
+        "dy_mm": dy_mm,
+        "selected_shape_names": [name for name in selected_names if name],
+        "shifted_regions": list(shifted_regions),
+    }
+    if policy.suppress_default_reference_ground_plane:
+        metadata["suppress_default_reference_ground_plane"] = True
+    candidate["metadata"] = metadata
+    return candidate
+
+
 __all__ = [
     "LayoutElementPolicy",
     "candidate_layout_for_policy",
@@ -250,4 +322,5 @@ __all__ = [
     "load_layout_element_policy",
     "select_layout_elements",
     "shape_matches_policy",
+    "translate_layout_elements",
 ]

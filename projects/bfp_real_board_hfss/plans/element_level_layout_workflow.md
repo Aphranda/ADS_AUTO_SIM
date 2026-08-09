@@ -46,6 +46,19 @@ Execute only after dry-run selected names match the intended middle filter body:
   --remove-lock
 ```
 
+Generate a Y-offset candidate for feed tap/contact-position sensitivity:
+
+```powershell
+& 'D:\Microsoft\uv-venvs\ads-automation\Scripts\python.exe' tools\hfss\transform_hfss_layout_elements.py `
+  --layout projects\bfp_real_board_hfss\layouts\baseline\bfp_real_board_extracted_baseline_layout.json `
+  --element-policy projects\bfp_real_board_hfss\config\bfp_filter_core_element_policy.json `
+  --out projects\bfp_real_board_hfss\layouts\candidates\core_y_offset_p0p10\bfp_core_y_offset_p0p10_layout.json `
+  --summary-out projects\bfp_real_board_hfss\layouts\candidates\core_y_offset_p0p10\bfp_core_y_offset_p0p10_summary.json `
+  --layout-id bfp_core_y_offset_p0p10 `
+  --dy-mm 0.10 `
+  --shift-region filter_core_bbox_mm
+```
+
 ## Validation Gate
 
 Before solving a candidate:

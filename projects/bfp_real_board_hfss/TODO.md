@@ -12,6 +12,7 @@
 - [ ] Verify editable baseline write-back in a copied/test AEDT design.
 - [ ] Add a BFP-specific two-port source-layout rebuild workflow.
 - [ ] Rebase optimization on the 7th-order interdigital filter layout through the generic element policy interface.
+- [ ] Sweep 7th-order filter core Y offset to evaluate feed tap/contact-position sensitivity.
 - [ ] Generate 7th-order interdigital 6G S11 tuning candidates.
 - [ ] Simulate the 7th-order interdigital candidates and compare against the current baseline.
 - [ ] Add a simulation-vs-measured comparison report for the same board batch.

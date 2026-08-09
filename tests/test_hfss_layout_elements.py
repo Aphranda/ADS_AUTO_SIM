@@ -3,11 +3,14 @@ import importlib.util
 import json
 from pathlib import Path
 
+import pytest
+
 from simads.hfss.filter_core import FILTER_CORE_SCOPE, filter_core_policy, filter_core_shapes
 from simads.hfss.layout_elements import (
     LayoutElementPolicy,
     candidate_layout_for_policy,
     select_layout_elements,
+    translate_layout_elements,
 )
 
 
@@ -93,6 +96,34 @@ def test_candidate_layout_for_policy_keeps_boundary_as_context_and_suppresses_de
     assert [shape["name"] for shape in candidate["shapes"]] == ["em_boundary", "filter_core_finger_1"]
     assert candidate["metadata"]["suppress_default_reference_ground_plane"] is True
     assert candidate["metadata"]["layout_element_policy"]["include"]["roles"] == ["signal_filter_core"]
+
+
+def test_translate_layout_elements_moves_selected_shapes_and_region_only() -> None:
+    policy = LayoutElementPolicy(
+        include_regions=("filter_core_bbox_mm",),
+        include_kinds=("polygon", "via"),
+        include_layers=("cond", "pcvia1"),
+        exclude_roles=("signal_feed",),
+        suppress_default_reference_ground_plane=True,
+    )
+
+    candidate = translate_layout_elements(
+        _layout(),
+        policy,
+        dx_mm=0.0,
+        dy_mm=0.12,
+        layout_scope="layout-elements",
+        layout_id="core_y_plus_0p12",
+        shift_regions=("filter_core_bbox_mm",),
+    )
+
+    shapes = {shape["name"]: shape for shape in candidate["shapes"]}
+    assert shapes["filter_core_finger_1"]["points"][0] == [92.0, 88.12]
+    assert shapes["ground_via_1"]["y"] == pytest.approx(88.52)
+    assert shapes["input_feed"]["points"][0] == [89.0, 88.0]
+    assert candidate["metadata"]["editable_regions"]["filter_core_bbox_mm"] == pytest.approx([91.6, 87.22, 95.3, 93.52])
+    assert candidate["metadata"]["layout_element_transform"]["selected_shape_names"] == ["filter_core_finger_1", "ground_via_1"]
+    assert candidate["metadata"]["suppress_default_reference_ground_plane"] is True
 
 
 def test_replace_layout_dry_run_with_element_policy_deletes_and_draws_only_selected_elements(tmp_path: Path, monkeypatch) -> None:
