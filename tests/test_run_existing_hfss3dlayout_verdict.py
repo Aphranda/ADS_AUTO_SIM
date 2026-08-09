@@ -104,3 +104,193 @@ def test_connector_postprocess_can_use_unified_scoring_profile(tmp_path: Path, m
     assert commands[0][commands[0].index("--system") + 1] == "connector"
     assert commands[0][commands[0].index("--profile-id") + 1] == "sma_launch_fullband_0p5_10g_v2"
     assert commands[0][commands[0].index("--baseline-s2p") + 1] == str(baseline)
+
+
+def test_run_validates_after_updating_dependent_design(tmp_path: Path, monkeypatch) -> None:
+    runner = load_runner()
+    calls: list[tuple[str, str]] = []
+
+    class FakeODesign:
+        def ValidateDesign(self):
+            calls.append(("validate", "BFP_5O_marki_l3_ref_r1"))
+            return True
+
+    class FakeApp:
+        design_list = ["2.4_CON", "BFP_5O_marki_l3_ref_r1"]
+        ports = []
+        project_name = "BFP_HFSS"
+
+        def __init__(self):
+            self.design_name = "BFP_5O_marki_l3_ref_r1"
+            self.odesign = FakeODesign()
+            self.oproject = self
+
+        @property
+        def setup_names(self):
+            return ["Setup1"] if self.design_name in self.design_list else []
+
+        def SetActiveDesign(self, design):
+            calls.append(("raw_active", design))
+            self.design_name = design
+            return self
+
+        def GetModule(self, name):
+            assert name == "AnalysisSetup"
+            return self
+
+        def GetSetups(self):
+            return ["Setup1"]
+
+        def Analyze(self, setup):
+            calls.append(("raw_analyze", f"{self.design_name}:{setup}"))
+            return True
+
+        def set_active_design(self, design):
+            calls.append(("active", design))
+            self.design_name = design
+
+        def analyze_setup(self, setup):
+            calls.append(("analyze", f"{self.design_name}:{setup}"))
+            return True
+
+        def validate_full_design(self, output_dir=None):
+            calls.append(("validate", "BFP_5O_marki_l3_ref_r1"))
+            return ["ok"], True
+
+    class FakeSession:
+        def __init__(self):
+            self.app = FakeApp()
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return None
+
+        def metadata(self):
+            return {}
+
+    def fake_export(app, *, setup, sweep, output_file, attempts, delay_s, renormalization, impedance):
+        path = Path(output_file)
+        path.write_text("! fake s2p\n", encoding="utf-8")
+        return str(path), [{"attempt": 1, "ok": True}]
+
+    monkeypatch.setattr(runner, "open_hfss3dlayout_session", lambda config, lifecycle: FakeSession())
+    monkeypatch.setattr(runner, "stable_export_touchstone", fake_export)
+    monkeypatch.setattr(runner, "run_post_tools", lambda *args, **kwargs: {"score": "ok"})
+    args = runner.parse_args(
+        [
+            "--project",
+            str(tmp_path / "BFP_HFSS.aedt"),
+            "--design",
+            "BFP_5O_marki_l3_ref_r1",
+            "--setup",
+            "Setup1",
+            "--sweep",
+            "Sweep1",
+            "--candidate",
+            "case",
+            "--out-dir",
+            str(tmp_path / "out"),
+            "--postprocess-profile",
+            "filter",
+            "--validate-update-design",
+            "2.4_CON",
+            "--no-auto-validate-update-designs",
+        ]
+    )
+
+    result = runner.run(args)
+
+    assert result["status"] == "ok"
+    assert result["pre_validate_update_designs"][0]["status"] == "updated"
+    assert calls[:4] == [
+        ("raw_active", "2.4_CON"),
+        ("raw_analyze", "2.4_CON:Setup1"),
+        ("active", "BFP_5O_marki_l3_ref_r1"),
+        ("validate", "BFP_5O_marki_l3_ref_r1"),
+    ]
+    assert ("analyze", "BFP_5O_marki_l3_ref_r1:Setup1") in calls
+
+
+def test_component_dependency_scan_maps_numbered_connector_instances() -> None:
+    runner = load_runner()
+
+    class FakeEditor:
+        def GetComponentInfo(self, comp_id):
+            if comp_id == "3":
+                return ["ComponentName=2_4_CON1"]
+            if comp_id == "4":
+                return ["ComponentName=2_4_CON2"]
+            if comp_id == "20":
+                return ["ComponentName=R0402_0R1"]
+            raise RuntimeError("missing")
+
+    class FakeDesign:
+        def SetActiveEditor(self, name):
+            assert name == "Layout"
+            return FakeEditor()
+
+    class FakeApp:
+        design_list = ["BFP_5O_marki_l3_ref_r1", "2.4_CON", "Unrelated"]
+        odesign = FakeDesign()
+
+    payload = runner._component_design_dependencies(FakeApp(), parent_design="BFP_5O_marki_l3_ref_r1")
+
+    assert payload["dependencies"] == ["2.4_CON"]
+    assert payload["components_by_name"]["2_4_CON1"] == ["3"]
+    assert payload["components_by_name"]["2_4_CON2"] == ["4"]
+    assert "R0402_0R1" in payload["unmatched_components"]
+
+
+def test_validate_only_stops_before_export(tmp_path: Path, monkeypatch) -> None:
+    runner = load_runner()
+    calls: list[str] = []
+
+    class FakeODesign:
+        def ValidateDesign(self):
+            calls.append("validate")
+            return True
+
+    class FakeApp:
+        design_list = ["BFP"]
+        ports = []
+        project_name = "unit"
+        design_name = "BFP"
+        odesign = FakeODesign()
+
+        def validate_full_design(self, output_dir=None):
+            calls.append("validate")
+            return ["ok"], True
+
+    class FakeSession:
+        app = FakeApp()
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return None
+
+        def metadata(self):
+            return {}
+
+    monkeypatch.setattr(runner, "open_hfss3dlayout_session", lambda config, lifecycle: FakeSession())
+    monkeypatch.setattr(runner, "stable_export_touchstone", lambda *args, **kwargs: calls.append("export"))
+    args = runner.parse_args(
+        [
+            "--project",
+            str(tmp_path / "unit.aedt"),
+            "--design",
+            "BFP",
+            "--out-dir",
+            str(tmp_path / "out"),
+            "--validate-only",
+            "--no-auto-validate-update-designs",
+        ]
+    )
+
+    result = runner.run(args)
+
+    assert result["status"] == "validated"
+    assert calls == ["validate"]
