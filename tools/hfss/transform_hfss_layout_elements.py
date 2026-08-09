@@ -13,8 +13,9 @@ _SRC_ROOT = Path(__file__).resolve().parents[2] / "src"
 if str(_SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(_SRC_ROOT))
 
+from simads.exporters.svg import write_svg
 from simads.hfss.layout_elements import load_layout_element_policy, select_layout_elements, translate_layout_elements
-from simads.hfss.layout_io import load_layout
+from simads.hfss.layout_io import layout_to_geometry, load_layout
 
 
 def _write_json(path: Path, data: dict[str, Any]) -> None:
@@ -52,6 +53,10 @@ def transform_layout(args: argparse.Namespace) -> dict[str, Any]:
         "selected_count_after": len(after),
         "element_policy": policy.to_mapping(),
     }
+    if not args.no_svg:
+        svg_out = args.svg_out or args.out.with_suffix(".svg")
+        write_svg(svg_out, layout_to_geometry(candidate), title=str(candidate.get("layout_id") or args.out.stem))
+        summary["svg"] = str(svg_out)
     if args.summary_out:
         _write_json(args.summary_out, summary)
     return summary
@@ -63,6 +68,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--element-policy", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--summary-out", type=Path, default=None)
+    parser.add_argument("--svg-out", type=Path, default=None)
+    parser.add_argument("--no-svg", action="store_true")
     parser.add_argument("--layout-id", default=None)
     parser.add_argument("--scope", default="layout-elements")
     parser.add_argument("--dx-mm", type=float, default=0.0)

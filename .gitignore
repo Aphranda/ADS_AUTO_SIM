@@ -139,6 +139,7 @@ projects/*/layouts/**/*_tuning_table.csv
 !projects/bfp_real_board_hfss/layouts/candidates/
 !projects/bfp_real_board_hfss/layouts/candidates/core_y_offset_*/
 !projects/bfp_real_board_hfss/layouts/candidates/core_y_offset_*/*_layout.json
+!projects/bfp_real_board_hfss/layouts/candidates/core_y_offset_*/*_layout.svg
 
 # Raw simulator exports and per-candidate post-processing outputs.
 # Keep compact sweep_summary.csv and baseline summaries tracked.

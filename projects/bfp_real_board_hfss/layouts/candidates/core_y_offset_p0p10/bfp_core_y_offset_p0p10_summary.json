@@ -99,5 +99,6 @@
         "Connector launch, 2.4 mm connector geometry, feed traces, board via fence, ports, and reference ground planes are outside this policy."
       ]
     }
-  }
+  },
+  "svg": "projects\\bfp_real_board_hfss\\layouts\\candidates\\core_y_offset_p0p10\\bfp_core_y_offset_p0p10_layout.svg"
 }
