@@ -272,6 +272,8 @@ projects/*/results/**/*_hints.json
 projects/*/results/**/*_api_extract_raw.json
 projects/*/results/**/extract_layout.json
 projects/*/results/**/extract_layout_distilled.json
+projects/*/results/**/duplicate_*.json
+projects/*/results/**/extract_*.json
 projects/*/results/**/run_existing*.json
 projects/*/results/**/export_only*.json
 projects/*/results/**/*_owner.json
@@ -286,6 +288,8 @@ archive/**/results/**/*probe*.json
 archive/**/results/**/*diag*.json
 archive/**/results/**/*nosave*.json
 archive/**/results/**/*_hints.json
+archive/**/results/**/duplicate_*.json
+archive/**/results/**/extract_*.json
 archive/**/results/**/run_existing*.json
 archive/**/results/**/export_only*.json
 archive/**/results/**/run*.json

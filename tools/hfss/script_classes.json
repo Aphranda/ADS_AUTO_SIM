@@ -38,6 +38,18 @@
       "production_allowed": true,
       "notes": "Validates this script classification registry."
     },
+    "tools/hfss/compare_saved_hfss3dlayout_launch_designs.py": {
+      "class": "diagnostic",
+      "runtime": "host",
+      "production_allowed": true,
+      "notes": "Static read-only comparison of saved launch designs for debugging."
+    },
+    "tools/hfss/convert_hfss_api_extract_to_layout_json.py": {
+      "class": "production",
+      "runtime": "host",
+      "production_allowed": true,
+      "notes": "Offline converter from AEDT API extraction JSON to editable SIM layout JSON."
+    },
     "tools/hfss/create_hfss3dlayout_smoke_project.py": {
       "class": "production",
       "runtime": "host/pyaedt",
@@ -49,6 +61,12 @@
       "runtime": "host/pyaedt",
       "production_allowed": false,
       "notes": "API-only delete-only PCB source layout cleanup helper; normal rebuild flow uses replace_hfss3dlayout_layout_primitives.py."
+    },
+    "tools/hfss/duplicate_hfss3dlayout_design.py": {
+      "class": "production",
+      "runtime": "host/pyaedt",
+      "production_allowed": true,
+      "notes": "API-only copied/test design gate before candidate layout write-back."
     },
     "tools/hfss/delete_schematic_component_instances.py": {
       "class": "maintenance",
@@ -62,17 +80,47 @@
       "production_allowed": true,
       "notes": "Read-only AEDT/PyAEDT API extractor for saved or live HFSS 3D Layout designs."
     },
+    "tools/hfss/export_existing_hfss_report_csv.py": {
+      "class": "diagnostic",
+      "runtime": "host/pyaedt",
+      "production_allowed": true,
+      "notes": "API-only export of existing AEDT report traces to CSV."
+    },
+    "tools/hfss/generate_bfp_5o_marki_l3_ref_layout.py": {
+      "class": "production",
+      "runtime": "host",
+      "production_allowed": true,
+      "notes": "Offline BFP real-board 5th-order Marki-style L3-reference candidate layout generator."
+    },
+    "tools/hfss/generate_bfp_real_board_s11_6g_candidate_layout.py": {
+      "class": "production",
+      "runtime": "host",
+      "production_allowed": true,
+      "notes": "Offline BFP real-board 6 GHz S11 candidate layout generator."
+    },
     "tools/hfss/inspect_aedt_project.py": {
       "class": "diagnostic",
       "runtime": "host/pyaedt",
       "production_allowed": true,
       "notes": "Read-only project/design/port inspection."
     },
+    "tools/hfss/inspect_aedb_saved_geometry_hints.py": {
+      "class": "diagnostic",
+      "runtime": "host",
+      "production_allowed": true,
+      "notes": "Read-only AEDB saved-state hint extractor for geometry triage."
+    },
     "tools/hfss/inspect_hfss3dlayout_layer_bboxes.py": {
       "class": "diagnostic",
       "runtime": "host/pyaedt",
       "production_allowed": true,
       "notes": "Layer bounding box inspection."
+    },
+    "tools/hfss/inspect_hfss3dlayout_port_live_state.py": {
+      "class": "diagnostic",
+      "runtime": "host/pyaedt",
+      "production_allowed": true,
+      "notes": "Read-only live AEDT API probe for targeted 3D Layout port state."
     },
     "tools/hfss/inspect_layout_component_instances.py": {
       "class": "diagnostic",
@@ -85,6 +133,12 @@
       "runtime": "host/pyaedt",
       "production_allowed": true,
       "notes": "Schematic IPort inspection."
+    },
+    "tools/hfss/inspect_real_board_launch_connectivity.py": {
+      "class": "diagnostic",
+      "runtime": "host",
+      "production_allowed": true,
+      "notes": "Static read-only saved project connectivity triage for real-board launch debugging."
     },
     "tools/hfss/place_layout_connector_instances.py": {
       "class": "maintenance",
@@ -205,6 +259,18 @@
       "runtime": "host/pyaedt",
       "production_allowed": false,
       "notes": "Explicit design option update helper."
+    },
+    "tools/hfss/summarize_saved_launch_gap.py": {
+      "class": "diagnostic",
+      "runtime": "host",
+      "production_allowed": true,
+      "notes": "Offline summary of saved launch gap hints extracted from AEDB diagnostics."
+    },
+    "tools/hfss/transform_hfss_layout_elements.py": {
+      "class": "production",
+      "runtime": "host",
+      "production_allowed": true,
+      "notes": "Offline element-level HFSS layout JSON transformer for candidate generation."
     },
     "tools/hfss/try_component_pin_edge_port.py": {
       "class": "probe",
