@@ -1,0 +1,40 @@
+{
+  "schema_version": "0.1.0",
+  "project_id": "bfp_real_board_hfss",
+  "name": "BFP real board HFSS optimization project",
+  "device_family": "real_board",
+  "default_profile": "home",
+  "project_root": "projects/bfp_real_board_hfss",
+  "plans_dir": "projects/bfp_real_board_hfss/plans",
+  "layouts_dir": "projects/bfp_real_board_hfss/layouts",
+  "results_dir": "projects/bfp_real_board_hfss/results",
+  "runs_dir": "projects/bfp_real_board_hfss/runs",
+  "reports_dir": "projects/bfp_real_board_hfss/reports",
+  "references_dir": "projects/bfp_real_board_hfss/references",
+  "layout_extraction": {
+    "source_project": "D:/Work/ADS/BFP_parallel/BFP_HFSS.aedt",
+    "source_design": "BFP",
+    "output_root": "projects/bfp_real_board_hfss/layouts/extracted",
+    "result_root": "projects/bfp_real_board_hfss/results/extracted",
+    "api_mode": "read_only"
+  },
+  "hfss": {
+    "workspace_dir": "D:/Work/ADS/BFP_parallel",
+    "aedt_project": "D:/Work/ADS/BFP_parallel/BFP_HFSS.aedt",
+    "project_model": "single_aedt_project_multiple_designs",
+    "project_action": "add",
+    "current_designs": [
+      "2.4_CON",
+      "BFP",
+      "T7_FR4_HFSS_VERDICT"
+    ]
+  },
+  "scoring": {
+    "baseline_policy": "simulation_vs_measurement_batch_compare",
+    "comparison_axes": [
+      "s_parameters",
+      "smith_chart",
+      "tdr"
+    ]
+  }
+}

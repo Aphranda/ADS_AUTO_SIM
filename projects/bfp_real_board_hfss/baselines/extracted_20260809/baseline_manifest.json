@@ -1,0 +1,76 @@
+{
+  "schema_version": "0.1.0",
+  "project_id": "bfp_real_board_hfss",
+  "baseline_id": "bfp_real_board_extracted_20260809",
+  "created_at": "2026-08-09",
+  "source": {
+    "aedt_project": "D:/Work/ADS/BFP_parallel/BFP_HFSS.aedt",
+    "design": "BFP",
+    "setup": "Setup1",
+    "ports": [
+      "Port1",
+      "Port2"
+    ],
+    "model_units": "mil",
+    "api_contract": "AEDT/PyAEDT read-only extraction; no direct .aedt/.aedb editing"
+  },
+  "geometry_summary": {
+    "board_size_mm": {
+      "w_mm": 29.99994,
+      "h_mm": 19.99996
+    },
+    "top_polygons": 22,
+    "reference_planes": 3,
+    "unique_gnd_vias": 142,
+    "top_polygon_classification": {
+      "rf": 16,
+      "gnd": 6
+    },
+    "editable_regions": {
+      "left_launch_bbox_mm": [
+        78.7,
+        80.4,
+        91.8,
+        96.2
+      ],
+      "filter_core_bbox_mm": [
+        91.6,
+        87.1,
+        95.3,
+        93.4
+      ],
+      "right_launch_bbox_mm": [
+        95.1,
+        80.4,
+        108.3,
+        96.2
+      ]
+    }
+  },
+  "artifacts": [
+    {
+      "type": "api_extract_full",
+      "path": "projects/bfp_real_board_hfss/layouts/extracted/BFP_api_layout_all_layers_full.json",
+      "sha256": "0C689EC31AF3C89A20EA2A3A1161E5A013B5FA8F5AA9E4C974D0AB6AC2BB16E8"
+    },
+    {
+      "type": "api_extract_summary",
+      "path": "projects/bfp_real_board_hfss/layouts/extracted/BFP_api_layout_all_layers_summary.json",
+      "sha256": "7FDA08C4DBCB15021CAECA479E99EDAB280BF6E93C847829214C7DD97EE2EACC"
+    },
+    {
+      "type": "api_layout_svg",
+      "path": "projects/bfp_real_board_hfss/layouts/extracted/BFP_api_layout_all_layers.svg",
+      "sha256": "96AFBB087E80B118010D1E338E196B606F301D7D66A95A2F94C5F4F88AA63B92"
+    },
+    {
+      "type": "editable_layout_json",
+      "path": "projects/bfp_real_board_hfss/layouts/baseline/bfp_real_board_extracted_baseline_layout.json",
+      "sha256": "EFB2D6FBBE0964D93CFCC602E8D1E429B98523951015E638A95A271A1D9E7841"
+    }
+  ],
+  "notes": [
+    "AEDT API returned all extracted TOP polygon nets as GND; RF/feed roles in editable layout were classified geometrically.",
+    "The editable baseline is suitable for candidate generation, but a write-back dry run must be verified in a disposable/test AEDT design before touching the active BFP design."
+  ]
+}

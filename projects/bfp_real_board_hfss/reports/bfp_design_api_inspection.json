@@ -1,0 +1,105 @@
+{
+  "project": "D:\\Work\\ADS\\BFP_parallel\\BFP_HFSS.aedt",
+  "project_name": "BFP_HFSS",
+  "active_design": "BFP",
+  "app": "hfss3dlayout",
+  "aedt_startup": {
+    "PYAEDT_USE_PRE_GRPC_ARGS": "True",
+    "grpc_secure_mode_env": "False",
+    "SIMADS_AEDT_WAIT_FOR_LICENSE": "True",
+    "SIMADS_AEDT_DESKTOP_TIMEOUT_S": "300",
+    "SIMADS_AEDT_USER_ROOT": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "HOME": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "USERPROFILE": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "APPDATA": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user\\AppData\\Roaming",
+    "LOCALAPPDATA": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user\\AppData\\Local",
+    "TEMP": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user\\Temp"
+  },
+  "aedt_lock": {
+    "label": "inspect_aedt_project",
+    "pid": 26148,
+    "started_epoch": 1786257616.355,
+    "lock_path": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_automation.lock"
+  },
+  "aedt_reapers": [
+    {
+      "started": true,
+      "label": "inspect_aedt_project_hfss3dlayout_primary",
+      "aedt_process_id": 11548,
+      "parent_pid": 26148,
+      "reaper_pid": 19808,
+      "execute": true,
+      "execute_requested": true,
+      "terminate_disabled": false,
+      "script_started": true,
+      "execute_block_reason": null,
+      "output": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\inspect_aedt_project_hfss3dlayout_primary_26148_11548.json",
+      "event_log": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\inspect_aedt_project_hfss3dlayout_primary_26148_11548.jsonl",
+      "owner_record": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\inspect_aedt_project_hfss3dlayout_primary_26148_11548.owner.json",
+      "silent": true,
+      "helper_executable": "D:\\Microsoft\\uv-venvs\\ads-automation\\Scripts\\pythonw.exe",
+      "target_create_time_epoch": 1786257617.5023832
+    }
+  ],
+  "all_designs": [
+    "BFP",
+    "I7_FR4_HFSS_VERDICT",
+    "2.4_CON"
+  ],
+  "selected_designs": [
+    "BFP"
+  ],
+  "designs": [
+    {
+      "design": "BFP",
+      "design_type": "{'error': \"GrpcApiError('Failed to execute gRPC AEDT command: GetProjectByName')\"}",
+      "active": true,
+      "app_design_type": "HFSS 3D Layout Design",
+      "solution_type": "HFSS3DLayout",
+      "setups": [
+        "Setup1"
+      ],
+      "ports": [
+        "Port1",
+        "Port2"
+      ],
+      "excitations": [],
+      "boundaries": [
+        {
+          "name": "Port1",
+          "type": "Port"
+        },
+        {
+          "name": "Port2",
+          "type": "Port"
+        }
+      ],
+      "object_groups": {
+        "Solids": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetObjectsInGroup')"
+        },
+        "Sheets": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetObjectsInGroup')"
+        },
+        "Lines": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetObjectsInGroup')"
+        },
+        "Unclassified": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetObjectsInGroup')"
+        },
+        "Non Model": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetObjectsInGroup')"
+        },
+        "Measure": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetObjectsInGroup')"
+        },
+        "Planes": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetObjectsInGroup')"
+        },
+        "Points": {
+          "error": "GrpcApiError('Failed to execute gRPC AEDT command: GetObjectsInGroup')"
+        }
+      }
+    }
+  ]
+}

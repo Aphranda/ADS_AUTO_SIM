@@ -13,6 +13,7 @@ import json
 import math
 from html import escape
 from pathlib import Path
+import re
 from typing import Any
 
 import sys
@@ -88,6 +89,64 @@ def _clean_bbox(bbox: Any) -> tuple[float, float, float, float] | None:
     if y1 < y0:
         y0, y1 = y1, y0
     return x0, y0, x1, y1
+
+
+_NUMBER_RE = re.compile(r"[-+]?\d+(?:\.\d+)?(?:[eE][-+]?\d+)?")
+
+
+def _parse_mil_location(value: Any) -> tuple[float, float] | None:
+    if not isinstance(value, str):
+        return None
+    numbers = _NUMBER_RE.findall(value)
+    if len(numbers) < 2:
+        return None
+    return float(numbers[0]) * 0.0254, float(numbers[1]) * 0.0254
+
+
+def _component_info_value(component_info: Any, key: str) -> str | None:
+    if not isinstance(component_info, list):
+        return None
+    prefix = f"{key}="
+    for item in component_info:
+        text = str(item)
+        if text.startswith(prefix):
+            return text.split("=", 1)[1]
+    return None
+
+
+def _component_info_bbox_mm(component_info: Any) -> tuple[float, float, float, float] | None:
+    values = []
+    for key in ("BBoxLLx", "BBoxLLy", "BBoxURx", "BBoxURy"):
+        value = _component_info_value(component_info, key)
+        if value is None:
+            return None
+        values.append(float(value) * 1000.0)
+    x0, y0, x1, y1 = values
+    if x1 < x0:
+        x0, x1 = x1, x0
+    if y1 < y0:
+        y0, y1 = y1, y0
+    return x0, y0, x1, y1
+
+
+def _translated_bbox(local: tuple[float, float, float, float], origin: tuple[float, float]) -> list[float]:
+    return [local[0] + origin[0], local[1] + origin[1], local[2] + origin[0], local[3] + origin[1]]
+
+
+def _pin_location_mm(pin_info: Any) -> list[float] | None:
+    if not isinstance(pin_info, list):
+        return None
+    values: dict[str, float] = {}
+    for item in pin_info:
+        text = str(item)
+        if "=" not in text:
+            continue
+        key, value = text.split("=", 1)
+        if key in {"X", "Y"}:
+            values[key] = float(value) * 1000.0
+    if "X" not in values or "Y" not in values:
+        return None
+    return [values["X"], values["Y"]]
 
 
 def _bbox_from_points(points: list[tuple[float, float]]) -> tuple[float, float, float, float] | None:
@@ -178,6 +237,47 @@ def _layers(payload: dict[str, Any], explicit: list[str] | None) -> list[str]:
 
 
 def _component_records(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    editor_components = payload.get("components")
+    if isinstance(editor_components, dict) and editor_components:
+        records: list[dict[str, Any]] = []
+        for name, component in editor_components.items():
+            if not isinstance(component, dict):
+                continue
+            props_root = component.get("properties")
+            props = {}
+            if isinstance(props_root, dict):
+                props = props_root.get("BaseElementTab") if isinstance(props_root.get("BaseElementTab"), dict) else {}
+            origin = _parse_mil_location(props.get("Location"))
+            layer = str(props.get("PlacementLayer") or "TOP")
+            local_bbox = _component_info_bbox_mm(component.get("component_info"))
+            component_name = _component_info_value(component.get("component_info"), "ComponentName")
+            records.append(
+                {
+                    "name": str(name),
+                    "type": "component",
+                    "layer": layer,
+                    "net": None,
+                    "bbox_mm": _translated_bbox(local_bbox, origin) if local_bbox and origin else None,
+                    "location_mm": list(origin) if origin else None,
+                    "part": component_name,
+                }
+            )
+            pin_info = component.get("pin_info")
+            if isinstance(pin_info, dict):
+                for pin_name, info in pin_info.items():
+                    records.append(
+                        {
+                            "name": f"{name}.{pin_name}",
+                            "type": "component_pin",
+                            "layer": layer,
+                            "net": _component_info_value(info, "NetName"),
+                            "location_mm": _pin_location_mm(info),
+                            "bbox_mm": None,
+                            "part": component_name,
+                        }
+                    )
+        return records
+
     raw = payload.get("modeler_components")
     if not isinstance(raw, dict):
         return []
