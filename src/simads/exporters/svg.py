@@ -143,6 +143,20 @@ def _is_connector_layer_review(layout: Layout) -> bool:
     return metadata.get("generator") == "simads.hfss.connector" and bool(metadata.get("reference_ground_layer"))
 
 
+def _is_bfp_element_layer_review(layout: Layout) -> bool:
+    metadata = layout.metadata or {}
+    return metadata.get("layout_scope") == "layout-elements" and any(
+        getattr(shape, "kind", "") == "reference_ground_plane" for shape in layout.shapes
+    )
+
+
+def _source_or_target_layer(shape: Shape) -> str:
+    metadata = getattr(shape, "metadata", None)
+    if isinstance(metadata, dict):
+        return str(metadata.get("target_layer") or metadata.get("source_layer") or "")
+    return ""
+
+
 def _target_ground_layer_name(shape: Shape, reference_layer: str) -> str:
     metadata = getattr(shape, "metadata", None)
     if isinstance(metadata, dict):
@@ -377,6 +391,93 @@ def _write_connector_layer_review_svg(
     path.write_text(text, encoding="utf-8")
 
 
+def _write_bfp_element_layer_review_svg(
+    path: FsPath,
+    layout: Layout,
+    *,
+    title: str | None,
+    layer_colors: dict[str, str] | None,
+    padding: float,
+    width_px: int,
+) -> None:
+    min_x, min_y, max_x, max_y = bounds(layout.shapes)
+    width = max_x - min_x + 2.0 * padding
+    panel_h = max_y - min_y + 2.0 * padding
+    scale = width_px / width if width > 0 else 1.0
+    panel_h_px = panel_h * scale
+    gap_px = 56.0
+    title_h_px = 36.0
+    height_px = title_h_px + 2.0 * panel_h_px + gap_px
+    view_min_x = min_x - padding
+    view_max_y = max_y + padding
+    l2_y = title_h_px + panel_h_px + gap_px
+
+    boundary_shapes = [shape for shape in layout.shapes if isinstance(shape, Boundary)]
+    via_shapes = [shape for shape in layout.shapes if isinstance(shape, Via)]
+    l1_shapes = [
+        shape
+        for shape in layout.shapes
+        if isinstance(shape, (Boundary, Via)) or getattr(shape, "layer", "") == "cond" or _source_or_target_layer(shape) == "TOP"
+    ]
+    l2_ground_shapes = [
+        shape
+        for shape in layout.shapes
+        if getattr(shape, "kind", "") == "reference_ground_plane"
+        and _source_or_target_layer(shape) in {"INNER1", "L2", "ETCH_INNER1"}
+    ]
+    if not l2_ground_shapes:
+        l2_ground_shapes = [shape for shape in layout.shapes if getattr(shape, "kind", "") == "reference_ground_plane"][:1]
+
+    l1_body = "\n  ".join(
+        _shape_svg_at(shape, scale=scale, min_x=view_min_x, max_y=view_max_y, y_offset=title_h_px, layer_colors=layer_colors)
+        for shape in l1_shapes
+    )
+    l2_parts: list[str] = []
+    for shape in boundary_shapes:
+        l2_parts.append(
+            _shape_svg_at(shape, scale=scale, min_x=view_min_x, max_y=view_max_y, y_offset=l2_y, layer_colors=layer_colors)
+        )
+    for shape in l2_ground_shapes:
+        l2_parts.append(
+            _shape_svg_at(
+                shape,
+                scale=scale,
+                min_x=view_min_x,
+                max_y=view_max_y,
+                y_offset=l2_y,
+                layer_colors=layer_colors,
+                fill_override="#16a34a",
+                opacity=0.28,
+            )
+        )
+    for shape in via_shapes:
+        l2_parts.append(
+            _shape_svg_at(
+                shape,
+                scale=scale,
+                min_x=view_min_x,
+                max_y=view_max_y,
+                y_offset=l2_y,
+                layer_colors=layer_colors,
+                fill_override="#f97316",
+                opacity=0.78,
+            )
+        )
+    l2_body = "\n  ".join(l2_parts)
+    heading = escape(title or layout.layout_id)
+    text = f"""<svg xmlns="http://www.w3.org/2000/svg" width="{width_px}" height="{fmt(height_px)}" viewBox="0 0 {width_px} {fmt(height_px)}">
+  <rect x="0" y="0" width="{width_px}" height="{fmt(height_px)}" fill="#ffffff"/>
+  <text x="16" y="24" font-family="Arial, sans-serif" font-size="16" fill="#111827">{heading}</text>
+  <text x="16" y="{fmt(title_h_px + 16)}" font-family="Arial, sans-serif" font-size="14" fill="#111827">L1 TOP</text>
+  {l1_body}
+  <text x="16" y="{fmt(l2_y + 16)}" font-family="Arial, sans-serif" font-size="14" fill="#111827">L2 INNER1</text>
+  {l2_body}
+</svg>
+"""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text, encoding="utf-8")
+
+
 def write_svg(
     path: FsPath,
     layout: Layout,
@@ -388,6 +489,16 @@ def write_svg(
 ) -> None:
     if _is_connector_layer_review(layout):
         _write_connector_layer_review_svg(
+            path,
+            layout,
+            title=title,
+            layer_colors=layer_colors,
+            padding=padding,
+            width_px=width_px,
+        )
+        return
+    if _is_bfp_element_layer_review(layout):
+        _write_bfp_element_layer_review_svg(
             path,
             layout,
             title=title,
