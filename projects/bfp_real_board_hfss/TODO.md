@@ -7,6 +7,7 @@
 - [x] Export baseline S2P, Smith chart, TDR, and filter optimization metrics.
 - [x] Rerun the actual-board BFP design and export S2P, Smith, TDR, group delay, and optimization metrics.
 - [x] Compare measured VNA marker data against the BFP real-board HFSS rerun.
+- [x] Extract and fit the measured VNA curves from the four screenshots.
 - [ ] Create an independent 5.5-7.5 GHz shifted-band baseline for BFP and compare it against the current baseline.
 - [ ] Verify editable baseline write-back in a copied/test AEDT design.
 - [ ] Add a BFP-specific two-port source-layout rebuild workflow.
