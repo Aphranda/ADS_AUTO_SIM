@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SP8T开关连接器设计优化报告</title>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  body { font-family:"Microsoft YaHei","SimSun","DengXian",Arial,sans-serif; background:#d7d9df; color:#1f2328; padding:18px; line-height:1.42; }
+  @page { size:A4 portrait; margin:0; }
+  .page { width:210mm; height:297mm; margin:0 auto 18px; background:#fff; box-shadow:0 3px 14px rgba(0,0,0,.16); display:flex; flex-direction:column; overflow:hidden; break-after:page; page-break-after:always; }
+  .page:last-child { break-after:auto; page-break-after:auto; }
+  .page-header { padding:10mm 16mm 5mm; border-bottom:5px solid #d9e1ef; display:flex; justify-content:space-between; align-items:flex-start; gap:18px; }
+  .page-header .logo { height:28px; width:auto; display:block; flex:0 0 auto; margin-left:auto; }
+  .doc-meta { text-align:right; font-size:10.5px; color:#687381; white-space:nowrap; }
+  .doc-meta strong { display:block; color:#1f3864; font-size:13px; margin-bottom:3px; }
+  .main { flex:1; padding:6mm 16mm 6mm; }
+  .page-footer { padding:3mm 16mm 4mm; border-top:5px solid #d9e1ef; color:#8b949e; font-size:9px; display:flex; justify-content:space-between; }
+  h1 { font-size:23px; color:#172033; letter-spacing:0; margin-bottom:3px; }
+  .subtitle { color:#5b6573; font-size:12px; }
+  .brand { color:#1f3864; font-size:15px; font-weight:800; letter-spacing:0; margin-bottom:2px; }
+  .chips { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:0 0 9px; }
+  .chip { border:1px solid #d9e1ef; border-left:4px solid #1f3864; padding:6px 8px; min-height:44px; background:#f8fafc; }
+  .chip:nth-child(2) { border-left-color:#2e7d32; }
+  .chip:nth-child(3) { border-left-color:#d97706; }
+  .chip:nth-child(4) { border-left-color:#6a1b9a; }
+  .chip.limited { background:#fffbeb; border-color:#fde68a; border-left-color:#d97706; }
+  .chip .k { display:block; color:#687381; font-size:9.5px; margin-bottom:1px; }
+  .chip .v { display:block; color:#111827; font-size:12px; font-weight:700; }
+  .section { margin-top:8px; }
+  .section-title { font-size:14px; color:#1f3864; font-weight:700; padding-bottom:4px; border-bottom:2px solid #1f3864; margin-bottom:6px; }
+  table { width:100%; border-collapse:collapse; font-size:10.1px; border:1.5px solid #2f3542; }
+  th { background:#1f3864; color:#fff; text-align:left; padding:5px 7px; border:1px solid #182b4c; font-weight:700; }
+  td { padding:5px 7px; border:1px solid #c8d1dc; vertical-align:top; }
+  tbody tr:nth-child(even) td { background:#f5f8fc; }
+  .compact td { padding-top:4px; padding-bottom:4px; }
+  .candidate-table { table-layout:fixed; }
+  .candidate-table th:first-child, .candidate-table td:first-child { width:25mm; max-width:25mm; white-space:normal; overflow-wrap:anywhere; word-break:break-word; font-size:9px; line-height:1.18; }
+  .b { font-weight:700; }
+  .ok { color:#0f7b3f; font-weight:700; }
+  .warn { color:#b45309; font-weight:700; }
+  .bad { color:#b42318; font-weight:700; }
+  .tag { display:inline-block; padding:1px 6px; border-radius:4px; font-size:9px; font-weight:700; color:#fff; white-space:nowrap; }
+  .green { background:#2e7d32; }
+  .blue { background:#1f3864; }
+  .orange { background:#d97706; }
+  .red { background:#b42318; }
+  .tag.limited { color:#92400e; background:#fef3c7; border:1px solid #f59e0b; }
+  .tag.accepted { color:#166534; background:#dcfce7; border:1px solid #86efac; }
+  .summary { display:grid; grid-template-columns:1.05fr .95fr; gap:10px; }
+  .note-box, .warn-box, .todo-box, .flow-box { border:1px solid #d9e1ef; padding:8px 9px; background:#f8fafc; font-size:10.5px; }
+  .note-box { border-left:4px solid #1f3864; }
+  .warn-box { border-left:4px solid #d97706; background:#fffbeb; }
+  .todo-box { border-left:4px solid #2e7d32; }
+  .flow-box { border-left:4px solid #6a1b9a; }
+  .bar { margin-top:8px; padding:7px 9px; color:#172033; background:#eef4ff; border-left:4px solid #1f3864; font-size:10.6px; }
+  .figure { border:1px solid #d9e1ef; background:#fff; padding:7px; text-align:center; }
+  .figure-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .figure img { max-width:100%; max-height:104mm; object-fit:contain; }
+  .figure.compact-layout img, .figure.model img { max-height:57mm; }
+  .figure.plot img { max-height:132mm; }
+  .figure.plot.compact img { max-height:68mm; }
+  .figure.plot.tall img { max-height:156mm; }
+  .caption { color:#687381; font-size:9.5px; margin-top:4px; text-align:left; }
+  .page-compact-figures .chips { gap:6px; margin-bottom:7px; }
+  .page-compact-figures .chip { min-height:38px; padding:5px 7px; }
+  .page-compact-figures .section { margin-top:6px; }
+  .page-compact-figures .section-title { font-size:13px; margin-bottom:5px; }
+  .page-compact-figures table { font-size:9.2px; }
+  .page-compact-figures th, .page-compact-figures td { padding:4px 6px; }
+  .page-compact-figures .bar { margin-top:6px; padding:6px 8px; font-size:9.8px; }
+  .page-compact-figures .figure { padding:5px; }
+  .page-compact-figures .figure.plot img { max-height:47mm; }
+  .page-compact-figures .figure.plot.compact img { max-height:47mm; }
+  .page-compact-figures .figure.plot.stack img { max-height:60mm; }
+  .page-compact-figures .caption { font-size:8.6px; margin-top:3px; }
+  .page-dense { line-height:1.32; }
+  .page-dense .chips { gap:5px; margin-bottom:6px; }
+  .page-dense .chip { min-height:32px; padding:4px 6px; }
+  .page-dense .chip .k { font-size:8.5px; margin-bottom:0; }
+  .page-dense .chip .v { font-size:10.5px; }
+  .page-dense .section { margin-top:5px; }
+  .page-dense .section-title { font-size:12px; padding-bottom:3px; margin-bottom:4px; }
+  .page-dense table { font-size:8.6px; }
+  .page-dense th, .page-dense td { padding:3px 5px; }
+  .page-dense .bar { margin-top:5px; padding:5px 7px; font-size:9.2px; }
+  .page-dense .figure { padding:4px; }
+  .page-dense .figure.plot img { max-height:42mm; }
+  .page-dense .figure.plot.compact img { max-height:42mm; }
+  .page-dense .figure.plot.big img { max-height:75mm; }
+  .page-dense .caption { font-size:8.2px; margin-top:2px; }
+  .page-dense .note-box, .page-dense .warn-box { padding:6px 7px; font-size:9.2px; }
+  @media print {
+    html, body { width:210mm; min-width:210mm; max-width:210mm; background:#fff; padding:0; overflow:visible; }
+    .page { width:210mm !important; height:297mm !important; margin:0; box-shadow:none; break-after:page; page-break-after:always; }
+    .page:last-child { break-after:auto; page-break-after:auto; }
+  }
+</style>
+</head>
+<body>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1>SP8T开关连接器设计优化报告</h1>
+      <div class="subtitle">SMA 单连接器发射端 · HFSS 3D Layout 0.5-10 GHz 自动化验证闭环</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta">
+      <strong>统一维护版（实测判定口径修订）</strong>
+      日期：2026-08-08 · 实测补页 2026-08-21<br>
+      当前推荐：l40w17 + RF_IN/RF_OUT 板端仿真 + 芯片连接测试<br>
+      新增：SP10T 开关实测、典型端口隔离与 8 GHz 评估（第 11-18 页）
+    </div>
+  </header>
+  <main class="main">
+    <div class="chips">
+      <div class="chip"><span class="k">目标频段</span><span class="v">0.5-10 GHz</span></div>
+      <div class="chip"><span class="k">当前结构</span><span class="v">SMA + 30 mm 50 Ω CPWG</span></div>
+      <div class="chip"><span class="k">最优评分</span><span class="v">92.283 / cost 7.717</span></div>
+      <div class="chip"><span class="k">端口口径</span><span class="v">S1_1_Pin_T1 + Port1</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">1. 阶段结论</div>
+      <div class="summary">
+        <div class="note-box">
+          <strong>当前推荐候选为 l40w17。</strong>
+          该候选采用连接器处 1.5 mm 顶层 GND gap、锥形 GND 过渡、去掉中心焊盘近端 GND via、L2 焊盘下方矩形开窗，L3 保持完整参考地，L4 保持 GND，并在连接器 feet 接地点增加 4 个 GND via；L2 开窗尺寸为 4.0 × 1.7 mm，offset 0.15 mm。
+        </div>
+        <div class="warn-box">
+          <strong>设计尚不建议冻结。</strong>
+          当前结果已经明显优于上一轮，但下一轮仍建议优先复核端口和辐射边界间距，并继续围绕 L2 开窗做小步扫描。
+        </div>
+      </div>
+      <div class="bar">
+        核心判断：12 组 L2 矩形开窗扫描中，长度 4.0 mm 的候选整体占优；宽度 1.7 mm 在回损、平均插损和综合评分之间取得当前最好平衡。
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">2. 报告结构与判断口径</div>
+      <table class="compact">
+        <thead>
+          <tr><th>验证线索</th><th>对象</th><th>判断口径</th><th>当前结论</th><th>后续动作</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>单连接器优化</td><td>SMA + 30 mm 50 Ω CPWG</td><td>与无连接器 30 mm 基线对比</td><td class="ok">l40w17 当前最优；score 92.283，cost 7.717</td><td><span class="tag green">继续小步扫描</span></td></tr>
+          <tr><td>RF_IN 四端口</td><td>RF-PPA cutout 输入到芯片通路</td><td>板端仿真无固定基线，按短线四端口独立评价</td><td class="ok">短线通路合格；隔离、回损和插损作为绝对读数记录</td><td><span class="tag green">独立通过</span></td></tr>
+          <tr><td>RF_OUT 四端口</td><td>两个输出到芯片通路</td><td>板端仿真无固定基线，按长线四端口独立评价</td><td class="warn">线长更长导致插损更大；重点看是否存在异常不连续</td><td><span class="tag orange">独立跟踪</span></td></tr>
+          <tr><td>芯片间两端口</td><td>0201 0R 与 0402 0R 芯片连接</td><td>线路长度变化，无固定基线，只能 A/B</td><td class="ok">0201 在回损、Smith、TDR 上略优于 0402</td><td><span class="tag orange">相互对比</span></td></tr>
+          <tr><td>后续实测</td><td>打板回板后的 VNA/夹具测试</td><td>整板通路实测；手册裸件指标仅作参照</td><td class="warn">实测已补入（第 11-18 页）：10 个导通状态 + 2 组典型端口隔离；7-8 GHz 仍需按系统链路预算判定</td><td><span class="tag orange">待系统判定</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 1 / 18</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1>版图与关键参数</h1>
+      <div class="subtitle">连接器处大 gap + GND 锥形过渡 + L2 矩形开窗 + L3 完整参考地</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta">
+      <strong>当前版图</strong>
+      Design：SINGLE_END_SMA_CPW_30MM<br>
+      Layout：l40w17<br>
+      单位：mm
+    </div>
+  </header>
+  <main class="main">
+    <div class="section">
+      <div class="section-title">3. 当前推荐版图与仿真模型</div>
+      <div class="figure-row">
+        <div class="figure compact-layout">
+          <img src="assets/se30_l40w17_jlc04161h_7628_1p6mm.svg" alt="current best layout">
+          <div class="caption">图 1a：当前推荐版图。L2 焊盘区域 4.0 × 1.7 mm 矩形开窗，L3 保持完整参考地，L4 保持 GND，连接器 feet 接地点增加 GND via。</div>
+        </div>
+        <div class="figure model">
+          <img src="assets/仿真模型.png" alt="HFSS connector simulation model">
+          <div class="caption">图 1b：HFSS 单连接器 30 mm 仿真模型。连接器 pin 端口为 S1_1_Pin_T1，PCB 远端口为 Port1。</div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title">4. 当前参数表</div>
+      <table class="compact">
+        <thead><tr><th>参数</th><th>数值</th><th>作用</th><th>后续调节方向</th></tr></thead>
+        <tbody>
+          <tr><td>pin_pad_w / pin_pad_l</td><td>0.95 / 2.8 mm</td><td>SMA 中心焊盘尺寸，直接影响 launch 电容。</td><td>先固定，避免破坏焊接口径。</td></tr>
+          <tr><td>taper_l</td><td>3.6 mm</td><td>中心焊盘到 50 Ω 线宽过渡。</td><td>可围绕 3.2-4.2 mm 小步扫描。</td></tr>
+          <tr><td>launch_ground_gap</td><td>1.5 mm</td><td>降低焊盘到 GND 的局部电容。</td><td>后续可扫 1.3 / 1.5 / 1.7 mm。</td></tr>
+          <tr><td>launch_ground_via</td><td>false</td><td>关闭中心焊盘近端强电容 GND via。</td><td>当前保持关闭。</td></tr>
+          <tr><td>L2 cutout</td><td>4.0 × 1.7 mm，offset 0.15 mm</td><td>减小焊盘下方参考地电容。</td><td>长度 4.0 mm 当前占优，可围绕宽度 1.6-1.8 mm 小步扫描。</td></tr>
+          <tr><td>L3 / L4 reference</td><td>L3 不挖，L4 GND</td><td>保持焊接区域下方参考地和回流连续性。</td><td>当前保持 L3 solid，不再引入 L3 开窗。</td></tr>
+          <tr><td>P1 connector foot vias</td><td>4 个</td><td>加强连接器外壳/feet 回流路径。</td><td>后续可扫位置和数量。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="bar">几何检查：PCB layout 替换流程不重建连接器 pin IPort，只重建 PCB 远端 Port1。当前候选通过非 GUI 流程完成替换、仿真和后处理。</div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 2 / 18</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1>HFSS 曲线图 1 / 4</h1>
+      <div class="subtitle">不带连接器参考、当前最优候选 S 参数与 Smith 圆图</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta"><strong>附图</strong>Setup：Setup_0p5to10G<br>Sweep：Sweep_0p5to10G_96pt<br>数据类型：trace CSV / S2P</div>
+  </header>
+  <main class="main">
+    <div class="section">
+      <div class="section-title">5. 独立曲线与阻抗轨迹</div>
+      <div class="figure-row">
+        <div class="figure plot compact">
+          <img src="assets/no_connector_30mm_s_curves.svg" alt="no connector S curves">
+          <div class="caption">图 2a：不带连接器 30 mm CPWG 参考。该曲线作为相对额外插损基线。</div>
+        </div>
+        <div class="figure plot compact">
+          <img src="assets/l40w17_s_curves.svg" alt="current best S curves">
+          <div class="caption">图 2b：当前最优连接器候选。8 GHz 附近 S21 保持平滑趋势，S22 瓶颈在 7.6 GHz。</div>
+        </div>
+      </div>
+      <div class="figure-row">
+        <div class="figure plot compact">
+          <img src="assets/l40w17_smith.svg" alt="current best Smith chart">
+          <div class="caption">图 2c：当前最优候选 Smith 圆图。归一化阻抗约 R=0.70-1.35、X=-0.33-0.32。</div>
+        </div>
+        <div class="note-box">
+          <strong>Smith 圆图读数说明：</strong><br>
+          轨迹较上一轮进一步收敛，但 7-8 GHz 仍是回损瓶颈。下一轮应围绕 L2 开窗边界做小步补偿，并继续复核端口边界。
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title">6. 关键读数</div>
+      <table class="compact">
+        <thead><tr><th>频点/项目</th><th>无连接器参考</th><th>最优候选</th><th>相对基线差值</th><th>阶段判断</th></tr></thead>
+        <tbody>
+          <tr><td>S21 @ 8 GHz</td><td class="ok">-0.891 dB</td><td class="ok">-1.217 dB</td><td class="ok">额外 IL 0.325 dB</td><td><span class="tag green">凸点改善</span></td></tr>
+          <tr><td>S21 @ 10 GHz</td><td class="ok">-1.12 dB</td><td class="ok">-1.53 dB</td><td class="ok">额外 IL 0.409 dB</td><td><span class="tag green">接近基线</span></td></tr>
+          <tr><td>S21 平均值</td><td class="ok">-0.62 dB</td><td class="ok">-0.78 dB</td><td class="ok">平均额外 IL 0.156 dB</td><td><span class="tag green">接近基线</span></td></tr>
+          <tr><td>最差回损</td><td class="ok">-20.49 dB</td><td class="ok">-14.53 dB</td><td class="warn">低于基线 5.96 dB</td><td><span class="tag orange">继续优化</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 3 / 18</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1>HFSS 曲线图 2</h1>
+      <div class="subtitle">不带连接器基线 vs 当前最优候选 S21 叠加对比</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta"><strong>补回对比页</strong>Baseline：no_connector_30mm<br>Best：l40w17<br>纵轴：0 到 -3 dB</div>
+  </header>
+  <main class="main">
+    <div class="section">
+      <div class="section-title">7. 与不带连接器基线对比</div>
+      <div class="figure plot">
+        <img src="assets/SP8T_connector_no_connector_vs_l40w17_s21_overlay_0_to_minus3.svg" alt="baseline vs current best S21 overlay">
+        <div class="caption">图 3：不带连接器 30 mm CPWG 参考与当前最优连接器候选的 S21 叠加。当前最优相对基线最大额外插损 0.409 dB，发生在 10 GHz；平均额外插损 0.156 dB。</div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title">8. 对比结论</div>
+      <table class="compact">
+        <thead><tr><th>项目</th><th>基线</th><th>当前最优</th><th>差值</th><th>判断</th></tr></thead>
+        <tbody>
+          <tr><td>S21 @ 8 GHz</td><td>-0.891 dB</td><td>-1.217 dB</td><td class="ok">0.325 dB</td><td><span class="tag green">8 GHz 凸点改善</span></td></tr>
+          <tr><td>S21 @ 10 GHz</td><td>-1.12 dB</td><td>-1.53 dB</td><td class="ok">0.409 dB</td><td><span class="tag green">接近基线</span></td></tr>
+          <tr><td>S21 平均</td><td>-0.62 dB</td><td>-0.78 dB</td><td class="ok">0.156 dB</td><td><span class="tag green">当前最佳</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 4 / 18</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1>HFSS 曲线图 3</h1>
+      <div class="subtitle">未优化、优化不达标与当前最优候选的全频段对比</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta"><strong>补回对比页</strong>未优化：small_pad_same_anchor_a<br>未达标：small_pad_l2_l3_cutout_l4_gnd_same_anchor_a<br>当前最优：l40w17</div>
+  </header>
+  <main class="main">
+    <div class="section">
+      <div class="section-title">9. 三组候选叠加对比</div>
+      <div class="figure plot tall">
+        <img src="assets/SP8T_connector_unopt_notqualified_l40w17_overlay.svg" alt="unoptimized not-qualified and current best overlay">
+        <div class="caption">图 4：未优化、优化不达标与当前最优候选的 S11/S21/S22 对比。橙色为未优化，紫色为回损未达标候选，绿色为当前最优。</div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title">10. 达标性判断</div>
+      <table class="compact">
+        <thead><tr><th>候选</th><th>最差回损</th><th>最大额外IL</th><th>平均额外IL</th><th>额外IL纹波</th><th>判断</th></tr></thead>
+        <tbody>
+          <tr><td>small_pad_same_anchor_a</td><td class="bad">-3.34 dB</td><td class="bad">3.49 dB</td><td>1.83 dB</td><td>3.43 dB</td><td><span class="tag red">未优化</span></td></tr>
+          <tr><td>small_pad_l2_l3_cutout_l4_gnd_same_anchor_a</td><td class="bad">-9.20 dB</td><td>0.63 dB</td><td>0.37 dB</td><td>0.61 dB</td><td><span class="tag orange">回损未达标</span></td></tr>
+          <tr><td class="b">l40w17</td><td class="ok">-14.53 dB</td><td class="ok">0.409 dB</td><td class="ok">0.156 dB</td><td class="ok">0.406 dB</td><td><span class="tag green">当前最优</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 5 / 18</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1>本轮仿真结果</h1>
+      <div class="subtitle">连接器 gap、GND via、L2 矩形开窗尺寸扫描组合对比</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta"><strong>数据口径</strong>HFSS 3D Layout<br>目标 profile：sma_launch_fullband_0p5_10g_v2<br>输出：统一 score CSV</div>
+  </header>
+  <main class="main">
+    <div class="section">
+      <div class="section-title">11. 候选对比</div>
+      <table class="compact candidate-table">
+        <thead><tr><th>候选</th><th>几何变化</th><th>Cost</th><th>Score</th><th>最差回损</th><th>位置</th><th>最大额外IL</th><th>平均额外IL</th><th>额外IL纹波</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr><td>small_pad_same_anchor_a</td><td>初始小 pad，常规 CPWG，连接器 GND via 保留</td><td class="bad">93.362</td><td>6.638</td><td class="bad">-3.34</td><td>S22 @ 7.4G</td><td class="bad">3.49</td><td>1.83</td><td>3.43</td><td><span class="tag red">TUNE</span></td></tr>
+          <tr><td>no_connector_30mm</td><td>不带 SMA 连接器，30 mm 理想 CPWG 参考</td><td>0.000</td><td>100.000</td><td class="ok">-20.49</td><td>S11 @ 1.4G</td><td class="ok">0.00</td><td class="ok">0.00</td><td class="ok">0.00</td><td><span class="tag blue">参考基线</span></td></tr>
+          <tr><td>small_pad_l2_l3_cutout_l4_gnd_same_anchor_a</td><td>L2/L3 开窗，L4 加 GND，常规 launch GND</td><td class="warn">26.510</td><td>73.490</td><td class="bad">-9.20</td><td>S22 @ 6.9G</td><td>0.63</td><td>0.37</td><td>0.61</td><td><span class="tag orange">边界</span></td></tr>
+          <tr><td>ref1p5_l3solid</td><td>L2 3.8 × 1.6 mm 矩形开窗，L3 solid，L4 GND，connector foot via</td><td class="ok">13.514</td><td class="ok">86.486</td><td class="ok">-12.35</td><td>S22 @ 7.5G</td><td class="ok">0.48</td><td class="ok">0.21</td><td class="ok">0.47</td><td><span class="tag blue">原最佳</span></td></tr>
+          <tr><td>l2l4p0</td><td>L2 4.0 × 1.6 mm 矩形开窗，L3 solid，L4 GND，connector foot via</td><td class="ok">8.959</td><td class="ok">91.041</td><td class="ok">-14.01</td><td>S22 @ 7.4G</td><td class="ok">0.42</td><td class="ok">0.17</td><td class="ok">0.41</td><td><span class="tag blue">长度占优</span></td></tr>
+          <tr><td>l40w15</td><td>L2 4.0 × 1.5 mm 矩形开窗，L3 solid，L4 GND，connector foot via</td><td class="ok">10.401</td><td class="ok">89.599</td><td class="ok">-13.14</td><td>S22 @ 7.3G</td><td class="ok">0.38</td><td class="ok">0.18</td><td class="ok">0.37</td><td><span class="tag blue">插损接近</span></td></tr>
+          <tr><td class="b">l40w17</td><td>L2 4.0 × 1.7 mm 矩形开窗，L3 solid，L4 GND，connector foot via</td><td class="ok">7.717</td><td class="ok">92.283</td><td class="ok">-14.53</td><td>S22 @ 7.6G</td><td class="ok">0.41</td><td class="ok">0.16</td><td class="ok">0.41</td><td><span class="tag green">BEST</span></td></tr>
+        </tbody>
+      </table>
+      <div class="bar">本轮结论：L2 矩形开窗长度从 3.8 mm 增至 4.0 mm 后综合评分继续提升；宽度 1.7 mm 的 l40w17 在最差回损、平均额外插损和总评分上为当前最优组合。</div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 6 / 18</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1>RF_IN 四端口板端仿真</h1>
+      <div class="subtitle">RF-PPA-SP10T-4F4H-ENIG-V1.0_cutout · RF_IN 输入到芯片通路 · Port1->Port2 与 Port3->Port4</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta"><strong>RF_IN 短线</strong>工程：RF-PPA-SP10T-4F4H-ENIG-V1.0.aedt<br>Setup/Sweep：Setup1 / Sweep1<br>口径：板端仿真独立评价，无固定基线</div>
+  </header>
+  <main class="main">
+    <div class="chips">
+      <div class="chip"><span class="k">评价对象</span><span class="v">RF_IN 短线</span></div>
+      <div class="chip"><span class="k">最差隔离</span><span class="v">-44.56 dB</span></div>
+      <div class="chip"><span class="k">最差回损</span><span class="v">-14.30 dB</span></div>
+      <div class="chip"><span class="k">状态</span><span class="v">独立合格</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">12. RF_IN 四端口独立评价</div>
+      <table class="compact">
+        <thead><tr><th>项目</th><th>计算口径</th><th>目标</th><th>本次结果</th><th>判断</th></tr></thead>
+        <tbody>
+          <tr><td>评价口径</td><td>板端 RF_IN 短线四端口</td><td>不使用固定基线</td><td class="ok">按绝对插损、回损、隔离和通路平衡评价</td><td><span class="tag green">独立合格</span></td></tr>
+          <tr><td>线长影响</td><td>输入到芯片短线</td><td>短线损耗应较低</td><td class="ok">当前 RF_IN 线较短，绝对通路读数可接受</td><td><span class="tag green">符合预期</span></td></tr>
+          <tr><td>绝对近端隔离</td><td>连接器侧 Port1/Port3，max(S31,S13)</td><td>记录短线仿真状态</td><td class="ok">-44.56 dB，S13 @ 4.6 GHz</td><td><span class="tag green">裕量充足</span></td></tr>
+          <tr><td>绝对远端隔离</td><td>芯片侧 Port2/Port4，max(S42,S24)</td><td>记录短线仿真状态</td><td class="ok">-49.29 dB，S24 @ 4.5 GHz</td><td><span class="tag green">裕量充足</span></td></tr>
+          <tr><td>绝对对角隔离</td><td>Port1/Port4 与 Port2/Port3 cross path</td><td>记录短线仿真状态</td><td class="ok">-44.81 dB，S14 @ 2.9 GHz</td><td><span class="tag green">裕量充足</span></td></tr>
+          <tr><td>其他绝对读数</td><td>S21/S43/return</td><td>记录短线状态</td><td>S43_min -1.64 dB；worst return -14.30 dB</td><td><span class="tag blue">独立记录</span></td></tr>
+        </tbody>
+      </table>
+      <div class="bar">RF_IN 仿真结论：板端仿真没有固定基线，本页不做相对退化评分。RF_IN 四端口线较短，因此插损较低属于预期；当前按绝对回损、隔离和通路读数判断为合格，后续只与同类 RF_IN 候选或板端仿真结果对比。打板回来后再补实测验证。</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">13. RF_IN 四端口曲线</div>
+      <div class="figure plot">
+        <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_sp8t_sparams.svg" alt="SP8T four-port S-parameters with isolation">
+        <div class="caption">图 5：RF_IN 四端口板端仿真曲线，横轴固定为 0.5-10 GHz。蓝色 S21 为 Port1->Port2，红色 S43 为 Port3->Port4，紫色为四端口最差回损；隔离拆分为近端 Port1/Port3、远端 Port2/Port4 和对角 cross path。</div>
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 7 / 18</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1>RF_OUT 四端口板端仿真</h1>
+      <div class="subtitle">RF-PPA-SP10T-4F4H-ENIG-V1.0_RF_OUT · Port1/Port3 输出，Port2/Port4 芯片</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta"><strong>RF_OUT 长线</strong>工程：RF-PPA-SP10T-4F4H-ENIG-V1.0.aedt<br>Setup/Sweep：Setup1 / Sweep1<br>口径：板端仿真独立评价，无固定基线</div>
+  </header>
+  <main class="main">
+    <div class="chips">
+      <div class="chip"><span class="k">评价对象</span><span class="v">RF_OUT 长线</span></div>
+      <div class="chip"><span class="k">最差隔离</span><span class="v">-44.26 dB</span></div>
+      <div class="chip"><span class="k">最差回损</span><span class="v">-14.37 dB</span></div>
+      <div class="chip"><span class="k">状态</span><span class="v">独立跟踪</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">14. RF_OUT 四端口独立评价</div>
+      <table class="compact">
+        <thead><tr><th>项目</th><th>计算口径</th><th>目标</th><th>本次结果</th><th>判断</th></tr></thead>
+        <tbody>
+          <tr><td>端口映射</td><td>输出与芯片两组通路</td><td>记录仿真口径</td><td>Port1 输出、Port2 芯片；Port3 输出、Port4 芯片</td><td><span class="tag blue">已记录</span></td></tr>
+          <tr><td>评价口径</td><td>板端 RF_OUT 长线四端口</td><td>不使用固定基线</td><td class="warn">按绝对插损、回损、隔离和通路平衡评价</td><td><span class="tag orange">独立跟踪</span></td></tr>
+          <tr><td>线长影响</td><td>输出到芯片长线</td><td>长线损耗天然更大</td><td class="warn">不能直接用 RF_IN 短线扣分；先判断是否有异常不连续</td><td><span class="tag orange">长度主导</span></td></tr>
+          <tr><td>绝对通路</td><td>S21 / S43 0.5-10 GHz</td><td>记录绝对状态</td><td>S21_min -1.95 dB；S43_min -1.04 dB；balance max 0.90 dB</td><td><span class="tag orange">S21 偏弱</span></td></tr>
+          <tr><td>绝对隔离</td><td>near / far / diagonal worst</td><td>记录绝对状态</td><td>近端 -44.26 dB S13 @ 2.7G；远端 -47.29 dB S24 @ 10G；对角 -48.47 dB S41 @ 7.75G</td><td><span class="tag green">绝对值可接受</span></td></tr>
+        </tbody>
+      </table>
+      <div class="bar">RF_OUT 仿真结论：板端仿真没有固定基线，RF_OUT 四端口线更长，因此插损大于 RF_IN 短线属于预期，不能直接作为退化评分。当前绝对隔离仍在 -44 dB 以下；后续重点检查 S21 相对 S43 偏弱是否来自线长、走线结构差异或局部参考地不连续。打板回来后再补实测验证。</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">15. RF_OUT 四端口曲线</div>
+      <div class="figure plot">
+        <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_RF_OUT_20260808_sp8t_sparams.svg" alt="RF_OUT SP8T four-port S-parameters with isolation">
+        <div class="caption">图 6：RF_OUT 四端口板端仿真曲线，横轴固定为 0.5-10 GHz。蓝色 S21 为 Port1 输出到 Port2 芯片，红色 S43 为 Port3 输出到 Port4 芯片；隔离拆分为近端 Port1/Port3、远端 Port2/Port4 和对角 cross path。</div>
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 8 / 18</span></footer>
+</section>
+
+<section class="page page-compact-figures">
+  <header class="page-header">
+    <div>
+      <h1>0201 芯片连接两端口测试</h1>
+      <div class="subtitle">rf-ppa-sp10t-4f4h-enig-v1.01_cutout · 0201 0R 芯片连接版本 · Port1->Port2</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta"><strong>芯片间仿真</strong>工程：RF-PPA-SP10T-4F4H-ENIG-V1.0.aedt<br>Setup/Sweep：Setup1 / Sweep1<br>口径：0201/0402 A/B 对比</div>
+  </header>
+  <main class="main">
+    <div class="chips">
+      <div class="chip"><span class="k">A/B 对象</span><span class="v">0201 0R</span></div>
+      <div class="chip"><span class="k">最差回损</span><span class="v">-24.01 dB</span></div>
+      <div class="chip"><span class="k">S21 @ 8 / 10 GHz</span><span class="v">-1.53 / -1.87 dB</span></div>
+      <div class="chip"><span class="k">基线口径</span><span class="v">无固定基线</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">16. 0201 芯片连接单项读数</div>
+      <table class="compact">
+        <thead><tr><th>项目</th><th>计算口径</th><th>目标/参考</th><th>本次结果</th><th>判断</th></tr></thead>
+        <tbody>
+          <tr><td>端口映射</td><td>S2P existing ports</td><td>芯片到芯片</td><td>Port1 -> Port2</td><td><span class="tag blue">已确认</span></td></tr>
+          <tr><td>对比口径</td><td>0201 与 0402 同类结构 A/B</td><td>不使用 RF_IN baseline</td><td class="warn">线路长度和截取范围变化，不能做基线退化评分</td><td><span class="tag orange">仅相互对比</span></td></tr>
+          <tr><td>S21 高频读数</td><td>S21 @ 8 / 10 GHz</td><td>与 0402 对位</td><td class="ok">-1.53 / -1.87 dB</td><td><span class="tag green">略优于 0402</span></td></tr>
+          <tr><td>S21 全频统计</td><td>0.5-10 GHz</td><td>与 0402 对位</td><td>S21_min -1.87 dB；S21_avg -1.03 dB；ripple 1.72 dB</td><td><span class="tag blue">A/B 读数</span></td></tr>
+          <tr><td>最差回损</td><td>max(S11_dB, S22_dB)</td><td>≤ -10 dB</td><td class="ok">-24.01 dB，S22 @ 1.15 GHz</td><td><span class="tag green">很好</span></td></tr>
+          <tr><td>Smith 范围</td><td>50 Ω 归一化阻抗</td><td>R 接近 1，X 接近 0</td><td class="ok">R=0.88-1.02，X=-0.06-0.08</td><td><span class="tag green">匹配很好</span></td></tr>
+          <tr><td>TDR</td><td>band-limited S11/S22</td><td>接近 50 Ω</td><td class="ok">S11/S22 约 46.56-50.91 Ω</td><td><span class="tag green">阻抗连续</span></td></tr>
+        </tbody>
+      </table>
+      <div class="bar">0201 芯片连接结论：由于芯片间线路长度和截取范围变化，本页不再用 RF_IN 100pF 作为基线判断超限；0201 只与 0402 芯片连接版本 A/B 对位。0201 的端口匹配、Smith 轨迹和 TDR 阻抗连续性更好，高频 S21 也略优于 0402。</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">17. 0201 芯片连接曲线、Smith 与 TDR</div>
+      <div class="figure-row">
+        <div class="figure plot compact">
+          <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_s_curves.svg" alt="0201 cutout S curves">
+          <div class="caption">图 7a：0201 芯片连接 S 参数曲线。回损全频段较好，但 S21 在 8-10 GHz 下降到约 -1.53 / -1.87 dB。</div>
+        </div>
+        <div class="figure plot compact">
+          <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_smith.svg" alt="0201 cutout Smith chart">
+          <div class="caption">图 7b：0201 芯片连接 Smith 圆图。归一化阻抗集中在 50 Ω 附近，说明主要矛盾不再是端口匹配。</div>
+        </div>
+      </div>
+      <div class="figure plot compact">
+        <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_tdr.svg" alt="0201 cutout TDR">
+        <div class="caption">图 7c：0201 芯片连接 band-limited TDR。S11/S22 阻抗范围约 46.56-50.91 Ω，未看到严重局部低阻抗凹陷。</div>
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 9 / 18</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1>0402 芯片连接两端口测试</h1>
+      <div class="subtitle">RF-PPA-SP10T-4F4H-ENIG-V1.0_Core1 · 0402 0R 芯片连接版本 · Port1->Port2</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta"><strong>芯片间对位</strong>工程：RF-PPA-SP10T-4F4H-ENIG-V1.0.aedt<br>Setup/Sweep：Setup1 / Sweep1<br>口径：0201/0402 A/B 对比</div>
+  </header>
+  <main class="main">
+    <div class="chips">
+      <div class="chip"><span class="k">A/B 对象</span><span class="v">0402 0R</span></div>
+      <div class="chip"><span class="k">最差回损</span><span class="v">-19.90 dB</span></div>
+      <div class="chip"><span class="k">S21 @ 8 / 10 GHz</span><span class="v">-1.54 / -1.89 dB</span></div>
+      <div class="chip"><span class="k">基线口径</span><span class="v">无固定基线</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">18. 0201 vs 0402 芯片连接对位比较</div>
+      <table class="compact">
+        <thead><tr><th>指标</th><th>0201 0R</th><th>0402 0R</th><th>结论</th></tr></thead>
+        <tbody>
+          <tr><td>对比口径</td><td>芯片间 0201 版本</td><td>芯片间 0402 版本</td><td><span class="tag blue">只做 A/B</span></td></tr>
+          <tr><td>最差回损</td><td class="ok">-24.01 dB</td><td class="ok">-19.90 dB</td><td><span class="tag green">两者均健康</span></td></tr>
+          <tr><td>S21 @ 8 / 10 GHz</td><td class="ok">-1.53 / -1.87 dB</td><td class="warn">-1.54 / -1.89 dB</td><td><span class="tag orange">0402 略差</span></td></tr>
+          <tr><td>Smith 范围</td><td class="ok">R=0.88-1.02，X=-0.06-0.08</td><td class="warn">R=0.84-1.18，X=-0.09-0.19</td><td><span class="tag orange">0402 轨迹更散</span></td></tr>
+          <tr><td>TDR 阻抗</td><td class="ok">46.56-50.91 Ω</td><td class="warn">43.71-50.62 Ω</td><td><span class="tag orange">0402 低阻更明显</span></td></tr>
+        </tbody>
+      </table>
+      <div class="bar">芯片连接对位结论：0402 版本与 0201 结果接近，均不是严重端口失配；由于两者没有统一外部基线，本页只根据同口径 A/B 的 S21、回损、Smith 和 TDR 判断。0201 在回损、Smith 收敛和 TDR 低阻控制上略优，0402 保留为相互对比参考。</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">19. 0402 芯片连接曲线、Smith 与 TDR</div>
+      <div class="figure-row">
+        <div class="figure plot compact">
+          <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_s_curves.svg" alt="0402 Core1 S curves">
+          <div class="caption">图 8a：0402 芯片连接 S 参数曲线。8-10 GHz 插损与 0201 接近但略低，最差回损为 -19.90 dB。</div>
+        </div>
+        <div class="figure plot compact">
+          <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_smith.svg" alt="0402 Core1 Smith chart">
+          <div class="caption">图 8b：0402 芯片连接 Smith 圆图。轨迹仍围绕 50 Ω，但 R/X 分布比 0201 更宽。</div>
+        </div>
+      </div>
+      <div class="figure plot compact">
+        <img src="assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_tdr.svg" alt="0402 Core1 TDR">
+        <div class="caption">图 8c：0402 芯片连接 band-limited TDR。阻抗范围约 43.71-50.62 Ω，低阻凹陷比 0201 更明显。</div>
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 10 / 18</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <div class="brand">SP10T RF Front-End</div>
+      <h1>SP10T 开关实测总览</h1>
+      <div class="subtitle">HMC7992 SP4T × 3 · VNA 实测 · 0.1-10 GHz</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta">
+      <strong>实测补页</strong>
+      数据：docs/test/SP10T_S2P（1.s2p~10.s2p）<br>
+      仪器：Agilent N5230C · 日期：2026-08-21<br>
+      口径：0.5-6 GHz 整板通路评估 + 7-8 GHz 超额定边界
+    </div>
+  </header>
+  <main class="main">
+    <div class="chips">
+      <div class="chip"><span class="k">器件</span><span class="v">HMC7992 SP4T × 3</span></div>
+      <div class="chip"><span class="k">器件额定 / 实测延伸</span><span class="v">0.1-6 GHz / 至 10 GHz</span></div>
+      <div class="chip"><span class="k">通路无源结构</span><span class="v">FR4 ~100 mm + 两端 SMA</span></div>
+      <div class="chip"><span class="k">状态数</span><span class="v">10（RF1-RF10）</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">20. 实测条件与文件映射</div>
+      <table class="compact">
+        <thead><tr><th>项目</th><th>内容</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>数据来源</td><td>docs/test/SP10T_S2P/1.s2p ~ 10.s2p</td><td>文件编号 = RF 端口号（已确认）</td></tr>
+          <tr><td>测量方式</td><td>VNA 二端口导通态：VNA1 → RFC，VNA2 → RFn</td><td>全二端口校准 S11/S21/S12/S22</td></tr>
+          <tr><td>扫频</td><td>10 MHz - 10 GHz，201 点，50 Ω，dB 格式</td><td>器件额定 6 GHz；0.5-6 GHz 主评估，7-8 GHz 仅记录超额定边界</td></tr>
+          <tr><td>板级</td><td>FR4 走线约 100 mm + VNA 通路两端 SMA/launch + ~100 pF 隔直电容</td><td>整板 S21 已包含两端接头；10 MHz 滚降主要来自隔直电容</td></tr>
+          <tr><td>器件手册</td><td>docs/test/SP10T_S2P/HMC7992.pdf（Rev. A）</td><td>单颗 SP4T：IL 0.6/0.7/1.0 dB typ、隔离 45/37/30 dB typ、导通回损 25/24/17 dB typ</td></tr>
+          <tr><td>FR4 走线参数</td><td>50 Ω 微带、~100 mm（最长）、0.8 mm 板厚假设、1oz 铜、Ra≈2 μm</td><td>走线损耗按介质+导体+粗糙度模型预估（第 13 页）</td></tr>
+          <tr><td>隔离</td><td>78.s2p（RF7↔RF8）、910.s2p（RF9↔RF10）</td><td>两个典型端口对，保守取双向较差值；不是完整隔离矩阵</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">21. 阶段结论</div>
+      <div class="summary">
+        <div class="note-box">
+          <strong>10 个导通状态与 2 个典型隔离端口对数据完整。</strong>
+          导通态按插损与群延时分成三组；RF7↔RF8、RF9↔RF10 的典型隔离在 8 GHz 分别为 37.7/35.7 dB，完整隔离矩阵仍待补测。
+        </div>
+        <div class="warn-box">
+          <strong>8 GHz 超出器件额定上限 2 GHz，不能按手册宣称达标。</strong>
+          实测 8 GHz 两级通路 S21 为 -6.5 ~ -7.7 dB，通路最小回损为 7.6 ~ 9.0 dB；相对 S21 ≥ -3 dB、回损 ≥ 10 dB 的工程参考线存在差距，结合接收用途判定为有限接收，最终需由系统链路预算确认。
+        </div>
+      </div>
+      <div class="bar">
+        核心判断：实测边界已量化，但本报告未获得系统接收灵敏度、增益、噪声系数及允许通路损耗等验收输入，因此不能仅凭 S2P 判定“满足当前产品使用要求”。最终结论需由系统链路预算闭环。
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 11 / 18</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <div class="brand">SP10T RF Front-End</div>
+      <h1>SP10T 组网与开关状态</h1>
+      <div class="subtitle">3×SP4T 树形两级 · 文件编号 = RF 端口</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta">
+      <strong>状态映射</strong>
+      器件：HMC7992（非反射 SP4T，0.1-6 GHz）<br>
+      组网：RFC → SP4T#1 → 二级 SP4T / 直出<br>
+      控制：每颗 SP4T 两线 A/B（2:4 译码器）
+    </div>
+  </header>
+  <main class="main">
+    <div class="section">
+      <div class="section-title">22. 树形两级组网结构</div>
+      <table class="compact">
+        <thead><tr><th>层级</th><th>器件</th><th>作用</th><th>输出</th></tr></thead>
+        <tbody>
+          <tr><td>第一级</td><td>SP4T#1（HMC7992）</td><td>RFC 输入，选择 4 个分支</td><td>2 路接二级 SP4T、2 路直出 RF9/RF10</td></tr>
+          <tr><td>第二级</td><td>SP4T#2（HMC7992）</td><td>分支 A 展开 4 路</td><td>RF1 ~ RF4</td></tr>
+          <tr><td>第二级</td><td>SP4T#3（HMC7992）</td><td>分支 B 展开 4 路</td><td>RF5 ~ RF8</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="section">
+      <div class="section-title">23. HMC7992 控制真值表（每颗 SP4T）</div>
+      <table class="compact">
+        <thead><tr><th>A</th><th>B</th><th>导通路径</th></tr></thead>
+        <tbody>
+          <tr><td>低</td><td>低</td><td>RF1</td></tr>
+          <tr><td>高</td><td>低</td><td>RF2</td></tr>
+          <tr><td>低</td><td>高</td><td>RF3</td></tr>
+          <tr><td>高</td><td>高</td><td>RF4</td></tr>
+        </tbody>
+      </table>
+      <div class="bar">每个 SP10T 状态 = SP4T#1 选分支 + 对应二级 SP4T 选端口；未参与通路的 SP4T 可任意（其 off 端口内部 50 Ω 端接）。SP4T#1 的 A/B 组合与分支（SP4T#2 / SP4T#3 / RF9 / RF10）对应关系为板级信息，按板图确认。</div>
+    </div>
+    <div class="section">
+      <div class="section-title">24. 实测分组（由 S 参数验证）</div>
+      <table class="compact">
+        <thead><tr><th>组</th><th>RF 端口</th><th>通路结构</th><th>S21 @ 0.5 GHz</th><th>S21 @ 1 GHz</th><th>群延时 @ 1 GHz</th><th>总等效 FR4 长度*</th></tr></thead>
+        <tbody>
+          <tr><td>C</td><td>RF9, RF10</td><td>1 级开关（SP4T#1 直出）</td><td class="ok">-0.90 ~ -0.93 dB</td><td class="ok">-1.08 ~ -1.10 dB</td><td>≈ 470 ps</td><td>≈ 75 mm</td></tr>
+          <tr><td>B</td><td>RF2, RF3, RF6, RF7</td><td>2 级开关（短支路）</td><td class="warn">-1.71 ~ -1.72 dB</td><td class="warn">-1.97 ~ -1.98 dB</td><td>≈ 666 ps</td><td>≈ 107 mm</td></tr>
+          <tr><td>A</td><td>RF1, RF4, RF5, RF8</td><td>2 级开关（长支路）</td><td class="warn">-1.77 ~ -1.78 dB</td><td class="warn">-2.09 ~ -2.11 dB</td><td>≈ 770 ps</td><td>≈ 123 mm</td></tr>
+        </tbody>
+      </table>
+      <div class="bar">*总等效 FR4 长度含开关内部延时与连接器（εeff≈3.5），为通路级读数；组间差异可靠：A−C≈48 mm、B−C≈31 mm、A−B≈17 mm。组内 {1,4}、{2,3}、{5,8}、{6,7} 成对，疑似 HMC7992 封装两侧引脚（RF1/RF4 一侧、RF2/RF3 一侧）板上出线长度不同。</div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 12 / 18</span></footer>
+</section>
+
+<section class="page page-dense">
+  <header class="page-header">
+    <div>
+      <div class="brand">SP10T RF Front-End</div>
+      <h1>0.5-6 GHz 通路评估</h1>
+      <div class="subtitle">器件额定频段内 · 整板通路与裸件手册分口径</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta">
+      <strong>第一段评估</strong>
+      器件手册：docs/test/SP10T_S2P/HMC7992.pdf（Rev. A）<br>
+      频段：实测主评估 0.5-6 GHz（器件额定 0.1-6 GHz）<br>
+      口径：通路级（含开关/走线/连接器/隔直），不等同裸件指标
+    </div>
+  </header>
+  <main class="main">
+    <div class="chips">
+      <div class="chip"><span class="k">手册单颗 IL</span><span class="v">0.6 / 0.7 / 1.0 dB typ</span></div>
+      <div class="chip"><span class="k">手册导通回损</span><span class="v">25 / 24 / 17 dB typ</span></div>
+      <div class="chip"><span class="k">手册隔离</span><span class="v">45 / 37 / 30 dB typ</span></div>
+      <div class="chip"><span class="k">6 GHz 通路回损</span><span class="v">RL 10.4 ~ 16.0 dB（S11/S22 最差端）</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">25. HMC7992 手册关键指标</div>
+      <table class="compact">
+        <thead><tr><th>指标</th><th>Test Conditions</th><th>Min</th><th>Typ</th><th>Max</th><th>Unit</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="4">插损</td><td>0.1 GHz to 2.0 GHz</td><td>—</td><td>0.6</td><td>0.9</td><td>dB</td><td rowspan="4">前三行为 Table 1 规格；8 GHz 为 Figure 7/10 图读典型趋势、非保证值。SP10T 有 8/10 路串联 2 颗</td></tr>
+          <tr><td>2.0 GHz to 4.0 GHz</td><td>—</td><td>0.7</td><td>1.1</td><td>dB</td></tr>
+          <tr><td>4.0 GHz to 6.0 GHz</td><td>—</td><td>1.0</td><td>1.5</td><td>dB</td></tr>
+          <tr><td>8.0 GHz（Figure 7/10 图示）</td><td>—</td><td>约 1.3~1.4 @ 25°C<br>全温约 1.1~1.7</td><td>—</td><td>dB</td></tr>
+          <tr><td rowspan="3">隔离<br>RFC→RF1-4</td><td>0.1 GHz to 2.0 GHz</td><td>40</td><td>45</td><td>—</td><td>dB</td><td rowspan="3">最差路径（worst case）</td></tr>
+          <tr><td>2.0 GHz to 4.0 GHz</td><td>32</td><td>37</td><td>—</td><td>dB</td></tr>
+          <tr><td>4.0 GHz to 6.0 GHz</td><td>25</td><td>30</td><td>—</td><td>dB</td></tr>
+          <tr><td rowspan="3">导通态回损</td><td>0.1 GHz to 2.0 GHz</td><td>—</td><td>25</td><td>—</td><td>dB</td><td rowspan="3">手册 Typ，单颗裸件；不是保证下限</td></tr>
+          <tr><td>2.0 GHz to 4.0 GHz</td><td>—</td><td>24</td><td>—</td><td>dB</td></tr>
+          <tr><td>4.0 GHz to 6.0 GHz</td><td>—</td><td>17</td><td>—</td><td>dB</td></tr>
+          <tr><td>功率处理</td><td colspan="5">Features：through 33 dBm、terminated 27 dBm；P1dB 35 dBm typ @ 5 V</td><td>仅适用于手册规定条件与 0.1-6 GHz</td></tr>
+          <tr><td>开关速度</td><td colspan="5">tON/tOFF 150 ns，RF 稳定 320 ns</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">26. 通路插损预算：开关 + 走线 + 两端接头</div>
+      <table class="compact">
+        <thead><tr><th>频点</th><th>开关 IL typ<br>1 颗 / 2 颗</th><th>前文联合仿真<br>单 SMA + 30 mm 线</th><th>两端接头+约100 mm线<br>2×联合 + 40 mm FR4*</th><th>模型合计<br>1 级 / 2 级</th><th>实测组C<br>1 级</th><th>实测组B<br>2 级</th><th>实测组A<br>2 级</th></tr></thead>
+        <tbody>
+          <tr><td>1 GHz</td><td>0.6 / 1.2 dB</td><td>0.198 dB</td><td>0.576 dB</td><td>1.18 / 1.78 dB</td><td>1.09 dB</td><td>1.97 dB</td><td>2.10 dB</td></tr>
+          <tr><td>2 GHz</td><td>0.7 / 1.4 dB</td><td>0.300 dB</td><td>0.932 dB</td><td>1.63 / 2.33 dB</td><td>1.50 dB</td><td>2.62 dB</td><td>2.98 dB</td></tr>
+          <tr><td>4 GHz</td><td>1.0 / 2.0 dB</td><td>0.622 dB</td><td>1.864 dB</td><td>2.86 / 3.86 dB</td><td>2.10 dB</td><td>3.70 dB</td><td>4.14 dB</td></tr>
+          <tr><td>6 GHz</td><td>1.0 / 2.0 dB</td><td>0.818 dB</td><td>2.533 dB</td><td>3.53 / 4.53 dB</td><td>2.84 dB</td><td>4.90 dB</td><td>5.27 dB</td></tr>
+          <tr><td>8 GHz</td><td>25°C：约 1.3~1.4 / 2.6~2.8 dB<br>全温：约 1.1~1.7 / 2.2~3.4 dB</td><td>1.217 dB</td><td>3.593 dB</td><td>25°C：4.89~4.99 / 6.19~6.39 dB<br>全温：4.69~5.29 / 5.79~6.99 dB</td><td>4.30 dB</td><td>6.70 dB</td><td>7.57 dB</td></tr>
+        </tbody>
+      </table>
+      <div class="bar">*前文 l40w17 是“单 SMA/launch + 30 mm 线”联合 HFSS，不是纯接头模型。按 VNA 通路两端各一只、总走线约 100 mm，无源部分估算为 2×联合仿真 + 剩余 40 mm FR4；模型合计再加 1 颗或 2 颗开关。8 GHz 开关 IL 直接读取 HMC7992 第 6 页 Figure 7/10：25°C 单颗约 1.3~1.4 dB，全温/供电曲线范围约 1.1~1.7 dB。图示虽延伸到 8 GHz，但 Table 1 规格只到 6 GHz，因此图示数据用于估算，不是保证值。整板实测 S21 已包含接头和走线，不能重复叠加。</div>
+      <div class="figure-row">
+        <div class="figure plot compact">
+          <img src="assets/sp10t_measured_il_vs_datasheet.svg" alt="measured vs datasheet switch IL">
+          <div class="caption">图 9：实测分组平均 S21 与手册开关 IL 对比；8 GHz 误差棒为 Figure 7/10 图读范围（单颗约 1.1~1.7 dB、两颗约 2.2~3.4 dB）。实测曲线已包含走线、两端接头和隔直电容；6 GHz 后无 Table 1 规格保证。</div>
+        </div>
+        <div class="figure plot compact">
+          <img src="assets/sp10t_measured_fr4_trace_loss.svg" alt="FR4 trace loss estimate">
+          <div class="caption">图 10：FR4 走线模型与前文接头+线联合仿真组合。2×（SMA+30 mm 线）+40 mm FR4 在 6/8 GHz 约为 2.53/3.59 dB；组A 123 mm 仅作延时等效上界参考。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">27. 0.5-6 GHz 结论</div>
+      <div class="bar">0.5-6 GHz 整板通路：10 条通路的最小回损为 10.0 dB；6 GHz 采样点的最差端回损为 10.4~16.0 dB。S21 在直出通路为 -0.9~-2.9 dB、两级通路为 -1.7~-5.3 dB，均已包含两端 SMA/launch 与走线。按前文联合仿真换算，两端接头+约100 mm线在 1/2/4/6/8 GHz 的预算约为 0.58/0.93/1.86/2.53/3.59 dB；再加入 Figure 7/10 的 25°C 图示开关损耗，8 GHz 模型为一颗 4.89~4.99 dB、两颗 6.19~6.39 dB（全温范围见表）。</div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 13 / 18</span></footer>
+</section>
+
+<section class="page page-dense">
+  <header class="page-header">
+    <div>
+      <div class="brand">SP10T RF Front-End</div>
+      <h1>7-8 GHz 评估</h1>
+      <div class="subtitle">超额定频段 · 8 GHz 实测边界</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta">
+      <strong>第二段评估</strong>
+      频段：7-8 GHz（超规格 1-2 GHz）<br>
+      口径：超额定实测边界（手册不覆盖）<br>
+      工程参考线：S21 ≥ -3 dB、回损 ≥ 10 dB
+    </div>
+  </header>
+  <main class="main">
+    <div class="chips">
+      <div class="chip"><span class="k">7 GHz 插损</span><span class="v">直出 -3.4 ~ -3.5 / 两级 -5.3 ~ -6.4 dB</span></div>
+      <div class="chip"><span class="k">8 GHz 插损</span><span class="v">直出 -4.16 / -4.45 / 两级 -6.50 ~ -7.74 dB</span></div>
+      <div class="chip"><span class="k">7-8 GHz 最小回损</span><span class="v">7.55 ~ 8.96 dB</span></div>
+      <div class="chip limited"><span class="k">综合判定</span><span class="v">8 GHz：有限接收</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">28. 各状态 7-8 GHz 插损</div>
+      <table class="compact candidate-table">
+        <thead><tr><th>RF</th><th>组</th><th>S21 @ 6 GHz</th><th>S21 @ 7 GHz</th><th>S21 @ 8 GHz</th><th>6→8 GHz 恶化</th></tr></thead>
+        <tbody>
+          <tr><td>RF1</td><td>A</td><td>-5.30 dB</td><td class="bad">-6.15 dB</td><td class="bad">-7.40 dB</td><td>-2.10 dB</td></tr>
+          <tr><td>RF2</td><td>B</td><td>-4.93 dB</td><td class="bad">-5.37 dB</td><td class="bad">-6.64 dB</td><td>-1.71 dB</td></tr>
+          <tr><td>RF3</td><td>B</td><td>-4.94 dB</td><td class="bad">-5.50 dB</td><td class="bad">-6.75 dB</td><td>-1.81 dB</td></tr>
+          <tr><td>RF4</td><td>A</td><td>-5.28 dB</td><td class="bad">-6.21 dB</td><td class="bad">-7.54 dB</td><td>-2.26 dB</td></tr>
+          <tr><td>RF5</td><td>A</td><td>-5.27 dB</td><td class="bad">-6.44 dB</td><td class="bad">-7.74 dB</td><td>-2.47 dB</td></tr>
+          <tr><td>RF6</td><td>B</td><td>-4.82 dB</td><td class="bad">-5.30 dB</td><td class="bad">-6.50 dB</td><td>-1.67 dB</td></tr>
+          <tr><td>RF7</td><td>B</td><td>-4.89 dB</td><td class="bad">-5.60 dB</td><td class="bad">-6.92 dB</td><td>-2.03 dB</td></tr>
+          <tr><td>RF8</td><td>A</td><td>-5.24 dB</td><td class="bad">-6.37 dB</td><td class="bad">-7.62 dB</td><td>-2.38 dB</td></tr>
+          <tr><td>RF9</td><td>C</td><td>-2.89 dB</td><td class="warn">-3.51 dB</td><td class="warn">-4.45 dB</td><td>-1.56 dB</td></tr>
+          <tr><td>RF10</td><td>C</td><td>-2.80 dB</td><td class="warn">-3.42 dB</td><td class="warn">-4.16 dB</td><td>-1.36 dB</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">29. 回损 6 GHz 以上劣化</div>
+      <table class="compact candidate-table">
+        <thead><tr><th>RF</th><th>组</th><th>S11 @ 6 GHz</th><th>S11 @ 8 GHz</th><th>max(S11,S22)，6-8 GHz</th><th>位置</th></tr></thead>
+        <tbody>
+          <tr><td>RF1</td><td>A</td><td class="ok">-13.51 dB</td><td class="bad">-8.00 dB</td><td class="bad">-7.92 dB</td><td>@ 7.75 GHz</td></tr>
+          <tr><td>RF2</td><td>B</td><td class="ok">-11.77 dB</td><td class="bad">-7.68 dB</td><td class="bad">-8.05 dB</td><td>@ 7.95 GHz</td></tr>
+          <tr><td>RF3</td><td>B</td><td class="ok">-11.81 dB</td><td class="bad">-7.72 dB</td><td class="bad">-8.10 dB</td><td>@ 7.95 GHz</td></tr>
+          <tr><td>RF4</td><td>A</td><td class="ok">-13.94 dB</td><td class="bad">-8.00 dB</td><td class="bad">-7.67 dB</td><td>@ 7.75 GHz</td></tr>
+          <tr><td>RF5</td><td>A</td><td class="ok">-15.08 dB</td><td class="bad">-7.82 dB</td><td class="bad">-7.55 dB</td><td>@ 7.80 GHz</td></tr>
+          <tr><td>RF6</td><td>B</td><td class="ok">-12.83 dB</td><td class="bad">-8.21 dB</td><td class="bad">-8.61 dB</td><td>@ 7.95 GHz</td></tr>
+          <tr><td>RF7</td><td>B</td><td class="ok">-12.81 dB</td><td class="bad">-7.74 dB</td><td class="bad">-8.18 dB</td><td>@ 7.95 GHz</td></tr>
+          <tr><td>RF8</td><td>A</td><td class="ok">-16.01 dB</td><td class="bad">-8.14 dB</td><td class="bad">-7.78 dB</td><td>@ 7.80 GHz</td></tr>
+          <tr><td>RF9</td><td>C</td><td class="ok">-13.98 dB</td><td class="bad">-7.81 dB</td><td class="bad">-8.21 dB</td><td>@ 7.95 GHz</td></tr>
+          <tr><td>RF10</td><td>C</td><td class="ok">-14.02 dB</td><td class="bad">-8.47 dB</td><td class="bad">-8.96 dB</td><td>@ 7.95 GHz</td></tr>
+        </tbody>
+      </table>
+      <div class="figure plot big">
+        <img src="assets/sp10t_measured_rl_6to8_zoom.svg" alt="return loss 5-9 GHz zoom">
+        <div class="caption">图 11：10 个状态的 max(S11,S22) 在 5-9 GHz 放大。6 GHz（额定上限）前均低于 -10 dB 参考线，6 GHz 后迅速劣化；7-8 GHz 峰值为 -7.55~-8.96 dB（等价最小回损 7.55~8.96 dB），位于 7.75-7.95 GHz。</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">30. 7-8 GHz 结论</div>
+      <div class="bar">7-8 GHz 结论：该频段超出 HMC7992 的 6 GHz 额定上限，手册不提供性能保证。8 GHz 实测 S21：直出 -4.2~-4.5 dB、两级 -6.5~-7.7 dB；最小通路回损 7.6~9.0 dB。相对本页工程参考线存在差距，但两个典型端口对仍保持 35.7 dB 以上隔离；按接收用途判定为有限接收，并需结合系统增益、灵敏度和链路预算使用。</div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 14 / 18</span></footer>
+</section>
+
+<section class="page page-dense">
+  <header class="page-header">
+    <div>
+      <div class="brand">SP10T RF Front-End</div>
+      <h1>典型端口隔离度实测</h1>
+      <div class="subtitle">二级 / 一级开关典型端口对 · 双向保守值 · 0.5-10 GHz</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta">
+      <strong>隔离度补测</strong>
+      数据：78.s2p、910.s2p<br>
+      口径：Isolation = -max(S21, S12)<br>
+      范围：两个典型端口对，非完整 10×10 矩阵
+    </div>
+  </header>
+  <main class="main">
+    <div class="chips">
+      <div class="chip"><span class="k">RF7↔RF8 @ 6 GHz</span><span class="v">39.5 dB</span></div>
+      <div class="chip"><span class="k">RF7↔RF8 @ 8 GHz</span><span class="v">37.7 dB</span></div>
+      <div class="chip"><span class="k">RF9↔RF10 @ 6 GHz</span><span class="v">41.4 dB</span></div>
+      <div class="chip"><span class="k">RF9↔RF10 @ 8 GHz</span><span class="v">35.7 dB</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">31. 典型端口对关键读数</div>
+      <table class="compact">
+        <thead><tr><th>端口对</th><th>文件</th><th>0.5 GHz</th><th>1 GHz</th><th>2 GHz</th><th>4 GHz</th><th>6 GHz</th><th>8 GHz</th><th>0.5-6 GHz 最小</th><th>7-8 GHz 最小</th></tr></thead>
+        <tbody>
+          <tr><td>RF7↔RF8</td><td>78.s2p<br>二级开关典型</td><td>61.0 dB</td><td>55.8 dB</td><td>52.1 dB</td><td>45.5 dB</td><td>39.5 dB</td><td>37.7 dB</td><td class="ok">39.3 dB @ 5.90G</td><td class="ok">37.9 dB @ 7.95G</td></tr>
+          <tr><td>RF9↔RF10</td><td>910.s2p<br>一级开关典型</td><td>65.3 dB</td><td>64.7 dB</td><td>61.0 dB</td><td>49.8 dB</td><td>41.4 dB</td><td>35.7 dB</td><td class="ok">41.6 dB @ 5.95G</td><td class="ok">36.0 dB @ 7.95G</td></tr>
+        </tbody>
+      </table>
+      <div class="bar">口径说明：Touchstone 文件同时包含 S21/S12，本页逐频点取两者中数值较高（隔离较差）的一侧，再转换为正值隔离度。78.s2p 为二级开关通路典型值，910.s2p 为一级开关通路典型值；测试连接方式未覆盖其他端口组合。</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">32. 典型隔离曲线与结论</div>
+      <div class="figure plot big">
+        <img src="assets/sp10t_measured_isolation_typical.svg" alt="representative SP10T port-to-port isolation">
+        <div class="caption">图 12：二级开关典型端口对 RF7↔RF8 与一级开关典型端口对 RF9↔RF10 的双向保守隔离度。额定频段 0.5-6 GHz 内最小隔离为 39.3/41.6 dB；7-8 GHz 内最小隔离为 37.9/36.0 dB。高频隔离下降，但两个样本在 8 GHz 仍保持 35.7 dB 以上。</div>
+      </div>
+      <div class="bar">结论：两个典型端口对的隔离表现良好，且 7-8 GHz 未出现突降。该测量是板级端口对隔离，通路拓扑与手册单颗 HMC7992 的 RFC→RF1-4 隔离定义不同，只能作为代表性系统读数；发布完整 SP10T 隔离指标前仍需补齐其余关键端口对、控制状态和温度/功率条件。</div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 15 / 18</span></footer>
+</section>
+
+<section class="page page-compact-figures">
+  <header class="page-header">
+    <div>
+      <div class="brand">SP10T RF Front-End</div>
+      <h1>SP10T 实测 S 参数曲线</h1>
+      <div class="subtitle">10 状态 S21 叠加 · 分组回损与平均</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta">
+      <strong>附图</strong>
+      数据：docs/test/SP10T_S2P<br>
+      频段：0.1-10 GHz（201 点）<br>
+      分组：绿=直出、橙=两级短、红=两级长
+    </div>
+  </header>
+  <main class="main">
+    <div class="section">
+      <div class="section-title">33. 10 状态 S21 叠加</div>
+      <div class="figure plot stack">
+        <img src="assets/sp10t_measured_s21_overlay_all.svg" alt="S21 overlay all states">
+        <div class="caption">图 13：10 个状态 S21 全频段叠加（绿=组C 直出，橙=组B，红=组A）。6 GHz 后插损快速恶化，7-8 GHz 处直出约 -3.4 ~ -4.5 dB、两级通路约 -5.3 ~ -7.7 dB。</div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title">34. 分组代表回损与分组平均 S21</div>
+      <div class="figure plot stack">
+        <img src="assets/sp10t_measured_rl_group_overlay.svg" alt="group representative return loss">
+        <div class="caption">图 14a：三组代表状态（RF9/RF2/RF1）S11（实线）与 S22（虚线）。S11 在 6 GHz 后一致跌破 -10 dB，说明公共端匹配在 6 GHz 以上整体失效。</div>
+      </div>
+      <div class="figure plot stack">
+        <img src="assets/sp10t_measured_group_avg_s21.svg" alt="group average S21">
+        <div class="caption">图 14b：三组平均 S21。组C（直出）在 8 GHz 前约为 -1~-4.3 dB；组A/B 多一级开关且路径更长，低频比组C 多约 0.8-1.0 dB 损耗，差值随频率升高而扩大，8 GHz 处达到 -6.5~-7.6 dB。</div>
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 16 / 18</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <div class="brand">SP10T RF Front-End</div>
+      <h1>SP10T 实测 Smith 圆图</h1>
+      <div class="subtitle">三组代表 S11/S22 · 0.5-8 GHz</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta">
+      <strong>附图</strong>
+      代表状态：RF9（组C 直出）、RF2（组B）、RF1（组A）<br>
+      频段：0.5-8 GHz<br>
+      圆图标注最差回损位置
+    </div>
+  </header>
+  <main class="main">
+    <div class="section">
+      <div class="section-title">35. 三组代表 Smith 圆图</div>
+      <div class="figure-row">
+        <div class="figure plot compact">
+          <img src="assets/sp10t_measured_smith_groupC.svg" alt="group C Smith">
+          <div class="caption">图 15a：RF9（组C，直出）Smith。0.5-8 GHz 轨迹向外扩展，7.95 GHz 处最小回损为 8.21 dB。</div>
+        </div>
+        <div class="figure plot compact">
+          <img src="assets/sp10t_measured_smith_groupB.svg" alt="group B Smith">
+          <div class="caption">图 15b：RF2（组B，两级短支路）Smith。S11 在 7.95 GHz 处对应回损 8.05 dB；S22 在 5.85 GHz 处约 -10.3 dB，接近 10 dB 回损参考线。</div>
+        </div>
+      </div>
+      <div class="figure-row">
+        <div class="figure plot compact">
+          <img src="assets/sp10t_measured_smith_groupA.svg" alt="group A Smith">
+          <div class="caption">图 15c：RF1（组A，两级长支路）Smith。S11 在 7.75 GHz 处对应最小回损 7.92 dB；S22 高频段有凹陷（8 GHz 处 -22.2 dB）。</div>
+        </div>
+        <div class="note-box">
+          <strong>Smith 读数说明：</strong><br>
+          三个代表状态在 6 GHz 前轨迹相对靠近 50 Ω（0.5-6 GHz 全部通路最小回损 10.0 dB）；6 GHz 以上轨迹向外发散，7-8 GHz 处全部越出 10 dB 回损圈。该现象来自整板级联通路，不能仅凭本次测量将劣化全部归因于开关裸件。
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 17 / 18</span></footer>
+</section>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <div class="brand">SP10T RF Front-End</div>
+      <h1>评估结论与建议</h1>
+      <div class="subtitle">分频段判定：0.5-6 GHz / 7-8 GHz</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta">
+      <strong>结论页</strong>
+      器件：HMC7992 SP4T × 3 = SP10T<br>
+      手册：docs/test/SP10T_S2P/HMC7992.pdf（Rev. A）<br>
+      数据：2026-08-21 VNA 实测
+    </div>
+  </header>
+  <main class="main">
+    <div class="section">
+      <div class="section-title">36. 分频段判定表</div>
+      <table class="compact">
+        <thead><tr><th>频段</th><th>评估口径</th><th>插损</th><th>回损</th><th>典型端口对隔离</th><th>判定</th></tr></thead>
+        <tbody>
+          <tr><td>0.5-6 GHz（额定内）</td><td>整板通路边界；手册裸件值仅参照</td><td>直出 -0.9 ~ -2.9 dB；两级 -1.7 ~ -5.3 dB</td><td>最小 RL 10.0 dB；6 GHz 点 10.4~16.0 dB</td><td>RF7-8 ≥39.3 dB；RF9-10 ≥41.6 dB</td><td><span class="tag accepted">6 GHz：合格接收</span></td></tr>
+          <tr><td>7-8 GHz（超额定）</td><td>S21 ≥ -3 dB、RL ≥ 10 dB 工程参考线</td><td>直出 -3.3 ~ -4.5 dB；两级 -5.3 ~ -7.8 dB</td><td>最小 RL 7.6 ~ 9.0 dB</td><td>RF7-8 ≥37.9 dB；RF9-10 ≥36.0 dB</td><td><span class="tag limited">8 GHz：有限接收</span></td></tr>
+        </tbody>
+      </table>
+      <div class="bar">判定：当前 S2P 可用于整板通路边界和一致性分析，不能用于证明开关裸件手册达标。两个典型端口对在 8 GHz 的隔离为 37.7/35.7 dB；插损与回损相对工程参考线存在差距，综合判定为“有限接收”，并须由系统链路预算确认可用裕量。</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">37. 结论与建议</div>
+      <div class="summary">
+        <div class="note-box">
+          <strong>结论：整板通路性能边界已量化；产品级是否通过待链路预算确认。</strong>
+          手册 Table 1 单颗开关 IL 为 0.6/0.7/1.0 dB typ（0.1-2/2-4/4-6 GHz），4-6 GHz Max 为 1.5 dB；Figure 7/10 在 8 GHz 的图读范围约 1.1~1.7 dB/颗（非保证值）。引用前文联合 HFSS，并按 2×（单 SMA/launch + 30 mm 线）+ 40 mm FR4 换算，无源部分在 6/8 GHz 约为 2.53/3.59 dB；8 GHz 含开关模型合计为一颗 4.69~5.29 dB、两颗 5.79~6.99 dB。三组走线长度不同，可信分解仍需 coupon、TRL 或去嵌测量。
+        </div>
+        <div class="warn-box">
+          <strong>改进方向（非必须，供提升裕量）：</strong><br>
+          1) 补齐系统接收灵敏度、增益、噪声系数和允许通路损耗，建立 7-8 GHz 验收门限；<br>
+          2) 已有 RF7↔RF8、RF9↔RF10 两个典型隔离样本；仍需补齐关键端口对、控制状态、温度与功率扫描；<br>
+          3) 使用 thru/coupon/TRL 去嵌，分离连接器、PCB 走线和开关损耗；如裕量不足，评估额定覆盖 8 GHz 的开关并缩短最长支路。
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>SP8T Connector Design Optimization</span><span>Page 18 / 18</span></footer>
+</section>
+</body>
+</html>

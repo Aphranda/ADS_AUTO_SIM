@@ -1,0 +1,231 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1575.428571" viewBox="0 0 1200 1575.428571">
+  <rect x="0" y="0" width="1200" height="1575.428571" fill="#ffffff"/>
+  <text x="16" y="24" font-family="Arial, sans-serif" font-size="16" fill="#111827">se30_l40w17_jlc04161h_7628_1p6mm</text>
+  <text x="16" y="52" font-family="Arial, sans-serif" font-size="14" fill="#111827">L1 ETCH_TOP</text>
+  <rect x="34.285714" y="70.285714" width="1131.428571" height="274.285714" fill="none" stroke="#64748b" stroke-width="1"><title>em_boundary</title></rect>
+  <polygon points="85.714286,139.714286 322.285714,195.018857 322.285714,70.285714 85.714286,70.285714" fill="#2563eb" stroke="none" stroke-width="1" opacity="0.82"><title>p1_launch_top_ground</title></polygon>
+  <polygon points="85.714286,275.142857 85.714286,344.571429 322.285714,344.571429 322.285714,219.838286" fill="#2563eb" stroke="none" stroke-width="1" opacity="0.82"><title>p1_launch_bottom_ground</title></polygon>
+  <rect x="322.285714" y="70.285714" width="792" height="124.733143" fill="#2563eb" stroke="none" stroke-width="1" opacity="0.82"><title>center_line_top_ground</title></rect>
+  <rect x="322.285714" y="219.838286" width="792" height="124.733143" fill="#2563eb" stroke="none" stroke-width="1" opacity="0.82"><title>center_line_bottom_ground</title></rect>
+  <rect x="85.714286" y="191.142857" width="96" height="32.571429" fill="#2563eb" stroke="none" stroke-width="1" opacity="0.82"><title>input_feed</title></rect>
+  <rect x="181.714286" y="192" width="17.142857" height="30.857143" fill="#2563eb" stroke="none" stroke-width="1" opacity="0.82"><title>input_neck</title></rect>
+  <polygon points="198.857143,222.857143 322.285714,212.871429 322.285714,201.985714 198.857143,192" fill="#2563eb" stroke="none" stroke-width="1" opacity="0.82"><title>input_taper</title></polygon>
+  <rect x="322.285714" y="201.985714" width="774.857143" height="10.885714" fill="#2563eb" stroke="none" stroke-width="1" opacity="0.82"><title>through_line</title></rect>
+  <rect x="1097.142857" y="201.985714" width="17.142857" height="10.885714" fill="#2563eb" stroke="none" stroke-width="1" opacity="0.82"><title>output_feed</title></rect>
+  <circle cx="113.142857" cy="105" r="9.428571" fill="#f97316" opacity="0.451"><title>connector_foot_via_p1_top_1 pad</title></circle>
+  <circle cx="113.142857" cy="105" r="5.142857" fill="#f97316" opacity="0.82"><title>connector_foot_via_p1_top_1</title></circle>
+  <circle cx="154.285714" cy="105" r="9.428571" fill="#f97316" opacity="0.451"><title>connector_foot_via_p1_top_2 pad</title></circle>
+  <circle cx="154.285714" cy="105" r="5.142857" fill="#f97316" opacity="0.82"><title>connector_foot_via_p1_top_2</title></circle>
+  <circle cx="113.142857" cy="309.857143" r="9.428571" fill="#f97316" opacity="0.451"><title>connector_foot_via_p1_bottom_1 pad</title></circle>
+  <circle cx="113.142857" cy="309.857143" r="5.142857" fill="#f97316" opacity="0.82"><title>connector_foot_via_p1_bottom_1</title></circle>
+  <circle cx="154.285714" cy="309.857143" r="9.428571" fill="#f97316" opacity="0.451"><title>connector_foot_via_p1_bottom_2 pad</title></circle>
+  <circle cx="154.285714" cy="309.857143" r="5.142857" fill="#f97316" opacity="0.82"><title>connector_foot_via_p1_bottom_2</title></circle>
+  <circle cx="356.571429" cy="185.590286" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_top_1 pad</title></circle>
+  <circle cx="356.571429" cy="185.590286" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_top_1</title></circle>
+  <circle cx="425.142857" cy="185.590286" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_top_2 pad</title></circle>
+  <circle cx="425.142857" cy="185.590286" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_top_2</title></circle>
+  <circle cx="493.714286" cy="185.590286" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_top_3 pad</title></circle>
+  <circle cx="493.714286" cy="185.590286" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_top_3</title></circle>
+  <circle cx="562.285714" cy="185.590286" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_top_4 pad</title></circle>
+  <circle cx="562.285714" cy="185.590286" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_top_4</title></circle>
+  <circle cx="630.857143" cy="185.590286" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_top_5 pad</title></circle>
+  <circle cx="630.857143" cy="185.590286" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_top_5</title></circle>
+  <circle cx="699.428571" cy="185.590286" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_top_6 pad</title></circle>
+  <circle cx="699.428571" cy="185.590286" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_top_6</title></circle>
+  <circle cx="768" cy="185.590286" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_top_7 pad</title></circle>
+  <circle cx="768" cy="185.590286" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_top_7</title></circle>
+  <circle cx="836.571429" cy="185.590286" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_top_8 pad</title></circle>
+  <circle cx="836.571429" cy="185.590286" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_top_8</title></circle>
+  <circle cx="905.142857" cy="185.590286" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_top_9 pad</title></circle>
+  <circle cx="905.142857" cy="185.590286" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_top_9</title></circle>
+  <circle cx="973.714286" cy="185.590286" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_top_10 pad</title></circle>
+  <circle cx="973.714286" cy="185.590286" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_top_10</title></circle>
+  <circle cx="1042.285714" cy="185.590286" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_top_11 pad</title></circle>
+  <circle cx="1042.285714" cy="185.590286" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_top_11</title></circle>
+  <circle cx="356.571429" cy="229.266857" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_bottom_1 pad</title></circle>
+  <circle cx="356.571429" cy="229.266857" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_bottom_1</title></circle>
+  <circle cx="425.142857" cy="229.266857" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_bottom_2 pad</title></circle>
+  <circle cx="425.142857" cy="229.266857" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_bottom_2</title></circle>
+  <circle cx="493.714286" cy="229.266857" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_bottom_3 pad</title></circle>
+  <circle cx="493.714286" cy="229.266857" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_bottom_3</title></circle>
+  <circle cx="562.285714" cy="229.266857" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_bottom_4 pad</title></circle>
+  <circle cx="562.285714" cy="229.266857" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_bottom_4</title></circle>
+  <circle cx="630.857143" cy="229.266857" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_bottom_5 pad</title></circle>
+  <circle cx="630.857143" cy="229.266857" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_bottom_5</title></circle>
+  <circle cx="699.428571" cy="229.266857" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_bottom_6 pad</title></circle>
+  <circle cx="699.428571" cy="229.266857" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_bottom_6</title></circle>
+  <circle cx="768" cy="229.266857" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_bottom_7 pad</title></circle>
+  <circle cx="768" cy="229.266857" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_bottom_7</title></circle>
+  <circle cx="836.571429" cy="229.266857" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_bottom_8 pad</title></circle>
+  <circle cx="836.571429" cy="229.266857" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_bottom_8</title></circle>
+  <circle cx="905.142857" cy="229.266857" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_bottom_9 pad</title></circle>
+  <circle cx="905.142857" cy="229.266857" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_bottom_9</title></circle>
+  <circle cx="973.714286" cy="229.266857" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_bottom_10 pad</title></circle>
+  <circle cx="973.714286" cy="229.266857" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_bottom_10</title></circle>
+  <circle cx="1042.285714" cy="229.266857" r="9.428571" fill="#f97316" opacity="0.451"><title>gcpw_line_via_bottom_11 pad</title></circle>
+  <circle cx="1042.285714" cy="229.266857" r="5.142857" fill="#f97316" opacity="0.82"><title>gcpw_line_via_bottom_11</title></circle>
+  <text x="16" y="450.857143" font-family="Arial, sans-serif" font-size="14" fill="#111827">L2 ETCH_INNER1</text>
+  <rect x="85.714286" y="469.142857" width="1080" height="274.285714" fill="#16a34a" stroke="none" stroke-width="1" opacity="0.22"><title>hfss_ground_plane</title></rect>
+  <circle cx="113.142857" cy="503.857143" r="9.428571" fill="#f97316" opacity="0.44"><title>connector_foot_via_p1_top_1 pad</title></circle>
+  <circle cx="113.142857" cy="503.857143" r="5.142857" fill="#f97316" opacity="0.8"><title>connector_foot_via_p1_top_1</title></circle>
+  <circle cx="154.285714" cy="503.857143" r="9.428571" fill="#f97316" opacity="0.44"><title>connector_foot_via_p1_top_2 pad</title></circle>
+  <circle cx="154.285714" cy="503.857143" r="5.142857" fill="#f97316" opacity="0.8"><title>connector_foot_via_p1_top_2</title></circle>
+  <circle cx="113.142857" cy="708.714286" r="9.428571" fill="#f97316" opacity="0.44"><title>connector_foot_via_p1_bottom_1 pad</title></circle>
+  <circle cx="113.142857" cy="708.714286" r="5.142857" fill="#f97316" opacity="0.8"><title>connector_foot_via_p1_bottom_1</title></circle>
+  <circle cx="154.285714" cy="708.714286" r="9.428571" fill="#f97316" opacity="0.44"><title>connector_foot_via_p1_bottom_2 pad</title></circle>
+  <circle cx="154.285714" cy="708.714286" r="5.142857" fill="#f97316" opacity="0.8"><title>connector_foot_via_p1_bottom_2</title></circle>
+  <circle cx="356.571429" cy="584.447429" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_top_1 pad</title></circle>
+  <circle cx="356.571429" cy="584.447429" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_top_1</title></circle>
+  <circle cx="425.142857" cy="584.447429" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_top_2 pad</title></circle>
+  <circle cx="425.142857" cy="584.447429" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_top_2</title></circle>
+  <circle cx="493.714286" cy="584.447429" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_top_3 pad</title></circle>
+  <circle cx="493.714286" cy="584.447429" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_top_3</title></circle>
+  <circle cx="562.285714" cy="584.447429" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_top_4 pad</title></circle>
+  <circle cx="562.285714" cy="584.447429" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_top_4</title></circle>
+  <circle cx="630.857143" cy="584.447429" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_top_5 pad</title></circle>
+  <circle cx="630.857143" cy="584.447429" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_top_5</title></circle>
+  <circle cx="699.428571" cy="584.447429" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_top_6 pad</title></circle>
+  <circle cx="699.428571" cy="584.447429" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_top_6</title></circle>
+  <circle cx="768" cy="584.447429" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_top_7 pad</title></circle>
+  <circle cx="768" cy="584.447429" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_top_7</title></circle>
+  <circle cx="836.571429" cy="584.447429" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_top_8 pad</title></circle>
+  <circle cx="836.571429" cy="584.447429" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_top_8</title></circle>
+  <circle cx="905.142857" cy="584.447429" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_top_9 pad</title></circle>
+  <circle cx="905.142857" cy="584.447429" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_top_9</title></circle>
+  <circle cx="973.714286" cy="584.447429" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_top_10 pad</title></circle>
+  <circle cx="973.714286" cy="584.447429" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_top_10</title></circle>
+  <circle cx="1042.285714" cy="584.447429" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_top_11 pad</title></circle>
+  <circle cx="1042.285714" cy="584.447429" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_top_11</title></circle>
+  <circle cx="356.571429" cy="628.124" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_bottom_1 pad</title></circle>
+  <circle cx="356.571429" cy="628.124" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_bottom_1</title></circle>
+  <circle cx="425.142857" cy="628.124" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_bottom_2 pad</title></circle>
+  <circle cx="425.142857" cy="628.124" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_bottom_2</title></circle>
+  <circle cx="493.714286" cy="628.124" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_bottom_3 pad</title></circle>
+  <circle cx="493.714286" cy="628.124" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_bottom_3</title></circle>
+  <circle cx="562.285714" cy="628.124" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_bottom_4 pad</title></circle>
+  <circle cx="562.285714" cy="628.124" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_bottom_4</title></circle>
+  <circle cx="630.857143" cy="628.124" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_bottom_5 pad</title></circle>
+  <circle cx="630.857143" cy="628.124" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_bottom_5</title></circle>
+  <circle cx="699.428571" cy="628.124" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_bottom_6 pad</title></circle>
+  <circle cx="699.428571" cy="628.124" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_bottom_6</title></circle>
+  <circle cx="768" cy="628.124" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_bottom_7 pad</title></circle>
+  <circle cx="768" cy="628.124" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_bottom_7</title></circle>
+  <circle cx="836.571429" cy="628.124" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_bottom_8 pad</title></circle>
+  <circle cx="836.571429" cy="628.124" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_bottom_8</title></circle>
+  <circle cx="905.142857" cy="628.124" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_bottom_9 pad</title></circle>
+  <circle cx="905.142857" cy="628.124" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_bottom_9</title></circle>
+  <circle cx="973.714286" cy="628.124" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_bottom_10 pad</title></circle>
+  <circle cx="973.714286" cy="628.124" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_bottom_10</title></circle>
+  <circle cx="1042.285714" cy="628.124" r="9.428571" fill="#f97316" opacity="0.44"><title>gcpw_line_via_bottom_11 pad</title></circle>
+  <circle cx="1042.285714" cy="628.124" r="5.142857" fill="#f97316" opacity="0.8"><title>gcpw_line_via_bottom_11</title></circle>
+  <rect x="90.857143" y="577.142857" width="137.142857" height="58.285714" fill="#ffffff" stroke="none" stroke-width="1" opacity="1"><title>p1_l2_cutout_rect</title></rect>
+  <rect x="90.857143" y="577.142857" width="137.142857" height="58.285714" fill="none" stroke="#dc2626" stroke-width="1" opacity="1"><title>p1_l2_cutout_rect</title></rect>
+  <text x="16" y="849.714286" font-family="Arial, sans-serif" font-size="14" fill="#111827">L3 ETCH_INNER2</text>
+  <rect x="85.714286" y="868" width="1080" height="274.285714" fill="#16a34a" stroke="none" stroke-width="1" opacity="0.26"><title>l3_ground_plane</title></rect>
+  <circle cx="113.142857" cy="902.714286" r="9.428571" fill="#f97316" opacity="0.4125"><title>connector_foot_via_p1_top_1 pad</title></circle>
+  <circle cx="113.142857" cy="902.714286" r="5.142857" fill="#f97316" opacity="0.75"><title>connector_foot_via_p1_top_1</title></circle>
+  <circle cx="154.285714" cy="902.714286" r="9.428571" fill="#f97316" opacity="0.4125"><title>connector_foot_via_p1_top_2 pad</title></circle>
+  <circle cx="154.285714" cy="902.714286" r="5.142857" fill="#f97316" opacity="0.75"><title>connector_foot_via_p1_top_2</title></circle>
+  <circle cx="113.142857" cy="1107.571429" r="9.428571" fill="#f97316" opacity="0.4125"><title>connector_foot_via_p1_bottom_1 pad</title></circle>
+  <circle cx="113.142857" cy="1107.571429" r="5.142857" fill="#f97316" opacity="0.75"><title>connector_foot_via_p1_bottom_1</title></circle>
+  <circle cx="154.285714" cy="1107.571429" r="9.428571" fill="#f97316" opacity="0.4125"><title>connector_foot_via_p1_bottom_2 pad</title></circle>
+  <circle cx="154.285714" cy="1107.571429" r="5.142857" fill="#f97316" opacity="0.75"><title>connector_foot_via_p1_bottom_2</title></circle>
+  <circle cx="356.571429" cy="983.304571" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_1 pad</title></circle>
+  <circle cx="356.571429" cy="983.304571" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_1</title></circle>
+  <circle cx="425.142857" cy="983.304571" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_2 pad</title></circle>
+  <circle cx="425.142857" cy="983.304571" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_2</title></circle>
+  <circle cx="493.714286" cy="983.304571" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_3 pad</title></circle>
+  <circle cx="493.714286" cy="983.304571" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_3</title></circle>
+  <circle cx="562.285714" cy="983.304571" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_4 pad</title></circle>
+  <circle cx="562.285714" cy="983.304571" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_4</title></circle>
+  <circle cx="630.857143" cy="983.304571" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_5 pad</title></circle>
+  <circle cx="630.857143" cy="983.304571" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_5</title></circle>
+  <circle cx="699.428571" cy="983.304571" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_6 pad</title></circle>
+  <circle cx="699.428571" cy="983.304571" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_6</title></circle>
+  <circle cx="768" cy="983.304571" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_7 pad</title></circle>
+  <circle cx="768" cy="983.304571" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_7</title></circle>
+  <circle cx="836.571429" cy="983.304571" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_8 pad</title></circle>
+  <circle cx="836.571429" cy="983.304571" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_8</title></circle>
+  <circle cx="905.142857" cy="983.304571" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_9 pad</title></circle>
+  <circle cx="905.142857" cy="983.304571" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_9</title></circle>
+  <circle cx="973.714286" cy="983.304571" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_10 pad</title></circle>
+  <circle cx="973.714286" cy="983.304571" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_10</title></circle>
+  <circle cx="1042.285714" cy="983.304571" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_11 pad</title></circle>
+  <circle cx="1042.285714" cy="983.304571" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_11</title></circle>
+  <circle cx="356.571429" cy="1026.981143" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_1 pad</title></circle>
+  <circle cx="356.571429" cy="1026.981143" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_1</title></circle>
+  <circle cx="425.142857" cy="1026.981143" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_2 pad</title></circle>
+  <circle cx="425.142857" cy="1026.981143" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_2</title></circle>
+  <circle cx="493.714286" cy="1026.981143" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_3 pad</title></circle>
+  <circle cx="493.714286" cy="1026.981143" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_3</title></circle>
+  <circle cx="562.285714" cy="1026.981143" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_4 pad</title></circle>
+  <circle cx="562.285714" cy="1026.981143" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_4</title></circle>
+  <circle cx="630.857143" cy="1026.981143" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_5 pad</title></circle>
+  <circle cx="630.857143" cy="1026.981143" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_5</title></circle>
+  <circle cx="699.428571" cy="1026.981143" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_6 pad</title></circle>
+  <circle cx="699.428571" cy="1026.981143" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_6</title></circle>
+  <circle cx="768" cy="1026.981143" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_7 pad</title></circle>
+  <circle cx="768" cy="1026.981143" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_7</title></circle>
+  <circle cx="836.571429" cy="1026.981143" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_8 pad</title></circle>
+  <circle cx="836.571429" cy="1026.981143" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_8</title></circle>
+  <circle cx="905.142857" cy="1026.981143" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_9 pad</title></circle>
+  <circle cx="905.142857" cy="1026.981143" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_9</title></circle>
+  <circle cx="973.714286" cy="1026.981143" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_10 pad</title></circle>
+  <circle cx="973.714286" cy="1026.981143" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_10</title></circle>
+  <circle cx="1042.285714" cy="1026.981143" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_11 pad</title></circle>
+  <circle cx="1042.285714" cy="1026.981143" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_11</title></circle>
+  <text x="16" y="1248.571429" font-family="Arial, sans-serif" font-size="14" fill="#111827">L4 ETCH_BOTTOM</text>
+  <rect x="85.714286" y="1266.857143" width="1080" height="274.285714" fill="#16a34a" stroke="none" stroke-width="1" opacity="0.26"><title>l4_ground_plane</title></rect>
+  <circle cx="113.142857" cy="1301.571429" r="9.428571" fill="#f97316" opacity="0.4125"><title>connector_foot_via_p1_top_1 pad</title></circle>
+  <circle cx="113.142857" cy="1301.571429" r="5.142857" fill="#f97316" opacity="0.75"><title>connector_foot_via_p1_top_1</title></circle>
+  <circle cx="154.285714" cy="1301.571429" r="9.428571" fill="#f97316" opacity="0.4125"><title>connector_foot_via_p1_top_2 pad</title></circle>
+  <circle cx="154.285714" cy="1301.571429" r="5.142857" fill="#f97316" opacity="0.75"><title>connector_foot_via_p1_top_2</title></circle>
+  <circle cx="113.142857" cy="1506.428571" r="9.428571" fill="#f97316" opacity="0.4125"><title>connector_foot_via_p1_bottom_1 pad</title></circle>
+  <circle cx="113.142857" cy="1506.428571" r="5.142857" fill="#f97316" opacity="0.75"><title>connector_foot_via_p1_bottom_1</title></circle>
+  <circle cx="154.285714" cy="1506.428571" r="9.428571" fill="#f97316" opacity="0.4125"><title>connector_foot_via_p1_bottom_2 pad</title></circle>
+  <circle cx="154.285714" cy="1506.428571" r="5.142857" fill="#f97316" opacity="0.75"><title>connector_foot_via_p1_bottom_2</title></circle>
+  <circle cx="356.571429" cy="1382.161714" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_1 pad</title></circle>
+  <circle cx="356.571429" cy="1382.161714" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_1</title></circle>
+  <circle cx="425.142857" cy="1382.161714" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_2 pad</title></circle>
+  <circle cx="425.142857" cy="1382.161714" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_2</title></circle>
+  <circle cx="493.714286" cy="1382.161714" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_3 pad</title></circle>
+  <circle cx="493.714286" cy="1382.161714" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_3</title></circle>
+  <circle cx="562.285714" cy="1382.161714" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_4 pad</title></circle>
+  <circle cx="562.285714" cy="1382.161714" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_4</title></circle>
+  <circle cx="630.857143" cy="1382.161714" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_5 pad</title></circle>
+  <circle cx="630.857143" cy="1382.161714" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_5</title></circle>
+  <circle cx="699.428571" cy="1382.161714" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_6 pad</title></circle>
+  <circle cx="699.428571" cy="1382.161714" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_6</title></circle>
+  <circle cx="768" cy="1382.161714" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_7 pad</title></circle>
+  <circle cx="768" cy="1382.161714" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_7</title></circle>
+  <circle cx="836.571429" cy="1382.161714" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_8 pad</title></circle>
+  <circle cx="836.571429" cy="1382.161714" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_8</title></circle>
+  <circle cx="905.142857" cy="1382.161714" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_9 pad</title></circle>
+  <circle cx="905.142857" cy="1382.161714" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_9</title></circle>
+  <circle cx="973.714286" cy="1382.161714" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_10 pad</title></circle>
+  <circle cx="973.714286" cy="1382.161714" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_10</title></circle>
+  <circle cx="1042.285714" cy="1382.161714" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_top_11 pad</title></circle>
+  <circle cx="1042.285714" cy="1382.161714" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_top_11</title></circle>
+  <circle cx="356.571429" cy="1425.838286" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_1 pad</title></circle>
+  <circle cx="356.571429" cy="1425.838286" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_1</title></circle>
+  <circle cx="425.142857" cy="1425.838286" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_2 pad</title></circle>
+  <circle cx="425.142857" cy="1425.838286" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_2</title></circle>
+  <circle cx="493.714286" cy="1425.838286" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_3 pad</title></circle>
+  <circle cx="493.714286" cy="1425.838286" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_3</title></circle>
+  <circle cx="562.285714" cy="1425.838286" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_4 pad</title></circle>
+  <circle cx="562.285714" cy="1425.838286" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_4</title></circle>
+  <circle cx="630.857143" cy="1425.838286" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_5 pad</title></circle>
+  <circle cx="630.857143" cy="1425.838286" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_5</title></circle>
+  <circle cx="699.428571" cy="1425.838286" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_6 pad</title></circle>
+  <circle cx="699.428571" cy="1425.838286" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_6</title></circle>
+  <circle cx="768" cy="1425.838286" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_7 pad</title></circle>
+  <circle cx="768" cy="1425.838286" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_7</title></circle>
+  <circle cx="836.571429" cy="1425.838286" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_8 pad</title></circle>
+  <circle cx="836.571429" cy="1425.838286" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_8</title></circle>
+  <circle cx="905.142857" cy="1425.838286" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_9 pad</title></circle>
+  <circle cx="905.142857" cy="1425.838286" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_9</title></circle>
+  <circle cx="973.714286" cy="1425.838286" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_10 pad</title></circle>
+  <circle cx="973.714286" cy="1425.838286" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_10</title></circle>
+  <circle cx="1042.285714" cy="1425.838286" r="9.428571" fill="#f97316" opacity="0.4125"><title>gcpw_line_via_bottom_11 pad</title></circle>
+  <circle cx="1042.285714" cy="1425.838286" r="5.142857" fill="#f97316" opacity="0.75"><title>gcpw_line_via_bottom_11</title></circle>
+</svg>
