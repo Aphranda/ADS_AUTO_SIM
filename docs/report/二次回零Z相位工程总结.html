@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>二次回零 + Z 相位工程总结</title>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  body { font-family:"Microsoft YaHei","SimSun","DengXian",Arial,sans-serif; background:#d7d9df; color:#1f2328; padding:18px; line-height:1.42; }
+  @page { size:A4 portrait; margin:0; }
+  .page { width:210mm; height:297mm; margin:0 auto 18px; background:#fff; box-shadow:0 3px 14px rgba(0,0,0,.16); display:flex; flex-direction:column; overflow:hidden; break-after:page; page-break-after:always; }
+  .page:last-child { break-after:auto; page-break-after:auto; }
+  .page-header { padding:10mm 16mm 5mm; border-bottom:5px solid #d9e1ef; display:flex; justify-content:space-between; align-items:flex-start; gap:18px; }
+  .page-header .logo { height:28px; width:auto; display:block; flex:0 0 auto; margin-left:auto; }
+  .doc-meta { text-align:right; font-size:10.5px; color:#687381; white-space:nowrap; }
+  .doc-meta strong { display:block; color:#1f3864; font-size:13px; margin-bottom:3px; }
+  .main { flex:1; padding:6mm 16mm 6mm; }
+  .page-footer { padding:3mm 16mm 4mm; border-top:5px solid #d9e1ef; color:#8b949e; font-size:9px; display:flex; justify-content:space-between; }
+  h1 { font-size:23px; color:#172033; letter-spacing:0; margin-bottom:3px; }
+  .subtitle { color:#5b6573; font-size:12px; }
+  .brand { color:#1f3864; font-size:15px; font-weight:800; letter-spacing:0; margin-bottom:2px; }
+  .chips { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:0 0 9px; }
+  .chip { border:1px solid #d9e1ef; border-left:4px solid #1f3864; padding:6px 8px; min-height:44px; background:#f8fafc; }
+  .chip:nth-child(2) { border-left-color:#2e7d32; }
+  .chip:nth-child(3) { border-left-color:#d97706; }
+  .chip:nth-child(4) { border-left-color:#6a1b9a; }
+  .chip .k { display:block; color:#687381; font-size:9.5px; margin-bottom:1px; }
+  .chip .v { display:block; color:#111827; font-size:12px; font-weight:700; }
+  .section { margin-top:8px; }
+  .section-title { font-size:14px; color:#1f3864; font-weight:700; padding-bottom:4px; border-bottom:2px solid #1f3864; margin-bottom:6px; }
+  table { width:100%; border-collapse:collapse; font-size:10.1px; border:1.5px solid #2f3542; }
+  th { background:#1f3864; color:#fff; text-align:left; padding:5px 7px; border:1px solid #182b4c; font-weight:700; }
+  td { padding:5px 7px; border:1px solid #c8d1dc; vertical-align:top; }
+  tbody tr:nth-child(even) td { background:#f5f8fc; }
+  .compact td { padding-top:4px; padding-bottom:4px; }
+  .b { font-weight:700; }
+  .ok { color:#0f7b3f; font-weight:700; }
+  .warn { color:#b45309; font-weight:700; }
+  .bad { color:#b42318; font-weight:700; }
+  .tag { display:inline-block; padding:1px 6px; border-radius:4px; font-size:9px; font-weight:700; color:#fff; white-space:nowrap; }
+  .green { background:#2e7d32; }
+  .blue { background:#1f3864; }
+  .orange { background:#d97706; }
+  .red { background:#b42318; }
+  .note-box, .warn-box, .flow-box { border:1px solid #d9e1ef; padding:8px 9px; background:#f8fafc; font-size:10.5px; }
+  .note-box { border-left:4px solid #1f3864; }
+  .warn-box { border-left:4px solid #d97706; background:#fffbeb; }
+  .flow-box { border-left:4px solid #6a1b9a; }
+  .bar { margin-top:8px; padding:7px 9px; color:#172033; background:#eef4ff; border-left:4px solid #1f3864; font-size:10.6px; }
+  .figure { border:1px solid #d9e1ef; background:#fff; padding:6px; text-align:center; }
+  .figure img { max-width:100%; max-height:62mm; object-fit:contain; }
+  .caption { color:#687381; font-size:9px; margin-top:3px; text-align:left; }
+  .page-dense { line-height:1.32; }
+  .page-dense .chips { gap:5px; margin-bottom:6px; }
+  .page-dense .chip { min-height:32px; padding:4px 6px; }
+  .page-dense .chip .k { font-size:8.5px; margin-bottom:0; }
+  .page-dense .chip .v { font-size:10.5px; }
+  .page-dense .section { margin-top:5px; }
+  .page-dense .section-title { font-size:12px; padding-bottom:3px; margin-bottom:4px; }
+  .page-dense table { font-size:8.6px; }
+  .page-dense th, .page-dense td { padding:3px 5px; }
+  .page-dense .bar { margin-top:5px; padding:5px 7px; font-size:9.2px; }
+  .page-dense .figure { padding:4px; }
+  .page-dense .figure img { max-height:64mm; }
+  .page-dense .caption { font-size:8.2px; margin-top:2px; }
+  .page-dense .note-box, .page-dense .warn-box, .page-dense .flow-box { padding:6px 7px; font-size:9.2px; }
+  @media print {
+    html, body { width:210mm; min-width:210mm; max-width:210mm; background:#fff; padding:0; overflow:visible; }
+    .page { width:210mm !important; height:297mm !important; margin:0; box-shadow:none; break-after:page; page-break-after:always; }
+    .page:last-child { break-after:auto; page-break-after:auto; }
+  }
+</style>
+</head>
+<body>
+
+<section class="page page-dense">
+  <header class="page-header">
+    <div>
+      <div class="brand">Motion Control · Servo Homing</div>
+      <h1>二次回零 + Z 相位工程总结</h1>
+      <div class="subtitle">双次搜索精确定位 · 关键点与风险对策</div>
+    </div>
+    <img class="logo" src="assets/gts-logo-cropped.svg" alt="GTS">
+    <div class="doc-meta">
+      <strong>工程总结</strong>
+      日期：2026-08-21<br>
+      对象：伺服/步进电机回零<br>
+      口径：二次回零 + Z 相精定位
+    </div>
+  </header>
+  <main class="main">
+    <div class="chips">
+      <div class="chip"><span class="k">定位精度</span><span class="v">编码器级（Z 相）</span></div>
+      <div class="chip"><span class="k">重复性</span><span class="v">高（同圈 Z 相）</span></div>
+      <div class="chip"><span class="k">主要风险</span><span class="v">ORG/Z 重合、减速器</span></div>
+      <div class="chip"><span class="k">核心约束</span><span class="v">只认 ORG 后第一个 Z 相</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">1. 核心流程</div>
+      <div class="flow-box">
+        <strong>① 粗定位：</strong>电机快速进入 ORG（原点开关），确认大致位置。<strong>② 精定位：</strong>退出 ORG，低速重入，捕获 ORG 后<strong class="ok">第一个 Z 相脉冲</strong>即停并锁定为原点。<strong>③ 方向固定：</strong>始终同方向进入 ORG，保证 Z 相属于<strong>同一圈</strong>。
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">2. 回零方式示意</div>
+      <div class="figure">
+        <img src="assets/回零方式.png" alt="回零方式示意">
+        <div class="caption">图 1：回零方式示意（ORG 原点开关粗定位 + Z 相脉冲精定位，低速二次进入锁定同圈 Z 相）。</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">3. 风险项</div>
+      <table class="compact">
+        <thead><tr><th>风险</th><th>机理 / 场景</th><th>等级</th></tr></thead>
+        <tbody>
+          <tr><td>ORG 与 Z 相重合</td><td>进入 ORG 时可能直接触发 Z 相，容差极小</td><td><span class="tag red">高</span></td></tr>
+          <tr><td>减速器效应</td><td>减速比越大，输出轴对应 Z 相角度范围越小，容差进一步缩小</td><td><span class="tag red">高</span></td></tr>
+          <tr><td>信号抖动 / 延迟</td><td>光电开关或编码器边缘抖动，可能导致误判</td><td><span class="tag orange">中</span></td></tr>
+          <tr><td>退出不足</td><td>二次退出 ORG 距离不够，重入时仍处同一 Z 相边缘</td><td><span class="tag orange">中</span></td></tr>
+          <tr><td>软件逻辑不严谨</td><td>未明确"只认 ORG 后第一个 Z 相"，可能重复识别</td><td><span class="tag orange">中</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">4. 工程对策</div>
+      <table class="compact">
+        <thead><tr><th>对策</th><th>实施要点</th><th>针对风险</th></tr></thead>
+        <tbody>
+          <tr><td class="b">机械错位设计</td><td>ORG 与 Z 相避免重合，错开一定角度</td><td>ORG/Z 重合</td></tr>
+          <tr><td class="b">低速进入</td><td>二次回零保持低速，避免惯性跨圈</td><td>减速器效应、跨圈</td></tr>
+          <tr><td class="b">信号滤波</td><td>对 ORG 和 Z 相信号做去抖动处理</td><td>信号抖动 / 延迟</td></tr>
+          <tr><td class="b">软件约束</td><td>逻辑明确"只认 ORG 后第一个 Z 相"，忽略进入瞬间重合脉冲</td><td>软件逻辑、退出不足</td></tr>
+          <tr><td class="b">一致性测试</td><td>多次复位检查原点坐标，重复精度在编码器分辨率范围内</td><td>整体重复性</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">5. 结论</div>
+      <div class="note-box">
+        <strong>总结：</strong>二次回零 + Z 相位优势是<strong class="ok">定位精度高、重复性好</strong>，低速策略避免惯性跨圈；但<strong class="warn">减速器和机械安装</strong>使容差窗口缩小，必须通过<strong>机械错位 + 软件逻辑 + 信号滤波</strong>保证每次都停在同一圈的 Z 相。
+      </div>
+      <div class="bar">落地验收：确认 ORG/Z 错位裕量 → 连续回零 ≥ 10 次，原点坐标偏差 ≤ 1 个编码器分辨率 → 保留"首脉冲锁定"日志便于现场定位偶发漂移。</div>
+    </div>
+  </main>
+  <footer class="page-footer"><span>Motion Control Homing</span><span>Page 1 / 1</span></footer>
+</section>
+
+</body>
+</html>
