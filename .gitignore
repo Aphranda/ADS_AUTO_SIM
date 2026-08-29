@@ -36,6 +36,7 @@ htmlcov/
 /build/
 /dist/
 *.egg-info/
+projects/TX_band1_RO4350/hfss/
 
 # Local env / secrets
 .env

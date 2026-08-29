@@ -1,0 +1,41 @@
+{
+  "schema_version": "0.1.0",
+  "project_id": "TX_band1_RO4350",
+  "name": "TX band1 RO4350 7th-order interdigital Chebyshev filter",
+  "device_family": "filter",
+  "primary_device_type": "filter.interdigital",
+  "default_profile": "company",
+  "target_profile": "ro4350_strict",
+  "pipeline_id": "TX_band1_RO4350_ads_v1",
+  "project_root": "projects/TX_band1_RO4350",
+  "plans_dir": "projects/TX_band1_RO4350/plans",
+  "layouts_dir": "projects/TX_band1_RO4350/layouts",
+  "results_dir": "projects/TX_band1_RO4350/results",
+  "runs_dir": "projects/TX_band1_RO4350/runs",
+  "reports_dir": "projects/TX_band1_RO4350/reports",
+  "references_dir": "projects/TX_band1_RO4350/references",
+  "frequency": {
+    "start_ghz": 14.0,
+    "stop_ghz": 23.0,
+    "passband_start_ghz": 17.7,
+    "passband_stop_ghz": 19.35
+  },
+  "active_sweep": "nominal",
+  "sweeps": {
+    "nominal": {
+      "pipeline_id": "TX_band1_RO4350_ads_v1",
+      "layouts_dir": "projects/TX_band1_RO4350/layouts/nominal",
+      "results_dir": "projects/TX_band1_RO4350/results/nominal",
+      "target_profile": "ro4350_strict",
+      "device_id": "filter.interdigital",
+      "template_cell": "interdigital_9o_ro4350b_508um_v3_wide_mm_coords",
+      "setup_view": "em%Setup",
+      "rfpro_emsetup_view": "emSetup"
+    }
+  },
+  "ads": {
+    "library": "6-8G_Fillter_lib",
+    "template_cell": "interdigital_9o_ro4350b_508um_v3_wide_mm_coords",
+    "substrate": "6-8G_Fillter_lib:substrate4"
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "backend": "file",
+  "project": "projects\\TX_band1_RO4350\\hfss\\TX_band1_RO4350.aedt",
+  "exists": true,
+  "size_bytes": 45196,
+  "top_level_designs": [
+    {
+      "name": "TX_band1_RO4350_v2",
+      "kind_code": 16,
+      "active_flag": 2,
+      "connector_like": false
+    }
+  ],
+  "selected_designs": [
+    "TX_band1_RO4350_v2"
+  ],
+  "designs": [
+    {
+      "design": "TX_band1_RO4350_v2",
+      "occurrences": 14,
+      "connector_like": false,
+      "top_level_entry": {
+        "name": "TX_band1_RO4350_v2",
+        "kind_code": 16,
+        "active_flag": 2,
+        "connector_like": false
+      },
+      "planar_circuit": true,
+      "component_instances": [],
+      "ports": [
+        {
+          "name": "Port1",
+          "domain": "0, -1, 2, ''"
+        },
+        {
+          "name": "Port2",
+          "domain": "0, -1, 2, ''"
+        }
+      ],
+      "nets": [
+        "GND",
+        "IN",
+        "OUT",
+        "Port1",
+        "Port2"
+      ]
+    }
+  ],
+  "connector_like_names": [],
+  "token_lines": [
+    {
+      "line": 262,
+      "text": "Connect=true"
+    },
+    {
+      "line": 291,
+      "text": "Connectible=true"
+    },
+    {
+      "line": 292,
+      "text": "UnconnectedAction=1"
+    },
+    {
+      "line": 299,
+      "text": "Connectible=true"
+    },
+    {
+      "line": 300,
+      "text": "UnconnectedAction=1"
+    },
+    {
+      "line": 452,
+      "text": "'PEC Launch Width'='0.05mm'"
+    },
+    {
+      "line": 519,
+      "text": "'PEC Launch Width'='0.05mm'"
+    },
+    {
+      "line": 708,
+      "text": "SmallVoidArea='-2e-09'"
+    },
+    {
+      "line": 709,
+      "text": "SmallPlaneArea='0um2'"
+    },
+    {
+      "line": 826,
+      "text": "InterpUseSMatrix=true"
+    },
+    {
+      "line": 832,
+      "text": "AutoSMatOnlySolve=true"
+    },
+    {
+      "line": 833,
+      "text": "MinFreqSMatrixOnlySolve='1MHz'"
+    },
+    {
+      "line": 1269,
+      "text": "SnapTargetElecConnection_on=true"
+    },
+    {
+      "line": 1276,
+      "text": "SnapSourceElecConnection_on=true"
+    },
+    {
+      "line": 1354,
+      "text": "'show connection points'=false"
+    },
+    {
+      "line": 1376,
+      "text": "PinConnectivityPopup=false"
+    },
+    {
+      "line": 1463,
+      "text": "$begin 'WBConnIDConnDetails'"
+    },
+    {
+      "line": 1464,
+      "text": "$end 'WBConnIDConnDetails'"
+    }
+  ],
+  "notes": [
+    "file backend reads only saved AEDT content and does not see unsaved AEDT GUI changes",
+    "use --backend pyaedt for live session details"
+  ]
+}

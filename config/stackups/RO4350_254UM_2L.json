@@ -1,0 +1,36 @@
+{
+  "schema_version": "0.1.0",
+  "stackup_id": "RO4350_254UM_2L",
+  "name": "RO4350 254um two-layer filter stackup",
+  "vendor": "Rogers",
+  "board_code": "RO4350B",
+  "finished_thickness_mm": 0.324,
+  "naming": {"token": "ro4350_254um_2l", "replace_tokens": []},
+  "source": "TX_band1_RO4350 design input",
+  "notes": "Two-layer microstrip abstraction: 254um RO4350 dielectric, 35um copper signal and ground.",
+  "materials": {
+    "COPPER": {"kind": "conductor", "hfss_material": "copper"},
+    "RO4350B": {"kind": "dielectric", "display_name": "RO4350B", "er": 3.66, "loss_tangent": 0.0037}
+  },
+  "layers_bottom_to_top": [
+    {"name": "ETCH_BOTTOM", "role": "bottom_copper", "kind": "conductor", "material": "COPPER", "thickness_mm": 0.035, "thickness_mil": 1.378, "ads_layer_id": 1003},
+    {"name": "DIEL_RO4350_254UM", "role": "dielectric", "kind": "dielectric", "material": "RO4350B", "thickness_mm": 0.254, "thickness_mil": 10.0},
+    {"name": "ETCH_TOP", "role": "signal", "kind": "conductor", "material": "COPPER", "thickness_mm": 0.035, "thickness_mil": 1.378, "ads_layer_id": 1000}
+  ],
+  "geometry": {
+    "signal_layer": "ETCH_TOP",
+    "reference_ground_layer": "ETCH_BOTTOM",
+    "ground_layers": ["ETCH_BOTTOM"],
+    "via_top_layer": "ETCH_TOP",
+    "via_bottom_layer": "ETCH_BOTTOM",
+    "ground_plane_name": "hfss_ground_plane"
+  },
+  "ads": {
+    "expected_substrate_name": "RO4350_254UM_2L",
+    "imported_layers": {"ETCH_TOP": 1000, "ETCH_BOTTOM": 1003},
+    "drill_layer": "DRILL_TOP_BOTTOM",
+    "boundary_layer": "EM_BOUNDARY",
+    "boundary_layer_id": 1004,
+    "via_layers": [{"name": "DRILL_TOP_BOTTOM", "layer_id": 1005, "process_role": "CONDUCTOR_VIA", "layer_binding": "ETCH_TOP ETCH_BOTTOM", "substrate_top_layer": "ETCH_TOP", "substrate_bottom_layer": "ETCH_BOTTOM"}]
+  }
+}

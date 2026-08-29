@@ -16,6 +16,7 @@ from simads.scoring import (
     DEFAULT_TARGET_PROFILE,
     TARGET_PROFILES,
     TARGET_SCORE_VERSIONS,
+    FILTER_FREQUENCIES,
     choose_frequency_column,
     choose_sparam_column,
     frequency_to_ghz,
@@ -106,7 +107,7 @@ def main() -> None:
     rows: list[dict[str, str]] = []
     for path in args.results:
         if path.suffix.lower() == ".csv":
-            rows.append(score_rfpro_csv(path, targets, args.target_profile))
+            rows.append(score_rfpro_csv(path, targets, args.target_profile, frequency_ghz=FILTER_FREQUENCIES.get(args.target_profile)))
         else:
             rows.extend(score_dataset(path, args.inspect, targets, args.target_profile))
 

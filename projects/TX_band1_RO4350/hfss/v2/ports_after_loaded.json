@@ -1,0 +1,311 @@
+{
+  "project": "D:\\Work\\ADS_AUTO_SIM\\projects\\TX_band1_RO4350\\hfss\\TX_band1_RO4350.aedt",
+  "design": "TX_band1_RO4350_v2",
+  "backend": "pyaedt_live_readonly",
+  "non_graphical": false,
+  "new_desktop": false,
+  "save": false,
+  "aedt_startup": {
+    "PYAEDT_USE_PRE_GRPC_ARGS": "True",
+    "grpc_secure_mode_env": "False",
+    "SIMADS_AEDT_WAIT_FOR_LICENSE": "True",
+    "SIMADS_AEDT_DESKTOP_TIMEOUT_S": "300",
+    "SIMADS_AEDT_USER_ROOT": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "HOME": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "USERPROFILE": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "APPDATA": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user\\AppData\\Roaming",
+    "LOCALAPPDATA": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user\\AppData\\Local",
+    "TEMP": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_user\\Temp",
+    "settings.grpc_secure_mode": false,
+    "settings.grpc_local": true,
+    "settings.grpc_listen_all": false,
+    "settings.wait_for_license": true,
+    "settings.desktop_launch_timeout": 300,
+    "settings.enable_desktop_logs": false,
+    "settings.use_grpc_api": true,
+    "settings.number_of_grpc_api_retries": 6
+  },
+  "aedt_lock": {
+    "label": "inspect_hfss3dlayout_port_live_state",
+    "pid": 61120,
+    "started_epoch": 1788007742.4,
+    "lock_path": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_automation.lock"
+  },
+  "aedt_reaper": {
+    "started": true,
+    "label": "inspect_hfss3dlayout_port_live_state",
+    "aedt_process_id": 61600,
+    "parent_pid": 61120,
+    "reaper_pid": 63052,
+    "execute": false,
+    "execute_requested": true,
+    "terminate_disabled": false,
+    "script_started": false,
+    "execute_block_reason": "target AEDT was not marked as started by this script",
+    "output": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\inspect_hfss3dlayout_port_live_state_61120_61600_run_log.json",
+    "event_log": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\inspect_hfss3dlayout_port_live_state_61120_61600_events.jsonl",
+    "owner_record": "D:\\Work\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\inspect_hfss3dlayout_port_live_state_61120_61600_owner.json",
+    "silent": true,
+    "helper_executable": "D:\\Microsoft\\Python\\ads-automation\\Scripts\\pythonw.exe",
+    "target_create_time_epoch": 1788007306.376845
+  },
+  "app_port_list": {
+    "ok": true,
+    "value": [
+      "Port1",
+      "Port2"
+    ]
+  },
+  "app_excitations": {
+    "ok": true,
+    "value": []
+  },
+  "schematic_ports": {
+    "ok": true,
+    "value": [
+      "IPort@Port1;9",
+      "IPort@Port2;13"
+    ]
+  },
+  "layout_ports": {
+    "Port1": {
+      "GetPortInfo": {
+        "ok": true,
+        "value": [
+          "Name=Port1",
+          "Type=EdgePort",
+          "X=-0.001550",
+          "Y=0.000395",
+          "ConnectionPoints= -0.001550 0.000395 Dir:180.000000 Layer: ETCH_TOP",
+          "NetName=Port1"
+        ]
+      },
+      "GetNetConnections": {
+        "ok": true,
+        "value": [
+          "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 3"
+        ]
+      },
+      "BaseElementTab": {
+        "properties": {
+          "ok": true,
+          "value": [
+            "Name",
+            "Type",
+            "Net"
+          ]
+        },
+        "values": {
+          "Name": {
+            "ok": true,
+            "value": "Port1"
+          },
+          "Type": {
+            "ok": true,
+            "value": "Edge Port"
+          },
+          "Net": {
+            "ok": true,
+            "value": "Port1"
+          }
+        }
+      },
+      "EM Design": {
+        "properties": {
+          "ok": true,
+          "value": [
+            "Port",
+            "Boundary Type",
+            "Reference",
+            "Impedance",
+            "Magnitude",
+            "Phase",
+            "Renormalize",
+            "Renormalize Impedance",
+            "DeembedParasiticPortInductance",
+            "HFSS Type",
+            "Orientation"
+          ]
+        },
+        "values": {
+          "Port": {
+            "ok": true,
+            "value": "Port1"
+          },
+          "Boundary Type": {
+            "ok": true,
+            "value": "Port"
+          },
+          "Reference": {
+            "ok": true,
+            "value": "ETCH_BOTTOM:hfss_ground_plane"
+          },
+          "Impedance": {
+            "ok": true,
+            "value": "50ohm"
+          },
+          "Magnitude": {
+            "ok": true,
+            "value": "1V"
+          },
+          "Phase": {
+            "ok": true,
+            "value": "0deg"
+          },
+          "Renormalize": {
+            "ok": true,
+            "value": "true"
+          },
+          "Renormalize Impedance": {
+            "ok": true,
+            "value": "50ohm"
+          },
+          "DeembedParasiticPortInductance": {
+            "ok": true,
+            "value": "false"
+          },
+          "HFSS Type": {
+            "ok": true,
+            "value": "Gap"
+          },
+          "Orientation": {
+            "ok": true,
+            "value": "Vertical"
+          }
+        }
+      }
+    },
+    "Port2": {
+      "GetPortInfo": {
+        "ok": true,
+        "value": [
+          "Name=Port2",
+          "Type=EdgePort",
+          "X=0.008469",
+          "Y=0.000395",
+          "ConnectionPoints= 0.008469 0.000395 Dir:0.000000 Layer: ETCH_TOP",
+          "NetName=Port2"
+        ]
+      },
+      "GetNetConnections": {
+        "ok": true,
+        "value": [
+          "EdgePort Port2 Port2 EdgeInfo: Primitive output_feed, edge 1"
+        ]
+      },
+      "BaseElementTab": {
+        "properties": {
+          "ok": true,
+          "value": [
+            "Name",
+            "Type",
+            "Net"
+          ]
+        },
+        "values": {
+          "Name": {
+            "ok": true,
+            "value": "Port2"
+          },
+          "Type": {
+            "ok": true,
+            "value": "Edge Port"
+          },
+          "Net": {
+            "ok": true,
+            "value": "Port2"
+          }
+        }
+      },
+      "EM Design": {
+        "properties": {
+          "ok": true,
+          "value": [
+            "Port",
+            "Boundary Type",
+            "Reference",
+            "Impedance",
+            "Magnitude",
+            "Phase",
+            "Renormalize",
+            "Renormalize Impedance",
+            "DeembedParasiticPortInductance",
+            "HFSS Type",
+            "Orientation"
+          ]
+        },
+        "values": {
+          "Port": {
+            "ok": true,
+            "value": "Port2"
+          },
+          "Boundary Type": {
+            "ok": true,
+            "value": "Port"
+          },
+          "Reference": {
+            "ok": true,
+            "value": "ETCH_BOTTOM:hfss_ground_plane"
+          },
+          "Impedance": {
+            "ok": true,
+            "value": "50ohm"
+          },
+          "Magnitude": {
+            "ok": true,
+            "value": "1V"
+          },
+          "Phase": {
+            "ok": true,
+            "value": "0deg"
+          },
+          "Renormalize": {
+            "ok": true,
+            "value": "true"
+          },
+          "Renormalize Impedance": {
+            "ok": true,
+            "value": "50ohm"
+          },
+          "DeembedParasiticPortInductance": {
+            "ok": true,
+            "value": "false"
+          },
+          "HFSS Type": {
+            "ok": true,
+            "value": "Gap"
+          },
+          "Orientation": {
+            "ok": true,
+            "value": "Vertical"
+          }
+        }
+      }
+    }
+  },
+  "schematic_port_details": {
+    "Port1": {
+      "GetPortInfo": {
+        "ok": true,
+        "value": []
+      }
+    },
+    "Port2": {
+      "GetPortInfo": {
+        "ok": true,
+        "value": []
+      }
+    }
+  },
+  "components": {},
+  "nets": {},
+  "validate_design": {
+    "ok": false,
+    "error": "GrpcApiError: Failed to execute gRPC AEDT command: ValidateDesign",
+    "call": "ValidateDesign"
+  },
+  "findings": [
+    "app.excitations is empty"
+  ],
+  "status": "inspected"
+}
