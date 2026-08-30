@@ -11,6 +11,7 @@ if str(_SRC) not in sys.path:
     sys.path.insert(0, str(_SRC))
 
 from simads.config.profiles import (  # noqa: E402,F401
+    build_ads_env,
     ADS_PROFILES,
     AdsProfile,
     ProfileCheck,

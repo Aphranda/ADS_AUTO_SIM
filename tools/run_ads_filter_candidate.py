@@ -17,7 +17,7 @@ _SRC_ROOT = _SIM_ROOT / "src"
 if str(_SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(_SRC_ROOT))
 
-from ads_profiles import get_ads_profile, profile_names, resolve_ads_python, resolve_host_python, resolve_library, resolve_workspace
+from ads_profiles import build_ads_env, get_ads_profile, profile_names, resolve_ads_python, resolve_host_python, resolve_library, resolve_workspace
 from simads.config import load_pipeline, load_project, load_stackup_config, resolve_pipeline_id, root_relative_path, stackup_name_token
 from simads.ads.naming import fem_simulation_path_length, short_ads_cell_name
 from simads.devices import get_device, list_devices
@@ -173,20 +173,15 @@ def default_candidate_files(root: Path, layouts_dir: Path, candidate: str) -> tu
     return dxf, params, cell
 
 
-def run_step(label: str, command: list[str], cwd: Path, dry_run: bool) -> None:
+def run_step(label: str, command: list[str], cwd: Path, dry_run: bool, env: dict[str, str]) -> None:
     os.environ["ADS_RUN_FAILED_STEP"] = label
     log(f"START {label}")
     print(" ".join(f'"{item}"' if " " in item else item for item in command), flush=True)
     if dry_run:
         log(f"DRY-RUN {label}")
         return
-    env = os.environ.copy()
+    env = dict(env)
     env["PYTHONUNBUFFERED"] = "1"
-    if "HPEESOF_DIR" not in env and command:
-        exe_path = Path(command[0])
-        if exe_path.name.lower() == "python.exe" and exe_path.parts[-3:-1] == ("tools", "python"):
-            env["HPEESOF_DIR"] = str(exe_path.parents[2])
-            log(f"Set child HPEESOF_DIR={env['HPEESOF_DIR']}")
     started = time.monotonic()
     try:
         subprocess.run(command, cwd=cwd, check=True, env=env)
@@ -312,6 +307,7 @@ def main() -> None:
     host_python = resolve_host_python(args.profile, args.host_python)
     workspace = resolve_workspace(args.profile, args.workspace)
     library = resolve_library(args.profile, args.library)
+    child_env = build_ads_env(args.profile)
     args.target_profile = (
         args.target_profile
         or (pipeline.scoring.target_profile if pipeline else None)
@@ -594,7 +590,7 @@ def main() -> None:
                     import_cmd.append("--skip-import")
                 if args.force_generated_dxf_subset:
                     import_cmd.append("--force-generated-dxf-subset")
-                run_step("1. DXF import and P1/P2 pins", import_cmd, root, args.dry_run)
+                run_step("1. DXF import and P1/P2 pins", import_cmd, root, args.dry_run, child_env)
                 set_state("ads_imported")
 
             if not args.skip_setup:
@@ -631,7 +627,7 @@ def main() -> None:
                     setup_cmd.append("--overwrite")
                 if args.force:
                     setup_cmd.append("--force")
-                run_step("2. Clone/patch FEM setup", setup_cmd, root, args.dry_run)
+                run_step("2. Clone/patch FEM setup", setup_cmd, root, args.dry_run, child_env)
                 set_state("emsetup_ready")
 
             if args.skip_fem:
@@ -670,7 +666,7 @@ def main() -> None:
             if args.prepare_only:
                 fem_cmd.append("--prepare-only")
             set_state("sim_running")
-            run_step("3. RFPro FEM", fem_cmd, root, args.dry_run)
+            run_step("3. RFPro FEM", fem_cmd, root, args.dry_run, child_env)
             set_state("dataset_exported")
 
             if args.prepare_only or args.skip_score:
@@ -700,7 +696,7 @@ def main() -> None:
                     "--out",
                     str(fem_txt_out),
                 ]
-                run_step("4a. Export FEM fitted dataset TXT", export_cmd, root, args.dry_run)
+                run_step("4a. Export FEM fitted dataset TXT", export_cmd, root, args.dry_run, child_env)
 
         score_cmd = [
             score_python,
@@ -729,7 +725,7 @@ def main() -> None:
         ]
         if args.pipeline_id:
             score_cmd.extend(["--pipeline-id", args.pipeline_id])
-        run_step("4. Score S-parameters", score_cmd, root, args.dry_run)
+        run_step("4. Score S-parameters", score_cmd, root, args.dry_run, child_env)
         set_state("scored", status="completed")
         write_manifests("completed", "scored")
     except Exception as exc:

@@ -36,7 +36,7 @@ Library       : 6-8G_Fillter_lib
 Template cell : interdigital_9o_ro4350b_508um_v3_wide_mm_coords
 ```
 
-运行真实 ADS/FEM 前必须确认当前 profile 与实际电脑一致。
+运行真实 ADS/FEM 前必须确认当前 profile 与实际电脑一致；ADS root 由 profile 决定，不再依赖系统级 `HPEESOF_DIR`。
 
 ## 3. 必跑 Gate
 

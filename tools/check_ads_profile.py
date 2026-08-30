@@ -20,6 +20,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Validate ADS profile paths and core fields.")
     parser.add_argument("--profile", default="auto", choices=profile_names(include_auto=True))
     parser.add_argument("--require-template", action="store_true", help="Check template cell directory as well.")
+    parser.add_argument("--require-mcp", action="store_true", help="Check the ADS MCP executable as well.")
     parser.add_argument("--strict", action="store_true", help="Return non-zero if any check fails.")
     parser.add_argument("--json-out", type=Path, default=None, help="Optional JSON report path.")
     return parser.parse_args()
@@ -29,7 +30,7 @@ def main() -> int:
     args = parse_args()
     profile = get_ads_profile(args.profile)
     detection = detect_machine_profile()
-    checks = validate_profile(profile, require_template=args.require_template)
+    checks = validate_profile(profile, require_template=args.require_template, require_mcp=args.require_mcp)
     payload = {
         "schema_version": "1.0",
         "requested_profile": args.profile,

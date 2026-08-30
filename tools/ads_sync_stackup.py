@@ -14,7 +14,7 @@ _SRC_ROOT = _SIM_ROOT / "src"
 if str(_SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(_SRC_ROOT))
 
-from ads_profiles import profile_names, resolve_ads_python, resolve_library, resolve_workspace
+from ads_profiles import build_ads_env, profile_names, resolve_ads_python, resolve_library, resolve_workspace
 from simads.ads.stackup_sync import sync_ads_stackup_files
 from simads.config import load_stackup_config
 from simads.stackups.ads import ads_stackup_layer_map
@@ -65,6 +65,7 @@ def _run_ads_tech_layer_sync(args: argparse.Namespace, *, workspace: Path, libra
         cwd=_SIM_ROOT,
         text=True,
         capture_output=True,
+        env=build_ads_env(args.profile),
     )
     if completed.returncode != 0:
         raise RuntimeError(

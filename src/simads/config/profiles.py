@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import json
+import os
 from pathlib import Path
 import sys
 
@@ -48,6 +49,11 @@ class AdsProfile:
         return self.workspace / "setup_dxf.opt"
 
     @property
+    def mcp_executable(self) -> Path:
+        name = "ads-mcp.exe" if os.name == "nt" else "ads-mcp"
+        return self.ads_root / "bin" / name
+
+    @property
     def library_path(self) -> Path:
         return self.workspace / self.library
 
@@ -77,6 +83,7 @@ class AdsProfile:
             "substrate": self.substrate,
             "substrate_library": self.substrate_library,
             "layer_map": str(self.layer_map),
+            "mcp_executable": str(self.mcp_executable),
         }
 
 
@@ -94,6 +101,28 @@ DEFAULT_PROFILE_DATA = {
             "rfpro_emsetup_view": "emSetup",
             "substrate": "6-8G_Fillter_lib:substrate1",
         },
+        "company_2027": {
+            "ads_root": r"D:\Hardware\Keysight\ADS2027",
+            "ads_python": r"D:\Hardware\Keysight\ADS2027\tools\python\python.exe",
+            "host_python": r"D:\Microsoft\Python\ads-automation\Scripts\python.exe",
+            "workspace": r"D:\Work\ADS\6-8G_Fillter\6-8G_Fillter",
+            "library": "6-8G_Fillter_lib",
+            "template_cell": "interdigital_9o_ro4350b_508um_v3_wide_mm_coords",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "substrate": "6-8G_Fillter_lib:substrate1",
+        },
+        "company_standard_2027": {
+            "ads_root": r"D:\Hardware\Keysight\ADS2027",
+            "ads_python": r"D:\Hardware\Keysight\ADS2027\tools\python\python.exe",
+            "host_python": r"D:\Microsoft\Python\ads-automation\Scripts\python.exe",
+            "workspace": r"D:\Work\ADS\SIMADS_STANDARD\ADS\SIMADS_STANDARD",
+            "library": "SIMADS_STANDARD_lib",
+            "template_cell": "SIMADS_EM_TEMPLATE_2PORT_FEM",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "substrate": "SIMADS_STANDARD_lib:FR4_210UM",
+        },
         "home": {
             "ads_root": r"D:\Hardware\Keysight\ADS2026_Update1",
             "ads_python": r"D:\Hardware\Keysight\ADS2026_Update1\tools\python\python.exe",
@@ -104,6 +133,39 @@ DEFAULT_PROFILE_DATA = {
             "setup_view": "em%Setup",
             "rfpro_emsetup_view": "emSetup",
             "substrate": "BFP_lib:substrate4",
+        },
+        "home_2027": {
+            "ads_root": r"D:\Hardware\Keysight\ADS2027",
+            "ads_python": r"D:\Hardware\Keysight\ADS2027\tools\python\python.exe",
+            "host_python": r"D:\Microsoft\uv-venvs\ads-automation\Scripts\python.exe",
+            "workspace": r"D:\Work\ADS\BFP\BFP",
+            "library": "BFP_lib",
+            "template_cell": "BFP",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "substrate": "BFP_lib:substrate4",
+        },
+        "home_simads_em_parallel_2027": {
+            "ads_root": r"D:\Hardware\Keysight\ADS2027",
+            "ads_python": r"D:\Hardware\Keysight\ADS2027\tools\python\python.exe",
+            "host_python": r"D:\Microsoft\uv-venvs\ads-automation\Scripts\python.exe",
+            "workspace": r"D:\Work\ADS\SIMADS_EM_PAR\SIMADS_EM_PAR",
+            "library": "SIMADS_EM_PAR_lib",
+            "template_cell": "SIMADS_EM_TEMPLATE_2PORT_FEM",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "substrate": "SIMADS_EM_PAR_lib:FR4_210UM",
+        },
+        "home_simads_em_parallel": {
+            "ads_root": r"D:\Hardware\Keysight\ADS2026_Update1",
+            "ads_python": r"D:\Hardware\Keysight\ADS2026_Update1\tools\python\python.exe",
+            "host_python": r"D:\Microsoft\uv-venvs\ads-automation\Scripts\python.exe",
+            "workspace": r"D:\Work\ADS\SIMADS_EM_PAR\SIMADS_EM_PAR",
+            "library": "SIMADS_EM_PAR_lib",
+            "template_cell": "SIMADS_EM_TEMPLATE_2PORT_FEM",
+            "setup_view": "em%Setup",
+            "rfpro_emsetup_view": "emSetup",
+            "substrate": "SIMADS_EM_PAR_lib:FR4_210UM",
         },
     },
 }
@@ -212,7 +274,20 @@ def resolve_layer_map(profile_name: str, workspace: Path, override: Path | None)
     return override if override is not None else workspace / get_ads_profile(profile_name).layer_map.name
 
 
-def validate_profile(profile: AdsProfile, *, require_template: bool = False) -> list[ProfileCheck]:
+def build_ads_env(
+    profile_name: str,
+    *,
+    base_env: dict[str, str] | None = None,
+    clear_hpeesof_dir: bool = True,
+) -> dict[str, str]:
+    env = dict(os.environ if base_env is None else base_env)
+    if clear_hpeesof_dir:
+        env.pop("HPEESOF_DIR", None)
+    env["HPEESOF_DIR"] = str(get_ads_profile(profile_name).ads_root)
+    return env
+
+
+def validate_profile(profile: AdsProfile, *, require_template: bool = False, require_mcp: bool = False) -> list[ProfileCheck]:
     checks = [
         ProfileCheck("ads_root", profile.ads_root, profile.ads_root.exists(), "ADS installation root"),
         ProfileCheck("ads_python", profile.ads_python, profile.ads_python.exists(), "ADS Python executable"),
@@ -230,4 +305,6 @@ def validate_profile(profile: AdsProfile, *, require_template: bool = False) -> 
                 "ADS template cell directory",
             )
         )
+    if require_mcp:
+        checks.append(ProfileCheck("mcp_executable", profile.mcp_executable, profile.mcp_executable.exists(), "ADS MCP executable"))
     return checks

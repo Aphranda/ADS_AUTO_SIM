@@ -745,7 +745,7 @@ numpy / pandas / scipy / matplotlib
 外部 venv 的硬规则：
 
 - Python major/minor 必须与 ADS wheel 匹配；当前 ADS 自带 Python 是 cp313 体系。
-- 必须设置 `HPEESOF_DIR=D:\Hardware\Keysight\ADS2026_Update1`。
+- 不要把 `HPEESOF_DIR` 做成系统级固定值；由项目 profile 或启动脚本在子进程里注入正确的 ADS root。
 - 必须能导入 `keysight.ads.de`、`keysight.ads.ael`、`keysight.ads.dataset` 中项目需要的模块。
 - 不能只验证 `import keysight`，必须执行最小 API 调用或对象创建。
 - venv 安装过程和 `pip freeze` 应作为环境文档资产保存。

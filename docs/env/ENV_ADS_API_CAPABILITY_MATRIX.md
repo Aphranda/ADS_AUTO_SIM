@@ -155,7 +155,7 @@ log = projects\bfp_6_8g_i7_fr4\reports\ads_emsetup_start_probe3_40pt_20260803.lo
 ```text
 sys.executable
 sys.version
-HPEESOF_DIR
+profile-selected HPEESOF_DIR
 keysight.ads.de import result
 keysight.ads.ael import result
 keysight.ads.dataset import result
