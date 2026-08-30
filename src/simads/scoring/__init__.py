@@ -10,6 +10,14 @@ from typing import Iterable
 
 
 TARGET_PROFILES = {
+    "ro4350_tx_band1": {
+        "s21_5g_max_db": -45.0,
+        "s21_6g_min_db": -3.0,
+        "s21_8g_min_db": -3.0,
+        "passband_min_s21_db": -3.5,
+        "passband_max_ripple_db": 3.0,
+        "passband_worst_return_loss_db": -10.0,
+    },
     "ro4350_strict": {
         "s21_5g_max_db": -45.0,
         "s21_6g_min_db": -3.0,
@@ -51,7 +59,17 @@ DEFAULT_FILTER_FREQUENCY = {
     "passband_stop": 8.0,
     "stop_high_probe": 9.0,
 }
+FILTER_FREQUENCIES = {
+    "ro4350_tx_band1": {
+        "stop_low_probe": 14.0,
+        "passband_start": 17.7,
+        "passband_center": 18.525,
+        "passband_stop": 19.35,
+        "stop_high_probe": 23.0,
+    }
+}
 TARGET_SCORE_VERSIONS = {
+    "ro4350_tx_band1": "ro4350_tx_band1_v1",
     "ro4350_strict": "ro4350_strict_v1",
     "fr4_25db": "fr4_i7_score_v1",
     "fr4_25db_rl6": "fr4_i7_score_v1",
@@ -210,7 +228,7 @@ def score_vectors(
     }
 
 
-def score_rfpro_rows(rows: list[dict[str, str]], targets: dict[str, float], target_profile: str, source: str) -> dict[str, str]:
+def score_rfpro_rows(rows: list[dict[str, str]], targets: dict[str, float], target_profile: str, source: str, frequency_ghz: dict[str, float] | None = None) -> dict[str, str]:
     if not rows:
         raise ValueError(f"empty CSV: {source}")
     columns = list(rows[0].keys())
@@ -227,10 +245,10 @@ def score_rfpro_rows(rows: list[dict[str, str]], targets: dict[str, float], targ
         for name in ("s11", "s21", "s12", "s22")
         if (col := s_cols[name]) is not None
     }
-    return score_vectors(freq_ghz, traces, source, targets, target_profile)
+    return score_vectors(freq_ghz, traces, source, targets, target_profile, frequency_ghz=frequency_ghz)
 
 
-def score_rfpro_csv(path: Path, targets: dict[str, float], target_profile: str) -> dict[str, str]:
+def score_rfpro_csv(path: Path, targets: dict[str, float], target_profile: str, frequency_ghz: dict[str, float] | None = None) -> dict[str, str]:
     with path.open(newline="", encoding="utf-8-sig") as fp:
         rows = list(csv.DictReader(fp))
-    return score_rfpro_rows(rows, targets, target_profile, str(path))
+    return score_rfpro_rows(rows, targets, target_profile, str(path), frequency_ghz=frequency_ghz)

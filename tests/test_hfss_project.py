@@ -53,6 +53,17 @@ def test_project_plan_reuses_existing_project_when_requested(tmp_path: Path) -> 
     assert plan.lock_project == str(project)
 
 
+def test_explicit_relative_project_path_is_resolved_for_aedt_save(monkeypatch, tmp_path: Path) -> None:
+    monkeypatch.chdir(tmp_path)
+    relative = Path("projects") / "filter.aedt"
+    args = _args(tmp_path, project=relative, project_action="add")
+
+    plan = resolve_hfss_project_plan(args, _layout())
+
+    assert plan.project_path == (tmp_path / relative).resolve()
+    assert plan.project_path.is_absolute()
+
+
 def test_project_plan_requires_explicit_project_for_add_action(tmp_path: Path) -> None:
     with pytest.raises(ValueError, match="--project-action add"):
         resolve_hfss_project_plan(_args(tmp_path, project_action="add"), _layout())

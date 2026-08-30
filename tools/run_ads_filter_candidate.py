@@ -35,6 +35,7 @@ from simads.safety import AdsWriteContext, validate_ads_cell_write
 DEFAULT_TEMPLATE_CELL = "interdigital_9o_ro4350b_508um_v3_wide_mm_coords"
 TARGET_SCORE_VERSIONS = {
     "ro4350_strict": "ro4350_strict_v1",
+    "ro4350_tx_band1": "ro4350_tx_band1_v1",
     "fr4_25db": "fr4_i7_score_v1",
     "fr4_25db_rl6": "fr4_i7_score_v1",
     "fr4_25db_rl10": "fr4_i7_score_v1",
@@ -237,7 +238,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--target-profile",
         default=None,
-        choices=["ro4350_strict", "fr4_25db", "fr4_25db_rl6", "fr4_25db_rl10"],
+        choices=["ro4350_strict", "ro4350_tx_band1", "fr4_25db", "fr4_25db_rl6", "fr4_25db_rl10"],
     )
     parser.add_argument("--fem-dataset-suffix", default="a", help="ADS EM Setup dataset suffix after _FEM_.")
     parser.add_argument("--fem-txt-out", type=Path, default=None, help="Optional Data Display style TXT export.")

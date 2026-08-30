@@ -1,0 +1,302 @@
+{
+  "project": "D:\\Work\\ADS_AUTO_SIM\\projects\\TX_band1_RO4350\\hfss\\TX_band1_RO4350.aedt",
+  "design": "TX_band1_RO4350_v2",
+  "app_port_list": {
+    "ok": true,
+    "value": [
+      "Port1",
+      "Port2"
+    ]
+  },
+  "app_excitations": {
+    "ok": true,
+    "value": []
+  },
+  "layout_methods": [
+    "AddCircuitRefPort",
+    "AddObject",
+    "AddPinGroupRefPort",
+    "AddPortsToAllNets",
+    "AddPortsToNet",
+    "AddRefPort",
+    "AlignObjects",
+    "AlignPorts",
+    "AssignCircuitRefPort",
+    "AssignRefPort",
+    "ClearRefPort",
+    "ConnectPortInstancesToPins",
+    "ConvertPlanetoTrace",
+    "CreateCircuitPort",
+    "CreateCircuitPortsOnComponents",
+    "CreateComponent",
+    "CreateCurrentSourcePort",
+    "CreateDCTerminalComponent",
+    "CreateEdgePort",
+    "CreateExtendedNet",
+    "CreateGroundPortComponent",
+    "CreateInterfacePort",
+    "CreateInterfacePortComponent",
+    "CreateNPort",
+    "CreateNetClass",
+    "CreateObjectFromPolygon",
+    "CreatePinGroupPort",
+    "CreatePinGroupPortsOnComponents",
+    "CreatePinGroupsAndPorts",
+    "CreatePortInstancePorts",
+    "CreatePortsOnComponents",
+    "CreatePortsOnComponentsByNet",
+    "CreateVoltageProbePort",
+    "CreateVoltageSourcePort",
+    "DefeatureObjects",
+    "DelExtendedNet",
+    "DelNetClass",
+    "DeleteNets",
+    "DissolveComponents",
+    "Edit3DComponentDefinitions",
+    "EditComponent",
+    "EnableComponents",
+    "ExpandWithPorts",
+    "ExportAcis",
+    "ExportCAD",
+    "ExportDXF",
+    "ExportELC",
+    "ExportGDSII",
+    "ExportGerber",
+    "ExportImage",
+    "ExportMaterialToHFSSUDP",
+    "ExportNCDrill",
+    "ExportStackupXML",
+    "ExportStride",
+    "ExportToHFSSUDP",
+    "FilterObjectList",
+    "FindObjects",
+    "FindObjectsByPoint",
+    "FindObjectsByPolygon",
+    "GetCSObjects",
+    "GetChildObject",
+    "GetComponentInfo",
+    "GetComponentPinInfo",
+    "GetComponentPins",
+    "GetNetClassNets",
+    "GetNetClasses",
+    "GetNetConnections",
+    "GetNets",
+    "GetPortInfo",
+    "GetPortInstances",
+    "HighlightNet",
+    "ImportDXF",
+    "ImportGDSII",
+    "ImportStackupXML",
+    "ModifyExtendedNet",
+    "ModifyNetClass",
+    "PushExcitations",
+    "RemovePort",
+    "RemovePortsFromAllNets",
+    "RemovePortsFromNet",
+    "RemovePortsOnComponents",
+    "RenameNet",
+    "SelectAllNetViolations",
+    "SelectNetConnected",
+    "SetHfssPortsVisible",
+    "SetNetColor",
+    "SetNetVisible",
+    "ToggleNetHighlight",
+    "Update3DComponentDefinitions",
+    "UpdateExtendedNets"
+  ],
+  "schematic_ports": {
+    "ok": true,
+    "value": [
+      "IPort@Port1;9",
+      "IPort@Port2;13"
+    ]
+  },
+  "schematic_components": {
+    "ok": true,
+    "value": []
+  },
+  "layout_calls": {
+    "GetAllPorts": {
+      "ok": false,
+      "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetAllPorts",
+      "call": "GetAllPorts"
+    },
+    "GetAllNets": {
+      "ok": false,
+      "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetAllNets",
+      "call": "GetAllNets"
+    },
+    "GetAllObjects": {
+      "ok": false,
+      "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetAllObjects",
+      "call": "GetAllObjects"
+    },
+    "GetAllElements": {
+      "ok": false,
+      "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetAllElements",
+      "call": "GetAllElements"
+    },
+    "GetComponents": {
+      "ok": false,
+      "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetComponents",
+      "call": "GetComponents"
+    },
+    "GetComponentNames": {
+      "ok": false,
+      "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetComponentNames",
+      "call": "GetComponentNames"
+    },
+    "GetComponentPins": {
+      "ok": false,
+      "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetComponentPins",
+      "call": "GetComponentPins"
+    },
+    "GetExcitations": {
+      "ok": false,
+      "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetExcitations",
+      "call": "GetExcitations"
+    },
+    "GetNetNames": {
+      "ok": false,
+      "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetNetNames",
+      "call": "GetNetNames"
+    },
+    "GetSelections": {
+      "ok": true,
+      "value": []
+    }
+  },
+  "layout_properties": {},
+  "boundary_props": {
+    "Port1": {
+      "properties": {
+        "ok": true,
+        "value": [
+          "Port",
+          "Boundary Type",
+          "Reference",
+          "Impedance",
+          "Magnitude",
+          "Phase",
+          "Renormalize",
+          "Renormalize Impedance",
+          "DeembedParasiticPortInductance",
+          "HFSS Type",
+          "Orientation"
+        ]
+      },
+      "values": {
+        "Port": {
+          "ok": true,
+          "value": "Port1"
+        },
+        "Boundary Type": {
+          "ok": true,
+          "value": "Port"
+        },
+        "Reference": {
+          "ok": true,
+          "value": "ETCH_BOTTOM:hfss_ground_plane"
+        },
+        "Impedance": {
+          "ok": true,
+          "value": "50ohm"
+        },
+        "Magnitude": {
+          "ok": true,
+          "value": "1V"
+        },
+        "Phase": {
+          "ok": true,
+          "value": "0deg"
+        },
+        "Renormalize": {
+          "ok": true,
+          "value": "true"
+        },
+        "Renormalize Impedance": {
+          "ok": true,
+          "value": "50ohm"
+        },
+        "DeembedParasiticPortInductance": {
+          "ok": true,
+          "value": "false"
+        },
+        "HFSS Type": {
+          "ok": true,
+          "value": "Gap"
+        },
+        "Orientation": {
+          "ok": true,
+          "value": "Vertical"
+        }
+      }
+    },
+    "Port2": {
+      "properties": {
+        "ok": true,
+        "value": [
+          "Port",
+          "Boundary Type",
+          "Reference",
+          "Impedance",
+          "Magnitude",
+          "Phase",
+          "Renormalize",
+          "Renormalize Impedance",
+          "DeembedParasiticPortInductance",
+          "HFSS Type",
+          "Orientation"
+        ]
+      },
+      "values": {
+        "Port": {
+          "ok": true,
+          "value": "Port2"
+        },
+        "Boundary Type": {
+          "ok": true,
+          "value": "Port"
+        },
+        "Reference": {
+          "ok": true,
+          "value": "ETCH_BOTTOM:hfss_ground_plane"
+        },
+        "Impedance": {
+          "ok": true,
+          "value": "50ohm"
+        },
+        "Magnitude": {
+          "ok": true,
+          "value": "1V"
+        },
+        "Phase": {
+          "ok": true,
+          "value": "0deg"
+        },
+        "Renormalize": {
+          "ok": true,
+          "value": "true"
+        },
+        "Renormalize Impedance": {
+          "ok": true,
+          "value": "50ohm"
+        },
+        "DeembedParasiticPortInductance": {
+          "ok": true,
+          "value": "false"
+        },
+        "HFSS Type": {
+          "ok": true,
+          "value": "Gap"
+        },
+        "Orientation": {
+          "ok": true,
+          "value": "Vertical"
+        }
+      }
+    }
+  },
+  "candidate_calls": {},
+  "status": "probed"
+}

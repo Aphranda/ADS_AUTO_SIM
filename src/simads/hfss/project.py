@@ -51,9 +51,13 @@ def default_project_name(layout: dict[str, Any]) -> str:
 
 def resolve_project_path(args: argparse.Namespace, layout: dict[str, Any]) -> Path:
     if args.project:
-        return Path(args.project)
+        # AEDT resolves a relative SaveAs path against the currently opened
+        # project directory, which can duplicate repository-relative segments
+        # when adding a design to an existing project.  Always hand AEDT an
+        # absolute path for an explicitly supplied project.
+        return Path(args.project).resolve()
     project_name = args.project_name or default_project_name(layout)
-    return Path(args.workspace_dir) / f"{project_name}.aedt"
+    return (Path(args.workspace_dir) / f"{project_name}.aedt").resolve()
 
 
 def resolve_hfss_project_plan(args: argparse.Namespace, layout: dict[str, Any]) -> HfssProjectPlan:

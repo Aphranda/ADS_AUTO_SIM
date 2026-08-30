@@ -48,6 +48,7 @@ class FilterParams:
     upper_cutoff_ghz: float = 8.0
     passband_ripple_db: float = 0.10
     z0_ohm: float = 50.0
+    resonator_z0_ohm: float = 50.0
     w0_mm: float = 1.113
     resonator_w_mm: float = 1.113
     resonator_l_mm: float = 6.337
@@ -178,6 +179,8 @@ def field_width(params: FilterParams) -> float:
 
 
 def overall_height(params: FilterParams) -> float:
+    # ``L`` is the inner-resonator height and ``e`` is the alternating end
+    # offset. The outer bars span the full field height L+e.
     return params.resonator_l_mm + params.end_gap_mm
 
 
@@ -269,7 +272,18 @@ def build_rects(params: FilterParams) -> list[Rect | Quad]:
 
     for idx, x0 in enumerate(x_positions, start=1):
         anchored_bottom = idx % 2 == 1
-        y0 = 0.0 if anchored_bottom else params.end_gap_mm
+        # The reference drawing aligns all resonator bottom edges.  ``e``
+        # appears as the extra top length on the two outer bars; it is not a
+        # vertical translation of every second bar.
+        y0 = 0.0
+        # The drawing defines L as the inner-resonator height and e as the
+        # alternating end offset. Thus the two outer bars are L+e while the
+        # five inner bars remain L.
+        resonator_length = (
+            params.resonator_l_mm + params.end_gap_mm
+            if idx in {1, params.order}
+            else params.resonator_l_mm
+        )
         rects.append(
             Rect(
                 name=f"resonator_{idx}",
@@ -277,7 +291,7 @@ def build_rects(params: FilterParams) -> list[Rect | Quad]:
                 x=x0,
                 y=y0,
                 w=params.resonator_w_mm,
-                h=params.resonator_l_mm,
+                h=resonator_length,
             )
         )
         via_cx = x0 + params.resonator_w_mm / 2.0
@@ -290,7 +304,7 @@ def build_rects(params: FilterParams) -> list[Rect | Quad]:
             via_cy = (
                 y0 + params.via_diameter_mm / 2.0
                 if anchored_bottom
-                else y0 + params.resonator_l_mm - params.via_diameter_mm / 2.0
+                else y0 + resonator_length - params.via_diameter_mm / 2.0
             )
         if params.via_pad_mm > 0.0:
             rects.append(
@@ -404,11 +418,13 @@ def build_layout(params: FilterParams, rects: list[Rect | Quad] | None = None) -
                     diameter=shape.w,
                     pad_diameter=max(params.via_pad_mm, params.via_diameter_mm) if params.via_pad_mm > 0.0 else None,
                     pad_layer=params.metal_layer if params.via_pad_mm > 0.0 else None,
-                    metadata={"source": "generate_interdigital_filter_layout"},
+                    metadata={"source": "generate_interdigital_filter_layout", "net": "GND"},
                 )
             )
             continue
         metadata = {}
+        if shape.name.startswith("resonator_"):
+            metadata["net"] = "GND"
         if params.include_ground_plane and shape.layer in ground_layer_names:
             metadata = {
                 "role": "reference_ground",
@@ -454,6 +470,9 @@ def build_layout(params: FilterParams, rects: list[Rect | Quad] | None = None) -
         "layout_ground_layers": list(layout_ground_layers(params)),
         "ground_boundary_mode": params.ground_boundary_mode,
         "ground_plane_name": params.ground_plane_name,
+        "outer_resonator_length_mm": params.resonator_l_mm + params.end_gap_mm,
+        "inner_resonator_length_mm": params.resonator_l_mm,
+        "outer_resonator_rule": "outer=L+e; inner=L with alternating end offset e",
     }
     if params.stackup_id:
         metadata.update(
@@ -751,7 +770,7 @@ def write_svg(path: Path, rects: list[Rect | Quad], params: FilterParams) -> Non
         f"L {fmt(params.resonator_l_mm)}",
         f"W {fmt(params.resonator_w_mm)}",
         f"W0 {fmt(params.w0_mm)}",
-        f"tap {fmt(params.tap_from_bottom_mm)}",
+        f"t/tap {fmt(params.tap_from_bottom_mm)}",
         f"feed {fmt(feed_len)}",
         f"via {fmt(params.via_diameter_mm)}",
         f"pad {fmt(params.via_pad_mm)}",
@@ -797,8 +816,10 @@ def make_ads_vars(params: FilterParams, field_w: float, overall_h: float) -> str
         f"feed_overlap={fmt(params.feed_overlap_mm)}",
         f"W={fmt(params.resonator_w_mm)}",
         f"L={fmt(params.resonator_l_mm)}",
-        f"tap={fmt(params.tap_from_bottom_mm)}",
-        f"Egap={fmt(params.end_gap_mm)}",
+        f"L_outer={fmt(params.resonator_l_mm + params.end_gap_mm)}",
+        f"L_inner={fmt(params.resonator_l_mm)}",
+        f"t={fmt(params.tap_from_bottom_mm)}",
+        f"e={fmt(params.end_gap_mm)}",
         f"filter_field_w={fmt(field_w)}",
         f"filter_field_h={fmt(overall_h)}",
     ]
@@ -1064,6 +1085,9 @@ def write_outputs(params: FilterParams, out_dir: Path) -> dict[str, str]:
                         params.resonator_w_mm,
                         params.feed_tip_w_mm if params.feed_taper_len_mm > 0.0 else params.w0_mm,
                     ),
+                    "outer_resonator_length_mm": params.resonator_l_mm + params.end_gap_mm,
+                    "inner_resonator_length_mm": params.resonator_l_mm,
+                    "outer_resonator_rule": "outer=L+e; inner=L with alternating end offset e",
                 },
                 "ports": {
                     "P1": [p1[0], p1[1]],
@@ -1120,6 +1144,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--er", type=float, default=FilterParams.er, help="Relative dielectric constant.")
     parser.add_argument("--h-mm", type=float, default=0.508, help="Dielectric height in mm.")
     parser.add_argument("--name", default=FilterParams.name, help="Output design base name.")
+    parser.add_argument("--lower-cutoff-ghz", type=float, default=FilterParams.lower_cutoff_ghz, help="Lower passband cutoff in GHz.")
+    parser.add_argument("--upper-cutoff-ghz", type=float, default=FilterParams.upper_cutoff_ghz, help="Upper passband cutoff in GHz.")
+    parser.add_argument("--passband-ripple-db", type=float, default=FilterParams.passband_ripple_db, help="Chebyshev passband ripple in dB.")
+    parser.add_argument("--z0-ohm", type=float, default=FilterParams.z0_ohm, help="Reference impedance in ohms.")
+    parser.add_argument("--resonator-z0-ohm", type=float, default=FilterParams.resonator_z0_ohm, help="Resonator impedance in ohms.")
     parser.add_argument("--w0-mm", type=float, default=FilterParams.w0_mm, help="Input/output feed width in mm.")
     parser.add_argument("--resonator-w-mm", type=float, default=FilterParams.resonator_w_mm, help="Resonator strip width in mm.")
     parser.add_argument("--l-mm", type=float, default=FilterParams.resonator_l_mm, help="Resonator length in mm.")
@@ -1209,6 +1238,11 @@ def main() -> None:
         order=args.order,
         substrate=args.substrate,
         er=args.er,
+        lower_cutoff_ghz=args.lower_cutoff_ghz,
+        upper_cutoff_ghz=args.upper_cutoff_ghz,
+        passband_ripple_db=args.passband_ripple_db,
+        z0_ohm=args.z0_ohm,
+        resonator_z0_ohm=args.resonator_z0_ohm,
         dielectric_height_mm=args.h_mm,
         copper_thickness_mm=args.copper_um / 1000.0,
         w0_mm=args.w0_mm,

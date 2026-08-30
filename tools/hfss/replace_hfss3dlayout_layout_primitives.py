@@ -82,7 +82,25 @@ def _create_pcb_output_port(app: Any, layout: dict[str, Any], args: argparse.Nam
     }
 
 
+def _create_pcb_input_port(app: Any, layout: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
+    p1_edge, p1_side = infer_port_edge(layout, "input_feed", 1)
+    created = app.create_edge_port("input_feed", p1_edge, is_circuit_port=False)
+    port_name = getattr(created, "name", str(created)) if created else ""
+    return {
+        "logical_port": "P1",
+        "primitive": "input_feed",
+        "edge": p1_edge,
+        "side": p1_side,
+        "created_port_name": port_name,
+        "template": apply_aedt_edge_gap_port_template(app, port_name, _pcb_port_args(args)) if port_name else {},
+    }
+
+
 def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
+    # AEDT resolves SaveAs relative to the currently opened project.  Resolve
+    # the caller-supplied project path up front to avoid duplicating repository
+    # relative segments (for example ``.../hfss/projects/...``).
+    args.project = Path(args.project).resolve()
     lifecycle = OperationLifecycle(
         "replace_hfss3dlayout_layout_primitives",
         output=event_log_path_for_json(args.output) if getattr(args, "output", None) else None,
@@ -152,6 +170,7 @@ def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
             "Temporary board clip/cut frames are part of source-layout lifecycle cleanup when their names match the configured names or prefixes.",
         ],
         "pcb_output_port": {"recreate": bool(args.recreate_pcb_output_port), "delete_port_names": list(args.delete_pcb_port_name), "primitive": "output_feed", "logical_port": "P2"},
+        "pcb_ports": {"recreate": bool(args.recreate_pcb_ports)},
         "execute": args.execute,
         "save": args.save,
     }
@@ -174,6 +193,7 @@ def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
             close_projects=args.close_projects,
             close_desktop=args.close_desktop,
             remove_lock=args.remove_lock,
+            force_remove_project_lock=args.force_remove_project_lock,
             ready_timeout_s=args.ready_timeout_s,
             ready_settle_s=args.ready_settle_s,
         )
@@ -182,7 +202,10 @@ def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
             payload.update(session.metadata())
             with lifecycle.timed("read_before_ports"):
                 payload["before_ports"] = schematic_iport_names(app)
-            if args.recreate_pcb_output_port:
+            if args.recreate_pcb_ports:
+                with lifecycle.timed("delete_existing_pcb_ports"):
+                    payload["pcb_ports_delete"] = delete_schematic_iports_by_name(app, ["Port1", "Port2"])
+            elif args.recreate_pcb_output_port:
                 with lifecycle.timed("delete_existing_pcb_output_port"):
                     payload["pcb_output_port_delete"] = delete_schematic_iports_by_name(app, list(args.delete_pcb_port_name))
             with lifecycle.timed("inspect_existing_layout_objects"):
@@ -217,7 +240,14 @@ def replace_layout_primitives(args: argparse.Namespace) -> dict[str, Any]:
             with lifecycle.timed("draw_new_layout_from_json", shape_count=len(layout_shapes)):
                 created = create_geometry(app, layout, geometry)
             payload["created_names"] = created
-            if args.recreate_pcb_output_port:
+            if args.recreate_pcb_ports:
+                with lifecycle.timed("recreate_pcb_ports"):
+                    app.odesign.SetActiveEditor("Layout")
+                    payload["pcb_ports_create"] = {
+                        "input": _create_pcb_input_port(app, layout, args),
+                        "output": _create_pcb_output_port(app, layout, args),
+                    }
+            elif args.recreate_pcb_output_port:
                 with lifecycle.timed("recreate_pcb_output_port"):
                     app.odesign.SetActiveEditor("Layout")
                     payload["pcb_output_port_create"] = _create_pcb_output_port(app, layout, args)
@@ -252,6 +282,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--ground-plane-name", default="hfss_ground_plane")
     parser.add_argument("--gnd-boundary-mode", default="port-edges")
     parser.add_argument("--recreate-pcb-output-port", action="store_true", help="Create only the non-connector PCB output edge port on output_feed/P2.")
+    parser.add_argument("--recreate-pcb-ports", action="store_true", help="Create both non-connector PCB edge ports on input_feed/P1 and output_feed/P2.")
     parser.add_argument(
         "--delete-pcb-port-name",
         action="append",
@@ -275,6 +306,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--new-desktop", action="store_true", default=True)
     parser.add_argument("--attach-existing", action="store_false", dest="new_desktop")
     parser.add_argument("--remove-lock", action="store_true")
+    parser.add_argument(
+        "--force-remove-project-lock",
+        action="store_true",
+        help="Remove a stale target .aedt.lock even when unrelated AEDT processes are running.",
+    )
     parser.add_argument("--keep-attached", action="store_true")
     parser.add_argument("--close-projects", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--close-desktop", action=argparse.BooleanOptionalAction, default=True)

@@ -1,0 +1,732 @@
+{
+  "schema_version": "1.0",
+  "report_dir": "D:\\Work\\ADS_AUTO_SIM\\archive\\sp8t\\20260821\\reports\\SP8T开关连接器设计优化报告_实测SP10T_20260821",
+  "html_files": [
+    "SP8T开关连接器设计优化报告.html"
+  ],
+  "files": [
+    {
+      "path": "assets/gap1p5_novia_l2l3_l4_refextend_right1p5_s_curves.svg",
+      "exists": true,
+      "size_bytes": 43337,
+      "sha256": "669ff770ca312dd5e1e5e4eb30762d120d8dc14153e1a0aba8db626bd47017fe"
+    },
+    {
+      "path": "assets/gap1p5_novia_l2l3_l4_refextend_right1p5_smith.svg",
+      "exists": true,
+      "size_bytes": 67708,
+      "sha256": "d85eb28ea4e952beb77e4c67b69a6609f3f1b0c375688bc05ec6264a22d784f8"
+    },
+    {
+      "path": "assets/gts-logo-cropped.svg",
+      "exists": true,
+      "size_bytes": 8286,
+      "sha256": "dea06a1011bfecfb57a4ebaee127c7ffd686bd7a2fef93bdefccec41b9371e8f"
+    },
+    {
+      "path": "assets/l40w17_s_curves.svg",
+      "exists": true,
+      "size_bytes": 38899,
+      "sha256": "dc08a3489a9bd5644a15a2b550e8669e0803d98898fcc36e2eea4e146e6fba9d"
+    },
+    {
+      "path": "assets/l40w17_smith.svg",
+      "exists": true,
+      "size_bytes": 63820,
+      "sha256": "770d9157fe254acab3fbf56d6b8f1fc67640e7a3e62e99bcf70c5f9451032c12"
+    },
+    {
+      "path": "assets/no_connector_30mm_s_curves.svg",
+      "exists": true,
+      "size_bytes": 40383,
+      "sha256": "6f50de2df19fe135d10a8d589f24b227f8e9bb422e0a0941c34bb375c601d7b0"
+    },
+    {
+      "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_s_curves.svg",
+      "exists": true,
+      "size_bytes": 46611,
+      "sha256": "6782b3ee16918d25dc18c4bb1e0589ec53c5e0341ae529afac90cb46bf42f0b4"
+    },
+    {
+      "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_smith.svg",
+      "exists": true,
+      "size_bytes": 69061,
+      "sha256": "c88948ac84f8e150e9ad71da21389372a929a37b93068dda866dc7b4e632f4bc"
+    },
+    {
+      "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_tdr.svg",
+      "exists": true,
+      "size_bytes": 53072,
+      "sha256": "38d3e1a4fe76e82842caa6d3ffc22c5b391caaaf5072682eff72f308b2909c64"
+    },
+    {
+      "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_s_curves.svg",
+      "exists": true,
+      "size_bytes": 44333,
+      "sha256": "d61a24023060e7a8ec2199406a2d5ce7ffa80b45543ff5b33763128226837bb3"
+    },
+    {
+      "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_smith.svg",
+      "exists": true,
+      "size_bytes": 73205,
+      "sha256": "3257b2bd3251492b4bdb944c8d9a1e0d2fa571d1993cd221b40d837e52289758"
+    },
+    {
+      "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_tdr.svg",
+      "exists": true,
+      "size_bytes": 58850,
+      "sha256": "90f8c613521a3eac9db9e41640ae58bdc18ae691fbef13879cec76d09e81b253"
+    },
+    {
+      "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_sp8t_sparams.svg",
+      "exists": true,
+      "size_bytes": 63067,
+      "sha256": "2cf36ee3841dec1947a022af05046053ddbe04cee7a53dbe77443a57ac4b8718"
+    },
+    {
+      "path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_RF_OUT_20260808_sp8t_sparams.svg",
+      "exists": true,
+      "size_bytes": 61194,
+      "sha256": "ce358eccda5a97f635935e916363fff60893267f08bfbe78b184c7f7834f8a4f"
+    },
+    {
+      "path": "assets/se30_gap1p5_novia_l2l3_l4_jlc04161h_7628_1p6mm.svg",
+      "exists": true,
+      "size_bytes": 27331,
+      "sha256": "a65eeea99a74146afbb94b9fc42a07e756ae3fccde514f32348615ec4942834f"
+    },
+    {
+      "path": "assets/se30_gap1p5_novia_l2l3_l4_refextend_right1p5_jlc04161h_7628_1p6mm.svg",
+      "exists": true,
+      "size_bytes": 31857,
+      "sha256": "f31acdd0b448c0041d44adc954400f148dd487226e656517326aec96c33034ff"
+    },
+    {
+      "path": "assets/se30_l40w17_jlc04161h_7628_1p6mm.svg",
+      "exists": true,
+      "size_bytes": 31476,
+      "sha256": "c3c96893fcbbfc74ab7ced427d3b8d853e0f6c89215bbf5924a4bea68f69c7af"
+    },
+    {
+      "path": "assets/sp10t_measured_fr4_trace_loss.svg",
+      "exists": true,
+      "size_bytes": 66332,
+      "sha256": "b72b466f020dd4518cea84aee7547ef5c0ec8a459aca60dd2a51fc141ae76fbc"
+    },
+    {
+      "path": "assets/sp10t_measured_group_avg_s21.svg",
+      "exists": true,
+      "size_bytes": 56375,
+      "sha256": "a471fe3fd605d897b99f1781b346192e4ae0abf8f0b186b638e58e086155aa40"
+    },
+    {
+      "path": "assets/sp10t_measured_il_6g_vs_8g.svg",
+      "exists": true,
+      "size_bytes": 59231,
+      "sha256": "305a3c8c445a029b736f6752799510e2ad36f51f931cd572864bc744a0507d8b"
+    },
+    {
+      "path": "assets/sp10t_measured_il_vs_datasheet.svg",
+      "exists": true,
+      "size_bytes": 81079,
+      "sha256": "862acf941ef3fc4142df2833b7ef31434c363033db906b12ef9f532e949ac794"
+    },
+    {
+      "path": "assets/sp10t_measured_isolation_metrics.json",
+      "exists": true,
+      "size_bytes": 1892,
+      "sha256": "1e0e36513ba88a593e616a8e38095a1ddf4ca8483e44b81fc554f768da25e7c6"
+    },
+    {
+      "path": "assets/sp10t_measured_isolation_typical.svg",
+      "exists": true,
+      "size_bytes": 58323,
+      "sha256": "08708ddd3c710ed2fcd69805a772aed623ab327f64897964e49723d452510998"
+    },
+    {
+      "path": "assets/sp10t_measured_metrics.json",
+      "exists": true,
+      "size_bytes": 5152,
+      "sha256": "15250e0bb1853ba52e39023b6d43115b464c1b9e13d661957d2afd7badc43745"
+    },
+    {
+      "path": "assets/sp10t_measured_rl_6to8_zoom.svg",
+      "exists": true,
+      "size_bytes": 86585,
+      "sha256": "e0d18e1d22dbfb7d81e346b052f1f17dcb25213052fda3403ddc7a9eeed4dc34"
+    },
+    {
+      "path": "assets/sp10t_measured_rl_group_overlay.svg",
+      "exists": true,
+      "size_bytes": 78338,
+      "sha256": "e0d7c0a267918c6542010254505529530450d6b9d2799df658ae028052800fa2"
+    },
+    {
+      "path": "assets/sp10t_measured_s21_overlay_all.svg",
+      "exists": true,
+      "size_bytes": 96471,
+      "sha256": "e456987e9b3869c19c81893b760595bf249fcab819bfaf9913cb56d9df76e890"
+    },
+    {
+      "path": "assets/sp10t_measured_smith_groupA.svg",
+      "exists": true,
+      "size_bytes": 70938,
+      "sha256": "21282cf13053f08e3025de96cf9da7872d9ec1aea9fca14488868a1601997880"
+    },
+    {
+      "path": "assets/sp10t_measured_smith_groupB.svg",
+      "exists": true,
+      "size_bytes": 70627,
+      "sha256": "1f57026645509398501df2898dfa2b4ca397b678829833678ca3c590cd01a29b"
+    },
+    {
+      "path": "assets/sp10t_measured_smith_groupC.svg",
+      "exists": true,
+      "size_bytes": 69751,
+      "sha256": "3525a3f39250da258f6fb162ff786cbbb8cbc795f95d56f57ec556dc93641a38"
+    },
+    {
+      "path": "assets/SP8T_connector_no_connector_unopt_best_overlay.svg",
+      "exists": true,
+      "size_bytes": 88620,
+      "sha256": "939998d7f86853a74cc52107672d25610bc2f0cc28a617aad7449a393540298a"
+    },
+    {
+      "path": "assets/SP8T_connector_no_connector_unopt_best_s21_overlay_0_to_minus10.svg",
+      "exists": true,
+      "size_bytes": 54435,
+      "sha256": "8b231fa810b463da589a231330df14d868f5eaa368f124ba5c38eb3123e778d9"
+    },
+    {
+      "path": "assets/SP8T_connector_no_connector_vs_best_s21_overlay_0_to_minus10.svg",
+      "exists": true,
+      "size_bytes": 52183,
+      "sha256": "578d652a6fc6a5085e65ccad5f765fb39555f7bbec98350d50441035e65dbd88"
+    },
+    {
+      "path": "assets/SP8T_connector_no_connector_vs_best_s21_overlay_0_to_minus3.svg",
+      "exists": true,
+      "size_bytes": 50997,
+      "sha256": "15f7aece7b110b7aaa55a97365d88c4e123f0a7ec5da262def49f6a57e70cca3"
+    },
+    {
+      "path": "assets/SP8T_connector_no_connector_vs_l40w17_s21_overlay_0_to_minus3.svg",
+      "exists": true,
+      "size_bytes": 41277,
+      "sha256": "d2b574250b53d95c8193c41e74a5746de0548d12cdbc6e0ef4ad7ecf9bdf08c7"
+    },
+    {
+      "path": "assets/SP8T_connector_no_connector_vs_refextend_best_s21_overlay_0_to_minus3.svg",
+      "exists": true,
+      "size_bytes": 46760,
+      "sha256": "1619259dc36a5caac0fd2e5429b60f285c30db14e079a8b8b9f2116b00e3118c"
+    },
+    {
+      "path": "assets/SP8T_connector_unopt_notqualified_best_overlay.svg",
+      "exists": true,
+      "size_bytes": 94875,
+      "sha256": "714f40ed36b481ac1aecbe3b8941042b29798e10f6057254ff7b99af00e5671b"
+    },
+    {
+      "path": "assets/SP8T_connector_unopt_notqualified_l40w17_overlay.svg",
+      "exists": true,
+      "size_bytes": 85362,
+      "sha256": "e8d8e1ddfcedb08332888d6bd251abaefff40ca20fa5ae0b65f1f66e9839cbcc"
+    },
+    {
+      "path": "assets/SP8T_connector_unopt_notqualified_refextend_best_overlay.svg",
+      "exists": true,
+      "size_bytes": 85247,
+      "sha256": "5f2b97267066edd31abae605334511b19340fce3c9bd47b2b2086a8ee39762de"
+    },
+    {
+      "path": "assets/SP8T_connector_unopt_vs_best_overlay.svg",
+      "exists": true,
+      "size_bytes": 62508,
+      "sha256": "9020bd328174a759336990fc4fe9f17b5d0046edc73139c45668ee5ed5df2db2"
+    },
+    {
+      "path": "assets/仿真模型.png",
+      "exists": true,
+      "size_bytes": 15124,
+      "sha256": "c474ff079daff62b72f8d95b24b172ccbe9ae85a4c2865fde2261fb833721995"
+    },
+    {
+      "path": "SP8T开关连接器设计优化报告.html",
+      "exists": true,
+      "size_bytes": 70717,
+      "sha256": "b9c2047a9dfc19dc77c867129ebce4559875d6e721cf20bf478e9d63006c8f23"
+    },
+    {
+      "path": "SP8T开关连接器设计优化报告.pdf",
+      "exists": true,
+      "size_bytes": 1645581,
+      "sha256": "6c0ec7542fdf059aaf015c1a6ca65384e3053ced8159820ecb79db23eecfa3af"
+    }
+  ],
+  "asset_references": [
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/gts-logo-cropped.svg",
+      "local_path": "assets/gts-logo-cropped.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/gts-logo-cropped.svg",
+      "local_path": "assets/gts-logo-cropped.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/se30_l40w17_jlc04161h_7628_1p6mm.svg",
+      "local_path": "assets/se30_l40w17_jlc04161h_7628_1p6mm.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/仿真模型.png",
+      "local_path": "assets/仿真模型.png",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/gts-logo-cropped.svg",
+      "local_path": "assets/gts-logo-cropped.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/no_connector_30mm_s_curves.svg",
+      "local_path": "assets/no_connector_30mm_s_curves.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/l40w17_s_curves.svg",
+      "local_path": "assets/l40w17_s_curves.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/l40w17_smith.svg",
+      "local_path": "assets/l40w17_smith.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/gts-logo-cropped.svg",
+      "local_path": "assets/gts-logo-cropped.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/SP8T_connector_no_connector_vs_l40w17_s21_overlay_0_to_minus3.svg",
+      "local_path": "assets/SP8T_connector_no_connector_vs_l40w17_s21_overlay_0_to_minus3.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/gts-logo-cropped.svg",
+      "local_path": "assets/gts-logo-cropped.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/SP8T_connector_unopt_notqualified_l40w17_overlay.svg",
+      "local_path": "assets/SP8T_connector_unopt_notqualified_l40w17_overlay.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/gts-logo-cropped.svg",
+      "local_path": "assets/gts-logo-cropped.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/gts-logo-cropped.svg",
+      "local_path": "assets/gts-logo-cropped.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_sp8t_sparams.svg",
+      "local_path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_sp8t_sparams.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/gts-logo-cropped.svg",
+      "local_path": "assets/gts-logo-cropped.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_RF_OUT_20260808_sp8t_sparams.svg",
+      "local_path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_RF_OUT_20260808_sp8t_sparams.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/gts-logo-cropped.svg",
+      "local_path": "assets/gts-logo-cropped.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_s_curves.svg",
+      "local_path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_s_curves.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_smith.svg",
+      "local_path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_smith.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_tdr.svg",
+      "local_path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_tdr.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/gts-logo-cropped.svg",
+      "local_path": "assets/gts-logo-cropped.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_s_curves.svg",
+      "local_path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_s_curves.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_smith.svg",
+      "local_path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_smith.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_tdr.svg",
+      "local_path": "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_tdr.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/gts-logo-cropped.svg",
+      "local_path": "assets/gts-logo-cropped.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/gts-logo-cropped.svg",
+      "local_path": "assets/gts-logo-cropped.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/gts-logo-cropped.svg",
+      "local_path": "assets/gts-logo-cropped.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/sp10t_measured_il_vs_datasheet.svg",
+      "local_path": "assets/sp10t_measured_il_vs_datasheet.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/sp10t_measured_fr4_trace_loss.svg",
+      "local_path": "assets/sp10t_measured_fr4_trace_loss.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/gts-logo-cropped.svg",
+      "local_path": "assets/gts-logo-cropped.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/sp10t_measured_rl_6to8_zoom.svg",
+      "local_path": "assets/sp10t_measured_rl_6to8_zoom.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/gts-logo-cropped.svg",
+      "local_path": "assets/gts-logo-cropped.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/sp10t_measured_isolation_typical.svg",
+      "local_path": "assets/sp10t_measured_isolation_typical.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/gts-logo-cropped.svg",
+      "local_path": "assets/gts-logo-cropped.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/sp10t_measured_s21_overlay_all.svg",
+      "local_path": "assets/sp10t_measured_s21_overlay_all.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/sp10t_measured_rl_group_overlay.svg",
+      "local_path": "assets/sp10t_measured_rl_group_overlay.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/sp10t_measured_group_avg_s21.svg",
+      "local_path": "assets/sp10t_measured_group_avg_s21.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/gts-logo-cropped.svg",
+      "local_path": "assets/gts-logo-cropped.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/sp10t_measured_smith_groupC.svg",
+      "local_path": "assets/sp10t_measured_smith_groupC.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/sp10t_measured_smith_groupB.svg",
+      "local_path": "assets/sp10t_measured_smith_groupB.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/sp10t_measured_smith_groupA.svg",
+      "local_path": "assets/sp10t_measured_smith_groupA.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    },
+    {
+      "source_html": "SP8T开关连接器设计优化报告.html",
+      "attribute": "src",
+      "uri": "assets/gts-logo-cropped.svg",
+      "local_path": "assets/gts-logo-cropped.svg",
+      "exists": true,
+      "inside_report_dir": true,
+      "skipped": false,
+      "skip_reason": null
+    }
+  ],
+  "referenced_assets": [
+    "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_s_curves.svg",
+    "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_smith.svg",
+    "assets/RF_PPA_SP10T_4F4H_ENIG_V1_01_cutout_0201_20260808_tdr.svg",
+    "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_s_curves.svg",
+    "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_smith.svg",
+    "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_Core1_0402_20260808_tdr.svg",
+    "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_RF_OUT_20260808_sp8t_sparams.svg",
+    "assets/RF_PPA_SP10T_4F4H_ENIG_V1_0_cutout_20260807_sp8t_sparams.svg",
+    "assets/SP8T_connector_no_connector_vs_l40w17_s21_overlay_0_to_minus3.svg",
+    "assets/SP8T_connector_unopt_notqualified_l40w17_overlay.svg",
+    "assets/gts-logo-cropped.svg",
+    "assets/l40w17_s_curves.svg",
+    "assets/l40w17_smith.svg",
+    "assets/no_connector_30mm_s_curves.svg",
+    "assets/se30_l40w17_jlc04161h_7628_1p6mm.svg",
+    "assets/sp10t_measured_fr4_trace_loss.svg",
+    "assets/sp10t_measured_group_avg_s21.svg",
+    "assets/sp10t_measured_il_vs_datasheet.svg",
+    "assets/sp10t_measured_isolation_typical.svg",
+    "assets/sp10t_measured_rl_6to8_zoom.svg",
+    "assets/sp10t_measured_rl_group_overlay.svg",
+    "assets/sp10t_measured_s21_overlay_all.svg",
+    "assets/sp10t_measured_smith_groupA.svg",
+    "assets/sp10t_measured_smith_groupB.svg",
+    "assets/sp10t_measured_smith_groupC.svg",
+    "assets/仿真模型.png"
+  ],
+  "missing_references": [],
+  "outside_report_dir_references": [],
+  "skipped_references": [],
+  "status": "ok",
+  "updated_at": "2026-08-21T19:23:02+08:00"
+}

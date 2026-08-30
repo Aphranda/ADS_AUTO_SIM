@@ -1,0 +1,24 @@
+{
+  "backend": "file",
+  "project": "projects\\TX_band1_RO4350\\hfss\\TX_band1_RO4350.aedt",
+  "exists": true,
+  "size_bytes": 4530,
+  "top_level_designs": [],
+  "selected_designs": [],
+  "designs": [],
+  "connector_like_names": [],
+  "token_lines": [
+    {
+      "line": 113,
+      "text": "$begin 'WBConnIDConnDetails'"
+    },
+    {
+      "line": 114,
+      "text": "$end 'WBConnIDConnDetails'"
+    }
+  ],
+  "notes": [
+    "file backend reads only saved AEDT content and does not see unsaved AEDT GUI changes",
+    "use --backend pyaedt for live session details"
+  ]
+}

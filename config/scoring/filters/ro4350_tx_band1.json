@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "scoring_system": "filter",
+  "profile_id": "ro4350_tx_band1",
+  "name": "TX_band1_RO4350 17.70-19.35 GHz 7th-order Chebyshev target",
+  "score_version": "ro4350_tx_band1_v1",
+  "frequency_ghz": {
+    "stop_low_probe": 14.0,
+    "passband_start": 17.7,
+    "passband_center": 18.525,
+    "passband_stop": 19.35,
+    "stop_high_probe": 23.0
+  },
+  "targets": {
+    "s21_5g_max_db": -45.0,
+    "s21_6g_min_db": -3.0,
+    "s21_8g_min_db": -3.0,
+    "passband_min_s21_db": -3.5,
+    "passband_max_ripple_db": 3.0,
+    "passband_worst_return_loss_db": -10.0
+  }
+}
