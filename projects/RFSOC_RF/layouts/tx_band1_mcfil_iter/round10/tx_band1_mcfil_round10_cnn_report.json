@@ -1,0 +1,43 @@
+{
+  "status": "ok",
+  "model": "TxBandMcfilSectionCnn",
+  "training_samples": 13,
+  "params_dirs": [
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round1",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round2",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round4",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round5",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round6",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round7",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round8",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round9"
+  ],
+  "best_parent": "tx_band1_mcfil_r9_cnn044_rand38_p2up_graphical",
+  "best_parent_score": "40.749",
+  "train": {
+    "train_loss": 9.420364790457825e-07,
+    "train_pred_score": [
+      21.48338508605957,
+      25.249805450439453,
+      -1.417893409729004,
+      24.154455184936523,
+      7.200121879577637,
+      12.37758731842041,
+      -6.662230491638184,
+      -51.31531524658203,
+      20.704151153564453,
+      29.86007308959961,
+      -6.566502571105957,
+      4.55281925201416,
+      40.71757507324219
+    ],
+    "checkpoint": "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round10\\tx_band1_mcfil_section_cnn.pt"
+  },
+  "candidate_plan": "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round10\\tx_band1_mcfil_round10_cnn_candidate_plan.csv",
+  "built_layouts": [
+    "tx_band1_mcfil_r10_cnn006_edge_short_center_hold",
+    "tx_band1_mcfil_r10_cnn031_rand25",
+    "tx_band1_mcfil_r10_cnn038_rand32",
+    "tx_band1_mcfil_r10_cnn042_rand36"
+  ]
+}

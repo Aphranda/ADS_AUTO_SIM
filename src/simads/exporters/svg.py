@@ -138,6 +138,62 @@ def _shape_svg_at(
     return _shape_svg(shape, scale=scale, min_x=min_x, max_y=max_y, layer_colors=layer_colors)
 
 
+def _port_marker_svg_at(
+    layout: Layout,
+    *,
+    scale: float,
+    min_x: float,
+    max_y: float,
+    y_offset: float = 0.0,
+) -> str:
+    ports = list(layout.ports or [])
+    if not ports:
+        return ""
+
+    def sx(x: float) -> float:
+        return (x - min_x) * scale
+
+    def sy(y: float) -> float:
+        return y_offset + (max_y - y) * scale
+
+    parts: list[str] = []
+    for port in sorted(ports, key=lambda item: int(getattr(item, "number", 0) or 0)):
+        x = sx(float(port.x))
+        y = sy(float(port.y))
+        half_w = max(5.0, min(28.0, float(port.width) * scale / 2.0))
+        edge = str((port.metadata or {}).get("edge") or "").lower()
+        orientation = float(getattr(port, "orientation_deg", 0.0) or 0.0) % 360.0
+        if edge == "right" or orientation < 90.0 or orientation > 270.0:
+            label_x = x - 10.0
+            anchor = "end"
+            tick_x2 = x - 16.0
+        else:
+            label_x = x + 10.0
+            anchor = "start"
+            tick_x2 = x + 16.0
+        source = (port.metadata or {}).get("source_dxf_entity")
+        label = str(port.name)
+        if source is not None:
+            label = f"{label} e{source}"
+        title = f"{port.name} x={fmt(float(port.x))} y={fmt(float(port.y))}"
+        if source is not None:
+            title = f"{title} source_dxf_entity={source}"
+        parts.append(
+            "\n".join(
+                [
+                    f'<g class="port-marker" font-family="Arial, sans-serif">',
+                    f"  <title>{escape(title)}</title>",
+                    f'  <line x1="{fmt(x)}" y1="{fmt(y - half_w)}" x2="{fmt(x)}" y2="{fmt(y + half_w)}" stroke="#111827" stroke-width="2"/>',
+                    f'  <line x1="{fmt(x)}" y1="{fmt(y)}" x2="{fmt(tick_x2)}" y2="{fmt(y)}" stroke="#111827" stroke-width="1.5"/>',
+                    f'  <circle cx="{fmt(x)}" cy="{fmt(y)}" r="4.5" fill="#ffffff" stroke="#111827" stroke-width="1.5"/>',
+                    f'  <text x="{fmt(label_x)}" y="{fmt(y - 8.0)}" text-anchor="{anchor}" font-size="13" font-weight="700" fill="#111827">{escape(label)}</text>',
+                    "</g>",
+                ]
+            )
+        )
+    return "\n  ".join(parts)
+
+
 def _is_connector_layer_review(layout: Layout) -> bool:
     metadata = layout.metadata or {}
     return metadata.get("generator") == "simads.hfss.connector" and bool(metadata.get("reference_ground_layer"))
@@ -251,6 +307,7 @@ def _write_connector_layer_review_svg(
         _shape_svg_at(shape, scale=scale, min_x=view_min_x, max_y=view_max_y, y_offset=title_h_px, layer_colors=layer_colors)
         for shape in l1_shapes
     )
+    port_markers = _port_marker_svg_at(layout, scale=scale, min_x=view_min_x, max_y=view_max_y, y_offset=title_h_px)
     l2_parts: list[str] = []
     if l2_ground is not None:
         l2_parts.append(
@@ -382,6 +439,7 @@ def _write_connector_layer_review_svg(
   <text x="16" y="24" font-family="Arial, sans-serif" font-size="16" fill="#111827">{heading}</text>
   <text x="16" y="{fmt(title_h_px + 16)}" font-family="Arial, sans-serif" font-size="14" fill="#111827">L1 {signal_layer}</text>
   {l1_body}
+  {port_markers}
   <text x="16" y="{fmt(l2_y + 16)}" font-family="Arial, sans-serif" font-size="14" fill="#111827">L2 {reference_layer}</text>
   {l2_body}
 {extra_panel_text}
@@ -432,6 +490,7 @@ def _write_bfp_element_layer_review_svg(
         _shape_svg_at(shape, scale=scale, min_x=view_min_x, max_y=view_max_y, y_offset=title_h_px, layer_colors=layer_colors)
         for shape in l1_shapes
     )
+    port_markers = _port_marker_svg_at(layout, scale=scale, min_x=view_min_x, max_y=view_max_y, y_offset=title_h_px)
     l2_parts: list[str] = []
     for shape in boundary_shapes:
         l2_parts.append(
@@ -470,6 +529,7 @@ def _write_bfp_element_layer_review_svg(
   <text x="16" y="24" font-family="Arial, sans-serif" font-size="16" fill="#111827">{heading}</text>
   <text x="16" y="{fmt(title_h_px + 16)}" font-family="Arial, sans-serif" font-size="14" fill="#111827">L1 TOP</text>
   {l1_body}
+  {port_markers}
   <text x="16" y="{fmt(l2_y + 16)}" font-family="Arial, sans-serif" font-size="14" fill="#111827">L2 INNER1</text>
   {l2_body}
 </svg>
@@ -518,10 +578,12 @@ def write_svg(
         _shape_svg(shape, scale=scale, min_x=view_min_x, max_y=view_max_y, layer_colors=layer_colors)
         for shape in layout.shapes
     )
+    port_markers = _port_marker_svg_at(layout, scale=scale, min_x=view_min_x, max_y=view_max_y)
     heading = escape(title or layout.layout_id)
     text = f"""<svg xmlns="http://www.w3.org/2000/svg" width="{width_px}" height="{fmt(height_px)}" viewBox="0 0 {width_px} {fmt(height_px)}">
   <rect x="0" y="0" width="{width_px}" height="{fmt(height_px)}" fill="#ffffff"/>
   {body}
+  {port_markers}
   <text x="16" y="24" font-family="Arial, sans-serif" font-size="16" fill="#111827">{heading}</text>
 </svg>
 """

@@ -15,7 +15,8 @@ desktop.ini
 .vscode/
 .idea/
 *.code-workspace
-
+D:\Work\SIM\ADS_AUTO_SIM\projects\RFSOC_RF\TX_Fillter.aedb
+D:\Work\SIM\ADS_AUTO_SIM\projects\RFSOC_RF\TX_Fillter.aedtresults
 # Python / uv
 __pycache__/
 *.py[cod]
@@ -37,6 +38,14 @@ htmlcov/
 /dist/
 *.egg-info/
 projects/TX_band1_RO4350/hfss/
+
+# RFSOC_RF local HFSS/AEDT working project and heavy simulation outputs.
+# Keep parameterized layout models under projects/RFSOC_RF/layouts/ as source artifacts.
+/projects/RFSOC_RF/TX_Fillter.aedt
+/projects/RFSOC_RF/TX_Fillter.aedt.lock
+/projects/RFSOC_RF/TX_Fillter.aedb/
+/projects/RFSOC_RF/TX_Fillter.aedtresults/
+/projects/RFSOC_RF/hfss_runs/
 
 # Local env / secrets
 .env

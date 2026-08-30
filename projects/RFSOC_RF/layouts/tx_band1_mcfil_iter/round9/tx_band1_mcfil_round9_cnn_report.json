@@ -1,0 +1,40 @@
+{
+  "status": "ok",
+  "model": "TxBandMcfilSectionCnn",
+  "training_samples": 11,
+  "params_dirs": [
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round1",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round2",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round4",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round5",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round6",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round7",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round8"
+  ],
+  "best_parent": "tx_band1_mcfil_r8_cnn023_rand17_p2up_graphical",
+  "best_parent_score": "29.861",
+  "train": {
+    "train_loss": 1.934296506078681e-06,
+    "train_pred_score": [
+      21.47669219970703,
+      25.173368453979492,
+      -1.406778335571289,
+      24.16506004333496,
+      7.150406837463379,
+      12.4346923828125,
+      -6.73030948638916,
+      -51.34716796875,
+      20.73204803466797,
+      29.881305694580078,
+      -6.6312360763549805
+    ],
+    "checkpoint": "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round9\\tx_band1_mcfil_section_cnn.pt"
+  },
+  "candidate_plan": "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round9\\tx_band1_mcfil_round9_cnn_candidate_plan.csv",
+  "built_layouts": [
+    "tx_band1_mcfil_r9_cnn004_center_gap_relax_keep_len",
+    "tx_band1_mcfil_r9_cnn019_rand13",
+    "tx_band1_mcfil_r9_cnn041_rand35",
+    "tx_band1_mcfil_r9_cnn044_rand38"
+  ]
+}

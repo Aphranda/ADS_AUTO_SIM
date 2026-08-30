@@ -1,0 +1,46 @@
+{
+  "schema_version": "0.1.0",
+  "project_id": "RFSOC_RF",
+  "name": "RFSOC RF TX/RX high-frequency filter design",
+  "device_family": "filter",
+  "primary_device_type": "filter.mcfil",
+  "default_profile": "home",
+  "target_profile": null,
+  "pipeline_id": null,
+  "project_root": "projects/RFSOC_RF",
+  "plans_dir": "projects/RFSOC_RF/plans",
+  "layouts_dir": "projects/RFSOC_RF/layouts",
+  "results_dir": "projects/RFSOC_RF/results",
+  "runs_dir": "projects/RFSOC_RF/runs",
+  "reports_dir": "projects/RFSOC_RF/reports",
+  "references_dir": "projects/RFSOC_RF/references",
+  "frequency": {
+    "start_ghz": 14.0,
+    "stop_ghz": 23.0,
+    "passband_start_ghz": 17.7,
+    "passband_stop_ghz": 19.325
+  },
+  "hfss": {
+    "profile": "home",
+    "aedt_project": "projects/RFSOC_RF/TX_Fillter.aedt",
+    "project_model": "single_aedt_project_multiple_designs",
+    "project_action": "add",
+    "stackup_config": "config/stackups/ALUMINA_250UM_MCFIL_2L.json",
+    "route": "custom",
+    "port_type": "aedt-edge",
+    "gnd_boundary_mode": "port-edges",
+    "setup": "Setup_14to23G",
+    "sweep": "Sweep_BB_14to23G_181pt",
+    "simulations": {
+      "tx_band1_mcfil_broadband": {
+        "design_prefix": "TX_BAND1_MCFIL",
+        "frequency_start_ghz": 14.0,
+        "frequency_stop_ghz": 23.0,
+        "frequency_points": 181,
+        "adaptive_frequency_ghz": 18.5,
+        "sweep_type": "Interpolating",
+        "description": "TX_BAND1 MCFIL broadband HFSS 3D Layout sweep."
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "schema_version": "0.1.0",
+  "stackup_id": "ALUMINA_250UM_MCFIL_2L",
+  "name": "ADS MCFIL Alumina 250um two-conductor stackup",
+  "vendor": "ADS MCFIL",
+  "board_code": "MCFIL_ALUMINA_250UM",
+  "finished_thickness_mm": 0.286,
+  "naming": {
+    "token": "alumina_250um_mcfil_2l",
+    "replace_tokens": []
+  },
+  "source": "User-provided ADS Substrate Layer Stackup screenshot, 2026-08-30",
+  "notes": "Matches ADS stackup: air above cond, cond 18um PERFECT_CONDUCTOR, Alumina 250um, cover 18um PERFECT_CONDUCTOR. Alumina is modeled with er=9.8 and loss_tangent=0.0001 until exact ADS material properties are exported.",
+  "materials": {
+    "PERFECT_CONDUCTOR": {
+      "kind": "conductor",
+      "hfss_material": "pec"
+    },
+    "ALUMINA": {
+      "kind": "dielectric",
+      "display_name": "Alumina",
+      "er": 9.8,
+      "loss_tangent": 0.0001
+    }
+  },
+  "layers_bottom_to_top": [
+    {
+      "name": "cover",
+      "role": "reference_ground",
+      "kind": "conductor",
+      "material": "PERFECT_CONDUCTOR",
+      "thickness_mm": 0.018,
+      "thickness_mil": 0.708661
+    },
+    {
+      "name": "DIEL_ALUMINA_250UM",
+      "role": "dielectric",
+      "kind": "dielectric",
+      "material": "ALUMINA",
+      "thickness_mm": 0.25,
+      "thickness_mil": 9.84252
+    },
+    {
+      "name": "cond",
+      "role": "signal",
+      "kind": "conductor",
+      "material": "PERFECT_CONDUCTOR",
+      "thickness_mm": 0.018,
+      "thickness_mil": 0.708661
+    }
+  ],
+  "geometry": {
+    "signal_layer": "cond",
+    "reference_ground_layer": "cover",
+    "ground_layers": [
+      "cover"
+    ],
+    "via_top_layer": "cond",
+    "via_bottom_layer": "cover",
+    "ground_plane_name": "hfss_ground_plane"
+  },
+  "ads": {
+    "expected_substrate_name": "MCFIL_Alumina_250um",
+    "imported_layers": {
+      "cond": 1,
+      "cover": 2
+    },
+    "boundary_layer": "EM_BOUNDARY"
+  }
+}

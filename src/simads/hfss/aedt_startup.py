@@ -84,6 +84,10 @@ class OperationLifecycle:
 def apply_grpc_startup_compat() -> None:
     """Use the legacy insecure gRPC startup path before PyAEDT imports AEDT."""
 
+    if not _env_bool("SIMADS_KEEP_HPEESOF_DIR", False):
+        os.environ.pop("HPEESOF_DIR", None)
+    if _env_bool("SIMADS_AEDT_HIDDEN_GRAPHICAL", False):
+        os.environ.setdefault("ANSYS_DISABLE_DISPLAY", "1")
     os.environ.setdefault("PYAEDT_USE_PRE_GRPC_ARGS", "True")
     os.environ.setdefault("grpc_secure_mode", "False")
     os.environ.setdefault("SIMADS_AEDT_WAIT_FOR_LICENSE", "True")
@@ -142,8 +146,11 @@ def startup_snapshot(settings: Any | None = None) -> dict[str, Any]:
     payload: dict[str, Any] = {
         "PYAEDT_USE_PRE_GRPC_ARGS": os.environ.get("PYAEDT_USE_PRE_GRPC_ARGS"),
         "grpc_secure_mode_env": os.environ.get("grpc_secure_mode"),
+        "HPEESOF_DIR": os.environ.get("HPEESOF_DIR"),
         "SIMADS_AEDT_WAIT_FOR_LICENSE": os.environ.get("SIMADS_AEDT_WAIT_FOR_LICENSE"),
         "SIMADS_AEDT_DESKTOP_TIMEOUT_S": os.environ.get("SIMADS_AEDT_DESKTOP_TIMEOUT_S"),
+        "SIMADS_AEDT_HIDDEN_GRAPHICAL": os.environ.get("SIMADS_AEDT_HIDDEN_GRAPHICAL"),
+        "ANSYS_DISABLE_DISPLAY": os.environ.get("ANSYS_DISABLE_DISPLAY"),
         "SIMADS_AEDT_USER_ROOT": os.environ.get("SIMADS_AEDT_USER_ROOT"),
         "HOME": os.environ.get("HOME"),
         "USERPROFILE": os.environ.get("USERPROFILE"),

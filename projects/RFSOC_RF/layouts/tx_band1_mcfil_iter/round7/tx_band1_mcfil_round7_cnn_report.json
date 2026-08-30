@@ -1,0 +1,35 @@
+{
+  "status": "ok",
+  "model": "TxBandMcfilSectionCnn",
+  "training_samples": 8,
+  "params_dirs": [
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round1",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round2",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round4",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round5",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round6"
+  ],
+  "best_parent": "tx_band1_mcfil_r2_cnn002_len_p085_gap_relax006",
+  "best_parent_score": "25.235",
+  "train": {
+    "train_loss": 9.010189501168497e-07,
+    "train_pred_score": [
+      21.47864532470703,
+      25.184593200683594,
+      -1.410691261291504,
+      24.188194274902344,
+      7.185375213623047,
+      12.469910621643066,
+      -6.694108963012695,
+      -51.337318420410156
+    ],
+    "checkpoint": "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round7\\tx_band1_mcfil_section_cnn.pt"
+  },
+  "candidate_plan": "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round7\\tx_band1_mcfil_round7_cnn_candidate_plan.csv",
+  "built_layouts": [
+    "tx_band1_mcfil_r7_cnn017_rand11",
+    "tx_band1_mcfil_r7_cnn018_rand12",
+    "tx_band1_mcfil_r7_cnn022_rand16",
+    "tx_band1_mcfil_r7_cnn034_rand28"
+  ]
+}

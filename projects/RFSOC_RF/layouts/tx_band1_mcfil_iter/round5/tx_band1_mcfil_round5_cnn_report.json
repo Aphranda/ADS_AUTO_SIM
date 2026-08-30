@@ -1,0 +1,28 @@
+{
+  "status": "ok",
+  "model": "TxBandMcfilSectionCnn",
+  "training_samples": 3,
+  "params_dirs": [
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round1",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round2",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round4"
+  ],
+  "best_parent": "tx_band1_mcfil_r2_cnn002_len_p085_gap_relax006",
+  "best_parent_score": "25.235",
+  "train": {
+    "train_loss": 3.407361504059736e-09,
+    "train_pred_score": [
+      21.478900909423828,
+      25.233253479003906,
+      -1.4095916748046875
+    ],
+    "checkpoint": "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round5\\tx_band1_mcfil_section_cnn.pt"
+  },
+  "candidate_plan": "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round5\\tx_band1_mcfil_round5_cnn_candidate_plan.csv",
+  "built_layouts": [
+    "tx_band1_mcfil_r5_cnn006_edge_short_center_hold",
+    "tx_band1_mcfil_r5_cnn018_rand12",
+    "tx_band1_mcfil_r5_cnn027_rand21",
+    "tx_band1_mcfil_r5_cnn034_rand28"
+  ]
+}

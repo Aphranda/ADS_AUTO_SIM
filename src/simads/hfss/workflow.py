@@ -6,11 +6,12 @@ from __future__ import annotations
 import argparse
 from dataclasses import dataclass
 import json
+import os
 import time
 from pathlib import Path
 from typing import Any, Callable
 
-from simads.config import StackupConfig, get_hfss_profile, hfss_profile_names
+from simads.config import StackupConfig, get_hfss_profile, hfss_profile_names, load_project
 from simads.runtime import (
     SimulationRunContext,
 )
@@ -127,6 +128,15 @@ def hfss_dry_run_payload(
         "design_options": {
             "enable_design_intersection_check": args.enable_design_intersection_check,
         },
+        "sweep": {
+            "start_ghz": args.start_ghz,
+            "stop_ghz": args.stop_ghz,
+            "points": args.points,
+            "adaptive_frequency_ghz": args.adaptive_frequency_ghz,
+            "setup": args.setup,
+            "sweep": args.sweep,
+            "sweep_type": args.sweep_type,
+        },
         "manifest": {
             "write_manifest": args.write_manifest,
             "run_id": run_id,
@@ -155,7 +165,10 @@ def _run_hfss_with_runtime(args: argparse.Namespace, runtime: HfssWorkflowRuntim
     project = project_plan.project_path
     project_plan.ensure_directories(args.out_dir)
 
-    lifecycle = OperationLifecycle("simads.hfss.workflow.run_hfss")
+    lifecycle = OperationLifecycle(
+        "simads.hfss.workflow.run_hfss",
+        output=getattr(args, "_lifecycle_event_log", None),
+    )
     wait_ready = bool(project_plan.init_project and project_plan.project_action != HFSS_PROJECT_ACTION_ADD)
     session_config = Hfss3dLayoutSessionConfig(
         label="simads.hfss.workflow.run_hfss",
@@ -163,7 +176,7 @@ def _run_hfss_with_runtime(args: argparse.Namespace, runtime: HfssWorkflowRuntim
         design=project_plan.design,
         version=args.version,
         non_graphical=args.non_graphical,
-        new_desktop=True,
+        new_desktop=getattr(args, "new_desktop", True),
         close_on_exit=not args.keep_open,
         keep_open=args.keep_open,
         close_projects=True,
@@ -220,7 +233,7 @@ def _run_hfss_with_runtime(args: argparse.Namespace, runtime: HfssWorkflowRuntim
                             design=project_plan.design,
                             version=args.version,
                             non_graphical=args.non_graphical,
-                            new_desktop=True,
+                            new_desktop=getattr(args, "new_desktop", True),
                             close_on_exit=True,
                             remove_lock=bool(result["post_patch_project_lock"].get("removed")),
                         )
@@ -272,7 +285,20 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--reuse-project", action="store_true")
     parser.add_argument("--design", default="I7_FR4_HFSS_VERDICT")
     parser.add_argument("--version", default=None)
-    parser.add_argument("--non-graphical", action="store_true")
+    parser.add_argument("--non-graphical", action="store_true", default=None)
+    parser.add_argument("--graphical", action="store_false", dest="non_graphical")
+    parser.add_argument("--new-desktop", action="store_true", dest="new_desktop", default=True)
+    parser.add_argument(
+        "--attach-existing",
+        action="store_false",
+        dest="new_desktop",
+        help="Attach to an existing AEDT Desktop session instead of starting a new one.",
+    )
+    parser.add_argument(
+        "--hidden-graphical",
+        action="store_true",
+        help="Use graphical AEDT backend while setting ANSYS_DISABLE_DISPLAY=1 before PyAEDT starts AEDT.",
+    )
     parser.add_argument("--keep-open", action="store_true")
     parser.add_argument("--build-only", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
@@ -293,8 +319,8 @@ def parse_args() -> argparse.Namespace:
         default="em-boundary",
         help="HFSS GND plane extent. port-edges aligns left/right GND edges to P1/P2 port cross sections.",
     )
-    parser.add_argument("--start-ghz", type=float, default=4.0)
-    parser.add_argument("--stop-ghz", type=float, default=10.0)
+    parser.add_argument("--start-ghz", type=float, default=None)
+    parser.add_argument("--stop-ghz", type=float, default=None)
     parser.add_argument("--points", type=int, default=40)
     parser.add_argument("--adaptive-frequency-ghz", type=float, default=7.0)
     parser.add_argument("--setup", default="Setup_4to10G")
@@ -370,7 +396,18 @@ def parse_args() -> argparse.Namespace:
     args.version = args.version or profile.version or AEDT_VERSION
     args.route = args.route or profile.route or "custom"
     args.stackup_config = args.stackup_config or profile.stackup_config
-    args.non_graphical = args.non_graphical or profile.non_graphical
+    args.non_graphical = profile.non_graphical if args.non_graphical is None else args.non_graphical
+    if args.hidden_graphical:
+        os.environ["SIMADS_AEDT_HIDDEN_GRAPHICAL"] = "1"
+        os.environ["ANSYS_DISABLE_DISPLAY"] = "1"
+    try:
+        project_config = load_project(args.project_id, root=REPO_ROOT)
+    except FileNotFoundError:
+        project_config = None
+    if args.start_ghz is None:
+        args.start_ghz = (project_config.frequency.start_ghz if project_config else None) or 4.0
+    if args.stop_ghz is None:
+        args.stop_ghz = (project_config.frequency.stop_ghz if project_config else None) or 10.0
     args._hfss_profile = profile
     apply_hfss_route_defaults(args)
     return args
@@ -413,6 +450,7 @@ def main() -> None:
         return
     started = time.monotonic()
     if args.write_manifest:
+        args._lifecycle_event_log = run_dir / "hfss_lifecycle_events.jsonl"
         write_hfss_manifests(
             args,
             layout,

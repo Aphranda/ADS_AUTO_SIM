@@ -1,0 +1,9 @@
+{
+  "model": "TxBandMcfilSectionCnn",
+  "input_shape": "5 coupled sections x [length, gap, mean_width, outer_flag]",
+  "torch_available": true,
+  "training_samples": 1,
+  "min_samples_for_training": 5,
+  "mode": "cold_start_score_feedback",
+  "note": "CNN ranking is enabled after enough HFSS-scored MCFIL samples exist; cold-start uses score-informed physics priors."
+}

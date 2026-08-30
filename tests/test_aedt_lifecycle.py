@@ -52,6 +52,18 @@ def test_hidden_subprocess_kwargs_are_no_window_on_windows() -> None:
         assert kwargs["startupinfo"] is not None
 
 
+def test_apply_grpc_startup_compat_hidden_graphical_sets_ansys_disable_display(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("SIMADS_AEDT_HIDDEN_GRAPHICAL", "1")
+    monkeypatch.delenv("ANSYS_DISABLE_DISPLAY", raising=False)
+    monkeypatch.setenv("SIMADS_AEDT_USE_WORKSPACE_USER_DIRS", "False")
+
+    aedt_startup.apply_grpc_startup_compat()
+
+    assert aedt_startup.os.environ["ANSYS_DISABLE_DISPLAY"] == "1"
+    assert aedt_startup.startup_snapshot()["SIMADS_AEDT_HIDDEN_GRAPHICAL"] == "1"
+    assert aedt_startup.startup_snapshot()["ANSYS_DISABLE_DISPLAY"] == "1"
+
+
 def test_prepare_aedt_project_lock_removes_stale_lock_without_aedt_process(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     project = tmp_path / "unit.aedt"
     lock = tmp_path / "unit.aedt.lock"

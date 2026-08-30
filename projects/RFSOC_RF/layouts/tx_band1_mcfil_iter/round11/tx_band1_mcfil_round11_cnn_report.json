@@ -1,0 +1,46 @@
+{
+  "status": "ok",
+  "model": "TxBandMcfilSectionCnn",
+  "training_samples": 15,
+  "params_dirs": [
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round1",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round2",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round4",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round5",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round6",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round7",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round8",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round9",
+    "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round10"
+  ],
+  "best_parent": "tx_band1_mcfil_r9_cnn044_rand38_p2up_graphical",
+  "best_parent_score": "15.267",
+  "train": {
+    "train_loss": 4.787245870829793e-06,
+    "train_pred_score": [
+      14.824762344360352,
+      -6.685276985168457,
+      -42.02288055419922,
+      -8.332015991210938,
+      -30.63287925720215,
+      -24.02737808227539,
+      -48.94126892089844,
+      -103.82865142822266,
+      -12.611272811889648,
+      -0.9607944488525391,
+      -48.53973388671875,
+      -34.30609130859375,
+      15.072416305541992,
+      14.029386520385742,
+      5.846292495727539
+    ],
+    "checkpoint": "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round11\\tx_band1_mcfil_section_cnn.pt"
+  },
+  "candidate_plan": "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round11\\tx_band1_mcfil_round11_cnn_candidate_plan.csv",
+  "built_layouts": [
+    "tx_band1_mcfil_r11_cnn017_rand11",
+    "tx_band1_mcfil_r11_cnn025_rand19",
+    "tx_band1_mcfil_r11_cnn032_rand26",
+    "tx_band1_mcfil_r11_cnn035_rand29"
+  ]
+}
