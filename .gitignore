@@ -78,6 +78,7 @@ de_sim.cfg
 *_events.jsonl
 *.jou
 *.ses
+*.aedt.auto
 *.bak_*
 
 # ADS / RFPro generated datasets and solver caches
@@ -145,6 +146,10 @@ projects/*/layouts/**/*.svg
 projects/*/layouts/**/*_layout.json
 projects/*/layouts/**/*_params.json
 projects/*/layouts/**/*_tuning_table.csv
+projects/*/layouts/**/*_candidate_plan.csv
+projects/*/layouts/**/*_cnn_report.json
+projects/*/layouts/**/*_dxf_summary.json
+projects/*/layouts/**/*_section_cnn.pt
 
 # Curated API-extracted layout snapshots that are referenced by manifests.
 !projects/*/layouts/extracted/
@@ -179,7 +184,7 @@ projects/*/results/**/*_predictions.csv
 # Runtime execution state is local by default; freeze important evidence under baselines/.
 projects/*/runs/**
 !projects/*/baselines/**
-!projects/*/reports/**
+projects/*/reports/
 # SIM artifact ignore refinements
 projects/*/results/**/runs/**
 projects/*/results/**/filter_features.csv

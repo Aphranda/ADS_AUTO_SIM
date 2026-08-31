@@ -350,3 +350,201 @@ Next tuning direction:
 - Use nonuniform length tuning: less added length on outer sections, slightly more on middle sections only if high-edge S21 is protected.
 - Relax central coupling gap slightly to recover LO rejection, while keeping outer coupling close to CNN002 to preserve low-edge transmission.
 - Add explicit feed/port transition variables in the next candidate set, because passband return loss remains poor even when S21 improves.
+
+## 11. High-Frequency Return-Loss Weighted Loop
+
+2026-08-31 update: 高频端回损成为主约束。评分脚本 `tools/score_tx_band_filter.py` 已提高 `18.8-19.325 GHz` 半段 S11/S22 权重，并新增：
+
+- `worst_high_return_loss_db`
+- `high_return_loss_margin_db`
+
+当前目标口径：
+
+```text
+Passband: 17.700-19.325 GHz
+High passband RL window: 18.800-19.325 GHz
+Insertion loss baseline: S21 >= -3 dB
+Return loss baseline: S11/S22 <= -10 dB
+Boardband sweep: 14-23 GHz, 181 points, Interpolating
+```
+
+有效反馈表：
+
+```text
+projects/RFSOC_RF/hfss_runs/tx_band1_mcfil_corrected_tx_feedback.csv
+```
+
+当前有效反馈数：`73`。
+
+当前排序重点：
+
+| Candidate | Score | Passband min S21 dB | Worst high RL dB | High RL margin dB | Notes |
+|---|---:|---:|---:|---:|---|
+| `tx_band1_mcfil_r23_cnn042_rand33_p2up_graphical` | 50.278 | -5.0103 | -9.8966 | -0.1034 | 当前综合最好，已经逼近 -10 dB 高频回损 |
+| `tx_band1_mcfil_r14_cnn043_rand37_p2up_graphical` | 46.625 | -5.1159 | -9.2879 | -0.7121 | 高频回损接近达标，但仍差一点 |
+| `tx_band1_mcfil_r14_cnn022_rand16_p2up_graphical` | 46.438 | -5.1441 | -11.3937 | +1.3937 | 高频回损已过 -10 dB，但低边 S21 仍弱 |
+| `tx_band1_mcfil_r16_cnn023_rand14_p2up_graphical` | 44.976 | -4.8469 | -8.6784 | -1.3216 | 低边插损更好，但高频回损不足 |
+
+Interpretation:
+
+- 这轮最好候选已经把高频回损推到 `-9 to -11.4 dB` 区间，说明端口与 boardband 口径是有效的。
+- 现在瓶颈仍然是“高频回损、低边插损、通带平坦度”的三方折中。
+- `R23_CNN042` 是当前主父本参考：它在高频回损接近达标的同时，保留了较好的整体分数。
+- 下一轮候选应围绕 `R23_CNN042` 和 `R14_CNN022` 做局部搜索：一个偏向整体最优，一个偏向高频回损达标。
+
+Automation updates:
+
+- `tools/run_tx_band_mcfil_boardband_batch.py` 增加 `--timeout-minutes`，单候选超时后终止整棵子进程树并停止该批，避免 HFSS 挂起长期阻塞。
+- `tools/hfss/prune_tx_band_mcfil_low_score_designs.py` 可按反馈分数清理低分 HFSS design，并支持 `--delete-design` 删除无效/未完成 design。
+- `tools/run_tx_band_mcfil_long_optimization.py` 是长期滚动入口；当前重启目标设为 200 轮，生成 CNN 候选、运行 Top 子集、定期清理低分 design。
+- `round51` 已生成，当前继续从 `r50_*` / `r51_*` 候选中滚动推进。
+- `round52` 已生成并开始跑首批候选。
+- `tools/make_tx_band_mcfil_cnn_iteration.py` 已把所有历史 `*_params.json` 纳入去重，避免未评分/超时几何在后续轮次重复生成。
+
+HFSS project cleanup:
+
+- 已清理 `tx_score < -100` 的历史低分 design。
+- 已删除无效/超时 design：`TX_BAND1_MCFIL_R12_CNN025`、`TX_BAND1_MCFIL_R13_CNN026`。
+- 工程保留基线、当前 Top 候选和少量早期对照 design；参数化模型、SVG、HFSS 输出和评分反馈保留在项目目录，HFSS 重型产物通过 `.gitignore` 排除。
+
+Long-run command pattern:
+
+```powershell
+& "D:\Microsoft\uv-venvs\ads-automation\Scripts\python.exe" tools\run_tx_band_mcfil_long_optimization.py `
+  --target-count 200 `
+  --batch-size 3 `
+  --timeout-minutes 6 `
+  --prune-every 2 `
+  --keep-top-n 12
+```
+
+## 12. Current State Snapshot
+
+2026-08-31 update:
+
+- Target count: 200
+- Current valid feedback count: 73
+- Latest generated round: `round55`
+- Active candidate batch: `tx_band1_mcfil_r55_cnn021_rand12_p2up_graphical` and peers
+- Current state: generated layouts exist, but no `tx_score.csv` has been produced yet for the latest round
+- Workspace intent: keep `HPEESOF_DIR` unset and continue boardband sweeps at `14-23 GHz`, `181 points`, `Interpolating`
+
+2026-08-31 later update:
+
+- Current valid feedback count: 75
+- `round56` has started and the first scored candidate is `tx_band1_mcfil_r56_cnn018_rand09_p2up_graphical`
+- `tx_score`: `-4.643`
+- `round56` batch is still running; next candidate `tx_band1_mcfil_r56_cnn020_rand11_p2up_graphical` has started outputting files
+
+2026-08-31 even later update:
+
+- Current valid feedback count: 76
+- `tx_band1_mcfil_r56_cnn020_rand11_p2up_graphical`
+- `tx_score`: `27.490`
+- `round56` is still active; `tx_band1_mcfil_r56_cnn034_rand25_p2up_graphical` has been queued next
+
+2026-08-31 final round56 update:
+
+- Current valid feedback count: 77
+- `tx_band1_mcfil_r56_cnn034_rand25_p2up_graphical`
+- `tx_score`: `-37.326`
+- `round56` batch has completed its first three candidates and `round57` already exists
+
+2026-08-31 round57 update:
+
+- Current valid feedback count: 78
+- `tx_band1_mcfil_r57_cnn016_rand07_p2up_graphical`
+- `tx_score`: `26.137`
+- `r57_cnn047` output directory has not produced a score yet
+
+2026-08-31 round58 update:
+
+- Current valid feedback count: 80
+- `round58` has started
+- First active candidate: `tx_band1_mcfil_r58_cnn015_rand06_p2up_graphical`
+- `r58_c015` is still running; no `tx_score.csv` yet
+
+2026-08-31 latest clean-state update:
+
+- Current valid feedback count: 79
+- Latest generated round: `round63`
+- Active candidate batch: `tx_band1_mcfil_r63_cnn022_rand13_p2up_graphical`
+- Workspace is now clean enough for the current iteration loop; keep `HPEESOF_DIR` unset
+- Practical checkpoint for this clean-state phase: `110` feedback rows; long-run objective remains `200` total versions
+- Boardband sweep remains `14-23 GHz`, `181 points`, `Interpolating`
+
+2026-08-31 live watch update:
+
+- `round63` is still running
+- `ansysedt` PID `18312` is alive but non-responsive; `ansyscl` PID `36120` is still alive
+- No `tx_score.csv` has been written yet for `tx_band1_mcfil_r63_cnn022_rand13_p2up_graphical`
+- Feedback count remains `79`
+
+2026-08-31 rolling update:
+
+- `round64` has been generated at `2026-08-31 06:43:28`
+- `round65` has been generated at `2026-08-31 06:49:35`
+- No new feedback has been appended yet; current count is still `79`
+- The long-run loop is still advancing generation even while the current HFSS solve has not written back
+
+2026-08-31 latest rolling update:
+
+- `round66` has been generated at `2026-08-31 06:58:45`
+- Active candidate batch: `tx_band1_mcfil_r66_cnn043_rand34_p2up_graphical`
+- No new feedback has been appended yet; current count is still `79`
+- The pruning pass finished and the main loop kept rolling forward
+
+2026-08-31 round66 score update:
+
+- `tx_band1_mcfil_r66_cnn043_rand34_p2up_graphical` scored `4.268`
+- `passband_min_s21_db`: `-5.0545`
+- `worst_high_return_loss_db`: `-7.0913`
+- The candidate is valid and its HFSS chain is complete
+- Current valid feedback count: `80`
+
+2026-08-31 round67 start update:
+
+- `round67` has been generated at `2026-08-31 07:07:07`
+- Active candidate batch: `tx_band1_mcfil_r67_cnn015_rand06_p2up_graphical`
+- `r67_cnn015` has started but has not written `tx_score.csv` yet
+- `r66_cnn026` is still pending final writeback in the same long-run chain
+
+2026-08-31 round68 start update:
+
+- `round68` has been generated at `2026-08-31 07:16:15`
+- Active candidate batch: `tx_band1_mcfil_r68_cnn029_rand20_p2up_graphical`
+- Feedback count remains `80`
+- The main loop is still advancing after prune completed
+
+2026-08-31 round69 start update:
+
+- `round69` has been generated at `2026-08-31 07:22:24`
+- Active candidate batch: `tx_band1_mcfil_r69_cnn037_rand28_p2up_graphical`
+- Feedback count remains `80`
+- The long-run loop is still active and moving forward
+
+2026-08-31 round70 start update:
+
+- `round70` has been generated at `2026-08-31 07:31:33`
+- Active candidate batch: `tx_band1_mcfil_r70_cnn041_rand32_p2up_graphical`
+- Feedback count remains `80`
+- The long-run loop continues to advance
+
+2026-08-31 round70 score update:
+
+- `tx_band1_mcfil_r70_cnn041_rand32_p2up_graphical` scored `33.334`
+- `passband_min_s21_db`: `-5.1659`
+- `worst_high_return_loss_db`: `-8.7463`
+- Current valid feedback count: `81`
+
+2026-08-31 round71 start update:
+
+- `round71` has been generated at `2026-08-31 07:40:41`
+- Active candidate batch: `tx_band1_mcfil_r71_cnn032_rand23_p2up_graphical`
+- Feedback count remains `81`
+
+2026-08-31 round72 start update:
+
+- `round72` has been generated at `2026-08-31 07:49:49`
+- Active candidate batch: `tx_band1_mcfil_r72_cnn013_rand04_p2up_graphical`
+- Feedback count remains `81`

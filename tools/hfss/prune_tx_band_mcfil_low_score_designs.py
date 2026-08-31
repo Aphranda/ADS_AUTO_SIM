@@ -56,6 +56,13 @@ def _delete_design(app: Any, design: str) -> Any:
     return app.oproject.DeleteDesign(design)
 
 
+def _set_active_design(app: Any, design: str) -> None:
+    if hasattr(app, "set_active_design"):
+        app.set_active_design(design)
+        return
+    app.oproject.SetActiveDesign(design)
+
+
 def _candidate_to_design(candidate: str) -> str | None:
     if candidate == "tx_band1_mcfil_alumina_manual_ports":
         return "TX_BAND1_MCFIL_ALUMINA_BB_14_23G"
@@ -125,6 +132,7 @@ def prune_designs(args: argparse.Namespace) -> dict[str, Any]:
         "score_below": args.score_below,
         "keep_top_n": args.keep_top_n,
         "keep_designs": sorted(keep),
+        "extra_delete_designs": sorted(set(args.delete_design)),
         "planned_delete": selected,
         "execute": bool(args.execute),
     }
@@ -156,11 +164,26 @@ def prune_designs(args: argparse.Namespace) -> dict[str, Any]:
             before = _design_list(app)
             payload["designs_before"] = before
             existing = set(before)
+            planned_by_design = {row["design"]: row for row in selected}
+            for design in args.delete_design:
+                if design not in planned_by_design:
+                    planned_by_design[design] = {
+                        "design": design,
+                        "candidate": "",
+                        "tx_score": "",
+                        "worst_high_return_loss_db": "",
+                        "note": "explicit delete design; usually incomplete or invalid simulation design",
+                    }
             deleted: list[dict[str, Any]] = []
             missing: list[str] = []
             skipped_active: list[str] = []
             active_design = _clean_design_name(getattr(app, "design_name", "") or "")
-            for row in selected:
+            safe_active = next((name for name in sorted(keep) if name in existing and name != active_design), None)
+            if active_design in planned_by_design and safe_active:
+                with lifecycle.timed(f"activate_safe_design:{safe_active}"):
+                    _set_active_design(app, safe_active)
+                active_design = safe_active
+            for row in sorted(planned_by_design.values(), key=lambda item: item["design"]):
                 design = row["design"]
                 if design not in existing:
                     missing.append(design)
@@ -168,8 +191,12 @@ def prune_designs(args: argparse.Namespace) -> dict[str, Any]:
                 if design == active_design:
                     skipped_active.append(design)
                     continue
-                with lifecycle.timed(f"delete_design:{design}"):
-                    result = _delete_design(app, design)
+                try:
+                    with lifecycle.timed(f"delete_design:{design}"):
+                        result = _delete_design(app, design)
+                except Exception as exc:
+                    skipped_active.append(f"{design}: {exc}")
+                    continue
                 deleted.append({**row, "delete_result": str(result)})
             payload["deleted"] = deleted
             payload["missing"] = missing
@@ -193,6 +220,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--score-below", type=float, default=-100.0)
     parser.add_argument("--keep-top-n", type=int, default=8)
     parser.add_argument("--keep-design", action="append", default=[])
+    parser.add_argument("--delete-design", action="append", default=[], help="Extra design name to remove even if it is not in feedback.")
     parser.add_argument("--execute", action="store_true")
     parser.add_argument("--save", action="store_true")
     parser.add_argument("--version", default="2026.1")

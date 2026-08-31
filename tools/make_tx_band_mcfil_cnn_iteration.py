@@ -97,6 +97,19 @@ def tuning_signature(params: dict[str, Any], *, ndigits: int = 6) -> tuple[float
     return tuple(values)
 
 
+def existing_param_signatures(params_dirs: list[Path]) -> set[tuple[float, ...]]:
+    signatures: set[tuple[float, ...]] = set()
+    for params_dir in params_dirs:
+        if not params_dir.exists():
+            continue
+        for path in params_dir.glob("*_params.json"):
+            try:
+                signatures.add(tuning_signature(load_json(path)))
+            except Exception:
+                continue
+    return signatures
+
+
 def set_tuning(params: dict[str, Any], name: str, length: list[float], gap: list[float], width: list[float], metadata: dict[str, Any]) -> dict[str, Any]:
     out = deepcopy(params)
     out["layout_id"] = name
@@ -342,7 +355,7 @@ def main() -> None:
     records, x_train, y_train = build_dataset(feedback, args.base_params, params_dirs)
     best = max(records, key=lambda row: float(row["tx_score"]))
     best_params = load_json(Path(best["params_json"]))
-    scored_signatures = {tuning_signature(load_json(Path(record["params_json"]))) for record in records}
+    scored_signatures = existing_param_signatures(params_dirs)
     args.out_dir.mkdir(parents=True, exist_ok=True)
     checkpoint = args.out_dir / "tx_band1_mcfil_section_cnn.pt"
     train = train_cnn(x_train, y_train, epochs=args.epochs, seed=args.seed, checkpoint=checkpoint)
