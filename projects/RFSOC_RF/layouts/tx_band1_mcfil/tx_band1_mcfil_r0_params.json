@@ -1,0 +1,295 @@
+{
+  "schema_version": "0.1.0",
+  "layout_id": "tx_band1_mcfil_r0",
+  "source_dxf": "D:\\Work\\ADS\\TX_Band\\mfg\\TX_Band_lib_DA_CLFilter1_TX_BAND1\\dxf\\DA_CLFilter1_TX_BAND1.dxf",
+  "source_kind": "ADS MCFIL",
+  "units": "mm",
+  "dxf_units": {
+    "insunits": 13,
+    "name": "Microns",
+    "scale_to_mm": 0.001
+  },
+  "frequency_plan": {
+    "branch": "TX-F1 / TX_BAND1",
+    "passband_GHz": [
+      17.7,
+      19.325
+    ],
+    "lo_stopband_GHz": [
+      14.4,
+      15.025
+    ],
+    "image_stopband_GHz": [
+      10.1,
+      13.6
+    ],
+    "targets": {
+      "insertion_loss_max_dB": 2.5,
+      "return_loss_min_dB": 15.0,
+      "stopband_rejection_min_dB": 40.0,
+      "group_delay_ripple_max_ns": 0.25
+    }
+  },
+  "global_parameters": {
+    "x_offset_mm": 0.0,
+    "y_offset_mm": 0.0,
+    "boundary_margin_mm": 0.6,
+    "metal_thickness_mm": null,
+    "substrate_stackup": "TBD; default HFSS profile currently points at config/stackups/JLC04161H_7628_1P6MM.json"
+  },
+  "source_bbox_mm": [
+    -5.738417,
+    -0.347613,
+    1.483007,
+    2.182753
+  ],
+  "source_size_mm": {
+    "x": 7.221424,
+    "y": 2.530366
+  },
+  "coupled_sections": [
+    {
+      "section": 1,
+      "x0_mm": 0.0,
+      "x1_mm": 1.483007,
+      "length_mm": 1.483007,
+      "bbox_mm": [
+        0.0,
+        -0.347613,
+        1.483007,
+        0.042935
+      ],
+      "strip_count": 2,
+      "coupling_gaps_mm": [
+        0.064594
+      ],
+      "strips": [
+        {
+          "source_entity": 2,
+          "strip": 1,
+          "x0_mm": 0.0,
+          "y0_mm": -0.347613,
+          "x1_mm": 1.483007,
+          "y1_mm": -0.184636,
+          "width_mm": 0.162977,
+          "center_y_mm": -0.266125
+        },
+        {
+          "source_entity": 1,
+          "strip": 2,
+          "x0_mm": 0.0,
+          "y0_mm": -0.120042,
+          "x1_mm": 1.483007,
+          "y1_mm": 0.042935,
+          "width_mm": 0.162977,
+          "center_y_mm": -0.038554
+        }
+      ],
+      "tuning": {
+        "length_delta_mm": 0.0,
+        "width_delta_mm": 0.0,
+        "gap_delta_mm": 0.0,
+        "x_delta_mm": 0.0,
+        "y_delta_mm": 0.0
+      }
+    },
+    {
+      "section": 2,
+      "x0_mm": -1.420354,
+      "x1_mm": 0.0,
+      "length_mm": 1.420354,
+      "bbox_mm": [
+        -1.420354,
+        -0.120042,
+        0.0,
+        0.682597
+      ],
+      "strip_count": 2,
+      "coupling_gaps_mm": [
+        0.32247
+      ],
+      "strips": [
+        {
+          "source_entity": 4,
+          "strip": 1,
+          "x0_mm": -1.420354,
+          "y0_mm": -0.120042,
+          "x1_mm": 0.0,
+          "y1_mm": 0.120043,
+          "width_mm": 0.240085,
+          "center_y_mm": 1e-06
+        },
+        {
+          "source_entity": 3,
+          "strip": 2,
+          "x0_mm": -1.420354,
+          "y0_mm": 0.442513,
+          "x1_mm": 0.0,
+          "y1_mm": 0.682597,
+          "width_mm": 0.240084,
+          "center_y_mm": 0.562555
+        }
+      ],
+      "tuning": {
+        "length_delta_mm": 0.0,
+        "width_delta_mm": 0.0,
+        "gap_delta_mm": 0.0,
+        "x_delta_mm": 0.0,
+        "y_delta_mm": 0.0
+      }
+    },
+    {
+      "section": 3,
+      "x0_mm": -2.835056,
+      "x1_mm": -1.420354,
+      "length_mm": 1.414702,
+      "bbox_mm": [
+        -2.835056,
+        0.442513,
+        -1.420354,
+        1.392627
+      ],
+      "strip_count": 2,
+      "coupling_gaps_mm": [
+        0.461648
+      ],
+      "strips": [
+        {
+          "source_entity": 6,
+          "strip": 1,
+          "x0_mm": -2.835056,
+          "y0_mm": 0.442513,
+          "x1_mm": -1.420354,
+          "y1_mm": 0.686746,
+          "width_mm": 0.244233,
+          "center_y_mm": 0.564629
+        },
+        {
+          "source_entity": 5,
+          "strip": 2,
+          "x0_mm": -2.835056,
+          "y0_mm": 1.148394,
+          "x1_mm": -1.420354,
+          "y1_mm": 1.392627,
+          "width_mm": 0.244233,
+          "center_y_mm": 1.270511
+        }
+      ],
+      "tuning": {
+        "length_delta_mm": 0.0,
+        "width_delta_mm": 0.0,
+        "gap_delta_mm": 0.0,
+        "x_delta_mm": 0.0,
+        "y_delta_mm": 0.0
+      }
+    },
+    {
+      "section": 4,
+      "x0_mm": -4.25541,
+      "x1_mm": -2.835056,
+      "length_mm": 1.420354,
+      "bbox_mm": [
+        -4.25541,
+        1.152542,
+        -2.835056,
+        1.955181
+      ],
+      "strip_count": 2,
+      "coupling_gaps_mm": [
+        0.32247
+      ],
+      "strips": [
+        {
+          "source_entity": 8,
+          "strip": 1,
+          "x0_mm": -4.25541,
+          "y0_mm": 1.152542,
+          "x1_mm": -2.835056,
+          "y1_mm": 1.392627,
+          "width_mm": 0.240085,
+          "center_y_mm": 1.272585
+        },
+        {
+          "source_entity": 7,
+          "strip": 2,
+          "x0_mm": -4.25541,
+          "y0_mm": 1.715097,
+          "x1_mm": -2.835056,
+          "y1_mm": 1.955181,
+          "width_mm": 0.240084,
+          "center_y_mm": 1.835139
+        }
+      ],
+      "tuning": {
+        "length_delta_mm": 0.0,
+        "width_delta_mm": 0.0,
+        "gap_delta_mm": 0.0,
+        "x_delta_mm": 0.0,
+        "y_delta_mm": 0.0
+      }
+    },
+    {
+      "section": 5,
+      "x0_mm": -5.738417,
+      "x1_mm": -4.25541,
+      "length_mm": 1.483007,
+      "bbox_mm": [
+        -5.738417,
+        1.792205,
+        -4.25541,
+        2.182753
+      ],
+      "strip_count": 2,
+      "coupling_gaps_mm": [
+        0.064594
+      ],
+      "strips": [
+        {
+          "source_entity": 10,
+          "strip": 1,
+          "x0_mm": -5.738417,
+          "y0_mm": 1.792205,
+          "x1_mm": -4.25541,
+          "y1_mm": 1.955182,
+          "width_mm": 0.162977,
+          "center_y_mm": 1.873693
+        },
+        {
+          "source_entity": 9,
+          "strip": 2,
+          "x0_mm": -5.738417,
+          "y0_mm": 2.019776,
+          "x1_mm": -4.25541,
+          "y1_mm": 2.182753,
+          "width_mm": 0.162977,
+          "center_y_mm": 2.101264
+        }
+      ],
+      "tuning": {
+        "length_delta_mm": 0.0,
+        "width_delta_mm": 0.0,
+        "gap_delta_mm": 0.0,
+        "x_delta_mm": 0.0,
+        "y_delta_mm": 0.0
+      }
+    }
+  ],
+  "editable_tuning_model": {
+    "description": "R1 can rebuild each strip from x/y/length/width values below. Keep the R0 DXF layout as the reference geometry.",
+    "supported_by_this_tool": "Edit coupled_sections[].tuning or global_parameters, then rerun this tool with --params-in.",
+    "recommended_first_sweep": [
+      "global y_offset_mm / connector feed alignment",
+      "per-section coupling_gaps_mm",
+      "per-section length_mm",
+      "outer section strip widths"
+    ]
+  },
+  "ports": {
+    "status": "confirmed",
+    "p1_source_entity": 2,
+    "p2_source_entity": 9,
+    "review_note": "Confirmed TX_BAND1 MCFIL ports: P1 on right lower strip, P2 on left upper strip."
+  },
+  "last_build_mode": "params",
+  "last_build_source_params": "D:\\Work\\SIM\\ADS_AUTO_SIM\\projects\\RFSOC_RF\\layouts\\tx_band1_mcfil\\tx_band1_mcfil_r0_params.json"
+}
