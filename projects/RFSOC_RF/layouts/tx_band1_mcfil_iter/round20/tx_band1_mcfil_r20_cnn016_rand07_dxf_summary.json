@@ -1,0 +1,213 @@
+{
+  "source_params": "D:\\Work\\SIM\\ADS_AUTO_SIM\\projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round20\\tx_band1_mcfil_r20_cnn016_rand07_params.json",
+  "source_dxf": "D:\\Work\\ADS\\TX_Band\\mfg\\TX_Band_lib_DA_CLFilter1_TX_BAND1\\dxf\\DA_CLFilter1_TX_BAND1.dxf",
+  "layout_id": "tx_band1_mcfil_r20_cnn016_rand07",
+  "build_mode": "params",
+  "axis_aligned_rect_count": 10,
+  "bbox_mm": [
+    -5.75625,
+    -0.349172,
+    1.504144,
+    2.185707
+  ],
+  "size_mm": {
+    "x": 7.260394,
+    "y": 2.534879
+  },
+  "coupled_sections": [
+    {
+      "section": 1,
+      "x0_mm": -0.021138,
+      "x1_mm": 1.504144,
+      "length_mm": 1.525282,
+      "bbox_mm": [
+        -0.021138,
+        -0.349172,
+        1.504144,
+        0.044493
+      ],
+      "strip_count": 2,
+      "coupling_gaps_mm": [
+        0.109494
+      ],
+      "strips": [
+        {
+          "source_entity": 2,
+          "strip": 1,
+          "x0_mm": -0.021138,
+          "y0_mm": -0.349172,
+          "x1_mm": 1.504144,
+          "y1_mm": -0.207086,
+          "width_mm": 0.142086,
+          "center_y_mm": -0.278129
+        },
+        {
+          "source_entity": 1,
+          "strip": 2,
+          "x0_mm": -0.021138,
+          "y0_mm": -0.097592,
+          "x1_mm": 1.504144,
+          "y1_mm": 0.044493,
+          "width_mm": 0.142086,
+          "center_y_mm": -0.02655
+        }
+      ]
+    },
+    {
+      "section": 2,
+      "x0_mm": -1.451036,
+      "x1_mm": 0.030683,
+      "length_mm": 1.481719,
+      "bbox_mm": [
+        -1.451036,
+        -0.119692,
+        0.030683,
+        0.682248
+      ],
+      "strip_count": 2,
+      "coupling_gaps_mm": [
+        0.319112
+      ],
+      "strips": [
+        {
+          "source_entity": 4,
+          "strip": 1,
+          "x0_mm": -1.451036,
+          "y0_mm": -0.119692,
+          "x1_mm": 0.030683,
+          "y1_mm": 0.121722,
+          "width_mm": 0.241415,
+          "center_y_mm": 0.001015
+        },
+        {
+          "source_entity": 3,
+          "strip": 2,
+          "x0_mm": -1.451036,
+          "y0_mm": 0.440834,
+          "x1_mm": 0.030683,
+          "y1_mm": 0.682248,
+          "width_mm": 0.241414,
+          "center_y_mm": 0.561541
+        }
+      ]
+    },
+    {
+      "section": 3,
+      "x0_mm": -2.878615,
+      "x1_mm": -1.376795,
+      "length_mm": 1.50182,
+      "bbox_mm": [
+        -2.878615,
+        0.464412,
+        -1.376795,
+        1.370729
+      ],
+      "strip_count": 2,
+      "coupling_gaps_mm": [
+        0.419111
+      ],
+      "strips": [
+        {
+          "source_entity": 6,
+          "strip": 1,
+          "x0_mm": -2.878615,
+          "y0_mm": 0.464412,
+          "x1_mm": -1.376795,
+          "y1_mm": 0.708015,
+          "width_mm": 0.243603,
+          "center_y_mm": 0.586213
+        },
+        {
+          "source_entity": 5,
+          "strip": 2,
+          "x0_mm": -2.878615,
+          "y0_mm": 1.127125,
+          "x1_mm": -1.376795,
+          "y1_mm": 1.370729,
+          "width_mm": 0.243603,
+          "center_y_mm": 1.248927
+        }
+      ]
+    },
+    {
+      "section": 4,
+      "x0_mm": -4.281239,
+      "x1_mm": -2.809227,
+      "length_mm": 1.472012,
+      "bbox_mm": [
+        -4.281239,
+        1.165552,
+        -2.809227,
+        1.942171
+      ],
+      "strip_count": 2,
+      "coupling_gaps_mm": [
+        0.305354
+      ],
+      "strips": [
+        {
+          "source_entity": 8,
+          "strip": 1,
+          "x0_mm": -4.281239,
+          "y0_mm": 1.165552,
+          "x1_mm": -2.809227,
+          "y1_mm": 1.401185,
+          "width_mm": 0.235633,
+          "center_y_mm": 1.283369
+        },
+        {
+          "source_entity": 7,
+          "strip": 2,
+          "x0_mm": -4.281239,
+          "y0_mm": 1.70654,
+          "x1_mm": -2.809227,
+          "y1_mm": 1.942171,
+          "width_mm": 0.235632,
+          "center_y_mm": 1.824356
+        }
+      ]
+    },
+    {
+      "section": 5,
+      "x0_mm": -5.75625,
+      "x1_mm": -4.237577,
+      "length_mm": 1.518672,
+      "bbox_mm": [
+        -5.75625,
+        1.789251,
+        -4.237577,
+        2.185707
+      ],
+      "strip_count": 2,
+      "coupling_gaps_mm": [
+        0.118554
+      ],
+      "strips": [
+        {
+          "source_entity": 10,
+          "strip": 1,
+          "x0_mm": -5.75625,
+          "y0_mm": 1.789251,
+          "x1_mm": -4.237577,
+          "y1_mm": 1.928202,
+          "width_mm": 0.138951,
+          "center_y_mm": 1.858726
+        },
+        {
+          "source_entity": 9,
+          "strip": 2,
+          "x0_mm": -5.75625,
+          "y0_mm": 2.046755,
+          "x1_mm": -4.237577,
+          "y1_mm": 2.185707,
+          "width_mm": 0.138951,
+          "center_y_mm": 2.116231
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    "This layout was regenerated from editable parameters, not directly from the source DXF.",
+    "Ports are candidate metadata only until MCFIL P1/P2 edges are confirmed."
+  ]
+}

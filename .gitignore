@@ -147,7 +147,7 @@ projects/*/layouts/**/*_params.json
 projects/*/layouts/**/*_tuning_table.csv
 projects/*/layouts/**/*_candidate_plan.csv
 projects/*/layouts/**/*_cnn_report.json
-projects/*/layouts/**/*_dxf_summary.json
+# projects/*/layouts/**/*_dxf_summary.json
 projects/*/layouts/**/*_section_cnn.pt
 
 # Curated API-extracted layout snapshots that are referenced by manifests.
