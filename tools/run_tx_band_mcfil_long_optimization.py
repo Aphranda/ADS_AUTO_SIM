@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -15,7 +16,7 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[1]
 ITER_ROOT = REPO_ROOT / "projects" / "RFSOC_RF" / "layouts" / "tx_band1_mcfil_iter"
 FEEDBACK = REPO_ROOT / "projects" / "RFSOC_RF" / "hfss_runs" / "tx_band1_mcfil_corrected_tx_feedback.csv"
-PYTHON = Path(r"D:\Microsoft\uv-venvs\ads-automation\Scripts\python.exe")
+PYTHON = Path(os.environ.get("ADS_AUTOMATION_PYTHON", sys.executable))
 
 
 def read_csv(path: Path) -> list[dict[str, str]]:
@@ -144,7 +145,7 @@ def main() -> int:
     parser.add_argument("--prune-every", type=int, default=2)
     parser.add_argument("--prune-score-below", type=float, default=-100.0)
     parser.add_argument("--keep-top-n", type=int, default=12)
-    parser.add_argument("--max-rounds", type=int, default=10)
+    parser.add_argument("--max-rounds", type=int, default=50)
     parser.add_argument("--attach-existing-first", action="store_true")
     parser.add_argument("--out", type=Path, default=REPO_ROOT / "projects" / "RFSOC_RF" / "reports" / "tx_band1_mcfil_long_optimization_latest.json")
     args = parser.parse_args()

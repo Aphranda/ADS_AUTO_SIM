@@ -272,11 +272,14 @@ def generate_pool(best_params: dict[str, Any], best_row: dict[str, Any], *, seed
     best_l, best_g, best_w = tuning_vectors(best_params)
     peak = float(best_row["peak_freq_ghz"])
     lo = float(best_row["lo_stopband_max_s21_db"])
+    pass_low = float(best_row.get("pass_low_s21_db", best_row.get("passband_min_s21_db", "-3")))
+    pass_high = float(best_row.get("pass_high_s21_db", best_row.get("passband_max_s21_db", "-3")))
     high_s11 = float(best_row.get("worst_s11_high_passband_db", best_row.get("worst_s11_passband_db", "-10")))
     high_s22 = float(best_row.get("worst_s22_high_passband_db", best_row.get("worst_s22_passband_db", "-10")))
     length_bias = 0.004 if peak > 18.75 else 0.0
     gap_relax = 0.004 if lo > -40.0 else 0.0
     high_rl_bad = max(high_s11, high_s22) > -10.0
+    low_edge_weak = pass_low + 3.0 < pass_high
 
     pool: list[dict[str, Any]] = []
     anchors = [
@@ -293,6 +296,23 @@ def generate_pool(best_params: dict[str, Any], best_row: dict[str, Any], *, seed
                 ("hf_edge_match_gap_relax", 0.000, [0.010, 0.006, 0.004, 0.006, 0.010], [-0.004, -0.002, 0.0, -0.002, -0.004]),
                 ("hf_edge_match_width_m014", 0.000, [0.006, 0.004, 0.004, 0.004, 0.006], [-0.014, -0.006, -0.002, -0.006, -0.014]),
                 ("hf_edge_outer_short_gap_relax", 0.000, [0.012, 0.004, 0.004, 0.004, 0.012], [-0.010, -0.004, 0.0, -0.004, -0.010]),
+            ]
+        )
+    if low_edge_weak:
+        anchors.extend(
+            [
+                (
+                    "low_edge_coupling_outer",
+                    0.000,
+                    [-0.012, -0.006, -0.002, -0.006, -0.012],
+                    [0.000, 0.000, 0.000, 0.000, 0.000],
+                ),
+                (
+                    "low_edge_coupling_balanced",
+                    0.000,
+                    [-0.008, -0.004, -0.002, -0.004, -0.008],
+                    [0.000, 0.000, 0.000, 0.000, 0.000],
+                ),
             ]
         )
     for index, (suffix, l_add, g_add, w_add) in enumerate(anchors, start=1):
@@ -318,6 +338,11 @@ def generate_pool(best_params: dict[str, Any], best_row: dict[str, Any], *, seed
         if high_rl_bad:
             gap[0] += rng.uniform(0.002, 0.012)
             gap[4] += rng.uniform(0.002, 0.012)
+        if low_edge_weak:
+            gap[0] -= rng.uniform(0.004, 0.012)
+            gap[4] -= rng.uniform(0.004, 0.012)
+            gap[1] -= rng.uniform(0.001, 0.005)
+            gap[3] -= rng.uniform(0.001, 0.005)
         width = [
             best_w[0] + rng.uniform(-0.012, 0.000),
             best_w[1] + rng.uniform(-0.005, 0.002),

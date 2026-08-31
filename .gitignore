@@ -307,4 +307,9 @@ archive/**/results/**/extract_*.json
 archive/**/results/**/run_existing*.json
 archive/**/results/**/export_only*.json
 archive/**/results/**/run*.json
+
+# TX_BAND1 MCFIL reproducible seed model sidecars.
+# The tracked r0 params/DXF plus these two sidecars are enough to derive candidates.
+!projects/RFSOC_RF/layouts/tx_band1_mcfil/tx_band1_mcfil_r0_layout.json
+!projects/RFSOC_RF/layouts/tx_band1_mcfil/tx_band1_mcfil_r0_review.svg
 archive/**/results/**/replace*.json

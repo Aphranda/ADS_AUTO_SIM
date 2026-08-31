@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="589.544435" viewBox="0 0 1200 589.544435">
+  <rect x="0" y="0" width="1200" height="589.544435" fill="#ffffff"/>
+  <rect x="52.052698" y="52.052698" width="1095.894604" height="485.439038" fill="none" stroke="#64748b" stroke-width="1"><title>em_boundary</title></rect>
+  <rect x="876.881965" y="438.204208" width="192.986289" height="21.208481" fill="#2563eb" opacity="0.82"><title>input_feed</title></rect>
+  <rect x="876.881965" y="408.589997" width="192.986289" height="21.208481" fill="#2563eb" opacity="0.82"><title>mcfil_s02_strip</title></rect>
+  <rect x="692.04882" y="398.555668" width="184.833145" height="31.24268" fill="#2563eb" opacity="0.82"><title>mcfil_s03_strip</title></rect>
+  <rect x="692.04882" y="325.349599" width="184.833145" height="31.24255" fill="#2563eb" opacity="0.82"><title>mcfil_s04_strip</title></rect>
+  <rect x="507.95118" y="324.809747" width="184.09764" height="31.782467" fill="#2563eb" opacity="0.82"><title>mcfil_s05_strip</title></rect>
+  <rect x="507.95118" y="232.952091" width="184.09764" height="31.782467" fill="#2563eb" opacity="0.82"><title>mcfil_s06_strip</title></rect>
+  <rect x="323.118035" y="232.952091" width="184.833145" height="31.24268" fill="#2563eb" opacity="0.82"><title>mcfil_s07_strip</title></rect>
+  <rect x="323.118035" y="159.746022" width="184.833145" height="31.24255" fill="#2563eb" opacity="0.82"><title>mcfil_s08_strip</title></rect>
+  <rect x="130.131745" y="159.745957" width="192.986289" height="21.208481" fill="#2563eb" opacity="0.82"><title>mcfil_s09_strip</title></rect>
+  <rect x="130.131745" y="130.131745" width="192.986289" height="21.208481" fill="#2563eb" opacity="0.82"><title>output_feed</title></rect>
+  <text x="16" y="24" font-family="Arial, sans-serif" font-size="16" fill="#111827">tx_band1_mcfil_r0 ADS MCFIL DXF review</text>
+</svg>

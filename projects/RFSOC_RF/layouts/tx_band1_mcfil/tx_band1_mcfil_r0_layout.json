@@ -1,0 +1,254 @@
+{
+  "layout_id": "tx_band1_mcfil_r0",
+  "units": "mm",
+  "layers": [
+    {
+      "name": "cond",
+      "purpose": "drawing",
+      "ads_layer": null,
+      "dxf_layer": "cond",
+      "gds_layer": null,
+      "gds_datatype": 0
+    },
+    {
+      "name": "EM_BOUNDARY",
+      "purpose": "drawing",
+      "ads_layer": null,
+      "dxf_layer": "EM_BOUNDARY",
+      "gds_layer": null,
+      "gds_datatype": 0
+    }
+  ],
+  "shapes": [
+    {
+      "name": "em_boundary",
+      "x": -6.338417,
+      "y": -0.9476135,
+      "w": 8.421424,
+      "h": 3.730366,
+      "layer": "EM_BOUNDARY",
+      "kind": "boundary",
+      "metadata": {
+        "role": "hfss_airbox_review_boundary",
+        "source": "D:\\Work\\ADS\\TX_Band\\mfg\\TX_Band_lib_DA_CLFilter1_TX_BAND1\\dxf\\DA_CLFilter1_TX_BAND1.dxf"
+      }
+    },
+    {
+      "name": "input_feed",
+      "layer": "cond",
+      "x": 0.0,
+      "y": -0.3476135,
+      "w": 1.483007,
+      "h": 0.16297700000000004,
+      "kind": "rect",
+      "metadata": {
+        "role": "mcfil_candidate_input_feed",
+        "net": "RF",
+        "source_dxf_entity": 2,
+        "source_layer": "cond",
+        "hfss_signal_layer": "ETCH_TOP",
+        "port_candidate_needs_review": true
+      }
+    },
+    {
+      "name": "mcfil_s02_strip",
+      "layer": "cond",
+      "x": 0.0,
+      "y": -0.1200425,
+      "w": 1.483007,
+      "h": 0.16297699999999998,
+      "kind": "rect",
+      "metadata": {
+        "role": "mcfil_coupled_strip",
+        "net": "RF",
+        "source_dxf_entity": 1,
+        "source_layer": "cond",
+        "hfss_signal_layer": "ETCH_TOP",
+        "port_candidate_needs_review": false
+      }
+    },
+    {
+      "name": "mcfil_s03_strip",
+      "layer": "cond",
+      "x": -1.420354,
+      "y": -0.1200415,
+      "w": 1.420354,
+      "h": 0.240085,
+      "kind": "rect",
+      "metadata": {
+        "role": "mcfil_coupled_strip",
+        "net": "RF",
+        "source_dxf_entity": 4,
+        "source_layer": "cond",
+        "hfss_signal_layer": "ETCH_TOP",
+        "port_candidate_needs_review": false
+      }
+    },
+    {
+      "name": "mcfil_s04_strip",
+      "layer": "cond",
+      "x": -1.420354,
+      "y": 0.44251300000000005,
+      "w": 1.420354,
+      "h": 0.24008399999999996,
+      "kind": "rect",
+      "metadata": {
+        "role": "mcfil_coupled_strip",
+        "net": "RF",
+        "source_dxf_entity": 3,
+        "source_layer": "cond",
+        "hfss_signal_layer": "ETCH_TOP",
+        "port_candidate_needs_review": false
+      }
+    },
+    {
+      "name": "mcfil_s05_strip",
+      "layer": "cond",
+      "x": -2.835056,
+      "y": 0.4425125000000001,
+      "w": 1.4147020000000001,
+      "h": 0.24423299999999992,
+      "kind": "rect",
+      "metadata": {
+        "role": "mcfil_coupled_strip",
+        "net": "RF",
+        "source_dxf_entity": 6,
+        "source_layer": "cond",
+        "hfss_signal_layer": "ETCH_TOP",
+        "port_candidate_needs_review": false
+      }
+    },
+    {
+      "name": "mcfil_s06_strip",
+      "layer": "cond",
+      "x": -2.835056,
+      "y": 1.1483944999999998,
+      "w": 1.4147020000000001,
+      "h": 0.24423300000000037,
+      "kind": "rect",
+      "metadata": {
+        "role": "mcfil_coupled_strip",
+        "net": "RF",
+        "source_dxf_entity": 5,
+        "source_layer": "cond",
+        "hfss_signal_layer": "ETCH_TOP",
+        "port_candidate_needs_review": false
+      }
+    },
+    {
+      "name": "mcfil_s07_strip",
+      "layer": "cond",
+      "x": -4.25541,
+      "y": 1.1525425,
+      "w": 1.4203540000000006,
+      "h": 0.2400850000000001,
+      "kind": "rect",
+      "metadata": {
+        "role": "mcfil_coupled_strip",
+        "net": "RF",
+        "source_dxf_entity": 8,
+        "source_layer": "cond",
+        "hfss_signal_layer": "ETCH_TOP",
+        "port_candidate_needs_review": false
+      }
+    },
+    {
+      "name": "mcfil_s08_strip",
+      "layer": "cond",
+      "x": -4.25541,
+      "y": 1.715097,
+      "w": 1.4203540000000006,
+      "h": 0.24008399999999996,
+      "kind": "rect",
+      "metadata": {
+        "role": "mcfil_coupled_strip",
+        "net": "RF",
+        "source_dxf_entity": 7,
+        "source_layer": "cond",
+        "hfss_signal_layer": "ETCH_TOP",
+        "port_candidate_needs_review": false
+      }
+    },
+    {
+      "name": "mcfil_s09_strip",
+      "layer": "cond",
+      "x": -5.738417,
+      "y": 1.7922045,
+      "w": 1.4830070000000006,
+      "h": 0.16297700000000015,
+      "kind": "rect",
+      "metadata": {
+        "role": "mcfil_coupled_strip",
+        "net": "RF",
+        "source_dxf_entity": 10,
+        "source_layer": "cond",
+        "hfss_signal_layer": "ETCH_TOP",
+        "port_candidate_needs_review": false
+      }
+    },
+    {
+      "name": "output_feed",
+      "layer": "cond",
+      "x": -5.738417,
+      "y": 2.0197754999999997,
+      "w": 1.4830070000000006,
+      "h": 0.1629770000000006,
+      "kind": "rect",
+      "metadata": {
+        "role": "mcfil_candidate_output_feed",
+        "net": "RF",
+        "source_dxf_entity": 9,
+        "source_layer": "cond",
+        "hfss_signal_layer": "ETCH_TOP",
+        "port_candidate_needs_review": true
+      }
+    }
+  ],
+  "ports": [
+    {
+      "name": "P1",
+      "number": 1,
+      "x": 1.483007,
+      "y": -0.266125,
+      "width": 0.16297700000000004,
+      "layer": "cond",
+      "orientation_deg": 0.0,
+      "reference": "ETCH_INNER1",
+      "kind": "port",
+      "metadata": {
+        "role": "candidate_port",
+        "edge": "right",
+        "source_dxf_entity": 2,
+        "needs_review": true
+      }
+    },
+    {
+      "name": "P2",
+      "number": 2,
+      "x": -5.738417,
+      "y": 2.101264,
+      "width": 0.1629770000000006,
+      "layer": "cond",
+      "orientation_deg": 180.0,
+      "reference": "ETCH_INNER1",
+      "kind": "port",
+      "metadata": {
+        "role": "candidate_port",
+        "edge": "left",
+        "source_dxf_entity": 9,
+        "needs_review": true
+      }
+    }
+  ],
+  "metadata": {
+    "source": "ADS MCFIL DXF",
+    "source_dxf": "D:\\Work\\ADS\\TX_Band\\mfg\\TX_Band_lib_DA_CLFilter1_TX_BAND1\\dxf\\DA_CLFilter1_TX_BAND1.dxf",
+    "topology": "mcfil_coupled_line_bpf",
+    "candidate_id": "tx_band1_mcfil_r0",
+    "signal_layer": "ETCH_TOP",
+    "reference_ground_layer": "ETCH_INNER1",
+    "ground_plane_name": "hfss_ground_plane",
+    "suppress_default_reference_ground_plane": false,
+    "port_status": "candidate only; confirm MCFIL input/output edges before recreating HFSS ports"
+  }
+}
