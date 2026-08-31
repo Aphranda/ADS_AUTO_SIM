@@ -548,3 +548,23 @@ Long-run command pattern:
 - `round72` has been generated at `2026-08-31 07:49:49`
 - Active candidate batch: `tx_band1_mcfil_r72_cnn013_rand04_p2up_graphical`
 - Feedback count remains `81`
+
+2026-08-31 round75/76 live update:
+
+- `round75` and `round76` are both present in the live loop
+- Valid feedback count: `88`
+- Latest generated round: `round76`
+- Active candidate batch: `tx_band1_mcfil_r76_cnn044_rand35_p2up_graphical`
+- Newly scored round76 candidate: `tx_band1_mcfil_r76_cnn045_rand36_p2up_graphical`
+- `tx_score`: `-33.581`
+- Current best remains `tx_band1_mcfil_r23_cnn042_rand33_p2up_graphical` at `50.278`
+
+2026-08-31 round76/77 live update:
+
+- Valid feedback count: `90`
+- Latest generated round: `round77`
+- Active candidate batch: `tx_band1_mcfil_r77_cnn019_rand10_p2up_graphical`
+- Newly scored round76 candidates:
+  - `tx_band1_mcfil_r76_cnn044_rand35_p2up_graphical` `tx_score = 9.226`
+  - `tx_band1_mcfil_r76_cnn025_rand16_p2up_graphical` `tx_score = -5.726`
+- Current best remains `tx_band1_mcfil_r23_cnn042_rand33_p2up_graphical` at `50.278`
