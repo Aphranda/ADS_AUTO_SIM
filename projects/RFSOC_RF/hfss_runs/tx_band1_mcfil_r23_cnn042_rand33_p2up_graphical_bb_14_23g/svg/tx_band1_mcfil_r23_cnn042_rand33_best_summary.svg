@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="586.135569" viewBox="0 0 1200 586.135569">
+  <defs>
+    <marker id="dimArrow" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto-start-reverse">
+      <path d="M0,0 L9,4.5 L0,9 Z" fill="#0f172a"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1200" height="586.135569" fill="#ffffff"/>
+  <rect x="51.763613" y="51.763613" width="1096.472773" height="482.608343" fill="none" stroke="#64748b" stroke-width="1"><title>em_boundary</title></rect>
+  <rect x="871.086884" y="438.691446" width="199.504083" height="18.03509" fill="#2563eb" opacity="0.82"><title>input_feed</title></rect>
+  <rect x="871.086884" y="406.451644" width="199.504083" height="18.03509" fill="#2563eb" opacity="0.82"><title>mcfil_s02_strip</title></rect>
+  <rect x="686.301655" y="395.937419" width="193.35353" height="30.786021" fill="#2563eb" opacity="0.82"><title>mcfil_s03_strip</title></rect>
+  <rect x="686.301655" y="324.226568" width="193.35353" height="30.785891" fill="#2563eb" opacity="0.82"><title>mcfil_s04_strip</title></rect>
+  <rect x="502.050626" y="320.396061" width="194.973732" height="31.255646" fill="#2563eb" opacity="0.82"><title>mcfil_s05_strip</title></rect>
+  <rect x="502.050626" y="234.614436" width="194.973732" height="31.255646" fill="#2563eb" opacity="0.82"><title>mcfil_s06_strip</title></rect>
+  <rect x="320.606739" y="230.328926" width="190.979522" height="31.003557" fill="#2563eb" opacity="0.82"><title>mcfil_s07_strip</title></rect>
+  <rect x="320.606739" y="160.249794" width="190.979522" height="31.003428" fill="#2563eb" opacity="0.82"><title>mcfil_s08_strip</title></rect>
+  <rect x="129.409033" y="162.528687" width="197.653793" height="17.416774" fill="#2563eb" opacity="0.82"><title>mcfil_s09_strip</title></rect>
+  <rect x="129.409033" y="129.409033" width="197.653793" height="17.416774" fill="#2563eb" opacity="0.82"><title>output_feed</title></rect>
+  <g class="port-marker" font-family="Arial, sans-serif">
+  <title>P1 x=1.512331 y=-0.276906 source_dxf_entity=2</title>
+  <line x1="1070.590967" y1="438.691446" x2="1070.590967" y2="456.726536" stroke="#111827" stroke-width="2"/>
+  <line x1="1070.590967" y1="447.708991" x2="1054.590967" y2="447.708991" stroke="#111827" stroke-width="1.5"/>
+  <circle cx="1070.590967" cy="447.708991" r="4.5" fill="#ffffff" stroke="#111827" stroke-width="1.5"/>
+  <text x="1060.590967" y="439.708991" text-anchor="end" font-size="13" font-weight="700" fill="#111827">P1 e2</text>
+</g>
+  <g class="port-marker" font-family="Arial, sans-serif">
+  <title>P2 x=-5.760592 y=2.115444 source_dxf_entity=9</title>
+  <line x1="129.409033" y1="129.409033" x2="129.409033" y2="146.825807" stroke="#111827" stroke-width="2"/>
+  <line x1="129.409033" y1="138.11742" x2="145.409033" y2="138.11742" stroke="#111827" stroke-width="1.5"/>
+  <circle cx="129.409033" cy="138.11742" r="4.5" fill="#ffffff" stroke="#111827" stroke-width="1.5"/>
+  <text x="139.409033" y="130.11742" text-anchor="start" font-size="13" font-weight="700" fill="#111827">P2 e9</text>
+</g>
+  <text x="16" y="24" font-family="Arial, sans-serif" font-size="16" fill="#111827">tx_band1_mcfil_r23_cnn042_rand33 parameterized layout</text>
+  <g id="footprint-dimensions" font-family="Arial, 'Microsoft YaHei', sans-serif" fill="#0f172a" stroke="#0f172a">
+    <rect x="129.409" y="129.409" width="941.182" height="327.318" fill="none" stroke="#0f172a" stroke-width="1.2" stroke-dasharray="7 5" opacity="0.62"/>
+    <line x1="129.409" y1="456.727" x2="129.409" y2="498.727" stroke-width="1.2"/>
+    <line x1="1070.591" y1="456.727" x2="1070.591" y2="498.727" stroke-width="1.2"/>
+    <line x1="129.409" y1="498.727" x2="1070.591" y2="498.727" stroke-width="1.8" marker-start="url(#dimArrow)" marker-end="url(#dimArrow)"/>
+    <text x="600.000" y="523.727" text-anchor="middle" font-size="20" font-weight="700">L = 7.273 mm</text>
+    <line x1="1070.591" y1="129.409" x2="1116.591" y2="129.409" stroke-width="1.2"/>
+    <line x1="1070.591" y1="456.727" x2="1116.591" y2="456.727" stroke-width="1.2"/>
+    <line x1="1116.591" y1="129.409" x2="1116.591" y2="456.727" stroke-width="1.8" marker-start="url(#dimArrow)" marker-end="url(#dimArrow)"/>
+    <text x="1147.591" y="293.068" text-anchor="middle" font-size="20" font-weight="700" transform="rotate(-90 1147.591 293.068)">W = 2.529 mm</text>
+  </g>
+</svg>
