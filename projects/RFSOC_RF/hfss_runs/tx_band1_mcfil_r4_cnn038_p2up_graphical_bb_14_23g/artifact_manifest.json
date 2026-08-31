@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "run_id": "RFSOC_RF_round4_tx_band1_mcfil_r4_cnn038_p2up_graphical_home_20260830_223414",
+  "artifacts": [
+    {
+      "type": "layout_json",
+      "path": "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round4\\tx_band1_mcfil_r4_cnn038_rand32_layout.json",
+      "exists": true,
+      "hash": "98697ed915e4cb6aab21a57cae6be3a32ca16fbd2530c8c3752c6aadccd5cdc6",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "project_file",
+      "path": "D:\\Work\\SIM\\ADS_AUTO_SIM\\projects\\RFSOC_RF\\TX_Fillter.aedt",
+      "exists": true,
+      "hash": "21fde51981d7c8965408ba501a9770a6d1076e1f055b6b71f6b4afb9e67efa89",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "s2p",
+      "path": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r4_cnn038_p2up_graphical_bb_14_23g\\tx_band1_mcfil_r4_cnn038_rand32_hfss.s2p",
+      "exists": true,
+      "hash": "471d42c664cfe77d7fb44692f3f4d1b009047790c591a719797d6f1fca74e152",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "trace_csv",
+      "path": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r4_cnn038_p2up_graphical_bb_14_23g\\tx_band1_mcfil_r4_cnn038_rand32_hfss_trace.csv",
+      "exists": true,
+      "hash": "1620d4c0c428a92369a974ebedc3b3f42072d5c1c568d94e78e04025f3a28e2e",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "score",
+      "path": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r4_cnn038_p2up_graphical_bb_14_23g\\tx_band1_mcfil_r4_cnn038_rand32_hfss_score.csv",
+      "exists": true,
+      "hash": "850135e017e55380ed3cf2fe054bd78fe51c3ce66110e1c298631a6684709661",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "svg",
+      "path": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r4_cnn038_p2up_graphical_bb_14_23g\\svg\\tx_band1_mcfil_r4_cnn038_rand32_hfss_s_curves.svg",
+      "exists": true,
+      "hash": "41be8187ee6fe40c0b800e9d2c51c7e8e32ee46938ba547b24823d3a36fcd6b0",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "summary",
+      "path": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r4_cnn038_p2up_graphical_bb_14_23g\\svg\\tx_band1_mcfil_r4_cnn038_rand32_hfss_plot_summary.csv",
+      "exists": true,
+      "hash": "1554e8f92981531602ebf1c0a2612c4c599cade953286ab15b682bdd1716233d",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "log",
+      "path": null,
+      "exists": false,
+      "hash": null,
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "state",
+      "path": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r4_cnn038_p2up_graphical_bb_14_23g\\state.json",
+      "exists": true,
+      "hash": "a23302e7f0682aea2401cd8885e2fd25a48a587bf13a2406a4f5a9b6c0c06368",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    }
+  ],
+  "updated_at": "2026-08-30T22:36:19+08:00"
+}

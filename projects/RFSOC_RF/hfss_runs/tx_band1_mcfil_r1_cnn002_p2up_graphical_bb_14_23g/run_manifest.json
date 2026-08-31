@@ -1,0 +1,189 @@
+{
+  "schema_version": "1.0",
+  "run_id": "RFSOC_RF_round1_tx_band1_mcfil_r1_cnn002_p2up_graphical_home_20260830_222259",
+  "project_id": "RFSOC_RF",
+  "round_id": "round1",
+  "candidate_id": "tx_band1_mcfil_r1_cnn002_p2up_graphical",
+  "device_id": "filter.mcfil.tx_band1",
+  "pipeline_id": null,
+  "pipeline_snapshot": null,
+  "profile_id": "home",
+  "profile_snapshot": {
+    "hfss_version": "2026.1",
+    "workspace_dir": "D:\\Work\\ADS\\SIMADS_EM_PAR\\HFSS_VERDICT",
+    "project_model": "single_aedt_project_multiple_designs",
+    "project_action": "add",
+    "design": "TX_BAND1_MCFIL_R1_CNN002_P2UP_GRAPHICAL_LC",
+    "setup": "Setup_14to23G",
+    "sweep": "Sweep_BB_14to23G_181pt",
+    "route": "hfss3dlayout_aedt_edge_gap_gnd_port_edges"
+  },
+  "simulator": "hfss3dlayout",
+  "sweep": {
+    "start_ghz": 14.0,
+    "stop_ghz": 23.0,
+    "points": 181,
+    "sweep_type": "Interpolating",
+    "adaptive_frequency_ghz": 18.5,
+    "spacing_ghz": 0.05,
+    "spacing_mhz": 50.0
+  },
+  "stackup": {
+    "stackup_id": "ALUMINA_250UM_MCFIL_2L",
+    "dielectric_material": "ALUMINA",
+    "er": 9.8,
+    "loss_tangent": 0.0001,
+    "dielectric_height_mm": 0.25,
+    "copper_thickness_mm": 0.018,
+    "top_layer": "cond",
+    "dielectric_layer": "configured_multilayer",
+    "bottom_layer": "cover",
+    "config_path": "config\\stackups\\ALUMINA_250UM_MCFIL_2L.json",
+    "signal_to_reference_height_mm": 0.25,
+    "total_thickness_mm": 0.286,
+    "layers_bottom_to_top": [
+      {
+        "name": "cover",
+        "kind": "conductor",
+        "material": "PERFECT_CONDUCTOR",
+        "thickness_mm": 0.018,
+        "role": "reference_ground",
+        "thickness_mil": 0.708661,
+        "ads_layer_id": null
+      },
+      {
+        "name": "DIEL_ALUMINA_250UM",
+        "kind": "dielectric",
+        "material": "ALUMINA",
+        "thickness_mm": 0.25,
+        "role": "dielectric",
+        "thickness_mil": 9.84252,
+        "ads_layer_id": null
+      },
+      {
+        "name": "cond",
+        "kind": "conductor",
+        "material": "PERFECT_CONDUCTOR",
+        "thickness_mm": 0.018,
+        "role": "signal",
+        "thickness_mil": 0.708661,
+        "ads_layer_id": null
+      }
+    ],
+    "geometry": {
+      "signal_layer": "cond",
+      "reference_ground_layer": "cover",
+      "via_top_layer": "cond",
+      "via_bottom_layer": "cover",
+      "ground_layers": [
+        "cover"
+      ],
+      "ground_plane_name": "hfss_ground_plane"
+    }
+  },
+  "inputs": {
+    "layout_json": "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round1\\tx_band1_mcfil_r1_cnn002_len_p055_gap_m020_layout.json"
+  },
+  "outputs": {
+    "aedt_project": "D:\\Work\\SIM\\ADS_AUTO_SIM\\projects\\RFSOC_RF\\TX_Fillter.aedt",
+    "s2p": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r1_cnn002_p2up_graphical_bb_14_23g\\tx_band1_mcfil_r1_cnn002_len_p055_gap_m020_hfss.s2p",
+    "score_csv": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r1_cnn002_p2up_graphical_bb_14_23g\\tx_band1_mcfil_r1_cnn002_len_p055_gap_m020_hfss_score.csv",
+    "trace_csv": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r1_cnn002_p2up_graphical_bb_14_23g\\tx_band1_mcfil_r1_cnn002_len_p055_gap_m020_hfss_trace.csv",
+    "summary_csv": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r1_cnn002_p2up_graphical_bb_14_23g\\svg\\tx_band1_mcfil_r1_cnn002_len_p055_gap_m020_hfss_plot_summary.csv",
+    "svg": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r1_cnn002_p2up_graphical_bb_14_23g\\svg\\tx_band1_mcfil_r1_cnn002_len_p055_gap_m020_hfss_s_curves.svg",
+    "state": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r1_cnn002_p2up_graphical_bb_14_23g\\state.json",
+    "artifact_manifest": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r1_cnn002_p2up_graphical_bb_14_23g\\artifact_manifest.json"
+  },
+  "flags": {
+    "dry_run": false,
+    "build_only": false,
+    "project_model": "single_aedt_project_multiple_designs",
+    "project_action": "add",
+    "reuse_project": false,
+    "skip_ports": false,
+    "skip_port_number": [],
+    "non_graphical": false,
+    "keep_open": false,
+    "configure_extents": true,
+    "route": "hfss3dlayout_aedt_edge_gap_gnd_port_edges",
+    "gnd_boundary_mode": "port-edges",
+    "port_type": "aedt-edge",
+    "reference_ground_ports": false,
+    "stackup_config": "config\\stackups\\ALUMINA_250UM_MCFIL_2L.json",
+    "enable_design_intersection_check": null,
+    "fixture_type": null
+  },
+  "result": {
+    "simulator": "hfss3dlayout",
+    "project": "D:\\Work\\SIM\\ADS_AUTO_SIM\\projects\\RFSOC_RF\\TX_Fillter.aedt",
+    "design": "TX_BAND1_MCFIL_R1_CNN002_P2UP_GRAPHICAL_LC",
+    "s2p": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r1_cnn002_p2up_graphical_bb_14_23g\\tx_band1_mcfil_r1_cnn002_len_p055_gap_m020_hfss.s2p",
+    "trace_csv": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r1_cnn002_p2up_graphical_bb_14_23g\\tx_band1_mcfil_r1_cnn002_len_p055_gap_m020_hfss_trace.csv",
+    "score_csv": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r1_cnn002_p2up_graphical_bb_14_23g\\tx_band1_mcfil_r1_cnn002_len_p055_gap_m020_hfss_score.csv",
+    "svg": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r1_cnn002_p2up_graphical_bb_14_23g\\svg\\tx_band1_mcfil_r1_cnn002_len_p055_gap_m020_hfss_s_curves.svg",
+    "summary_csv": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r1_cnn002_p2up_graphical_bb_14_23g\\svg\\tx_band1_mcfil_r1_cnn002_len_p055_gap_m020_hfss_plot_summary.csv"
+  },
+  "status": "completed",
+  "stage": "scored",
+  "error_class": null,
+  "elapsed_s": 131.674,
+  "extra": {
+    "layout_summary": {
+      "layout_id": "tx_band1_mcfil_r1_cnn002_len_p055_gap_m020",
+      "configured_layout_id": "tx_band1_mcfil_r1_cnn002_len_p055_gap_m020",
+      "units": "mm",
+      "order": null,
+      "substrate": null,
+      "stackup_id": null,
+      "stackup_token": null,
+      "er": null,
+      "dielectric_height_mm": null,
+      "copper_thickness_mm": null,
+      "cond_shapes": 10,
+      "vias": 0,
+      "ports": 2,
+      "boundary": {
+        "name": "em_boundary",
+        "x": -6.365917,
+        "y": -0.9376135,
+        "w": 8.476424,
+        "h": 3.7103660000000005,
+        "layer": "EM_BOUNDARY",
+        "kind": "boundary",
+        "metadata": {
+          "role": "hfss_airbox_review_boundary",
+          "source": "D:\\Work\\ADS\\TX_Band\\mfg\\TX_Band_lib_DA_CLFilter1_TX_BAND1\\dxf\\DA_CLFilter1_TX_BAND1.dxf"
+        }
+      }
+    },
+    "port_edges": {
+      "p1_edge": 3,
+      "p2_edge": 1,
+      "p1_ref_edge": 3,
+      "p2_ref_edge": 1,
+      "p1_side": "right",
+      "p2_side": "left",
+      "p1_ref_side": "right",
+      "p2_ref_side": "left"
+    },
+    "gnd_boundary": {
+      "name": "em_boundary",
+      "x": -5.765917,
+      "y": -0.9376135,
+      "w": 7.2764240000000004,
+      "h": 3.7103660000000005,
+      "layer": "EM_BOUNDARY",
+      "kind": "boundary",
+      "metadata": {
+        "role": "hfss_airbox_review_boundary",
+        "source": "D:\\Work\\ADS\\TX_Band\\mfg\\TX_Band_lib_DA_CLFilter1_TX_BAND1\\dxf\\DA_CLFilter1_TX_BAND1.dxf",
+        "gnd_boundary_mode": "port-edges",
+        "source_boundary": "em_boundary",
+        "reference_ground_extend_left_mm": 0.0,
+        "reference_ground_extend_right_mm": 0.0
+      }
+    },
+    "error": null
+  },
+  "updated_at": "2026-08-30T22:25:11+08:00"
+}

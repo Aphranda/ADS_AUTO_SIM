@@ -1,0 +1,2 @@
+file,status,s21_5g_db,s21_6g_db,s21_7g_db,s21_8g_db,s21_9g_db,passband_min_s21_db,passband_ripple_db,worst_s11_6_8_db,worst_s22_6_8_db,note
+D:\Work\SIM\ADS_AUTO_SIM\projects\RFSOC_RF\hfss_runs\tx_band1_mcfil_r12_cnn045_rand36_p2up_graphical_bb_14_23g\tx_band1_mcfil_r12_cnn045_rand36_hfss.s2p,TUNE,-46.05,-46.05,-46.05,-46.05,-46.05,nan,nan,nan,nan,Both band edges are weak; increase coupling or shorten L less aggressively.

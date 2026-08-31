@@ -45,7 +45,6 @@ projects/TX_band1_RO4350/hfss/
 /projects/RFSOC_RF/TX_Fillter.aedt.lock
 /projects/RFSOC_RF/TX_Fillter.aedb/
 /projects/RFSOC_RF/TX_Fillter.aedtresults/
-/projects/RFSOC_RF/hfss_runs/
 
 # Local env / secrets
 .env

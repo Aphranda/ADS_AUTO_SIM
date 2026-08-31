@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "run_id": "RFSOC_RF_round1_tx_band1_mcfil_r1_cnn002_p2up_headless_home_20260830_221653",
+  "artifacts": [
+    {
+      "type": "layout_json",
+      "path": "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round1\\tx_band1_mcfil_r1_cnn002_len_p055_gap_m020_layout.json",
+      "exists": true,
+      "hash": "f625d6bedc4af7745fe56b11bd3287bc391710a802618988538560410dd69f4e",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "project_file",
+      "path": "D:\\Work\\SIM\\ADS_AUTO_SIM\\projects\\RFSOC_RF\\TX_Fillter.aedt",
+      "exists": true,
+      "hash": "a9f900532784e519b600653b7d6eb0cb803054d0bc5b45d816c329e1a2afbbf1",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "s2p",
+      "path": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r1_cnn002_p2up_headless_bb_14_23g\\tx_band1_mcfil_r1_cnn002_len_p055_gap_m020_hfss.s2p",
+      "exists": false,
+      "hash": null,
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "trace_csv",
+      "path": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r1_cnn002_p2up_headless_bb_14_23g\\tx_band1_mcfil_r1_cnn002_len_p055_gap_m020_hfss_trace.csv",
+      "exists": false,
+      "hash": null,
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "score",
+      "path": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r1_cnn002_p2up_headless_bb_14_23g\\tx_band1_mcfil_r1_cnn002_len_p055_gap_m020_hfss_score.csv",
+      "exists": false,
+      "hash": null,
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "svg",
+      "path": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r1_cnn002_p2up_headless_bb_14_23g\\svg\\tx_band1_mcfil_r1_cnn002_len_p055_gap_m020_hfss_s_curves.svg",
+      "exists": false,
+      "hash": null,
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "summary",
+      "path": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r1_cnn002_p2up_headless_bb_14_23g\\svg\\tx_band1_mcfil_r1_cnn002_len_p055_gap_m020_hfss_plot_summary.csv",
+      "exists": false,
+      "hash": null,
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "log",
+      "path": null,
+      "exists": false,
+      "hash": null,
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "state",
+      "path": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r1_cnn002_p2up_headless_bb_14_23g\\state.json",
+      "exists": true,
+      "hash": "2c626ce44a08ceefc781f93955eaf1e1084619ab08194324c527da50baab88a5",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    }
+  ],
+  "updated_at": "2026-08-30T22:22:09+08:00"
+}

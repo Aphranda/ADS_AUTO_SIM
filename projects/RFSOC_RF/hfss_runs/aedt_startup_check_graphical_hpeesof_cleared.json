@@ -1,0 +1,112 @@
+{
+  "status": "ok",
+  "project": "projects\\RFSOC_RF\\TX_Fillter.aedt",
+  "design": "TX_BAND1_MCFIL_ALUMINA_BB_14_23G",
+  "version": "2026.1",
+  "non_graphical": false,
+  "new_desktop": true,
+  "remove_lock": false,
+  "before_ansysedt_processes": [
+    {
+      "Image Name": "ansysedt.exe",
+      "PID": "32624",
+      "Session Name": "Console",
+      "Session#": "1",
+      "Mem Usage": "725,172 K",
+      "Status": "Running",
+      "User Name": "Aphranda\\CodexSandboxOffline",
+      "CPU Time": "0:00:02",
+      "Window Title": "DDE Server Window"
+    },
+    {
+      "Image Name": "ansysedt.exe",
+      "PID": "6624",
+      "Session Name": "Console",
+      "Session#": "1",
+      "Mem Usage": "725,140 K",
+      "Status": "Running",
+      "User Name": "Aphranda\\CodexSandboxOffline",
+      "CPU Time": "0:00:01",
+      "Window Title": "DDE Server Window"
+    }
+  ],
+  "aedt_startup": {
+    "PYAEDT_USE_PRE_GRPC_ARGS": "True",
+    "grpc_secure_mode_env": "False",
+    "SIMADS_AEDT_WAIT_FOR_LICENSE": "True",
+    "SIMADS_AEDT_DESKTOP_TIMEOUT_S": "300",
+    "SIMADS_AEDT_USER_ROOT": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "HOME": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "USERPROFILE": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "APPDATA": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user\\AppData\\Roaming",
+    "LOCALAPPDATA": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user\\AppData\\Local",
+    "TEMP": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user\\Temp",
+    "settings.grpc_secure_mode": false,
+    "settings.grpc_local": true,
+    "settings.grpc_listen_all": false,
+    "settings.wait_for_license": true,
+    "settings.desktop_launch_timeout": 300,
+    "settings.enable_desktop_logs": false,
+    "settings.use_grpc_api": null,
+    "settings.number_of_grpc_api_retries": 6
+  },
+  "aedt_lock": {
+    "label": "check_aedt_non_graphical_startup",
+    "pid": 16576,
+    "started_epoch": 1788096777.925,
+    "lock_path": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_automation.lock"
+  },
+  "aedt_reaper": {
+    "started": true,
+    "label": "check_aedt_non_graphical_startup",
+    "aedt_process_id": 16880,
+    "parent_pid": 16576,
+    "reaper_pid": 32556,
+    "execute": false,
+    "execute_requested": true,
+    "terminate_disabled": false,
+    "script_started": false,
+    "execute_block_reason": "target AEDT was not marked as started by this script",
+    "output": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\check_aedt_non_graphical_startup_16576_16880_run_log.json",
+    "event_log": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\check_aedt_non_graphical_startup_16576_16880_events.jsonl",
+    "owner_record": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\check_aedt_non_graphical_startup_16576_16880_owner.json",
+    "silent": true,
+    "helper_executable": "D:\\Microsoft\\uv-venvs\\ads-automation\\Scripts\\pythonw.exe",
+    "target_create_time_epoch": 1788096779.0619612
+  },
+  "project_name": "TX_Fillter",
+  "design_name": "TX_BAND1_MCFIL_ALUMINA_BB_14_23G",
+  "design_type": "HFSS 3D Layout Design",
+  "setup_names": [
+    "Setup_14to23G"
+  ],
+  "port_list": [
+    "Port1",
+    "Port2"
+  ],
+  "elapsed_s": 36.238,
+  "after_ansysedt_processes": [
+    {
+      "Image Name": "ansysedt.exe",
+      "PID": "32624",
+      "Session Name": "Console",
+      "Session#": "1",
+      "Mem Usage": "725,172 K",
+      "Status": "Running",
+      "User Name": "Aphranda\\CodexSandboxOffline",
+      "CPU Time": "0:00:02",
+      "Window Title": "DDE Server Window"
+    },
+    {
+      "Image Name": "ansysedt.exe",
+      "PID": "6624",
+      "Session Name": "Console",
+      "Session#": "1",
+      "Mem Usage": "725,224 K",
+      "Status": "Running",
+      "User Name": "Aphranda\\CodexSandboxOffline",
+      "CPU Time": "0:00:01",
+      "Window Title": "DDE Server Window"
+    }
+  ]
+}

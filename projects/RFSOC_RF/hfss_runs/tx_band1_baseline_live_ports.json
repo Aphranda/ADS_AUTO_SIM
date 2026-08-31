@@ -1,0 +1,329 @@
+{
+  "project": "projects\\RFSOC_RF\\TX_Fillter.aedt",
+  "design": "TX_BAND1_MCFIL_ALUMINA_BB_14_23G",
+  "backend": "pyaedt_live_readonly",
+  "non_graphical": false,
+  "new_desktop": true,
+  "save": false,
+  "aedt_startup": {
+    "PYAEDT_USE_PRE_GRPC_ARGS": "True",
+    "grpc_secure_mode_env": "False",
+    "SIMADS_AEDT_WAIT_FOR_LICENSE": "True",
+    "SIMADS_AEDT_DESKTOP_TIMEOUT_S": "300",
+    "SIMADS_AEDT_USER_ROOT": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "HOME": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "USERPROFILE": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "APPDATA": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user\\AppData\\Roaming",
+    "LOCALAPPDATA": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user\\AppData\\Local",
+    "TEMP": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user\\Temp",
+    "settings.grpc_secure_mode": false,
+    "settings.grpc_local": true,
+    "settings.grpc_listen_all": false,
+    "settings.wait_for_license": true,
+    "settings.desktop_launch_timeout": 300,
+    "settings.enable_desktop_logs": false,
+    "settings.use_grpc_api": true,
+    "settings.number_of_grpc_api_retries": 6
+  },
+  "aedt_lock": {
+    "label": "inspect_hfss3dlayout_port_live_state",
+    "pid": 28088,
+    "started_epoch": 1788098498.358,
+    "lock_path": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_automation.lock"
+  },
+  "aedt_reaper": {
+    "started": true,
+    "label": "inspect_hfss3dlayout_port_live_state",
+    "aedt_process_id": 14320,
+    "parent_pid": 28088,
+    "reaper_pid": 32728,
+    "execute": false,
+    "execute_requested": true,
+    "terminate_disabled": false,
+    "script_started": false,
+    "execute_block_reason": "target AEDT was not marked as started by this script",
+    "output": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\inspect_hfss3dlayout_port_live_state_28088_14320_run_log.json",
+    "event_log": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\inspect_hfss3dlayout_port_live_state_28088_14320_events.jsonl",
+    "owner_record": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\inspect_hfss3dlayout_port_live_state_28088_14320_owner.json",
+    "silent": true,
+    "helper_executable": "D:\\Microsoft\\uv-venvs\\ads-automation\\Scripts\\pythonw.exe",
+    "target_create_time_epoch": 1788098499.417451
+  },
+  "app_port_list": {
+    "ok": true,
+    "value": [
+      "Port1",
+      "Port2"
+    ]
+  },
+  "app_excitations": {
+    "ok": true,
+    "value": []
+  },
+  "schematic_ports": {
+    "ok": true,
+    "value": [
+      "IPort@Port1;1",
+      "IPort@Port2;7"
+    ]
+  },
+  "layout_ports": {
+    "Port1": {
+      "GetPortInfo": {
+        "ok": true,
+        "value": [
+          "Name=Port1",
+          "Type=EdgePort",
+          "X=0.001483",
+          "Y=-0.000266",
+          "ConnectionPoints= 0.001483 -0.000266 Dir:0.000000 Layer: cond",
+          "NetName=Port1"
+        ]
+      },
+      "GetNetConnections": {
+        "ok": true,
+        "value": [
+          "EdgePort Port1 Port1 EdgeInfo: Primitive input_feed, edge 1"
+        ]
+      },
+      "BaseElementTab": {
+        "properties": {
+          "ok": true,
+          "value": [
+            "Name",
+            "Type",
+            "Net"
+          ]
+        },
+        "values": {
+          "Name": {
+            "ok": true,
+            "value": "Port1"
+          },
+          "Type": {
+            "ok": true,
+            "value": "Edge Port"
+          },
+          "Net": {
+            "ok": true,
+            "value": "Port1"
+          }
+        }
+      },
+      "EM Design": {
+        "properties": {
+          "ok": true,
+          "value": [
+            "Port",
+            "Boundary Type",
+            "Reference",
+            "Impedance",
+            "Magnitude",
+            "Phase",
+            "Renormalize",
+            "Renormalize Impedance",
+            "DeembedParasiticPortInductance",
+            "HFSS Type",
+            "Orientation"
+          ]
+        },
+        "values": {
+          "Port": {
+            "ok": true,
+            "value": "Port1"
+          },
+          "Boundary Type": {
+            "ok": true,
+            "value": "Port"
+          },
+          "Reference": {
+            "ok": true,
+            "value": "cover:GND:hfss_ground_plane"
+          },
+          "Impedance": {
+            "ok": true,
+            "value": "50ohm"
+          },
+          "Magnitude": {
+            "ok": true,
+            "value": "1V"
+          },
+          "Phase": {
+            "ok": true,
+            "value": "0deg"
+          },
+          "Renormalize": {
+            "ok": true,
+            "value": "true"
+          },
+          "Renormalize Impedance": {
+            "ok": true,
+            "value": "50ohm"
+          },
+          "DeembedParasiticPortInductance": {
+            "ok": true,
+            "value": "false"
+          },
+          "HFSS Type": {
+            "ok": true,
+            "value": "Gap"
+          },
+          "Orientation": {
+            "ok": true,
+            "value": "Vertical"
+          }
+        }
+      }
+    },
+    "Port2": {
+      "GetPortInfo": {
+        "ok": true,
+        "value": [
+          "Name=Port2",
+          "Type=EdgePort",
+          "X=-0.005738",
+          "Y=0.002101",
+          "ConnectionPoints= -0.005738 0.002101 Dir:180.000000 Layer: cond",
+          "NetName=Port2"
+        ]
+      },
+      "GetNetConnections": {
+        "ok": true,
+        "value": [
+          "EdgePort Port2 Port2 EdgeInfo: Primitive mcfil_s10_strip, edge 3"
+        ]
+      },
+      "BaseElementTab": {
+        "properties": {
+          "ok": true,
+          "value": [
+            "Name",
+            "Type",
+            "Net"
+          ]
+        },
+        "values": {
+          "Name": {
+            "ok": true,
+            "value": "Port2"
+          },
+          "Type": {
+            "ok": true,
+            "value": "Edge Port"
+          },
+          "Net": {
+            "ok": true,
+            "value": "Port2"
+          }
+        }
+      },
+      "EM Design": {
+        "properties": {
+          "ok": true,
+          "value": [
+            "Port",
+            "Boundary Type",
+            "Reference",
+            "Impedance",
+            "Magnitude",
+            "Phase",
+            "Renormalize",
+            "Renormalize Impedance",
+            "DeembedParasiticPortInductance",
+            "HFSS Type",
+            "Orientation"
+          ]
+        },
+        "values": {
+          "Port": {
+            "ok": true,
+            "value": "Port2"
+          },
+          "Boundary Type": {
+            "ok": true,
+            "value": "Port"
+          },
+          "Reference": {
+            "ok": true,
+            "value": "cover:GND:hfss_ground_plane"
+          },
+          "Impedance": {
+            "ok": true,
+            "value": "50ohm"
+          },
+          "Magnitude": {
+            "ok": true,
+            "value": "1V"
+          },
+          "Phase": {
+            "ok": true,
+            "value": "0deg"
+          },
+          "Renormalize": {
+            "ok": true,
+            "value": "true"
+          },
+          "Renormalize Impedance": {
+            "ok": true,
+            "value": "50ohm + 0i ohm"
+          },
+          "DeembedParasiticPortInductance": {
+            "ok": true,
+            "value": "false"
+          },
+          "HFSS Type": {
+            "ok": true,
+            "value": "Gap"
+          },
+          "Orientation": {
+            "ok": true,
+            "value": "Vertical"
+          }
+        }
+      }
+    }
+  },
+  "schematic_port_details": {
+    "Port1": {
+      "GetPortInfo": {
+        "ok": true,
+        "value": []
+      }
+    },
+    "Port2": {
+      "GetPortInfo": {
+        "ok": true,
+        "value": []
+      }
+    }
+  },
+  "components": {},
+  "nets": {
+    "RF": {
+      "GetNetConnections": {
+        "ok": true,
+        "value": []
+      },
+      "GetNetObjects": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetNetObjects",
+        "call": "Layout.GetNetObjects(RF)"
+      },
+      "GetObjectsByNet": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetObjectsByNet",
+        "call": "Layout.GetObjectsByNet(RF)"
+      },
+      "GetNetInfo": {
+        "ok": false,
+        "error": "GrpcApiError: Failed to execute gRPC AEDT command: GetNetInfo",
+        "call": "Layout.GetNetInfo(RF)"
+      }
+    }
+  },
+  "validate_design": null,
+  "findings": [
+    "app.excitations is empty"
+  ],
+  "status": "inspected"
+}

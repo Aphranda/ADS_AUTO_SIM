@@ -1,0 +1,118 @@
+{
+  "project": "projects\\RFSOC_RF\\TX_Fillter.aedt",
+  "design": "TX_BAND1_MCFIL_ALUMINA_BB_14_23G",
+  "setup": "Setup_14to23G",
+  "sweep": "Sweep_BB_14to23G_181pt",
+  "candidate": "tx_band1_mcfil_alumina_outer_ports",
+  "status": "failed",
+  "stage": "unknown",
+  "error_type": "Exception",
+  "error": "Failed to start new AEDT gRPC session on port 1565 on machine 127.0.0.1.",
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\Work\\SIM\\ADS_AUTO_SIM\\tools\\hfss\\run_existing_hfss3dlayout_verdict.py\", line 392, in run\n    with open_hfss3dlayout_session(session_config, lifecycle) as session:\n         ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Hardware\\Keysight\\ADS2026_Update1\\tools\\python\\Lib\\contextlib.py\", line 141, in __enter__\n    return next(self.gen)\n  File \"D:\\Work\\SIM\\ADS_AUTO_SIM\\src\\simads\\hfss\\session.py\", line 115, in open_hfss3dlayout_session\n    app = app_factory(\n        project=str(config.project) if config.project is not None else None,\n    ...<5 lines>...\n        remove_lock=config.remove_lock or bool((project_lock or {}).get(\"removed\")),\n    )\n  File \"D:\\Microsoft\\uv-venvs\\ads-automation\\Lib\\site-packages\\ansys\\aedt\\core\\hfss3dlayout.py\", line 174, in __init__\n    FieldAnalysis3DLayout.__init__(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        self,\n        ^^^^^\n    ...<14 lines>...\n        remove_lock=remove_lock,\n        ^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"D:\\Microsoft\\uv-venvs\\ads-automation\\Lib\\site-packages\\ansys\\aedt\\core\\application\\analysis_3d_layout.py\", line 134, in __init__\n    Analysis.__init__(\n    ~~~~~~~~~~~~~~~~~^\n        self,\n        ^^^^^\n    ...<14 lines>...\n        remove_lock=remove_lock,\n        ^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"D:\\Microsoft\\uv-venvs\\ads-automation\\Lib\\site-packages\\ansys\\aedt\\core\\application\\analysis.py\", line 150, in __init__\n    Design.__init__(\n    ~~~~~~~~~~~~~~~^\n        self,\n        ^^^^^\n    ...<13 lines>...\n        remove_lock,\n        ^^^^^^^^^^^^\n    )\n    ^\n  File \"D:\\Microsoft\\uv-venvs\\ads-automation\\Lib\\site-packages\\ansys\\aedt\\core\\application\\design.py\", line 218, in __init__\n    self._desktop_class = self.__init_desktop_from_design(\n                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        settings.aedt_version if settings.aedt_version else version,\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<6 lines>...\n        aedt_process_id,\n        ^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"D:\\Microsoft\\uv-venvs\\ads-automation\\Lib\\site-packages\\ansys\\aedt\\core\\application\\design.py\", line 5118, in __init_desktop_from_design\n    return Desktop(*args, **kwargs)\n  File \"D:\\Microsoft\\uv-venvs\\ads-automation\\Lib\\site-packages\\ansys\\aedt\\core\\desktop.py\", line 861, in __init__\n    result = self.__init_grpc()\n  File \"D:\\Microsoft\\uv-venvs\\ads-automation\\Lib\\site-packages\\ansys\\aedt\\core\\desktop.py\", line 3308, in __init_grpc\n    raise Exception(\n        f\"Failed to start new AEDT gRPC session on port {self.port} on machine {self.machine}.\"\n    )\nException: Failed to start new AEDT gRPC session on port 1565 on machine 127.0.0.1.\n",
+  "messages": [
+    "failed to read messages: AttributeError: 'NoneType' object has no attribute 'logger'"
+  ],
+  "aedt_messages": [],
+  "lifecycle": {
+    "label": "run_existing_hfss3dlayout_verdict",
+    "status": "failed",
+    "started_epoch": 1788095942.278,
+    "elapsed_s": 315.796,
+    "event_count": 12,
+    "events": [
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "lifecycle_start",
+        "status": "running",
+        "timestamp_epoch": 1788095942.279,
+        "elapsed_s": 0.001
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "apply_pyaedt_settings",
+        "status": "running",
+        "timestamp_epoch": 1788095942.606,
+        "elapsed_s": 0.328
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "apply_pyaedt_settings",
+        "status": "ok",
+        "timestamp_epoch": 1788095942.606,
+        "elapsed_s": 0.328,
+        "duration_s": 0.0
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "acquire_aedt_automation_lock",
+        "status": "running",
+        "timestamp_epoch": 1788095942.607,
+        "elapsed_s": 0.329
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "acquire_aedt_automation_lock",
+        "status": "ok",
+        "timestamp_epoch": 1788095942.608,
+        "elapsed_s": 0.33,
+        "duration_s": 0.001
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "prepare_aedt_project_lock",
+        "status": "running",
+        "timestamp_epoch": 1788095942.609,
+        "elapsed_s": 0.331
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "prepare_aedt_project_lock",
+        "status": "ok",
+        "timestamp_epoch": 1788095942.609,
+        "elapsed_s": 0.331,
+        "duration_s": 0.001
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "start_hfss3dlayout",
+        "status": "running",
+        "timestamp_epoch": 1788095942.61,
+        "elapsed_s": 0.332
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "start_hfss3dlayout",
+        "status": "failed",
+        "timestamp_epoch": 1788096257.922,
+        "elapsed_s": 315.644,
+        "duration_s": 315.312,
+        "error_type": "Exception",
+        "error": "Failed to start new AEDT gRPC session on port 1565 on machine 127.0.0.1."
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "release_aedt_automation_lock",
+        "status": "running",
+        "timestamp_epoch": 1788096257.923,
+        "elapsed_s": 315.645
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "release_aedt_automation_lock",
+        "status": "ok",
+        "timestamp_epoch": 1788096257.924,
+        "elapsed_s": 315.646,
+        "duration_s": 0.001
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "lifecycle_finish",
+        "status": "failed",
+        "timestamp_epoch": 1788096258.074,
+        "elapsed_s": 315.796,
+        "total_elapsed_s": 315.796
+      }
+    ],
+    "event_log": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_alumina_outer_ports_bb_14_23g\\run_existing_result_events.jsonl"
+  }
+}

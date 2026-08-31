@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "run_id": "RFSOC_RF_round2_tx_band1_mcfil_r2_cnn002_p2up_graphical_home_20260830_222937",
+  "artifacts": [
+    {
+      "type": "layout_json",
+      "path": "projects\\RFSOC_RF\\layouts\\tx_band1_mcfil_iter\\round2\\tx_band1_mcfil_r2_cnn002_len_p085_gap_relax006_layout.json",
+      "exists": true,
+      "hash": "36ca0f7e66ff41774a55d5eb89bb31f944f03afd210a7278ba297c66be6cbe75",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "project_file",
+      "path": "D:\\Work\\SIM\\ADS_AUTO_SIM\\projects\\RFSOC_RF\\TX_Fillter.aedt",
+      "exists": true,
+      "hash": "88d7d5d6c8b0cac62f92f1a8657f25a984d68e3114b5944d23fd70f948c120b5",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "s2p",
+      "path": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r2_cnn002_p2up_graphical_bb_14_23g\\tx_band1_mcfil_r2_cnn002_len_p085_gap_relax006_hfss.s2p",
+      "exists": true,
+      "hash": "d242aa98b385d7d1aa45428a77d25abf40628fce5a6b120703a09b73173b746b",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "trace_csv",
+      "path": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r2_cnn002_p2up_graphical_bb_14_23g\\tx_band1_mcfil_r2_cnn002_len_p085_gap_relax006_hfss_trace.csv",
+      "exists": true,
+      "hash": "ce4eca89839e4e8838324b2fe8752980bb51c39809dc2558e2ae0558463b8519",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "score",
+      "path": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r2_cnn002_p2up_graphical_bb_14_23g\\tx_band1_mcfil_r2_cnn002_len_p085_gap_relax006_hfss_score.csv",
+      "exists": true,
+      "hash": "1ea4354ef2551b90b1507fbfd1e38003e4ef8c26df79705d9e00a6ac7d3a710b",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "svg",
+      "path": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r2_cnn002_p2up_graphical_bb_14_23g\\svg\\tx_band1_mcfil_r2_cnn002_len_p085_gap_relax006_hfss_s_curves.svg",
+      "exists": true,
+      "hash": "60b0a79d39e271dfb0225e155df1b4efe98c3e09813c7bc2bcb16c670ae57f2b",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "summary",
+      "path": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r2_cnn002_p2up_graphical_bb_14_23g\\svg\\tx_band1_mcfil_r2_cnn002_len_p085_gap_relax006_hfss_plot_summary.csv",
+      "exists": true,
+      "hash": "1fa3a0d054238c01a677e917ed677b8136adcfca41719e6922022b29609a1a2c",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "log",
+      "path": null,
+      "exists": false,
+      "hash": null,
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    },
+    {
+      "type": "state",
+      "path": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_r2_cnn002_p2up_graphical_bb_14_23g\\state.json",
+      "exists": true,
+      "hash": "28cc3b1752644da4230ce2f913059d043b5a7375f013ffe62b07a060d416dd7e",
+      "producer": "run_hfss3dlayout_filter_verdict.py"
+    }
+  ],
+  "updated_at": "2026-08-30T22:32:01+08:00"
+}

@@ -1,0 +1,41 @@
+{
+  "status": "failed",
+  "project": "projects\\RFSOC_RF\\TX_Fillter.aedt",
+  "design": "TX_BAND1_MCFIL_ALUMINA_BB_14_23G",
+  "version": "2026.1",
+  "non_graphical": true,
+  "new_desktop": true,
+  "remove_lock": false,
+  "before_ansysedt_processes": [],
+  "aedt_startup": {
+    "PYAEDT_USE_PRE_GRPC_ARGS": "True",
+    "grpc_secure_mode_env": "False",
+    "SIMADS_AEDT_WAIT_FOR_LICENSE": "True",
+    "SIMADS_AEDT_DESKTOP_TIMEOUT_S": "300",
+    "SIMADS_AEDT_USER_ROOT": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "HOME": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "USERPROFILE": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "APPDATA": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user\\AppData\\Roaming",
+    "LOCALAPPDATA": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user\\AppData\\Local",
+    "TEMP": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user\\Temp",
+    "settings.grpc_secure_mode": false,
+    "settings.grpc_local": true,
+    "settings.grpc_listen_all": false,
+    "settings.wait_for_license": true,
+    "settings.desktop_launch_timeout": 300,
+    "settings.enable_desktop_logs": false,
+    "settings.use_grpc_api": null,
+    "settings.number_of_grpc_api_retries": 6
+  },
+  "aedt_lock": {
+    "label": "check_aedt_non_graphical_startup",
+    "pid": 26764,
+    "started_epoch": 1788096415.342,
+    "lock_path": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_automation.lock"
+  },
+  "error_type": "Exception",
+  "error": "Failed to start new AEDT gRPC session on port 4470 on machine 127.0.0.1.",
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\Work\\SIM\\ADS_AUTO_SIM\\tools\\hfss\\check_aedt_non_graphical_startup.py\", line 78, in run\n    app = Hfss3dLayout(\n        project=str(args.project) if args.project else None,\n    ...<5 lines>...\n        remove_lock=args.remove_lock,\n    )\n  File \"D:\\Microsoft\\uv-venvs\\ads-automation\\Lib\\site-packages\\ansys\\aedt\\core\\hfss3dlayout.py\", line 174, in __init__\n    FieldAnalysis3DLayout.__init__(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        self,\n        ^^^^^\n    ...<14 lines>...\n        remove_lock=remove_lock,\n        ^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"D:\\Microsoft\\uv-venvs\\ads-automation\\Lib\\site-packages\\ansys\\aedt\\core\\application\\analysis_3d_layout.py\", line 134, in __init__\n    Analysis.__init__(\n    ~~~~~~~~~~~~~~~~~^\n        self,\n        ^^^^^\n    ...<14 lines>...\n        remove_lock=remove_lock,\n        ^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"D:\\Microsoft\\uv-venvs\\ads-automation\\Lib\\site-packages\\ansys\\aedt\\core\\application\\analysis.py\", line 150, in __init__\n    Design.__init__(\n    ~~~~~~~~~~~~~~~^\n        self,\n        ^^^^^\n    ...<13 lines>...\n        remove_lock,\n        ^^^^^^^^^^^^\n    )\n    ^\n  File \"D:\\Microsoft\\uv-venvs\\ads-automation\\Lib\\site-packages\\ansys\\aedt\\core\\application\\design.py\", line 218, in __init__\n    self._desktop_class = self.__init_desktop_from_design(\n                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        settings.aedt_version if settings.aedt_version else version,\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<6 lines>...\n        aedt_process_id,\n        ^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"D:\\Microsoft\\uv-venvs\\ads-automation\\Lib\\site-packages\\ansys\\aedt\\core\\application\\design.py\", line 5118, in __init_desktop_from_design\n    return Desktop(*args, **kwargs)\n  File \"D:\\Microsoft\\uv-venvs\\ads-automation\\Lib\\site-packages\\ansys\\aedt\\core\\desktop.py\", line 861, in __init__\n    result = self.__init_grpc()\n  File \"D:\\Microsoft\\uv-venvs\\ads-automation\\Lib\\site-packages\\ansys\\aedt\\core\\desktop.py\", line 3308, in __init_grpc\n    raise Exception(\n        f\"Failed to start new AEDT gRPC session on port {self.port} on machine {self.machine}.\"\n    )\nException: Failed to start new AEDT gRPC session on port 4470 on machine 127.0.0.1.\n",
+  "elapsed_s": 315.425,
+  "after_ansysedt_processes": []
+}

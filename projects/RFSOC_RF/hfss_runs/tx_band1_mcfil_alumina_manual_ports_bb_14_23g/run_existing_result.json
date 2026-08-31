@@ -1,0 +1,364 @@
+{
+  "project": "projects\\RFSOC_RF\\TX_Fillter.aedt",
+  "design": "TX_BAND1_MCFIL_ALUMINA_BB_14_23G",
+  "aedt_startup": {
+    "PYAEDT_USE_PRE_GRPC_ARGS": "True",
+    "grpc_secure_mode_env": "False",
+    "SIMADS_AEDT_WAIT_FOR_LICENSE": "True",
+    "SIMADS_AEDT_DESKTOP_TIMEOUT_S": "300",
+    "SIMADS_AEDT_USER_ROOT": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "HOME": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "USERPROFILE": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user",
+    "APPDATA": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user\\AppData\\Roaming",
+    "LOCALAPPDATA": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user\\AppData\\Local",
+    "TEMP": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_user\\Temp",
+    "settings.grpc_secure_mode": false,
+    "settings.grpc_local": true,
+    "settings.grpc_listen_all": false,
+    "settings.wait_for_license": true,
+    "settings.desktop_launch_timeout": 300,
+    "settings.enable_desktop_logs": false,
+    "settings.use_grpc_api": null,
+    "settings.number_of_grpc_api_retries": 6
+  },
+  "aedt_lock": {
+    "label": "run_existing_hfss3dlayout_verdict",
+    "pid": 8244,
+    "started_epoch": 1788095637.57,
+    "lock_path": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_automation.lock"
+  },
+  "project_lock": {
+    "project": "projects\\RFSOC_RF\\TX_Fillter.aedt",
+    "lock_path": "projects\\RFSOC_RF\\TX_Fillter.aedt.lock",
+    "exists": false,
+    "removed": false,
+    "action": "none"
+  },
+  "aedt_reaper": {
+    "started": true,
+    "label": "run_existing_hfss3dlayout_verdict",
+    "aedt_process_id": 32312,
+    "parent_pid": 8244,
+    "reaper_pid": 27348,
+    "execute": true,
+    "execute_requested": true,
+    "terminate_disabled": false,
+    "script_started": true,
+    "execute_block_reason": null,
+    "output": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\run_existing_hfss3dlayout_verdict_8244_32312_run_log.json",
+    "event_log": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\run_existing_hfss3dlayout_verdict_8244_32312_events.jsonl",
+    "owner_record": "D:\\Work\\SIM\\ADS_AUTO_SIM\\.simads\\aedt_reaper\\run_existing_hfss3dlayout_verdict_8244_32312_owner.json",
+    "silent": true,
+    "helper_executable": "D:\\Microsoft\\uv-venvs\\ads-automation\\Scripts\\pythonw.exe",
+    "target_create_time_epoch": 1788095638.9288392
+  },
+  "aedt_ready": {
+    "auto_open": {
+      "api": null,
+      "ok": false,
+      "result": "set_auto_open is unavailable for this AEDT app"
+    },
+    "timeout_s": 120.0,
+    "settle_s": 3.0,
+    "design_name": "TX_BAND1_MCFIL_ALUMINA_BB_14_23G",
+    "project_name": "TX_Fillter",
+    "project_name_error": null,
+    "modeler_loaded": true,
+    "setup_names": [
+      "Setup_14to23G"
+    ],
+    "setup_loaded": true,
+    "sweep_names": [
+      "Sweep_BB_14to23G_181pt"
+    ],
+    "sweep_loaded": true
+  },
+  "setup": "Setup_14to23G",
+  "sweep": "Sweep_BB_14to23G_181pt",
+  "analyze": true,
+  "status": "ok",
+  "ports": [
+    "Port1",
+    "Port2"
+  ],
+  "stage": "completed",
+  "analyze_return": true,
+  "export_attempts": [
+    {
+      "attempt": 1,
+      "ok": true,
+      "exported": "projects/RFSOC_RF/hfss_runs/tx_band1_mcfil_alumina_manual_ports_bb_14_23g/tx_band1_mcfil_alumina_manual_ports.s2p",
+      "exists": true
+    }
+  ],
+  "s2p": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_alumina_manual_ports_bb_14_23g\\tx_band1_mcfil_alumina_manual_ports.s2p",
+  "postprocess_profile": "filter",
+  "score": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_alumina_manual_ports_bb_14_23g\\tx_band1_mcfil_alumina_manual_ports_score.csv",
+  "trace_csv": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_alumina_manual_ports_bb_14_23g\\tx_band1_mcfil_alumina_manual_ports_trace.csv",
+  "svg_dir": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_alumina_manual_ports_bb_14_23g\\svg",
+  "messages": [
+    "failed to read messages: TypeError: 'MessageList' object is not iterable"
+  ],
+  "aedt_messages": [
+    "Project: *Global - Messages, [info]  gRPC server started on port 2885 of local host. Only connections from the local host initiated by the same user are permitted.\n",
+    "Project: TX_Fillter, Design: TX_BAND1_MCFIL_ALUMINA_BB_14_23G, [info]  Mesh pre-processing took: 0.040sec\n (09:14:19 PM  Aug 30, 2026)",
+    "Project: TX_Fillter, Design: TX_BAND1_MCFIL_ALUMINA_BB_14_23G, [warning]  Adaptive Passes did not converge based on specified criteria. (09:15:11 PM  Aug 30, 2026)",
+    "Project: TX_Fillter, Design: TX_BAND1_MCFIL_ALUMINA_BB_14_23G, [info]  An interpolating frequency sweep with 181 points has been started using HFSS - Solving Distributed. (09:15:11 PM  Aug 30, 2026)",
+    "Project: TX_Fillter, Design: TX_BAND1_MCFIL_ALUMINA_BB_14_23G, [info]  Interpolating frequency sweep complete. Converged. (09:15:47 PM  Aug 30, 2026)",
+    "Project: TX_Fillter, Design: TX_BAND1_MCFIL_ALUMINA_BB_14_23G, [info]  Touchstone export: Writing to \"D:/Work/SIM/ADS_AUTO_SIM/projects/RFSOC_RF/hfss_runs/tx_band1_mcfil_alumina_manual_ports_bb_14_23g/tx_band1_mcfil_alumina_manual_ports.s2p\" (09:15:47 PM  Aug 30, 2026)"
+  ],
+  "lifecycle": {
+    "label": "run_existing_hfss3dlayout_verdict",
+    "status": "ok",
+    "started_epoch": 1788095637.173,
+    "elapsed_s": 123.956,
+    "event_count": 32,
+    "events": [
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "lifecycle_start",
+        "status": "running",
+        "timestamp_epoch": 1788095637.174,
+        "elapsed_s": 0.001
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "apply_pyaedt_settings",
+        "status": "running",
+        "timestamp_epoch": 1788095637.567,
+        "elapsed_s": 0.394
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "apply_pyaedt_settings",
+        "status": "ok",
+        "timestamp_epoch": 1788095637.568,
+        "elapsed_s": 0.395,
+        "duration_s": 0.001
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "acquire_aedt_automation_lock",
+        "status": "running",
+        "timestamp_epoch": 1788095637.569,
+        "elapsed_s": 0.396
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "acquire_aedt_automation_lock",
+        "status": "ok",
+        "timestamp_epoch": 1788095637.57,
+        "elapsed_s": 0.397,
+        "duration_s": 0.001
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "prepare_aedt_project_lock",
+        "status": "running",
+        "timestamp_epoch": 1788095637.571,
+        "elapsed_s": 0.398
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "prepare_aedt_project_lock",
+        "status": "ok",
+        "timestamp_epoch": 1788095637.571,
+        "elapsed_s": 0.399,
+        "duration_s": 0.0
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "start_hfss3dlayout",
+        "status": "running",
+        "timestamp_epoch": 1788095637.572,
+        "elapsed_s": 0.399
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "start_hfss3dlayout",
+        "status": "ok",
+        "timestamp_epoch": 1788095647.044,
+        "elapsed_s": 9.872,
+        "duration_s": 9.472
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "wait_for_hfss3dlayout_ready",
+        "status": "running",
+        "timestamp_epoch": 1788095647.065,
+        "elapsed_s": 9.893
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "wait_for_hfss3dlayout_ready",
+        "status": "ok",
+        "timestamp_epoch": 1788095650.094,
+        "elapsed_s": 12.921,
+        "duration_s": 3.029
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "read_ports",
+        "status": "running",
+        "timestamp_epoch": 1788095650.095,
+        "elapsed_s": 12.922
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "read_ports",
+        "status": "ok",
+        "timestamp_epoch": 1788095650.1,
+        "elapsed_s": 12.927,
+        "duration_s": 0.004
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "analyze_setup",
+        "status": "running",
+        "timestamp_epoch": 1788095650.1,
+        "elapsed_s": 12.928,
+        "setup": "Setup_14to23G"
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "analyze_setup",
+        "status": "ok",
+        "timestamp_epoch": 1788095747.792,
+        "elapsed_s": 110.619,
+        "duration_s": 97.691
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "export_touchstone",
+        "status": "running",
+        "timestamp_epoch": 1788095747.792,
+        "elapsed_s": 110.62,
+        "attempts": 3
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "export_touchstone",
+        "status": "ok",
+        "timestamp_epoch": 1788095747.851,
+        "elapsed_s": 110.678,
+        "duration_s": 0.059
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "score_s2p",
+        "status": "running",
+        "timestamp_epoch": 1788095747.852,
+        "elapsed_s": 110.679,
+        "tool": "analyze_filter_s2p.py"
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "score_s2p",
+        "status": "ok",
+        "timestamp_epoch": 1788095748.516,
+        "elapsed_s": 111.343,
+        "duration_s": 0.664
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "convert_s2p_to_trace_csv",
+        "status": "running",
+        "timestamp_epoch": 1788095748.517,
+        "elapsed_s": 111.344
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "convert_s2p_to_trace_csv",
+        "status": "ok",
+        "timestamp_epoch": 1788095748.531,
+        "elapsed_s": 111.358,
+        "duration_s": 0.014
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "write_plot_summary",
+        "status": "running",
+        "timestamp_epoch": 1788095748.532,
+        "elapsed_s": 111.359
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "write_plot_summary",
+        "status": "ok",
+        "timestamp_epoch": 1788095748.532,
+        "elapsed_s": 111.36,
+        "duration_s": 0.001
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "plot_sparam_svg",
+        "status": "running",
+        "timestamp_epoch": 1788095748.533,
+        "elapsed_s": 111.36,
+        "tool": "plot_filter_s_curves_svg.py"
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "plot_sparam_svg",
+        "status": "ok",
+        "timestamp_epoch": 1788095750.046,
+        "elapsed_s": 112.873,
+        "duration_s": 1.512
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "read_messages",
+        "status": "running",
+        "timestamp_epoch": 1788095750.047,
+        "elapsed_s": 112.874
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "read_messages",
+        "status": "ok",
+        "timestamp_epoch": 1788095750.055,
+        "elapsed_s": 112.882,
+        "duration_s": 0.008
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "release_desktop",
+        "status": "running",
+        "timestamp_epoch": 1788095750.055,
+        "elapsed_s": 112.882
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "release_desktop",
+        "status": "ok",
+        "timestamp_epoch": 1788095761.127,
+        "elapsed_s": 123.954,
+        "duration_s": 11.072
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "release_aedt_automation_lock",
+        "status": "running",
+        "timestamp_epoch": 1788095761.127,
+        "elapsed_s": 123.955
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "release_aedt_automation_lock",
+        "status": "ok",
+        "timestamp_epoch": 1788095761.128,
+        "elapsed_s": 123.956,
+        "duration_s": 0.001
+      },
+      {
+        "label": "run_existing_hfss3dlayout_verdict",
+        "operation": "lifecycle_finish",
+        "status": "ok",
+        "timestamp_epoch": 1788095761.129,
+        "elapsed_s": 123.956,
+        "total_elapsed_s": 123.956
+      }
+    ],
+    "event_log": "projects\\RFSOC_RF\\hfss_runs\\tx_band1_mcfil_alumina_manual_ports_bb_14_23g\\run_existing_result_events.jsonl"
+  }
+}

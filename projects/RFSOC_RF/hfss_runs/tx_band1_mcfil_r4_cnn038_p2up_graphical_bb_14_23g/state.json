@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "run_id": "RFSOC_RF_round4_tx_band1_mcfil_r4_cnn038_p2up_graphical_home_20260830_223414",
+  "candidate_id": "tx_band1_mcfil_r4_cnn038_p2up_graphical",
+  "profile_id": "home",
+  "stage": "scored",
+  "status": "completed",
+  "failed_step": null,
+  "error_class": null,
+  "message": "HFSS workflow completed.",
+  "elapsed_s": 124.317,
+  "updated_at": "2026-08-30T22:36:19+08:00"
+}
